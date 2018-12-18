@@ -1,0 +1,18 @@
+#!/bin/bash
+
+FILES=".vimrc .bash_profile .bash_aliases"
+if [[ $2 -eq "-d" ]]
+then
+	for FILE in $FILES
+	do
+		if [[ -f ~/$FILE ]]
+		then
+			echo ~/$FILE : deleted
+			rm ~/$FILE
+	else
+		echo ~/$FILE : not installed
+		fi
+	done
+else
+	ln -s $FILES ~/
+fi
