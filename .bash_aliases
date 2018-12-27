@@ -22,6 +22,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
+alias gtk-flat-mouse='gsettings  set  org.gnome.desktop.peripherals.mouse  accel-profile  flat'
 
 ##alias s!='sudo "$BASH" -c "$(history -p !!)"'
 alias REgnome="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
@@ -73,7 +74,6 @@ alias cdlibft='cd ~/101/libft'
 alias libftmk='make -C ~/101/libft/'
 alias libftln='ln -s ~/101/libft/ .'
 alias libftls='ls ~/101/libft/src/*.c | cut -d/ -f7'
-alias libftls='ls ~/101/libft/src/*.c | cut -d/ -f7'
 alias libftcp='cp -r ~/101/libft/libft.a ~/101/libft/inc/libft.h .'
 alias libftccp='cp -rf ~/101/libft/ .'
 alias cdgnl='cd /home/biggybi/42/GNL'
@@ -92,7 +92,7 @@ alias ms='echo you fuckin missclick you jerk'
 
 alias bc='bc -q'
 
-alias regex_ipv4='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
+alias ipv4='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 
 ## config : app icons
 alias cdapp='cd /usr/share/applications/'
