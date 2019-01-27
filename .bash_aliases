@@ -92,13 +92,12 @@ alias gau='git add -u'
 alias gcl='git clone'
 alias grm='git rm --cached'
 alias grmf='git rm -f'
-alias gps='git push"
+alias gps='git push'
 alias gpl='git pull'
 alias gcm='git commit -m'
 alias gita='git add'
 
 alias gccf='gcc -Wall -Wextra -Werror'
-alias ms='echo you fuckin missclick you jerk'
 
 alias bc='bc -q'
 
