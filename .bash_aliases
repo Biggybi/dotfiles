@@ -11,6 +11,7 @@ alias egrep='egrep -FG'
 alias ll='ls -trhalF'
 alias la='ls -A'
 alias l='ls -CF'
+alias lsd='find . -type f -name ".*" | sed s/.*\\///'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -22,7 +23,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
-alias gtk-flat-mouse='gsettings  set  org.gnome.desktop.peripherals.mouse  accel-profile  flat'
 
 ##alias s!='sudo "$BASH" -c "$(history -p !!)"'
 alias REgnome="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
@@ -39,6 +39,7 @@ alias please='sudo $(fc -ln -1)'
 ##alias lcmdcp='lcmd | xsel -b'
 alias lcmd='echo $(fc -ln -1)'
 alias lcmdcp='lcmd | cip'
+alias hg='history | grep '
 
 alias viit='vi !$'
 alias lsit='ls !$'
@@ -74,6 +75,7 @@ alias cdlibft='cd ~/101/libft'
 alias libftmk='make -C ~/101/libft/'
 alias libftln='ln -s ~/101/libft/ .'
 alias libftls='ls ~/101/libft/src/*.c | cut -d/ -f7'
+alias libftls='ls ~/101/libft/src/*.c | cut -d/ -f7'
 alias libftcp='cp -r ~/101/libft/libft.a ~/101/libft/inc/libft.h .'
 alias libftccp='cp -rf ~/101/libft/ .'
 alias cdgnl='cd /home/biggybi/42/GNL'
@@ -86,13 +88,17 @@ alias tmpclean='rm -r /tmp/TMP'
 alias gitroot='cd $(git rev-parse --show-cdup)' #go to the root of a git repo
 alias gitmodif='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
 alias gits='git status'
+alias gau='git add -u'
+alias gcl='git clone'
+alias grm='git rm --cached'
+alias grmf='git rm -f'
 
 alias gccf='gcc -Wall -Wextra -Werror'
 alias ms='echo you fuckin missclick you jerk'
 
 alias bc='bc -q'
 
-alias ipv4='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
+alias regex_ipv4='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 
 ## config : app icons
 alias cdapp='cd /usr/share/applications/'
