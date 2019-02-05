@@ -97,6 +97,7 @@ set number
 
 set autoindent " automatically set indent of new line
 set smartindent
+filetype indent on
 
 set laststatus=2 " show the satus line all the time
 
