@@ -15,10 +15,15 @@ else
 fi
 for f in $FILES
 do
-	if [ -L $DST/$f ]
+	if [ -e $SRC/$f ]
 	then
-		rm $DST/$f
+		if [ -L $DST/$f ]
+		then
+			rm $DST/$f
+		fi
+		ln -s $SRC/$f $DST
+		echo file linked : $f
+	else
+		echo not a file  : $f
 	fi
-	ln -s $SRC/$f $DST
-	echo file linked : $f
 done
