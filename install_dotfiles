@@ -1,6 +1,42 @@
 #!/bin/bash
 
-FILES=".vimrc .bash_profile .bash_aliases"
+OKFILES=".vimrc .bash_profile .bash_aliases"
+
+FLAGSN=1
+echo first argument = $1
+
+if [[ "$1" = "-d" ]]
+then
+	echo "delete mode"
+	FLAGSN=$((FLAGSN + 1))
+else
+	echo "no delete"
+fi
+
+if [[  (($#-$FLAGSN)) > "0" ]]
+then
+	for FILE in $OKFILES
+	do
+		FILES+="$FILE "
+	done
+else
+then
+	for (( i=$((FLAGSN)); i<(($#+1)); i++ ))
+	do
+		echo
+		echo i : $i file : "${!i}"
+		for FILE in $OKFILES
+		do
+			echo FILE = $FILE
+			if [[ "$FILE" = "${!i}" ]]
+			then
+				FILES+="$FILE "
+			fi
+			echo FILES : $FILES
+		done
+	done
+fi
+exit
 if [[ $2 -eq "-d" ]]
 then
 	for FILE in $FILES
@@ -9,8 +45,8 @@ then
 		then
 			echo ~/$FILE : deleted
 			rm ~/$FILE
-	else
-		echo ~/$FILE : not installed
+			else
+			echo ~/$FILE : not installed
 		fi
 	done
 else

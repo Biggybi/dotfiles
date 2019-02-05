@@ -1,11 +1,13 @@
+H=~/101/
+H=/home/biggybi/
 # color
-alias ls='ls -FG'
-alias dir='dir -FG'
-alias vdir='vdir -FG'
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
 
-alias grep='grep -FG'
-alias fgrep='fgrep -FG'
-alias egrep='egrep -FG'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 #ls
 alias ll='ls -trhalF'
@@ -30,7 +32,7 @@ alias aliasme='. aliasme'
 alias vibashrc='vi ~/.bashrc'
 alias vialias='vi ~/.bash_aliases'
 alias vimrc='vi ~/.vimrc'
-alias REbash='. ~/.bash_profile ; . ~/.bash_aliases'
+alias REbash='. ~/.bashrc ; . ~/.bash_aliases'
 alias REcolor='eval "$(dircolors ~/.dircolors)"'
 
 alias please='sudo $(fc -ln -1)'
@@ -68,24 +70,25 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
 alias cdinstall='cd /mnt/Data/Documents/Install/Ubuntu'
-alias cd42='cd /home/biggybi/42'
-alias libftcd='cd ~/101/libft'
-alias cdlibft='cd ~/101/libft'
-alias libftmk='make -C ~/101/libft/'
+alias cd42='cd $(H)42'
+alias libftcd='cd $(H)42/Libft'
+alias cdlibft='cd $(H)42/Libft'
+alias libftmk='make -C $(H)42/Libft'
 alias libftln='ln -s ~/101/libft/ .'
-alias libftls='ls ~/101/libft/src/*.c | cut -d/ -f7'
-alias libftcp='cp -r ~/101/libft/libft.a ~/101/libft/inc/libft.h .'
-alias libftccp='cp -rf ~/101/libft/ .'
-alias cdgnl='cd /home/biggybi/42/GNL'
-alias cdls='cd /home/biggybi/42/Ft_ls'
-alias cdscript='cd /home/biggybi/bin'
-alias todoscript='vi /home/biggybi/.bin/.todo'
+alias libftls='ls $(H)42/Libft/srcs/*.c | cut -d/ -f7'
+alias libftcp='cp -ru $(H)42/Libft/libft.a $(H)42/Libft/includes/libft.h .'
+alias libftccp='cp -rf $(H)42/Libft/ .'
+alias cdgnl='cd $(H)42/GNL'
+alias cdls='cd $(H)42/Ft_ls'
+alias cdscript='cd $(H)bin'
+alias todoscript='vi $(H).bin/.todo'
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
 
 alias gitroot='cd $(git rev-parse --show-cdup)' #go to the root of a git repo
 alias gitmodif='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
 alias gits='git status'
+
 
 alias gccf='gcc -Wall -Wextra -Werror'
 alias ms='echo you fuckin missclick you jerk'
@@ -96,3 +99,5 @@ alias ipv4='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 
 ## config : app icons
 alias cdapp='cd /usr/share/applications/'
+
+#alias sedtrim="sed -n '1h;1!H;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
