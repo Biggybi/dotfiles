@@ -76,7 +76,6 @@ alias libftcd='cd $(H)42/Libft'
 alias cdlibft='cd $(H)42/Libft'
 alias libftmk='make -C $(H)42/Libft'
 alias libftln='ln -s ~/101/libft/ .'
-<<<<<<< HEAD
 alias libftls='ls $(H)42/Libft/srcs/*.c | cut -d/ -f7'
 alias libftcp='cp -ru $(H)42/Libft/libft.a $(H)42/Libft/includes/libft.h .'
 alias libftccp='cp -rf $(H)42/Libft/ .'
@@ -84,16 +83,7 @@ alias cdgnl='cd $(H)42/GNL'
 alias cdls='cd $(H)42/Ft_ls'
 alias cdscript='cd $(H)bin'
 alias todoscript='vi $(H).bin/.todo'
-=======
-alias libftls='ls ~/101/libft/src/*.c | cut -d/ -f7'
-alias libftls='ls ~/101/libft/src/*.c | cut -d/ -f7'
-alias libftcp='cp -r ~/101/libft/libft.a ~/101/libft/inc/libft.h .'
-alias libftccp='cp -rf ~/101/libft/ .'
-alias cdgnl='cd /home/biggybi/42/GNL'
-alias cdls='cd /home/biggybi/42/Ft_ls'
-alias cdscript='cd /home/biggybi/bin'
-alias todoscript='vi /home/biggybi/.bin/.todo'
->>>>>>> d2662c327ac9df20d3afbc4ffb479e1efdfdbfb5
+
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
 
@@ -110,7 +100,7 @@ alias gcm='git commit -m'
 alias gita='git add'
 
 
-alias gccf='gcc -Wall -Wextra -Werror'
+alias gccf='gcc -Wall -Wextra'
 
 alias bc='bc -q'
 
