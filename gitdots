@@ -1,17 +1,24 @@
 #!/bin/bash
 
+GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
 FILES=".vimrc\
-		.bashrc\
-		.bash_aliases"
+	.bashrc\
+	.bash_aliases"
 
+if [ -d $SRC ]
+then
+	echo "Not cloning : $SRC exists"
+else
+	git clone $GITURL $SRC
+fi
 for f in $FILES
 do
-	echo $SRC/$f
-	ln $SRC/$f $DST
+	if [ -L $DST/$f ]
+	then
+		rm $DST/$f
+	fi
+	ln -s $SRC/$f $DST
+	echo file linked : $f
 done
-
-##ln $PATH/.vimrc ~/.vimrc
-##ln $PATH/.bashrc ~/.bashrc
-##ln $PATH/.bash_aliases ~/.bash_aliases
