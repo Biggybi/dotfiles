@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SRC=~/.dotfiles
+DST=~
+FILES=".vimrc\
+		.bashrc\
+		.bash_aliases"
+
+for f in $FILES
+do
+	echo $SRC/$f
+	ln $SRC/$f $DST
+done
+
+##ln $PATH/.vimrc ~/.vimrc
+##ln $PATH/.bashrc ~/.bashrc
+##ln $PATH/.bash_aliases ~/.bash_aliases
