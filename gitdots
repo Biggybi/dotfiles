@@ -20,9 +20,9 @@ do
 		if [ -L $DST/$f ]
 		then
 			rm $DST/$f
+			ln -s $SRC/$f $DST
+			echo File linked : $f
 		fi
-		ln -s $SRC/$f $DST
-		echo File linked : $f
 	else
 		echo No such file : $f
 	fi
