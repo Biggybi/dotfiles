@@ -126,4 +126,4 @@ alias grep='grep -F'
 #ls mac colors
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export PATH=$PATH:~/.bin
-source $HOME/.brewconfig.zsh
+##source $HOME/.brewconfig.zsh
