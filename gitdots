@@ -22,8 +22,8 @@ do
 			rm $DST/$f
 		fi
 		ln -s $SRC/$f $DST
-		echo file linked : $f
+		echo File linked : $f
 	else
-		echo not a file  : $f
+		echo No such file : $f
 	fi
 done
