@@ -1,9 +1,9 @@
 H=~/101/
 H=/home/biggybi/
 # color
-alias ls='ls --color=auto'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
+alias ls='ls -G'
+alias dir='dir -G'
+alias vdir='vdir -G'
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -98,7 +98,10 @@ alias gps='git push'
 alias gpl='git pull'
 alias gcm='git commit -m'
 alias gita='git add'
-
+alias gau='git commit -am'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias graph='git log --all --decorate --oneline --graph'
 
 alias gccf='gcc -Wall -Wextra'
 
