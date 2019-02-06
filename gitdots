@@ -3,6 +3,7 @@
 GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
+BACKUP=~/.dotfiles/dots_back
 FILES=".vimrc\
 	.bashrc\
 	.bash_aliases"
@@ -20,10 +21,14 @@ do
 		if [ -L $DST/$f ]
 		then
 			rm $DST/$f
-			ln -s $SRC/$f $DST
-			echo File linked : $f
+		elif [ -f $DST/$f ]
+		then
+			mv $DST/$f $BACKUP
+			echo $f : saved in $BACKUP
 		fi
+		ln -s $SRC/$f $DST
+		echo $f : File linked
 	else
-		echo No such file : $f
+		echo $f : No such file
 	fi
 done
