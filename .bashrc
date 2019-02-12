@@ -62,7 +62,7 @@ fi
 if [ "$color_prompt" = yes ]; then
 	#PS1="\[\e[01;30;47m\]\u\[\e[01;30;47m\]@\[\e[01;30;47m\]\h\[\e[01;30m\]:\[\e[00;37m\]\w\[\e[00;37m\]> \[\e[0m\]"
 	#version rouge + M14x instead of \h\
-	PS1="\[\e[01;31;47m\]\u\[\e[01;31;47m\]@\[\e[01;31;47m\]M14x\[\e[01;31m\]:\[\e[00;37m\]\w\[\e[00;37m\]> \[\e[0m\]"
+	PS1="\[\e[01;31;47m\]\u\[\e[01;31;47m\]@\[\e[01;31;47m\]\h\[\e[01;31m\]:\[\e[00;37m\]\w\[\e[00;37m\]> \[\e[0m\]"
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;37m\]\u@\h\[\033[00;37m\]:\[\033[01;37m\]\w\[\033[00;37m\]$ '
     #PS1='${debian_chroot:+($debian_chroot)}\e[4m\[\033[01;37m\]\u@\h\[\033[00;37m\]:\[\033[01;37m\]\w\[\033[00;37m\]$ '
 else
@@ -116,15 +116,14 @@ fi
 
 ## hh -> better C-r
 # add this configuration to ~/.bashrc
-export HH_CONFIG=hicolor         # get more colors
-shopt -s histappend              # append new history items to .bash_history
-export HISTCONTROL=ignorespace   # leading space hides commands from history
-export HISTFILESIZE=10000        # increase history file size (default is 500)
-export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
-export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"   # mem/file sync
+#export HH_CONFIG=hicolor         # get more colors
+#shopt -s histappend              # append new history items to .bash_history
+#export HISTCONTROL=ignorespace   # leading space hides commands from history
+#export HISTFILESIZE=10000        # increase history file size (default is 500)
+#export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+#export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"   # mem/file sync
 # if this is interactive shell, then bind hh to Ctrl-r (for Vi mode check doc)
-if [[ $- =~ .*i.* ]]; then bind '"\C-r": "hh -- \C-j"'; fi
-alias grep='grep -F'
+#if [[ $- =~ .*i.* ]]; then bind '"\C-r": "hh -- \C-j"'; fi
 
 #ls mac colors
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
