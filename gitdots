@@ -28,8 +28,6 @@ i = 0
 for f in $FILES
 do
 	l=${LINK[i]}
-	echo "f = $f"
-	echo "l = $l"
 	if [ -e $SRC/$l ]
 	then
 		if [ -L $DST/$l ]
