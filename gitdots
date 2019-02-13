@@ -4,9 +4,9 @@ GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
 BACKUP=~/.dotfiles/dots_back
-FILES=".vimrc\
+FILES=(.vimrc\
 	.bashrc\
-	.bash_aliases"
+	.bash_aliases)
 
 LINK=$FILES
 
@@ -24,25 +24,31 @@ else
 	git clone $GITURL $SRC
 fi
 
-i = 0
-for f in $FILES
+i=0
+for f in "${FILES[@]}"
 do
 	l=${LINK[i]}
 	if [ -e $SRC/$l ]
 	then
 		if [ -L $DST/$l ]
 		then
-			echo "$l : link deleted"
+			echo "link deleted : $l"
 			rm $DST/$l
 		elif [ -f $DST/$l ]
 		then
 			mv $DST/$l $BACKUP
-			echo $l : saved in $BACKUP
+			echo "file saved : $BACKUP $l"
 		fi
 		ln -s $SRC/$f $DST/$l
-		echo "$l -> $f : File linked"
+		echo "link created : $l -> $f "
 	else
-		echo "$l : No such file"
+		echo "no such file : $l"
 	fi
+	echo ======
+	echo ${LINK[i]}
+	#if [[ "${LINK[i]}" -eq "${LINK[-1]}" ]]
+	#then
+		#echo
+	#fi
 	let i=i+1
 done

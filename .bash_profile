@@ -10,6 +10,7 @@ esac
 
 if [[ "$OSTYPE" == "darwin"* ]]
 	hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
+	source $HOME/.brewconfig.zsh
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -117,19 +118,21 @@ if [ -f /usr/local/share/bash-completion/bash_completion ]; then
 	. /usr/local/share/bash-completion/bash_completion
 fi
 
-## hh -> better C-r
-# add this configuration to ~/.bashrc
-export HH_CONFIG=hicolor         # get more colors
-shopt -s histappend              # append new history items to .bash_history
-export HISTCONTROL=ignorespace   # leading space hides commands from history
-export HISTFILESIZE=10000        # increase history file size (default is 500)
-export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
-export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"   # mem/file sync
-# if this is interactive shell, then bind hh to Ctrl-r (for Vi mode check doc)
-#if [[ $- =~ .*i.* ]]; then bind '"\C-r": "hh -- \C-j"'; fi
-#alias grep='grep -F'
+if [[ "$OSTYPE" != "darwin"* ]]
+then
+	## hh -> better C-r
+	# add this configuration to ~/.bashrc
+	export HH_CONFIG=hicolor         # get more colors
+	shopt -s histappend              # append new history items to .bash_history
+	export HISTCONTROL=ignorespace   # leading space hides commands from history
+	export HISTFILESIZE=10000        # increase history file size (default is 500)
+	export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+	export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"   # mem/file sync
+	# if this is interactive shell, then bind hh to Ctrl-r (for Vi mode check doc)
+	#if [[ $- =~ .*i.* ]]; then bind '"\C-r": "hh -- \C-j"'; fi
+	#alias grep='grep -F'
+fi
 
 #ls mac colors
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export PATH=$PATH:~/.bin
-source $HOME/.brewconfig.zsh
