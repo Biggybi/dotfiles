@@ -12,6 +12,7 @@ set scrolloff=10
 
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
+   
 
 " make backspace behave in a sane manner
 set backspace=indent,eol,start
@@ -53,20 +54,20 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
-highlight OverLength ctermbg=203 ctermfg=white guibg=#592928
+" highlight OverLength ctermbg=203 ctermfg=white guibg=#592928
 " match OverLength /\%81v.\+/
 
 " show traling whitespaces
 "highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
-highlight ExtraWhitespace ctermbg=203 guibg=red
+highlight ExtraWhitespace ctermbg=203 guibg=red   
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-highlight ColorColumn ctermbg=8
- set colorcolumn=81
+highlight ColorColumn ctermbg=12
+set colorcolumn=81
 "if exists('+colorcolumn')
 "  set colorcolumn=80
 "else
@@ -149,7 +150,7 @@ map <C-h> :call WinMove('h')<cr>
 map <C-j> :call WinMove('j')<cr>
 map <C-k> :call WinMove('k')<cr>
 map <C-l> :call WinMove('l')<cr>
-"  create a new window
+"  create a new window if can't move to window
 " function! WinMove(key)
 "     let t:curwin = winnr()
 "     exec "wincmd ".a:key
@@ -172,9 +173,9 @@ let g:ctrlp_custom_ignore = {
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2
 
+" search and reaplace
 " For local replace
 nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
-
 " For global replace
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
