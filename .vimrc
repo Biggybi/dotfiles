@@ -12,7 +12,6 @@ set scrolloff=10
 
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
-   
 
 " make backspace behave in a sane manner
 set backspace=indent,eol,start
@@ -59,11 +58,11 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " show traling whitespaces
 "highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
-highlight ExtraWhitespace ctermbg=203 guibg=red   
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+highlight TrailingWhiteSpace ctermbg=203 guibg=red
+match TrailingWhiteSpace /\s\+$/
+autocmd BufWinEnter * match TrailingWhiteSpace /\s\+$/
+autocmd InsertEnter * match TrailingWhiteSpace /\s\+\%#\@<!$/
+autocmd InsertLeave * match TrailingWhiteSpace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 highlight ColorColumn ctermbg=12

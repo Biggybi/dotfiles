@@ -9,24 +9,25 @@
 "
 
 hi clear
-
-if version > 580
-    " no guarantees for version 5.8 and below, but this makes it stop
-    " complaining
-    hi clear
-    if exists("syntax_on")
-        syntax reset
-    endif
-endif
+"
+" if version > 580
+"     " no guarantees for version 5.8 and below, but this makes it stop
+"     " complaining
+"     hi clear
+"     if exists("syntax_on")
+"         syntax reset
+"     endif
+" endif
 let g:colors_name="molokai"
+"
+" if exists("g:molokai_original")
+"     let s:molokai_original = g:molokai_original
+" else
+"     let s:molokai_original = 0
+" endif
 
-if exists("g:molokai_original")
-    let s:molokai_original = g:molokai_original
-else
-    let s:molokai_original = 0
-endif
 
-
+hi TrailingWhiteSpace ctermbg=203 guibg=red
 hi Boolean         guifg=#AE81FF
 hi Character       guifg=#E6DB74
 hi Number          guifg=#AE81FF
@@ -53,7 +54,8 @@ hi Folded          guifg=#465457 guibg=#000000
 hi Function        guifg=#A6E22E
 hi Identifier      guifg=#FD971F
 hi Ignore          guifg=#808080 guibg=bg
-hi IncSearch       guifg=#C4BE89 guibg=#000000
+hi IncSearch       guifg=#000000 guibg=#000000
+" hi IncSearch       guifg=#C4BE89 guibg=#000000
 
 hi Keyword         guifg=#F92672               gui=bold
 hi Label           guifg=#E6DB74               gui=none
@@ -77,6 +79,7 @@ hi PreProc         guifg=#A6E22E
 hi Question        guifg=#66D9EF
 hi Repeat          guifg=#F92672               gui=bold
 hi Search          guifg=#000000 guibg=#FFE792
+
 " marks
 hi SignColumn      guifg=#A6E22E guibg=#232526
 hi SpecialChar     guifg=#F92672               gui=bold
@@ -110,17 +113,17 @@ hi WildMenu        guifg=#66D9EF guibg=#000000
 hi TabLineFill     guifg=#1B1D1E guibg=#1B1D1E
 hi TabLine         guibg=#1B1D1E guifg=#808080 gui=none
 
-if s:molokai_original == 1
-   hi Normal          guifg=#F8F8F2 guibg=#272822
-   hi Comment         guifg=#75715E
-   hi CursorLine                    guibg=#3E3D32
-   hi CursorLineNr    guifg=#FD971F               gui=none
-   hi CursorColumn                  guibg=#3E3D32
-   hi ColorColumn                   guibg=#3B3A32
-   hi LineNr          guifg=#BCBCBC guibg=#3B3A32
-   hi NonText         guifg=#75715E
-   hi SpecialKey      guifg=#75715E
-else
+" if s:molokai_original == 1
+"    hi Normal          guifg=#F8F8F2 guibg=#272822
+"    hi Comment         guifg=#75715E
+"    hi CursorLine                    guibg=#3E3D32
+"    hi CursorLineNr    guifg=#FD971F               gui=none
+"    hi CursorColumn                  guibg=#3E3D32
+"    hi ColorColumn                   guibg=#3B3A32
+"    hi LineNr          guifg=#BCBCBC guibg=#3B3A32
+"    hi NonText         guifg=#75715E
+"    hi SpecialKey      guifg=#75715E
+" else
    hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
    hi Comment         guifg=#7E8E91
    hi CursorLine                    guibg=#293739
@@ -130,21 +133,21 @@ else
    hi LineNr          guifg=#465457 guibg=#232526
    hi NonText         guifg=#465457
    hi SpecialKey      guifg=#465457
-end
+"end
 
 "
 " Support for 256-color terminal
 "
 if &t_Co > 255
-   if s:molokai_original == 1
-      hi Normal                   ctermbg=234
-      hi CursorLine               ctermbg=235   cterm=none
-      hi CursorLineNr ctermfg=208               cterm=none
-   else
+"  if s:molokai_original == 1
+"     hi Normal                   ctermbg=234
+"     hi CursorLine               ctermbg=235   cterm=none
+"     hi CursorLineNr ctermfg=208               cterm=none
+"  else
       hi Normal       ctermfg=252 ctermbg=233
       hi CursorLine               ctermbg=234   cterm=none
       hi CursorLineNr ctermfg=208               cterm=none
-   endif
+"  endif
    hi Boolean         ctermfg=135
    hi Character       ctermfg=144
    hi Number          ctermfg=135
@@ -194,7 +197,8 @@ if &t_Co > 255
    hi PreProc         ctermfg=118
    hi Question        ctermfg=81
    hi Repeat          ctermfg=161               cterm=bold
-   hi Search          ctermfg=0   ctermbg=222   cterm=NONE
+   "hi Search          ctermfg=0   ctermbg=222   cterm=NONE
+   hi Search          ctermfg=233   ctermbg=250   cterm=NONE
 
    " marks column
    hi SignColumn      ctermfg=118 ctermbg=235
