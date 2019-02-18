@@ -4,15 +4,18 @@ GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
 BACKUP=~/.dotfiles/dots_back
-FILES=(.vimrc\
+FILES=(.vim\
+	.vimrc\
 	.bashrc\
 	.bash_aliases)
 
 LINK=$FILES
 
+#for Mac OS
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-	LINK=(.vimrc\
+	LINK=(.vim\
+		.vimrc\
 		.bash_profile\
 		.bash_aliases)
 fi

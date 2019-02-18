@@ -9,14 +9,6 @@ augroup myvimrc
 augroup END
 
 set scrolloff=10
-let g:molokai_original = 1
-set background=dark
-
-set ruler
-set showcmd
-set mouse=a
-set showmode
-set nowrap
 
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
@@ -61,12 +53,17 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592928
+highlight OverLength ctermbg=203 ctermfg=white guibg=#592928
 " match OverLength /\%81v.\+/
 
 " show traling whitespaces
-highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
-match WhiteSpaceTrim /\s\+\%#\@<!$/
+"highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
+highlight ExtraWhitespace ctermbg=203 guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 highlight ColorColumn ctermbg=8
  set colorcolumn=81
@@ -80,19 +77,18 @@ highlight ColorColumn ctermbg=8
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Code
-set encoding=utf8
-let base16colorspace=256  " Access colors present in 256 colorspace"
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
+set ruler
+set showcmd
+set mouse=a
+set showmode
+set nowrap
 
 " Look
+syntax on
 set background=dark
+colorscheme molokai
 "colorscheme delek
 "colorscheme Kafka
-
-" Vimairline
-set laststatus=2
-let g:airline_theme='raven'
 
 " Searching
 set ignorecase " case insensitive searching
@@ -106,9 +102,6 @@ set magic " Set magic on, for regex
 set showmatch " show matching braces
 set mat=2 " how many tenths of a second to blink
 
-"switch syntax highlighting on
-syntax on
-
 set number
 set relativenumber
 
@@ -117,6 +110,12 @@ set smartindent
 filetype indent on
 
 set laststatus=2 " show the satus line all the time
+
+" Code
+set encoding=utf8
+let base16colorspace=256  " Access colors present in 256 colorspace"
+set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -144,28 +143,25 @@ nmap \s :set ts=4 sts=4 sw=4 et<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Do not block cursor at first or last character of line
-
 set whichwrap+=<,>,h,l,[,]
 
 map <C-h> :call WinMove('h')<cr>
 map <C-j> :call WinMove('j')<cr>
 map <C-k> :call WinMove('k')<cr>
 map <C-l> :call WinMove('l')<cr>
-
-" Window movement shortcuts
-" move to the window in the direction shown, or create a new window
-function! WinMove(key)
-    let t:curwin = winnr()
-    exec "wincmd ".a:key
-    if (t:curwin == winnr())
-        if (match(a:key,'[jk]'))
-            wincmd v
-        else
-            wincmd s
-        endif
-        exec "wincmd ".a:key
-    endif
-endfunction
+"  create a new window
+" function! WinMove(key)
+"     let t:curwin = winnr()
+"     exec "wincmd ".a:key
+"     if (t:curwin == winnr())
+"         if (match(a:key,'[jk]'))
+"             wincmd v
+"         else
+"             wincmd s
+"         endif
+"         exec "wincmd ".a:key
+"     endif
+" endfunction
 
 " CtrlP ignore patterns
 let g:ctrlp_custom_ignore = {
