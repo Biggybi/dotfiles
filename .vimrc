@@ -8,13 +8,10 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
-syntax on                      " enable syntax
 set scrolloff=10
 let g:molokai_original = 1
 set background=dark
 
-set number
-set relativenumber
 set ruler
 set showcmd
 set mouse=a
@@ -64,8 +61,13 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592928
+highlight OverLength ctermbg=red ctermfg=white guibg=#592928
 " match OverLength /\%81v.\+/
+
+" show traling whitespaces
+highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
+match WhiteSpaceTrim /\s\+$/
+
 highlight ColorColumn ctermbg=8
  set colorcolumn=81
 "if exists('+colorcolumn')
@@ -108,6 +110,7 @@ set mat=2 " how many tenths of a second to blink
 syntax on
 
 set number
+set relativenumber
 
 set autoindent " automatically set indent of new line
 set smartindent
@@ -139,6 +142,10 @@ nmap \s :set ts=4 sts=4 sw=4 et<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Do not block cursor at first or last character of line
+
+set whichwrap+=<,>,h,l,[,]
 
 map <C-h> :call WinMove('h')<cr>
 map <C-j> :call WinMove('j')<cr>
