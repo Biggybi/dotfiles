@@ -85,8 +85,8 @@ set nowrap
 
 " Look
 syntax on
-set background=dark
 colorscheme molokai
+set background=dark
 "colorscheme delek
 "colorscheme Kafka
 
