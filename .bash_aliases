@@ -28,7 +28,9 @@ alias aliasme='. aliasme'
 alias vibashrc='vi ~/.bashrc'
 alias vialias='vi ~/.bash_aliases'
 alias vimrc='vi ~/.vimrc'
-alias REbash='. ~/.bashrc ; . ~/.bash_profile . ~/.bash_aliases'
+alias dots='cd ~/.dotfiles'
+alias rebash='. ~/.bashrc'
+alias macrebash='. ~/.bash_profile'
 alias REcolor='eval "$(dircolors ~/.dircolors)"'
 
 alias please='sudo $(fc -ln -1)'
@@ -102,6 +104,7 @@ alias gch='git log | grep -B 4 "$*" | head -n 1 | cut -d\  -f 2'
 alias gb='git branch '
 alias gba='git branch -a'
 alias gbr='git branch -r'
+alias gitls='git ls-tree --full-tree -r --name-only HEAD'
 
 alias gccf='gcc -Wall -Wextra '
 
