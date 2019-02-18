@@ -4,9 +4,18 @@ GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
 BACKUP=~/.dotfiles/dots_back
-FILES=".vimrc\
+FILES=(.vimrc\
 	.bashrc\
-	.bash_aliases"
+	.bash_aliases)
+
+LINK=$FILES
+
+if [[ "$OSTYPE" == "darwin"* ]]
+then
+	LINK=(.vimrc\
+		.bash_profile\
+		.bash_aliases)
+fi
 
 if [ -d $SRC ]
 then
@@ -14,21 +23,32 @@ then
 else
 	git clone $GITURL $SRC
 fi
-for f in $FILES
+
+i=0
+for f in "${FILES[@]}"
 do
-	if [ -e $SRC/$f ]
+	l=${LINK[i]}
+	if [ -e $SRC/$l ]
 	then
-		if [ -L $DST/$f ]
+		if [ -L $DST/$l ]
 		then
-			rm $DST/$f
-		elif [ -f $DST/$f ]
+			echo "link deleted : $l"
+			rm $DST/$l
+		elif [ -f $DST/$l ]
 		then
-			mv $DST/$f $BACKUP
-			echo $f : saved in $BACKUP
+			mv $DST/$l $BACKUP
+			echo "file saved : $BACKUP $l"
 		fi
-		ln -s $SRC/$f $DST
-		echo $f : File linked
+		ln -s $SRC/$f $DST/$l
+		echo "link created : $l -> $f "
 	else
-		echo $f : No such file
+		echo "no such file : $l"
 	fi
+	echo ======
+	echo ${LINK[i]}
+	#if [[ "${LINK[i]}" -eq "${LINK[-1]}" ]]
+	#then
+		#echo
+	#fi
+	let i=i+1
 done
