@@ -2,7 +2,11 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+" automatic reload vimrc when modified
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
 
 syntax on                      " enable syntax
 set scrolloff=10
@@ -59,8 +63,17 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592928
+" match OverLength /\%81v.\+/
+highlight ColorColumn ctermbg=8
+ set colorcolumn=81
+"if exists('+colorcolumn')
+"  set colorcolumn=80
+"else
+"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+"endif
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -101,6 +114,7 @@ filetype indent on
 
 set laststatus=2 " show the satus line all the time
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -113,9 +127,13 @@ map <leader>wc :wincmd q<cr>
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
+" go to name of function you are in (needs a '()')
+nnoremap <silent> gid [[kf(hB
+
 " helpers for dealing with other people's code
 nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 nmap \s :set ts=4 sts=4 sw=4 et<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
@@ -155,3 +173,18 @@ nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 
 " For global replace
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Coding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Commenting blocks of code.
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType vim              let b:comment_leader = '" '
+noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>

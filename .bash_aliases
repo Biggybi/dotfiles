@@ -99,6 +99,9 @@ alias gco='git checkout '
 alias gcb='git checkout -b '
 alias graph='git log --all --decorate --oneline --graph'
 alias gch='git log | grep -B 4 "$*" | head -n 1 | cut -d\  -f 2'
+alias gb='git branch '
+alias gba='git branch -a'
+alias gbr='git branch -r'
 
 alias gccf='gcc -Wall -Wextra '
 
