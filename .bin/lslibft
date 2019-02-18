@@ -1,0 +1,37 @@
+#!/bin/bash
+FTPATH=~/101/libft/src
+BEFOR=ft_
+AFTER=\.c
+
+if [[ "$1" =~ ^-.*f* ]]
+then
+	shift
+	H=1
+fi
+for f in "$@"
+do
+	if [[ "$f" =~ ^ft_* ]]
+	then
+		f=${f:3}
+	fi
+	if [[ "$f" =~ \.c$ ]]
+	then
+		f=${f:0:-2}
+	fi
+	f=ft_$f\.c
+	echo
+	if [ -e $FTPATH/$f ]
+	then
+		echo $FTPATH/$f
+		echo
+		if [ "$H" == 1 ]
+		then
+			sed '1,13d' $FTPATH/$f
+		else
+			cat $FTPATH/$f
+		fi
+	else
+		echo "$f -> $FTPATH/$f not found"
+	fi
+	echo
+done

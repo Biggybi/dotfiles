@@ -1,0 +1,12 @@
+HDR="/* ************************************************************************** */"
+
+for f in $@
+do
+	if [[ $(sed -n '1p' $f) = $HDR ]] && [[ $(sed -n '12p' $f) = $HDR ]] 
+	then
+		echo "$f : header removed"
+		sed -i '1,12d' $f
+	else
+		echo "$f : no header"
+	fi
+done
