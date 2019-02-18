@@ -4,17 +4,26 @@ GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
 BACKUP=~/.dotfiles/dots_back
-FILES=(.vim\
+FILES=(.bin\
+	.vim\
 	.vimrc\
 	.bashrc\
 	.bash_aliases)
 
+# use same names for links as in FILES
 LINK=$FILES
+# set different link names if needed
+# LINK=(.bin\
+# 	.link1
+# 	.link2
+# 	.link3
+# 	.link4)
 
 #for Mac OS
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-	LINK=(.vim\
+	LINK=(.bin\
+		.vim\
 		.vimrc\
 		.bash_profile\
 		.bash_aliases)
@@ -28,30 +37,29 @@ else
 fi
 
 i=0
-for f in "${FILES[@]}"
+for f in "${FILES[i]}"
 do
+	echo $i
 	l=${LINK[i]}
-	if [ -e $SRC/$l ]
+	if [ -e $SRC$l ]
 	then
-		if [ -L $DST/$l ]
+		if [ -L $DST$l ]
 		then
-			echo "link deleted : $l"
-			rm $DST/$l
-		elif [ -f $DST/$l ]
+			rm $DST$l
+			echo "link deleted : $DST$l"
+		elif [ -f $DST$l ]
 		then
-			mv $DST/$l $BACKUP
-			echo "file saved : $BACKUP $l"
+			mv $DST$l $SRC$BACKUP
+			echo "file saved : $SRC$BACKUP $l"
+		elif [ -d $DST/$l ]
+		then
+ 			mv $DST$l $BACKUP$l
+			echo "repertory saved : $BACKUP$l"
 		fi
-		ln -s $SRC/$f $DST/$l
+		ln -sf $SRC$f $DST$l
 		echo "link created : $l -> $f "
 	else
 		echo "no such file : $l"
 	fi
-	echo ======
-	echo ${LINK[i]}
-	#if [[ "${LINK[i]}" -eq "${LINK[-1]}" ]]
-	#then
-		#echo
-	#fi
 	let i=i+1
 done
