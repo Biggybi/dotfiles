@@ -66,7 +66,7 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592928
 
 " show traling whitespaces
 highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
-match WhiteSpaceTrim /\s\+$/
+match WhiteSpaceTrim /\s\+\%#\@<!$/
 
 highlight ColorColumn ctermbg=8
  set colorcolumn=81
