@@ -229,15 +229,18 @@ if &t_Co > 255
    hi Comment         ctermfg=59
    hi CursorColumn                ctermbg=236
    hi ColorColumn                 ctermbg=236
-   hi LineNr          ctermfg=250 ctermbg=236
+   hi LineNr          ctermfg=250 ctermbg=233
+"    hi LineNr          ctermfg=250 ctermbg=236
+"    added by trikapou
+   hi CursorLineNr    ctermfg=208 ctermbg=235   cterm=none
    hi NonText         ctermfg=59
 
    hi SpecialKey      ctermfg=59
 
    if exists("g:rehash256") && g:rehash256 == 1
-       hi Normal       ctermfg=252 ctermbg=234
-       hi CursorLine               ctermbg=236   cterm=none
-       hi CursorLineNr ctermfg=208               cterm=none
+       hi Normal          ctermfg=252 ctermbg=234
+       hi CursorLine                  ctermbg=236   cterm=none
+       hi CursorLineNr    ctermfg=208               cterm=none
 
        hi Boolean         ctermfg=141
        hi Character       ctermfg=222
