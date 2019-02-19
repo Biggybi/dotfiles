@@ -4,7 +4,7 @@ DOTPATH=~/.dotfiles
 echo $DOTPATH
 
 cd $DOTPATH
-if [ $# == 2 ]
+if [ $# == 1 ]
 then
 	git commit -am "$1"
 else
