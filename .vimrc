@@ -4,8 +4,8 @@
 
 " automatic reload vimrc when modified
 augroup myvimrc
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+	au!
+	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
 set scrolloff=10
@@ -65,7 +65,8 @@ autocmd InsertEnter * match TrailingWhiteSpace /\s\+\%#\@<!$/
 autocmd InsertLeave * match TrailingWhiteSpace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-highlight ColorColumn ctermbg=12
+"highlight ColorColumn ctermbg=9
+"-> set in molokai
 set colorcolumn=81
 "if exists('+colorcolumn')
 "  set colorcolumn=80
@@ -150,24 +151,24 @@ map <C-j> :call WinMove('j')<cr>
 map <C-k> :call WinMove('k')<cr>
 map <C-l> :call WinMove('l')<cr>
 "  create a new window if can't move to window
-" function! WinMove(key)
-"     let t:curwin = winnr()
-"     exec "wincmd ".a:key
-"     if (t:curwin == winnr())
-"         if (match(a:key,'[jk]'))
-"             wincmd v
-"         else
-"             wincmd s
-"         endif
-"         exec "wincmd ".a:key
-"     endif
-" endfunction
+function! WinMove(key)
+	let t:curwin = winnr()
+	exec "wincmd ".a:key
+	"     if (t:curwin == winnr())
+	"         if (match(a:key,'[jk]'))
+	"             wincmd v
+	"         else
+	"             wincmd s
+	"         endif
+	"         exec "wincmd ".a:key
+	"     endif
+endfunction
 
 " CtrlP ignore patterns
 let g:ctrlp_custom_ignore = {
-            \ 'dir': '\.git$\|node_modules$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$'
-            \ }
+			\ 'dir': '\.git$\|node_modules$\|\.hg$\|\.svn$',
+			\ 'file': '\.exe$\|\.so$'
+			\ }
 
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2

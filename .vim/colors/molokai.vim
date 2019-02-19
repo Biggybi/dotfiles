@@ -129,7 +129,8 @@ hi TabLine         guibg=#1B1D1E guifg=#808080 gui=none
    hi CursorLine                    guibg=#293739
    hi CursorLineNr    guifg=#FD971F               gui=none
    hi CursorColumn                  guibg=#293739
-   hi ColorColumn                   guibg=#232526
+   hi ColorColumn                   guibg=#000000
+"    hi ColorColumn                   guibg=#232526
    hi LineNr          guifg=#465457 guibg=#232526
    hi NonText         guifg=#465457
    hi SpecialKey      guifg=#465457
@@ -232,7 +233,9 @@ if &t_Co > 255
 
    hi Comment         ctermfg=59
    hi CursorColumn                ctermbg=236
-   hi ColorColumn                 ctermbg=236
+   "hi ColorColumn                 ctermbg=236
+   "hi StatusLine      ctermfg=238 ctermbg=253
+   hi ColorColumn                 ctermbg=238
    hi LineNr          ctermfg=250 ctermbg=233
 "    hi LineNr          ctermfg=250 ctermbg=236
 "    added by trikapou
