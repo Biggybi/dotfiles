@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DOTPATH=~/.dotfiles
+echo $DOTPATH
+
+cd $DOTPATH
+if [ $# == 2 ]
+then
+	git commit -am "$1"
+else
+	git commit -am "## updated from script ##"
+fi
+git push
