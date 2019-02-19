@@ -17,42 +17,39 @@ alias lsd='find . -type f -name ".*" | sed s/.*\\///'
 
 ## Mes alias
 
-##alias audio_switch='xmacroplay -d 0 < ~/Documents/Macros/switch_audio_output'
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
 
-##alias s!='sudo "$BASH" -c "$(history -p !!)"'
 alias REgnome="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias aliasme='. aliasme'
 alias vibashrc='vi ~/.bashrc'
 alias vialias='vi ~/.bash_aliases'
 alias vimrc='vi ~/.vimrc'
-alias rebash='. ~/.bashrc'
-alias macrebash='. ~/.bash_profile'
-alias REcolor='eval "$(dircolors ~/.dircolors)"'
 
-alias dots='cd ~/.dotfiles'
-alias dotgits='dots && git status'
+alias sobash='. ~/.bashrc'
+alias somacbash='. ~/.bash_profile'
+alias socolor='eval "$(dircolors ~/.dircolors)"'
+alias soalias='. ~/.bash_alias'
+
+alias dot='cd ~/.dotfiles'
 alias dotgits='dots && git status'
 
 alias please='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
-##alias lcmd='history | tail -n2 | head -n 1 | cut -d" " -f4-'
-##alias lcmd='echo !!'
-##alias lcmdcp='lcmd | xsel -b'
+
 alias lcmd='echo $(fc -ln -1)'
 alias lcmdcp='lcmd | cip'
 alias hg='history | grep '
 
-alias viit='vi !$'
-alias lsit='ls !$'
-alias catit='cat !$'
-alias cpit='cp !$'
-alias mvit='mv !$'
-alias rmit='rm !$'
-alias echoit='echo !$'
-alias gccit='gcc !$'
+alias viit='vi $(fc -ln -1)'
+alias lsit='ls $(fc -ln -1)'
+alias catit='cat $(fc -ln -1)'
+alias cpit='cp $(fc -ln -1) '
+alias mvit='mv $(fc -ln -1)'
+alias rmit='rm $(fc -ln -1)'
+alias echoit='echo $(fc -ln -1)'
+alias gccit='gcc $(fc -ln -1)'
 
 
 ## Maintainance

@@ -8,6 +8,9 @@ augroup myvimrc
 	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
+" autosave file upon modification
+autocmd TextChanged,TextChangedI <buffer> silent write
+
 set scrolloff=10
 
 set nocompatible " not compatible with vi
@@ -45,11 +48,11 @@ autocmd BufReadPost *
 			\ endif
 
 " filetype recognition
-au FileType php setl ofu=phpcomplete#CompletePHP
-au FileType ruby,eruby setl ofu=rubycomplete#Complete
-au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 au FileType c setl ofu=ccomplete#CompleteCpp
 au FileType css setl ofu=csscomplete#CompleteCSS
+au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
+au FileType php setl ofu=phpcomplete#CompletePHP
+au FileType ruby,eruby setl ofu=rubycomplete#Complete
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
