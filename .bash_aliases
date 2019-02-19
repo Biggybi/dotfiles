@@ -34,8 +34,10 @@ alias REcolor='eval "$(dircolors ~/.dircolors)"'
 
 alias dots='cd ~/.dotfiles'
 alias dotgits='dots && git status'
+alias dotgits='dots && git status'
 
 alias please='sudo $(fc -ln -1)'
+alias modx='sudo chmod +x'
 ##alias lcmd='history | tail -n2 | head -n 1 | cut -d" " -f4-'
 ##alias lcmd='echo !!'
 ##alias lcmdcp='lcmd | xsel -b'
