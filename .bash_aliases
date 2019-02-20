@@ -115,6 +115,7 @@ alias gba='git branch -a'
 alias gbr='git branch -r'
 alias gitls='git ls-tree --full-tree -r --name-only HEAD'
 
+alias gcc='clang '
 alias gccf='gcc -Wall -Wextra '
 
 alias bc='bc -q'
