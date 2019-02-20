@@ -51,6 +51,12 @@ alias rmit='rm $(fc -ln -1)'
 alias echoit='echo $(fc -ln -1)'
 alias gccit='gcc $(fc -ln -1)'
 
+alias fg1='fg 1'
+alias fg2='fg 2'
+alias fg3='fg 3'
+alias fg4='fg 4'
+alias fg5='fg 5'
+
 
 ## Maintainance
 alias apti='sudo apt install'

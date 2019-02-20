@@ -8,7 +8,7 @@
 " by Hamish Stuart Macpherson
 "
 
-hi clear
+"hi clear
 "
 " if version > 580
 "     " no guarantees for version 5.8 and below, but this makes it stop
@@ -78,7 +78,8 @@ hi PreCondit       guifg=#A6E22E               gui=bold
 hi PreProc         guifg=#A6E22E
 hi Question        guifg=#66D9EF
 hi Repeat          guifg=#F92672               gui=bold
-hi Search          guifg=#000000 guibg=#FFE792
+"hi Search          guifg=#000000 guibg=#FFE792
+hi Search          ctermfg=233   ctermbg=250   cterm=NONE
 
 " marks
 hi SignColumn      guifg=#A6E22E guibg=#232526
@@ -110,8 +111,9 @@ hi Visual                        guibg=#403D3D
 hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold
 hi WildMenu        guifg=#66D9EF guibg=#000000
 
-hi TabLineFill     guifg=#1B1D1E guibg=#1B1D1E
-hi TabLine         guibg=#1B1D1E guifg=#808080 gui=none
+hi TabLineFill     guifg=#1B1D1E guibg=#1B1D1E gui=bold
+" hi TabLine         guibg=#1B1D1E guifg=#808080 gui=none
+hi TabLine         guibg=#1B1D1E guifg=#1B1D1E gui=bold
 
 " if s:molokai_original == 1
 "    hi Normal          guifg=#F8F8F2 guibg=#272822

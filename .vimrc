@@ -126,16 +126,15 @@ set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-map <leader>ev :e! ~/.vimrc<cr> " edit ~/.vimrc
-
-map <leader>wc :wincmd q<cr>
+" edit vimrc
+map <leader>ev :vertical split ~/.vimrc<cr>
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " go to name of function you are in (needs a '()')
-nnoremap <silent> gid [[kf(hB
+nnoremap <silent> gid [[kf(
 
 " helpers for dealing with other people's code
 nmap \t :set ts=4 sts=4 sw=4 noet<cr>
