@@ -134,11 +134,17 @@ nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " go to name of function you are in (needs a '()')
-nnoremap <silent> gid [[kf(
+nnoremap <silent> gid [[kf(b
 
 " helpers for dealing with other people's code
 nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 nmap \s :set ts=4 sts=4 sw=4 et<cr>
+
+" auto close bracers
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""

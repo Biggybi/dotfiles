@@ -33,7 +33,7 @@ alias socolor='eval "$(dircolors ~/.dircolors)"'
 alias soalias='. ~/.bash_alias'
 
 alias dot='cd ~/.dotfiles'
-alias dotgits='dots && git status'
+alias dots='git -C ~/.dotfiles status'
 
 alias please='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
