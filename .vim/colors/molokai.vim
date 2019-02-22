@@ -131,7 +131,7 @@ hi TabLine         guibg=#1B1D1E guifg=#1B1D1E gui=bold
    hi CursorLine                    guibg=#293739
    hi CursorLineNr    guifg=#FD971F               gui=none
    hi CursorColumn                  guibg=#293739
-   hi ColorColumn                   guibg=#000000
+   hi ColorColumn                   guibg=#000007
 "    hi ColorColumn                   guibg=#232526
    hi LineNr          guifg=#465457 guibg=#232526
    hi NonText         guifg=#465457
@@ -174,8 +174,10 @@ if &t_Co > 255
    hi Float           ctermfg=135
    hi FoldColumn      ctermfg=67  ctermbg=16
    hi Folded          ctermfg=67  ctermbg=16
-   hi Function        ctermfg=118
+   hi Function        ctermfg=112
+"    hi Function        ctermfg=118
    hi Identifier      ctermfg=208               cterm=none
+"    hi Identifier      ctermfg=208               cterm=none
    hi Ignore          ctermfg=244 ctermbg=232
    hi IncSearch       ctermfg=193 ctermbg=16
 
@@ -237,10 +239,10 @@ if &t_Co > 255
    hi CursorColumn                ctermbg=236
    "hi ColorColumn                 ctermbg=236
    "hi StatusLine      ctermfg=238 ctermbg=253
-   hi ColorColumn                 ctermbg=238
+"    hi ColorColumn                 ctermbg=238
+   hi ColorColumn                 ctermbg=234
    hi LineNr          ctermfg=250 ctermbg=233
 "    hi LineNr          ctermfg=250 ctermbg=236
-"    added by trikapou
    hi CursorLineNr    ctermfg=208 ctermbg=235   cterm=none
    hi NonText         ctermfg=59
 

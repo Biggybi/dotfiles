@@ -8,6 +8,7 @@ augroup myvimrc
 	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
+
 " autosave file upon modification
 autocmd TextChanged,TextChangedI <buffer> silent write
 
@@ -20,7 +21,7 @@ set autoread " detect when a file is changed
 set backspace=indent,eol,start
 
 " set a map leader for more key combos
-let mapleader = ','
+let mapleader = '\'
 
 " Tab control
 set noexpandtab " tabs ftw
@@ -70,7 +71,8 @@ autocmd BufWinLeave * call clearmatches()
 
 "highlight ColorColumn ctermbg=9
 "-> set in molokai
-set colorcolumn=81
+" set colorcolumn=81
+let &colorcolumn=join(range(82,999),",")
 "if exists('+colorcolumn')
 "  set colorcolumn=80
 "else
@@ -86,6 +88,9 @@ set showcmd
 set mouse=a
 set showmode
 set nowrap
+
+" auto show autocomplete omnibox
+"set completeopt=longest,menuone
 
 " Look
 syntax on
@@ -129,6 +134,9 @@ set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 " edit vimrc
 map <leader>ev :vertical split ~/.vimrc<cr>
 
+" select all text in function
+nnoremap vif [[%v%
+
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
@@ -139,6 +147,12 @@ nnoremap <silent> gid [[kf(b
 " helpers for dealing with other people's code
 nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 nmap \s :set ts=4 sts=4 sw=4 et<cr>
+
+" auto close bracers
+" inoremap (      ();<Left><Left>
+" inoremap (;  (<CR>)<Esc>O
+" inoremap ((     (
+" inoremap ()     ()
 
 " auto close bracers
 inoremap {      {}<Left>
@@ -181,6 +195,9 @@ let g:ctrlp_custom_ignore = {
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2
 
+"This unsets the 'last search pattern' register by hitting return
+nnoremap <silent><CR> :nohlsearch<CR><CR>
+
 " search and reaplace
 " For local replace
 nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
@@ -193,11 +210,13 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Commenting blocks of code.
+" Commenting blocks of code.
+" Commenting blocks of code.
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   let b:comment_leader = '# '
 autocmd FileType conf,fstab       let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
-noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
