@@ -87,10 +87,8 @@ set ruler
 set showcmd
 set mouse=a
 set showmode
-set nowrap
-
-" auto show autocomplete omnibox
-"set completeopt=longest,menuone
+set whichwrap+=<,>,h,l,[,]
+set visualbell
 
 " Look
 syntax on
@@ -126,23 +124,82 @@ let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 
 
+" auto show autocomplete omnibox
+" set completeopt=longest,menuone
+
+" netrw
+" Toggle Vexplore with <leader>f
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+	  setlocal winfixwidth
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
+nnoremap <silent> <leader>f :call ToggleVExplorer()<CR>
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 2
+let g:netrw_altv = 1
+let g:netrw_winsize = 10
+" open netrw with vim
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END
+autocmd filetype netrw nnoremap <c-a> <cr>:wincmd W<cr>
+
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+map <Leader>cm :make re<CR><CR>
+map <Leader>cc :cc<CR>
+map <Leader>cn :cn<CR>
+map <Leader>cp :cp<CR>
+map <Leader>cl :clist<CR>
+autocmd QuickFixCmdPost [^l]* nested botright cwindow
+autocmd QuickFixCmdPost    l* nested botright lwindo
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" <c-z> will work in insert mode
+inoremap <c-z> <c-c><c-z>
+
 " edit vimrc
 map <leader>ev :vertical split ~/.vimrc<cr>
 
 " select all text in function
-nnoremap vif [[%v%
+nnoremap vif [{%v%
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " go to name of function you are in (needs a '()')
-nnoremap <silent> gid [[kf(b
+nnoremap <silent> gid [{k^t(b
+
+" search next call of function you are in
+nnoremap <silent> gin [{kt^(b*
 
 " helpers for dealing with other people's code
 nmap \t :set ts=4 sts=4 sw=4 noet<cr>
@@ -160,13 +217,31 @@ inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
 
+" puts brackets around paragraph
+nmap <leader>{} {S{{<Esc>}S}<c-c>=%
+
+" " enter selects menu element
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"
+" " better menu behavior (keeps element hihlighted, <CR> (enter) to select always)
+" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"
+" " open omni completion menu closing previous if open and opening new menu without changing the text
+" inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+"             \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+" " open user completion menu closing previous if open and opening new menu without changing the text
+" inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+"             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Do not block cursor at first or last character of line
-set whichwrap+=<,>,h,l,[,]
 
 map <C-h> :call WinMove('h')<cr>
 map <C-j> :call WinMove('j')<cr>
@@ -210,13 +285,11 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Commenting blocks of code.
-" Commenting blocks of code.
-" Commenting blocks of code.
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   let b:comment_leader = '# '
 autocmd FileType conf,fstab       let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
-noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>"":<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>

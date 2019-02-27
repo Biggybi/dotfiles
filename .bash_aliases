@@ -21,7 +21,8 @@ alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
 
-alias REgnome="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
+alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
+alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias aliasme='. aliasme'
 alias vibashrc='vi ~/.bashrc'
 alias vialias='vi ~/.bash_aliases'
@@ -75,7 +76,7 @@ alias cip='xsel -b'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
-alias cdinstall='cd /mnt/Data/Documents/Install/Ubuntu'
+alias cdinstall='cd $H/Documents/Install/Ubuntu'
 alias cd42='cd $H/42'
 alias echoh='echo $H'
 
