@@ -160,7 +160,7 @@ let g:netrw_winsize = 10
 "   autocmd!
 "   autocmd VimEnter * :Vexplore
 " augroup END
-autocmd filetype netrw nnoremap <c-a> <cr>:wincmd W<cr>
+" autocmd filetype netrw nnoremap <c-a> <cr>:wincmd W<cr>
 
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
