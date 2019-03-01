@@ -90,7 +90,9 @@ set mouse=a
 set showmode
 set whichwrap+=<,>,h,l,[,]
 set visualbell
-set wildmenu
+" set wildmenu
+
+set wildchar=<Tab> wildmenu wildmode=full
 set switchbuf=useopen " open buffers in their window if exist
 
 " Look
@@ -182,6 +184,27 @@ map <Leader>cw :cwindow<CR>
 autocmd QuickFixCmdPost [^l]* nested botright cwindow
 autocmd QuickFixCmdPost    l* nested botright lwindo
 
+" Shell : outputs shell in new vim window
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  vert new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -207,7 +230,7 @@ nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " go to name of function you are in (needs a '()')
-nnoremap <silent> gid %[{k^t(b
+nnoremap <silent> gid [[k^t(b
 
 " search next call of function you are in
 nnoremap <silent> gin [{kt^(b*
