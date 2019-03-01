@@ -116,6 +116,8 @@ set mat=2 " how many tenths of a second to blink
 
 set number
 set relativenumber
+ " show buffer number
+ set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 set autoindent " automatically set indent of new line
 set smartindent
@@ -251,8 +253,14 @@ inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
 
-" puts brackets around paragraph
+" put brackets around paragraph
 nmap <leader>{} {S{{<Esc>}S}<c-c>=%
+
+" put semicolon EOL
+inoremap <leader>; <C-o>m`<C-o>A;<C-o>``
+
+" put ; EOL
+" inoremap <leader>; <C-o>A;
 
 " " enter selects menu element
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
