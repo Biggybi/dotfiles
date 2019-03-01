@@ -18,7 +18,9 @@
 "         syntax reset
 "     endif
 " endif
-let g:colors_name="molokai"
+let g:colors_name="trikai"
+" let g:colors_name="molokai"
+
 "
 " if exists("g:molokai_original")
 "     let s:molokai_original = g:molokai_original
@@ -204,7 +206,7 @@ if &t_Co > 255
    hi Repeat          ctermfg=161               cterm=bold
    "hi Search          ctermfg=0   ctermbg=222   cterm=NONE
 "    hi Search          ctermfg=233   ctermbg=250   cterm=NONE
-   hi Search          ctermfg=203   ctermbg=234   cterm=NONE
+   hi Search          ctermfg=203   ctermbg=224   cterm=NONE
 
    " marks column
    hi SignColumn      ctermfg=118 ctermbg=235

@@ -1,18 +1,20 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ " => General
+ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" automatic reload vimrc when modified
-augroup myvimrc
-	au!
-	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
+" " automatic reload vimrc when modified
+" augroup myvimrc
+" 	au!
+" 	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc silent so $MYVIMRC | if has('gui_running') | silent so $MYGVIMRC | endif
+" augroup END
 
+" source virc
+nnoremap <leader>so :so .vimrc<CR>
 
 " autosave file upon modification
-autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd TextChanged,TextChangedI <buffer> silent write
 
-set scrolloff=10
+set scrolloff=10 " cursor shall not be to high nor to low
 
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
@@ -70,9 +72,8 @@ autocmd InsertLeave * match TrailingWhiteSpace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 "highlight ColorColumn ctermbg=9
-"-> set in molokai
-" set colorcolumn=81
-let &colorcolumn=join(range(82,999),",")
+set colorcolumn=81
+" let &colorcolumn=join(range(82,999),",")
 "if exists('+colorcolumn')
 "  set colorcolumn=80
 "else
@@ -89,11 +90,13 @@ set mouse=a
 set showmode
 set whichwrap+=<,>,h,l,[,]
 set visualbell
+set wildmenu
+set switchbuf=useopen " open buffers in their window if exist
 
 " Look
 syntax on
-colorscheme molokai
-set background=dark
+colorscheme trikai
+"-> set in molokai
 "colorscheme delek
 "colorscheme Kafka
 
@@ -154,7 +157,7 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
-let g:netrw_winsize = 10
+let g:netrw_winsize = 20
 " open netrw with vim
 " augroup ProjectDrawer
 "   autocmd!
@@ -175,12 +178,20 @@ map <Leader>cc :cc<CR>
 map <Leader>cn :cn<CR>
 map <Leader>cp :cp<CR>
 map <Leader>cl :clist<CR>
+map <Leader>cw :cwindow<CR>
 autocmd QuickFixCmdPost [^l]* nested botright cwindow
 autocmd QuickFixCmdPost    l* nested botright lwindo
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"move between windows with ctrl
+map <C-h> :wincmd h<CR>
+map <C-j> :wincmd j<CR>
+map <C-k> :wincmd k<CR>
+map <C-l> :wincmd l<CR>
+imap <C-w> <C-o><C-w>
 
 " <c-z> will work in insert mode
 inoremap <c-z> <c-c><c-z>
@@ -202,8 +213,8 @@ nnoremap <silent> gid [{k^t(b
 nnoremap <silent> gin [{kt^(b*
 
 " helpers for dealing with other people's code
-nmap \t :set ts=4 sts=4 sw=4 noet<cr>
-nmap \s :set ts=4 sts=4 sw=4 et<cr>
+" nmap \t :set ts=4 sts=4 sw=4 noet<cr>
+" nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
@@ -243,14 +254,17 @@ nmap <leader>{} {S{{<Esc>}S}<c-c>=%
 
 " Do not block cursor at first or last character of line
 
-map <C-h> :call WinMove('h')<cr>
-map <C-j> :call WinMove('j')<cr>
-map <C-k> :call WinMove('k')<cr>
-map <C-l> :call WinMove('l')<cr>
 "  create a new window if can't move to window
-function! WinMove(key)
-	let t:curwin = winnr()
-	exec "wincmd ".a:key
+ 
+" map <C-h> :call WinMove('h')<cr>
+" map <C-j> :call WinMove('j')<cr>
+" map <C-k> :call WinMove('k')<cr>
+" map <C-l> :call WinMove('l')<cr>
+
+"  create a new window if can't move to window
+" function! WinMove(key)
+" 	let t:curwin = winnr()
+" 	exec "wincmd ".a:key
 	"     if (t:curwin == winnr())
 	"         if (match(a:key,'[jk]'))
 	"             wincmd v
@@ -259,7 +273,7 @@ function! WinMove(key)
 	"         endif
 	"         exec "wincmd ".a:key
 	"     endif
-endfunction
+" endfunction
 
 " CtrlP ignore patterns
 let g:ctrlp_custom_ignore = {
@@ -292,4 +306,4 @@ autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
 noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <leader>"":<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>

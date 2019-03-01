@@ -14,6 +14,7 @@ alias ll='ls -trhalF'
 alias la='ls -A'
 alias l='ls -CF'
 alias lsd='find . -type f -name ".*" | sed s/.*\\///'
+alias le='less'
 
 ## Mes alias
 
