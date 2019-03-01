@@ -9,7 +9,7 @@
 " augroup END
 
 " source virc
-nnoremap <leader>so :so .vimrc<CR>
+nnoremap <leader>so :so ~/.vimrc<CR>
 
 " autosave file upon modification
 " autocmd TextChanged,TextChangedI <buffer> silent write
@@ -207,7 +207,7 @@ nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " go to name of function you are in (needs a '()')
-nnoremap <silent> gid [{k^t(b
+nnoremap <silent> gid %[{k^t(b
 
 " search next call of function you are in
 nnoremap <silent> gin [{kt^(b*

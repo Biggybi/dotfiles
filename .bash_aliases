@@ -77,7 +77,7 @@ alias cip='xsel -b'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
-alias cdinstall='cd $H/Documents/Install/Ubuntu'
+alias cdinstall='cd ~/Documents/Install/Ubuntu'
 alias cd42='cd $H/42'
 alias echoh='echo $H'
 
