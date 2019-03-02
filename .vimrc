@@ -184,7 +184,7 @@ map <Leader>cn :cn<CR>
 map <Leader>cp :cp<CR>
 map <Leader>cl :clist<CR>
 map <Leader>cw :cwindow<CR>
-autocmd QuickFixCmdPost [^l]* nested botright cwindow
+autocmd QuickFixCmdPost [^l]* nested botright copen
 autocmd QuickFixCmdPost    l* nested botright lwindo
 
 " Shell : outputs shell in new vim window
@@ -218,6 +218,10 @@ map <C-j> :wincmd j<CR>
 map <C-k> :wincmd k<CR>
 map <C-l> :wincmd l<CR>
 imap <C-w> <C-o><C-w>
+
+" resize windows quicker
+vertical resize +5
+vertical resize -5
 
 " <c-z> will work in insert mode
 inoremap <c-z> <c-c><c-z>
