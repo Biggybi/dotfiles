@@ -220,8 +220,10 @@ map <C-l> :wincmd l<CR>
 imap <C-w> <C-o><C-w>
 
 " resize windows quicker
-vertical resize +5
-vertical resize -5
+nnoremap <silent><C-w>> :vertical resize +10<CR>
+nnoremap <silent><C-w>< :vertical resize -10<CR>
+nnoremap <silent><C-w>+ :resize +10<CR>
+nnoremap <silent><C-w>- :resize -10<CR>
 
 " <c-z> will work in insert mode
 inoremap <c-z> <c-c><c-z>
