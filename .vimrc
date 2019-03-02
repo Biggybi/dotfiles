@@ -1,6 +1,6 @@
- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- " => General
- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " " automatic reload vimrc when modified
 " augroup myvimrc
@@ -24,6 +24,7 @@ set backspace=indent,eol,start
 
 " set a map leader for more key combos
 let mapleader = '\'
+inoremap \\ \
 
 " Tab control
 set noexpandtab " tabs ftw
@@ -117,7 +118,7 @@ set mat=2 " how many tenths of a second to blink
 set number
 set relativenumber
  " show buffer number
- set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 set autoindent " automatically set indent of new line
 set smartindent
@@ -177,7 +178,7 @@ let g:netrw_winsize = 20
 " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
 " (but not if it's already open). However, as part of the autocmd, this doesn't
 " seem to happen.
-map <Leader>cm :make re<CR><CR>
+map <Leader>cm :make re<CR><CR><CR>
 map <Leader>cc :cc<CR>
 map <Leader>cn :cn<CR>
 map <Leader>cp :cp<CR>
@@ -258,6 +259,7 @@ nmap <leader>{} {S{{<Esc>}S}<c-c>=%
 
 " put semicolon EOL
 inoremap <leader>; <C-o>m`<C-o>A;<C-o>``
+nnoremap <leader>; i<C-o>m`<C-o>A;<C-o>``<C-c>
 
 " put ; EOL
 " inoremap <leader>; <C-o>A;
@@ -286,7 +288,7 @@ inoremap <leader>; <C-o>m`<C-o>A;<C-o>``
 " Do not block cursor at first or last character of line
 
 "  create a new window if can't move to window
- 
+
 " map <C-h> :call WinMove('h')<cr>
 " map <C-j> :call WinMove('j')<cr>
 " map <C-k> :call WinMove('k')<cr>
