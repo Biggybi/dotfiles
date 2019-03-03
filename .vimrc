@@ -3,13 +3,15 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " " automatic reload vimrc when modified
+autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
 " augroup myvimrc
 " 	au!
 " 	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc silent so $MYVIMRC | if has('gui_running') | silent so $MYGVIMRC | endif
 " augroup END
 
+
 " source virc
-nnoremap <leader>so :so ~/.vimrc<CR>
+nnoremap <leader>sv :so $MYVIMRC<CR>
 " source colors
 nnoremap <leader>sc1 :so ~/.vim/colors/trikai.vim<CR>
 nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
@@ -17,25 +19,16 @@ nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
 " autosave file upon modification
 autocmd TextChanged,TextChangedI <buffer> silent write
 
-set scrolloff=10 " cursor shall not be to high nor to low
+let mapleader = '\'
 
+set history=1000 " default 20
+" set spell
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
 
 " make backspace behave in a sane manner
 set backspace=indent,eol,start
 
-" set a map leader for more key combos
-let mapleader = '\'
-inoremap \\ \
-
-" Tab control
-set noexpandtab " tabs ftw
-set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-set tabstop=4 " the visible width of tabs
-set softtabstop=4 " edit as if the tabs are 4 characters wide
-set shiftwidth=4 " number of spaces to use for indent and unindent
-set shiftround " round indent to a multiple of 'shiftwidth'
 
 set clipboard=unnamed
 
@@ -84,7 +77,6 @@ set colorcolumn=81
 "  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 "endif
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -96,22 +88,29 @@ set whichwrap+=<,>,h,l,[,]
 set visualbell
 " set wildmenu
 
+set scrolloff=10 " cursor shall not be to high nor to low
+set showcmd
+
+" Tab control
+set noexpandtab " tabs ftw
+set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set tabstop=4 " the visible width of tabs
+set softtabstop=4 " edit as if the tabs are 4 characters wide
+set shiftwidth=4 " number of spaces to use for indent and unindent
+set shiftround " round indent to a multiple of 'shiftwidth'
+
 set wildchar=<Tab> wildmenu wildmode=full
 set switchbuf=useopen " open buffers in their window if exist
 
 " Look
 syntax on
-colorscheme trikai
 
 "night theme
+	colorscheme trikai
 let hour = strftime("%H")
 if 6 <= hour && hour < 18
 	colorscheme trikai_light
 endif
-
-"-> set in molokai
-"colorscheme delek
-"colorscheme Kafka
 
 " Searching
 set ignorecase " case insensitive searching
@@ -215,7 +214,6 @@ function! s:RunShellCommand(cmdline)
   call setline(3,substitute(getline(2),'.','=','g'))
   execute '$read !'. expanded_cmdline
   setlocal nomodifiable
-  1
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
