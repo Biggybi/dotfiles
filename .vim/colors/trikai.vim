@@ -18,9 +18,6 @@
 "         syntax reset
 "     endif
 " endif
-let g:colors_name="trikai"
-" let g:colors_name="molokai"
-
 "
 " if exists("g:molokai_original")
 "     let s:molokai_original = g:molokai_original
@@ -28,6 +25,7 @@ let g:colors_name="trikai"
 "     let s:molokai_original = 0
 " endif
 
+set background=dark
 
 hi TrailingWhiteSpace ctermbg=203 guibg=red
 hi Boolean         guifg=#AE81FF
@@ -80,8 +78,8 @@ hi PreCondit       guifg=#A6E22E               gui=bold
 hi PreProc         guifg=#A6E22E
 hi Question        guifg=#66D9EF
 hi Repeat          guifg=#F92672               gui=bold
-"hi Search          guifg=#000000 guibg=#FFE792
-hi Search          ctermfg=233   ctermbg=250   cterm=NONE
+" hi Search          guifg=#000000 guibg=#FFE792
+hi Search          ctermfg=250   ctermbg=241   cterm=NONE
 
 " marks
 hi SignColumn      guifg=#A6E22E guibg=#232526
@@ -117,17 +115,6 @@ hi TabLineFill     guifg=#1B1D1E guibg=#1B1D1E gui=bold
 " hi TabLine         guibg=#1B1D1E guifg=#808080 gui=none
 hi TabLine         guibg=#1B1D1E guifg=#1B1D1E gui=bold
 
-" if s:molokai_original == 1
-"    hi Normal          guifg=#F8F8F2 guibg=#272822
-"    hi Comment         guifg=#75715E
-"    hi CursorLine                    guibg=#3E3D32
-"    hi CursorLineNr    guifg=#FD971F               gui=none
-"    hi CursorColumn                  guibg=#3E3D32
-"    hi ColorColumn                   guibg=#3B3A32
-"    hi LineNr          guifg=#BCBCBC guibg=#3B3A32
-"    hi NonText         guifg=#75715E
-"    hi SpecialKey      guifg=#75715E
-" else
    hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
    hi Comment         guifg=#7E8E91
    hi CursorLine                    guibg=#293739
@@ -138,21 +125,12 @@ hi TabLine         guibg=#1B1D1E guifg=#1B1D1E gui=bold
    hi LineNr          guifg=#465457 guibg=#232526
    hi NonText         guifg=#465457
    hi SpecialKey      guifg=#465457
-"end
 
-"
-" Support for 256-color terminal
-"
 if &t_Co > 255
-"  if s:molokai_original == 1
-"     hi Normal                   ctermbg=234
-"     hi CursorLine               ctermbg=235   cterm=none
-"     hi CursorLineNr ctermfg=208               cterm=none
-"  else
-      hi Normal       ctermfg=252 ctermbg=233
+      hi Normal       ctermfg=252 ctermbg=234
+"       hi Normal       ctermfg=252 ctermbg=233
       hi CursorLine               ctermbg=234   cterm=none
       hi CursorLineNr ctermfg=208               cterm=none
-"  endif
    hi Boolean         ctermfg=135
    hi Character       ctermfg=144
    hi Number          ctermfg=135
@@ -171,17 +149,21 @@ if &t_Co > 255
 
    hi Directory       ctermfg=118               cterm=bold
    hi Error           ctermfg=219 ctermbg=89
-   hi ErrorMsg        ctermfg=199 ctermbg=16    cterm=bold
+   hi ErrorMsg        ctermfg=199 ctermbg=234    cterm=bold
+"    hi ErrorMsg        ctermfg=199 ctermbg=234    cterm=bold
    hi Exception       ctermfg=118               cterm=bold
    hi Float           ctermfg=135
-   hi FoldColumn      ctermfg=67  ctermbg=16
-   hi Folded          ctermfg=67  ctermbg=16
+   hi FoldColumn      ctermfg=67  ctermbg=234
+   hi Folded          ctermfg=67  ctermbg=234
+"    hi FoldColumn      ctermfg=67  ctermbg=234
+"    hi Folded          ctermfg=67  ctermbg=234
    hi Function        ctermfg=112
 "    hi Function        ctermfg=118
    hi Identifier      ctermfg=208               cterm=none
 "    hi Identifier      ctermfg=208               cterm=none
    hi Ignore          ctermfg=244 ctermbg=232
-   hi IncSearch       ctermfg=193 ctermbg=16
+   hi IncSearch       ctermfg=193 ctermbg=234
+"    hi IncSearch       ctermfg=193 ctermbg=234
 
    hi keyword         ctermfg=161               cterm=bold
    hi Label           ctermfg=229               cterm=none
@@ -195,7 +177,8 @@ if &t_Co > 255
    hi Operator        ctermfg=161
 
    " complete menu
-   hi Pmenu           ctermfg=81  ctermbg=16
+   hi Pmenu           ctermfg=81  ctermbg=234
+"    hi Pmenu           ctermfg=81  ctermbg=234
    hi PmenuSel        ctermfg=255 ctermbg=242
    hi PmenuSbar                   ctermbg=232
    hi PmenuThumb      ctermfg=81
@@ -204,9 +187,6 @@ if &t_Co > 255
    hi PreProc         ctermfg=118
    hi Question        ctermfg=81
    hi Repeat          ctermfg=161               cterm=bold
-   "hi Search          ctermfg=0   ctermbg=222   cterm=NONE
-"    hi Search          ctermfg=233   ctermbg=250   cterm=NONE
-   hi Search          ctermfg=203   ctermbg=224   cterm=NONE
 
    " marks column
    hi SignColumn      ctermfg=118 ctermbg=235
@@ -236,15 +216,14 @@ if &t_Co > 255
    hi VisualNOS                   ctermbg=238
    hi Visual                      ctermbg=235
    hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
-   hi WildMenu        ctermfg=81  ctermbg=16
+   hi WildMenu        ctermfg=81  ctermbg=234
+"    hi WildMenu        ctermfg=81  ctermbg=234
 
    hi Comment         ctermfg=59
    hi CursorColumn                ctermbg=236
    "hi ColorColumn                 ctermbg=236
-   "hi StatusLine      ctermfg=238 ctermbg=253
-"    hi ColorColumn                 ctermbg=238
-   hi ColorColumn                 ctermbg=234
-   hi LineNr          ctermfg=250 ctermbg=233
+   hi ColorColumn                 ctermbg=235
+   hi LineNr          ctermfg=250 ctermbg=234
 "    hi LineNr          ctermfg=250 ctermbg=236
    hi CursorLineNr    ctermfg=208 ctermbg=235   cterm=none
    hi NonText         ctermfg=59
