@@ -1,1 +1,0 @@
-/home/biggybi/.dotfiles/.vim

@@ -12,6 +12,7 @@ autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
 
 " source virc
 nnoremap <leader>sv :so $MYVIMRC<CR>
+nnoremap <leader>vv :so $MYVIMRC<CR>
 " source colors
 nnoremap <leader>sc1 :so ~/.vim/colors/trikai.vim<CR>
 nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
@@ -20,8 +21,10 @@ nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
 autocmd TextChanged,TextChangedI <buffer> silent write
 
 let mapleader = '\'
-
+nnoremap <C-w><C-e> :w<CR>
+inoremap <C-w><C-e> <Esc>:w<CR>a
 set history=1000 " default 20
+
 " set spell
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
@@ -105,7 +108,7 @@ set switchbuf=useopen " open buffers in their window if exist
 " Look
 syntax on
 
-"night theme
+" night theme
 	colorscheme trikai
 let hour = strftime("%H")
 if 6 <= hour && hour < 18
@@ -187,12 +190,12 @@ let g:netrw_winsize = 20
 " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
 " (but not if it's already open). However, as part of the autocmd, this doesn't
 " seem to happen.
-map <Leader>cm :make re<CR><CR><CR>
-map <Leader>cc :cc<CR>
-map <Leader>cn :cn<CR>
-map <Leader>cp :cp<CR>
-map <Leader>cl :clist<CR>
-map <Leader>cw :cwindow<CR>
+nnoremap <Leader>cm :make re<CR><CR><CR>
+nnoremap <Leader>cc :cc<CR>
+nnoremap <Leader>cn :cn<CR>
+nnoremap <Leader>cp :cp<CR>
+nnoremap <Leader>cl :clist<CR>
+nnoremap <Leader>cw :cwindow<CR>
 autocmd QuickFixCmdPost [^l]* nested botright copen
 autocmd QuickFixCmdPost    l* nested botright lwindo
 
@@ -209,9 +212,8 @@ function! s:RunShellCommand(cmdline)
   endfor
   vert new
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  call setline(1, 'You entered:    ' . a:cmdline)
-  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
-  call setline(3,substitute(getline(2),'.','=','g'))
+  call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
+  call setline(2,substitute(getline(1),'.','=','g'))
   execute '$read !'. expanded_cmdline
   setlocal nomodifiable
 endfunction
@@ -228,9 +230,9 @@ map <C-l> :wincmd l<CR>
 imap <C-w> <C-o><C-w>
 
 " resize windows quicker
-nnoremap <silent><C-w>> :vertical resize +10<CR>
-nnoremap <silent><C-w>< :vertical resize -10<CR>
-nnoremap <silent><C-w>+ :resize +10<CR>
+nnoremap <silent><C-w>. :vertical resize +10<CR>
+nnoremap <silent><C-w>, :vertical resize -10<CR>
+nnoremap <silent><C-w>= :resize +10<CR>
 nnoremap <silent><C-w>- :resize -10<CR>
 
 " <c-z> will work in insert mode
@@ -336,8 +338,9 @@ nnoremap <silent><CR> :nohlsearch<CR><CR>
 
 " search and reaplace
 " For local replace
-nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+nnoremap gr gd:s/<C-R>///gc<left><left><left>
 " For global replace
+nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
 
