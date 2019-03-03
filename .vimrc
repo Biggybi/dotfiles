@@ -10,9 +10,12 @@
 
 " source virc
 nnoremap <leader>so :so ~/.vimrc<CR>
+" source colors
+nnoremap <leader>sc1 :so ~/.vim/colors/trikai.vim<CR>
+nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
 
 " autosave file upon modification
-" autocmd TextChanged,TextChangedI <buffer> silent write
+autocmd TextChanged,TextChangedI <buffer> silent write
 
 set scrolloff=10 " cursor shall not be to high nor to low
 
@@ -99,6 +102,13 @@ set switchbuf=useopen " open buffers in their window if exist
 " Look
 syntax on
 colorscheme trikai
+
+"night theme
+let hour = strftime("%H")
+if 6 <= hour && hour < 18
+	colorscheme trikai_light
+endif
+
 "-> set in molokai
 "colorscheme delek
 "colorscheme Kafka
