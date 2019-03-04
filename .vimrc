@@ -47,24 +47,27 @@ set showcmd
 
  " show buffer number
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set laststatus=2 " show the satus line all the time
+set laststatus=2			" show the satus line all the time
 
 set number
 set relativenumber
 
-set whichwrap+=<,>,h,l,[,] " free cursor betweem lines
-set scrolloff=10 " minumum lines before/after cursor
-set autoindent " automatically set indent of new line
+set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
+set scrolloff=10			" minumum lines before/after cursor
+set autoindent				" automatically set indent of new line
 set smartindent
 filetype indent on
 
 " Tab control
-set noexpandtab " tabs ftw
-set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-set tabstop=4 " the visible width of tabs
-set softtabstop=4 " edit as if the tabs are 4 characters wide
-set shiftwidth=4 " number of spaces to use for indent and unindent
-set shiftround " round indent to a multiple of 'shiftwidth'
+set noexpandtab				" tabs ftw
+set smarttab				" tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set tabstop=4				" the visible width of tabs
+set softtabstop=4			" edit as if the tabs are 4 characters wide
+set shiftwidth=4			" number of spaces to use for indent and unindent
+set shiftround				" round indent to a multiple of 'shiftwidth'
+
+set splitbelow				" default split below
+set splitright				" default split right
 " }}}
 " => Look / Theme {{{
 syntax on
@@ -301,6 +304,60 @@ nnoremap <silent> k gk
 " inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
 "             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 "
+" }}}
+" => Autocompletion {{{
+inoremap a a<C-n><C-p>
+inoremap b b<C-n><C-p>
+inoremap c c<C-n><C-p>
+inoremap d d<C-n><C-p>
+inoremap e e<C-n><C-p>
+inoremap f f<C-n><C-p>
+inoremap g g<C-n><C-p>
+inoremap h h<C-n><C-p>
+inoremap i i<C-n><C-p>
+inoremap j j<C-n><C-p>
+inoremap k k<C-n><C-p>
+inoremap l l<C-n><C-p>
+inoremap m m<C-n><C-p>
+inoremap n n<C-n><C-p>
+inoremap o o<C-n><C-p>
+inoremap p p<C-n><C-p>
+inoremap q q<C-n><C-p>
+inoremap r r<C-n><C-p>
+inoremap s s<C-n><C-p>
+inoremap t t<C-n><C-p>
+inoremap u u<C-n><C-p>
+inoremap v v<C-n><C-p>
+inoremap w w<C-n><C-p>
+inoremap x x<C-n><C-p>
+inoremap y y<C-n><C-p>
+inoremap z z<C-n><C-p>
+inoremap A A<C-n><C-p>
+inoremap B B<C-n><C-p>
+inoremap C C<C-n><C-p>
+inoremap D D<C-n><C-p>
+inoremap E E<C-n><C-p>
+inoremap F F<C-n><C-p>
+inoremap G G<C-n><C-p>
+inoremap H H<C-n><C-p>
+inoremap I I<C-n><C-p>
+inoremap J J<C-n><C-p>
+inoremap K K<C-n><C-p>
+inoremap L L<C-n><C-p>
+inoremap M M<C-n><C-p>
+inoremap N N<C-n><C-p>
+inoremap O O<C-n><C-p>
+inoremap P P<C-n><C-p>
+inoremap Q Q<C-n><C-p>
+inoremap R R<C-n><C-p>
+inoremap S S<C-n><C-p>
+inoremap T T<C-n><C-p>
+inoremap U U<C-n><C-p>
+inoremap V V<C-n><C-p>
+inoremap W W<C-n><C-p>
+inoremap X X<C-n><C-p>
+inoremap Y Y<C-n><C-p>
+inoremap Z Z<C-n><C-p>
 " }}}
 " => Window mapping {{{
 "move between windows with ctrl
