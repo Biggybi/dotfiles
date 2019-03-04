@@ -17,7 +17,9 @@ nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
 
 " edit vimrc
 map <leader>ev :vertical split ~/.vimrc<cr>
+
 " }}}
+
 " => General {{{
 let mapleader = '\'
 inoremap <C-w><C-e> <Esc>:w<CR>
@@ -36,7 +38,9 @@ set backspace=indent,eol,start
 
 " faster redrawing
 set ttyfast
+
 " }}}
+
 " => User Interface {{{
 set ruler
 set mouse=a
@@ -68,7 +72,9 @@ set shiftround				" round indent to a multiple of 'shiftwidth'
 
 set splitbelow				" default split below
 set splitright				" default split right
+
 " }}}
+
 " => Look / Theme {{{
 syntax on
 
@@ -84,7 +90,9 @@ set encoding=utf8
 let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 "
+
 " }}}
+
 " => Highlights / match {{{
 " highlight OverLength ctermbg=203 ctermfg=white guibg=#592928
 " match OverLength /\%81v.\+/
@@ -108,7 +116,9 @@ set colorcolumn=81
 "endif
 "
 set mat=2 " how many tenths of a second to blink
+
 " }}}
+
 " => File automation {{{
 " autosave file upon modification
 autocmd TextChanged,TextChangedI <buffer> silent write
@@ -128,7 +138,9 @@ au FileType php setl ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setl ofu=rubycomplete#Complete
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
 " }}}
+
 " => Code folding settings {{{
 " set foldmethod=syntax " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
@@ -141,7 +153,9 @@ inoremap <F9> <C-O>za
 nnoremap <F9> za
 onoremap <F9> <C-C>za
 vnoremap <F9> zf
+
 " }}}
+
 " => Quickfix {{{
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
@@ -159,7 +173,9 @@ nnoremap <Leader>cl :clist<CR>
 nnoremap <Leader>cw :cwindow<CR>
 autocmd QuickFixCmdPost [^l]* nested botright copen
 autocmd QuickFixCmdPost    l* nested botright lwindo
+
 " }}}
+
 " => Netrw {{{
 " Toggle Vexplore with <leader>f
 function! ToggleVExplorer()
@@ -196,7 +212,9 @@ let g:netrw_winsize = 20
 " augroup END
 " autocmd filetype netrw nnoremap <c-a> <cr>:wincmd W<cr>
 "
+
 " }}}
+
 " => Shell : shell output in new split {{{
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -216,7 +234,9 @@ function! s:RunShellCommand(cmdline)
   setlocal nomodifiable
 endfunction
 "
+
 " }}}
+
 " => Searching {{{
 set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
@@ -229,7 +249,6 @@ set switchbuf=useopen " open buffers in their window if exist
 
 set magic " Set magic on, for regex
 " auto show autocomplete omnibox
-" set completeopt=longest,menuone
 
 "Clear search highlight pressing Enter
 nnoremap <silent><CR> :nohlsearch<CR><CR>
@@ -237,7 +256,9 @@ nnoremap <silent><CR> :nohlsearch<CR><CR>
 nnoremap gr gd:s/<C-R>///gc<left><left><left>
 " For global sed replace
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
 " }}}
+
 " => Coding mappings {{{
 " auto close bracers
 " inoremap (      ();<Left><Left>
@@ -274,7 +295,9 @@ autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
 noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
 " }}}
+
 " => Mappings {{{
 
 " <c-z> will work in insert mode
@@ -304,8 +327,11 @@ nnoremap <silent> k gk
 " inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
 "             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 "
+
 " }}}
+
 " => Autocompletion {{{
+set completeopt=longest
 inoremap a a<C-n><C-p>
 inoremap b b<C-n><C-p>
 inoremap c c<C-n><C-p>
@@ -358,7 +384,14 @@ inoremap W W<C-n><C-p>
 inoremap X X<C-n><C-p>
 inoremap Y Y<C-n><C-p>
 inoremap Z Z<C-n><C-p>
+
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
 " }}}
+
 " => Window mapping {{{
 "move between windows with ctrl
 noremap <C-h> :wincmd h<CR>
