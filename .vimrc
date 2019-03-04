@@ -331,7 +331,8 @@ nnoremap <silent> k gk
 " }}}
 
 " => Autocompletion {{{
-set completeopt=longest
+
+set completeopt=longest,menuone
 inoremap a a<C-n><C-p>
 inoremap b b<C-n><C-p>
 inoremap c c<C-n><C-p>
@@ -425,4 +426,4 @@ function! WinMove(key)
 endfunction
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0:modelines=1:foldenable
+" vim:foldmethod=marker:foldlevel=0
