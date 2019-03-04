@@ -331,8 +331,7 @@ nnoremap <silent> k gk
 " }}}
 
 " => Autocompletion {{{
-
-set completeopt=longest,menuone
+set completeopt=menuone
 inoremap a a<C-n><C-p>
 inoremap b b<C-n><C-p>
 inoremap c c<C-n><C-p>
