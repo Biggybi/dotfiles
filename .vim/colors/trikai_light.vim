@@ -150,8 +150,8 @@ if &t_Co > 255
    hi ErrorMsg        ctermfg=208 ctermbg=242    cterm=bold
    hi Exception       ctermfg=70               cterm=bold
    hi Float           ctermfg=135
-   hi FoldColumn      ctermfg=67  ctermbg=16
-   hi Folded          ctermfg=67  ctermbg=16
+   hi FoldColumn      ctermfg=67  ctermbg=254
+   hi Folded          ctermfg=67  ctermbg=254
    hi Function        ctermfg=34
 "    hi Function        ctermfg=70
    hi Identifier      ctermfg=208               cterm=none

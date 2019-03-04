@@ -1,31 +1,46 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" => Vimrc wrap up {{{
+
+" wrap file up
+set foldmethod=marker
+set foldlevel=0
+set modelines=1
 
 " " automatic reload vimrc when modified
 autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
-" augroup myvimrc
-" 	au!
-" 	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc silent so $MYVIMRC | if has('gui_running') | silent so $MYGVIMRC | endif
-" augroup END
-
-
 " source virc
 nnoremap <leader>sv :so $MYVIMRC<CR>
 nnoremap <leader>vv :so $MYVIMRC<CR>
 " source colors
 nnoremap <leader>sc1 :so ~/.vim/colors/trikai.vim<CR>
 nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
+""
+" }}}
+" => code folding settings {{{
+set foldmethod=syntax " fold based on indent
+set foldnestmax=10 " deepest fold is 10 levels
+set nofoldenable " don't fold by default
+set foldlevel=1
+" automatily save and restore views (folding state of files)
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+" }}}
+" => General {{{
+
+" augroup myvimrc
+" 	au!
+" 	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc silent so $MYVIMRC | if has('gui_running') | silent so $MYGVIMRC | endif
+" augroup END
 
 " autosave file upon modification
 autocmd TextChanged,TextChangedI <buffer> silent write
 
 let mapleader = '\'
 nnoremap <C-w><C-e> :w<CR>
-inoremap <C-w><C-e> <Esc>:w<CR>a
+nnoremap <C-e><C-e> :w<CR>
+" inoremap <C-w><C-e> <Esc>:w<CR>
 set history=1000 " default 20
 
-" set spell
+" set spell " spell check
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
 
@@ -38,11 +53,10 @@ set clipboard=unnamed
 " faster redrawing
 set ttyfast
 
-" code folding settings
-set foldmethod=syntax " fold based on indent
-set foldnestmax=10 " deepest fold is 10 levels
-set nofoldenable " don't fold by default
-set foldlevel=1
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
 
 " open file where it was closed
 autocmd BufReadPost *
@@ -59,12 +73,13 @@ au FileType ruby,eruby setl ofu=rubycomplete#Complete
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
+" }}}
+" => Highlights / match {{{
 " highlight OverLength ctermbg=203 ctermfg=white guibg=#592928
 " match OverLength /\%81v.\+/
 
 " show traling whitespaces
 "highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
-highlight TrailingWhiteSpace ctermbg=203 guibg=red
 match TrailingWhiteSpace /\s\+$/
 autocmd BufWinEnter * match TrailingWhiteSpace /\s\+$/
 autocmd InsertEnter * match TrailingWhiteSpace /\s\+\%#\@<!$/
@@ -79,20 +94,40 @@ set colorcolumn=81
 "else
 "  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 "endif
+"
+" }}}
+" => Look / Theme {{{
+syntax on
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => User Interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme trikai
+" night theme
+let hour = strftime("%H")
+if 6 <= hour && hour < 18
+	colorscheme trikai_light
+endif
+
+" Code
+set encoding=utf8
+let base16colorspace=256  " Access colors present in 256 colorspace"
+set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
+"
+" }}}
+" => User Interface {{{
 set ruler
 set showcmd
 set mouse=a
 set showmode
-set whichwrap+=<,>,h,l,[,]
+set showcmd
 set visualbell
-" set wildmenu
+set wildmenu
+
+" Do not block cursor at first or last character of line
+set whichwrap+=<,>,h,l,[,]
 
 set scrolloff=10 " cursor shall not be to high nor to low
-set showcmd
+set autoindent " automatically set indent of new line
+set smartindent
+filetype indent on
 
 " Tab control
 set noexpandtab " tabs ftw
@@ -104,16 +139,6 @@ set shiftround " round indent to a multiple of 'shiftwidth'
 
 set wildchar=<Tab> wildmenu wildmode=full
 set switchbuf=useopen " open buffers in their window if exist
-
-" Look
-syntax on
-
-" night theme
-	colorscheme trikai
-let hour = strftime("%H")
-if 6 <= hour && hour < 18
-	colorscheme trikai_light
-endif
 
 " Searching
 set ignorecase " case insensitive searching
@@ -130,24 +155,31 @@ set mat=2 " how many tenths of a second to blink
 set number
 set relativenumber
  " show buffer number
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-
-set autoindent " automatically set indent of new line
-set smartindent
-filetype indent on
-
+set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set laststatus=2 " show the satus line all the time
-
-" Code
-set encoding=utf8
-let base16colorspace=256  " Access colors present in 256 colorspace"
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
-
 
 " auto show autocomplete omnibox
 " set completeopt=longest,menuone
-
-" netrw
+" }}}
+" => Quickfix {{{
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+nnoremap <Leader>cm :make re<CR><CR><CR>
+nnoremap <Leader>cc :cc<CR>
+nnoremap <Leader>cn :cn<CR>
+nnoremap <Leader>cp :cp<CR>
+nnoremap <Leader>cl :clist<CR>
+nnoremap <Leader>cw :cwindow<CR>
+autocmd QuickFixCmdPost [^l]* nested botright copen
+autocmd QuickFixCmdPost    l* nested botright lwindo
+" }}}
+" => Netrw {{{
 " Toggle Vexplore with <leader>f
 function! ToggleVExplorer()
   if exists("t:expl_buf_num")
@@ -170,6 +202,7 @@ function! ToggleVExplorer()
 endfunction
 nnoremap <silent> <leader>f :call ToggleVExplorer()<CR>
 
+" Netrw customization
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 2
@@ -181,25 +214,9 @@ let g:netrw_winsize = 20
 "   autocmd VimEnter * :Vexplore
 " augroup END
 " autocmd filetype netrw nnoremap <c-a> <cr>:wincmd W<cr>
-
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
 "
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-nnoremap <Leader>cm :make re<CR><CR><CR>
-nnoremap <Leader>cc :cc<CR>
-nnoremap <Leader>cn :cn<CR>
-nnoremap <Leader>cp :cp<CR>
-nnoremap <Leader>cl :clist<CR>
-nnoremap <Leader>cw :cwindow<CR>
-autocmd QuickFixCmdPost [^l]* nested botright copen
-autocmd QuickFixCmdPost    l* nested botright lwindo
-
-" Shell : outputs shell in new vim window
+" }}}
+" => Shell : shell output in new split {{{
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
   echo a:cmdline
@@ -217,16 +234,15 @@ function! s:RunShellCommand(cmdline)
   execute '$read !'. expanded_cmdline
   setlocal nomodifiable
 endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" }}}
+" => Mappings {{{
 
 "move between windows with ctrl
-map <C-h> :wincmd h<CR>
-map <C-j> :wincmd j<CR>
-map <C-k> :wincmd k<CR>
-map <C-l> :wincmd l<CR>
+noremap <C-h> :wincmd h<CR>
+noremap <C-j> :wincmd j<CR>
+noremap <C-k> :wincmd k<CR>
+noremap <C-l> :wincmd l<CR>
 imap <C-w> <C-o><C-w>
 
 " resize windows quicker
@@ -277,9 +293,6 @@ nmap <leader>{} {S{{<Esc>}S}<c-c>=%
 inoremap <leader>; <C-o>m`<C-o>A;<C-o>``
 nnoremap <leader>; i<C-o>m`<C-o>A;<C-o>``<C-c>
 
-" put ; EOL
-" inoremap <leader>; <C-o>A;
-
 " " enter selects menu element
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "
@@ -296,12 +309,10 @@ nnoremap <leader>; i<C-o>m`<C-o>A;<C-o>``<C-c>
 " inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
 "             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 "
+"
+" }}}
+" => Functions {{{
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Do not block cursor at first or last character of line
 
 "  create a new window if can't move to window
 
@@ -342,11 +353,9 @@ nnoremap gr gd:s/<C-R>///gc<left><left><left>
 " For global replace
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Coding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" }}}
+" => Coding {{{
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
@@ -357,3 +366,5 @@ autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
 noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+" }}}
+" vim:foldmethod=marker:foldlevel=0
