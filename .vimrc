@@ -1,10 +1,10 @@
 " => Vimrc settings {{{
 
-" wrap file up
-set foldmethod=marker
-set foldlevel=0
-set modelines=1
-set nofoldenable " don't fold by default
+" wrap up vimrc
+" set foldmethod=marker
+" set foldlevel=0
+" set modelines=1
+" set nofoldenable " don't fold by default
 
 " " automatic reload vimrc when modified
 autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
@@ -127,7 +127,7 @@ au FileType ruby,eruby setl ofu=rubycomplete#Complete
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " }}}
 " => Code folding settings {{{
-set foldmethod=syntax " fold based on indent
+" set foldmethod=syntax " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
@@ -335,4 +335,4 @@ function! WinMove(key)
 endfunction
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldmethod=marker:foldlevel=0:modelines=1:foldenable
