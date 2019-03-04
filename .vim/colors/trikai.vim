@@ -180,7 +180,7 @@ if &t_Co > 255
    hi Pmenu           ctermfg=81  ctermbg=234
 "    hi Pmenu           ctermfg=81  ctermbg=234
    hi PmenuSel        ctermfg=255 ctermbg=242
-   hi PmenuSbar                   ctermbg=232
+   hi PmenuSbar                   ctermbg=240
    hi PmenuThumb      ctermfg=81
 
    hi PreCondit       ctermfg=118               cterm=bold

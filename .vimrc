@@ -9,11 +9,11 @@
 " " automatic reload vimrc when modified
 autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
 " source virc
-nnoremap <leader>sv :so $MYVIMRC<CR>
-nnoremap <leader>vv :so $MYVIMRC<CR>
+nnoremap <leader>sv <silent>:so $MYVIMRC<CR>
+nnoremap <leader>vv <silent>:so $MYVIMRC<CR>
 " source colors
-nnoremap <leader>sc1 :so ~/.vim/colors/trikai.vim<CR>
-nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
+nnoremap <leader>sc1 <silent>:so ~/.vim/colors/trikai.vim<CR>
+nnoremap <leader>sc2 <silent>:so ~/.vim/colors/trikai_light.vim<CR>
 
 " edit vimrc
 map <leader>ev :vertical split ~/.vimrc<cr>
@@ -22,10 +22,10 @@ map <leader>ev :vertical split ~/.vimrc<cr>
 
 " => General {{{
 let mapleader = '\'
-inoremap <C-w><C-e> <Esc>:w<CR>
-nnoremap <C-w><C-e> :w<CR>
+inoremap <C-w><C-e> <Esc><silent>:w<CR>
+noremap <C-w><C-e> <Esc><silent>:w<CR>
 
-" inoremap <C-w><C-e> <Esc>:w<CR>
+" inoremap <C-w><C-e> <Esc>iw<CR>
 set history=1000 " default 20
 
 set clipboard=unnamed
@@ -267,13 +267,13 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 " inoremap ()     ()
 
 " auto close brackets
-inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
+" inoremap {      {}<Left>
+" inoremap {{     {
+" inoremap {}     {}
 
 " put brackets around paragraph
-nmap <leader>{} {S{{<Esc>}S}<c-c>=%
+nnoremap <leader>{} {S{{<Esc>}S}<c-c>=%
 
 " put semicolon EOL
 inoremap <leader>; <C-o>m`<C-o>A;<C-o>``
@@ -311,88 +311,85 @@ nnoremap <silent> k gk
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
-" " enter selects menu element
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"
-" " better menu behavior (keeps element hihlighted, <CR> (enter) to select always)
+" }}}
+
+" => Autocompletion {{{
+
+" set completeopt=longest,menuone
+set completeopt=menuone
+" inoremap a a<C-n><C-p>
+" inoremap b b<C-n><C-p>
+" inoremap c c<C-n><C-p>
+" inoremap d d<C-n><C-p>
+" inoremap e e<C-n><C-p>
+" inoremap f f<C-n><C-p>
+" inoremap g g<C-n><C-p>
+" inoremap h h<C-n><C-p>
+" inoremap i i<C-n><C-p>
+" inoremap j j<C-n><C-p>
+" inoremap k k<C-n><C-p>
+" inoremap l l<C-n><C-p>
+" inoremap m m<C-n><C-p>
+" inoremap n n<C-n><C-p>
+" inoremap o o<C-n><C-p>
+" inoremap p p<C-n><C-p>
+" inoremap q q<C-n><C-p>
+" inoremap r r<C-n><C-p>
+" inoremap s s<C-n><C-p>
+" inoremap t t<C-n><C-p>
+" inoremap u u<C-n><C-p>
+" inoremap v v<C-n><C-p>
+" inoremap w w<C-n><C-p>
+" inoremap x x<C-n><C-p>
+" inoremap y y<C-n><C-p>
+" inoremap z z<C-n><C-p>
+" inoremap A A<C-n><C-p>
+" inoremap B B<C-n><C-p>
+" inoremap C C<C-n><C-p>
+" inoremap D D<C-n><C-p>
+" inoremap E E<C-n><C-p>
+" inoremap F F<C-n><C-p>
+" inoremap G G<C-n><C-p>
+" inoremap H H<C-n><C-p>
+" inoremap I I<C-n><C-p>
+" inoremap J J<C-n><C-p>
+" inoremap K K<C-n><C-p>
+" inoremap L L<C-n><C-p>
+" inoremap M M<C-n><C-p>
+" inoremap N N<C-n><C-p>
+" inoremap O O<C-n><C-p>
+" inoremap P P<C-n><C-p>
+" inoremap Q Q<C-n><C-p>
+" inoremap R R<C-n><C-p>
+" inoremap S S<C-n><C-p>
+" inoremap T T<C-n><C-p>
+" inoremap U U<C-n><C-p>
+" inoremap V V<C-n><C-p>
+" inoremap W W<C-n><C-p>
+" inoremap X X<C-n><C-p>
+" inoremap Y Y<C-n><C-p>
+" inoremap Z Z<C-n><C-p>
+
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 "   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 "   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"
-" " open omni completion menu closing previous if open and opening new menu without changing the text
+" 
+" " " enter selects menu element
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" " " better menu behavior (keeps element hihlighted, <CR> (enter) to select always)
+" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" " " open omni completion menu closing previous if open and opening new menu without changing the text
 " inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
-"             \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
-" " open user completion menu closing previous if open and opening new menu without changing the text
-" inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
-"             \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
-"
-
-" }}}
-
-" => Autocompletion {{{
-set completeopt=menuone
-inoremap a a<C-n><C-p>
-inoremap b b<C-n><C-p>
-inoremap c c<C-n><C-p>
-inoremap d d<C-n><C-p>
-inoremap e e<C-n><C-p>
-inoremap f f<C-n><C-p>
-inoremap g g<C-n><C-p>
-inoremap h h<C-n><C-p>
-inoremap i i<C-n><C-p>
-inoremap j j<C-n><C-p>
-inoremap k k<C-n><C-p>
-inoremap l l<C-n><C-p>
-inoremap m m<C-n><C-p>
-inoremap n n<C-n><C-p>
-inoremap o o<C-n><C-p>
-inoremap p p<C-n><C-p>
-inoremap q q<C-n><C-p>
-inoremap r r<C-n><C-p>
-inoremap s s<C-n><C-p>
-inoremap t t<C-n><C-p>
-inoremap u u<C-n><C-p>
-inoremap v v<C-n><C-p>
-inoremap w w<C-n><C-p>
-inoremap x x<C-n><C-p>
-inoremap y y<C-n><C-p>
-inoremap z z<C-n><C-p>
-inoremap A A<C-n><C-p>
-inoremap B B<C-n><C-p>
-inoremap C C<C-n><C-p>
-inoremap D D<C-n><C-p>
-inoremap E E<C-n><C-p>
-inoremap F F<C-n><C-p>
-inoremap G G<C-n><C-p>
-inoremap H H<C-n><C-p>
-inoremap I I<C-n><C-p>
-inoremap J J<C-n><C-p>
-inoremap K K<C-n><C-p>
-inoremap L L<C-n><C-p>
-inoremap M M<C-n><C-p>
-inoremap N N<C-n><C-p>
-inoremap O O<C-n><C-p>
-inoremap P P<C-n><C-p>
-inoremap Q Q<C-n><C-p>
-inoremap R R<C-n><C-p>
-inoremap S S<C-n><C-p>
-inoremap T T<C-n><C-p>
-inoremap U U<C-n><C-p>
-inoremap V V<C-n><C-p>
-inoremap W W<C-n><C-p>
-inoremap X X<C-n><C-p>
-inoremap Y Y<C-n><C-p>
-inoremap Z Z<C-n><C-p>
-
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
+"              \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+" 
 " }}}
 
 " => Window mapping {{{
+
 "move between windows with ctrl
 noremap <C-h> :wincmd h<CR>
 noremap <C-j> :wincmd j<CR>
@@ -406,10 +403,10 @@ nnoremap <silent><C-w>, :vertical resize -10<CR>
 nnoremap <silent><C-w>= :resize +10<CR>
 nnoremap <silent><C-w>- :resize -10<CR>
 
-map <C-w><C-h> :call WinMove('h')<cr>
-map <C-w><C-j> :call WinMove('j')<cr>
-map <C-w><C-k> :call WinMove('k')<cr>
-map <C-w><C-l> :call WinMove('l')<cr>
+noremap <C-w><C-h> :call WinMove('h')<cr>
+noremap <C-w><C-j> :call WinMove('j')<cr>
+noremap <C-w><C-k> :call WinMove('k')<cr>
+noremap <C-w><C-l> :call WinMove('l')<cr>
 "  create a new window if can't move to window
 function! WinMove(key)
 	let t:curwin = winnr()
