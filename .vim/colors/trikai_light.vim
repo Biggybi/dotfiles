@@ -135,7 +135,7 @@ if &t_Co > 255
    hi String          ctermfg=100
    hi Conditional     ctermfg=161               cterm=bold
    hi Constant        ctermfg=135               cterm=bold
-   hi Cursor          ctermfg=16  ctermbg=25
+   hi Cursor          ctermfg=239  ctermbg=25
    hi Debug           ctermfg=225               cterm=bold
 
    hi Delimiter       ctermfg=241
@@ -157,7 +157,7 @@ if &t_Co > 255
    hi Identifier      ctermfg=208               cterm=none
 "    hi Identifier      ctermfg=208               cterm=none
    hi Ignore          ctermfg=244 ctermbg=237
-   hi IncSearch       ctermfg=67 ctermbg=16
+   hi IncSearch       ctermfg=67 ctermbg=239
 
    hi keyword         ctermfg=161               cterm=bold
    hi Label           ctermfg=208               cterm=none
@@ -171,8 +171,8 @@ if &t_Co > 255
    hi Operator        ctermfg=161
 
    " complete menu
-   hi Pmenu           ctermfg=69  ctermbg=16
-   hi PmenuSel        ctermfg=255 ctermbg=242
+   hi Pmenu           ctermfg=253 ctermbg=239
+   hi PmenuSel        ctermfg=255 ctermbg=236
    hi PmenuSbar                   ctermbg=237
    hi PmenuThumb      ctermfg=69
 
@@ -209,7 +209,7 @@ if &t_Co > 255
    hi VisualNOS                   ctermbg=238
    hi Visual                      ctermbg=250
    hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
-   hi WildMenu        ctermfg=69  ctermbg=16
+   hi WildMenu        ctermfg=69  ctermbg=239
 
    hi Comment         ctermfg=59
    hi CursorColumn                ctermbg=236
