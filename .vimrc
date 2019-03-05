@@ -12,8 +12,8 @@ autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
 nnoremap <leader>sv <silent>:so $MYVIMRC<CR>
 nnoremap <leader>vv <silent>:so $MYVIMRC<CR>
 " source colors
-nnoremap <leader>sc1 <silent>:so ~/.vim/colors/trikai.vim<CR>
-nnoremap <leader>sc2 <silent>:so ~/.vim/colors/trikai_light.vim<CR>
+nnoremap <leader>sc1 :so ~/.vim/colors/trikai.vim<CR>
+nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
 
 " edit vimrc
 map <leader>ev :vertical split ~/.vimrc<cr>
