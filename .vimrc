@@ -70,8 +70,8 @@ set softtabstop=4			" edit as if the tabs are 4 characters wide
 set shiftwidth=4			" number of spaces to use for indent and unindent
 set shiftround				" round indent to a multiple of 'shiftwidth'
 
-set splitbelow				" default split below
-set splitright				" default split right
+" set splitbelow				" default split below
+" set splitright				" default split right
 
 " }}}
 
@@ -218,20 +218,20 @@ let g:netrw_winsize = 20
 " => Shell : shell output in new split {{{
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
-  echo a:cmdline
-  let expanded_cmdline = a:cmdline
-  for part in split(a:cmdline, ' ')
-     if part[0] =~ '\v[%#<]'
-        let expanded_part = fnameescape(expand(part))
-        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-     endif
-  endfor
-  vert new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
-  call setline(2,substitute(getline(1),'.','=','g'))
-  execute '$read !'. expanded_cmdline
-  setlocal nomodifiable
+	echo a:cmdline
+	let expanded_cmdline = a:cmdline
+	for part in split(a:cmdline, ' ')
+		if part[0] =~ '\v[%#<]'
+			let expanded_part = fnameescape(expand(part))
+			let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+		endif
+	endfor
+	vert new
+	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+	call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
+	call setline(2,substitute(getline(1),'.','=','g'))
+	execute '$read !'. expanded_cmdline
+	setlocal nomodifiable
 endfunction
 "
 
@@ -276,8 +276,8 @@ inoremap {<CR>  {<CR>}<Esc>O
 nnoremap <leader>{} {S{{<Esc>}S}<c-c>=%
 
 " put semicolon EOL
-inoremap <leader>; <C-o>m`<C-o>A;<C-o>``
-nnoremap <leader>; i<C-o>m`<C-o>A;<C-o>``<C-c>
+inoremap <leader>; <C-o>m`<C-o>A;<Esc>``i
+nnoremap <leader>; i<C-o>m`<C-o>A;<Esc>``<Esc>
 
 " go to name of function you are in (needs a '()')
 nnoremap <silent> gid j[[h^t(b
