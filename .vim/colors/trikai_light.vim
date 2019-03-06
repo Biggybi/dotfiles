@@ -127,7 +127,7 @@ hi TabLine         guibg=#1B1D1E guifg=#1B1D1E gui=bold
 if &t_Co > 255
       hi Normal       ctermfg=235 ctermbg=254
 "       hi Normal       ctermfg=252 ctermbg=233
-      hi CursorLine               ctermbg=234   cterm=none
+      hi CursorLine               ctermbg=246   cterm=none
       hi CursorLineNr ctermfg=244               cterm=none
    hi Boolean         ctermfg=135
    hi Character       ctermfg=100
@@ -182,7 +182,7 @@ if &t_Co > 255
    hi Repeat          ctermfg=161               cterm=bold
 
    " marks column
-   hi SignColumn      ctermfg=70 ctermbg=235
+   hi SignColumn      ctermfg=70  ctermbg=235
    hi SpecialChar     ctermfg=161               cterm=bold
    hi SpecialComment  ctermfg=245               cterm=bold
    hi Special         ctermfg=69
