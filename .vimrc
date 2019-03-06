@@ -280,9 +280,9 @@ inoremap <leader>; <C-o>m`<C-o>A;<C-o>``
 nnoremap <leader>; i<C-o>m`<C-o>A;<C-o>``<C-c>
 
 " go to name of function you are in (needs a '()')
-nnoremap <silent> gid [[k^t(b
+nnoremap <silent> gid j[[h^t(b
 " go to next call of function you are in
-nnoremap <silent> gin [{kt^(b*
+nnoremap <silent> gin j[[h^t(b*
 " select all text in function
 nnoremap vif [{%v%
 
