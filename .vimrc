@@ -1,3 +1,47 @@
+" This is my awesome vimrc, still growing, still adjusting, still improvin
+
+" => Plugins {{{
+
+" set runtimepath+=$HOME/.vim/autoload/plug.vim
+call plug#begin('~/.vim/plugged')
+Plug 'https://github.com/Valloric/YouCompleteMe'
+Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'https://github.com/itchyny/lightline.vim'
+Plug 'https://github.com/airblade/vim-gitgutter'
+call plug#end()
+
+" lighline
+set noshowmode " do not show mode in status line
+
+" show git branch
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ 'inactive': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ }
+
+" gitgutter
+set updatetime=20 " refresh more frequently
+
+"
+" execute pathogen#infect()
+" runtime bundle/vim-fugitive/autoload/vim-fugitive.vim
+" runtime bundle/YouCompleteMe/autoload/YouCompleteMe.vim
+
+" set runtimepath+=$HOME/.vim/bundle/vim-pathogen
+" set rtp+=$HOME/.vim/bundle/YouCompleteMe
+
+" }}}
+
 " => Vimrc settings {{{
 
 " wrap up vimrc
@@ -6,14 +50,14 @@
 " set modelines=1
 " set nofoldenable " don't fold by default
 
-" " automatic reload vimrc when modified
-autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
-" source virc
-nnoremap <leader>sv <silent>:so $MYVIMRC<CR>
-nnoremap <leader>vv <silent>:so $MYVIMRC<CR>
+" automatically reload vimrc when modified
+" autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
+" source vimrc
+nnoremap <leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
 " source colors
-nnoremap <leader>sc1 :so ~/.vim/colors/trikai.vim<CR>
-nnoremap <leader>sc2 :so ~/.vim/colors/trikai_light.vim<CR>
+
+nnoremap <leader>sc1 :source ~/.vim/colors/trikai.vim<CR>
+nnoremap <leader>sc2 :source ~/.vim/colors/trikai_light.vim<CR>
 
 " edit vimrc
 map <leader>ev :vertical split ~/.vimrc<cr>
@@ -22,10 +66,10 @@ map <leader>ev :vertical split ~/.vimrc<cr>
 
 " => General {{{
 let mapleader = '\'
-inoremap <C-w><C-e> <Esc><silent>:w<CR>
-noremap <C-w><C-e> <Esc><silent>:w<CR>
+inoremap <C-w><C-e> <Esc><silent>:write<CR>
+nnoremap <C-w><C-e> <silent>:write<CR>
+cmap w!! %!sudo tee > /dev/null %
 
-" inoremap <C-w><C-e> <Esc>iw<CR>
 set history=1000 " default 20
 
 set clipboard=unnamed
@@ -42,6 +86,7 @@ set ttyfast
 " }}}
 
 " => User Interface {{{
+
 set ruler
 set mouse=a
 set visualbell
@@ -55,6 +100,8 @@ set laststatus=2			" show the satus line all the time
 
 set number
 set relativenumber
+
+set equalalways				" always equalize windows
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 set scrolloff=10			" minumum lines before/after cursor
@@ -76,10 +123,11 @@ set shiftround				" round indent to a multiple of 'shiftwidth'
 " }}}
 
 " => Look / Theme {{{
+
 syntax on
 
-colorscheme trikai
 " night theme
+colorscheme trikai
 let hour = strftime("%H")
 if 6 <= hour && hour < 18
 	colorscheme trikai_light
@@ -94,6 +142,7 @@ set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 " }}}
 
 " => Highlights / match {{{
+
 " highlight OverLength ctermbg=203 ctermfg=white guibg=#592928
 " match OverLength /\%81v.\+/
 
@@ -120,6 +169,7 @@ set mat=2 " how many tenths of a second to blink
 " }}}
 
 " => File automation {{{
+
 " autosave file upon modification
 autocmd TextChanged,TextChangedI <buffer> silent write
 set autoread " detect when a file is changed
@@ -142,13 +192,16 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " }}}
 
 " => Code folding settings {{{
-" set foldmethod=syntax " fold based on indent
+
+set foldmethod=syntax " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
 " automatily save and restore views (folding state of files)
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+" /!\ BREAKS VIMRC FOLDING
+" autocmd BufWinLeave *.* mkview
+" autocmd BufWinEnter *.* silent loadview
+
 inoremap <F9> <C-O>za
 nnoremap <F9> za
 onoremap <F9> <C-C>za
@@ -156,27 +209,8 @@ vnoremap <F9> zf
 
 " }}}
 
-" => Quickfix {{{
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-nnoremap <Leader>cm :make re<CR><CR><CR>
-nnoremap <Leader>cc :cc<CR>
-nnoremap <Leader>cn :cn<CR>
-nnoremap <Leader>cp :cp<CR>
-nnoremap <Leader>cl :clist<CR>
-nnoremap <Leader>cw :cwindow<CR>
-autocmd QuickFixCmdPost [^l]* nested botright copen
-autocmd QuickFixCmdPost    l* nested botright lwindo
-
-" }}}
-
 " => Netrw {{{
+
 " Toggle Vexplore with <leader>f
 function! ToggleVExplorer()
   if exists("t:expl_buf_num")
@@ -193,7 +227,7 @@ function! ToggleVExplorer()
   else
       exec '1wincmd w'
       Vexplore
-	  setlocal winfixwidth
+ 	  setlocal winfixwidth
       let t:expl_buf_num = bufnr("%")
   endif
 endfunction
@@ -204,18 +238,41 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
-let g:netrw_winsize = 20
+let g:netrw_winsize = -25
+let g:netrw_sort_sequence = '[\/]$,*' " sort folders on top
 " open netrw with vim
 " augroup ProjectDrawer
 "   autocmd!
 "   autocmd VimEnter * :Vexplore
 " augroup END
 " autocmd filetype netrw nnoremap <c-a> <cr>:wincmd W<cr>
-"
 
 " }}}
 
-" => Shell : shell output in new split {{{
+" => Quickfix {{{
+
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+
+nnoremap <Leader>cm :make re<CR><CR><CR>
+nnoremap <Leader>cc :cc<CR>
+nnoremap <Leader>cn :cn<CR>
+nnoremap <Leader>cp :cp<CR>
+nnoremap <Leader>cl :clist<CR>
+nnoremap <Leader>cw :cwindow<CR>
+autocmd QuickFixCmdPost [^l]* nested botright copen
+autocmd QuickFixCmdPost    l* nested botright lwindo
+
+" }}}
+
+" => Shell output in new split {{{
+
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
 	echo a:cmdline
@@ -233,22 +290,36 @@ function! s:RunShellCommand(cmdline)
 	execute '$read !'. expanded_cmdline
 	setlocal nomodifiable
 endfunction
-"
 
 " }}}
 
 " => Searching {{{
-set ignorecase " case insensitive searching
-set smartcase " case-sensitive if expresson contains a capital letter
-set hlsearch " highlight all searches
-set incsearch " set incremental search, like modern browsers
-set nolazyredraw " don't redraw while executing macros
 
-set wildchar=<Tab> wildmenu wildmode=full
-set switchbuf=useopen " open buffers in their window if exist
+set path+=**			" recursive path from current path
+" set incsearch
+set wildchar=<Tab>
+set wildmode=full
+
+set ignorecase			" case insensitive searching
+set smartcase			" case-sensitive if expresson contains a capital letter
+set hlsearch			" highlight all searches
+set incsearch			" set incremental search, like modern browsers
+set nolazyredraw		" don't redraw while executing macros
+
+set switchbuf=useopen	" open buffers in their window if exist (:sb nam)
+
+" ignore some files from fuzzy search
+set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
 
 set magic " Set magic on, for regex
-" auto show autocomplete omnibox
+
+" keep cursor in middle of screen while 
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 
 "Clear search highlight pressing Enter
 nnoremap <silent><CR> :nohlsearch<CR><CR>
@@ -260,6 +331,7 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 " }}}
 
 " => Coding mappings {{{
+
 " auto close bracers
 " inoremap (      ();<Left><Left>
 " inoremap (;  (<CR>)<Esc>O
@@ -307,6 +379,14 @@ inoremap <c-z> <c-c><c-z>
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
+" nnoremap <silent> j h
+" nnoremap <silent> k gj
+" nnoremap <silent> i gk
+" vnoremap <silent> j h
+" vnoremap <silent> k gj
+" vnoremap <silent> i gk
+" nnoremap <space> i
+
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
@@ -315,66 +395,18 @@ nnoremap <silent> k gk
 
 " => Autocompletion {{{
 
-" set completeopt=longest,menuone
-set completeopt=menuone
-" inoremap a a<C-n><C-p>
-" inoremap b b<C-n><C-p>
-" inoremap c c<C-n><C-p>
-" inoremap d d<C-n><C-p>
-" inoremap e e<C-n><C-p>
-" inoremap f f<C-n><C-p>
-" inoremap g g<C-n><C-p>
-" inoremap h h<C-n><C-p>
-" inoremap i i<C-n><C-p>
-" inoremap j j<C-n><C-p>
-" inoremap k k<C-n><C-p>
-" inoremap l l<C-n><C-p>
-" inoremap m m<C-n><C-p>
-" inoremap n n<C-n><C-p>
-" inoremap o o<C-n><C-p>
-" inoremap p p<C-n><C-p>
-" inoremap q q<C-n><C-p>
-" inoremap r r<C-n><C-p>
-" inoremap s s<C-n><C-p>
-" inoremap t t<C-n><C-p>
-" inoremap u u<C-n><C-p>
-" inoremap v v<C-n><C-p>
-" inoremap w w<C-n><C-p>
-" inoremap x x<C-n><C-p>
-" inoremap y y<C-n><C-p>
-" inoremap z z<C-n><C-p>
-" inoremap A A<C-n><C-p>
-" inoremap B B<C-n><C-p>
-" inoremap C C<C-n><C-p>
-" inoremap D D<C-n><C-p>
-" inoremap E E<C-n><C-p>
-" inoremap F F<C-n><C-p>
-" inoremap G G<C-n><C-p>
-" inoremap H H<C-n><C-p>
-" inoremap I I<C-n><C-p>
-" inoremap J J<C-n><C-p>
-" inoremap K K<C-n><C-p>
-" inoremap L L<C-n><C-p>
-" inoremap M M<C-n><C-p>
-" inoremap N N<C-n><C-p>
-" inoremap O O<C-n><C-p>
-" inoremap P P<C-n><C-p>
-" inoremap Q Q<C-n><C-p>
-" inoremap R R<C-n><C-p>
-" inoremap S S<C-n><C-p>
-" inoremap T T<C-n><C-p>
-" inoremap U U<C-n><C-p>
-" inoremap V V<C-n><C-p>
-" inoremap W W<C-n><C-p>
-" inoremap X X<C-n><C-p>
-" inoremap Y Y<C-n><C-p>
-" inoremap Z Z<C-n><C-p>
+set completeopt=longest,menuone
+" set completeopt=menuone
 
+inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>" "interfers with YCM
+
+" auto show autocomplete omnibox
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 "   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 "   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-" 
+"
 " " " enter selects menu element
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " " " better menu behavior (keeps element hihlighted, <CR> (enter) to select always)
@@ -385,28 +417,32 @@ set completeopt=menuone
 " " " open omni completion menu closing previous if open and opening new menu without changing the text
 " inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
 "              \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
-" 
+"
 " }}}
 
-" => Window mapping {{{
+" => Window behaviour / mappings {{{
+
+" open buffer in new vertical split
+nnoremap <leader>bb :vertical sbuffer<space>
+map <leader>bf :vertical wincmd f<CR>
 
 "move between windows with ctrl
 noremap <C-h> :wincmd h<CR>
 noremap <C-j> :wincmd j<CR>
 noremap <C-k> :wincmd k<CR>
 noremap <C-l> :wincmd l<CR>
-imap <C-w> <C-o><C-w>
+" imap <C-w> <C-o><C-w>
 
 " resize windows quicker
-nnoremap <silent><C-w>. :vertical resize +10<CR>
-nnoremap <silent><C-w>, :vertical resize -10<CR>
-nnoremap <silent><C-w>= :resize +10<CR>
-nnoremap <silent><C-w>- :resize -10<CR>
+nnoremap <silent><C-w><C-.> :vertical resize +10<CR>
+nnoremap <silent><C-w><C-,> :vertical resize -10<CR>
+nnoremap <silent><C-w><C-=> :resize +10<CR>
+nnoremap <silent><C-w><C--> :resize -10<CR>
 
-noremap <C-w><C-h> :call WinMove('h')<cr>
-noremap <C-w><C-j> :call WinMove('j')<cr>
-noremap <C-w><C-k> :call WinMove('k')<cr>
-noremap <C-w><C-l> :call WinMove('l')<cr>
+nnoremap <C-w><C-h> :call WinMove('h')<cr>
+nnoremap <C-w><C-j> :call WinMove('j')<cr>
+nnoremap <C-w><C-k> :call WinMove('k')<cr>
+nnoremap <C-w><C-l> :call WinMove('l')<cr>
 "  create a new window if can't move to window
 function! WinMove(key)
 	let t:curwin = winnr()
@@ -422,4 +458,4 @@ function! WinMove(key)
 endfunction
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldmethod=marker:foldlevel=1:modelines=1
