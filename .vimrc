@@ -1,14 +1,30 @@
-" This is my awesome vimrc, still growing, still adjusting, still improvin
-
+" This is my awesome vimrc, still growing, still adjusting, still improving
 " => Plugins {{{
 
-" set runtimepath+=$HOME/.vim/autoload/plug.vim
-call plug#begin('~/.vim/plugged')
-Plug 'https://github.com/Valloric/YouCompleteMe'
-Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'https://github.com/itchyny/lightline.vim'
-Plug 'https://github.com/airblade/vim-gitgutter'
-call plug#end()
+execute pathogen#infect()
+
+" fugitive
+set diffopt+=vertical " vertical split for diff
+
+" YouCompleteMe
+let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
+
+" syntastic
+" let g:syntastic_c_config_file = ['$HOME/.dotfiles/.vim/c_errors_file']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" let g:syntastic_c_remove_include_errors = 1
+let g:syntastic_enable_c_checker = 1
+let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
+let g:ycm_use_clangd = 0
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " lighline
 set noshowmode " do not show mode in status line
@@ -31,14 +47,6 @@ let g:lightline = {
 
 " gitgutter
 set updatetime=20 " refresh more frequently
-
-"
-" execute pathogen#infect()
-" runtime bundle/vim-fugitive/autoload/vim-fugitive.vim
-" runtime bundle/YouCompleteMe/autoload/YouCompleteMe.vim
-
-" set runtimepath+=$HOME/.vim/bundle/vim-pathogen
-" set rtp+=$HOME/.vim/bundle/YouCompleteMe
 
 " }}}
 
@@ -129,7 +137,7 @@ syntax on
 " night theme
 colorscheme trikai
 let hour = strftime("%H")
-if 6 <= hour && hour < 18
+if 8 <= hour && hour < 18
 	colorscheme trikai_light
 endif
 
@@ -399,7 +407,6 @@ set completeopt=longest,menuone
 " set completeopt=menuone
 
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>" "interfers with YCM
 
 " auto show autocomplete omnibox
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' :

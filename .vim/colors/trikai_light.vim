@@ -221,43 +221,43 @@ if &t_Co > 255
 
    hi SpecialKey      ctermfg=59
 "
-"    if exists("g:rehash256") && g:rehash256 == 1
-"        hi Normal          ctermfg=252 ctermbg=236
-"        hi CursorLine                  ctermbg=236  cterm=none
-"        hi CursorLineNr    ctermfg=208 ctermbg      cterm=none
+   if exists("g:rehash256") && g:rehash256 == 1
+       hi Normal          ctermfg=252 ctermbg=236
+       hi CursorLine                  ctermbg=236  cterm=none
+       hi CursorLineNr    ctermfg=208 ctermbg      cterm=none
 "
-"        hi Boolean         ctermfg=141
-"        hi Character       ctermfg=222
-"        hi Number          ctermfg=141
-"        hi String          ctermfg=222
-"        hi Conditional     ctermfg=197              cterm=bold
-"        hi Constant        ctermfg=141              cterm=bold
+       hi Boolean         ctermfg=141
+       hi Character       ctermfg=222
+       hi Number          ctermfg=141
+       hi String          ctermfg=222
+       hi Conditional     ctermfg=197              cterm=bold
+       hi Constant        ctermfg=141              cterm=bold
 "
-"        hi DiffDelete      ctermfg=125 ctermbg=240
+       hi DiffDelete      ctermfg=125 ctermbg=240
 "
-"        hi Directory       ctermfg=34               cterm=bold
-"        hi Error           ctermfg=222 ctermbg=240
-"        hi Exception       ctermfg=34               cterm=bold
-"        hi Float           ctermfg=141
-"        hi Function        ctermfg=34
-"        hi Identifier      ctermfg=208
+       hi Directory       ctermfg=34               cterm=bold
+       hi Error           ctermfg=222 ctermbg=240
+       hi Exception       ctermfg=34               cterm=bold
+       hi Float           ctermfg=141
+       hi Function        ctermfg=34
+       hi Identifier      ctermfg=208
 "
-"        hi Keyword         ctermfg=197              cterm=bold
-"        hi Operator        ctermfg=197
-"        hi PreCondit       ctermfg=34               cterm=bold
-"        hi PreProc         ctermfg=34
-"        hi Repeat          ctermfg=197              cterm=bold
+       hi Keyword         ctermfg=197              cterm=bold
+       hi Operator        ctermfg=197
+       hi PreCondit       ctermfg=34               cterm=bold
+       hi PreProc         ctermfg=34
+       hi Repeat          ctermfg=197              cterm=bold
 "
-"        hi Statement       ctermfg=197              cterm=bold
-"        hi Tag             ctermfg=197
-"        hi Title           ctermfg=203
-"        hi Visual                      ctermbg=238
+       hi Statement       ctermfg=197              cterm=bold
+       hi Tag             ctermfg=197
+       hi Title           ctermfg=203
+       hi Visual                      ctermbg=238
 "
-"        hi Comment         ctermfg=244
-"        hi LineNr          ctermfg=239 ctermbg=235
-"        hi NonText         ctermfg=239
-"        hi SpecialKey      ctermfg=239
-"    endif
+       hi Comment         ctermfg=244
+       hi LineNr          ctermfg=239 ctermbg=235
+       hi NonText         ctermfg=239
+       hi SpecialKey      ctermfg=239
+   endif
 "
 end
 " " Must be at the end, because of ctermbg=234 bug.
