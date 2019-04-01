@@ -10,6 +10,3 @@
 [submodule ".vim/bundle/lightline"]
 	path = .vim/bundle/lightline
 	url = https://github.com/itchyny/lightline.vim
-[submodule ".vim/bundle/YouCompleteMe"]
-	path = .vim/bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe
