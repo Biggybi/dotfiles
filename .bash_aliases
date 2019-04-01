@@ -16,6 +16,9 @@ alias l='ls -CF'
 alias lsd='find . -type f -name ".*" | sed s/.*\\///'
 alias le='less'
 
+#df
+alias df='df -h'
+
 ## Mes alias
 
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
@@ -36,6 +39,7 @@ alias soalias='. ~/.bash_alias'
 
 alias dot='cd ~/.dotfiles'
 alias dots='git -C ~/.dotfiles status'
+alias dotclone='git clone https://github.com/biggybi/dotfiles'
 
 alias please='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'

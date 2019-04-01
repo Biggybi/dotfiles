@@ -8,6 +8,10 @@ case $- in
       *) return;;
 esac
 
+#disable flow control
+stty -ixon
+
+# remap CAPSLOCK to CTRL in Mac OS
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'

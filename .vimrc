@@ -1,69 +1,14 @@
 " This is my awesome vimrc, still growing, still adjusting, still improving
-" => Plugins {{{
-
-execute pathogen#infect()
-
-" fugitive
-set diffopt+=vertical " vertical split for diff
-
-" YouCompleteMe
-let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
-
-" syntastic
-" let g:syntastic_c_config_file = ['$HOME/.dotfiles/.vim/c_errors_file']
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_enable_c_checker = 1
-let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
-let g:ycm_use_clangd = 0
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" lighline
-set noshowmode " do not show mode in status line
-
-" show git branch
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ 'inactive': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ }
-
-" gitgutter
-set updatetime=20 " refresh more frequently
-
-" }}}
 
 " => Vimrc settings {{{
 
-" wrap up vimrc
-" set foldmethod=marker
-" set foldlevel=0
-" set modelines=1
-" set nofoldenable " don't fold by default
-
 " automatically reload vimrc when modified
 " autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
+
 " source vimrc
 nnoremap <leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
-" source colors
 
+" source colors
 nnoremap <leader>sc1 :source ~/.vim/colors/trikai.vim<CR>
 nnoremap <leader>sc2 :source ~/.vim/colors/trikai_light.vim<CR>
 
@@ -73,9 +18,13 @@ map <leader>ev :vertical split ~/.vimrc<cr>
 " }}}
 
 " => General {{{
-let mapleader = '\'
-inoremap <C-w><C-e> <Esc><silent>:write<CR>
-nnoremap <C-w><C-e> <silent>:write<CR>
+
+let mapleader = ' '
+
+inoremap jk <ESC>
+" inoremap <C-w><C-e> <Esc><silent>:write<CR>
+" nnoremap <C-w><C-e> <silent>:write<CR>
+noremap <C-s> :update<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
@@ -356,7 +305,7 @@ inoremap {<CR>  {<CR>}<Esc>O
 nnoremap <leader>{} {S{{<Esc>}S}<c-c>=%
 
 " put semicolon EOL
-inoremap <leader>; <C-o>m`<C-o>A;<Esc>``i
+" inoremap <leader>; <C-o>m`<C-o>A;<Esc>``i
 nnoremap <leader>; i<C-o>m`<C-o>A;<Esc>``<Esc>
 
 " go to name of function you are in (needs a '()')
@@ -463,6 +412,57 @@ function! WinMove(key)
           exec "wincmd ".a:key
       endif
 endfunction
+" }}}
+
+" => Plugins {{{
+
+execute pathogen#infect()
+
+" fugitive
+set diffopt+=vertical " vertical split for diff
+
+" YouCompleteMe
+let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
+
+" syntastic
+" let g:syntastic_c_config_file = ['$HOME/.dotfiles/.vim/c_errors_file']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" let g:syntastic_c_remove_include_errors = 1
+let g:syntastic_enable_c_checker = 1
+let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
+let g:ycm_use_clangd = 0
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" lighline
+set noshowmode " do not show mode in status line
+
+" show git branch
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ 'inactive': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ }
+
+" gitgutter
+set updatetime=20 " refresh more frequently
+
 " }}}
 
 " vim:foldmethod=marker:foldlevel=1:modelines=1

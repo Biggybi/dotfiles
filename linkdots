@@ -4,25 +4,25 @@ GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
 BACKUP=~/.dotfiles/dots_back
-FILES=(.bin
-	.vim
+FILES=(.vim
 	.vimrc
 	.bashrc
-	.bash_aliases)
+	.bash_aliases
+	.bin)
 
-LINK=(.bin
-	.vim
+LINK=(.vim
 	.vimrc
 	.bashrc
-	.bash_aliases)
+	.bash_aliases
+	.bin)
 
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-	LINK=(.bin
-		.vim
+	LINK=(.vim
 		.vimrc
 		.bash_profile
-		.bash_aliases)
+		.bash_aliases
+		.bin)
 fi
 
 if [ -d $SRC ]
@@ -30,6 +30,16 @@ then
 	echo "Not cloning : $SRC exists"
 else
 	git clone $GITURL $SRC
+fi
+
+if [[ $1 == "--git" ]] || [[ $1 == "-g" ]] || [[ $1 == "--plugins" ]]
+then
+	echo "Cloning plugins"
+	cd ${LINK[0]}
+	git submodule init
+	git submodule update
+else
+	echo "Plugin already installed"
 fi
 
 i=0
