@@ -2,6 +2,9 @@
 
 " => Vimrc settings {{{
 
+" pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+
 " automatically reload vimrc when modified
 " autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
 
