@@ -9,7 +9,7 @@ sudo apt install vim
 
 sudo apt install gnome-session
 sudo apt install gnome-tweaks
-apti chrome-gnome-shell
+sudo apt install chrome-gnome-shell
 
 sudo snap install spotify
 
