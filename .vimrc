@@ -16,7 +16,7 @@ nnoremap <leader>sc1 :source ~/.vim/colors/trikai.vim<CR>
 nnoremap <leader>sc2 :source ~/.vim/colors/trikai_light.vim<CR>
 
 " edit vimrc
-map <leader>ev :vertical split ~/.vimrc<cr>
+map <leader>ev :vertical split ~/.dotfiles/.vimrc<cr>
 
 " }}}
 
