@@ -22,12 +22,14 @@ map <leader>ev :vertical split ~/.dotfiles/.vimrc<cr>
 
 " => General {{{
 
-let mapleader = ' '
+" let mapleader = '\'
+let leader = '\'
 
 inoremap jk <ESC>
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
 noremap <C-s> :update<CR>
+inoremap <C-s> <ESC>:update<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
@@ -333,11 +335,18 @@ noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')
 " => Mappings {{{
 
 " <c-z> will work in insert mode
-inoremap <c-z> <c-c><c-z>
+inoremap <C-Z> <C-C><C-Z>
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
+
+
+" Copying/pasting text to the system clipboard.
+noremap  <leader>p "+p
+vnoremap <leader>y "+y
+nnoremap <leader>y VV"+y
+nnoremap <leader>Y "+y
 
 " nnoremap <silent> j h
 " nnoremap <silent> k gj
