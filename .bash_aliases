@@ -1,7 +1,7 @@
 H=~/101
 #H=/home/biggybi
 # color
-alias ls='ls -G'
+alias ls='ls -GhN --group-directories-first'
 alias dir='dir -G'
 alias vdir='vdir -G'
 
@@ -19,11 +19,16 @@ alias le='less'
 #df
 alias df='df -h'
 
-## Mes alias
+alias sen='sed -n'
+ #vi
 
-alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
-alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
-alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
+
+alias e="$EDITOR"
+alias v="vi"
+alias sv="sudo vi"
+
+
+## Mes alias
 
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
@@ -32,21 +37,25 @@ alias vibashrc='vi ~/.bashrc'
 alias vialias='vi ~/.bash_aliases'
 alias vimrc='vi ~/.vimrc'
 
+alias vifstab='sudo vi /etc/fstab'
+
 alias sobash='. ~/.bashrc'
 alias somacbash='. ~/.bash_profile'
 alias socolor='eval "$(dircolors ~/.dircolors)"'
-alias soalias='. ~/.bash_alias'
+alias soalias='. ~/.bash_aliases'
 
 alias dot='cd ~/.dotfiles'
 alias dots='git -C ~/.dotfiles status'
 alias dotclone='git clone https://github.com/biggybi/dotfiles'
 
 alias please='sudo $(fc -ln -1)'
+alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
-alias lcmd='echo $(fc -ln -1)'
+alias lcmd='echo "$(fc -ln -1)" | xargs'
 alias lcmdcp='lcmd | cip'
 alias hg='history | grep '
+alias ag='alias | grep '
 
 alias viit='vi $(fc -ln -1)'
 alias lsit='ls $(fc -ln -1)'
@@ -76,6 +85,7 @@ alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
 alias myopt='sudo dpkg -S /opt/*'
 
+alias pingg='ping -c 3 www.qwant.com'
 
 alias cip='xsel -b'
 alias ..='cd ..'
@@ -137,5 +147,9 @@ alias ydl='youtube-dl --audio-quality 0 '
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
+alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
+alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
+alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
+
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 

@@ -119,6 +119,7 @@ autocmd BufWinLeave * call clearmatches()
 
 "highlight ColorColumn ctermbg=9
 set colorcolumn=81
+set textwidth=81
 " let &colorcolumn=join(range(82,999),",")
 "if exists('+colorcolumn')
 "  set colorcolumn=80
@@ -262,6 +263,7 @@ set path+=**			" recursive path from current path
 set wildchar=<Tab>
 set wildmode=full
 
+
 set ignorecase			" case insensitive searching
 set smartcase			" case-sensitive if expresson contains a capital letter
 set hlsearch			" highlight all searches
@@ -275,13 +277,17 @@ set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/di
 
 set magic " Set magic on, for regex
 
-" keep cursor in middle of screen while 
+" keep cursor in middle of screen when searching
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
-nnoremap g# g#zz
+nnoremap g# g#
+
+"do not move cursor with match
+nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
+nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight pressing Enter
 nnoremap <silent><CR> :nohlsearch<CR><CR>
@@ -368,6 +374,10 @@ set completeopt=longest,menuone
 " set completeopt=menuone
 
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+inoremap <c-x>f <c-x><c-f>
+inoremap <c-x>] <c-x><c-]>
+inoremap <c-x>l <c-x><c-l>
 
 " auto show autocomplete omnibox
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' :

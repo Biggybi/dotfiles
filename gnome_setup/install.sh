@@ -1,28 +1,41 @@
-sudo apt update
-sudo apt upgrade
-sudo apt autoremove
+#!/bin/bash
 
-sudo apt install git
-sudo apt install make
-sudo apt install autotool
-sudo apt install gcc
-sudo apt install clang
-sudo apt install vim
+sudo apt-get update -qq
+sudo apt-get upgrade
+sudo apt-get autoremove
 
-sudo apt install gnome-session
-sudo apt install gnome-tweaks
-sudo apt install chrome-gnome-shell
+sudo apt-get install -yy git
+sudo apt-get install -yy make
+sudo apt-get install -yy cmake
+sudo apt-get install -yy autotool
+sudo apt-get install -yy gcc
+sudo apt-get install -yy build-essential
+
+sudo apt-get install -yy clang
+sudo apt-get install -yy openssh-server
+udo apt-get install -yy vim
+
+sudo apt-get install -yy gnome-session
+sudo apt-get install -yy gnome-tweaks
+sudo apt-get install -yy chrome-gnome-shell
 sudo update-alternatives --config gdm3.css
 
-sudo apt-get install libinput-tools
-sudo apt-get install xdotool
-sudo apt install xclip
+sudo apt-get-get install -yy libinput-tools
+sudo apt-get-get install -yy xdotool
+sudo apt-get-get install -yy curl
+sudo apt-get install -yy xclip
 
-sudo snap install spotify
+sudo ap-get install -yy vlc
+sudo snap install -yy spotify
 
-sudo apt update
-sudo apt upgrade
-sudo apt autoremove
+sudo apt-get update -qq
+sudo apt-get upgrade
+sudo apt-get autoremove
+
+sudo echo "vm.swapiness = 10" >> /etc/sysctl.conf
+
+#gdm3
+sudo apt-get install gdm3
 
 #copy extensions
 sudo cp -r extensions/* /usr/share/gnome-shell/extensions/
@@ -33,7 +46,7 @@ sudo cp -r themes/Materia-dark-compact /usr/share/themes
 
 #fusuma
 sudo gpasswd -a $USER input
-sudo snap install ruby
-gem install fusuma
+sudo snap install -yy ruby
+gem install -yy fusuma
 gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
 cp -r fusuma ~/.config
