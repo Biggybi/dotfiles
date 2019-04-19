@@ -1,14 +1,11 @@
 #!/bin/bash
 
 MOD=
-T1=174100
-T2=174130
-T3=174200
-TTEST=150300
-
-B1="the dark side of the moon wallpaper.jpeg"
-B2="the dark side of the moon wallpaper white.jpeg"
-B3="ubuntu-orange-1440x900.jpg"
+T1=100000
+T2=190000
+# B1="the dark side of the moon wallpaper white.jpeg"
+B1="the dark side of the moon wallpaper white.jpeg"
+B2="fond ecran ubuntu noir.png"
 
 P="/home/tris/Pictures/Wallpaper/"
 NIGHT="$Pdark/"
@@ -20,24 +17,15 @@ do
 	F2="0"
 	TIME=$(date +%H%M%S)
 	echo background=$F
-	echo $T1
-	echo $T2
-	echo $T3
-	echo $TIME
 
 	if (( $((10#$TIME)) >= $((10#$T1)) && $((10#$TIME)) < $((10#$T2)) ))
 	then
 		echo "Morning!"
 		F="$P$B1"
 		D="$DAY"
-	elif (( $((10#$TIME)) >= $((10#$T2)) && $((10#$TIME)) < $((10#$T3)) ))
-	then
-		echo "Day!"
-		F="$P$B2"
-		D="$NIGHT"
 	else
 		echo "Night!"
-		F="$P$B3"
+		F="$P$B2"
 	fi
 
 	if [[ $MOD == random ]]
@@ -46,15 +34,12 @@ do
 		D=$(find $D -type f | shuf -n 1)
 	fi
 
-	echo F = $F
-	echo F2 = $F2
-	echo D = $D
 	if [[ $F != $F2 ]]
 	then
 		echo "New background"
 		gsettings set org.gnome.desktop.background picture-uri "$F"
 	fi
 	F2=$F
-	sleep 10 &
+	sleep 60 &
 	wait
 done

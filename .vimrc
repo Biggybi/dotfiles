@@ -94,6 +94,7 @@ let hour = strftime("%H")
 if 8 <= hour && hour < 18
 	colorscheme trikai_light
 endif
+" hi Normal guibg=NONE ctermbg=NONE
 
 " Code
 set encoding=utf8
