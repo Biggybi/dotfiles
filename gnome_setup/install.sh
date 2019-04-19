@@ -23,16 +23,10 @@ sudo update-alternatives --config gdm3.css
 sudo apt-get-get install -yy libinput-tools
 sudo apt-get-get install -yy xdotool
 sudo apt-get-get install -yy curl
-sudo apt-get install -yy xclip
 
-sudo ap-get install -yy vlc
-sudo snap install -yy spotify
+# never prompt for upgrades
 
-sudo apt-get update -qq
-sudo apt-get upgrade
-sudo apt-get autoremove
-
-sudo echo "vm.swapiness = 10" >> /etc/sysctl.conf
+sudo sed -i s/Prompt=normal/Prompt=never/ /etc/update-manager/release-upgrades
 
 #gdm3
 sudo apt-get install gdm3
