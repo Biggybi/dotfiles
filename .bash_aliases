@@ -27,6 +27,8 @@ alias e="$EDITOR"
 alias v="vi"
 alias sv="sudo vi"
 
+## ssh
+alias sshhome='ssh biggybi@192.168.1.28'
 
 ## Mes alias
 
