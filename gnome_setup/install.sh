@@ -44,3 +44,7 @@ sudo snap install -yy ruby
 gem install -yy fusuma
 gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
 cp -r fusuma ~/.config
+
+# gnome theme
+gsettings set org.gnome.desktop.interface gtk-theme Materia-dark
+gsettings set org.gnome.desktop.interface gtk-theme Materia

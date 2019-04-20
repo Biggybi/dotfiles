@@ -20,10 +20,12 @@ do
 
 	if (( $((10#$TIME)) >= $((10#$T1)) && $((10#$TIME)) < $((10#$T2)) ))
 	then
+		MOMENT=day
 		echo "Morning!"
 		F="$P$B1"
 		D="$DAY"
 	else
+		MOMENT=night
 		echo "Night!"
 		F="$P$B2"
 	fi
@@ -32,6 +34,17 @@ do
 	then
 		echo "Random mod"
 		D=$(find $D -type f | shuf -n 1)
+	fi
+
+	if [[ $MOMENT == day ]]
+	then
+# 		echo day moment=$MOMENT
+		gsettings set org.gnome.desktop.wm.preferences theme "Materia-light"
+		gsettings set org.gnome.desktop.interface gtk-theme "Materia-light"
+	else
+# 		echo night moment=$MOMENT
+		gsettings set org.gnome.desktop.wm.preferences theme "Materia-dark"
+		gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
 	fi
 
 	if [[ $F != $F2 ]]
@@ -43,3 +56,4 @@ do
 	sleep 60 &
 	wait
 done
+gsettings set org.gnome.desktop.interface gtk-theme Materia-light
