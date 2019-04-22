@@ -10,10 +10,11 @@ sudo apt-get install -yy cmake
 sudo apt-get install -yy autotool
 sudo apt-get install -yy gcc
 sudo apt-get install -yy build-essential
+sudo apt-get install -yy ethtool			# WOL
 
 sudo apt-get install -yy clang
 sudo apt-get install -yy openssh-server
-udo apt-get install -yy vim
+sudo apt-get install -yy vim
 
 sudo apt-get install -yy gnome-session
 sudo apt-get install -yy gnome-tweaks
