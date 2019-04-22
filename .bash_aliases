@@ -49,6 +49,7 @@ alias soalias='. ~/.bash_aliases'
 alias dot='cd ~/.dotfiles'
 alias dots='git -C ~/.dotfiles status'
 alias dotclone='git clone https://github.com/biggybi/dotfiles'
+alias dotclssh='git clone git@github.com:Biggybi/dotfiles'
 
 alias please='sudo $(fc -ln -1)'
 alias pl='sudo $(fc -ln -1)'
