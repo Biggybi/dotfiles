@@ -1,7 +1,7 @@
 H=~/101
 #H=/home/biggybi
 # color
-alias ls='ls -GhN --group-directories-first'
+alias ls='ls -GhN --group-directories-first --color=auto'
 alias dir='dir -G'
 alias vdir='vdir -G'
 
