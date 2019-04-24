@@ -69,3 +69,5 @@ do
 	fi
 	let i=i+1
 done
+rm $SRC/.bin/.bin
+rm $SRC/.vim/.vim
