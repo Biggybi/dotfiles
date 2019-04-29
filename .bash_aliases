@@ -1,10 +1,11 @@
 H=~/101
 #H=/home/biggybi
 # color
-alias ls='ls -GhN --group-directories-first --color=auto'
-alias dir='dir -G'
-alias vdir='vdir -G'
+alias ls='ls -hN --group-directories-first --color=auto'
+alias dir='dir -color=auto'
+alias vdir='vdir --color=auto'
 
+#grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -34,6 +35,8 @@ alias sshhome='ssh biggybi@192.168.1.28'
 
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
+alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
+
 alias aliasme='. aliasme'
 alias vibashrc='vi ~/.bashrc'
 alias vialias='vi ~/.bash_aliases'

@@ -13,16 +13,17 @@ sudo apt-get install -yy build-essential
 
 sudo apt-get install -yy clang
 sudo apt-get install -yy openssh-server
-udo apt-get install -yy vim
+sudo apt-get install -yy vim
 
 sudo apt-get install -yy gnome-session
 sudo apt-get install -yy gnome-tweaks
 sudo apt-get install -yy chrome-gnome-shell
 sudo update-alternatives --config gdm3.css
 
-sudo apt-get-get install -yy libinput-tools
-sudo apt-get-get install -yy xdotool
-sudo apt-get-get install -yy curl
+sudo apt-get install -yy libinput-tools
+sudo apt-get install -yy xdotool
+sudo apt-get install -yy curl
+sudo apt-get install -yy lm-sensors
 
 # never prompt for upgrades
 
