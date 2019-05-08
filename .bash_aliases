@@ -20,10 +20,7 @@ alias le='less'
 #df
 alias df='df -h'
 
-alias sen='sed -n'
  #vi
-
-
 alias e="$EDITOR"
 alias v="vi"
 alias sv="sudo vi"
@@ -89,6 +86,7 @@ alias uuu='aptu && aptd && aptg'
 alias uu='aptu && aptg'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
+
 alias myopt='sudo dpkg -S /opt/*'
 
 alias pingg='ping -c 3 www.qwant.com'
@@ -98,7 +96,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
 alias cdinstall='cd ~/Documents/Install/Ubuntu'
-alias cd42='cd $H/42'
+alias cd101='cd $H'
 alias echoh='echo $H'
 
 alias lftcd='cd $H/lft'
@@ -142,7 +140,8 @@ alias gccf='gcc -Wall -Wextra '
 
 alias bc='bc -q'
 
-alias regex_ipv4='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
+alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
+# alias regex_ipv4='grep -Eo \([0-9]*.\){3}[^0-9]*'
 
 ## config : app icons
 alias cdapp='cd /usr/share/applications/'
@@ -159,3 +158,4 @@ alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
