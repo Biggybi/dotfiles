@@ -59,6 +59,7 @@ alias lcmd='echo "$(fc -ln -1)" | xargs'
 alias lcmdcp='lcmd | cip'
 alias hg='history | grep'
 alias ag='alias | grep'
+alias pg='ps -aux | grep'
 
 alias viit='vi $(fc -ln -1)'
 alias lsit='ls $(fc -ln -1)'

@@ -1,9 +1,11 @@
 #!/bin/bash
+#links files from FILES to their provided LINK
 
 GITURL=https://github.com/Biggybi/dotfiles
 SRC=~/.dotfiles
 DST=~
 BACKUP=~/.dotfiles/dots_back
+
 FILES=(.vim
 	.vimrc
 	.bashrc

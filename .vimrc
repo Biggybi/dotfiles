@@ -484,7 +484,16 @@ let g:lightline = {
       \ }
 
 " gitgutter
+if exists('&signcolumn')  " Vim 7.4.2201
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
+
 set updatetime=20 " refresh more frequently
+nnoremap ]h <Plug>GitGutterNextHunk
+nnoremap [h <Plug>GitGutterPrevHunk
+
 
 " }}}
 
