@@ -1,13 +1,12 @@
 #!/bin/bash
 
-MOD=
-T1=100000
+T1=093000
 T2=190000
-# B1="the dark side of the moon wallpaper white.jpeg"
-B1="the dark side of the moon wallpaper white.jpeg"
+B1="the dark side of the moon wallpaper grey.jpeg"
 B2="fond ecran ubuntu noir.png"
 
 P="/home/tris/Pictures/Wallpaper/"
+
 NIGHT="$Pdark/"
 DAY="$Pdark/"
 
@@ -38,13 +37,17 @@ do
 
 	if [[ $MOMENT == day ]]
 	then
-# 		echo day moment=$MOMENT
-		gsettings set org.gnome.desktop.wm.preferences theme "Materia-light"
+		#gsettings set org.gnome.desktop.wm.preferences theme "Materia-light"
 		gsettings set org.gnome.desktop.interface gtk-theme "Materia-light"
+		gsettings set org.gnome.shell.extensions.user-theme name "Materia-light"
+		cp ~/.dotfiles/gnome_setup/epiphany/light-stylesheet.css \
+			~/.local/share/epiphany/user-stylesheet.css
 	else
-# 		echo night moment=$MOMENT
-		gsettings set org.gnome.desktop.wm.preferences theme "Materia-dark"
+		#gsettings set org.gnome.desktop.wm.preferences theme "Materia-dark"
 		gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
+		gsettings set org.gnome.shell.extensions.user-theme name "Materia-light"
+		cp ~/.dotfiles/gnome_setup/epiphany/dark-stylesheet.css \
+			~/.local/share/epiphany/user-stylesheet.css
 	fi
 
 	if [[ $F != $F2 ]]
@@ -56,4 +59,3 @@ do
 	sleep 60 &
 	wait
 done
-gsettings set org.gnome.desktop.interface gtk-theme Materia-light

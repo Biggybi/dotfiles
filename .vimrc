@@ -34,7 +34,6 @@ cmap w!! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
 
-set clipboard=unnamed
 " set spell " spell check
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
@@ -84,43 +83,44 @@ set shiftround				" round indent to a multiple of 'shiftwidth'
 
 " }}}
 
-" => Look / Theme {{{
+" => look / theme {{{
 
 syntax on
 
 " night theme
-colorscheme trikai
 let hour = strftime("%H")
-if 8 <= hour && hour < 18
+if 9 <= hour && hour < 18
 	colorscheme trikai_light
+else
+	colorscheme trikai
 endif
-" hi Normal guibg=NONE ctermbg=NONE
+" hi normal guibg=none ctermbg=none
 
-" Code
+" code
 set encoding=utf8
-let base16colorspace=256  " Access colors present in 256 colorspace"
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
+let base16colorspace=256  " access colors present in 256 colorspace"
+set t_co=256 " explicitly tell vim that the terminal supports 256 colors"
 "
 
 " }}}
 
-" => Highlights / match {{{
+" => highlights / match {{{
 
-" highlight OverLength ctermbg=203 ctermfg=white guibg=#592928
-" match OverLength /\%81v.\+/
+" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
+" match overlength /\%81v.\+/
 
 " show traling whitespaces
-"highlight WhiteSpaceTrim ctermbg=203 ctermfg=white guibg=#592928
-highlight TrailingWhiteSpace ctermbg=203 guibg=red
-match TrailingWhiteSpace /\s\+$/
-autocmd BufWinEnter * match TrailingWhiteSpace /\s\+$/
-autocmd InsertEnter * match TrailingWhiteSpace /\s\+\%#\@<!$/
-autocmd InsertLeave * match TrailingWhiteSpace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+"highlight whitespacetrim ctermbg=203 ctermfg=white guibg=#592928
+highlight trailingwhitespace ctermbg=203 guibg=red
+match trailingwhitespace /\s\+$/
+autocmd bufwinenter * match trailingwhitespace /\s\+$/
+autocmd insertenter * match trailingwhitespace /\s\+\%#\@<!$/
+autocmd insertleave * match trailingwhitespace /\s\+$/
+autocmd bufwinleave * call clearmatches()
 
-"highlight ColorColumn ctermbg=9
+"highlight colorcolumn ctermbg=9
 set colorcolumn=81
-set textwidth=81
+" set textwidth=81
 " let &colorcolumn=join(range(82,999),",")
 "if exists('+colorcolumn')
 "  set colorcolumn=80
@@ -350,6 +350,7 @@ nnoremap <silent> k gk
 
 
 " Copying/pasting text to the system clipboard.
+" set clipboard=unnamed
 noremap  <leader>p "+p
 vnoremap <leader>y "+y
 nnoremap <leader>y VV"+y
@@ -464,7 +465,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" lighline
+" lightline
 set noshowmode " do not show mode in status line
 
 " show git branch
@@ -484,7 +485,16 @@ let g:lightline = {
       \ }
 
 " gitgutter
+if exists('&signcolumn')  " Vim 7.4.2201
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
+
 set updatetime=20 " refresh more frequently
+nnoremap ]h <Plug>GitGutterNextHunk
+nnoremap [h <Plug>GitGutterPrevHunk
+
 
 " }}}
 

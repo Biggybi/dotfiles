@@ -5,10 +5,10 @@ sudo apt-get upgrade
 sudo apt-get autoremove
 
 sudo apt-get install -yy git
+sudo apt-get install -yy gcc
 sudo apt-get install -yy make
 sudo apt-get install -yy cmake
-sudo apt-get install -yy autotool
-sudo apt-get install -yy gcc
+sudo apt-get install -yy autotools
 sudo apt-get install -yy build-essential
 sudo apt-get install -yy ethtool			# WOL
 
@@ -18,19 +18,20 @@ sudo apt-get install -yy vim
 
 sudo apt-get install -yy gnome-session
 sudo apt-get install -yy gnome-tweaks
+sudo apt-get install -yy dconf-editor
 sudo apt-get install -yy chrome-gnome-shell
-sudo update-alternatives --config gdm3.css
 
-sudo apt-get-get install -yy libinput-tools
-sudo apt-get-get install -yy xdotool
-sudo apt-get-get install -yy curl
+sudo apt-get install -yy libinput-tools
+sudo apt-get install -yy xdotool
+sudo apt-get install -yy curl
+sudo apt-get install -yy lm-sensors
 
 # never prompt for upgrades
-
 sudo sed -i s/Prompt=normal/Prompt=never/ /etc/update-manager/release-upgrades
 
 #gdm3
-sudo apt-get install gdm3
+sudo apt-get install -yy gdm3
+sudo update-alternatives --config gdm3.css
 
 #copy extensions
 sudo cp -r extensions/* /usr/share/gnome-shell/extensions/
