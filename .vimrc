@@ -92,6 +92,8 @@ colorscheme trikai
 let hour = strftime("%h")
 if 9 <= hour && hour < 18
 	colorscheme trikai_light
+else
+	colorscheme trikai
 endif
 " hi normal guibg=none ctermbg=none
 
