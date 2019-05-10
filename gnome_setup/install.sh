@@ -8,7 +8,8 @@ sudo apt-get install -yy git
 sudo apt-get install -yy gcc
 sudo apt-get install -yy make
 sudo apt-get install -yy cmake
-sudo apt-get install -yy autotools
+sudo apt-get install -yy autotools-dev
+sudo apt-get install -yy autoconf
 sudo apt-get install -yy build-essential
 sudo apt-get install -yy ethtool			# WOL
 
@@ -41,9 +42,10 @@ sudo cp -r themes/Materia-dark /usr/share/themes
 sudo cp -r themes/Materia-dark-compact /usr/share/themes
 
 #fusuma
+sudo apt-get install -yy ruby
 sudo gpasswd -a $USER input
-sudo snap install -yy ruby
-gem install -yy fusuma
+#sudo snap install --classic ruby
+gem install fusuma
 gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
 cp -r fusuma ~/.config
 

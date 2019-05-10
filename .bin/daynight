@@ -45,7 +45,7 @@ do
 	else
 		#gsettings set org.gnome.desktop.wm.preferences theme "Materia-dark"
 		gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
-		gsettings set org.gnome.shell.extensions.user-theme name "Materia-light"
+		gsettings set org.gnome.shell.extensions.user-theme name "Materia-dark"
 		cp ~/.dotfiles/gnome_setup/epiphany/dark-stylesheet.css \
 			~/.local/share/epiphany/user-stylesheet.css
 	fi
