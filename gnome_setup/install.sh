@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# home
+rm -rf /data/Books/
+rm -rf /data/Documents/
+rm -rf /data/Downloads/
+rm -rf /data/Games/
+rm -rf /data/Music/
+rm -rf /data/Pictures/
+rm -rf /data/Videos/
+
+ln -s /data/Books/ .
+ln -s /data/Documents/ .
+ln -s /data/Downloads/ .
+ln -s /data/Games/ .
+ln -s /data/Music/ .
+ln -s /data/Pictures/ .
+ln -s /data/Videos/ .
+
 sudo apt-get update -qq
 sudo apt-get upgrade
 sudo apt-get autoremove
