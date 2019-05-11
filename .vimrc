@@ -314,7 +314,7 @@ inoremap {<CR>  {<CR>}<Esc>O
 " inoremap {}     {}
 
 " put brackets around paragraph
-nnoremap <leader>{} {S{{<Esc>}S}<c-c>=%
+nnoremap <leader>{} {S{<Esc>}S}<c-c>=%
 
 " put semicolon EOL
 " inoremap <leader>; <C-o>m`<C-o>A;<Esc>``i
@@ -492,8 +492,8 @@ else
 endif
 
 set updatetime=20 " refresh more frequently
-nnoremap ]h <Plug>GitGutterNextHunk
-nnoremap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 
 
 " }}}

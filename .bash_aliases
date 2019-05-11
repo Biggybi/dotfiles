@@ -27,12 +27,14 @@ alias sv="sudo vi"
 
 ## ssh
 alias sshhome='ssh biggybi@192.168.1.28'
+alias sshpi='ssh pi@192.168.1.101 -p 42'
 
 ## Mes alias
 
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
+alias gnomexts='cd /usr/share/gnome-shell/extensions'
 
 alias aliasme='. aliasme'
 alias vibashrc='vi ~/.bashrc'
@@ -159,4 +161,5 @@ alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
+alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
+alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'

@@ -1,25 +1,27 @@
 #!/bin/bash
 
 # home
-rm -rf /data/Books/
-rm -rf /data/Documents/
-rm -rf /data/Downloads/
-rm -rf /data/Games/
-rm -rf /data/Music/
-rm -rf /data/Pictures/
-rm -rf /data/Videos/
+# sets media folders as simlinks to folders in DATA
+DATA=/data
+for f in $DATA/*
+do
+	f=$(basename $f)
+	echo $HOME/$f
+	echo f = $f
+	echo
+	rm -rf $HOME/$f
+	echo rm $HOME/$f
+	if ! [ -L $HOME/$f ]
+	then
+		ln -s $DATA/$f $HOME
+	fi
+done
 
-ln -s /data/Books/ .
-ln -s /data/Documents/ .
-ln -s /data/Downloads/ .
-ln -s /data/Games/ .
-ln -s /data/Music/ .
-ln -s /data/Pictures/ .
-ln -s /data/Videos/ .
+#programs install
 
 sudo apt-get update -qq
-sudo apt-get upgrade
-sudo apt-get autoremove
+sudo apt-get upgrade -y
+sudo apt-get autoremove -y
 
 sudo apt-get install -yy git
 sudo apt-get install -yy gcc
@@ -43,6 +45,10 @@ sudo apt-get install -yy libinput-tools
 sudo apt-get install -yy xdotool
 sudo apt-get install -yy curl
 sudo apt-get install -yy lm-sensors
+sudo apt-get install -yy xsel
+
+sudo apt-get install -yy vlc
+sudo apt-get install -yy epiphany-browser
 
 # never prompt for upgrades
 sudo sed -i s/Prompt=normal/Prompt=never/ /etc/update-manager/release-upgrades
@@ -56,13 +62,19 @@ sudo cp -r extensions/* /usr/share/gnome-shell/extensions/
 
 #set theme
 sudo cp -r themes/Materia-dark /usr/share/themes
+sudo cp -r themes/Materia-light /usr/share/themes
+sudo cp -r themes/Materia-light-compact /usr/share/themes
 sudo cp -r themes/Materia-dark-compact /usr/share/themes
+cp -r autostart $HOME/.config/autostart/
+
+#todo : cp wallpapers
+#mkdir $HOME/Wallpapers
 
 #fusuma
 sudo apt-get install -yy ruby
 sudo gpasswd -a $USER input
 #sudo snap install --classic ruby
-gem install fusuma
+sudo gem install fusuma
 gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
 cp -r fusuma ~/.config
 
