@@ -29,6 +29,9 @@ alias sv="sudo vi"
 alias sshhome='ssh biggybi@192.168.1.28'
 alias sshpi='ssh pi@192.168.1.101 -p 42'
 
+## various defaults
+alias dconf-editor='dcond-editor --I-understand-that-changing-options-can-break-applications'
+
 ## Mes alias
 
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
