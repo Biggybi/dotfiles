@@ -5,22 +5,22 @@ alias ls='ls -hN --group-directories-first --color=auto'
 alias dir='dir -color=auto'
 alias vdir='vdir --color=auto'
 
-#grep
+# grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-#ls
+# ls
 alias ll='ls -trhalF'
 alias la='ls -A'
 alias l='ls -CF'
 alias lsd='find . -type f -name ".*" | sed s/.*\\///'
 alias le='less'
 
-#df
+# df
 alias df='df -h'
 
- #vi
+# vi
 alias e="$EDITOR"
 alias v="vi"
 alias sv="sudo vi"
@@ -92,6 +92,9 @@ alias uuu='aptu && aptd && aptg'
 alias uu='aptu && aptg'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
+
+## Hardware info
+alias piserial='sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo'
 
 alias myopt='sudo dpkg -S /opt/*'
 
