@@ -97,7 +97,7 @@ alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
 
 ## Hardware info
-alias piserial='sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo'
+alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
 
 alias myopt='sudo dpkg -S /opt/*'
 
@@ -172,3 +172,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
 alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'
+
+# file edition
+# se() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
+se() { find ~/.bin/* -type f | fzf | xargs -ro $EDITOR ;}
+

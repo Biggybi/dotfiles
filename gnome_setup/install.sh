@@ -34,6 +34,7 @@ sudo apt-get install -yy autotools-dev
 sudo apt-get install -yy autoconf
 sudo apt-get install -yy build-essential
 sudo apt-get install -yy ethtool			# WOL
+sudo apt-get install -yy fzf
 
 sudo apt-get install -yy clang
 sudo apt-get install -yy openssh-server
@@ -58,6 +59,7 @@ sudo sed -i s/Prompt=normal/Prompt=never/ /etc/update-manager/release-upgrades
 
 #gdm3
 sudo apt-get install -yy gdm3
+sudo cp themes/gdm3.css /usr/share/gnome-shell/theme/gdm3.css
 sudo update-alternatives --config gdm3.css
 
 #copy extensions
