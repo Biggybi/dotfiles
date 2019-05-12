@@ -54,23 +54,28 @@ sudo apt-get install -yy xsel
 sudo apt-get install -yy vlc
 sudo apt-get install -yy epiphany-browser
 
+sudo snap install slack
+
+cp -r autostart $HOME/.config/autostart/
+
 # never prompt for upgrades
 sudo sed -i s/Prompt=normal/Prompt=never/ /etc/update-manager/release-upgrades
+# gsettings set com.ubuntu.update-notifier release-check-time 1557449824
 
 #gdm3
 sudo apt-get install -yy gdm3
 sudo cp themes/gdm3.css /usr/share/gnome-shell/theme/gdm3.css
 sudo update-alternatives --config gdm3.css
 
-#copy extensions
+# copy extensions
 sudo cp -r extensions/* /usr/share/gnome-shell/extensions/
 
-#set theme
+# copy theme
 sudo cp -r themes/Materia-dark /usr/share/themes
 sudo cp -r themes/Materia-light /usr/share/themes
-sudo cp -r themes/Materia-light-compact /usr/share/themes
-sudo cp -r themes/Materia-dark-compact /usr/share/themes
-cp -r autostart $HOME/.config/autostart/
+sudo cp -r themes/Materia-dark /usr/share/gnome-shell/themes
+sudo cp -r themes/Materia-light /usr/share/gnome-shell/themes
+
 
 #todo : cp wallpapers
 #mkdir $HOME/Wallpapers
@@ -159,20 +164,35 @@ gsettings set org.gnome.shell.extensions.dash-to-dock show-favorites true
 gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode 'FIXED'
 
 # dash to panel
+gsettings set /org/gnome/shell/extensions/dash-to-panel/click-action 'CYCLE'
 gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-style-focused 'CILIORA'
 gsettings set /org/gnome/shell/extensions/dash-to-panel/isolate-workspaces true
 gsettings set /org/gnome/shell/extensions/dash-to-panel/location-clock 'BUTTONSRIGHT'
 gsettings set /org/gnome/shell/extensions/dash-to-panel/show-favorites false
 gsettings set /org/gnome/shell/extensions/dash-to-panel/taskbar-position 'LEFTPANEL_FIXEDCENTER'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/panel-size 55
+gsettings set /org/gnome/shell/extensions/dash-to-panel/tray-size 20
+
 gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-bg-color '#383838'
 gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-panel-opacity 0.0
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-bg-color '#383838'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-dynamic-anim-target 1.0
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-dynamic-distance 1
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-gradient-bottom-color '#000000'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-gradient-bottom-opacity 0.0
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-gradient-top-color '#383838'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-gradient-top-opacity 0.35
 gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-use-custom-bg true
+gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-use-custom-gradient true
 gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-use-custom-opacity true
 gsettings set /org/gnome/shell/extensions/dash-to-panel/trans-use-dynamic-opacity true
-gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-unfocused-1 '#5294e2'
-gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-unfocused-2 '#5294e2'
-gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-unfocused-3 '#5294e2'
-gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-unfocused-4 '#5294e2'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/tray-size 20
+
+gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-override true
+gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-1 '#BABDB6'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-2 '#BABDB6'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-3 '#BABDB6'
+gsettings set /org/gnome/shell/extensions/dash-to-panel/dot-color-4 '#BABDB6'
 
 # desktop icons
 gsettings set org.gnome.shell.extensions.desktop-icons show-home false
