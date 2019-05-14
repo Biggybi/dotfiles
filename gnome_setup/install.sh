@@ -26,31 +26,33 @@ sudo apt-get update -qq
 sudo apt-get upgrade -y
 sudo apt-get autoremove -y
 
+sudo apt-get install -yy vim
+sudo apt-get install -yy fzf
 sudo apt-get install -yy git
+
 sudo apt-get install -yy gcc
 sudo apt-get install -yy make
 sudo apt-get install -yy cmake
-sudo apt-get install -yy autotools-dev
-sudo apt-get install -yy autoconf
-sudo apt-get install -yy build-essential
-sudo apt-get install -yy ethtool			# WOL
-sudo apt-get install -yy fzf
-
-sudo apt-get install -yy clang
 sudo apt-get install -yy openssh-server
-sudo apt-get install -yy vim
+sudo apt-get install -yy build-essential
+
+sudo apt-get install -yy autoconf
+sudo apt-get install -yy autotools-dev
+sudo apt-get install -yy xdotool
+sudo apt-get install -yy ethtool			# WOL
+sudo apt-get install -yy curl
 
 sudo apt-get install -yy gnome-session
 sudo apt-get install -yy gnome-tweaks
 sudo apt-get install -yy dconf-editor
 sudo apt-get install -yy chrome-gnome-shell
-
+sudo apt-get install -yy ppa-purge
 sudo apt-get install -yy libinput-tools
-sudo apt-get install -yy xdotool
-sudo apt-get install -yy curl
+
 sudo apt-get install -yy lm-sensors
 sudo apt-get install -yy xsel
-sudo apt-get install -yy ppa-purge
+sudo apt-get install -yy hidpi-daemon
+
 
 sudo apt-get install -yy vlc
 sudo apt-get install -yy youtube-dl
