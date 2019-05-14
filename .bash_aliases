@@ -1,14 +1,18 @@
 H=~/101
 #H=/home/biggybi
 # color
-alias ls='ls -hN --group-directories-first --color=auto'
-alias dir='dir -color=auto'
-alias vdir='vdir --color=auto'
+alias ls='ls -hN --group-directories-first --color=always'
+# alias ls='ls -hN --group-directories-first --color=auto'
+alias dir='dir -color=always'
+alias vdir='vdir --color=always'
 
 # grep
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+# alias grep='grep --color=auto'
+# alias fgrep='fgrep --color=auto'
+# alias egrep='egrep --color=auto'
+alias grep='grep --color=always'
+alias fgrep='fgrep --color=always'
+alias egrep='egrep --color=always'
 
 # ls
 alias ll='ls -trhalF'

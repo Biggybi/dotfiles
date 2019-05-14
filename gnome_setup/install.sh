@@ -50,11 +50,15 @@ sudo apt-get install -yy xdotool
 sudo apt-get install -yy curl
 sudo apt-get install -yy lm-sensors
 sudo apt-get install -yy xsel
+sudo apt-get install -yy ppa-purge
 
 sudo apt-get install -yy vlc
+sudo apt-get install -yy youtube-dl
 sudo apt-get install -yy epiphany-browser
 
 sudo snap install slack
+
+sudo rm /usr/share/applications/ubuntu-amazon-default.desktop
 
 cp -r autostart $HOME/.config/autostart/
 
