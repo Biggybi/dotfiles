@@ -180,6 +180,6 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 # alias se='$EDITOR $(find ~/.bin/* -type f | fzf)';
 # se() { $EDITOR $(find ~/.bin/* -type f | fzf);}
 #eb() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-eb() { find ~/.bin/* -type f | fzf | xargs -r $EDITOR ;}
-elft() { find $ALIAS_101_LFT/src -type f | fzf | xargs -r $EDITOR ;}
+alias eb='$EDITOR $(find ~/.bin/* -type f | sed s/*\//g | fzf)'
+alias elft='$EDITOR $(find $ALIAS_101_LFT/src -type f | fzf)'
 

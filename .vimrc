@@ -89,7 +89,7 @@ set shiftround				" round indent to a multiple of 'shiftwidth'
 
 " night theme
 let hour = strftime("%H")
-if 9 <= hour && hour < 18
+if 9 <= hour && hour < 19
 	colorscheme trikai_light
 else
 	colorscheme trikai
