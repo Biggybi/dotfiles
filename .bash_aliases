@@ -1,18 +1,15 @@
-H=~/101
-#H=/home/biggybi
+ALIAS_101_HOME=~/101
+ALIAS_101_LFT=~/101/libft
+
 # color
-alias ls='ls -hN --group-directories-first --color=always'
-# alias ls='ls -hN --group-directories-first --color=auto'
-alias dir='dir -color=always'
-alias vdir='vdir --color=always'
+alias ls='ls -hN --group-directories-first --color=auto'
+alias dir='dir -color=auto'
+alias vdir='vdir --color=auto'
 
 # grep
-# alias grep='grep --color=auto'
-# alias fgrep='fgrep --color=auto'
-# alias egrep='egrep --color=auto'
-alias grep='grep --color=always'
-alias fgrep='fgrep --color=always'
-alias egrep='egrep --color=always'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # ls
 alias ll='ls -trhalF'
@@ -71,7 +68,7 @@ alias lcmd='echo "$(fc -ln -1)" | xargs'
 alias lcmdcp='lcmd | cip'
 alias hg='history | grep'
 alias ag='alias | grep'
-alias pg='ps -aux | grep'
+alias pg='ps -aux | head -n -3 | grep'
 
 alias viit='vi $(fc -ln -1)'
 alias lsit='ls $(fc -ln -1)'
@@ -99,6 +96,7 @@ alias uuu='aptu && aptd && aptg'
 alias uu='aptu && aptg'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
+alias myip='hostname -I | sed "s/\ .*//g"'
 
 ## Hardware info
 alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
@@ -112,20 +110,21 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
 alias cdinstall='cd ~/Documents/Install/Ubuntu'
-alias cd101='cd $H'
-alias echoh='echo $H'
+alias cd101='cd $ALIAS_101_HOME'
+alias echo101='echo $ALIAS_101_HOME'
+alias 101clone='git clone git@github.com:Biggybi/101.git'
 
-alias lftcd='cd $H/lft'
-alias cdlft='cd $H/lft'
-alias lftmk='make -C $H/lft'
-alias lftln='ln -s $H/lft/ .'
-alias lftls='ls $H/lft/srcs/*.c | cut -d/ -f7'
-alias lftcp='cp -ru $H/lft/lft.a $H/lft/includes/lft.h .'
-alias lftccp='cp -rf $H/lft/ .'
-alias cdgnl='cd $H/GNL'
-alias cdls='cd $H/Ft_ls'
-alias cdscript='cd $H/bin'
-alias todoscript='vi $H/.bin/.todo'
+alias lftcd='cd $ALIAS_101_HOME/lft'
+alias cdlft='cd $ALIAS_101_HOME/lft'
+alias lftmk='make -C $ALIAS_101_HOME/lft'
+alias lftln='ln -s $ALIAS_101_HOME/lft/ .'
+alias lftls='ls $ALIAS_101_HOME/lft/srcs/*.c | cut -d/ -f7'
+alias lftcp='cp -ru $ALIAS_101_HOME/lft/lft.a $ALIAS_101_HOME/lft/includes/lft.h .'
+alias lftccp='cp -rf $ALIAS_101_HOME/lft/ .'
+alias cdgnl='cd $ALIAS_101_HOME/GNL'
+alias cdls='cd $ALIAS_101_HOME/Ft_ls'
+alias cdscript='cd $ALIAS_101_HOME/bin'
+alias todoscript='vi $ALIAS_101_HOME/.bin/.todo'
 
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
@@ -164,7 +163,7 @@ alias cdapp='cd /usr/share/applications/'
 
 alias ydl='youtube-dl --audio-quality 0 '
 
-#alias sedtrim="sed -n '1h;1!H;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
+#alias sedtrim="sed -n '1h;1!ALIAS_101_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -178,6 +177,9 @@ alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,sha
 alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'
 
 # file edition
-# se() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-se() { find ~/.bin/* -type f | fzf | xargs -ro $EDITOR ;}
+# alias se='$EDITOR $(find ~/.bin/* -type f | fzf)';
+# se() { $EDITOR $(find ~/.bin/* -type f | fzf);}
+#eb() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
+eb() { find ~/.bin/* -type f | fzf | xargs -r $EDITOR ;}
+elft() { find $ALIAS_101_LFT/src -type f | fzf | xargs -r $EDITOR ;}
 

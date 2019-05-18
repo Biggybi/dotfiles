@@ -6,7 +6,7 @@
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 " automatically reload vimrc when modified
-" autocmd! bufwritepost $MYVIMRC silent source $MYVIMRC
+" autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
 nnoremap <leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
@@ -28,7 +28,7 @@ let leader = '\'
 inoremap jk <ESC>
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
-noremap <C-s> :update<CR>
+nnoremap <C-s> :update<CR>
 inoremap <C-s> <ESC>:update<CR>
 cmap w!! %!sudo tee > /dev/null %
 
@@ -55,7 +55,7 @@ set wildmenu
 set showmode
 set showcmd
 
- " show buffer number
+" show buffer number
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set laststatus=2			" show the satus line all the time
 
@@ -85,7 +85,7 @@ set shiftround				" round indent to a multiple of 'shiftwidth'
 
 " => look / theme {{{
 
-syntax on
+" syntax on
 
 " night theme
 let hour = strftime("%H")
@@ -134,9 +134,10 @@ set mat=2 " how many tenths of a second to blink
 
 " => File automation {{{
 
+set autoread " detect when a file is changed
+
 " autosave file upon modification
 autocmd TextChanged,TextChangedI <buffer> silent write
-set autoread " detect when a file is changed
 
 " open file where it was closed
 autocmd BufReadPost *
@@ -150,6 +151,9 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 au FileType php setl ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setl ofu=rubycomplete#Complete
+
+" refresh filetype upon writing
+autocmd BufWritePost * filetype detect
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
@@ -177,23 +181,23 @@ vnoremap <F9> zf
 
 " Toggle Vexplore with <leader>f
 function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
-          close
-          exec cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      Vexplore
- 	  setlocal winfixwidth
-      let t:expl_buf_num = bufnr("%")
-  endif
+	if exists("t:expl_buf_num")
+		let expl_win_num = bufwinnr(t:expl_buf_num)
+		if expl_win_num != -1
+			let cur_win_nr = winnr()
+			exec expl_win_num . 'wincmd w'
+			close
+			exec cur_win_nr . 'wincmd w'
+			unlet t:expl_buf_num
+		else
+			unlet t:expl_buf_num
+		endif
+	else
+		exec '1wincmd w'
+		Vexplore
+		setlocal winfixwidth
+		let t:expl_buf_num = bufnr("%")
+	endif
 endfunction
 nnoremap <silent> <leader>f :call ToggleVExplorer()<CR>
 
@@ -427,14 +431,14 @@ nnoremap <C-w><C-l> :call WinMove('l')<cr>
 function! WinMove(key)
 	let t:curwin = winnr()
 	exec "wincmd ".a:key
-      if (t:curwin == winnr())
-          if (match(a:key,'[jk]'))
-              wincmd v
-          else
-              wincmd s
-          endif
-          exec "wincmd ".a:key
-      endif
+	if (t:curwin == winnr())
+		if (match(a:key,'[jk]'))
+			wincmd v
+		else
+			wincmd s
+		endif
+		exec "wincmd ".a:key
+	endif
 endfunction
 " }}}
 
@@ -470,25 +474,25 @@ set noshowmode " do not show mode in status line
 
 " show git branch
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ 'inactive': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ }
+			\ 'colorscheme': 'wombat',
+			\ 'active': {
+			\   'left': [ [ 'mode', 'paste' ],
+			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+			\ },
+			\ 'component_function': {
+			\   'gitbranch': 'fugitive#head'
+			\ },
+			\ 'inactive': {
+			\   'left': [ [ 'mode', 'paste' ],
+			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+			\ },
+			\ }
 
 " gitgutter
 if exists('&signcolumn')  " Vim 7.4.2201
-  set signcolumn=yes
+	set signcolumn=yes
 else
-  let g:gitgutter_sign_column_always = 1
+	let g:gitgutter_sign_column_always = 1
 endif
 
 set updatetime=20 " refresh more frequently
@@ -497,5 +501,4 @@ nmap [h <Plug>GitGutterPrevHunk
 
 
 " }}}
-
 " vim:foldmethod=marker:foldlevel=1:modelines=1
