@@ -10,12 +10,14 @@ FILES=(.vim
 	.vimrc
 	.bashrc
 	.bash_aliases
+	.inputrc
 	.bin)
 
 LINK=(.vim
 	.vimrc
 	.bashrc
 	.bash_aliases
+	.inputrc
 	.bin)
 
 if [[ "$OSTYPE" == "darwin"* ]]

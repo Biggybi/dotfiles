@@ -8,32 +8,35 @@ case $- in
       *) return;;
 esac
 
-#disable flow control
-stty -ixon
-
 # remap CAPSLOCK to CTRL in Mac OS
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
 fi
 
-#vim as defaul editor
+# vim as defaul editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
 #less : preserve colors
 export LESS=-R
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+# C-s history navigation (with C-r), disable flow control
+stty -ixon
+# ignore commands starting with whitespace (private cmd)
+HISTCONTROL=ignorespace
+# ignore some commands
+HISTIGNORE="&:ls:bg:fg:exit"
+# ignore successive identic lines
 HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
+# ignore duplicates
+HISTCONTROL=ignoredups
+# Combine multiline commands into one
+shopt -s cmdhist
+# append to the history file, don't overwrite
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -145,3 +148,12 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export PATH=$PATH:~/.bin:/usr/lib
 export CDPATH=".:$HOME"
 ##source $HOME/.brewconfig.zsh
+
+# Color man pages in `less`
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
