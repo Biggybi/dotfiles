@@ -21,6 +21,9 @@ export EDITOR="$VISUAL"
 #less : preserve colors
 export LESS=-R
 
+# autocd
+# shopt -s autocd
+
 # C-s history navigation (with C-r), disable flow control
 stty -ixon
 # ignore commands starting with whitespace (private cmd)
@@ -146,7 +149,7 @@ export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
 #ls mac colors
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export PATH=$PATH:~/.bin:/usr/lib
-export CDPATH=".:$HOME"
+# export CDPATH=".:$HOME"
 ##source $HOME/.brewconfig.zsh
 
 # Color man pages in `less`
@@ -157,3 +160,9 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
+
+#better completion
+bind 'set menu-complete-display-prefix on'
+bind 'set mark-directories on'
+bind 'set show-all-if-ambiguous on'
+
