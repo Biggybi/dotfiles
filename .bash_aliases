@@ -35,18 +35,20 @@ alias dconf-editor='dcond-editor --I-understand-that-changing-options-can-break-
 
 ## Mes alias
 
+alias dnd='daynight d'
+alias dnn='daynight n'
+
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
+
 alias cdgninstall='cd $HOME/.dotfiles/gnome_setup/'
 alias vigninstall='vi $HOME/.dotfiles/gnome_setup/install.sh'
 
-alias aliasme='. aliasme'
 alias vibashrc='vi ~/.bashrc'
 alias vialias='vi ~/.bash_aliases'
 alias vimrc='vi ~/.vimrc'
-
 alias vifstab='sudo vi /etc/fstab'
 
 alias sobash='. ~/.bashrc'
@@ -65,7 +67,7 @@ alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
 alias lcmd='echo "$(fc -ln -1)" | xargs'
-alias lcmdcp='lcmd | cip'
+alias lcmdcp='echo "$(fc -ln -1)" | cip'
 alias hg='history | grep'
 alias ag='alias | grep'
 alias pg='ps -aux | head -n -3 | grep'
