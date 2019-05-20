@@ -94,7 +94,6 @@ if 9 <= hour && hour < 19
 else
 	colorscheme trikai
 endif
-" hi normal guibg=none ctermbg=none
 
 " code
 set encoding=utf8
@@ -498,7 +497,6 @@ endif
 set updatetime=20 " refresh more frequently
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
-
-
 " }}}
+
 " vim:foldmethod=marker:foldlevel=1:modelines=1

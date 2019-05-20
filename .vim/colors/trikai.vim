@@ -220,12 +220,13 @@ if &t_Co > 255
 "    hi WildMenu        ctermfg=81  ctermbg=234
 
    hi Comment         ctermfg=59
-   hi CursorColumn                ctermbg=236
+   hi CursorColumn                ctermbg=241
    "hi ColorColumn                 ctermbg=236
    hi ColorColumn                 ctermbg=235
    hi LineNr          ctermfg=250 ctermbg=234
+   hi SignColumn      ctermbg=234
 "    hi LineNr          ctermfg=250 ctermbg=236
-   hi CursorLineNr    ctermfg=208 ctermbg=235   cterm=none
+   hi CursorLineNr    ctermfg=208 ctermbg=236   cterm=bold
    hi NonText         ctermfg=59
 
    hi SpecialKey      ctermfg=59

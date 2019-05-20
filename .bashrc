@@ -18,28 +18,22 @@ fi
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-#less : preserve colors
+# less : preserve colors
 export LESS=-R
 
 # autocd
 # shopt -s autocd
 
-# C-s history navigation (with C-r), disable flow control
-stty -ixon
-# ignore commands starting with whitespace (private cmd)
-HISTCONTROL=ignorespace
-# ignore some commands
-HISTIGNORE="&:ls:bg:fg:exit"
-# ignore successive identic lines
-HISTCONTROL=ignoreboth
-# ignore duplicates
-HISTCONTROL=ignoredups
-# Combine multiline commands into one
-shopt -s cmdhist
-# append to the history file, don't overwrite
-shopt -s histappend
+stty -ixon						# C-s history navigation (with C-r), disable flow control
+shopt -s cmdhist				# Combine multiline commands into one
+shopt -s histappend				# append to the history file, don't overwrite
+shopt -s histverify				# show hist cmd (from !) without executing
 HISTSIZE=10000
 HISTFILESIZE=20000
+HISTIGNORE="&:ls:bg:fg:exit"	# ignore some commands
+HISTCONTROL=ignoreboth			# ignore dups and whitespace (= ignoredups:ignorespace)
+# HISTCONTROL=ignorespace		# ignore commands starting with whitespace (private cmd)
+# HISTCONTROL=ignoredups		# ignose duplicates
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -82,13 +76,21 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-	#PS1="\[\e[01;30;47m\]\u\[\e[01;30;47m\]@\[\e[01;30;47m\]\h\[\e[01;30m\]:\[\e[00;37m\]\w\[\e[00;37m\]> \[\e[0m\]"
-	PS1="\[\e[01;30;47m\]\u\[\e[01;30;47m\]@\[\e[01;30;47m\]\h\[\e[01;30m\]:\[\e[00;37m\]\w\[\e[00;37m\]\n> \[\e[0m\]"
+	PS1="\[\e[01;30;47m\] \u\[\e[01;30;47m\] | \[\e[01;30;47m\]\h\[\e[01;30m\] \[\e[00;37m\] \w\[\e[00;37m\]\n> \[\e[0m\]"
 	#red on grey
-	#PS1="\[\e[01;31;47m\]\u\[\e[01;31;47m\]@\[\e[01;31;47m\]\h\[\e[01;31m\]:\[\e[00;37m\]\w\[\e[00;37m\]> \[\e[0m\]"
+	#PS1="\[\e[01;31;47m\] \u\[\e[01;31;47m\] | \[\e[01;31;47m\]\h\[\e[01;31m\] \[\e[00;37m\] \w\[\e[00;37m\]> \[\e[0m\]"
+	#blue on grey
+	PS1="\[\e[01;34;47m\] \u\[\e[01;34;47m\] | \[\e[01;34;47m\]\h\[\e[01;34m\] \[\e[00;37m\] \w\[\e[00;37m\]\n> \[\e[0m\]"
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
+
+# different prompt for ssh client
+if [ -n "$SSH_CLIENT" ]
+then
+	PS1="\[\e[01;31;47m\] \u\[\e[01;31;47m\] | \[\e[01;31;47m\]\h\[\e[01;31m\] \[\e[00;37m\] \w\[\e[00;37m\]> \[\e[0m\]"
+fi
+
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
