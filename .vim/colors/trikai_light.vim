@@ -25,6 +25,8 @@
 "     let s:molokai_original = 0
 " endif
 
+set background=dark
+
 hi TrailingWhiteSpace ctermbg=203 guibg=red
 hi Boolean         guifg=#AE81FF
 hi Character       guifg=#005f00

@@ -89,7 +89,7 @@ set shiftround				" round indent to a multiple of 'shiftwidth'
 
 " night theme
 let hour = strftime("%H")
-if 9 <= hour && hour < 19
+if 9 <= hour && hour < 21
 	colorscheme trikai_light
 else
 	colorscheme trikai
@@ -143,6 +143,10 @@ autocmd BufReadPost *
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
 			\   exe "normal! g`\"" |
 			\ endif
+
+" Backup files dir
+set backupdir=~/.vim/backup
+set noswapfile
 
 " filetype recognition
 au FileType c setl ofu=ccomplete#CompleteCpp
@@ -302,7 +306,16 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
 " }}}
 
-" => Coding mappings {{{
+" => Edit mappings {{{
+
+" delete without saving to register
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+xnoremap <leader>p "_dP
+
+" }}}
+
+" => Code mappings {{{
 
 " auto close bracers
 " inoremap (      ();<Left><Left>

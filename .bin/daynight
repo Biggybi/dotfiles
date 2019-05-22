@@ -10,19 +10,24 @@ P="/home/tris/Pictures/Wallpaper/"
 NIGHT="$Pdark/"
 DAY="$Pdark/"
 
-if [ $1 == 'day' ] || [ $1 == 'd' ]
+if [ $1 == "day" ] || [ $1 == "d" ]
 then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-light"
 	gsettings set org.gnome.shell.extensions.user-theme name "Materia-light"
+	sed -i '/fzf/s/dark/light/' $HOME/.bashrc
+	source $HOME/.bashrc
 	exit
 fi
+
 if [ $1 == 'night' ] || [ $1 == 'n' ]
 then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
 	gsettings set org.gnome.shell.extensions.user-theme name "Materia-dark"
+# 	sed -i 's/fzf --color=".*"/fzf --color="dark"/' $HOME/.bashrc
+	sed -i '/fzf/s/light/dark/' $HOME/.bashrc
+	source $HOME/.bashrc
 	exit
 fi
-
 
 while [[ 1 ]]
 do

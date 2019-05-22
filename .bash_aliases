@@ -35,6 +35,8 @@ alias dconf-editor='dcond-editor --I-understand-that-changing-options-can-break-
 
 ## Mes alias
 
+alias histon='set -o history'
+alias histoff='set +o history'
 alias dnd='daynight d'
 alias dnn='daynight n'
 
@@ -69,6 +71,7 @@ alias modx='sudo chmod +x'
 alias lcmd='echo "$(fc -ln -1)" | xargs'
 alias lcmdcp='echo "$(fc -ln -1)" | cip'
 alias hg='history | grep'
+alias hx='eval $(history | sed "s/^ *[0-9]* *//" | fzf --height=10 --color="$DAYNIGHT_SCHEM")'
 alias ag='alias | grep'
 alias pg='ps -aux | head -n -3 | grep'
 
@@ -86,7 +89,6 @@ alias fg2='fg 2'
 alias fg3='fg 3'
 alias fg4='fg 4'
 alias fg5='fg 5'
-
 
 ## Maintainance
 alias apti='sudo apt install'
@@ -184,5 +186,8 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 # se() { $EDITOR $(find ~/.bin/* -type f | fzf);}
 #eb() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
 alias eb='$EDITOR $(find ~/.bin/* -type f | sed s/*\//g | fzf)'
-alias elft='$EDITOR $(find $ALIAS_101_LFT/src -type f | fzf)'
+alias elft='$EDITOR $ALIAS_101_LFT/src/$((find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --height=10) -eq 0 || exit)'
+# alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf)'
+# alias elft='$EDITOR $(find $ALIAS_101_LFT/src -type f | fzf -d/ -n7)'
 
+alias ex='return && echo end'
