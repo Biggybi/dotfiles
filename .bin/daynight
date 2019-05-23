@@ -14,8 +14,7 @@ if [ $1 == "day" ] || [ $1 == "d" ]
 then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-light"
 	gsettings set org.gnome.shell.extensions.user-theme name "Materia-light"
-	sed -i '/fzf/s/dark/light/' $HOME/.bashrc
-	source $HOME/.bashrc
+	 sed -i '/^alias fzf=/s/dark/light/' $HOME/.bash_aliases
 	exit
 fi
 
@@ -24,8 +23,8 @@ then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
 	gsettings set org.gnome.shell.extensions.user-theme name "Materia-dark"
 # 	sed -i 's/fzf --color=".*"/fzf --color="dark"/' $HOME/.bashrc
-	sed -i '/fzf/s/light/dark/' $HOME/.bashrc
-	source $HOME/.bashrc
+	 sed -i '/^alias fzf=/s/light/dark/' $HOME/.bash_aliases
+# 	sed -i 's/fzf --color="light"/fzf --color="dark"/' $HOME/.bashrc
 	exit
 fi
 

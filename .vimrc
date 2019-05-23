@@ -133,7 +133,17 @@ set mat=2 " how many tenths of a second to blink
 
 " => File automation {{{
 
-set autoread " detect when a file is changed
+" set autoread "not working until cmd like :e
+" detect when a file is changed
+if ! exists("g:CheckUpdateStarted")
+    let g:CheckUpdateStarted=1
+    call timer_start(1,'CheckUpdate')
+endif
+function! CheckUpdate(timer)
+    silent! checktime
+    call timer_start(1000,'CheckUpdate')
+endfunction
+
 
 " autosave file upon modification
 autocmd TextChanged,TextChangedI <buffer> silent write

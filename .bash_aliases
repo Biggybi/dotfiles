@@ -1,44 +1,46 @@
 ALIAS_101_HOME=~/101
 ALIAS_101_LFT=~/101/libft
 
-# color
+## color
 alias ls='ls -hN --group-directories-first --color=auto'
 alias dir='dir -color=auto'
 alias vdir='vdir --color=auto'
 
-# grep
+## grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# ls
+## ls
 alias ll='ls -trhalF'
 alias la='ls -A'
 alias l='ls -CF'
-alias lsd='find . -type f -name ".*" | sed s/.*\\///'
+alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
+
 alias le='less'
 
-# df
+## df
 alias df='df -h'
 
-# vi
+## vi
 alias e="$EDITOR"
 alias v="vi"
 alias sv="sudo vi"
 
-## ssh
+### ssh
 alias sshhome='ssh biggybi@192.168.1.28'
 alias sshpi='ssh pi@192.168.1.101 -p 42'
 
-## various defaults
+### various defaults
 alias dconf-editor='dcond-editor --I-understand-that-changing-options-can-break-applications'
 
-## Mes alias
-
+### history
 alias histon='set -o history'
 alias histoff='set +o history'
-alias dnd='daynight d'
-alias dnn='daynight n'
+
+### daynight
+alias dnd='daynight d && source $HOME/.bashrc'
+alias dnn='daynight n && source $HOME/.bashrc'
 
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
@@ -68,10 +70,11 @@ alias please='sudo $(fc -ln -1)'
 alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
+alias fzf='fzf --color="light"'
 alias lcmd='echo "$(fc -ln -1)" | xargs'
 alias lcmdcp='echo "$(fc -ln -1)" | cip'
 alias hg='history | grep'
-alias hx='eval $(history | sed "s/^ *[0-9]* *//" | fzf --height=10 --color="$DAYNIGHT_SCHEM")'
+alias hx='eval $(history | sed "s/^ *[0-9]* *//" | fzf)'
 alias ag='alias | grep'
 alias pg='ps -aux | head -n -3 | grep'
 
@@ -90,7 +93,7 @@ alias fg3='fg 3'
 alias fg4='fg 4'
 alias fg5='fg 5'
 
-## Maintainance
+### Maintainance
 alias apti='sudo apt install'
 alias aptrm='sudo apt autoremove'
 alias aptu='sudo apt update'
@@ -103,7 +106,7 @@ alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
 alias myip='hostname -I | sed "s/\ .*//g"'
 
-## Hardware info
+### Hardware info
 alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
 
 alias myopt='sudo dpkg -S /opt/*'
@@ -161,17 +164,17 @@ alias gccf='gcc -Wall -Wextra '
 alias bc='bc -q'
 
 alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
-# alias regex_ipv4='grep -Eo \([0-9]*.\){3}[^0-9]*'
+## alias regex_ipv4='grep -Eo \([0-9]*.\){3}[^0-9]*'
 
-## config : app icons
+### config : app icons
 alias cdapp='cd /usr/share/applications/'
 
-alias ydl='youtube-dl --audio-quality 0 '
+alias ydl='youtube-dl'
 
-#alias sedtrim="sed -n '1h;1!ALIAS_101_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
+##alias sedtrim="sed -n '1h;1!ALIAS_101_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
+## Add an "alert" alias for long running commands.  Use like so:
+##   sleep 10; alert
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
@@ -181,13 +184,12 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
 alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'
 
-# file edition
-# alias se='$EDITOR $(find ~/.bin/* -type f | fzf)';
-# se() { $EDITOR $(find ~/.bin/* -type f | fzf);}
-#eb() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-alias eb='$EDITOR $(find ~/.bin/* -type f | sed s/*\//g | fzf)'
-alias elft='$EDITOR $ALIAS_101_LFT/src/$((find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --height=10) -eq 0 || exit)'
-# alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf)'
-# alias elft='$EDITOR $(find $ALIAS_101_LFT/src -type f | fzf -d/ -n7)'
+## file edition
+## alias se='$EDITOR $(find ~/.bin/* -type f | fzf)';
+## se() { $EDITOR $(find ~/.bin/* -type f | fzf);}
+##eb() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
+alias eb='$EDITOR $(find ~/.bin/* -type f | sed s/*\//g | fzf --color="dark" -d/ -n5 --height=10)'
+alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --color="dark" --height=10)'
+## alias elft='$EDITOR $(find $ALIAS_101_LFT/src -type f | fzf -d/ -n7)'
 
 alias ex='return && echo end'
