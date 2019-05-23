@@ -113,6 +113,10 @@ gsettings set org.gnome.Epiphany.sync sync-with-firefox true
 gsettings set org.gnome.desktop.interface gtk-theme Materia-dark
 gsettings set org.gnome.desktop.interface gtk-theme Materia
 
+# gnome terminal themes
+dconf dump /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/ < gnome-terminal/materia-lite
+dconf dump /org/gnome/terminal/legacy/profiles:/:d6e82f36-5ad3-4d36-b063-32516f903667/ < gnome-terminal/materia-dark
+
 # night light
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-automatic true

@@ -155,8 +155,12 @@ autocmd BufReadPost *
 			\ endif
 
 " Backup files dir
-set backupdir=~/.vim/backup
-set noswapfile
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+set shortmess+=A
+
+" set noswapfile
 
 " filetype recognition
 au FileType c setl ofu=ccomplete#CompleteCpp
