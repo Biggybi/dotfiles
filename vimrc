@@ -159,6 +159,7 @@ set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
+" No error message when swap exists, just edit
 set shortmess+=A
 
 " set noswapfile
