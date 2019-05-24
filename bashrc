@@ -174,7 +174,7 @@ fi
 
 #ls mac colors
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-export PATH=$PATH:~/.bin:/usr/lib
+export PATH=$PATH:~/bin:/usr/lib
 # export CDPATH=".:$HOME"
 ##source $HOME/.brewconfig.zsh
 

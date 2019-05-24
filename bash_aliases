@@ -1,5 +1,5 @@
-ALIAS_101_HOME=~/101
-ALIAS_101_LFT=~/101/libft
+ALIAS_101_HOME=$HOME/101
+ALIAS_101_LFT=$HOME/101/libft
 
 ## color
 alias ls='ls -hN --group-directories-first --color=auto'
@@ -47,21 +47,21 @@ alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
 
-alias cdgninstall='cd $HOME/.dotfiles/gnome_setup/'
-alias vigninstall='vi $HOME/.dotfiles/gnome_setup/install.sh'
+alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
+alias vigninstall='vi $HOME/dotfiles/gnome_setup/install.sh'
 
-alias vibashrc='vi ~/.bashrc'
-alias vialias='vi ~/.bash_aliases'
-alias vimrc='vi ~/.vimrc'
+alias vibashrc='vi $HOME/.bashrc'
+alias vialias='vi $HOME/.bash_aliases'
+alias vimrc='vi $HOME/.vimrc'
 alias vifstab='sudo vi /etc/fstab'
 
-alias sobash='. ~/.bashrc'
-alias somacbash='. ~/.bash_profile'
-alias socolor='eval "$(dircolors ~/.dircolors)"'
-alias soalias='. ~/.bash_aliases'
+alias sobash='. $HOME/.bashrc'
+alias somacbash='. $HOME/.bash_profile'
+alias socolor='eval "$(dircolors $HOME/.dircolors)"'
+alias soalias='. $HOME/.bash_aliases'
 
-alias dot='cd ~/.dotfiles'
-alias dots='git -C ~/.dotfiles status'
+alias dot='cd $HOME/dotfiles'
+alias dots='git -C $HOME/dotfiles status'
 alias dotclone='git clone https://github.com/biggybi/dotfiles'
 alias dotclssh='git clone git@github.com:Biggybi/dotfiles'
 alias dotssh='git clone git@github.com:Biggybi/dotfiles'
@@ -117,7 +117,7 @@ alias cip='xsel -b'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
-alias cdinstall='cd ~/Documents/Install/Ubuntu'
+alias cdinstall='cd $HOME/Documents/Install/Ubuntu'
 alias cd101='cd $ALIAS_101_HOME'
 alias echo101='echo $ALIAS_101_HOME'
 alias 101clone='git clone git@github.com:Biggybi/101.git'
@@ -132,7 +132,7 @@ alias lftccp='cp -rf $ALIAS_101_HOME/lft/ .'
 alias cdgnl='cd $ALIAS_101_HOME/GNL'
 alias cdls='cd $ALIAS_101_HOME/Ft_ls'
 alias cdscript='cd $ALIAS_101_HOME/bin'
-alias todoscript='vi $ALIAS_101_HOME/.bin/.todo'
+alias todoscript='vi $ALIAS_101_HOME/bin/.todo'
 
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
@@ -185,10 +185,10 @@ alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,sha
 alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'
 
 ## file edition
-## alias se='$EDITOR $(find ~/.bin/* -type f | fzf)';
-## se() { $EDITOR $(find ~/.bin/* -type f | fzf);}
-##eb() { find ~/.bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-alias eb='$EDITOR $(find ~/.bin/* -type f | sed s/*\//g | fzf --color="dark" -d/ -n5 --height=10)'
+## alias se='$EDITOR $(find ~/bin/* -type f | fzf)';
+## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
+##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
+alias eb='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf --color="dark" -d/ -n5 --height=10)'
 alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --color="dark" --height=10)'
 ## alias elft='$EDITOR $(find $ALIAS_101_LFT/src -type f | fzf -d/ -n7)'
 

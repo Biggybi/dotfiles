@@ -2,30 +2,34 @@
 #links files from FILES to their provided LINK
 
 GITURL=https://github.com/Biggybi/dotfiles
-SRC=~/.dotfiles
-DST=~
-BACKUP=~/.dotfiles/dots_back
+SRC=$HOME/dotfiles
+DST=$HOME
+BACKUP=$HOME/dotfiles/dots_back
 
-FILES=(.vim
-	.vimrc
-	.bashrc
-	.bash_aliases
-	.inputrc
-	.bin)
+# the links on your machine
+FILES=(vim
+	vimrc
+	bashrc
+	bash_aliases
+	inputrc
+	bin)
 
+# the git files you want on your machine
 LINK=(.vim
 	.vimrc
 	.bashrc
 	.bash_aliases
 	.inputrc
-	.bin)
+	bin)
 
+# the links on your Mac
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-	LINK=(.vim
+	LINK=(vim
 		.vimrc
 		.bash_profile
 		.bash_aliases
+		.inputrc
 		.bin)
 fi
 
@@ -51,7 +55,7 @@ for f in "${FILES[@]}"
 do
 	l=${LINK[i]}
 	echo "$i $l"
-	if [ -e $SRC/$l ]
+	if [ -e $SRC/$f ]
 	then
 		if [ -L $DST/$l ]
 		then
@@ -73,5 +77,3 @@ do
 	fi
 	let i=i+1
 done
-rm $SRC/.bin/.bin
-rm $SRC/.vim/.vim

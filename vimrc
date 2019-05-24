@@ -12,11 +12,11 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 nnoremap <leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
 
 " source colors
-nnoremap <leader>sc1 :source ~/.vim/colors/trikai.vim<CR>
-nnoremap <leader>sc2 :source ~/.vim/colors/trikai_light.vim<CR>
+nnoremap <leader>sc1 :source $HOME/.vim/colors/trikai.vim<CR>
+nnoremap <leader>sc2 :source $HOME/.vim/colors/trikai_light.vim<CR>
 
 " edit vimrc
-map <leader>ev :vertical split ~/.dotfiles/.vimrc<cr>
+nnoremap <leader>ev :vertical split $HOME/.dotfiles/.vimrc<cr>
 
 " }}}
 
@@ -28,8 +28,8 @@ let leader = '\'
 inoremap jk <ESC>
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
-nnoremap <C-s> :update<CR>
-inoremap <C-s> <ESC>:update<CR>
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <ESC>:w<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
@@ -155,9 +155,10 @@ autocmd BufReadPost *
 			\ endif
 
 " Backup files dir
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+set backupdir=$HOME/.vim/.backup//
+set directory=$HOME/.vim/.swap//
+set undodir=$HOME/.vim/.undo//
+
 set shortmess+=A
 
 " set noswapfile
@@ -196,7 +197,7 @@ vnoremap <F9> zf
 
 " => Netrw {{{
 
-" Toggle Vexplore with <leader>f
+" Toggle Vexplore with <leader>t
 function! ToggleVExplorer()
 	if exists("t:expl_buf_num")
 		let expl_win_num = bufwinnr(t:expl_buf_num)
@@ -216,7 +217,7 @@ function! ToggleVExplorer()
 		let t:expl_buf_num = bufnr("%")
 	endif
 endfunction
-nnoremap <silent> <leader>f :call ToggleVExplorer()<CR>
+nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
 
 " Netrw customization
 let g:netrw_banner = 0
@@ -436,7 +437,7 @@ inoremap <c-x>l <c-x><c-l>
 nnoremap <leader>bb :vertical sbuffer<space>
 map <leader>bf :vertical wincmd f<CR>
 
-"move between windows with ctrl
+" move between windows with ctrl
 noremap <C-h> :wincmd h<CR>
 noremap <C-j> :wincmd j<CR>
 noremap <C-k> :wincmd k<CR>
@@ -449,6 +450,7 @@ nnoremap <silent><C-w><C-,> :vertical resize -10<CR>
 nnoremap <silent><C-w><C-=> :resize +10<CR>
 nnoremap <silent><C-w><C--> :resize -10<CR>
 
+" move windows arround
 nnoremap <C-w><C-h> :call WinMove('h')<cr>
 nnoremap <C-w><C-j> :call WinMove('j')<cr>
 nnoremap <C-w><C-k> :call WinMove('k')<cr>
@@ -524,6 +526,28 @@ endif
 set updatetime=20 " refresh more frequently
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
+
+" FZF
+" let g:fzf_layout = { 'window': 'below 10split enew' }
+" call fzf#run({'options': '--reverse'})
+nnoremap <leader>f :FZF<CR>
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+let g:fzf_layout = { 'down' : '10 reverse' }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 " }}}
 
 " vim:foldmethod=marker:foldlevel=1:modelines=1
