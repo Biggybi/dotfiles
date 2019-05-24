@@ -155,9 +155,9 @@ autocmd BufReadPost *
 			\ endif
 
 " Backup files dir
-set backupdir=$HOME/.vim/.backup//
-set directory=$HOME/.vim/.swap//
-set undodir=$HOME/.vim/.undo//
+set backupdir=$HOME/.vim/backup//
+set directory=$HOME/.vim/swap//
+set undodir=$HOME/.vim/undo//
 
 set shortmess+=A
 
