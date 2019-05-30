@@ -105,7 +105,7 @@ SEP="\[\e[01;34;47m\]|"
 HOST="\[\e[01;34;47m\]\h "
 DIR="\[\e[00;01;91m\] \w"
 BRANCH="\033[01;33m\]$(git_branch)"
-PROMPT="\n\[\e[0m\]> "
+PROMPT="\n \[\e[0m\]"
 if [ -n "$SSH_CLIENT" ] ; then		#different separator for ssh
 	SEP="\[\e[01;93;47m\]|"
 fi

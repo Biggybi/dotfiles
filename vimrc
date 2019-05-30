@@ -9,7 +9,8 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
+nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
+nnoremap <silent><leader><leader>y :YcmRestartServer<CR>
 
 " edit vimrc
 nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
@@ -181,7 +182,7 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " }}}
 
-" => Code folding settings {{{
+" => Code folding {{{
 
 set foldmethod=syntax " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
@@ -189,13 +190,18 @@ set nofoldenable " don't fold by default
 set foldlevel=1
 " automatily save and restore views (folding state of files)
 " /!\ BREAKS VIMRC FOLDING
-" autocmd BufWinLeave *.* mkview
-" autocmd BufWinEnter *.* silent loadview
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
 
 inoremap <F9> <C-O>za
 nnoremap <F9> za
 onoremap <F9> <C-C>za
 vnoremap <F9> zf
+
+" keep cursor in middle of screen when searching / folding
+nnoremap zM zMzz
+nnoremap za zazz
+nnoremap zA zAzz
 
 " }}}
 
@@ -305,7 +311,7 @@ set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/di
 
 set magic " Set magic on, for regex
 
-" keep cursor in middle of screen when searching
+" keep cursor in middle of screen when searching / folding
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -573,4 +579,4 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 " }}}
 
-" vim:foldmethod=marker:foldlevel=1:modelines=1
+" vim:foldmethod=marker:modelines=1
