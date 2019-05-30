@@ -286,6 +286,7 @@ set path+=**			" recursive path from current path
 " set incsearch
 set wildchar=<Tab>
 set wildmode=full
+" set wildmode=longest:full:list,full
 
 
 set ignorecase			" case insensitive searching

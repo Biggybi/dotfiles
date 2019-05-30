@@ -12,6 +12,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# vi mode
+set -o vi
+
 # Environement variables
 export PATH=$PATH:~/bin:/usr/lib
 export VISUAL=vim
@@ -19,12 +22,16 @@ export EDITOR="$VISUAL"
 
 shopt -s checkwinsize				# auto adjust winsize after each command
 #shopt -s globstar					# "**" match all files recursively
-#shopt -s autocd					# autocd
+shopt -s autocd					# autocd
+
 
 #better completion
-bind 'set menu-complete-display-prefix on'
-bind 'set mark-directories on'
-bind 'set show-all-if-ambiguous on'
+
+bind 'TAB':menu-complete					# cycle through matches
+bind 'set menu-complete-display-prefix on'	# partial completion first, then cycle
+bind 'set show-all-if-ambiguous on'			# show list of matching files
+
+# bind 'set mark-directories on'
 #git autocomplete
 source /usr/share/bash-completion/completions/git
 # programmable completion features, no need if in /etc/bash.bashrc sourced by /etc/profile
