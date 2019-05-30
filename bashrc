@@ -100,7 +100,6 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Prompt PS1
-git_branch () { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'; }
 USER="\[\e[01;34;47m\]  \u"
 SEP="\[\e[01;34;47m\]|"
 HOST="\[\e[01;34;47m\]\h "

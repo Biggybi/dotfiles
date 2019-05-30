@@ -14,6 +14,9 @@ nnoremap <leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
 " edit vimrc
 nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
 
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+
 " }}}
 
 " => General {{{
@@ -156,7 +159,7 @@ endfunction
 
 
 " autosave file upon modification
-autocmd TextChanged,TextChangedI <buffer> silent write
+" autocmd TextChanged,TextChangedI <buffer> silent write
 
 " open file where it was closed
 autocmd BufReadPost *

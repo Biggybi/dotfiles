@@ -18,7 +18,7 @@ alias l='ls -CF'
 alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 
 alias le='less'
-alias ccat='highlight'
+alias ccat='highlight --out-format=ansi'
 
 ## df
 alias df='df -h'
@@ -73,8 +73,8 @@ alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
 alias fzf='fzf --color="light" --tabstop=4'
-alias lcmd='echo "$(fc -ln -1)" | xargs'
-alias lcmdcp='echo "$(fc -ln -1)" | cip'
+alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
+alias lcmdcp='echo "$(fc -ln -1)" | tr '\''\n'\'' '\'' '\'' | cip'
 alias hg='history | grep'
 alias hx='eval $(history | sed "s/^ *[0-9]* *//" | fzf)'
 alias ag='alias | grep'
@@ -164,6 +164,7 @@ alias gcc='clang '
 alias gccf='gcc -Wall -Wextra '
 
 alias bc='bc -q'
+alias asciideci="+ > man ascii | grep Tables -A15 | cut -c 25- | sed 's/^ /    /;s/$^//;1,2d;5d'"
 
 alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 ## alias regex_ipv4='grep -Eo \([0-9]*.\){3}[^0-9]*'
