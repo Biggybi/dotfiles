@@ -11,12 +11,8 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " source vimrc
 nnoremap <leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
 
-" source colors
-nnoremap <leader>sc1 :source $HOME/.vim/colors/trikai.vim<CR>
-nnoremap <leader>sc2 :source $HOME/.vim/colors/trikai_light.vim<CR>
-
 " edit vimrc
-nnoremap <leader>ev :vertical split $HOME/.dotfiles/.vimrc<cr>
+nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
 
 " }}}
 
@@ -26,6 +22,7 @@ nnoremap <leader>ev :vertical split $HOME/.dotfiles/.vimrc<cr>
 let leader = '\'
 
 inoremap jk <ESC>
+set background=dark
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
 nnoremap <C-s> :w<CR>
@@ -34,7 +31,6 @@ cmap w!! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
 
-" set spell " spell check
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
 
@@ -43,6 +39,16 @@ set backspace=indent,eol,start
 
 " faster redrawing
 set ttyfast
+
+" Backup files dir
+set backupdir=$HOME/.vim/backup//
+set directory=$HOME/.vim/swap//
+set undodir=$HOME/.vim/undo//
+
+" No error message when swap exists, just edit
+set shortmess+=A
+
+" set noswapfile
 
 " }}}
 
@@ -66,20 +72,20 @@ set equalalways				" always equalize windows
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 set scrolloff=10			" minumum lines before/after cursor
-set autoindent				" automatically set indent of new line
-set smartindent
-filetype indent on
 
-" Tab control
+" Tabulation control
 set noexpandtab				" tabs ftw
 set smarttab				" tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 set tabstop=4				" the visible width of tabs
-set softtabstop=4			" edit as if the tabs are 4 characters wide
-set shiftwidth=4			" number of spaces to use for indent and unindent
+set softtabstop=4			" make tabs 4 characters wide
+set shiftwidth=4			" make indents 4 characters wide
+set autoindent				" automatically set indent of new line
+set smartindent
 set shiftround				" round indent to a multiple of 'shiftwidth'
+filetype indent on
 
-" set splitbelow				" default split below
-" set splitright				" default split right
+set splitbelow				" default split below
+set splitright				" default split right
 
 " }}}
 
@@ -94,6 +100,10 @@ if 9 <= hour && hour < 21
 else
 	colorscheme trikai
 endif
+
+" source colors
+nnoremap <leader>sc1 :source $HOME/.vim/colors/trikai.vim<CR>
+nnoremap <leader>sc2 :source $HOME/.vim/colors/trikai_light.vim<CR>
 
 " code
 set encoding=utf8
@@ -153,16 +163,6 @@ autocmd BufReadPost *
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
 			\   exe "normal! g`\"" |
 			\ endif
-
-" Backup files dir
-set backupdir=$HOME/.vim/backup//
-set directory=$HOME/.vim/swap//
-set undodir=$HOME/.vim/undo//
-
-" No error message when swap exists, just edit
-set shortmess+=A
-
-" set noswapfile
 
 " filetype recognition
 au FileType c setl ofu=ccomplete#CompleteCpp
@@ -432,17 +432,17 @@ inoremap <c-x>l <c-x><c-l>
 "
 " }}}
 
-" => Window behaviour / mappings {{{
+" => Window behaviour {{{
 
 " open buffer in new vertical split
 nnoremap <leader>bb :vertical sbuffer<space>
 map <leader>bf :vertical wincmd f<CR>
 
 " move between windows with ctrl
-noremap <C-h> :wincmd h<CR>
-noremap <C-j> :wincmd j<CR>
-noremap <C-k> :wincmd k<CR>
-noremap <C-l> :wincmd l<CR>
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-l> :wincmd l<CR>
 " imap <C-w> <C-o><C-w>
 
 " resize windows quicker
@@ -452,23 +452,41 @@ nnoremap <silent><C-w><C-=> :resize +10<CR>
 nnoremap <silent><C-w><C--> :resize -10<CR>
 
 " move windows arround
-nnoremap <C-w><C-h> :call WinMove('h')<cr>
-nnoremap <C-w><C-j> :call WinMove('j')<cr>
-nnoremap <C-w><C-k> :call WinMove('k')<cr>
-nnoremap <C-w><C-l> :call WinMove('l')<cr>
+" nnoremap <C-w><C-h> :call WinMove('h')<cr>
+" nnoremap <C-w><C-j> :call WinMove('j')<cr>
+" nnoremap <C-w><C-k> :call WinMove('k')<cr>
+" nnoremap <C-w><C-l> :call WinMove('l')<cr>
 "  create a new window if can't move to window
-function! WinMove(key)
-	let t:curwin = winnr()
-	exec "wincmd ".a:key
-	if (t:curwin == winnr())
-		if (match(a:key,'[jk]'))
-			wincmd v
-		else
-			wincmd s
-		endif
-		exec "wincmd ".a:key
-	endif
-endfunction
+
+" function! WinMove(key)
+"  	let t:curwin = winnr()
+" 	let l:curbuf = bufnr('%')
+" 	hide
+" "  	wincmd l
+" 	if (match(a:key,'[jk]'))
+" 	vsplit
+" 		wincmd v
+" 	else
+" 		wincmd s
+" 	endif
+" 	exe 'buf' l:curbuf
+" 	let t:curwin = winnr()
+" " 	exec "wincmd ".a:key
+" endfunction
+
+" endfunction
+" function! WinMove(key)
+" 	let t:curwin = winnr()
+" 	exec "wincmd ".a:key
+" 	if (t:curwin == winnr())
+" 		if (match(a:key,'[jk]'))
+" 			wincmd v
+" 		else
+" 			wincmd s
+" 		endif
+" 		exec "wincmd ".a:key
+" 	endif
+" endfunction
 " }}}
 
 " => Plugins {{{
@@ -482,7 +500,7 @@ set diffopt+=vertical " vertical split for diff
 let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
 
 " syntastic
-" let g:syntastic_c_config_file = ['$HOME/.dotfiles/.vim/c_errors_file']
+" let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

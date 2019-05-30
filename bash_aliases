@@ -18,6 +18,7 @@ alias l='ls -CF'
 alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 
 alias le='less'
+alias ccat='highlight'
 
 ## df
 alias df='df -h'
@@ -54,6 +55,7 @@ alias vibashrc='vi $HOME/.bashrc'
 alias vialias='vi $HOME/.bash_aliases'
 alias vimrc='vi $HOME/.vimrc'
 alias vifstab='sudo vi /etc/fstab'
+alias viapt='sudo vi /etc/apt/sources.list'
 
 alias sobash='. $HOME/.bashrc'
 alias somacbash='. $HOME/.bash_profile'
@@ -70,7 +72,7 @@ alias please='sudo $(fc -ln -1)'
 alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
-alias fzf='fzf --color="light"'
+alias fzf='fzf --color="light" --tabstop=4'
 alias lcmd='echo "$(fc -ln -1)" | xargs'
 alias lcmdcp='echo "$(fc -ln -1)" | cip'
 alias hg='history | grep'
@@ -122,13 +124,13 @@ alias cd101='cd $ALIAS_101_HOME'
 alias echo101='echo $ALIAS_101_HOME'
 alias 101clone='git clone git@github.com:Biggybi/101.git'
 
-alias lftcd='cd $ALIAS_101_HOME/lft'
-alias cdlft='cd $ALIAS_101_HOME/lft'
-alias lftmk='make -C $ALIAS_101_HOME/lft'
-alias lftln='ln -s $ALIAS_101_HOME/lft/ .'
-alias lftls='ls $ALIAS_101_HOME/lft/srcs/*.c | cut -d/ -f7'
-alias lftcp='cp -ru $ALIAS_101_HOME/lft/lft.a $ALIAS_101_HOME/lft/includes/lft.h .'
-alias lftccp='cp -rf $ALIAS_101_HOME/lft/ .'
+alias lftcd='cd $ALIAS_101_HOME/libft'
+alias cdlft='cd $ALIAS_101_HOME/libft'
+alias lftmk='make -C $ALIAS_101_HOME/'
+alias lftln='ln -s $ALIAS_101_HOME/libft/ .'
+alias lftls='ls $ALIAS_101_HOME/libft/srcs/*.c | cut -d/ -f7'
+alias lftcp='cp -ru $ALIAS_101_HOME/libft/libft.a $ALIAS_101_HOME/libft/includes/libft.h .'
+alias lftccp='cp -rf $ALIAS_101_HOME/libft/ .'
 alias cdgnl='cd $ALIAS_101_HOME/GNL'
 alias cdls='cd $ALIAS_101_HOME/Ft_ls'
 alias cdscript='cd $ALIAS_101_HOME/bin'
@@ -137,7 +139,7 @@ alias todoscript='vi $ALIAS_101_HOME/bin/.todo'
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
 
-alias gitroot='cd $(git rev-parse --show-cdup)' #go to the root of a git repo
+alias gitroot='cd $(git rev-parse --show-cdup | sed s/^$/./g)' #go to the root of a git repo
 alias gitmodif='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
 alias gits='git status '
 alias gau='git add -u '
@@ -188,8 +190,16 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 ## alias se='$EDITOR $(find ~/bin/* -type f | fzf)';
 ## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
 ##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-alias eb='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf --color="dark" -d/ -n5 --height=10)'
-alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --color="dark" --height=10)'
-## alias elft='$EDITOR $(find $ALIAS_101_LFT/src -type f | fzf -d/ -n7)'
+alias eb='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
+alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --height=10)'
+alias ev='$EDITOR $(fzf --height=10)'
+
+ef () {
+# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
+	P=$(fzf --height=10)
+	[ $P == "" ] && return
+	vim $P
+}
 
 alias ex='return && echo end'
+# alias fav='. fav'

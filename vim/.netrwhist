@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/home/tris/.dotfiles'
 let g:netrw_dirhist_2='/home/tris'
 let g:netrw_dirhist_3='/home/tris/.dotfiles/.bin'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/home/tris/101/libft/src'
 let g:netrw_dirhist_5='/home/tris'
 let g:netrw_dirhist_6='/home/tris/.dotfiles'
 let g:netrw_dirhist_7='/home/tris'
+let g:netrw_dirhist_8='/home/tris/101/libft/src'

@@ -29,6 +29,7 @@ sudo apt-get autoremove -y
 sudo apt-get install -yy vim
 sudo apt-get install -yy fzf
 sudo apt-get install -yy git
+sudo apt-get install -yy highlight
 
 sudo apt-get install -yy gcc
 sudo apt-get install -yy make
