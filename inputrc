@@ -16,10 +16,11 @@ set keymap vi-insert
 "\C-a": beginning-of-line
 "\C-e": end-of-line
 "\C-l": clear-screen
+"\C-o": menu-complete-backward
+"\C-j": next-history
+"\C-k": previous-history
 
 set keymap vi-command
 "\C-a": beginning-of-line
 "\C-e": end-of-line
 "\C-x\C-r": re-read-init-file
-# "\C-k": menu-complete-backward
-# "\C-j": menu-complete
