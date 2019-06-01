@@ -1,4 +1,11 @@
-" This is my awesome vimrc, still growing, still adjusting, still improving
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   ______  _____  ______  ______ __   __ ______  _____   "
+"   |_____]   |   |  ____ |  ____   \_/   |_____]   |	  "
+"   |_____] __|__ |_____| |_____|    |    |_____] __|__   "
+"												  vimrc	  "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Vimrc still growing, still adjusting, still improving
 
 " => Vimrc settings {{{
 
@@ -147,7 +154,7 @@ set mat=2 " how many tenths of a second to blink
 
 " => File automation {{{
 
-" set autoread "not working until cmd like :e
+set autoread "not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
     let g:CheckUpdateStarted=1
@@ -157,7 +164,6 @@ function! CheckUpdate(timer)
     silent! checktime
     call timer_start(1000,'CheckUpdate')
 endfunction
-
 
 " autosave file upon modification
 " autocmd TextChanged,TextChangedI <buffer> silent write
@@ -390,13 +396,17 @@ inoremap <C-Z> <C-C><C-Z>
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
-
 " Copying/pasting text to the system clipboard.
 " set clipboard=unnamed
 noremap  <leader>p "+p
-vnoremap <leader>y "+y
 nnoremap <leader>y VV"+y
 nnoremap <leader>Y "+y
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+vnoremap <Leader>d "+d
+vnoremap <leader>y "+y
+vnoremap <Leader>p "+p
+vnoremap <Leader>P "+P
 
 " nnoremap <silent> j h
 " nnoremap <silent> k gj
@@ -444,9 +454,8 @@ inoremap <c-x>l <c-x><c-l>
 
 " => Window behaviour {{{
 
-" open buffer in new vertical split
-nnoremap <leader>bb :vertical sbuffer<space>
-map <leader>bf :vertical wincmd f<CR>
+" jump or open matching buffer in new vertical split
+nnoremap <leader>j :vertical sbuffer<space>
 
 " move between windows with ctrl
 nnoremap <C-h> :wincmd h<CR>
@@ -460,43 +469,6 @@ nnoremap <silent><C-w><C-.> :vertical resize +10<CR>
 nnoremap <silent><C-w><C-,> :vertical resize -10<CR>
 nnoremap <silent><C-w><C-=> :resize +10<CR>
 nnoremap <silent><C-w><C--> :resize -10<CR>
-
-" move windows arround
-" nnoremap <C-w><C-h> :call WinMove('h')<cr>
-" nnoremap <C-w><C-j> :call WinMove('j')<cr>
-" nnoremap <C-w><C-k> :call WinMove('k')<cr>
-" nnoremap <C-w><C-l> :call WinMove('l')<cr>
-"  create a new window if can't move to window
-
-" function! WinMove(key)
-"  	let t:curwin = winnr()
-" 	let l:curbuf = bufnr('%')
-" 	hide
-" "  	wincmd l
-" 	if (match(a:key,'[jk]'))
-" 	vsplit
-" 		wincmd v
-" 	else
-" 		wincmd s
-" 	endif
-" 	exe 'buf' l:curbuf
-" 	let t:curwin = winnr()
-" " 	exec "wincmd ".a:key
-" endfunction
-
-" endfunction
-" function! WinMove(key)
-" 	let t:curwin = winnr()
-" 	exec "wincmd ".a:key
-" 	if (t:curwin == winnr())
-" 		if (match(a:key,'[jk]'))
-" 			wincmd v
-" 		else
-" 			wincmd s
-" 		endif
-" 		exec "wincmd ".a:key
-" 	endif
-" endfunction
 " }}}
 
 " => Plugins {{{
