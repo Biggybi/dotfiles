@@ -105,7 +105,7 @@ set splitright				" default split right
 
 " night theme
 let hour = strftime("%H")
-if 9 <= hour && hour < 21
+if 9 <= hour && hour < 19
 	colorscheme trikai_light
 else
 	colorscheme trikai
@@ -153,11 +153,7 @@ set mat=2 " how many tenths of a second to blink
 
 " => File automation {{{
 
-<<<<<<< HEAD
 set autoread "not working until cmd like :e
-=======
-set autoread			"not working until cmd like :e
->>>>>>> test
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
     let g:CheckUpdateStarted=1
@@ -472,6 +468,10 @@ nnoremap <silent><C-w><C-.> :vertical resize +10<CR>
 nnoremap <silent><C-w><C-,> :vertical resize -10<CR>
 nnoremap <silent><C-w><C-=> :resize +10<CR>
 nnoremap <silent><C-w><C--> :resize -10<CR>
+
+" new file in vertical split instead of horizontal
+nnoremap <C-w><C-n> :vnew
+nnoremap <C-w>n :vnew
 " }}}
 
 " => Plugins {{{

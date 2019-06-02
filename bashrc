@@ -49,10 +49,9 @@ fi
 # history
 stty -ixon							# C-s as rev C-r, disable term flow (C-s C-q)
 shopt -s cmdhist					# Combine multiline commands into one
-shopt -s histappend					# append to the history file, don't overwrite
+shopt -s histappend					# append to the history file (no overwrite)
 shopt -s histverify					# show hist cmd (from !) without executing
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE= HISTFILESIZE= #
 HISTIGNORE="&:ls:bg:fg:exit"		# ignore some commands
 HISTCONTROL=ignoreboth				# ignore dups and whitespace (= ignoredups:ignorespace)
 # HISTCONTROL=ignorespace			# ignore commands starting with whitespace (private cmd)
