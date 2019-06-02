@@ -106,21 +106,22 @@ parse_git_branch() {
 }
 
 # Prompt PS1
-	USER="\[\e[01;34;47m\]  \u"
-	SEP="\[\e[01;34;47m\]|"
-	HOST="\[\e[01;34;47m\]\h "
-	DIR="\[\e[00;01;91m\] \w"
-
-	# BRANCH="\033[01;33m\]$(parse_git_branch)"
-	BRANCH="\033[01;33m\]\$(__git_ps1 %s)"
-	PROMPT="\n \[\e[0m\]"
-	if [ -n "$SSH_CLIENT" ] ; then		# for ssh
-		SEP="\[\e[01;93;47m\]|"	# yellow sep
-	fi
-	if [ "$(id -u)" = 0 ] ; then		# for root
-		SEP="\[\e[01;31;47m\]|"	# red sep
-	fi
-	export PS1="$USER  $SEP  $HOST $DIR $BRANCH $PROMPT"
+color_ps1 () {
+local USER="\[\e[01;36;47m\]  \u"
+local SEP="\[\e[01;34;47m\]|"
+local HOST="\[\e[01;36;47m\]\h "
+local DIR="\[\e[00;01;91m\] \w"
+local BRANCH="\033[01;92m\]\$(__git_ps1 %s)"
+local PROMPT="\n \[\e[0m\]"
+if [ -n "$SSH_CLIENT" ] ; then		# for ssh
+	local SEP="\[\e[01;93;47m\]|"	# yellow sep
+fi
+if [ "$(id -u)" = 0 ] ; then		# for root
+	local SEP="\[\e[01;31;47m\]|"	# red sep
+fi
+PS1="$USER  $SEP  $HOST $DIR $BRANCH $PROMPT"
+}
+color_ps1
 
 # Title if xterm
 case "$TERM" in
