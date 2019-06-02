@@ -36,6 +36,7 @@ sudo apt-get install -yy make
 sudo apt-get install -yy cmake
 sudo apt-get install -yy openssh-server
 sudo apt-get install -yy build-essential
+sudo apt-get install -yy python3-dev
 
 sudo apt-get install -yy autoconf
 sudo apt-get install -yy autotools-dev
@@ -54,7 +55,6 @@ sudo apt-get install -yy lm-sensors
 sudo apt-get install -yy xsel
 sudo apt-get install -yy hidpi-daemon
 
-
 sudo apt-get install -yy vlc
 sudo apt-get install -yy youtube-dl
 sudo apt-get install -yy epiphany-browser
@@ -64,6 +64,8 @@ sudo snap install slack
 sudo rm /usr/share/applications/ubuntu-amazon-default.desktop
 
 cp -r autostart $HOME/.config/autostart/
+
+python3 vim/bundle/YouCompleteMe/install.py
 
 # never prompt for upgrades
 sudo sed -i s/Prompt=normal/Prompt=never/ /etc/update-manager/release-upgrades
