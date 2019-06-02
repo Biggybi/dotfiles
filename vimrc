@@ -9,7 +9,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>
+nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced"<CR>
 nnoremap <silent><leader><leader>y :YcmRestartServer<CR>
 
 " edit vimrc
@@ -30,13 +30,12 @@ set background=dark
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
 nnoremap <C-s> :w<CR>
-inoremap <C-s> <ESC>:w<CR>
-cmap w!! %!sudo tee > /dev/null %
+inoremap <C-s> <C-O>:stopinsert<CR>:w<CR>i
+cmap W! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
 
 set nocompatible " not compatible with vi
-set autoread " detect when a file is changed
 
 " make backspace behave in a sane manner
 set backspace=indent,eol,start
@@ -147,7 +146,7 @@ set mat=2 " how many tenths of a second to blink
 
 " => File automation {{{
 
-" set autoread "not working until cmd like :e
+set autoread			"not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
     let g:CheckUpdateStarted=1
@@ -449,10 +448,10 @@ nnoremap <leader>bb :vertical sbuffer<space>
 map <leader>bf :vertical wincmd f<CR>
 
 " move between windows with ctrl
-nnoremap <C-h> :wincmd h<CR>
-nnoremap <C-j> :wincmd j<CR>
-nnoremap <C-k> :wincmd k<CR>
-nnoremap <C-l> :wincmd l<CR>
+" nnoremap <C-h> :wincmd h<CR>
+" nnoremap <C-j> :wincmd j<CR>
+" nnoremap <C-k> :wincmd k<CR>
+" nnoremap <C-l> :wincmd l<CR>
 " imap <C-w> <C-o><C-w>
 
 " resize windows quicker
