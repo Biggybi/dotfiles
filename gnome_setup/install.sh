@@ -47,6 +47,8 @@ sudo apt-get install -yy curl
 sudo apt-get install -yy gnome-session
 sudo apt-get install -yy gnome-tweaks
 sudo apt-get install -yy dconf-editor
+sudo apt-get install -yy gconf2 
+
 sudo apt-get install -yy chrome-gnome-shell
 sudo apt-get install -yy ppa-purge
 sudo apt-get install -yy libinput-tools
