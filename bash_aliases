@@ -72,7 +72,7 @@ alias please='sudo $(fc -ln -1)'
 alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
-alias fzf='fzf --color="light" --tabstop=4'
+alias fzf='fzf --color="dark" --tabstop=4'
 alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
 alias lcmdcp='echo "$(fc -ln -1)" | tr '\''\n'\'' '\'' '\'' | cip'
 alias hg='history | grep'
@@ -139,6 +139,8 @@ alias todoscript='vi $ALIAS_101_HOME/bin/.todo'
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
 
+alias g='git'
+alias gd='git diff'
 alias gitroot='cd $(git rev-parse --show-cdup | sed s/^$/./g)' #go to the root of a git repo
 alias gitmodif='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
 alias gits='git status '
@@ -176,12 +178,12 @@ alias ydl='youtube-dl'
 
 ##alias sedtrim="sed -n '1h;1!ALIAS_101_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
-## Add an "alert" alias for long running commands.  Use like so:
-##   sleep 10; alert
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
 
+## Add an "alert" alias for long running commands.  Use like so:
+##   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
@@ -198,8 +200,10 @@ alias ev='$EDITOR $(fzf --height=10)'
 ef () {
 # 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	P=$(fzf --height=10)
-	[ $P == "" ] && return
-	vim $P
+	if ! [ "$P" == "" ]
+	then
+		vim $P
+	fi
 }
 
 alias ex='return && echo end'
