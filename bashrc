@@ -101,7 +101,7 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-parse_git_branch() {
+get_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' -e 's/(//;s/)//'
 }
 
@@ -111,13 +111,14 @@ color_ps1 () {
 	local SEP="\[\e[01;37;100m\]|"
 	local HOST="\[\e[01;94;100m\]\h"
 	local DIR="\[\e[00;01;91m\]  \w"
-	local BRANCH="\033[01;92m\]\$(parse_git_branch %s)"
+	local BRANCH="\033[01;92m\]\$(get_git_branch %s)"
+# 	local BRANCH="\033[01;92m\]\$(__git_ps1 %s)"
 	local PROMPT="\n \[\e[0m\]"
-	if [ -n "$SSH_CLIENT" ] ; then					# for ssh
-		local SEP="\[\e[01;93;100m\]|"				# yellow sep
+	if [ -n "$SSH_CLIENT" ] ; then						# for ssh
+		local SEP="\[\e[01;93;100m\]|"					# yellow sep
 	fi
-	if [ "$(id -u)" = 0 ] ; then					# for root
-		local SEP="\[\e[01;31;100m\]|"				# red sep
+	if [ "$(id -u)" = 0 ] ; then						# for root
+		local SEP="\[\e[01;31;100m\]|"					# red sep
 	fi
 	PS1="$USER  $SEP  $HOST  $DIR  $BRANCH $PROMPT"
 }
