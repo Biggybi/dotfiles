@@ -10,7 +10,7 @@ P="/home/tris/Pictures/Wallpaper/"
 NIGHT="$Pdark/"
 DAY="$Pdark/"
 
-if [ $1 == "day" ] || [ $1 == "d" ]
+if [ "$1" == "day" ] || [ "$1" == "d" ]
 then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-light"
 	gsettings set org.gnome.shell.extensions.user-theme name "Materia-light"
@@ -20,7 +20,7 @@ then
 	exit
 fi
 
-if [ $1 == 'night' ] || [ $1 == 'n' ]
+if [ "$1" == "night" ] || [ "$1" == "n" ]
 then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
 	gsettings set org.gnome.shell.extensions.user-theme name "Materia-dark"
