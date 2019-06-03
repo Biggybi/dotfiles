@@ -5,7 +5,9 @@ GITURL=https://github.com/Biggybi/dotfiles
 SRC=$HOME/dotfiles
 DST=$HOME
 BACKUP=$HOME/dotfiles/dots_back
+WORK_DIR=$HOME/dotfiles
 
+cd $WORK_DIR
 # the links on your machine
 FILES=(vim
 	vimrc
