@@ -1,3 +1,10 @@
+###########################################################
+#   ______  _____  ______  ______ __   __ ______  _____   #
+#   |_____]   |   |  ____ |  ____   \_/   |_____]   |	  #
+#   |_____] __|__ |_____| |_____|    |    |_____] __|__   #
+#												  vimrc	  #
+###########################################################
+
 # ..~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -100,17 +107,17 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-get_git_branch() {
+git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' -e 's/(//;s/)//'
 }
 
 # Prompt PS1
 color_ps1 () {
 	local USER="\[\e[01;36;100m\]  \u"
-	local SEP="\[\e[01;37;100m\]|"
+	local SEP="\[\e[01;37;100m\]┃"
 	local HOST="\[\e[01;94;100m\]\h"
 	local DIR="\[\e[00;01;91m\]  \w"
-	local BRANCH="\033[01;92m\]\$(get_git_branch %s)"
+	local BRANCH="\033[01;92m\]\$(git_branch %s)"
 # 	local BRANCH="\033[01;92m\]\$(__git_ps1 %s)"
 	local PROMPT="\n \[\e[0m\]"
 	if [ -n "$SSH_CLIENT" ] ; then						# for ssh

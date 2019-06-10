@@ -1,13 +1,14 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   ______  _____  ______  ______ __   __ ______  _____   "
-"   |_____]   |   |  ____ |  ____   \_/   |_____]   |	  "
-"   |_____] __|__ |_____| |_____|    |    |_____] __|__   "
-"												  vimrc	  "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  ____ _____ _____  _______     ______ _____		"
+" |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
+" | |_) || || |  __| |  __ \ \_/ /| |_) || |		"
+" |  _ < | || | |_ | | |_ | \   / |  _ < | |		"
+" | |_) || || |__| | |__| |  | |  | |_) || |_		"
+" |____/_____\_____|\_____|  |_|  |____/_____|vimrc "
+"													"
+" """""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Vimrc still growing, still adjusting, still improving
-
-" => Vimrc settings {{{
+""  Vimrc settings
 
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -25,19 +26,18 @@ nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
-" }}}
 
-" => General {{{
+""  General
 
-" let mapleader = '\'
-let leader = '\'
+let mapleadev = ','
+let leader = ','
 
 inoremap jk <ESC>
 set background=dark
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
 nnoremap <C-s> :w<CR>
-inoremap <C-s> <C-O>:stopinsert<CR>:w<CR>i
+inoremap <C-s> <C-O>:stopinsert<CR>:w<CR>
 cmap W! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
@@ -51,6 +51,7 @@ set backspace=indent,eol,start
 set ttyfast
 
 " Backup files dir
+set backupskip=/tmp/*,/private/tmp/*"		" vim can edit crontab
 set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
@@ -60,9 +61,8 @@ set shortmess+=A
 
 " set noswapfile
 
-" }}}
 
-" => User Interface {{{
+""  User Interface
 
 set ruler
 set mouse=a
@@ -70,6 +70,7 @@ set visualbell
 set wildmenu
 set showmode
 set showcmd
+set showbreak=¬
 
 " show buffer number
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -81,7 +82,8 @@ set relativenumber
 set equalalways				" always equalize windows
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
-set scrolloff=10			" minumum lines before/after cursor
+
+set scrolloff=3			" minumum lines before/after cursor
 
 " Tabulation control
 set noexpandtab				" tabs ftw
@@ -97,9 +99,8 @@ filetype indent on
 set splitbelow				" default split below
 set splitright				" default split right
 
-" }}}
 
-" => look / theme {{{
+""  look / theme
 
 " syntax on
 
@@ -121,9 +122,8 @@ let base16colorspace=256  " access colors present in 256 colorspace"
 set t_co=256 " explicitly tell vim that the terminal supports 256 colors"
 "
 
-" }}}
 
-" => highlights / match {{{
+""  highlights / match
 
 " highlight overlength ctermbg=203 ctermfg=white guibg=#592928
 " match overlength /\%81v.\+/
@@ -149,9 +149,8 @@ set colorcolumn=81
 "
 set mat=2 " how many tenths of a second to blink
 
-" }}}
 
-" => File automation {{{
+""  File automation
 
 set autoread "not working until cmd like :e
 " detect when a file is changed
@@ -185,16 +184,14 @@ autocmd BufWritePost * filetype detect
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
-" }}}
 
-" => Code folding {{{
+""  Code folding
 
 set foldmethod=syntax " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
 " automatily save and restore views (folding state of files)
-" /!\ BREAKS VIMRC FOLDING
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
@@ -204,33 +201,33 @@ onoremap <F9> <C-C>za
 vnoremap <F9> zf
 
 " keep cursor in middle of screen when searching / folding
+nnoremap <leader>z zMzvzz
 nnoremap zM zMzz
 nnoremap za zazz
 nnoremap zA zAzz
 
-" }}}
 
-" => Netrw {{{
+""  Netrw
 
 " Toggle Vexplore with <leader>t
 function! ToggleVExplorer()
-	if exists("t:expl_buf_num")
-		let expl_win_num = bufwinnr(t:expl_buf_num)
-		if expl_win_num != -1
-			let cur_win_nr = winnr()
-			exec expl_win_num . 'wincmd w'
-			close
-			exec cur_win_nr . 'wincmd w'
-			unlet t:expl_buf_num
-		else
-			unlet t:expl_buf_num
-		endif
+if exists("t:expl_buf_num")
+	let expl_win_num = bufwinnr(t:expl_buf_num)
+	if expl_win_num != -1
+		let cur_win_nr = winnr()
+		exec expl_win_num . 'wincmd w'
+		close
+		exec cur_win_nr . 'wincmd w'
+		unlet t:expl_buf_num
 	else
-		exec '1wincmd w'
-		Vexplore
-		setlocal winfixwidth
-		let t:expl_buf_num = bufnr("%")
+		unlet t:expl_buf_num
 	endif
+else
+	exec '1wincmd w'
+	Vexplore
+	setlocal winfixwidth
+	let t:expl_buf_num = bufnr("%")
+endif
 endfunction
 nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
 
@@ -248,9 +245,8 @@ let g:netrw_sort_sequence = '[\/]$,*' " sort folders on top
 " augroup END
 " autocmd filetype netrw nnoremap <c-a> <cr>:wincmd W<cr>
 
-" }}}
 
-" => Quickfix {{{
+""  Quickfix
 
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
@@ -270,31 +266,29 @@ nnoremap <Leader>cw :cwindow<CR>
 autocmd QuickFixCmdPost [^l]* nested botright copen
 autocmd QuickFixCmdPost    l* nested botright lwindo
 
-" }}}
 
-" => Shell output in new split {{{
+""  Shell output in new split
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
-	echo a:cmdline
-	let expanded_cmdline = a:cmdline
-	for part in split(a:cmdline, ' ')
-		if part[0] =~ '\v[%#<]'
-			let expanded_part = fnameescape(expand(part))
-			let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-		endif
-	endfor
-	vert new
-	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-	call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
-	call setline(2,substitute(getline(1),'.','=','g'))
-	execute '$read !'. expanded_cmdline
-	setlocal nomodifiable
+echo a:cmdline
+let expanded_cmdline = a:cmdline
+for part in split(a:cmdline, ' ')
+	if part[0] =~ '\v[%#<]'
+		let expanded_part = fnameescape(expand(part))
+		let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+	endif
+endfor
+vert new
+setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
+call setline(2,substitute(getline(1),'.','=','g'))
+execute '$read !'. expanded_cmdline
+setlocal nomodifiable
 endfunction
 
-" }}}
 
-" => Searching {{{
+""  Searching
 
 set path+=**			" recursive path from current path
 " set incsearch
@@ -324,6 +318,10 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#
 
+" uset unix regex in searche
+" nnoremap / /\v
+" vnoremap / /\v
+
 "do not move cursor with match
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
@@ -335,18 +333,25 @@ nnoremap gr gd:s/<C-R>///gc<left><left><left>
 " For global sed replace
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
-" }}}
+function! s:VSetSearch()
+let temp = @@
+norm! gvy
+let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+let @@ = temp
+endfunction
 
-" => Edit mappings {{{
+vnoremap * :<C-u>cal <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>
+
+""  Edit mappings
 
 " delete without saving to register
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
 xnoremap <leader>p "_dP
 
-" }}}
 
-" => Code mappings {{{
+""  Code mappings
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
@@ -384,9 +389,8 @@ autocmd FileType vim              let b:comment_leader = '" '
 noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-" }}}
 
-" => Mappings {{{
+""  Mappings
 
 " <c-z> will work in insert mode
 inoremap <C-Z> <C-C><C-Z>
@@ -407,6 +411,9 @@ vnoremap <leader>y "+y
 vnoremap <Leader>p "+p
 vnoremap <Leader>P "+P
 
+nnoremap H ^
+nnoremap L g_
+
 " nnoremap <silent> j h
 " nnoremap <silent> k gj
 " nnoremap <silent> i gk
@@ -419,9 +426,8 @@ vnoremap <Leader>P "+P
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
-" }}}
 
-" => Autocompletion {{{
+""  Autocompletion
 
 set completeopt=longest,menuone
 " set completeopt=menuone
@@ -449,9 +455,8 @@ inoremap <c-x>l <c-x><c-l>
 " inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
 "              \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 "
-" }}}
 
-" => Window behaviour {{{
+""  Window behaviour
 
 " jump or open matching buffer in new vertical split
 nnoremap <leader>j :vertical sbuffer<space>
@@ -470,11 +475,10 @@ nnoremap <silent><C-w><C-=> :resize +10<CR>
 nnoremap <silent><C-w><C--> :resize -10<CR>
 
 " new file in vertical split instead of horizontal
-nnoremap <C-w><C-n> :vnew
-nnoremap <C-w>n :vnew
-" }}}
+nnoremap <C-w><C-n> :vertical new<CR>
+nnoremap <C-w>n :vertical new<CR>
 
-" => Plugins {{{
+""  Plugins
 
 execute pathogen#infect()
 
@@ -552,6 +556,33 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-" }}}
 
-" vim:foldmethod=marker:modelines=1
+
+""  Vim folding
+function! MyFoldText() " {{{
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+	let maxwidth = 80
+	if windowwidth > maxwidth
+		let endpad = windowwidth - maxwidth
+		let windowwidth = maxwidth - 1
+	endif
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+	if windowwidth == maxwidth - 1
+		return line . ' ' . repeat("-",fillcharcount - 2) . ' ' . foldedlinecount . '' . ' ' . repeat(" ",endpad + 1)
+	else
+		return line . ' ' . repeat("-",fillcharcount - 2) . ' ' . foldedlinecount . '' . ' '
+	endif
+endfunction " }}}
+set foldtext=MyFoldText()
+" vim:foldmethod=expr:foldtext=MyFoldText()
+" vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
