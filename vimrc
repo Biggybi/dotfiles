@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" """""""""""""""""""""""""""""""""""""""""""""""""""
 "  ____ _____ _____  _______     ______ _____		"
 " |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
 " | |_) || || |  __| |  __ \ \_/ /| |_) || |		"
@@ -206,6 +206,24 @@ nnoremap zM zMzz
 nnoremap za zazz
 nnoremap zA zAzz
 
+function! SimpleFold()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+	if windowwidth > 80
+		let windowwidth = 79
+	endif
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . repeat(" ", fillcharcount%2 + len(foldedlinecount)) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
+endfunction
 
 ""  Netrw
 
@@ -558,31 +576,84 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ""  Vim folding
-function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-	let maxwidth = 80
-	if windowwidth > maxwidth
-		let endpad = windowwidth - maxwidth
-		let windowwidth = maxwidth - 1
-	endif
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-	if windowwidth == maxwidth - 1
-		return line . ' ' . repeat("-",fillcharcount - 2) . ' ' . foldedlinecount . '' . ' ' . repeat(" ",endpad + 1)
-	else
-		return line . ' ' . repeat("-",fillcharcount - 2) . ' ' . foldedlinecount . '' . ' '
-	endif
-endfunction " }}}
-set foldtext=MyFoldText()
-" vim:foldmethod=expr:foldtext=MyFoldText()
+" vim:foldmethod=expr:foldtext=SimpleFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
