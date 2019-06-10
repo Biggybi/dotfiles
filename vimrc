@@ -432,13 +432,14 @@ vnoremap <Leader>P "+P
 nnoremap H ^
 nnoremap L g_
 
-" nnoremap <silent> j h
-" nnoremap <silent> k gj
-" nnoremap <silent> i gk
-" vnoremap <silent> j h
-" vnoremap <silent> k gj
-" vnoremap <silent> i gk
-" nnoremap <space> i
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-k> <Up>
+cnoremap <C-j> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-i> <S-Left>
+cnoremap <C-o> <S-Right>
 
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
