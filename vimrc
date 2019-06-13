@@ -206,25 +206,6 @@ nnoremap zM zMzz
 nnoremap za zazz
 nnoremap zA zAzz
 
-function! SimpleFold()
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-	if windowwidth > 80
-		let windowwidth = 79
-	endif
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . repeat(" ", fillcharcount%2 + len(foldedlinecount)) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
-endfunction
-
 ""  Netrw
 
 " Toggle Vexplore with <leader>t
@@ -345,7 +326,7 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight pressing Enter
-nnoremap <silent><CR> :nohlsearch<CR><CR>
+nnoremap <silent><BS> :nohlsearch<CR><CR>
 " For local sed replace
 nnoremap gr gd:s/<C-R>///gc<left><left><left>
 " For global sed replace
@@ -411,7 +392,7 @@ noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')
 ""  Mappings
 
 " <c-z> will work in insert mode
-inoremap <C-Z> <C-C><C-Z>
+inoremap <C-Z> <C-[><C-Z>
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
@@ -431,6 +412,11 @@ vnoremap <Leader>P "+P
 
 nnoremap H ^
 nnoremap L g_
+nnoremap <C-h> B
+nnoremap <C-l> E
+nnoremap <C-k> {
+nnoremap <C-j> }
+nnoremap <C-q> <silent>:redraw<CR>
 
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -438,8 +424,8 @@ cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
-cnoremap <C-i> <S-Left>
-cnoremap <C-o> <S-Right>
+cnoremap <C-l> <S-Right>
+cnoremap <C-x> <Del>
 
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
@@ -576,85 +562,28 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ""  Vim folding
-" vim:foldmethod=expr:foldtext=SimpleFold()
+function! VimFold()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+	if windowwidth > 80
+		let windowwidth = 79
+	endif
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
+ 	if len(line) > windowwidth - 15
+		let line=line[0:windowwidth - 15]
+	endif
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . repeat(" ", fillcharcount%2 + len(foldedlinecount)) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
+endfunction
+
+" vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
