@@ -29,8 +29,8 @@ autocmd BufWinEnter *.* silent loadview
 
 ""  General
 
-let mapleadev = ','
-let leader = ','
+let mapleader=','
+let leader=','
 
 inoremap jk <ESC>
 set background=dark
