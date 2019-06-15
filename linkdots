@@ -4,7 +4,7 @@
 GITURL=https://github.com/Biggybi/dotfiles
 SRC=$HOME/dotfiles
 DST=$HOME
-BACKUP=$HOME/dotfiles/dots_back
+BACKUP=$HOME/dotfiles/dots_back/
 
 # the links on your machine
 FILES=(vim
@@ -20,7 +20,7 @@ LINK=(.vim
 	.bashrc
 	.bash_aliases
 	.inputrc
-	bin)
+	bin/)
 
 # the links on your Mac
 if [[ "$OSTYPE" == "darwin"* ]]
@@ -30,7 +30,7 @@ then
 		.bash_profile
 		.bash_aliases
 		.inputrc
-		.bin)
+		.bin/)
 fi
 
 if [ -d $SRC ]
@@ -63,10 +63,12 @@ do
 			#rm $DST/$l
 		elif [ -f $DST/$l ]
 		then
-			mv $DST/$l $BACKUP
+			[ ! -d $BACKUP ] && mkdir $BACKUP
+			mv $DST/$l $BACKUP/$l
 			echo "file saved : $BACKUP $l"
 		elif [ -d $DST/$l ]
 		then
+			[ ! -d $BACKUP ] && mkdir $BACKUP
 			mv $DST/$l $BACKUP/$l
 			echo "file saved : $BACKUP $l"
 		fi

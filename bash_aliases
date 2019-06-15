@@ -200,10 +200,8 @@ alias ev='$EDITOR $(fzf --height=10)'
 ef () {
 # 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	P=$(fzf --height=10)
-	if ! [ "$P" == "" ]
-	then
-		vim $P
-	fi
+	[ "$P" == "" ] && return
+	vim $P
 }
 
 alias ex='return && echo end'
