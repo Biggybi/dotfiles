@@ -1,4 +1,4 @@
-" """""""""""""""""""""""""""""""""""""""""""""""""""
+" """"""""""""""""p"""""""""""""""""""""""""""""""""""
 "  ____ _____ _____  _______     ______ _____		"
 " |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
 " | |_) || || |  __| |  __ \ \_/ /| |_) || |		"
@@ -34,10 +34,11 @@ set ttimeoutlen=10
 
 ""  General
 
-map <Space> <leader>
 " let mapleader = "\<Space>"
 " let leader = "\<Space>"
-" nnoremap <SPACE> <Nop>
+map <Space> <leader>
+nnoremap ; :
+nnoremap : ;
 
 inoremap jk <ESC>
 set background=dark
@@ -335,9 +336,9 @@ nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 "Clear search highlight pressing Enter
 nnoremap <silent><BS> :nohlsearch<CR><CR>
 " For local sed replace
-nnoremap gr gd:s/<C-R>///gc<left><left><left>
+nnoremap gr :s/<C-R>///g<left><left>
 " For global sed replace
-nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+nnoremap gR :%s/<C-R>///g<left><left>
 
 function! s:VSetSearch()
 let temp = @@
@@ -405,7 +406,7 @@ nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " Copying/pasting text to the system clipboard.
-" set clipboard=unnamed
+set clipboard=unnamed
 let g:clipbrdDefaultReg = '+'
 
 
@@ -501,6 +502,7 @@ set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
 let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
+let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ]
 
 " syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
