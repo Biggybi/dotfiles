@@ -120,8 +120,8 @@ else
 endif
 
 " source colors
-nnoremap <leader>sc1 :source $HOME/.vim/colors/trikai.vim<CR>
-nnoremap <leader>sc2 :source $HOME/.vim/colors/trikai_light.vim<CR>
+nnoremap <leader>s1 :source $HOME/.vim/colors/trikai.vim<CR>
+nnoremap <leader>s2 :source $HOME/.vim/colors/trikai_light.vim<CR>
 
 " code
 set encoding=utf8
@@ -552,8 +552,8 @@ nmap [h <Plug>GitGutterPrevHunk
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>ff :FZF<CR>		"search files from current dir
-nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME dir
+nnoremap <leader>f :FZF<CR>			"search files from curr dir
+nnoremap <leader>F :FZF $HOME<CR>		"search files from HOME dir
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_layout = { 'down' : '10 reverse' }
