@@ -10,6 +10,8 @@
 
 ""  Vimrc settings
 
+set nocompatible " not compatible with vi
+
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
@@ -18,7 +20,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 " source vimrc
 nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced"<CR>
-nnoremap <silent><leader><leader>y :YcmRestartServer<CR>
+nnoremap <silent><leader>yy :YcmRestartServer<CR>
 
 " edit vimrc
 nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
@@ -26,11 +28,16 @@ nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
+set notimeout
+set ttimeout
+set ttimeoutlen=10
 
 ""  General
 
-let mapleader=','
-let leader=','
+map <Space> <Leader>
+" let mapleader = "\<Space>"
+" let leader = "\<Space>"
+" nnoremap <SPACE> <Nop>
 
 inoremap jk <ESC>
 set background=dark
@@ -41,8 +48,6 @@ inoremap <C-s> <C-O>:stopinsert<CR>:w<CR>
 cmap W! %!sudo tee > /dev/null %
 
 set history=1000 " default 20
-
-set nocompatible " not compatible with vi
 
 " make backspace behave in a sane manner
 set backspace=indent,eol,start
@@ -58,6 +63,8 @@ set undodir=$HOME/.vim/undo//
 
 " No error message when swap exists, just edit
 set shortmess+=A
+
+set hidden
 
 " set noswapfile
 
@@ -185,7 +192,7 @@ autocmd BufWritePost * filetype detect
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 
-""  Code folding
+""  Folding
 
 set foldmethod=syntax " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
@@ -195,15 +202,15 @@ set foldlevel=1
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-C>za
-vnoremap <F9> zf
+" inoremap <leader><space> <C-O>za
+nnoremap <leader><space> za
+onoremap <leader><space> <C-C>za
+vnoremap <leader><space> zf
 
 " keep cursor in middle of screen when searching / folding
 nnoremap <leader>z zMzvzz
 nnoremap zM zMzz
-nnoremap za zazz
+" nnoremap za zazz
 nnoremap zA zAzz
 
 ""  Netrw
@@ -211,21 +218,21 @@ nnoremap zA zAzz
 " Toggle Vexplore with <leader>t
 function! ToggleVExplorer()
 if exists("t:expl_buf_num")
-	let expl_win_num = bufwinnr(t:expl_buf_num)
-	if expl_win_num != -1
-		let cur_win_nr = winnr()
-		exec expl_win_num . 'wincmd w'
-		close
-		exec cur_win_nr . 'wincmd w'
-		unlet t:expl_buf_num
-	else
-		unlet t:expl_buf_num
-	endif
+let expl_win_num = bufwinnr(t:expl_buf_num)
+if expl_win_num != -1
+	let cur_win_nr = winnr()
+	exec expl_win_num . 'wincmd w'
+	close
+	exec cur_win_nr . 'wincmd w'
+	unlet t:expl_buf_num
 else
-	exec '1wincmd w'
-	Vexplore
-	setlocal winfixwidth
-	let t:expl_buf_num = bufnr("%")
+	unlet t:expl_buf_num
+endif
+else
+exec '1wincmd w'
+Vexplore
+setlocal winfixwidth
+let t:expl_buf_num = bufnr("%")
 endif
 endfunction
 nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
@@ -273,10 +280,10 @@ function! s:RunShellCommand(cmdline)
 echo a:cmdline
 let expanded_cmdline = a:cmdline
 for part in split(a:cmdline, ' ')
-	if part[0] =~ '\v[%#<]'
-		let expanded_part = fnameescape(expand(part))
-		let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-	endif
+if part[0] =~ '\v[%#<]'
+	let expanded_part = fnameescape(expand(part))
+	let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+endif
 endfor
 vert new
 setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
@@ -339,8 +346,8 @@ let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
 let @@ = temp
 endfunction
 
-vnoremap * :<C-u>cal <SID>VSetSearch()<CR>//<CR><c-o>
-vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>
+vnoremap * :<C-u>cal <SID>VSetSearch()<CR>//<CR><c-o>gv
+vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>gv
 
 ""  Edit mappings
 
@@ -348,7 +355,6 @@ vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
 xnoremap <leader>p "_dP
-
 
 ""  Code mappings
 
@@ -400,6 +406,9 @@ nnoremap <silent> k gk
 
 " Copying/pasting text to the system clipboard.
 " set clipboard=unnamed
+let g:clipbrdDefaultReg = '+'
+
+
 noremap  <leader>p "+p
 nnoremap <leader>y VV"+y
 nnoremap <leader>Y "+y
@@ -543,7 +552,8 @@ nmap [h <Plug>GitGutterPrevHunk
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>f :FZF<CR>
+nnoremap <leader>ff :FZF<CR>		"search files from current dir
+nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME dir
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_layout = { 'down' : '10 reverse' }
@@ -577,12 +587,14 @@ function! VimFold()
     let onetab = strpart('          ', 0, &tabstop)
     let line = substitute(line, '\t', onetab, 'g')
 
+	let longbreak=" "
     let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
  	if len(line) > windowwidth - 15
 		let line=line[0:windowwidth - 15]
+		let longbreak="¬"
 	endif
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . repeat(" ", fillcharcount%2 + len(foldedlinecount)) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
+    return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
 endfunction
 
 " vim:foldmethod=expr:foldtext=VimFold()
