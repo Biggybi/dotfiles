@@ -34,7 +34,7 @@ set ttimeoutlen=10
 
 ""  General
 
-map <Space> <Leader>
+map <Space> <leader>
 " let mapleader = "\<Space>"
 " let leader = "\<Space>"
 " nnoremap <SPACE> <Nop>
