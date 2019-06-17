@@ -95,14 +95,9 @@ set equalalways				" always equalize windows
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 
-" set scrolloff=100			" minumum lines before/after cursor
-nnoremap zz :let &scrolloff=winheight(win_getid())/2-&scrolloff<CR>
-if &scrolloff <= 0
-	let &scrolloff=winheight(win_getid())/10
-	if &scrolloff <= 0
-		let &scrolloff=1
-	endif
-endif
+let &scrolloff=winheight(win_getid())/10+1 " minumum lines before/after cursor
+
+nnoremap zz :let &scrolloff=999-&scrolloff<CR>
 
 " Tabulation control
 set noexpandtab				" tabs ftw
