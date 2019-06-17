@@ -1,4 +1,4 @@
-" """"""""""""""""p"""""""""""""""""""""""""""""""""""
+" """""""""""""""""""""""""""""""""""""""""""""""""""
 "  ____ _____ _____  _______     ______ _____		"
 " |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
 " | |_) || || |  __| |  __ \ \_/ /| |_) || |		"
@@ -7,6 +7,7 @@
 " |____/_____\_____|\_____|  |_|  |____/_____|vimrc "
 "													"
 " """""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 ""  Vimrc settings
 
@@ -19,9 +20,9 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced"<CR>
-nnoremap <silent><leader>yy :YcmRestartServer<CR>
-
+nnoremap <silent><leader>sv :source $MYVIMRC <CR> :nohlsearch <CR> :echo "vimrc sourced"<CR>
+nnoremap <silent><leader>sy :YcmRestartServer <CR> :echo "YCM fresh" <CR>
+nnoremap <silent><leader>ss :source $MYVIMRC <CR> :nohlsearch <CR> :echo "vimrc sourced"<CR> :YcmRestartServer<CR> :redraw<CR> :echo "All fresh" <Esc>
 " edit vimrc
 nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
 
@@ -32,6 +33,7 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
+
 ""  General
 
 " let mapleader = "\<Space>"
@@ -41,6 +43,7 @@ nnoremap ; :
 nnoremap : ;
 
 inoremap jk <ESC>
+cmap jk <ESC>
 set background=dark
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
@@ -75,6 +78,7 @@ set hidden
 set ruler
 set mouse=a
 set visualbell
+set t_vb=
 set wildmenu
 set showmode
 set showcmd
@@ -91,7 +95,14 @@ set equalalways				" always equalize windows
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 
-set scrolloff=3			" minumum lines before/after cursor
+" set scrolloff=100			" minumum lines before/after cursor
+nnoremap zz :let &scrolloff=winheight(win_getid())/2-&scrolloff<CR>
+if &scrolloff <= 0
+	let &scrolloff=winheight(win_getid())/10
+	if &scrolloff <= 0
+		let &scrolloff=1
+	endif
+endif
 
 " Tabulation control
 set noexpandtab				" tabs ftw
@@ -214,29 +225,31 @@ nnoremap zM zMzz
 " nnoremap za zazz
 nnoremap zA zAzz
 
+
 ""  Netrw
 
-" Toggle Vexplore with <leader>t
-function! ToggleVExplorer()
-if exists("t:expl_buf_num")
-let expl_win_num = bufwinnr(t:expl_buf_num)
-if expl_win_num != -1
-	let cur_win_nr = winnr()
-	exec expl_win_num . 'wincmd w'
-	close
-	exec cur_win_nr . 'wincmd w'
-	unlet t:expl_buf_num
-else
-	unlet t:expl_buf_num
-endif
-else
-exec '1wincmd w'
-Vexplore
-setlocal winfixwidth
-let t:expl_buf_num = bufnr("%")
-endif
-endfunction
-nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
+" " Toggle Vexplore with <leader>t
+" function! ToggleVExplorer()
+" 	if exists("t:expl_buf_num")
+" 		let expl_win_num = bufwinnr(t:expl_buf_num)
+" 		if expl_win_num != -1
+" 			let cur_win_nr = winnr()
+" 			exec expl_win_num . 'wincmd w'
+" 			close
+" 			exec cur_win_nr . 'wincmd w'
+" 			unlet t:expl_buf_num
+" 		else
+" 			unlet t:expl_buf_num
+" 		endif
+" 	else
+" 		exec '1wincmd w'
+" 		Vexplore
+" 		setlocal winfixwidth
+" 		let t:expl_buf_num = bufnr("%")
+" 	endif
+" endfunction
+" nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
+nnoremap <leader>t :Lexplore<CR>
 
 " Netrw customization
 let g:netrw_banner = 0
@@ -264,34 +277,62 @@ let g:netrw_sort_sequence = '[\/]$,*' " sort folders on top
 " (but not if it's already open). However, as part of the autocmd, this doesn't
 " seem to happen.
 
-nnoremap <Leader>cm :make re<CR><CR><CR>
-nnoremap <Leader>cc :cc<CR>
-nnoremap <Leader>cn :cn<CR>
-nnoremap <Leader>cp :cp<CR>
-nnoremap <Leader>cl :clist<CR>
-nnoremap <Leader>cw :cwindow<CR>
+nnoremap <leader>cm :make re<CR><CR><CR>
+nnoremap <leader>cc :cc<CR>
+nnoremap <leader>cn :cn<CR>
+nnoremap <leader>cp :cp<CR>
+nnoremap <leader>cl :clist<CR>
+nnoremap <leader>cw :cwindow<CR>
 autocmd QuickFixCmdPost [^l]* nested botright copen
 autocmd QuickFixCmdPost    l* nested botright lwindo
 
+" quickfix
+function! s:redir(cmd)
+  redir => res
+  execute a:cmd
+  redir END
 
-""  Shell output in new split
+  return res
+endfunction
+
+function! s:toggle_qf_list()
+  let bufs = s:redir('buffers')
+  let l = matchstr(split(bufs, '\n'), '[\t ]*\d\+[\t ]\+.\+[\t ]\+"\[Quickfix\ List\]"')
+
+  let winnr = -1
+  if !empty(l)
+    let bufnbr = matchstr(l, '[\t ]*\zs\d\+\ze[\t ]\+')
+    let winnr = bufwinnr(str2nr(bufnbr, 10))
+  endif
+
+  if !empty(getqflist())
+    if winnr == -1
+      copen
+    else
+      cclose
+    endif
+  endif
+endfunction
+nnoremap <silent> qo :<C-u>silent call <SID>toggle_qf_list()<Cr>
+
+""  Shell output split
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
-echo a:cmdline
-let expanded_cmdline = a:cmdline
-for part in split(a:cmdline, ' ')
-if part[0] =~ '\v[%#<]'
-	let expanded_part = fnameescape(expand(part))
-	let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-endif
-endfor
-vert new
-setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
-call setline(2,substitute(getline(1),'.','=','g'))
-execute '$read !'. expanded_cmdline
-setlocal nomodifiable
+	echo a:cmdline
+	let expanded_cmdline = a:cmdline
+	for part in split(a:cmdline, ' ')
+		if part[0] =~ '\v[%#<]'
+			let expanded_part = fnameescape(expand(part))
+			let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+		endif
+	endfor
+	vert new
+	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+	call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
+	call setline(2,substitute(getline(1),'.','=','g'))
+	execute '$read !'. expanded_cmdline
+	setlocal nomodifiable
 endfunction
 
 
@@ -334,21 +375,22 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight pressing Enter
-nnoremap <silent><BS> :nohlsearch<CR><CR>
+nnoremap <silent><-> :nohlsearch<CR><CR>
 " For local sed replace
 nnoremap gr :s/<C-R>///g<left><left>
 " For global sed replace
 nnoremap gR :%s/<C-R>///g<left><left>
 
 function! s:VSetSearch()
-let temp = @@
-norm! gvy
-let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-let @@ = temp
+	let temp = @@
+	norm! gvy
+	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+	let @@ = temp
 endfunction
 
 vnoremap * :<C-u>cal <SID>VSetSearch()<CR>//<CR><c-o>gv
 vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>gv
+
 
 ""  Edit mappings
 
@@ -356,6 +398,7 @@ vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>gv
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
 xnoremap <leader>p "_dP
+
 
 ""  Code mappings
 
@@ -407,18 +450,18 @@ nnoremap <silent> k gk
 
 " Copying/pasting text to the system clipboard.
 set clipboard=unnamed
-let g:clipbrdDefaultReg = '+'
-
+" let g:clipbrdDefaultReg = '+'
 
 noremap  <leader>p "+p
-nnoremap <leader>y VV"+y
-nnoremap <leader>Y "+y
-nnoremap <Leader>p "+p
-nnoremap <Leader>P "+P
-vnoremap <Leader>d "+d
-vnoremap <leader>y "+y
-vnoremap <Leader>p "+p
-vnoremap <Leader>P "+P
+nnoremap <leader>Y "+yy
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
+vnoremap <leader>y "+ygv
+vnoremap <leader>Y "+ygv
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 nnoremap H ^
 nnoremap L g_
@@ -471,10 +514,33 @@ inoremap <c-x>l <c-x><c-l>
 "              \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 "
 
+
 ""  Window behaviour
 
 " jump or open matching buffer in new vertical split
 nnoremap <leader>j :vertical sbuffer<space>
+" nnoremap <leader>T :vertical sbuffer !/bin/bash<CR>
+
+let g:term_buf = 0
+let g:term_win = 0
+
+function! Term_toggle(height)
+	if win_gotoid(g:term_win)
+		hide
+	else
+		try
+			exec "buffer " . g:term_buf
+		catch
+			vertical terminal
+			"             let g:term_buf = bufnr("")
+		endtry
+		startinsert!
+		let g:term_win = win_getid()
+	endif
+endfunction
+
+nnoremap <leader>T :call Term_toggle(10)<cr>
+tnoremap <leader>T <C-\><C-n>:call Term_toggle(10)<cr>
 
 " move between windows with ctrl
 " nnoremap <C-h> :wincmd h<CR>
@@ -492,6 +558,7 @@ nnoremap <silent><C-w><C--> :resize -10<CR>
 " new file in vertical split instead of horizontal
 nnoremap <C-w><C-n> :vertical new<CR>
 nnoremap <C-w>n :vertical new<CR>
+
 
 ""  Plugins
 
@@ -560,43 +627,44 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_layout = { 'down' : '10 reverse' }
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+			\ { 'fg':      ['fg', 'Normal'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'Comment'],
+			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':     ['fg', 'Statement'],
+			\ 'info':    ['fg', 'PreProc'],
+			\ 'border':  ['fg', 'Ignore'],
+			\ 'prompt':  ['fg', 'Conditional'],
+			\ 'pointer': ['fg', 'Exception'],
+			\ 'marker':  ['fg', 'Keyword'],
+			\ 'spinner': ['fg', 'Label'],
+			\ 'header':  ['fg', 'Comment'] }
+
 
 ""  Vim folding
 function! VimFold()
-    let line = getline(v:foldstart)
+	let line = getline(v:foldstart)
 
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
+	let nucolwidth = &fdc + &number * &numberwidth
+	let windowwidth = winwidth(0) - nucolwidth - 3
 	if windowwidth > 80
 		let windowwidth = 79
 	endif
-    let foldedlinecount = v:foldend - v:foldstart
+	let foldedlinecount = v:foldend - v:foldstart
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+	" expand tabs into spaces
+	let onetab = strpart('          ', 0, &tabstop)
+	let line = substitute(line, '\t', onetab, 'g')
 
 	let longbreak=" "
-    let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
- 	if len(line) > windowwidth - 15
+	let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
+	if len(line) > windowwidth - 15
 		let line=line[0:windowwidth - 15]
 		let longbreak="¬"
 	endif
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
+	let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+	return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
 endfunction
 
 " vim:foldmethod=expr:foldtext=VimFold()

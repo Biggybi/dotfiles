@@ -27,6 +27,7 @@ sudo apt-get upgrade -y
 sudo apt-get autoremove -y
 
 sudo apt-get install -yy vim
+sudo apt-get install -yy vim-gtk3			#for linux clipbloard (lazy workaround)
 sudo apt-get install -yy fzf
 sudo apt-get install -yy git
 sudo apt-get install -yy highlight
@@ -47,7 +48,7 @@ sudo apt-get install -yy curl
 sudo apt-get install -yy gnome-session
 sudo apt-get install -yy gnome-tweaks
 sudo apt-get install -yy dconf-editor
-sudo apt-get install -yy gconf2 
+sudo apt-get install -yy gconf2
 
 sudo apt-get install -yy chrome-gnome-shell
 sudo apt-get install -yy ppa-purge
