@@ -22,7 +22,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " source vimrc
 nnoremap <silent><leader>sv :source $MYVIMRC <CR> :nohlsearch <CR> :echo "vimrc sourced"<CR>
 nnoremap <silent><leader>sy :YcmRestartServer <CR> :echo "YCM fresh" <CR>
-nnoremap <silent><leader>ss :source $MYVIMRC <CR> :nohlsearch <CR> :echo "vimrc sourced"<CR> :YcmRestartServer<CR> :redraw<CR> :echo "All fresh" <Esc>
+nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:echo "All fresh"<Esc>
 " edit vimrc
 nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
 
@@ -198,6 +198,8 @@ autocmd BufWritePost * filetype detect
 
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
+" load the first 'tags' file in dir tree
+set tags=tags;/
 
 ""  Folding
 
@@ -223,6 +225,29 @@ nnoremap zA zAzz
 
 ""  Netrw
 
+" Toggle Vexplore with Ctrl-O
+function! ToggleVExplorer()
+    if exists("t:expl_buf_num")
+        let expl_win_num = bufwinnr(t:expl_buf_num)
+        let cur_win_num = winnr()
+
+        if expl_win_num != -1
+            while expl_win_num != cur_win_num
+                exec "wincmd w"
+                let cur_win_num = winnr()
+            endwhile
+
+            close
+        endif
+
+        unlet t:expl_buf_num
+    else
+         Vexplore
+         let t:expl_buf_num = bufnr("%")
+    endif
+endfunction
+
+map <silent> <leader>t :call ToggleVExplorer()<CR>
 " " Toggle Vexplore with <leader>t
 " function! ToggleVExplorer()
 " 	if exists("t:expl_buf_num")
@@ -244,7 +269,7 @@ nnoremap zA zAzz
 " 	endif
 " endfunction
 " nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
-nnoremap <leader>t :Lexplore<CR>
+" nnoremap <leader>t :Lexplore<CR>
 
 " Netrw customization
 let g:netrw_banner = 0
@@ -370,7 +395,7 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight pressing Enter
-nnoremap <silent><-> :nohlsearch<CR><CR>
+nnoremap <silent>- :nohlsearch<CR>
 " For local sed replace
 nnoremap gr :s/<C-R>///g<left><left>
 " For global sed replace
@@ -393,7 +418,6 @@ vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>gv
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
 xnoremap <leader>p "_dP
-
 
 ""  Code mappings
 
