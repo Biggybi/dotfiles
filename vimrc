@@ -8,7 +8,6 @@
 "													"
 " """""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 ""  Vimrc settings
 
 set nocompatible " not compatible with vi
@@ -44,7 +43,6 @@ nnoremap : ;
 
 inoremap jk <ESC>
 cmap jk <ESC>
-set background=dark
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
 nnoremap <C-s> :w<CR>
@@ -119,12 +117,30 @@ set splitright				" default split right
 " syntax on
 
 " night theme
-let hour = strftime("%H")
-if 9 <= hour && hour < 19
-	colorscheme trikai_light
-else
-	colorscheme trikai
+" let hour = strftime("%H")
+" if 9 <= hour && hour < 19
+" 	colorscheme trikai_light
+" else
+" 	colorscheme trikai
+" endif
+
+
+if (has("termguicolors"))
+  set termguicolors
 endif
+let g:material_theme_style='dark'
+let hour = strftime("%H")
+if 9 <= hour && hour < 21
+	colorscheme base16-tomorrow
+	set background=light
+else
+	set background=dark
+	colorscheme base16-onedark
+" 	colorscheme material
+" 	let g:lightline = { 'colorscheme': 'material_vim' }
+" 	let g:material_terminal_italics = 1
+endif
+set background=dark
 
 " source colors
 nnoremap <leader>s1 :source $HOME/.vim/colors/trikai.vim<CR>
@@ -166,6 +182,7 @@ set mat=2 " how many tenths of a second to blink
 
 ""  File automation
 
+set autochdir
 set autoread "not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
@@ -246,6 +263,7 @@ function! ToggleVExplorer()
          let t:expl_buf_num = bufnr("%")
     endif
 endfunction
+nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
 
 map <silent> <leader>t :call ToggleVExplorer()<CR>
 " " Toggle Vexplore with <leader>t
@@ -272,12 +290,15 @@ map <silent> <leader>t :call ToggleVExplorer()<CR>
 " nnoremap <leader>t :Lexplore<CR>
 
 " Netrw customization
+let g:netrw_keepdir= 0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
 let g:netrw_winsize = -25
 let g:netrw_sort_sequence = '[\/]$,*' " sort folders on top
+autocmd BufEnter * silent! :lcd%:p:h
+
 " open netrw with vim
 " augroup ProjectDrawer
 "   autocmd!
@@ -468,7 +489,7 @@ nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " Copying/pasting text to the system clipboard.
-set clipboard=unnamed
+" set clipboard=unnamed
 " let g:clipbrdDefaultReg = '+'
 
 noremap  <leader>p "+p
@@ -642,6 +663,7 @@ nmap [h <Plug>GitGutterPrevHunk
 " call fzf#run({'options': '--reverse'})
 nnoremap <leader>f :FZF<CR>			"search files from curr dir
 nnoremap <leader>F :FZF $HOME<CR>		"search files from HOME dir
+" nnoremap <leader>f :FZF<C-r>=fnamemodify(getcwd(), ':p')<CR><CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_layout = { 'down' : '10 reverse' }
