@@ -195,14 +195,16 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 ##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
 alias eb='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
 alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --height=10)'
-alias ev='$EDITOR $(fzf --height=10)'
+# alias ev='$EDITOR $(fzf --height=10)'
 
 ef () {
 # 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
+	cd "$1"
 	P=$(fzf --height=10)
 	[ "$P" == "" ] && return
 	vim $P
 }
+alias eff='ef $HOME'
 
 alias ex='return && echo end'
 # alias fav='. fav'

@@ -6,7 +6,7 @@ SRC=$HOME/dotfiles
 DST=$HOME
 BACKUP=$HOME/dotfiles/dots_back
 
-# the links on your machine
+# git files to link
 FILES=(vim
 	vimrc
 	bashrc
@@ -14,7 +14,7 @@ FILES=(vim
 	inputrc
 	bin)
 
-# the git files you want on your machine
+# links to create localy for Linux
 LINK=(.vim
 	.vimrc
 	.bashrc
@@ -22,7 +22,7 @@ LINK=(.vim
 	.inputrc
 	bin)
 
-# the links on your Mac
+# links to create localy for Mac
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	LINK=(vim
@@ -81,7 +81,7 @@ do
 			mv "$DST/$l" "$BACKUP/$l"
 			echo "file saved : $BACKUP $l"
 		fi
-		ln -fs "$SRC/$f" "$DST/$l"
+		[ ! -d $DST/$l ] && ln -fs "$SRC/$f" "$DST/$l"
 		echo "link created : $l -> $f "
 	else
 		echo "no such file : $l"

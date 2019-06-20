@@ -19,8 +19,8 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC <CR> :nohlsearch <CR> :echo "vimrc sourced"<CR>
-nnoremap <silent><leader>sy :YcmRestartServer <CR> :echo "YCM fresh" <CR>
+nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>
+nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>
 nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:echo "All fresh"<Esc>
 " edit vimrc
 nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
@@ -76,11 +76,14 @@ set hidden
 set ruler
 set mouse=a
 set visualbell
+set noerrorbells
 set t_vb=
 set wildmenu
 set showmode
 set showcmd
 set showbreak=¬
+" set list                        " show invisible characters
+" set listchars=tab:<Space><Space>,trail:·    " but only show tabs and trailing whitespace;
 
 " show buffer number
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -96,6 +99,7 @@ set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 let &scrolloff=winheight(win_getid())/10+1 " minumum lines before/after cursor
 
 nnoremap zz :let &scrolloff=999-&scrolloff<CR>
+nnoremap <leader>zz zz
 
 " Tabulation control
 set noexpandtab				" tabs ftw
@@ -131,8 +135,8 @@ endif
 let g:material_theme_style='dark'
 let hour = strftime("%H")
 if 9 <= hour && hour < 21
-	colorscheme base16-tomorrow
 	set background=light
+	colorscheme base16-one-light
 else
 	set background=dark
 	colorscheme base16-onedark
@@ -183,6 +187,7 @@ set mat=2 " how many tenths of a second to blink
 ""  File automation
 
 set autochdir
+autocmd BufEnter * silent! :lcd%:p:h
 set autoread "not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
@@ -233,61 +238,46 @@ nnoremap <leader><space> za
 onoremap <leader><space> <C-C>za
 vnoremap <leader><space> zf
 
-" keep cursor in middle of screen when searching / folding
-nnoremap <leader>z zMzvzz
-nnoremap zM zMzz
-" nnoremap za zazz
-nnoremap zA zAzz
-
 
 ""  Netrw
 
-" Toggle Vexplore with Ctrl-O
-function! ToggleVExplorer()
-    if exists("t:expl_buf_num")
-        let expl_win_num = bufwinnr(t:expl_buf_num)
-        let cur_win_num = winnr()
-
-        if expl_win_num != -1
-            while expl_win_num != cur_win_num
-                exec "wincmd w"
-                let cur_win_num = winnr()
-            endwhile
-
-            close
-        endif
-
-        unlet t:expl_buf_num
-    else
-         Vexplore
-         let t:expl_buf_num = bufnr("%")
-    endif
-endfunction
-nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
-
-map <silent> <leader>t :call ToggleVExplorer()<CR>
-" " Toggle Vexplore with <leader>t
+" Toggle Vexplore with <leader>t
 " function! ToggleVExplorer()
-" 	if exists("t:expl_buf_num")
-" 		let expl_win_num = bufwinnr(t:expl_buf_num)
-" 		if expl_win_num != -1
-" 			let cur_win_nr = winnr()
-" 			exec expl_win_num . 'wincmd w'
-" 			close
-" 			exec cur_win_nr . 'wincmd w'
-" 			unlet t:expl_buf_num
-" 		else
-" 			unlet t:expl_buf_num
-" 		endif
-" 	else
-" 		exec '1wincmd w'
-" 		Vexplore
-" 		setlocal winfixwidth
-" 		let t:expl_buf_num = bufnr("%")
-" 	endif
+"     if exists("t:expl_buf_num")
+"         let expl_win_num = bufwinnr(t:expl_buf_num)
+"         let cur_win_num = winnr()
+"         if expl_win_num != -1
+"             while expl_win_num != cur_win_num
+"                 exec "wincmd w"
+"                 let cur_win_num = winnr()
+"             endwhile
+"             close
+"         endif
+"         unlet t:expl_buf_num
+"     else
+"          Vexplore
+"          let t:expl_buf_num = bufnr("%")
+"     endif
 " endfunction
 " nnoremap <silent> <leader>t :call ToggleVExplorer()<CR>
-" nnoremap <leader>t :Lexplore<CR>
+
+let g:NetrwIsOpen=0
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore
+    endif
+endfunction
+nnoremap <silent> <leader>t :call ToggleNetrw()<CR>
 
 " Netrw customization
 let g:netrw_keepdir= 0
@@ -296,8 +286,8 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
 let g:netrw_winsize = -25
-let g:netrw_sort_sequence = '[\/]$,*' " sort folders on top
-autocmd BufEnter * silent! :lcd%:p:h
+let g:netrw_sort_sequence = '[\/]$,*'				" sort folders on top
+" autocmd filetype netrw nmap <c-a> <cr>:wincmd W<cr>	" open file keep netrw focus
 
 " open netrw with vim
 " augroup ProjectDrawer
@@ -405,7 +395,12 @@ nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
-nnoremap g# g#
+nnoremap g# g#zz
+nnoremap zM zMzz
+" nnoremap za zazz
+nnoremap zA zAzz
+nnoremap <leader>za zMzvzz
+
 
 " uset unix regex in searche
 " nnoremap / /\v
@@ -449,7 +444,7 @@ xnoremap <leader>p "_dP
 " inoremap ()     ()
 
 " auto close brackets
-inoremap {<CR>  {<CR>}<Esc>O
+inoremap {<CR>  {<CR>}<Esc>O<TAB>
 " inoremap {      {}<Left>
 " inoremap {{     {
 " inoremap {}     {}
