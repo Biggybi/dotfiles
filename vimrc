@@ -40,6 +40,8 @@ set ttimeoutlen=10
 map <Space> <leader>
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 inoremap jk <ESC>
 cmap jk <ESC>
@@ -144,11 +146,13 @@ else
 " 	let g:lightline = { 'colorscheme': 'material_vim' }
 " 	let g:material_terminal_italics = 1
 endif
-set background=dark
+" set background=dark
 
 " source colors
-nnoremap <leader>s1 :source $HOME/.vim/colors/trikai.vim<CR>
-nnoremap <leader>s2 :source $HOME/.vim/colors/trikai_light.vim<CR>
+nnoremap <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>
+nnoremap <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>
+" nnoremap <leader>s1 :source $HOME/.vim/colors/trikai.vim<CR>
+" nnoremap <leader>s2 :source $HOME/.vim/colors/trikai_light.vim<CR>
 
 " code
 set encoding=utf8
@@ -408,14 +412,17 @@ nnoremap <leader>za zMzvzz
 
 "do not move cursor with match
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
+" vnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight pressing Enter
 nnoremap <silent>- :nohlsearch<CR>
 " For local sed replace
 nnoremap gr :s/<C-R>///g<left><left>
+vnoremap gr :s/<C-R>///g<left><left>
 " For global sed replace
 nnoremap gR :%s/<C-R>///g<left><left>
+vnoremap gR :%s/<C-R>///g<left><left>
 
 function! s:VSetSearch()
 	let temp = @@
@@ -487,7 +494,21 @@ nnoremap <silent> k gk
 " set clipboard=unnamed
 " let g:clipbrdDefaultReg = '+'
 
-noremap  <leader>p "+p
+nnoremap cl c$
+nnoremap dl d$
+nnoremap yl y$
+nnoremap ch c$
+nnoremap dh d$
+nnoremap yh y$
+
+vnoremap cl c$
+vnoremap dl d$
+vnoremap yl y$
+vnoremap ch c$
+vnoremap dh d$
+vnoremap yh y$
+
+nnoremap <leader>p "+p
 nnoremap <leader>Y "+yy
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p
@@ -501,10 +522,17 @@ vnoremap <leader>P "+P
 nnoremap H ^
 nnoremap L g_
 nnoremap <C-h> B
-nnoremap <C-l> E
+nnoremap <C-l> W
 nnoremap <C-k> {
 nnoremap <C-j> }
 nnoremap <C-q> <silent>:redraw<CR>
+
+vnoremap H ^
+vnoremap L g_
+vnoremap <C-h> B
+vnoremap <C-l> W
+vnoremap <C-k> {
+vnoremap <C-j> }
 
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
