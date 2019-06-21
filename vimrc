@@ -99,7 +99,6 @@ set equalalways				" always equalize windows
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 
 let &scrolloff=winheight(win_getid())/10+1 " minumum lines before/after cursor
-
 nnoremap zz :let &scrolloff=999-&scrolloff<CR>
 nnoremap <leader>zz zz
 
@@ -157,8 +156,7 @@ nnoremap <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>
 " code
 set encoding=utf8
 let base16colorspace=256  " access colors present in 256 colorspace"
-set t_co=256 " explicitly tell vim that the terminal supports 256 colors"
-"
+set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
 
 
 ""  highlights / match

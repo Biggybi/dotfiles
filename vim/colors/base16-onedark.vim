@@ -16,10 +16,12 @@ endif
 
 " GUI color definitions
 " let s:gui00        = "282c34"
+let s:gui00        = "2C2C2C"
 " let s:gui00        = "2E3436"
-let s:gui00        = "303030"
+" let s:gui00        = "303030"
 let g:base16_gui00 = "282c34"
-let s:gui01        = "353b45"
+" let s:gui01        = "353b45"
+let s:gui01        = "383838"
 let g:base16_gui01 = "353b45"
 let s:gui02        = "3e4451"
 let g:base16_gui02 = "3e4451"
@@ -199,7 +201,8 @@ call <sid>hi("MatchParen",    "", s:gui03, "", s:cterm03,  "", "")
 call <sid>hi("ModeMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("MoreMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("Question",      s:gui0D, "", s:cterm0D, "", "", "")
-call <sid>hi("Search",        s:gui01, s:gui0A, s:cterm01, s:cterm0A,  "", "")
+" call <sid>hi("Search",        s:gui01, s:gui0A, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("Search",        s:gui01, s:gui0E, s:cterm01, s:cterm0A,  "", "")
 call <sid>hi("Substitute",    s:gui01, s:gui0A, s:cterm01, s:cterm0A, "none", "")
 call <sid>hi("SpecialKey",    s:gui03, "", s:cterm03, "", "", "")
 call <sid>hi("TooLong",       s:gui08, "", s:cterm08, "", "", "")
@@ -216,16 +219,22 @@ call <sid>hi("NonText",       s:gui03, "", s:cterm03, "", "", "")
 " call <sid>hi("Normal",        s:gui05, s:gui00, s:cterm05, s:cterm00, "", "")
 " call <sid>hi("LineNr",        s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
 call <sid>hi("LineNr",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
-" call <sid>hi("SignColumn",    s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
-call <sid>hi("SignColumn",    s:gui03, s:gui00, s:cterm03, s:cterm00, "", "")
-call <sid>hi("StatusLine",    s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
-call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
-call <sid>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none", "")
+call <sid>hi("SignColumn",    s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
+" call <sid>hi("SignColumn",    s:gui03, s:gui00, s:cterm03, s:cterm00, "", "")
+" call <sid>hi("StatusLine",    s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
+" call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
+call <sid>hi("StatusLine",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
+call <sid>hi("StatusLineNC",  s:gui05, s:gui01, s:cterm01, s:cterm02, "none", "")
+" call <sid>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none", "")
+call <sid>hi("VertSplit",     s:gui03, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui01, "", s:cterm01, "none", "")
-call <sid>hi("CursorLineNr",  s:gui04, s:gui01, s:cterm04, s:cterm01, "", "")
+" call <sid>hi("CursorLineNr",  s:gui04, s:gui01, s:cterm04, s:cterm01, "", "");
+call <sid>hi("CursorLineNr",  s:gui05, s:gui00, s:cterm04, s:cterm01, "", "")
 call <sid>hi("QuickFixLine",  "", s:gui00, "", s:cterm01, "none", "")
+" call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
+" call <sid>hi("PMenuSel",      s:gui01, s:gui05, s:cterm01, s:cterm05, "", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("PMenuSel",      s:gui01, s:gui05, s:cterm01, s:cterm05, "", "")
 call <sid>hi("TabLine",       s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
@@ -392,12 +401,12 @@ call <sid>hi("sassMixing",     s:gui0E, "", s:cterm0E, "", "", "")
 call <sid>hi("sassMixinName",  s:gui0D, "", s:cterm0D, "", "", "")
 
 " Signify highlighting
-" call <sid>hi("SignifySignAdd",     s:gui0B, s:gui01, s:cterm0B, s:cterm01, "", "")
-" call <sid>hi("SignifySignChange",  s:gui0D, s:gui01, s:cterm0D, s:cterm01, "", "")
-" call <sid>hi("SignifySignDelete",  s:gui08, s:gui01, s:cterm08, s:cterm01, "", "")
-call <sid>hi("SignifySignAdd",     s:gui0B, s:gui00, s:cterm0B, s:cterm00, "", "")
-call <sid>hi("SignifySignChange",  s:gui0D, s:gui00, s:cterm0D, s:cterm00, "", "")
-call <sid>hi("SignifySignDelete",  s:gui08, s:gui00, s:cterm08, s:cterm00, "", "")
+call <sid>hi("SignifySignAdd",     s:gui0B, s:gui01, s:cterm0B, s:cterm01, "", "")
+call <sid>hi("SignifySignChange",  s:gui0D, s:gui01, s:cterm0D, s:cterm01, "", "")
+call <sid>hi("SignifySignDelete",  s:gui08, s:gui01, s:cterm08, s:cterm01, "", "")
+" call <sid>hi("SignifySignAdd",     s:gui0B, s:gui00, s:cterm0B, s:cterm00, "", "")
+" call <sid>hi("SignifySignChange",  s:gui0D, s:gui00, s:cterm0D, s:cterm00, "", "")
+" call <sid>hi("SignifySignDelete",  s:gui08, s:gui00, s:cterm08, s:cterm00, "", "")
 
 " Spelling highlighting
 call <sid>hi("SpellBad",     "", "", "", "", "undercurl", s:gui08)
