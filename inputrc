@@ -19,7 +19,6 @@ set keymap vi-insert
 "\C-o": menu-complete-backward
 "\C-j": next-history
 "\C-k": previous-history
-"\C-g": "| grep "
 
 set keymap vi-command
 "\C-a": beginning-of-line

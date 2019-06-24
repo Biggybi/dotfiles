@@ -1,7 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/home/tris/101/ft_ls/src'
 let g:netrw_dirhist_2='/home/tris/101/ft_ls'
 let g:netrw_dirhist_3='/home/tris/101/Piscine/stillgotit/matchnmatch'
 let g:netrw_dirhist_4='/home/tris'
 let g:netrw_dirhist_5='/home/tris/101/Piscine'
+let g:netrw_dirhist_6='/home/tris/.config/autostart'

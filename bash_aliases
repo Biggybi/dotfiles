@@ -74,6 +74,10 @@ alias please='sudo $(fc -ln -1)'
 alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
+# alias o='xdg-open '
+o () {
+	xdg-open $1 &
+}
 alias fzf='fzf --color="dark" --tabstop=4'
 alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
 alias lcmdcp='echo "$(fc -ln -1)" | tr '\''\n'\'' '\'' '\'' | cip'
@@ -144,8 +148,9 @@ alias tmpclean='rm -r /tmp/TMP'
 alias g='git'
 alias gd='git diff'
 alias gitroot='cd $(git rev-parse --show-cdup | sed s/^$/./g)' #go to the root of a git repo
-alias gitmodif='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
+alias gdiff='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
 alias gits='git status '
+alias ga='git add '
 alias gau='git add -u '
 alias gam='git commit -am '
 alias gcl='git clone '
@@ -207,6 +212,10 @@ ef () {
 	vim $P
 }
 alias f='ef $HOME'
+
+get_mail_adress () {
+	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
+}
 
 alias ex='return && echo end'
 # alias fav='. fav'

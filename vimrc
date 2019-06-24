@@ -101,7 +101,7 @@ set showmode
 set showcmd
 set showbreak=¬
 " set list                        " show invisible characters
-" set listchars=tab:<Space><Space>,trail:·    " but only show tabs and trailing whitespace;
+" set listchars=tab:<Space><Space>,trail:·    " but only show tabs and trailing whitespace
 
 " show buffer number
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -113,6 +113,8 @@ set relativenumber
 set equalalways				" always equalize windows
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
+set wrap
+set linebreak
 
 let &scrolloff=winheight(win_getid())/10+1 " minumum lines before/after cursor
 nnoremap zz :let &scrolloff=999-&scrolloff<CR>
@@ -120,7 +122,7 @@ nnoremap <leader>zz zz
 
 " Tabulation control
 set noexpandtab				" tabs ftw
-set smarttab				" tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set smarttab				" tab respects 'tabstop' 'shiftwidth' 'softtabstop'
 set tabstop=4				" the visible width of tabs
 set softtabstop=4			" make tabs 4 characters wide
 set shiftwidth=4			" make indents 4 characters wide
@@ -192,7 +194,8 @@ autocmd bufwinleave * call clearmatches()
 
 "highlight colorcolumn ctermbg=9
 set colorcolumn=81
-set textwidth=81
+" set textwidth=81
+" set textwidth=0
 " let &colorcolumn=join(range(82,999),",")
 " if exists('+colorcolumn')
 " 	set colorcolumn=80
@@ -245,13 +248,12 @@ autocmd BufWritePost * filetype detect
 
 
 " load the first 'tags' file in dir tree
-set tags=tags;/
+" set tags=tags;/$HOME
 " autoreload tags file on save
-au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
-au BufWritePost *.cpp silent! !ctags -R &
+" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+" au BufWritePost *.cpp silent! !ctags -R &
 
-
-nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
+" nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
 
 ""  Folding
 
@@ -331,6 +333,15 @@ let g:netrw_sort_sequence = '[\/]$,*'				" sort folders on top
 
 ""  Quickfix
 
+augroup ft_quickfix
+	au!
+	au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
+
+	" vimscript is a joke
+	au Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+augroup END
+
+
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
 "
@@ -409,9 +420,9 @@ set magic " Set magic on, for regex
 " nnoremap <leader>za zMzvzz
 
 
-" uset unix regex in searche
-" nnoremap / /\v
-" vnoremap / /\v
+" use unix regex in searches
+nnoremap / /\v
+vnoremap / /\v
 
 "do not move cursor with match
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
@@ -640,6 +651,7 @@ set diffopt+=vertical " vertical split for diff
 " YouCompleteMe
 let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
 let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ]
+let g:ycm_collect_identifiers_from_tags_files = 1 "use tags
 
 " syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
