@@ -1,3 +1,17 @@
+" **************************************************************************** "
+"                                                           LE - /             "
+"                                                               /              "
+"    vimrc                                            .::    .:/ .      .::    "
+"                                                  +:+:+   +:    +:  +:+:+     "
+"    By: tris <tristan.kapous@protonmail.com>       +:+   +:    +:    +:+      "
+"                                                  #+#   #+    #+    #+#       "
+"    Created: 2019/06/23 05:39:33 by tris         #+#   ##    ##    #+#        "
+"    Updated: 2019/06/23 05:39:33 by tris        ###    #+. /#+    ###.fr      "
+"                                                          /                   "
+"                                                         /                    "
+" **************************************************************************** "
+
+""  Signature
 " """""""""""""""""""""""""""""""""""""""""""""""""""
 "  ____ _____ _____  _______     ______ _____		"
 " |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
@@ -22,6 +36,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>
 nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>
 nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:echo "All fresh"<Esc>
+
 " edit vimrc
 nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
 
@@ -45,6 +60,7 @@ vnoremap : ;
 
 inoremap jk <ESC>
 cmap jk <ESC>
+nnoremap gI `.
 " inoremap <C-w><C-e> <Esc><silent>:write<CR>
 " nnoremap <C-w><C-e> <silent>:write<CR>
 nnoremap <C-s> :w<CR>
@@ -119,7 +135,8 @@ set splitright				" default split right
 
 ""  look / theme
 
-" syntax on
+syntax on
+
 
 " night theme
 " let hour = strftime("%H")
@@ -175,21 +192,26 @@ autocmd bufwinleave * call clearmatches()
 
 "highlight colorcolumn ctermbg=9
 set colorcolumn=81
-" set textwidth=81
+set textwidth=81
 " let &colorcolumn=join(range(82,999),",")
-"if exists('+colorcolumn')
-"  set colorcolumn=80
-"else
-"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-"endif
-"
+" if exists('+colorcolumn')
+" 	set colorcolumn=80
+" else
+" 	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+" endif
+
 set mat=2 " how many tenths of a second to blink
 
 
 ""  File automation
 
-set autochdir
-autocmd BufEnter * silent! :lcd%:p:h
+" function! SetProjectPWD
+" if !empty(glob("Makefile"))
+" elseif !empty(glob("../Makefile"))
+" elseif !empty(glob("../../Makefile"))
+
+" set autochdir
+" autocmd BufEnter * silent! :lcd%:p:h
 set autoread "not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
@@ -216,14 +238,20 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 au FileType php setl ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setl ofu=rubycomplete#Complete
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " refresh filetype upon writing
 autocmd BufWritePost * filetype detect
 
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " load the first 'tags' file in dir tree
 set tags=tags;/
+" autoreload tags file on save
+au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+au BufWritePost *.cpp silent! !ctags -R &
+
+
+nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
 
 ""  Folding
 
@@ -240,6 +268,8 @@ nnoremap <leader><space> za
 onoremap <leader><space> <C-C>za
 vnoremap <leader><space> zf
 
+" Make zo recursively open whatever fold we're in, even if it's partially open.
+nnoremap zo zczO
 
 ""  Netrw
 
@@ -310,43 +340,18 @@ let g:netrw_sort_sequence = '[\/]$,*'				" sort folders on top
 " (but not if it's already open). However, as part of the autocmd, this doesn't
 " seem to happen.
 
-nnoremap <leader>cm :make re<CR><CR><CR>
+" autocmd QuickFixCmdPost [^l]* nested botright copen
+" autocmd QuickFixCmdPost    l* nested botright lwindo
+
+nnoremap <leader>cm :make re<CR><CR>
 nnoremap <leader>cc :cc<CR>
 nnoremap <leader>cn :cn<CR>
 nnoremap <leader>cp :cp<CR>
 nnoremap <leader>cl :clist<CR>
 nnoremap <leader>cw :cwindow<CR>
-autocmd QuickFixCmdPost [^l]* nested botright copen
-autocmd QuickFixCmdPost    l* nested botright lwindo
-
-" quickfix
-function! s:redir(cmd)
-  redir => res
-  execute a:cmd
-  redir END
-
-  return res
-endfunction
-
-function! s:toggle_qf_list()
-  let bufs = s:redir('buffers')
-  let l = matchstr(split(bufs, '\n'), '[\t ]*\d\+[\t ]\+.\+[\t ]\+"\[Quickfix\ List\]"')
-
-  let winnr = -1
-  if !empty(l)
-    let bufnbr = matchstr(l, '[\t ]*\zs\d\+\ze[\t ]\+')
-    let winnr = bufwinnr(str2nr(bufnbr, 10))
-  endif
-
-  if !empty(getqflist())
-    if winnr == -1
-      copen
-    else
-      cclose
-    endif
-  endif
-endfunction
-nnoremap <silent> qo :<C-u>silent call <SID>toggle_qf_list()<Cr>
+nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprevious<CR>
+nnoremap <leader>ll :ll<CR>
 
 ""  Shell output split
 
@@ -392,16 +397,16 @@ set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/di
 set magic " Set magic on, for regex
 
 " keep cursor in middle of screen when searching / folding
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-nnoremap zM zMzz
-" nnoremap za zazz
-nnoremap zA zAzz
-nnoremap <leader>za zMzvzz
+" nnoremap n nzz
+" nnoremap N Nzz
+" nnoremap * *zz
+" nnoremap # #zz
+" nnoremap g* g*zz
+" nnoremap g# g#zz
+" nnoremap zM zMzz
+" " nnoremap za zazz
+" nnoremap zA zAzz
+" nnoremap <leader>za zMzvzz
 
 
 " uset unix regex in searche
@@ -442,6 +447,8 @@ xnoremap <leader>p "_dP
 
 ""  Code mappings
 
+inoremap main<tab> <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
+nnoremap main<tab> :Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
 " auto close bracers
 " inoremap (      ();<Left><Left>
 " inoremap (;  (<CR>)<Esc>O
@@ -449,7 +456,7 @@ xnoremap <leader>p "_dP
 " inoremap ()     ()
 
 " auto close brackets
-inoremap {<CR>  {<CR>}<Esc>O<TAB>
+inoremap {<CR>  {<CR>}<Esc>O
 " inoremap {      {}<Left>
 " inoremap {{     {
 " inoremap {}     {}
@@ -495,16 +502,16 @@ nnoremap <silent> k gk
 nnoremap cl c$
 nnoremap dl d$
 nnoremap yl y$
-nnoremap ch c$
-nnoremap dh d$
-nnoremap yh y$
+nnoremap ch c^
+nnoremap dh d^
+nnoremap yh y^
 
-vnoremap cl c$
-vnoremap dl d$
-vnoremap yl y$
-vnoremap ch c$
-vnoremap dh d$
-vnoremap yh y$
+" vnoremap cl c$
+" vnoremap dl d$
+" vnoremap yl y$
+" vnoremap ch c^
+" vnoremap dh d^
+" vnoremap yh y^
 
 nnoremap <leader>p "+p
 nnoremap <leader>Y "+yy
@@ -539,6 +546,7 @@ cnoremap <C-j> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-l> <S-Right>
+cnoremap <C-h> <S-Left>
 cnoremap <C-x> <Del>
 
 " helpers for dealing with other people's code
@@ -553,9 +561,9 @@ set completeopt=longest,menuone
 
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
-inoremap <c-x>f <c-x><c-f>
-inoremap <c-x>] <c-x><c-]>
-inoremap <c-x>l <c-x><c-l>
+" inoremap <c-x>f <c-x><c-f>
+" inoremap <c-x>] <c-x><c-]>
+" inoremap <c-x>l <c-x><c-l>
 
 " auto show autocomplete omnibox
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
@@ -610,18 +618,19 @@ tnoremap <leader>T <C-\><C-n>:call Term_toggle(10)<cr>
 " nnoremap <C-l> :wincmd l<CR>
 " imap <C-w> <C-o><C-w>
 
+" Note: does not work anymore?
 " resize windows quicker
-nnoremap <silent><C-w><C-.> :vertical resize +10<CR>
-nnoremap <silent><C-w><C-,> :vertical resize -10<CR>
-nnoremap <silent><C-w><C-=> :resize +10<CR>
-nnoremap <silent><C-w><C--> :resize -10<CR>
+" nnoremap <silent><C-w><C-.> :vertical resize +10<CR>
+" nnoremap <silent><C-w><C-,> :vertical resize -10<CR>
+" nnoremap <silent><C-w><C-=> :resize +10<CR>
+" nnoremap <silent><C-w><C--> :resize -10<CR>
 
 " new file in vertical split instead of horizontal
 nnoremap <C-w><C-n> :vertical new<CR>
 nnoremap <C-w>n :vertical new<CR>
 
 
-""  Plugins
+""  Plugins settings
 
 execute pathogen#infect()
 
@@ -642,7 +651,7 @@ set statusline+=%*
 " let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_enable_c_checker = 1
 let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
-let g:ycm_use_clangd = 0
+let g:ycm_use_clangd = 1
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -682,8 +691,9 @@ nmap [h <Plug>GitGutterPrevHunk
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>f :FZF<CR>			"search files from curr dir
-nnoremap <leader>F :FZF $HOME<CR>		"search files from HOME dir
+nnoremap <leader>F :FZF /<CR>			"search files from curr dir
+nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME dir
+nnoremap <leader><C-F> :FZF $HOME<CR>		"search files from HOME dir
 " nnoremap <leader>f :FZF<C-r>=fnamemodify(getcwd(), ':p')<CR><CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
@@ -704,7 +714,168 @@ let g:fzf_colors =
 			\ 'header':  ['fg', 'Comment'] }
 
 
-""  Vim folding
+""  101
+""" 101Header
+
+
+let s:asciiart = [
+			\"               /          ",
+			\"     .::    .:/ .      .::",
+			\"  +:+:+   +:    +:  +:+:+ ",
+			\"   +:+   +:    +:    +:+  ",
+			\"  #+#   #+    #+    #+#   ",
+			\" #+#   ##    ##    #+#    ",
+			\"###    #+. /#+    ###.fr  ",
+			\"          /               ",
+			\"         /                ",
+			\"           LE - /         "
+			\]
+
+" let s:asciiart = [
+" 			\"        :::      ::::::::",
+" 			\"      :+:      :+:    :+:",
+" 			\"    +:+ +:+         +:+  ",
+" 			\"  +#+  +:+       +#+     ",
+" 			\"+#+#+#+#+#+   +#+        ",
+" 			\"     #+#    #+#          ",
+" 			\"    ###   ########.fr    "
+" 			\]
+
+let s:start		= '/*'
+let s:end		= '*/'
+let s:fill		= '*'
+let s:length	= 80
+let s:margin	= 5
+
+let s:types		= {
+			\'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
+			\['/*', '*/', '*'],
+			\'\.htm$\|\.html$\|\.xml$':
+			\['<!--', '-->', '*'],
+			\'\.js$':
+			\['//', '//', '*'],
+			\'\.tex$':
+			\['%', '%', '*'],
+			\'\.ml$\|\.mli$\|\.mll$\|\.mly$':
+			\['(*', '*)', '*'],
+			\'\.vim$\|\vimrc$':
+			\['"', '"', '*'],
+			\'\.el$\|\emacs$':
+			\[';', ';', '*'],
+			\'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
+			\['!', '!', '/']
+			\}
+
+function! s:filetype()
+	let l:f = s:filename()
+	let s:start	= '#'
+	let s:end	= '#'
+	let s:fill	= '*'
+	for type in keys(s:types)
+		if l:f =~ type
+			let s:start	= s:types[type][0]
+			let s:end	= s:types[type][1]
+			let s:fill	= s:types[type][2]
+		endif
+	endfor
+endfunction
+
+function! s:ascii(n)
+	return s:asciiart[a:n - 3]
+endfunction
+
+function! s:textline(left, right)
+	let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
+	return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
+endfunction
+
+function! s:line(n)
+	if a:n == 1 || a:n == 12 " top and bottom line
+		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
+" 	elseif a:n == 2 || a:n == 10 " blank line
+" 		return s:textline('', '')
+	elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
+		return s:textline('', s:ascii(a:n))
+	elseif a:n == 4 " filename
+		return s:textline(s:filename(), s:ascii(a:n))
+	elseif a:n == 6 " author
+		return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
+	elseif a:n == 8 " created
+		return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
+	elseif a:n == 9 " updated
+		return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
+	endif
+endfunction
+
+function! s:user()
+	let l:user = $USER
+	if strlen(l:user) == 0
+		let l:user = "marvin"
+	endif
+	return l:user
+endfunction
+
+function! s:mail()
+	let l:mail = $MAIL
+	if strlen(l:mail) == 0
+		let l:mail = "marvin@student.le-101.fr"
+	endif
+	return l:mail
+endfunction
+
+function! s:filename()
+	let l:filename = expand("%:t")
+	if strlen(l:filename) == 0
+		let l:filename = "< new >"
+	endif
+	return l:filename
+endfunction
+
+function! s:date()
+	return strftime("%Y/%m/%d %H:%M:%S")
+endfunction
+
+function! s:insert()
+	let l:line = 12
+	" empty line after header
+	call append(0, "")
+	" loop over lines
+	while l:line > 0
+		call append(0, s:line(l:line))
+		let l:line = l:line - 1
+	endwhile
+endfunction
+
+function! s:update()
+	call s:filetype()
+	if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
+		if &mod
+			call setline(9, s:line(9))
+		endif
+		call setline(4, s:line(4))
+		return 0
+	endif
+	return 1
+endfunction
+
+function! Stdheader()
+	if s:update()
+		call s:insert()
+	endif
+endfunction
+
+" Bind command and shortcut
+command! Header101 call Stdheader()
+" nnoremap <leader>h1 :Header101<CR>
+nnoremap <silent> <leader>h1 :call Stdheader()<CR>
+" autocmd BufWritePre * call s:update ()
+
+
+""  Dotfiles
+""" Filetype
+au BufNewFile,BufRead bash_aliases,bashrc,inputrc setfiletype sh
+
+""" Vimrc folding
 function! VimFold()
 	let line = getline(v:foldstart)
 
@@ -728,6 +899,8 @@ function! VimFold()
 	let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
 	return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
 endfunction
+set modelineexpr
 
+""" Vimrc modeline
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='

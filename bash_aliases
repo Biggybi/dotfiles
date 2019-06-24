@@ -23,10 +23,11 @@ alias ccat='highlight --out-format=ansi'
 ## df
 alias df='df -h'
 
-## vi
+## vim
 alias e="$EDITOR"
-alias v="vi"
-alias sv="sudo vi"
+alias v="vim"
+alias vi='vim'
+alias sv="sudo vim"
 
 ### ssh
 alias sshhome='ssh biggybi@192.168.1.28'
@@ -49,13 +50,14 @@ alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
 
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
-alias vigninstall='vi $HOME/dotfiles/gnome_setup/install.sh'
+alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
 
-alias vibashrc='vi $HOME/.bashrc'
-alias vialias='vi $HOME/.bash_aliases'
-alias vimrc='vi $HOME/.vimrc'
-alias vifstab='sudo vi /etc/fstab'
-alias viapt='sudo vi /etc/apt/sources.list'
+alias vibashrc='vim $HOME/dotfiles/bashrc'
+alias vialias='vim $HOME/dotfiles/bash_aliases'
+alias vimrc='vim $HOME/dotfiles/vimrc'
+alias viinputrc='vim $HOME/dotfiles/inputrc'
+alias vifstab='sudo vim /etc/fstab'
+alias viapt='sudo vim /etc/apt/sources.list'
 
 alias sobash='. $HOME/.bashrc'
 alias somacbash='. $HOME/.bash_profile'
@@ -80,7 +82,7 @@ alias hx='eval $(history | sed "s/^ *[0-9]* *//" | fzf)'
 alias ag='alias | grep'
 alias pg='ps -aux | head -n -3 | grep'
 
-alias viit='vi $(fc -ln -1)'
+alias viit='vim $(fc -ln -1)'
 alias lsit='ls $(fc -ln -1)'
 alias catit='cat $(fc -ln -1)'
 alias cpit='cp $(fc -ln -1) '
@@ -124,17 +126,17 @@ alias cd101='cd $ALIAS_101_HOME'
 alias echo101='echo $ALIAS_101_HOME'
 alias 101clone='git clone git@github.com:Biggybi/101.git'
 
-alias lftcd='cd $ALIAS_101_HOME/libft'
-alias cdlft='cd $ALIAS_101_HOME/libft'
+alias lftcd='cd $ALIAS_101_LFT'
+alias cdlft='cd $ALIAS_101_LFT'
 alias lftmk='make -C $ALIAS_101_HOME/'
-alias lftln='ln -s $ALIAS_101_HOME/libft/ .'
-alias lftls='ls $ALIAS_101_HOME/libft/srcs/*.c | cut -d/ -f7'
-alias lftcp='cp -ru $ALIAS_101_HOME/libft/libft.a $ALIAS_101_HOME/libft/includes/libft.h .'
-alias lftccp='cp -rf $ALIAS_101_HOME/libft/ .'
+alias lftln='ln -s $ALIAS_101_LFT/ .'
+alias lftls='ls $ALIAS_101_LFT/src/*.c | cut -d/ -f7'
+alias lftcp='cp -ru $ALIAS_101_HOME/libft.a $ALIAS_101_LFT/inc/libft.h .'
+alias lftccp='cp -rf $ALIAS_101_LFT/ .'
 alias cdgnl='cd $ALIAS_101_HOME/GNL'
-alias cdls='cd $ALIAS_101_HOME/Ft_ls'
-alias cdscript='cd $ALIAS_101_HOME/bin'
-alias todoscript='vi $ALIAS_101_HOME/bin/.todo'
+alias cdls='cd $ALIAS_101_HOME/ft_ls'
+alias cdbin='cd $HOME/bin'
+alias todoscript='vim $ALIAS_101_HOME/bin/.todo'
 
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
@@ -204,7 +206,8 @@ ef () {
 	[ "$P" == "" ] && return
 	vim $P
 }
-alias eff='ef $HOME'
+alias f='ef $HOME'
 
 alias ex='return && echo end'
 # alias fav='. fav'
+# vim: filetype=sh
