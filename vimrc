@@ -213,8 +213,6 @@ set mat=2 " how many tenths of a second to blink
 " elseif !empty(glob("../Makefile"))
 " elseif !empty(glob("../../Makefile"))
 
-" set autochdir
-" autocmd BufEnter * silent! :lcd%:p:h
 set autoread "not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
@@ -249,6 +247,22 @@ autocmd BufWritePost * filetype detect
 
 " load the first 'tags' file in dir tree
 " set tags=tags;/$HOME
+
+" let is_git=:exec 'cd' fnameescape(fnamemodify(finddir('.git',
+"     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
+
+" autocmd BufEnter * silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
+"     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
+
+" if in git repo, sets tags
+let &tags=fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . "/.git/tags"
+" if tags (so if in git repo), autochdir to git root
+autocmd BufWinEnter,BufEnter,WinEnter,TabEnter *
+			\ if exists('&tags') |
+			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
+			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
+			\ endif
+" let &tags=tagpwd
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
 " au BufWritePost *.cpp silent! !ctags -R &
@@ -403,7 +417,8 @@ set nolazyredraw		" don't redraw while executing macros
 set switchbuf=useopen	" open buffers in their window if exist (:sb nam)
 
 " ignore some files from fuzzy search
-set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
+" set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
+set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
 
 set magic " Set magic on, for regex
 
@@ -649,6 +664,7 @@ execute pathogen#infect()
 set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
+autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
 let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
 let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ]
 let g:ycm_collect_identifiers_from_tags_files = 1 "use tags
@@ -696,16 +712,16 @@ else
 	let g:gitgutter_sign_column_always = 1
 endif
 
-set updatetime=20 " refresh more frequently
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+set updatetime=20 " refresh more frequently from
+nmap ]h <Plug>GitGutterNextHunk             from;
+nmap [h <Plug>GitGutterPrevHunk             from
 
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>F :FZF /<CR>			"search files from curr dir
-nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME dir
-nnoremap <leader><C-F> :FZF $HOME<CR>		"search files from HOME dir
+nnoremap <leader>F :FZF /<CR>			"search files from root
+nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME
+nnoremap <leader><C-F> :FZF .<CR>		"search files from curr
 " nnoremap <leader>f :FZF<C-r>=fnamemodify(getcwd(), ':p')<CR><CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
