@@ -252,70 +252,11 @@ autocmd BufWritePost * filetype detect
 " " 			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
 " " 			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
 " 			\ endif
-let g:root#auto = 1
-" autocmd BufWinEnter,BufEnter,WinEnter,TabEnter * SmartCd
-" command! SmartCd call s:SmartCd()
-" function! s:SmartCd()
-" 	silent! :exec 'lcd %:p:h'
-" " 	silent! :exec 'lcd %:p:h'
-" " " 	echo '--------------'
-" " " 	echo (expand('%'))
-" " " 	echo (expand('%:p:h'))
-" " 	let b:gitroot = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0))
-" 	let gitroot = fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
-" 	echo gitroot
-" 	echo expand('%')
-" 	if isdirectory('gitroot')
-" 		echo "git folder"
-" 		silent! :exec 'lcd gitroot'
-" 	else
-" 		echo "git no folder"
-" 		silent! :exec 'lcd %:p:h'
-" 	endif
-" endfunction
-" 	if (b:gitroot =~ 'fatal*')
-" 		echo "git fatal"
-" 		silent! :exec 'lcd %:p:h'
-" 	else
-" 		echo "in git"
-" 		let &tags=b:gitroot . '/.git/tags'
-" 		silent! :exec 'lcd b:gitroot'
-" 	endif
-" 	let b:gitroot = fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
-" 	echo 'tags' &tags
-" 	echo 'b:gitroot' b:gitroot
-" endfunction
-" 	if (match(lol, "lol*"))
-" 		echo "lol match"
-" 	else
-" 		echo "no lol match"
-" 	endif
-" 	if (match(b:gitroot, "fatal*"))
-" 		echo 'not in git'
-" 		echo b:gitroot
-" 		silent! :exec 'lcd %:p:h'
-" 	else
-" 		let &tags=b:gitroot . '/.git/tags'
-" 		echo 'in git'
-" 		echo b:gitroot
-" 		silent! :exec 'lcd b:gitroot'
-" 	if exists('b:gitroot')
-" 		let &tags=b:gitroot . '/.git/tags'
-" 		silent! :exec 'lcd b:gitroot'
-" 		echo 'in git'
-" 		echo b:gitroot
-" 	else
-" 		echo 'not in git'
-" 		echo b:gitroot
-" 		silent! :exec 'lcd %:p:h'
-" 	endif
 
-" let &tags=tagpwd
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
 " au BufWritePost *.cpp silent! !ctags -R &
 
-" nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
 
 ""  Folding
 
@@ -798,6 +739,10 @@ let g:fzf_colors =
 			\ 'marker':  ['fg', 'Keyword'],
 			\ 'spinner': ['fg', 'Label'],
 			\ 'header':  ['fg', 'Comment'] }
+
+" Root
+let g:root#auto = 1
+let g:root#echo = 0
 
 
 ""  101
