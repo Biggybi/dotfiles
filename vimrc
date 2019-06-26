@@ -139,16 +139,6 @@ set splitright				" default split right
 
 syntax on
 
-
-" night theme
-" let hour = strftime("%H")
-" if 9 <= hour && hour < 19
-" 	colorscheme trikai_light
-" else
-" 	colorscheme trikai
-" endif
-
-
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -160,10 +150,9 @@ if 9 <= hour && hour < 21
 else
 	set background=dark
 	colorscheme base16-onedark
-" 	colorscheme material
 " 	let g:lightline = { 'colorscheme': 'material_vim' }
-" 	let g:material_terminal_italics = 1
 endif
+colorscheme base16-onedark
 " set background=dark
 
 " source colors
@@ -208,11 +197,6 @@ set mat=2 " how many tenths of a second to blink
 
 ""  File automation
 
-" function! SetProjectPWD
-" if !empty(glob("Makefile"))
-" elseif !empty(glob("../Makefile"))
-" elseif !empty(glob("../../Makefile"))
-
 set autoread "not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
@@ -255,13 +239,77 @@ autocmd BufWritePost * filetype detect
 "     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
 
 " if in git repo, sets tags
-let &tags=fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . "/.git/tags"
+" let &tags = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . '/.git/tags'
 " if tags (so if in git repo), autochdir to git root
-autocmd BufWinEnter,BufEnter,WinEnter,TabEnter *
-			\ if exists('&tags') |
-			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
-			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
-			\ endif
+" 			\ if exists('&tags') |
+" 			\ echo &tags |
+" autocmd BufWinEnter,BufEnter,WinEnter,TabEnter *
+" 			\ let b:gitroot = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0))
+" 			\ if (b:gitroot =~ 'fatal*') |
+" 			\	silent! :exec 'lcd %:p:h' |
+" 			\ else |
+" 			\	silent! :exec 'lcd b:gitroot' |
+" " 			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
+" " 			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
+" 			\ endif
+let g:root#auto = 1
+" autocmd BufWinEnter,BufEnter,WinEnter,TabEnter * SmartCd
+" command! SmartCd call s:SmartCd()
+" function! s:SmartCd()
+" 	silent! :exec 'lcd %:p:h'
+" " 	silent! :exec 'lcd %:p:h'
+" " " 	echo '--------------'
+" " " 	echo (expand('%'))
+" " " 	echo (expand('%:p:h'))
+" " 	let b:gitroot = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0))
+" 	let gitroot = fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
+" 	echo gitroot
+" 	echo expand('%')
+" 	if isdirectory('gitroot')
+" 		echo "git folder"
+" 		silent! :exec 'lcd gitroot'
+" 	else
+" 		echo "git no folder"
+" 		silent! :exec 'lcd %:p:h'
+" 	endif
+" endfunction
+" 	if (b:gitroot =~ 'fatal*')
+" 		echo "git fatal"
+" 		silent! :exec 'lcd %:p:h'
+" 	else
+" 		echo "in git"
+" 		let &tags=b:gitroot . '/.git/tags'
+" 		silent! :exec 'lcd b:gitroot'
+" 	endif
+" 	let b:gitroot = fnameescape(fnamemodify(finddir('.git', escape(expand('%:p:h'), ' ') . ';'), ':h'))
+" 	echo 'tags' &tags
+" 	echo 'b:gitroot' b:gitroot
+" endfunction
+" 	if (match(lol, "lol*"))
+" 		echo "lol match"
+" 	else
+" 		echo "no lol match"
+" 	endif
+" 	if (match(b:gitroot, "fatal*"))
+" 		echo 'not in git'
+" 		echo b:gitroot
+" 		silent! :exec 'lcd %:p:h'
+" 	else
+" 		let &tags=b:gitroot . '/.git/tags'
+" 		echo 'in git'
+" 		echo b:gitroot
+" 		silent! :exec 'lcd b:gitroot'
+" 	if exists('b:gitroot')
+" 		let &tags=b:gitroot . '/.git/tags'
+" 		silent! :exec 'lcd b:gitroot'
+" 		echo 'in git'
+" 		echo b:gitroot
+" 	else
+" 		echo 'not in git'
+" 		echo b:gitroot
+" 		silent! :exec 'lcd %:p:h'
+" 	endif
+
 " let &tags=tagpwd
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
@@ -311,19 +359,19 @@ nnoremap zo zczO
 
 let g:NetrwIsOpen=0
 function! ToggleNetrw()
-    if g:NetrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent Lexplore
-    endif
+	if g:NetrwIsOpen
+		let i = bufnr("$")
+		while (i >= 1)
+			if (getbufvar(i, "&filetype") == "netrw")
+				silent exe "bwipeout " . i
+			endif
+			let i-=1
+		endwhile
+		let g:NetrwIsOpen=0
+	else
+		let g:NetrwIsOpen=1
+		silent Lexplore
+	endif
 endfunction
 nnoremap <silent> <leader>t :call ToggleNetrw()<CR>
 
@@ -510,7 +558,7 @@ autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
 noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
+noremap <silent> <leader>'p yypk:<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 ""  Mappings
 
@@ -521,10 +569,14 @@ inoremap <C-Z> <C-[><C-Z>
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
-" Copying/pasting text to the system clipboard.
 " set clipboard=unnamed
 " let g:clipbrdDefaultReg = '+'
 
+" paste with indentation
+nnoremap P ]P==
+nnoremap p ]p==
+
+" Copy/paste text to/from the system clipboard.
 nnoremap cl c$
 nnoremap dl d$
 nnoremap yl y$
@@ -539,16 +591,16 @@ nnoremap yh y^
 " vnoremap dh d^
 " vnoremap yh y^
 
-nnoremap <leader>p "+p
+nnoremap <leader>p "+]p==
 nnoremap <leader>Y "+yy
 nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
+nnoremap <leader>p "+]p==
+nnoremap <leader>P "+]P==
 
 vnoremap <leader>y "+ygv
 vnoremap <leader>Y "+ygv
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+vnoremap <leader>p "+]p==
+vnoremap <leader>P "+]P==
 
 nnoremap H ^
 nnoremap L g_
@@ -585,7 +637,6 @@ cnoremap <C-x> <Del>
 set completeopt=longest,menuone
 " set completeopt=menuone
 
-inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " inoremap <c-x>f <c-x><c-f>
 " inoremap <c-x>] <c-x><c-]>
@@ -621,6 +672,7 @@ let g:term_win = 0
 
 function! Term_toggle(height)
 	if win_gotoid(g:term_win)
+		let g:term_win = 0
 		hide
 	else
 		try
@@ -665,9 +717,15 @@ set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
 autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
-let g:ycm_show_diagnostics_ui = 0 " compatibility with syntastic for C langs
-let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ]
-let g:ycm_collect_identifiers_from_tags_files = 1 "use tags
+let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
+let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Enter
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
+let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
+
+" inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
+" inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 " syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
@@ -713,8 +771,8 @@ else
 endif
 
 set updatetime=20 " refresh more frequently from
-nmap ]h <Plug>GitGutterNextHunk             from;
-nmap [h <Plug>GitGutterPrevHunk             from
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
@@ -820,8 +878,8 @@ endfunction
 function! s:line(n)
 	if a:n == 1 || a:n == 12 " top and bottom line
 		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
-" 	elseif a:n == 2 || a:n == 10 " blank line
-" 		return s:textline('', '')
+		" 	elseif a:n == 2 || a:n == 10 " blank line
+		" 		return s:textline('', '')
 	elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
 		return s:textline('', s:ascii(a:n))
 	elseif a:n == 4 " filename
@@ -913,11 +971,9 @@ function! VimFold()
 		let windowwidth = 79
 	endif
 	let foldedlinecount = v:foldend - v:foldstart
-
 	" expand tabs into spaces
 	let onetab = strpart('          ', 0, &tabstop)
 	let line = substitute(line, '\t', onetab, 'g')
-
 	let longbreak=" "
 	let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
 	if len(line) > windowwidth - 15
