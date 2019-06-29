@@ -1,6 +1,8 @@
 ALIAS_101_HOME=$HOME/101
 ALIAS_101_LFT=$HOME/101/libft
 
+shopt -s expand_aliases
+
 ## color
 alias ls='ls -hN --group-directories-first --color=auto'
 alias dir='dir -color=auto'
@@ -209,8 +211,7 @@ ef () {
 # 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	cd "$1"
 	P=$(fzf --height=10)
-	[ "$P" == "" ] && return
-	vim $P
+	[ "$P" != "" ] && $EDITOR $P
 }
 alias f='ef $HOME'
 
