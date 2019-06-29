@@ -13,14 +13,20 @@ set keymap vi-insert
 "\C-w": backward-kill-word
 "\C-l": forward-word
 "\C-h": backward-word
+"\C-b": backward-char
+"\C-f": forward-char
 "\C-a": beginning-of-line
 "\C-e": end-of-line
 "\C-q": clear-screen
 "\C-o": menu-complete-backward
 "\C-j": next-history
 "\C-k": previous-history
+"\C-g": " | grep "
+"\C-g\C-f": 'cd !$ \015 && ls\015'
+"\C-x\C-r": re-read-init-file
 
 set keymap vi-command
+"\C-q": backward-delete-char
 "\C-a": beginning-of-line
 "\C-e": end-of-line
 "\C-l": forward-word
