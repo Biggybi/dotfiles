@@ -133,7 +133,7 @@ __fzf_history ()
 }
 
 builtin set -o histexpand;
-builtin bind -x '"\C-x1": __fzf_history';
+builtin bind -x '"\C-x1": __fzf_history'
 builtin bind '"\C-r": "\C-x1\e^\er"'
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
