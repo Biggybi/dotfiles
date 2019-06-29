@@ -24,8 +24,9 @@ set -o vi
 
 # Environement variables
 export PATH=$PATH:~/bin:/usr/lib
-export VISUAL=vim
+export VISUAL=/usr/local/share/vim/vim81/
 export EDITOR="$VISUAL"
+export DOT="$HOME/dotfiles"
 
 shopt -s checkwinsize				# auto adjust winsize after each command
 #shopt -s globstar					# "**" match all files recursively
@@ -64,30 +65,76 @@ HISTCONTROL=ignoreboth				# ignore dups and whitespace (= ignoredups:ignorespace
 # HISTCONTROL=ignorespace			# ignore commands starting with whitespace (private cmd)
 # HISTCONTROL=ignoredups			# ignose duplicates
 
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+				  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+# fzf defaults
+export FZF_DEFAULT_OPTS='--height 10 -m'
 # fzf history on C-r
 bind '"\C-r": "\C-x1\e^\er"'
 bind -x '"\C-x1": __fzf_history';
 
+# __fzf_history ()
+# {
+# 	__ehc $(history | fzf --color="light" --tac --tiebreak=index --height=10 | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+# }
+
+# __ehc()
+# {
+# 	if
+# 		[[ -n $1 ]]
+# 	then
+# 		bind '"\er": redraw-current-line'
+# 		bind '"\e^": magic-space'
+# 		READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+# 		READLINE_POINT=$(( READLINE_POINT + ${#1} ))
+# 	else
+# 		bind '"\er":'
+# 		bind '"\e^":'
+# 	fi
+# }
+
+# Another CTRL-R script to insert the selected command from history into the command line/region
 __fzf_history ()
 {
-	__ehc $(history | fzf --color="light" --tac --tiebreak=index --height=10 | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+	builtin history -a;
+	builtin history -c;
+	builtin history -r;
+	builtin typeset \
+		READLINE_LINE_NEW="$(
+			HISTTIMEFORMAT= builtin history |
+			command fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
+			command sed '
+				/^ *[0-9]/ {
+					s/ *\([0-9]*\) .*/!\1/;
+					b end;
+				};
+				d;
+				: end
+			'
+		)";
+
+		if
+				[[ -n $READLINE_LINE_NEW ]]
+		then
+				builtin bind '"\er": redraw-current-line'
+				builtin bind '"\e^": magic-space'
+				READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${READLINE_LINE_NEW}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+				READLINE_POINT=$(( READLINE_POINT + ${#READLINE_LINE_NEW} ))
+		else
+				builtin bind '"\er":'
+				builtin bind '"\e^":'
+		fi
 }
 
-__ehc()
-{
-	if
-		[[ -n $1 ]]
-	then
-		bind '"\er": redraw-current-line'
-		bind '"\e^": magic-space'
-		READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
-		READLINE_POINT=$(( READLINE_POINT + ${#1} ))
-	else
-		bind '"\er":'
-		bind '"\e^":'
-	fi
-}
-
+builtin set -o histexpand;
+builtin bind -x '"\C-x1": __fzf_history';
+builtin bind '"\C-r": "\C-x1\e^\er"'
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
