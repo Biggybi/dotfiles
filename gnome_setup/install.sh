@@ -3,23 +3,26 @@
 # home
 # sets media folders as simlinks to folders in DATA
 DATA=/data
-for f in $DATA/*
+FOLDERS=(Downloads
+	Books
+	Documents
+	Games
+	Music
+	Pictures
+	Videos)
+
+for f in "${FOLDERS[@]}"
 do
-	f=$(basename $f)
-	echo $HOME/$f
-	echo f = $f
-	echo
 	if [ -d $HOME/$f ]
 	then
-		rm -rf $HOME/$f
+		mv $HOME/$f $HOME/.$f.old
 	fi
-	echo rm $HOME/$f
-	if ! [ -L $HOME/$f ]
+	echo "Backup $HOME/$f (.$f.old)"
+	if [ ! -L $HOME/$f ]
 	then
-		ln -s $DATA/$f $HOME
+		ln -s $DATA/$f $HOME/
 	fi
 done
-
 #programs install
 
 sudo apt-get update -qq
