@@ -7,4 +7,4 @@
 #   ctags --tag-relative -L - -f"$dir/$$.tags" --languages=-javascript,sql
 # mv "$dir/$$.tags" "$dir/tags"
 dir=$(git rev-parse --git-dir)
-ctags -R -f $dir/tags $dir/../
+ctags-exuberant -R -f $dir/tags $dir/../
