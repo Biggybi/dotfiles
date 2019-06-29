@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=caps2esc
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=caps2esc
+Name=caps2esc
+Comment[en_US]=set 'caps lock' key to 'esc' if pressed alone, or 'ctrl' if combined with other key
+Comment=set 'caps lock' key to 'esc' if pressed alone, or 'ctrl' if combined with other key
