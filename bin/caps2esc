@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xmodmap ${HOME}/.xmodmap.conf
+xcape
