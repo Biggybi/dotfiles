@@ -32,7 +32,7 @@ then
 		.bash_profile
 		.bash_aliases
 		.inputrc
-		.bin
+		bin
 		.git_template)
 fi
 
