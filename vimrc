@@ -25,6 +25,8 @@
 ""  Vimrc settings
 
 set nocompatible " not compatible with vi
+" set shellcmdflag=-ic
+let $BASH_ENV = "$HOME/dotfiles/bash_aliases"
 
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -37,9 +39,16 @@ nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sour
 nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>
 nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:echo "All fresh"<Esc>
 
-" edit vimrc
-nnoremap <leader>ev :vertical split $HOME/dotfiles/vimrc<cr>
+" edit dotfiles
+nnoremap <leader>ev :vertical split $DOT/vimrc<cr>
+nnoremap <leader>eb :vertical split $DOT/bashrc<cr>
+nnoremap <leader>ea :vertical split $DOT/bash_aliases<cr>
+nnoremap <leader>ei :vertical split $DOT/inputrc<cr>
+nnoremap <leader>ep :vertical split $DOT/bash_profile<cr>
+nnoremap <leader>ec1 :vertical split $DOT/vim/colors/base16-onedark.vim<cr>
+nnoremap <leader>ec2 :vertical split $DOT/vim/colors/base16-one-light.vim<cr>
 
+" automatic views
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
@@ -134,6 +143,9 @@ filetype indent on
 set splitbelow				" default split below
 set splitright				" default split right
 
+" open file under cursor in vertical split
+nnoremap <C-w>f :vertical wincmd f<CR>
+
 
 ""  look / theme
 
@@ -153,7 +165,6 @@ else
 " 	let g:lightline = { 'colorscheme': 'material_vim' }
 endif
 colorscheme base16-onedark
-" set background=dark
 
 " source colors
 nnoremap <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>
@@ -182,7 +193,11 @@ autocmd insertleave * match trailingwhitespace /\s\+$/
 autocmd bufwinleave * call clearmatches()
 
 "highlight colorcolumn ctermbg=9
-set colorcolumn=81
+set cursorline		" color current line
+set colorcolumn=81	" color column 81
+" autocmd InsertEnter * highlight CursorLine guibg=#000050 guifg=fg
+" autocmd InsertLeave * highlight CursorLine guibg=#004000 guifg=fg
+
 " set textwidth=81
 " set textwidth=0
 " let &colorcolumn=join(range(82,999),",")
@@ -227,7 +242,6 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " refresh filetype upon writing
 autocmd BufWritePost * filetype detect
-
 
 " load the first 'tags' file in dir tree
 " set tags=tags;/$HOME
@@ -442,6 +456,7 @@ vnoremap gr :s/<C-R>///g<left><left>
 nnoremap gR :%s/<C-R>///g<left><left>
 vnoremap gR :%s/<C-R>///g<left><left>
 
+" search visual selection
 function! s:VSetSearch()
 	let temp = @@
 	norm! gvy
@@ -449,8 +464,8 @@ function! s:VSetSearch()
 	let @@ = temp
 endfunction
 
-vnoremap * :<C-u>cal <SID>VSetSearch()<CR>//<CR><c-o>gv
-vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>gv
+vnoremap * :<C-u>cal <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>
 
 
 ""  Edit mappings
@@ -458,7 +473,7 @@ vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>gv
 " delete without saving to register
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
-xnoremap <leader>p "_dP
+" xnoremap <leader>p "_dP
 
 ""  Code mappings
 
@@ -484,11 +499,16 @@ nnoremap <leader>{} {S{<Esc>}S}<c-c>=%
 nnoremap <leader>; i<C-o>m`<C-o>A;<Esc>``<Esc>
 
 " go to name of function you are in (needs a '()')
-nnoremap <silent> gid j[[h^t(b
+nnoremap <silent> <leader>gf j[[h^t(b
+nnoremap <silent> <leader>gF j[[h^t(b
 " go to next call of function you are in
-nnoremap <silent> gin j[[h^t(b*
+nnoremap <silent> <leader>gn j[[h^t(b*
 " select all text in function
-nnoremap vif [{%v%
+nnoremap <leader>vf [[%v%
+" nnoremap viB [[%v%jok$
+" nnoremap vaB [[%v%
+" " nnoremap vib [{%v%jok$
+" nnoremap vab [{%v%
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
@@ -514,10 +534,9 @@ nnoremap <silent> k gk
 " let g:clipbrdDefaultReg = '+'
 
 " paste with indentation
-nnoremap P ]P==
-nnoremap p ]p==
+nnoremap P mp]P==`p
+nnoremap p mp]p==`p
 
-" Copy/paste text to/from the system clipboard.
 nnoremap cl c$
 nnoremap dl d$
 nnoremap yl y$
@@ -532,16 +551,16 @@ nnoremap yh y^
 " vnoremap dh d^
 " vnoremap yh y^
 
-nnoremap <leader>p "+]p==
-nnoremap <leader>Y "+yy
-nnoremap <leader>y "+y
-nnoremap <leader>p "+]p==
-nnoremap <leader>P "+]P==
+" Copy/paste text to/from the system clipboard.
+nnoremap <leader>p mp"*]p==`p
+nnoremap <leader>P mp"*]P==`p
+nnoremap <leader>y "*y
+" nnoremap <leader>Y "*yy
 
-vnoremap <leader>y "+ygv
-vnoremap <leader>Y "+ygv
-vnoremap <leader>p "+]p==
-vnoremap <leader>P "+]P==
+vnoremap <leader>p mp"*]p==`p
+vnoremap <leader>P mp"*]P==`p
+vnoremap <leader>y "*y
+" vnoremap <leader>Y "*yy
 
 nnoremap H ^
 nnoremap L g_
@@ -571,6 +590,35 @@ cnoremap <C-x> <Del>
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
+
+
+"" Auto Header
+"""  SH Auto Header
+au bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
+
+""" Auto protect .h
+if !exists("autocommands_loaded")
+	let autocommands_loaded = 1
+	au BufNewFile *.h call InsertCHHeader()
+endif
+
+function! InsertCHHeader()
+	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
+	" Save cpoptions
+	let cpoptions = &cpoptions
+	" Remove the 'a' option - prevents the name of the
+	" alternate file being overwritten with a :read command
+	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+	exe "read " . path_to_skeletons
+	" Restore cpoptions
+	exe "set cpoptions=" . cpoptions
+	1, 1 delete _
+
+	let fname = expand("%:t")
+	let fname = toupper(fname)
+	let fname = substitute(fname, "\\.", "_", "g")
+	%s/HEADERNAME/\=fname/g
+endfunction
 
 
 ""  Autocompletion
@@ -710,6 +758,9 @@ if exists('&signcolumn')  " Vim 7.4.2201
 else
 	let g:gitgutter_sign_column_always = 1
 endif
+
+" man
+let g:ft_man_open_mode = 'vert'
 
 set updatetime=20 " refresh more frequently from
 nmap ]h <Plug>GitGutterNextHunk
