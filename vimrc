@@ -35,9 +35,9 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>
-nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>
-nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:echo "All fresh"<Esc>
+nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>:w<CR>
+nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>:w<CR>
+nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:w<CR>
 
 " edit dotfiles
 nnoremap <leader>ev :vertical split $DOT/vimrc<cr>
@@ -49,8 +49,8 @@ nnoremap <leader>ec1 :vertical split $DOT/vim/colors/base16-onedark.vim<cr>
 nnoremap <leader>ec2 :vertical split $DOT/vim/colors/base16-one-light.vim<cr>
 
 " automatic views
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+autocmd BufWritePost,BufLeave,WinLeave ?* mkview
+autocmd BufWinEnter ?* silent loadview
 
 set notimeout
 set ttimeout
@@ -90,8 +90,17 @@ set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
-" No error message when swap exists, just edit
-set shortmess+=A
+" Shortmess : 'hit enter' prompt custzomization
+set shortmess+=A				" No error message when swap exists, just edit
+set shortmess+=f				" Abbreviation for file count
+set shortmess+=i				" Abbreviation for line without end
+set shortmess+=l				" Abbreviation for line and word count
+set shortmess+=m				" Abbreviation for modified
+set shortmess+=n				" Abbreviation for new file
+set shortmess+=r				" Abbreviation for read only
+set shortmess+=w				" Abbreviation for writter
+set shortmess+=x				" Abbreviation for dos and mac format
+set shortmess+=W				" No message when writing
 
 set hidden
 
@@ -108,26 +117,6 @@ set t_vb=
 set wildmenu
 set showmode
 set showcmd
-set showbreak=¬
-" set list                        " show invisible characters
-" set listchars=tab:<Space><Space>,trail:·    " but only show tabs and trailing whitespace
-
-" show buffer number
-set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set laststatus=2			" show the satus line all the time
-
-set number
-set relativenumber
-
-set equalalways				" always equalize windows
-
-set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
-set wrap
-set linebreak
-
-let &scrolloff=winheight(win_getid())/10+1 " minumum lines before/after cursor
-nnoremap zz :let &scrolloff=999-&scrolloff<CR>
-nnoremap <leader>zz zz
 
 " Tabulation control
 set noexpandtab				" tabs ftw
@@ -136,12 +125,38 @@ set tabstop=4				" the visible width of tabs
 set softtabstop=4			" make tabs 4 characters wide
 set shiftwidth=4			" make indents 4 characters wide
 set autoindent				" automatically set indent of new line
-set smartindent
+set smartindent				" ... in a sane way
 set shiftround				" round indent to a multiple of 'shiftwidth'
 filetype indent on
 
 set splitbelow				" default split below
 set splitright				" default split right
+" set equalalways				" always equalize windows
+" set list										" show invisible characters
+" set listchars=tab:<Space><Space>,trail:·		" but only show tabs and trailing whitespace
+
+set number					" show number column
+set relativenumber			" relative to current line
+
+set virtualedit=block		" visual selection broken free
+
+set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
+set wrap					" no horizontal scroll
+set linebreak				" break lines
+set showbreak=¬				" ... showing a character
+
+set sidescrolloff=3			" horizontal cursor max value
+let &scrolloff=winheight(win_getid())/10+1 " minumum lines before/after cursor
+
+" toggle always in middle with zz
+nnoremap zz :let &scrolloff=999-&scrolloff<CR>
+" original behavious with <leader>zz
+nnoremap <leader>zz zz
+
+" status line
+set laststatus=2			" show the satus line all the time
+" show buffer number
+set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 " open file under cursor in vertical split
 nnoremap <C-w>f :vertical wincmd f<CR>
@@ -404,7 +419,7 @@ endfunction
 
 ""  Searching
 
-set path+=**			" recursive path from current path
+" set path+=**			" recursive path from current path
 " set incsearch
 set wildchar=<Tab>
 set wildmode=full
@@ -517,6 +532,7 @@ autocmd FileType conf,fstab       let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
+autocmd FileType readline         let b:comment_leader = '# '
 noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 noremap <silent> <leader>'p yypk:<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
@@ -552,14 +568,14 @@ nnoremap yh y^
 " vnoremap yh y^
 
 " Copy/paste text to/from the system clipboard.
-nnoremap <leader>p mp"*]p==`p
-nnoremap <leader>P mp"*]P==`p
-nnoremap <leader>y "*y
-" nnoremap <leader>Y "*yy
+nnoremap <leader>p mp"+]p==`p
+nnoremap <leader>P mp"+]P==`p
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+y$
 
-vnoremap <leader>p mp"*]p==`p
-vnoremap <leader>P mp"*]P==`p
-vnoremap <leader>y "*y
+vnoremap <leader>p mp"+]p==`p
+vnoremap <leader>P mp"+]P==`p
+vnoremap <leader>y "+y
 " vnoremap <leader>Y "*yy
 
 nnoremap H ^
@@ -592,11 +608,11 @@ cnoremap <C-x> <Del>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
 
-"" Auto Header
+""  Auto Header
 """  SH Auto Header
 au bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
 
-""" Auto protect .h
+"""  Auto protect .h
 if !exists("autocommands_loaded")
 	let autocommands_loaded = 1
 	au BufNewFile *.h call InsertCHHeader()
@@ -714,8 +730,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 
 " inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
 " inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
+" inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 
@@ -795,6 +810,10 @@ let g:fzf_colors =
 let g:root#auto = 1
 let g:root#echo = 0
 
+" Searchhi
+let g:searchhi_clear_all_autocmds = 'InsertEnter'
+let g:searchhi_update_all_autocmds = 'InsertLeave'
+let g:searchhi_open_folds = 0
 
 ""  101
 """ 101Header
@@ -955,7 +974,7 @@ nnoremap <silent> <leader>h1 :call Stdheader()<CR>
 
 ""  Dotfiles
 """ Filetype
-au BufNewFile,BufRead bash_aliases,bashrc,inputrc setfiletype sh
+au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
 
 """ Vimrc folding
 function! VimFold()
