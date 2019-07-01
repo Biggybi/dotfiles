@@ -179,7 +179,6 @@ else
 	colorscheme base16-onedark
 " 	let g:lightline = { 'colorscheme': 'material_vim' }
 endif
-colorscheme base16-onedark
 
 " source colors
 nnoremap <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>
@@ -367,7 +366,7 @@ let g:netrw_sort_sequence = '[\/]$,*'				" sort folders on top
 
 augroup ft_quickfix
 	au!
-	au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
+	au Filetype qf setlocal colorcolumn=0 nolist nocursorline tw=0
 
 	" vimscript is a joke
 	au Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
@@ -568,14 +567,14 @@ nnoremap yh y^
 " vnoremap yh y^
 
 " Copy/paste text to/from the system clipboard.
-nnoremap <leader>p mp"+]p==`p
-nnoremap <leader>P mp"+]P==`p
-nnoremap <leader>y "+y
-nnoremap <leader>Y "+y$
+nnoremap <leader>p mp"*]p==`p
+nnoremap <leader>P mp"*]P==`p
+nnoremap <leader>y "*y
+nnoremap <leader>Y "*y$
 
-vnoremap <leader>p mp"+]p==`p
-vnoremap <leader>P mp"+]P==`p
-vnoremap <leader>y "+y
+vnoremap <leader>p mp"*]p==`p
+vnoremap <leader>P mp"*]P==`p
+vnoremap <leader>y "*y
 " vnoremap <leader>Y "*yy
 
 nnoremap H ^
@@ -668,8 +667,41 @@ set completeopt=longest,menuone
 
 ""  Window behaviour
 
-" jump or open matching buffer in new vertical split
-nnoremap <leader>j :vertical sbuffer<space>
+" Open buffer in split on partial search
+function! BufSel(pattern)
+  let bufcount = bufnr("$")
+  let currbufnr = 1
+  let nummatches = 0
+  let firstmatchingbufnr = 0
+  while currbufnr <= bufcount
+    if(bufexists(currbufnr))
+      let currbufname = bufname(currbufnr)
+      if(match(currbufname, a:pattern) > -1)
+        echo currbufnr . ": ". bufname(currbufnr)
+        let nummatches += 1
+        let firstmatchingbufnr = currbufnr
+      endif
+    endif
+    let currbufnr = currbufnr + 1
+  endwhile
+  if(nummatches == 1)
+    execute ":buffer ". firstmatchingbufnr
+  elseif(nummatches > 1)
+    let desiredbufnr = input("Enter buffer number: ")
+    if(strlen(desiredbufnr) != 0)
+      execute ":buffer ". desiredbufnr
+    endif
+  else
+    echo "No matching buffers"
+  endif
+endfunction
+
+"Bind the BufSel() function to a user-command
+command! -nargs=1 Bs :call BufSel("<args>")
+
+
+" open buffer in split on partial search
+nnoremap <leader>b :vertical sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<CR>
 
 let g:term_buf = 0
@@ -721,7 +753,7 @@ execute pathogen#infect()
 set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
-autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
+" autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
 let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
 let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Enter
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
@@ -733,6 +765,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 " inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
+let g:syntastic_c_include_dirs = ['inc']
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

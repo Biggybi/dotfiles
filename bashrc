@@ -24,7 +24,7 @@ set -o vi
 
 # Environement variables
 export PATH=$PATH:~/bin:/usr/lib
-export VISUAL=/usr/local/share/vim/vim81/
+export VISUAL=vim
 export EDITOR="$VISUAL"
 export DOT="$HOME/dotfiles"
 
@@ -135,6 +135,7 @@ __fzf_history ()
 builtin set -o histexpand;
 builtin bind -x '"\C-x1": __fzf_history'
 builtin bind '"\C-r": "\C-x1\e^\er"'
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
