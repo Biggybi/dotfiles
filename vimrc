@@ -59,9 +59,9 @@ set ttimeoutlen=10
 
 ""  General
 
-" let mapleader = "\<Space>"
-" let leader = "\<Space>"
-map <Space> <leader>
+let mapleader = "\<Space>"
+let leader = "\<Space>"
+" map <Space> <leader>
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
@@ -179,6 +179,8 @@ else
 	colorscheme base16-onedark
 " 	let g:lightline = { 'colorscheme': 'material_vim' }
 endif
+set background=dark
+colorscheme base16-onedark
 
 " source colors
 nnoremap <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>

@@ -14,7 +14,8 @@ FILES=(vim
 	inputrc
 	bin
 	git_template
-	fonts)
+	fonts
+	zhsrc)
 
 # links to create localy for Linux
 LINK=(.vim
@@ -24,19 +25,21 @@ LINK=(.vim
 	.inputrc
 	bin
 	.git_template
-	.fonts)
+	.fonts
+	"")
 
 # links to create localy for Mac
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	LINK=(vim
 		.vimrc
-		.bash_profile
+		.bashrc
 		.bash_aliases
 		.inputrc
 		bin
 		.git_template
-		.fonts)
+		.fonts
+		.zshrc)
 fi
 
 if [ -d "$SRC" ]

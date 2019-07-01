@@ -35,7 +35,7 @@ shopt -s autocd					# autocd
 
 #better completion
 
-bind 'TAB':menu-complete					# cycle through matches
+# bind 'TAB':menu-complete					# cycle through matches
 bind 'set menu-complete-display-prefix on'	# partial completion first, then cycle
 bind 'set show-all-if-ambiguous on'			# show list of matching files
 # bind 'set mark-directories on'
@@ -76,7 +76,7 @@ fd() {
 # fzf defaults
 export FZF_DEFAULT_OPTS='--height 10 -m'
 # fzf history on C-r
-bind '"\C-r": "\C-x1\e^\er"'
+bind '"\C-r": "\C-x1\e^\er"';
 bind -x '"\C-x1": __fzf_history';
 
 # __fzf_history ()
@@ -133,8 +133,8 @@ __fzf_history ()
 }
 
 builtin set -o histexpand;
-builtin bind -x '"\C-x1": __fzf_history'
-builtin bind '"\C-r": "\C-x1\e^\er"'
+builtin bind -x '"\C-x1": __fzf_history';
+builtin bind '"\C-r": "\C-x1\e^\er"';
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -204,3 +204,6 @@ if [[ "$OSTYPE" == "darwin"* ]]
 then
 	hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
 fi
+
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"

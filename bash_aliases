@@ -4,9 +4,13 @@ ALIAS_101_LFT=$HOME/101/libft
 shopt -s expand_aliases
 
 ## color
-alias ls='ls -hN --group-directories-first --color=auto'
+alias ls='ls -h --group-directories-first --color=auto'
 alias dir='dir -color=auto'
 alias vdir='vdir --color=auto'
+if [[ "$OSTYPE" == "darwin"* ]]
+then
+	alias ls='ls -h'
+fi
 
 ## grep
 alias grep='grep --color=auto'
