@@ -132,9 +132,12 @@ __fzf_history ()
 		fi
 }
 
-builtin set -o histexpand;
-builtin bind -x '"\C-x1": __fzf_history';
-builtin bind '"\C-r": "\C-x1\e^\er"';
+if [[ "$OSTYPE" != "darwin"* ]]
+then
+	builtin set -o histexpand;
+	builtin bind -x '"\C-x1": __fzf_history';
+	builtin bind '"\C-r": "\C-x1\e^\er"';
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
