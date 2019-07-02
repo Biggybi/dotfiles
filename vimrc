@@ -551,8 +551,8 @@ nnoremap <silent> k gk
 " let g:clipbrdDefaultReg = '+'
 
 " paste with indentation
-nnoremap P mp]P==`p
-nnoremap p mp]p==`p
+" nnoremap P mp]P==`p
+" nnoremap p mp]p==`p
 
 nnoremap cl c$
 nnoremap dl d$
@@ -574,8 +574,8 @@ nnoremap <leader>P mp"*]P==`p
 nnoremap <leader>y "*y
 nnoremap <leader>Y "*y$
 
-vnoremap <leader>p mp"*]p==`p
-vnoremap <leader>P mp"*]P==`p
+" vnoremap <leader>p mp"*]p==`p
+" vnoremap <leader>P mp"*]P==`p
 vnoremap <leader>y "*y
 " vnoremap <leader>Y "*yy
 
