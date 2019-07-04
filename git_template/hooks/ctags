@@ -8,3 +8,4 @@
 # mv "$dir/$$.tags" "$dir/tags"
 dir=$(git rev-parse --git-dir)
 ctags-exuberant -R -f $dir/tags $dir/../
+# ctags -R -f $dir/tags $dir/../
