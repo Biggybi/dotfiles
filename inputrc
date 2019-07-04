@@ -4,7 +4,7 @@ set vi-cmd-mode-string "\1\e[1;91m\2- >\1\e[0m\2"
 set bell-style none
 set colored-stats on
 set colored-completion-prefix on
-set completion-display-width 1
+# set completion-display-width 1
 
 set editing-mode vi
 
