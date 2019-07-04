@@ -176,7 +176,8 @@ alias gcc='clang '
 alias gccf='gcc -Wall -Wextra '
 
 alias bc='bc -q'
-alias asciideci="man ascii | grep Tables -A15 | cut -c 25- | sed 's/^ /    /;s/$^//;1,2d;5d'"
+alias asciid="man ascii | grep Tables -A15 | cut -c 25- | sed 's/^ /    /;s/$^//;1,2d;5d'"
+alias asciidh="man ascii | grep ".*30.*40.*" -A18 -B1"
 
 alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 ## alias regex_ipv4='grep -Eo \([0-9]*.\){3}[^0-9]*'
