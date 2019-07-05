@@ -6,7 +6,7 @@
 "    By: tris <tristan.kapous@protonmail.com>       +:+   +:    +:    +:+      "
 "                                                  #+#   #+    #+    #+#       "
 "    Created: 2019/06/23 05:39:33 by tris         #+#   ##    ##    #+#        "
-"    Updated: 2019/06/23 05:39:33 by tris        ###    #+. /#+    ###.fr      "
+"    Updated: 2019/07/05 10:57:23 by tkapous     ###    #+. /#+    ###.fr      "
 "                                                          /                   "
 "                                                         /                    "
 " **************************************************************************** "
@@ -420,7 +420,7 @@ endfunction
 
 ""  Searching
 
-" set path+=**			" recursive path from current path
+set path+=**			" recursive path from current path
 " set incsearch
 set wildchar=<Tab>
 set wildmode=full
@@ -495,6 +495,9 @@ xnoremap <leader>d "_d
 
 inoremap main<tab> <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
 nnoremap main<tab> :Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
+nnoremap while<tab> iwhile (++i)<CR>{<CR>}<Esc>2k3==f)
+inoremap while<tab> while (++i)<CR>{<CR>}<Esc>2k3==f)i
+
 " auto close bracers
 " inoremap (      ();<Left><Left>
 " inoremap (;  (<CR>)<Esc>O
