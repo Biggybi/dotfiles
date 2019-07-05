@@ -14,8 +14,11 @@ fi
 
 ## 42 piscine
 newday () {
-	mkdir d"$1"
-	cd d"$1"
+	if [ $1 != '.' ]
+	then
+		mkdir d"$1"
+		cd d"$1"
+	fi
 	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10
 }
 
