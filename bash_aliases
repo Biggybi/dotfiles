@@ -14,7 +14,7 @@ fi
 
 ## 42 piscine
 newday () {
-	if [ $1 != '.' ]
+	if [ $1 != '.' ] | [ $# == 1 ]
 	then
 		mkdir d"$1"
 		cd d"$1"
