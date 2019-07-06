@@ -487,6 +487,9 @@ nnoremap main<tab> :Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}
 nnoremap while<tab> iwhile (++i)<CR>{<CR>}<Esc>2k3==f)
 inoremap while<tab> while (++i)<CR>{<CR>}<Esc>2k3==f)i
 
+" compile and execute current
+nnoremap <leader>gcc :!gcc % && ./a.out<CR>
+
 " auto close bracers
 " inoremap (      ();<Left><Left>
 " inoremap (;  (<CR>)<Esc>O
