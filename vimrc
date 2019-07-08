@@ -516,6 +516,7 @@ nnoremap <silent> <leader>gF j[[h^t(b
 nnoremap <silent> <leader>gn j[[h^t(b*
 " select all text in function
 nnoremap <leader>vf [[%v%
+nnoremap <leader>gd [[kf(B
 " nnoremap viB [[%v%jok$
 " nnoremap vaB [[%v%
 " " nnoremap vib [{%v%jok$
@@ -532,6 +533,10 @@ autocmd FileType readline         let b:comment_leader = '# '
 noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 noremap <silent> <leader>'p yypk:<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" Open man page in vim split, defaults to K
+runtime! ftplugin/man.vim
+set keywordprg=:Man
 
 ""  Mappings
 
@@ -767,6 +772,7 @@ let g:syntastic_c_include_dirs = ['inc']
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+" set statusline+=%H*
 
 " let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_enable_c_checker = 1
@@ -780,6 +786,11 @@ let g:syntastic_check_on_wq = 0
 
 " lightline
 set noshowmode " do not show mode in status line
+" Show full path of filename
+
+function! FilenameForLightline()
+    return expand('%')
+endfunction
 
 " show git branch
 let g:lightline = {
@@ -789,7 +800,7 @@ let g:lightline = {
 			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 			\ },
 			\ 'component_function': {
-			\   'gitbranch': 'fugitive#head'
+			\   'gitbranch': 'fugitive#head', 'filename': 'FilenameForLightline'
 			\ },
 			\ 'inactive': {
 			\   'left': [ [ 'mode', 'paste' ],

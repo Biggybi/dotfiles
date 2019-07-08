@@ -30,7 +30,10 @@ export DOT="$HOME/dotfiles"
 
 shopt -s checkwinsize				# auto adjust winsize after each command
 #shopt -s globstar					# "**" match all files recursively
-shopt -s autocd					# autocd
+if [[ "$OSTYPE" != "darwin"* ]]
+then
+	shopt -s autocd					# autocd
+fi
 
 
 #better completion
