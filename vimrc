@@ -90,6 +90,7 @@ set shortmess+=r				" Abbreviation for read only
 set shortmess+=w				" Abbreviation for writter
 set shortmess+=x				" Abbreviation for dos and mac format
 set shortmess+=W				" No message when writing
+" set cmdheight=2
 
 set hidden
 
@@ -132,7 +133,7 @@ set virtualedit=block		" visual selection broken free
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 set wrap					" no horizontal scroll
 set linebreak				" break lines
-set showbreak=¬				" ... showing a character
+set showbreak=¬\ 			" ... showing a character
 
 set sidescrolloff=3			" horizontal cursor max value
 let &scrolloff=winheight(win_getid())/10+1 " minumum lines before/after cursor
@@ -487,6 +488,7 @@ nnoremap main<tab> :Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}
 nnoremap while<tab> iwhile (++i)<CR>{<CR>}<Esc>2k3==f)
 inoremap while<tab> while (++i)<CR>{<CR>}<Esc>2k3==f)i
 
+nnoremap <C-G> %
 " compile and execute current
 nnoremap <leader>gcc :!gcc % && ./a.out<CR>
 
@@ -705,6 +707,10 @@ command! -nargs=1 Bs :call BufSel("<args>")
 " open buffer in split on partial search
 nnoremap <leader>b :vertical sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<CR>
+
+"go to next / previous buffer
+nnoremap <leader>] :bn
+nnoremap <leader>] :bp
 
 let g:term_buf = 0
 let g:term_win = 0
