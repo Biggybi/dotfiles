@@ -832,9 +832,10 @@ nmap [h <Plug>GitGutterPrevHunk
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>F :FZF /<CR>			"search files from root
-nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME
-nnoremap <leader><C-F> :FZF .<CR>		"search files from curr
+nnoremap <leader>F :FZF /<CR>					"search files from root
+nnoremap <leader>f :FZF $HOME<CR>				"search files from HOME
+nnoremap <leader><C-F> :FZF .<CR>				"search files from curr
+nnoremap <leader>1f :FZF $HOME/Piscine<CR>		"search piscine
 " nnoremap <leader>f :FZF<C-r>=fnamemodify(getcwd(), ':p')<CR><CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
