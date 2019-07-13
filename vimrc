@@ -48,9 +48,9 @@ set ttimeoutlen=10
 
 ""  General
 
-let mapleader = "\<Space>"
-let leader = "\<Space>"
-" map <Space> <leader>
+" let mapleader = " "
+" let leader = " "
+map <Space> <leader>
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
@@ -446,8 +446,8 @@ set magic " Set magic on, for regex
 
 
 " use unix regex in searches
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 
 "do not move cursor with match
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
@@ -491,7 +491,7 @@ inoremap while<tab> while (++i)<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gcc % && ./a.out<CR>
+nnoremap <leader>gcc :!gcc % && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
