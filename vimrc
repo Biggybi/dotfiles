@@ -15,8 +15,8 @@
 
 set nocompatible " not compatible with vi
 " set shellcmdflag=-ic
-let $BASH_ENV = "$HOME/dotfiles/bash_aliases"
-
+let $BASH_ENV = "$HOME/dotfiles/bash_aliases" " use aliases in vim
+let $PAGER=''	" clear pager env var in vim (for vim as pager)
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
@@ -125,6 +125,7 @@ set splitright				" default split right
 " set equalalways				" always equalize windows
 " set list										" show invisible characters
 " set listchars=tab:<Space><Space>,trail:·		" but only show tabs and trailing whitespace
+" set listchars=tab:>\ ,trail:·	" but only show tabs and trailing whitespace
 
 set number					" show number column
 set relativenumber			" relative to current line
@@ -486,12 +487,12 @@ xnoremap <leader>d "_d
 
 inoremap main<tab> <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
 nnoremap main<tab> :Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
-nnoremap while<tab> iwhile (++i)<CR>{<CR>}<Esc>2k3==f)
-inoremap while<tab> while (++i)<CR>{<CR>}<Esc>2k3==f)i
+inoremap if<tab> if ()<CR>{<CR>}<Esc>2k3==f)i
+inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gcc % && ./a.out
+nnoremap <leader>gcc :!gccf % && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
