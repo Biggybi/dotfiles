@@ -262,7 +262,7 @@ autocmd BufWritePost * filetype detect
 "     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
 
 " if in git repo, sets tags
-" let &tags = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . '/.git/tags'
+" let &tags = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . '/.git/tags';
 " if tags (so if in git repo), autochdir to git root
 " 			\ if exists('&tags') |
 " 			\ echo &tags |
@@ -275,10 +275,10 @@ autocmd BufWritePost * filetype detect
 " " 			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
 " " 			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
 " 			\ endif
-
+" 
 " autoreload tags file on save
-" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
-" au BufWritePost *.cpp silent! !ctags -R &
+au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+au BufWritePost *.cpp silent! !ctags -R &
 
 
 ""  Folding
@@ -754,6 +754,7 @@ tnoremap <leader>T <C-\><C-n>:call Term_toggle(10)<cr>
 " new file in vertical split instead of horizontal
 nnoremap <C-w><C-n> :vertical new<CR>
 nnoremap <C-w>n :vertical new<CR>
+nnoremap <C-w><C-f> :vertical wincmd f<CR>
 
 
 ""  Plugins settings
@@ -1039,6 +1040,21 @@ nnoremap <silent> <leader>h1 :call Stdheader()<CR>
 ""  Dotfiles
 """ Filetype
 au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
+
+augroup suffixes
+    autocmd!
+
+    let associations = [
+                \["javascript", ".js,.javascript,.es,.esx,.json"],
+                \["python", ".py,.pyw"],
+                \["c", ".c,.h"],
+                \["cpp", ".c,.h"]
+                \]
+
+    for ft in associations
+        execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+    endfor
+augroup END
 
 """ Vimrc folding
 function! VimFold()
