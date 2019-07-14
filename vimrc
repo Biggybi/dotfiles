@@ -15,8 +15,8 @@
 
 set nocompatible " not compatible with vi
 " set shellcmdflag=-ic
-let $BASH_ENV = "$HOME/dotfiles/bash_aliases"
-
+let $BASH_ENV = "$HOME/dotfiles/bash_aliases" " use aliases in vim
+let $PAGER=''	" clear pager env var in vim (for vim as pager)
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
@@ -122,9 +122,11 @@ filetype indent on
 
 set splitbelow				" default split below
 set splitright				" default split right
-" set equalalways				" always equalize windows
-" set list										" show invisible characters
-" set listchars=tab:<Space><Space>,trail:·		" but only show tabs and trailing whitespace
+" set equalalways			" always equalize windows
+" set list					" show invisible characters
+" set listchars=tab:<Space><Space>,trail:·		" but only show tabs and		trailing whitespace
+" set listchars=tab:>\ ,trail:·	" but only show tabs and trailing whitespace
+set listchars=tab:\ \ 
 
 set number					" show number column
 set relativenumber			" relative to current line
@@ -192,8 +194,9 @@ set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
 
 " show traling whitespaces
 "highlight whitespacetrim ctermbg=203 ctermfg=white guibg=#592928
-highlight trailingwhitespace ctermbg=203 guibg=red
-match trailingwhitespace /\s\+$/
+" highlight TrailingWhitespace ctermbg=203 guibg=red
+
+match TrailWhite /\s\+$/
 autocmd bufwinenter * match trailingwhitespace /\s\+$/
 autocmd insertenter * match trailingwhitespace /\s\+\%#\@<!$/
 autocmd insertleave * match trailingwhitespace /\s\+$/
@@ -260,7 +263,7 @@ autocmd BufWritePost * filetype detect
 "     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
 
 " if in git repo, sets tags
-" let &tags = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . '/.git/tags'
+" let &tags = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . '/.git/tags';
 " if tags (so if in git repo), autochdir to git root
 " 			\ if exists('&tags') |
 " 			\ echo &tags |
@@ -273,10 +276,10 @@ autocmd BufWritePost * filetype detect
 " " 			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
 " " 			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
 " 			\ endif
-
+" 
 " autoreload tags file on save
-" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
-" au BufWritePost *.cpp silent! !ctags -R &
+au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+au BufWritePost *.cpp silent! !ctags -R &
 
 
 ""  Folding
@@ -485,12 +488,12 @@ xnoremap <leader>d "_d
 ""  Code mappings
 
 inoremap main<tab> <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
-inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap if<tab> if ()<CR>{<CR>}<Esc>2k3==f)i
+inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gcc -Wall -Wextra % && ./a.out 
+nnoremap <leader>gcc :!gccf -Wall -Wextra % && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
@@ -751,6 +754,7 @@ tnoremap <leader>T <C-\><C-n>:call Term_toggle(10)<cr>
 " new file in vertical split instead of horizontal
 nnoremap <C-w><C-n> :vertical new<CR>
 nnoremap <C-w>n :vertical new<CR>
+nnoremap <C-w><C-f> :vertical wincmd f<CR>
 
 
 ""  Plugins settings
@@ -758,15 +762,17 @@ nnoremap <C-w>n :vertical new<CR>
 execute pathogen#infect()
 
 " fugitive
+nnoremap <leader>gg :vertical Gstatus<CR>
 set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
 " autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
-let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
+let g:ycm_show_diagnostics_ui = 1 " keep syntastic errors
 let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Enter
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
+let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
 " inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
 " inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -789,6 +795,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
 
 " lightline
 set noshowmode " do not show mode in status line
@@ -831,10 +838,9 @@ nmap [h <Plug>GitGutterPrevHunk
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>F :FZF /<CR>					"search files from root
-nnoremap <leader>f :FZF $HOME<CR>				"search files from HOME
-nnoremap <leader><C-F> :FZF .<CR>				"search files from curr
-nnoremap <leader>1f :FZF $HOME/Piscine<CR>		"search piscine
+nnoremap <leader>F :FZF /<CR>			"search files from root
+nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME
+nnoremap <leader><C-F> :FZF .<CR>		"search files from curr
 " nnoremap <leader>f :FZF<C-r>=fnamemodify(getcwd(), ':p')<CR><CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
@@ -1034,6 +1040,19 @@ nnoremap <silent> <leader>h1 :call Stdheader()<CR>
 ""  Dotfiles
 """ Filetype
 au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
+
+augroup suffixes
+    autocmd!
+    let associations = [
+                \["javascript", ".js,.javascript,.es,.esx,.json"],
+                \["python", ".py,.pyw"],
+                \["c", ".c,.h"],
+                \["cpp", ".c,.h"]
+                \]
+    for ft in associations
+        execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+    endfor
+augroup END
 
 """ Vimrc folding
 function! VimFold()
