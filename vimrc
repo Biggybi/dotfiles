@@ -1043,14 +1043,12 @@ au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc
 
 augroup suffixes
     autocmd!
-
     let associations = [
                 \["javascript", ".js,.javascript,.es,.esx,.json"],
                 \["python", ".py,.pyw"],
                 \["c", ".c,.h"],
                 \["cpp", ".c,.h"]
                 \]
-
     for ft in associations
         execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
     endfor
