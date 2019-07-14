@@ -194,8 +194,9 @@ set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
 
 " show traling whitespaces
 "highlight whitespacetrim ctermbg=203 ctermfg=white guibg=#592928
-highlight trailingwhitespace ctermbg=203 guibg=red
-match trailingwhitespace /\s\+$/
+" highlight TrailingWhitespace ctermbg=203 guibg=red
+  
+match TrailWhite /\s\+$/
 autocmd bufwinenter * match trailingwhitespace /\s\+$/
 autocmd insertenter * match trailingwhitespace /\s\+\%#\@<!$/
 autocmd insertleave * match trailingwhitespace /\s\+$/
