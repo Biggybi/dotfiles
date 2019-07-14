@@ -21,7 +21,7 @@ newday () {
 	fi
 	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10
 }
-alias viday='e $(find . -name "*.c")'
+alias viday='vim $(find . -name "*.c")'
 alias gccfcday='gccf -c $(find ex* -name "*.c")'
 alias gccmday='gccf main.c $(find . -name "*.c")'
 

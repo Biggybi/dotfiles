@@ -485,13 +485,12 @@ xnoremap <leader>d "_d
 ""  Code mappings
 
 inoremap main<tab> <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
-nnoremap main<tab> :Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
-nnoremap while<tab> iwhile (++i)<CR>{<CR>}<Esc>2k3==f)
-inoremap while<tab> while (++i)<CR>{<CR>}<Esc>2k3==f)i
+inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
+inoremap if<tab> if ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gcc % && ./a.out
+nnoremap <leader>gcc :!gcc -Wall -Wextra % && ./a.out 
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
