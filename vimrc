@@ -761,11 +761,12 @@ nnoremap <C-w>n :vertical new<CR>
 execute pathogen#infect()
 
 " fugitive
+nnoremap <leader>gg :vertical Gstatus<CR>
 set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
 " autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
-let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
+let g:ycm_show_diagnostics_ui = 1 " keep syntastic errors
 let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Enter
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
@@ -792,6 +793,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
 " lightline
 set noshowmode " do not show mode in status line
