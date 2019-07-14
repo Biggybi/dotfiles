@@ -197,9 +197,9 @@ set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
 " highlight TrailingWhitespace ctermbg=203 guibg=red
 
 match TrailWhite /\s\+$/
-autocmd bufwinenter * match trailingwhitespace /\s\+$/
-autocmd insertenter * match trailingwhitespace /\s\+\%#\@<!$/
-autocmd insertleave * match trailingwhitespace /\s\+$/
+autocmd bufwinenter * match TrailWhite /\s\+$/
+autocmd insertenter * match TrailWhite /\s\+\%#\@<!$/
+autocmd insertleave * match TrailWhite /\s\+$/
 autocmd bufwinleave * call clearmatches()
 
 "highlight colorcolumn ctermbg=9
@@ -493,7 +493,7 @@ inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gccf -Wall -Wextra % && ./a.out
+nnoremap <leader>gcc :!gcc -Wall -Wextra % && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
