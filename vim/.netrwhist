@@ -1,7 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/tris/101/Piscine/stillgotit/matchnmatch'
-let g:netrw_dirhist_2='/home/tris/101'
-let g:netrw_dirhist_3='/Users/tkapous/Desktop/tkapous'
-let g:netrw_dirhist_4='/Users/tkapous/Piscine/d01/ex07'
-let g:netrw_dirhist_5='/Users/tkapous/Piscine/d01'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/tkapous/Piscine/c02/ex02'
+let g:netrw_dirhist_2='/Users/tkapous/Piscine/c06old/ex00'
+let g:netrw_dirhist_3='/Users/tkapous/Piscine/c06old'
+let g:netrw_dirhist_4='/Users/tkapous/Piscine/c06old/ex03'
