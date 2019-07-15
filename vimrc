@@ -197,9 +197,9 @@ set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
 " highlight TrailingWhitespace ctermbg=203 guibg=red
 
 match TrailWhite /\s\+$/
-autocmd bufwinenter * match trailingwhitespace /\s\+$/
-autocmd insertenter * match trailingwhitespace /\s\+\%#\@<!$/
-autocmd insertleave * match trailingwhitespace /\s\+$/
+autocmd bufwinenter * match TrailWhite /\s\+$/
+autocmd insertenter * match TrailWhite /\s\+\%#\@<!$/
+autocmd insertleave * match TrailWhite /\s\+$/
 autocmd bufwinleave * call clearmatches()
 
 "highlight colorcolumn ctermbg=9
@@ -278,8 +278,8 @@ autocmd BufWritePost * filetype detect
 " 			\ endif
 " 
 " autoreload tags file on save
-au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
-au BufWritePost *.cpp silent! !ctags -R &
+" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+" au BufWritePost *.cpp silent! !ctags -R &
 
 
 ""  Folding
