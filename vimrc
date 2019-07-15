@@ -276,10 +276,10 @@ autocmd BufWritePost * filetype detect
 " " 			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
 " " 			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
 " 			\ endif
-" 
+
 " autoreload tags file on save
-au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
-au BufWritePost *.cpp silent! !ctags -R &
+" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+" au BufWritePost *.cpp silent! !ctags -R &
 
 
 ""  Folding
@@ -772,7 +772,7 @@ let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Ente
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
-let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
+" let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
 " inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
 " inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -794,7 +794,7 @@ let g:ycm_use_clangd = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 
 
 " lightline
