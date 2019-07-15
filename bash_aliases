@@ -173,8 +173,8 @@ alias g='git'
 alias gd='git diff'
 
 alias g='git'
-alias gg='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
 alias gurl='git config --get remote.origin.url'
+alias gg='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
 alias gitroot='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
 alias gdiff='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
 alias gits='git status '

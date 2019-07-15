@@ -404,7 +404,7 @@ function! s:RunShellCommand(cmdline)
 		endif
 	endfor
 	vert new
-	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
 	call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
 	call setline(2,substitute(getline(1),'.','=','g'))
 	execute '$read !'. expanded_cmdline
@@ -777,6 +777,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 " inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
 " inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<TAB>"
 " inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
 " syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 let g:syntastic_c_include_dirs = ['inc']
