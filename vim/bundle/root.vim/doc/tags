@@ -1,0 +1,6 @@
+root.vim	root_plugin.txt	/*root.vim*
+root_plugin-contents	root_plugin.txt	/*root_plugin-contents*
+root_plugin-introduction	root_plugin.txt	/*root_plugin-introduction*
+root_plugin-options	root_plugin.txt	/*root_plugin-options*
+root_plugin-usage	root_plugin.txt	/*root_plugin-usage*
+root_plugin.txt	root_plugin.txt	/*root_plugin.txt*

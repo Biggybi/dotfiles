@@ -276,7 +276,7 @@ autocmd BufWritePost * filetype detect
 " " 			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
 " " 			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
 " 			\ endif
-" 
+
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
 " au BufWritePost *.cpp silent! !ctags -R &
@@ -488,13 +488,12 @@ xnoremap <leader>d "_d
 ""  Code mappings
 
 inoremap main<tab> <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
-nnoremap main<tab> :Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
 inoremap if<tab> if ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gccf % && ./a.out
+nnoremap <leader>gcc :!gcc -Wall -Wextra % && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
@@ -773,7 +772,7 @@ let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Ente
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
-let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
+" let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
 " inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
 " inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -795,7 +794,7 @@ let g:ycm_use_clangd = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 
 
 " lightline
