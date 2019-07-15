@@ -767,7 +767,7 @@ set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
 " autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
-let g:ycm_show_diagnostics_ui = 1 " keep syntastic errors
+let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
 let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Enter
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
