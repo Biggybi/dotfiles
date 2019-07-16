@@ -493,7 +493,7 @@ inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gcc -Wall -Wextra % && ./a.out
+nnoremap <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
