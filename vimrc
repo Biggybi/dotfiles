@@ -405,12 +405,12 @@ function! s:RunShellCommand(cmdline)
 	endfor
 	vert new
 	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-	call setline(1, a:cmdline . '    |    ' . expanded_cmdline)
-	call setline(2,substitute(getline(1),'.','=','g'))
+" 	  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+	call setline(1, a:cmdline . '  |  ' . expanded_cmdline)
+	call setline(2,substitute(getline(1),'.','-','g'))
 	execute '$read !'. expanded_cmdline
-	setlocal nomodifiable
+" 	setlocal nomodifiable
 endfunction
-
 
 ""  Searching
 
@@ -493,7 +493,7 @@ inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
-nnoremap <leader>gcc :!gcc -Wall -Wextra % && ./a.out
+nnoremap <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
