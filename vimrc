@@ -774,6 +774,9 @@ let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Ente
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
+let g:ycm_filetype_blacklist = {
+			\ 'fugitive': 1,
+			\}
 " let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
 " inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
