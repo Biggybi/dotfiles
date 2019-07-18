@@ -29,13 +29,18 @@ nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>:w<CR>
 nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:w<CR>
 
 " edit dotfiles
-nnoremap <leader>ev :vertical split $DOT/vimrc<cr>
-nnoremap <leader>eb :vertical split $DOT/bashrc<cr>
-nnoremap <leader>ea :vertical split $DOT/bash_aliases<cr>
-nnoremap <leader>ei :vertical split $DOT/inputrc<cr>
-nnoremap <leader>ep :vertical split $DOT/bash_profile<cr>
-nnoremap <leader>ec1 :vertical split $DOT/vim/colors/base16-onedark.vim<cr>
-nnoremap <leader>ec2 :vertical split $DOT/vim/colors/base16-one-light.vim<cr>
+nnoremap <leader>ev :e $DOT/vimrc<cr>
+nnoremap <leader>e<C-V> :vertical split $DOT/vimrc<cr>
+nnoremap <leader>eb :e $DOT/bashrc<cr>
+nnoremap <leader>e<C-B> :vertical split $DOT/bashrc<cr>
+nnoremap <leader>ea :e $DOT/bash_aliases<cr>
+nnoremap <leader>e<C-A> :vertical split $DOT/bash_aliases<cr>
+nnoremap <leader>ei :e $DOT/inputrc<cr>
+nnoremap <leader>e<C-I> :vertical split $DOT/inputrc<cr>
+nnoremap <leader>ep $DOT/bash_profile<cr>
+nnoremap <leader>e<C-P> :vertical split $DOT/bash_profile<cr>
+nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
+nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
 
 " automatic views
 autocmd BufWritePost,BufLeave,WinLeave ?* mkview
@@ -152,7 +157,7 @@ set laststatus=2			" show the satus line all the time
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 " open file under cursor in vertical split
-nnoremap <C-w>f :vertical wincmd f<CR>
+nnoremap g<C-F> :vertical wincmd f<CR>
 
 
 ""  look / theme
@@ -266,11 +271,15 @@ if has('autocmd')
     endif
   endfunction
 
-  augroup HelpPages
+  augroup HelpPages, man
     autocmd FileType help nested call ILikeHelpToTheLeft()
+	augroup setlocal nobuflisted noswapfile textwidth=80
   augroup END
 endif
 
+" Open man page in vim split, defaults to K
+runtime! ftplugin/man.vim
+set keywordprg=:Man
 
 
 ""  Folding
@@ -530,10 +539,6 @@ noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<
 noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 noremap <silent> <leader>'p yypk:<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-" Open man page in vim split, defaults to K
-runtime! ftplugin/man.vim
-set keywordprg=:Man
-
 ""  Mappings
 
 " <c-z> will work in insert mode
@@ -766,8 +771,9 @@ let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 let g:ycm_filetype_blacklist = {
-			\ 'fugitive': 1,
+			\ 'fugitive': 1
 			\}
+
 " let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
 " inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
