@@ -253,33 +253,24 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " refresh filetype upon writing
 autocmd BufWritePost * filetype detect
 
-" load the first 'tags' file in dir tree
-" set tags=tags;/$HOME
-
-" let is_git=:exec 'cd' fnameescape(fnamemodify(finddir('.git',
-"     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
-
-" autocmd BufEnter * silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
-"     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
-
-" if in git repo, sets tags
-" let &tags = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0)) . '/.git/tags';
-" if tags (so if in git repo), autochdir to git root
-" 			\ if exists('&tags') |
-" 			\ echo &tags |
-" autocmd BufWinEnter,BufEnter,WinEnter,TabEnter *
-" 			\ let b:gitroot = fnameescape(get(systemlist('git rev-parse --show-toplevel'), 0))
-" 			\ if (b:gitroot =~ 'fatal*') |
-" 			\	silent! :exec 'lcd %:p:h' |
-" 			\ else |
-" 			\	silent! :exec 'lcd b:gitroot' |
-" " 			\	silent! :exec 'cd' fnameescape(fnamemodify(finddir('.git',
-" " 			\	escape(expand('%:p:h'), ' ') . ';'), ':h')) |
-" 			\ endif
-
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
 " au BufWritePost *.cpp silent! !ctags -R &
+
+" help on the left
+if has('autocmd')
+  function! ILikeHelpToTheLeft()
+    if !exists('w:help_is_moved') || w:help_is_moved != "left"
+      wincmd H
+      let w:help_is_moved = "left"
+    endif
+  endfunction
+
+  augroup HelpPages
+    autocmd FileType help nested call ILikeHelpToTheLeft()
+  augroup END
+endif
+
 
 
 ""  Folding
