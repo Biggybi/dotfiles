@@ -708,7 +708,9 @@ command! -nargs=1 Bs :call BufSel("<args>")
 
 
 " open buffer in split on partial search
-nnoremap <leader>b :vertical sbuffer<space>
+nnoremap <leader>b :buffer<space>
+nnoremap <leader>B :sbuffer<space>
+nnoremap <leader><C-b> :vertical sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<CR>
 
 "go to next / previous buffer
@@ -781,14 +783,16 @@ let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 " syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 let g:syntastic_c_include_dirs = ['inc']
+let g:syntastic_c_compiler_options = "-Wall -Wextra"
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " set statusline+=%H*
 
-" let g:syntastic_c_remove_include_errors = 1
+let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_enable_c_checker = 1
+let g:syntastic_c_check_header = 1
 let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
 let g:ycm_use_clangd = 1
 
