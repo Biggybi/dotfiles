@@ -812,7 +812,7 @@ endfunction
 
 " show git branch
 let g:lightline = {
-			\ 'colorscheme': 'wombat',
+			\ 'colorscheme': 'onelight',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
 			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
