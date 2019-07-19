@@ -177,8 +177,8 @@ else
 	colorscheme base16-onedark
 " 	let g:lightline = { 'colorscheme': 'material_vim' }
 endif
-set background=dark
-colorscheme base16-onedark
+" set background=dark
+" colorscheme base16-onedark
 
 " source colors
 nnoremap <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>
@@ -812,7 +812,7 @@ endfunction
 
 " show git branch
 let g:lightline = {
-			\ 'colorscheme': 'onelight',
+			\ 'colorscheme': 'one',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
 			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
