@@ -487,9 +487,9 @@ xnoremap <leader>d "_d
 
 ""  Code mappings
 
-inoremap main<tab> <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
-inoremap if<tab> if ()<CR>{<CR>}<Esc>2k3==f)i
-inoremap while<tab> while ()<CR>{<CR>}<Esc>2k3==f)i
+inoremap MAIN <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
+inoremap IF if ()<CR>{<CR>}<Esc>2k3==f)i
+inoremap WHILE while ()<CR>{<CR>}<Esc>2k3==f)i
 
 nnoremap <C-G> %
 " compile and execute current
@@ -810,7 +810,17 @@ function! FilenameForLightline()
     return expand('%')
 endfunction
 
+" autocmd if has('background=light')
+" 	let g:lightline = {
+" 				\ 'colorscheme': 'one',
+" 				\ }
+" else
+" 	let g:lightline = {
+" 				\ 'colorscheme': 'wombat',
+" 				\ }
+" endif
 " show git branch
+
 let g:lightline = {
 			\ 'colorscheme': 'one',
 			\ 'active': {
@@ -818,12 +828,30 @@ let g:lightline = {
 			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 			\ },
 			\ 'component_function': {
+			\   'fugitive': 'LightlineFugitive',
+			\   'readonly': 'LightlineReadonly',
 			\   'gitbranch': 'fugitive#head', 'filename': 'FilenameForLightline'
 			\ },
 			\ 'inactive': {
 			\   'left': [ [ 'mode', 'paste' ],
 			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 			\ },
+			\ 'separator': { 'left': '', 'right': '' },
+			\ 'subseparator': { 'left': '', 'right': '' },
+			\ }
+
+let g:lightline.mode_map = {
+			\ 'n' : 'NOR',
+			\ 'i' : 'INS',
+			\ 'R' : 'REP',
+			\ 'v' : 'VIS',
+			\ 'V' : 'V-L',
+			\ "\<C-v>": 'V-B',
+			\ 'c' : 'CMD',
+			\ 's' : 'SEL',
+			\ 'S' : 'S-L',
+			\ "\<C-s>": 'S-B',
+			\ 't': 'TRM',
 			\ }
 
 " gitgutter
