@@ -248,3 +248,7 @@ get_hidden_mail_adress () {
 alias ex='return && echo end'
 # alias fav='. fav'
 # vim: filetype=sh
+
+# firefox
+alias ffn='firefox -new-window '
+alias fyt='firefox -new-window youtube.co'

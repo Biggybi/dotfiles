@@ -67,6 +67,8 @@ do
 	BACKUP="$BACKUP$i"
 	echo "$BACKUP new backup dir"
 done
+[ ! -d "$BACKUP" ] && mkdir "$BACKUP"
+mv "$DST/$l" "$BACKUP/$l"
 
 i=0
 for f in "${FILES[@]}"
@@ -81,13 +83,9 @@ do
 			#rm $DST/$l
 		elif [ -f "$DST/$l" ]
 		then
-			[ ! -d "$BACKUP" ] && mkdir "$BACKUP"
-			mv "$DST/$l" "$BACKUP/$l"
 			echo "file saved : $BACKUP $l"
 		elif [ -d "$DST/$l" ]
 		then
-			[ ! -d "$BACKUP" ] && mkdir "$BACKUP"
-			mv "$DST/$l" "$BACKUP/$l"
 			echo "file saved : $BACKUP $l"
 		fi
 		[ ! -d $DST/$l ] && ln -fs "$SRC/$f" "$DST/$l"
