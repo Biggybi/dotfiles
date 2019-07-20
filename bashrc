@@ -44,7 +44,7 @@ fi
 
 #better completion
 
-# bind 'TAB':menu-complete					# cycle through matches
+bind 'TAB':menu-complete					# cycle through matches
 bind 'set menu-complete-display-prefix on'	# partial completion first, then cycle
 bind 'set show-all-if-ambiguous on'			# show list of matching files
 # bind 'set mark-directories on'
