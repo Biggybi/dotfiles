@@ -172,10 +172,12 @@ let hour = strftime("%H")
 if 9 <= hour && hour < 21
 	set background=light
 	colorscheme base16-one-light
+	let g:lightline = { 'colorscheme': 'wombat' }
+" 	let g:lightline = { 'colorscheme': 'one' }
 else
 	set background=dark
 	colorscheme base16-onedark
-" 	let g:lightline = { 'colorscheme': 'material_vim' }
+	let g:lightline = { 'colorscheme': 'material_vim' }
 endif
 " set background=dark
 " colorscheme base16-onedark
@@ -703,7 +705,7 @@ endfunction
 command! -nargs=1 Bs :call BufSel("<args>")
 
 
-" open buffer in split on partial search
+" open buffer with partial search
 nnoremap <leader>b :buffer<space>
 nnoremap <leader>B :sbuffer<space>
 nnoremap <leader><C-b> :vertical sbuffer<space>
@@ -822,7 +824,7 @@ endfunction
 " show git branch
 
 let g:lightline = {
-			\ 'colorscheme': 'one',
+			\ 'colorscheme': 'wombat',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
 			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -840,11 +842,12 @@ let g:lightline = {
 			\ 'subseparator': { 'left': '', 'right': '' },
 			\ }
 
+
 let g:lightline.mode_map = {
 			\ 'n' : 'NOR',
 			\ 'i' : 'INS',
 			\ 'R' : 'REP',
-			\ 'v' : 'VIS',
+			\ 'v' : ' V ',
 			\ 'V' : 'V-L',
 			\ "\<C-v>": 'V-B',
 			\ 'c' : 'CMD',
