@@ -179,6 +179,11 @@ else
 	colorscheme base16-onedark
 	let g:lightline = { 'colorscheme': 'material_vim' }
 endif
+if (has('macunix'))
+	colorscheme base16-onedark
+	let g:lightline = { 'colorscheme': 'wombat' }
+endif
+
 " set background=dark
 " colorscheme base16-onedark
 
@@ -472,7 +477,8 @@ vnoremap gR :%s/<C-R>///g<left><left>
 function! s:VSetSearch()
 	let temp = @@
 	norm! gvy
-	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+" 	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+	let @/ = substitute(escape(@@, '\'), '\n', '\\n', 'g')
 	let @@ = temp
 endfunction
 
@@ -492,12 +498,13 @@ xnoremap <leader>d "_d
 inoremap MAIN <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
 inoremap IF if ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap WHILE while ()<CR>{<CR>}<Esc>2k3==f)i
-inoremap IMAX -2147483648
-inoremap IMIN 2147483647
+inoremap IMIN -2147483648
+inoremap IMAX 2147483647
 
 nnoremap <C-G> %
 " compile and execute current
 nnoremap <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
+nnoremap <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
 
 " auto close bracers
 " inoremap (      ();<Left><Left>
