@@ -42,10 +42,6 @@ nnoremap <leader>e<C-P> :vertical split $DOT/bash_profile<cr>
 nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
 nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
 
-" automatic views
-autocmd BufWritePost,BufLeave,WinLeave ?* mkview
-autocmd BufWinEnter ?* silent loadview
-
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -72,7 +68,7 @@ cmap W! %!sudo tee > /dev/null %
 
 set history=10000 " default 20
 
-" make backspace behave in a sane manner
+" backspace behave in a sane manner
 set backspace=indent,eol,start
 
 " faster redrawing
@@ -118,8 +114,8 @@ set showcmd
 set noexpandtab				" tabs ftw
 set smarttab				" tab respects 'tabstop' 'shiftwidth' 'softtabstop'
 set tabstop=4				" the visible width of tabs
-set softtabstop=4			" make tabs 4 characters wide
-set shiftwidth=4			" make indents 4 characters wide
+set softtabstop=4			" tabs 4 characters wide
+set shiftwidth=4			" indents 4 characters wide
 set autoindent				" automatically set indent of new line
 set smartindent				" ... in a sane way
 set shiftround				" round indent to a multiple of 'shiftwidth'
@@ -263,6 +259,7 @@ autocmd BufWritePost * filetype detect
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
 " au BufWritePost *.cpp silent! !ctags -R &
+set tags=tags;./git/
 
 " help on the left
 if has('autocmd')
@@ -291,15 +288,15 @@ set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
 " automatily save and restore views (folding state of files)
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
 " inoremap <leader><space> <C-O>za
 nnoremap <leader><space> za
 onoremap <leader><space> <C-C>za
 vnoremap <leader><space> zf
 
-" Make zo recursively open whatever fold we're in, even if it's partially open.
+" `zo` recursively open even partial folds
 nnoremap zo zczO
 
 ""  Netrw
@@ -369,6 +366,21 @@ augroup ft_quickfix
 	" vimscript is a joke
 	au Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
 augroup END
+
+au FileType qf call AdjustWindowHeight(1, 5)
+function! AdjustWindowHeight(minheight, maxheight)
+	let l = 1
+	let n_lines = 0
+	let w_width = winwidth(0)
+	while l <= line('$')
+		" number to float for division
+		let l_len = strlen(getline(l)) + 0.0
+		let line_width = l_len/w_width
+		let n_lines += float2nr(ceil(line_width))
+		let l += 1
+	endw
+	exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
 
 
 " Automatically open, but do not go to (if there are errors) the quickfix /
@@ -493,34 +505,48 @@ inoremap MAIN <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}
 inoremap IF if ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap WHILE while ()<CR>{<CR>}<Esc>2k3==f)i
 
+nnoremap g<C-G> gg=G<C-O><C-O>
+
 nnoremap <C-G> %
 " compile and execute current
 nnoremap <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
 
-" auto close bracers
-" inoremap (      ();<Left><Left>
-" inoremap (;  (<CR>)<Esc>O
-" inoremap ((     (
-" inoremap ()     ()
-
 " auto close brackets
 inoremap {<CR>  {<CR>}<Esc>O
-" inoremap {      {}<Left>
-" inoremap {{     {
-" inoremap {}     {}
 
 " put brackets around paragraph
-nnoremap <leader>{} {S{<Esc>}S}<c-c>=%
+nnoremap <leader>{} {S{<Esc>}S}<c-c>=%<C-O><C-O>=iB
+
+" auto parenthesis and others, remembers count
+inoremap ( ()<Esc>:call BC_AddChar(")")<CR>i
+" inoremap { {<CR>}<Esc>:call BC_AddChar("}")<CR><Esc>kA<CR>
+inoremap [ []<Esc>:call BC_AddChar("]")<CR>i
+inoremap " ""<Esc>:call BC_AddChar("\"")<CR>i
+inoremap ' ''<Esc>:call BC_AddChar("\'")<CR>i
+" jump out of parenthesis
+inoremap <C-g> <Esc>:call search(BC_GetChar(), "W")<CR>a
+
+function! BC_AddChar(schar)
+ if exists("b:robstack")
+ let b:robstack = b:robstack . a:schar
+ else
+ let b:robstack = a:schar
+ endif
+endfunction
+
+function! BC_GetChar()
+ let l:char = b:robstack[strlen(b:robstack)-1]
+ let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
+ return l:char
+endfunction
+
 
 " put semicolon EOL
 " inoremap <leader>; <C-o>m`<C-o>A;<Esc>``i
 nnoremap <leader>; i<C-o>m`<C-o>A;<Esc>``<Esc>
 
-" go to name of function you are in (needs a '()')
-nnoremap <silent> <leader>gf j[[h^t(b
-nnoremap <silent> <leader>gF j[[h^t(b
-" go to next call of function you are in
-nnoremap <silent> <leader>gn j[[h^t(b*
+" go to name of function you are in (needs '()')
+nnoremap <silent> <leader>gd j[[h^t(b
 " select all text in function
 nnoremap <leader>vf [[%v%
 nnoremap <leader>gd [[kf(B
@@ -543,10 +569,10 @@ noremap <silent> <leader>'p yypk:<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'
 
 ""  Mappings
 
-" <c-z> will work in insert mode
+" <c-z> in insert mode
 inoremap <C-Z> <C-[><C-Z>
 
-" moving up and down work as you would expect
+" up down on lines as seen
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
@@ -773,7 +799,8 @@ let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 let g:ycm_filetype_blacklist = {
-			\ 'fugitive': 1
+			\ 'fugitive': 1,
+			\ 'qf': 1
 			\}
 
 " let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
