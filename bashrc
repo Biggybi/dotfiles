@@ -29,10 +29,10 @@ export EDITOR="$VISUAL"
 export DOT="$HOME/dotfiles"
 
 # Vim as pager
-export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-    vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
-    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+# export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+#     vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
+#     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+#     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
 shopt -s checkwinsize				# auto adjust winsize after each command
 #shopt -s globstar					# "**" match all files recursively
