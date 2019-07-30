@@ -504,6 +504,8 @@ xnoremap <leader>d "_d
 inoremap MAIN <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
 inoremap IF if ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap WHILE while ()<CR>{<CR>}<Esc>2k3==f)i
+inoremap IMIN -2147483648
+inoremap IMAX 2147483647
 
 nnoremap g<C-G> gg=G<C-O><C-O>
 
@@ -548,8 +550,7 @@ nnoremap <leader>; i<C-o>m`<C-o>A;<Esc>``<Esc>
 " go to name of function you are in (needs '()')
 nnoremap <silent> <leader>gd j[[h^t(b
 " select all text in function
-nnoremap <leader>vf [[%v%
-nnoremap <leader>gd [[kf(B
+nnoremap <leader>vf j[[%v%
 " nnoremap viB [[%v%jok$
 " nnoremap vaB [[%v%
 " " nnoremap vib [{%v%jok$
