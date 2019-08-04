@@ -24,7 +24,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>:w<CR>
+nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>:w<CR>:call lightline#enable()<CR>
 nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>:w<CR>
 nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:w<CR>
 
@@ -902,27 +902,28 @@ endfunction
 " 				\ 'colorscheme': 'wombat',
 " 				\ }
 " endif
-" show git branch
 
-let g:lightline = {
-			\ 'colorscheme': 'wombat',
-			\ 'active': {
+let g:lightline.active = {
 			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-			\ },
-			\ 'component_function': {
+			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+		    \   'right': [ [ 'lineinfo' ],
+			\            [ 'percent' ],
+		    \            [ 'filetype' ] ] }
+
+let g:lightline.inactive = {
+			\   'left': [ [ 'mode', 'paste' ],
+			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+		    \   'right': [ [ 'lineinfo' ],
+			\            [ 'percent' ],
+		    \            [ 'filetype' ] ] }
+
+" git branch from fugitive
+let g:lightline.component_function = {
 			\   'fugitive': 'LightlineFugitive',
 			\   'readonly': 'LightlineReadonly',
-			\   'gitbranch': 'fugitive#head', 'filename': 'FilenameForLightline'
-			\ },
-			\ 'inactive': {
-			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-			\ },
-			\ 'separator': { 'left': '', 'right': '' },
-			\ 'subseparator': { 'left': '', 'right': '' },
-			\ }
+			\   'gitbranch': 'fugitive#head', 'filename': 'FilenameForLightline' }
 
+let g:lightline.colorscheme = 'wombat'
 
 let g:lightline.mode_map = {
 			\ 'n' : 'NOR',
