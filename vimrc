@@ -41,7 +41,6 @@ nnoremap <leader>ep $DOT/bash_profile<cr>
 nnoremap <leader>e<C-P> :vertical split $DOT/bash_profile<cr>
 nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
 nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
-
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -184,8 +183,8 @@ endif
 " colorscheme base16-onedark
 
 " source colors
-nnoremap <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>
-nnoremap <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>
+nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>:call lightline#enable()<CR>
+nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>:call lightline#enable()<CR>
 " nnoremap <leader>s1 :source $HOME/.vim/colors/trikai.vim<CR>
 " nnoremap <leader>s2 :source $HOME/.vim/colors/trikai_light.vim<CR>
 
@@ -210,9 +209,21 @@ autocmd insertenter * match TrailWhite /\s\+\%#\@<!$/
 autocmd insertleave * match TrailWhite /\s\+$/
 autocmd bufwinleave * call clearmatches()
 
-"highlight colorcolumn ctermbg=9
-set cursorline		" color current line
+" cursorline curent window only
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
+hi CursorLineNR cterm=bold
+augroup CLNRSet
+    autocmd! ColorScheme * hi CursorLineNR cterm=bold
+augroup END
+
+" set cursorline		" color current line
 set colorcolumn=81	" color column 81
+"highlight colorcolumn ctermbg=9
 " autocmd InsertEnter * highlight CursorLine guibg=#000050 guifg=fg
 " autocmd InsertLeave * highlight CursorLine guibg=#004000 guifg=fg
 
@@ -261,10 +272,19 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " refresh filetype upon writing
 autocmd BufWritePost * filetype detect
 
+" auto chose tag from .git folder
+autocmd BufEnter *
+			\ set tags=.git/tags
+
+" auto winwidth for code
+" autocmd Filetype html,c,cpp,java setlocal winwidth=86
+
+
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
 " au BufWritePost *.cpp silent! !ctags -R &
-set tags=tags;./git/
+" set tags=tags;./git/
+" set tags=./tags;
 
 " help on the left
 if has('autocmd')
@@ -400,15 +420,14 @@ endfunction
 " autocmd QuickFixCmdPost [^l]* nested botright copen
 " autocmd QuickFixCmdPost    l* nested botright lwindo
 
-nnoremap <leader>cm :make re<CR><CR>
-nnoremap <leader>cc :cc<CR>
-nnoremap <leader>cn :cn<CR>
-nnoremap <leader>cp :cp<CR>
-nnoremap <leader>cl :clist<CR>
-nnoremap <leader>cw :cwindow<CR>
-nnoremap <leader>ln :lnext<CR>
-nnoremap <leader>lp :lprevious<CR>
-nnoremap <leader>ll :ll<CR>
+nnoremap <leader>ct :Shell make ex<CR><CR>
+nnoremap <leader>cT :Shell make ex TESTFF=test/*<CR><CR>
+nnoremap <leader>cv :Shell make ex TEST=<CR><CR>
+nnoremap <leader>cm :Shell make re<CR><CR>
+nnoremap <leader>cr :Shell make re<CR>
+nnoremap <leader>cc :ll<CR>
+nnoremap <leader>cn :lnext<CR>
+nnoremap <leader>cp :lprevious<CR>
 
 ""  Shell output split
 
@@ -450,7 +469,7 @@ set switchbuf=useopen	" open buffers in their window if exist (:sb nam)
 
 " ignore some files from fuzzy search
 " set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
-set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
+" set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
 
 set magic " Set magic on, for regex
 
@@ -512,12 +531,18 @@ inoremap IF if ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap WHILE while ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap IMIN -2147483648
 inoremap IMAX 2147483647
+inoremap ENDL ft_putendl("");
+
+nnoremap <leader><C-]> <C-W>v<C-]>z<CR>
 
 nnoremap g<C-G> gg=G<C-O><C-O>
 
 " compile and execute current
-nnoremap <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
+nnoremap <leader>gcc :Shell cc -Wall -Wextra % && ./a.out
 nnoremap <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
+
+" rename file
+nnoremap <leader>rn :!mv % %:h:p/
 
 " auto close brackets
 inoremap {<CR>  {<CR>}<Esc>O
@@ -525,38 +550,38 @@ inoremap {<CR>  {<CR>}<Esc>O
 " put brackets around paragraph
 nnoremap <leader>{} {S{<Esc>}S}<c-c>=%<C-O><C-O>=iB
 
-" auto parenthesis and others, remembers count
-inoremap ( ()<Esc>:call BC_AddChar(")")<CR>i
+""" auto parenthesis and others, remembers count
+" inoremap ( ()<Esc>:call BC_AddChar(")")<CR>i
 " inoremap { {<CR>}<Esc>:call BC_AddChar("}")<CR><Esc>kA<CR>
-inoremap [ []<Esc>:call BC_AddChar("]")<CR>i
-inoremap " ""<Esc>:call BC_AddChar("\"")<CR>i
-inoremap ' ''<Esc>:call BC_AddChar("\'")<CR>i
+" inoremap [ []<Esc>:call BC_AddChar("]")<CR>i
+" inoremap " ""<Esc>:call BC_AddChar("\"")<CR>i
+" inoremap ' ''<Esc>:call BC_AddChar("\'")<CR>i
 " jump out of parenthesis
-inoremap <C-g> <Esc>:call search(BC_GetChar(), "W")<CR>a
+" inoremap <C-g> <Esc>:call search(BC_GetChar(), "W")<CR>a
 
-function! BC_AddChar(schar)
- if exists("b:robstack")
- let b:robstack = b:robstack . a:schar
- else
- let b:robstack = a:schar
- endif
-endfunction
-
-function! BC_GetChar()
- let l:char = b:robstack[strlen(b:robstack)-1]
- let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
- return l:char
-endfunction
+" function! BC_AddChar(schar)
+"  if exists("b:robstack")
+"  let b:robstack = b:robstack . a:schar
+"  else
+"  let b:robstack = a:schar
+"  endif
+" endfunction
+" 
+" function! BC_GetChar()
+"  let l:char = b:robstack[strlen(b:robstack)-1]
+"  let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
+"  return l:char
+" endfunction
 
 
 " put semicolon EOL
 " inoremap <leader>; <C-o>m`<C-o>A;<Esc>``i
 nnoremap <leader>; i<C-o>m`<C-o>A;<Esc>``<Esc>
 
-" go to name of function you are in (needs '()')
-nnoremap <silent> <leader>gd j[[h^t(b
+" go to name of current c function (needs '()')
+nnoremap <silent> g<C-D> j[[h^t(b
 " select all text in function
-nnoremap <leader>vf j[[%v%
+nnoremap <leader>vf j[[V%o
 " nnoremap viB [[%v%jok$
 " nnoremap vaB [[%v%
 " " nnoremap vib [{%v%jok$
@@ -578,6 +603,9 @@ noremap <silent> <leader>'p yypk:<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'
 
 " <c-z> in insert mode
 inoremap <C-Z> <C-[><C-Z>
+
+" % as <C-G>
+nnoremap <C-G> %
 
 " up down on lines as seen
 nnoremap <silent> j gj
@@ -795,10 +823,18 @@ nnoremap <C-w><C-f> :vertical wincmd f<CR>
 execute pathogen#infect()
 
 " fugitive
-nnoremap <leader>gg :vertical Gstatus<CR>
+nnoremap <silent> <leader>gg :vertical Gstatus<CR>
 set diffopt+=vertical " vertical split for diff
 
 " YouCompleteMe
+
+" YCM move mappings
+nnoremap <silent> <leader>cf :ll<CR>:YcmCompleter FixIt<CR>:w<CR>
+nnoremap <silent> <leader>gt :YcmCompleter GoTo<CR>
+nnoremap <silent> <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <silent> <leader>ga :YcmCompleter GoToDeclaration<CR>
+nnoremap <silent> <leader>gf :YcmCompleter GoToInclude<CR>
+
 " autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
 let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
 let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Enter
@@ -806,9 +842,19 @@ let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 let g:ycm_filetype_blacklist = {
-			\ 'fugitive': 1,
-			\ 'qf': 1
-			\}
+      \ 'tagbar': 1,
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'netrw': 1,
+      \ 'unite': 1,
+      \ 'text': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'mail': 1,
+	  \ 'qf': 1
+      \}
+"  	  \ 'fugitive': 1,
 
 " let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
@@ -820,6 +866,7 @@ let g:ycm_filetype_blacklist = {
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 let g:syntastic_c_include_dirs = ['inc']
 let g:syntastic_c_compiler_options = "-Wall -Wextra"
+let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -1109,7 +1156,7 @@ nnoremap <silent> <leader>h1 :call Stdheader()<CR>
 
 ""  Dotfiles
 """ Filetype
-au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
+au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
 
 augroup suffixes
     autocmd!

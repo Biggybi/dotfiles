@@ -24,6 +24,7 @@ newday () {
 alias viday='vim $(find . -name "*.c")'
 alias gccfcday='gccf -c $(find ex* -name "*.c")'
 alias gccmday='gccf main.c $(find . -name "*.c")'
+alias vp='vi src/*.c inc/*.h Makefile'
 
 ## grep
 alias grep='grep --color=auto'
@@ -32,7 +33,7 @@ alias egrep='egrep --color=auto'
 
 ## ls
 alias ll='ls -trhalF'
-alias la='ls -A'
+alias la='ls -lA'
 alias l='ls -CF'
 alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 
@@ -41,6 +42,9 @@ alias ccat='highlight --out-format=ansi'
 
 ## df
 alias df='df -h'
+
+## free
+alias free='free -h'
 
 ## vim
 alias e="$EDITOR"
@@ -98,8 +102,10 @@ o () {
 	xdg-open $1 &
 }
 alias fzf='fzf --color="dark" --tabstop=4'
+# alias fd='fd ~'
 alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
 alias lcmdcp='echo "$(fc -ln -1)" | tr '\''\n'\'' '\'' '\'' | cip'
+alias lcmdalias='echo "$(fc -ln -1)" | sed "s/^. *//" >> $DOT/bash_aliases'
 alias hg='history | grep'
 alias hx='eval $(history | sed "s/^ *[0-9]* *//" | fzf)'
 alias ag='alias | grep'
@@ -233,13 +239,30 @@ alias eb='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --heigh
 alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --height=10)'
 # alias ev='$EDITOR $(fzf --height=10)'
 
+## FZF functions
+
 ef () {
-# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
+	# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	cd "$1"
 	P=$(fzf --height=10)
 	[ "$P" != "" ] && $EDITOR $P
 }
 alias f='ef $HOME'
+
+# fd - cd to selected directory
+# fd () {
+# 	local dir
+# 	dir=$(find ${1:-.} -path '*/\.*' -prune \
+# 		-o -type d -print 2> /dev/null | fzf +m) &&
+# 		cd "$dir"
+# }
+fd () {
+	local dir
+	dir=$(find ${1:-~} -path '*/\.*' -prune \
+		-o -type d -print 2> /dev/null | fzf +m) &&
+		cd "$dir"
+}
+
 
 get_hidden_mail_adress () {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
