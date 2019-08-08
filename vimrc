@@ -145,15 +145,14 @@ set virtualedit=block		" visual selection broken free
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 set wrap					" no horizontal scroll
 set linebreak				" break lines
-set showbreak=\ ¬			" ... showing a character
+set breakindent				" with indent
+set showbreak=\ \ ¬			" ... showing a character
 
 set sidescrolloff=3			" horizontal cursor max value
 let &scrolloff=winheight(win_getid())/10 " minumum lines before/after cursor
 
 " toggle always in middle with zz
-nnoremap zz :let &scrolloff=999-&scrolloff<CR>
-" original behavious with <leader>zz
-nnoremap <leader>zz zz
+nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
 
 " status line
 set laststatus=2			" show the satus line all the time
