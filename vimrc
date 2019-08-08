@@ -209,8 +209,7 @@ if ! exists ("g:DarkLightSwitch")
 	call DarkLightSwitch()
 endif
 
-" set background=dark
-" colorscheme base16-onedark
+nnoremap <leader>sc :call DarkLightSwitch()<CR>:source $MYVIMRC<CR>
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>:call lightline#enable()<CR>
