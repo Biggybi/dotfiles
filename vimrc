@@ -133,6 +133,13 @@ set listchars=tab:\ \
 set number					" show number column
 set relativenumber			" relative to current line
 
+" set number relativenumber
+" augroup NumToggle
+" 	autocmd!
+" 	autocmd VimEnter,WinEnter,BufWinEnter * set number relativenumber
+" 	autocmd WinLeave * set nonumber norelativenumber
+" augroup END
+
 set virtualedit=block		" visual selection broken free
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
