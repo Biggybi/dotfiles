@@ -467,6 +467,18 @@ nnoremap <leader>cc :ll<CR>
 nnoremap <leader>cn :lnext<CR>
 nnoremap <leader>cp :lprevious<CR>
 
+nnoremap ]<C-Q> :cc<CR>
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
+
+nnoremap [<C-W> :ll<CR>
+nnoremap [w :lprev<CR>
+nnoremap ]w :lnext<CR>
+nnoremap [W :lfirst<CR>
+nnoremap ]W :llast<CR>
+
 ""  Shell output split
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
