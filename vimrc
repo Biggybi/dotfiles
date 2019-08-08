@@ -170,21 +170,43 @@ syntax on
 if (has("termguicolors"))
   set termguicolors
 endif
-let g:material_theme_style='dark'
-let hour = strftime("%H")
-if 9 <= hour && hour < 21
-	set background=light
-	colorscheme base16-one-light
-	let g:lightline = { 'colorscheme': 'wombat' }
-" 	let g:lightline = { 'colorscheme': 'one' }
-else
-	set background=dark
-	colorscheme base16-onedark
-	let g:lightline = { 'colorscheme': 'material_vim' }
-endif
-if (has('macunix'))
-	colorscheme base16-onedark
-	let g:lightline = { 'colorscheme': 'wombat' }
+
+" open vim with different color based on time of day
+" let hour = strftime("%H")
+" if 9 <= hour && hour < 21
+" 	let g:DarkLightToggle = 'light'
+" 	set background=light
+" 	colorscheme base16-one-light
+" 	let g:lightline = { 'colorscheme': 'wombat_light' }
+" else
+" 	let g:DarkLightToggle='dark'
+" 	let g:lightline = { 'colorscheme': 'wombat' }
+" 	set background=dark
+" 	colorscheme base16-onedark
+" endif
+" if (has('macunix'))
+" 	colorscheme base16-onedark
+" 	let g:lightline = { 'colorscheme': 'wombat' }
+" endif
+
+" switch between light and dark theme (UI + ligtline)
+function! DarkLightSwitch()
+    if g:DarkLightSwitch == 'light'
+		set background=light
+		source $HOME/.vim/colors/base16-onedark.vim
+		let g:lightline = { 'colorscheme': 'wombat' }
+		let g:DarkLightSwitch = 'dark'
+	else
+		set background=dark
+		source $HOME/.vim/colors/base16-one-light.vim
+		let g:lightline = { 'colorscheme': 'wombat_light' }
+		let g:DarkLightSwitch = 'light'
+	endif
+" 	call lightline#enable()
+endfunction
+if ! exists ("g:DarkLightSwitch")
+	let g:DarkLightSwitch = 'light'
+	call DarkLightSwitch()
 endif
 
 " set background=dark
