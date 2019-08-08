@@ -25,9 +25,9 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>:w<CR>:call lightline#enable()<CR>
-nnoremap <silent><leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>:w<CR>
-nnoremap <silent><leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:w<CR>
+nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>:w<CR>
+nnoremap <leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>:w<CR>
+nnoremap <leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:w<CR>:echo "all fresh"<CR>
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
