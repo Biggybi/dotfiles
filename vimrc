@@ -943,51 +943,77 @@ function! FilenameForLightline()
     return expand('%')
 endfunction
 
-" autocmd if has('background=light')
-" 	let g:lightline = {
-" 				\ 'colorscheme': 'one',
-" 				\ }
-" else
-" 	let g:lightline = {
-" 				\ 'colorscheme': 'wombat',
-" 				\ }
-" endif
+let g:lightline.mode_map = {
+			\	'n': 'NOR',
+			\	'i': 'INS',
+			\	'R': 'REP',
+			\	'v': ' V ',
+			\	'V': 'V-L',
+			\	"\<C-v>": 'V-B',
+			\	'c': 'CMD',
+			\	's': 'SEL',
+			\	'S': 'S-L',
+			\	"\<C-s>": 'S-B',
+			\	't': 'TRM' }
 
 let g:lightline.active = {
-			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-		    \   'right': [ [ 'lineinfo' ],
-			\            [ 'percent' ],
-		    \            [ 'filetype' ] ] }
+			\	'left': [ [ 'mode', 'paste' ],
+			\			[ 'readonly', 'gitbranch' ],
+			\			[ 'relativepath', 'modified' ] ],
+		    \	'right': [ [ 'lineinfo' ],
+			\			[ 'percent' ],
+		    \			[ 'filetype' ] ] }
 
 let g:lightline.inactive = {
-			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-		    \   'right': [ [ 'lineinfo' ],
-			\            [ 'percent' ],
-		    \            [ 'filetype' ] ] }
+			\	'left': [ [ 'readonly', 'gitbranch' ],
+			\			[ 'relativepath', 'modified' ] ],
+		    \	'right': [ [ 'lineinfo' ],
+			\			[ 'percent' ],
+		    \			[ 'filetype' ] ] }
 
 " git branch from fugitive
 let g:lightline.component_function = {
-			\   'fugitive': 'LightlineFugitive',
-			\   'readonly': 'LightlineReadonly',
-			\   'gitbranch': 'fugitive#head', 'filename': 'FilenameForLightline' }
+			\	'format': 'LightlineFileformat',
+			\	'modified': 'LightlineModified',
+			\	'fugitive': 'LightlineFugitive',
+			\	'readonly': 'LightlineReadonly',
+			\	'gitbranch': 'fugitive#head',
+			\	'filename': 'FilenameForLightline' }
 
-let g:lightline.colorscheme = 'wombat'
+" let g:lightline.mode_map = {
+" let g:lightline.separator = { 'left': '', 'right': '' }
+" let g:lightline.subseparator = { 'left': '', 'right': '' }
+let g:lightline.separator = { 'left': '', 'right': '' }
+let g:lightline.subseparator = { 'left': '', 'right': '|' }
 
-let g:lightline.mode_map = {
-			\ 'n' : 'NOR',
-			\ 'i' : 'INS',
-			\ 'R' : 'REP',
-			\ 'v' : ' V ',
-			\ 'V' : 'V-L',
-			\ "\<C-v>": 'V-B',
-			\ 'c' : 'CMD',
-			\ 's' : 'SEL',
-			\ 'S' : 'S-L',
-			\ "\<C-s>": 'S-B',
-			\ 't': 'TRM',
-			\ }
+function! LightlineModified()
+	return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightlineReadonly()
+	return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
+endfunction
+
+function! LightlineFilename()
+	return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+				\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+				\  &ft == 'unite' ? unite#get_status_string() :
+				\  &ft == 'vimshell' ? vimshell#get_status_string() :
+				\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+				\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+function! LightlineFileformat()
+	return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFugitive()
+	if exists('*fugitive#head')
+		let branch = fugitive#head()
+		return branch !=# '' ? ''.branch : ''
+	endif
+	return ''
+endfunction
 
 " gitgutter
 if exists('&signcolumn')  " Vim 7.4.2201
