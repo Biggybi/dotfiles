@@ -14,6 +14,7 @@
 ""  Vimrc settings
 
 set nocompatible " not compatible with vi
+filetype plugin on
 " set shellcmdflag=-ic
 let $BASH_ENV = "$HOME/dotfiles/bash_aliases" " use aliases in vim
 let $PAGER=''	" clear pager env var in vim (for vim as pager)
