@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# == 1 ]
+then
+	echo "volume to "$1"%"
+	pactl set-sink-volume 0 "$1"%
+else
+	echo "volume to 150%"
+	pactl set-sink-volume 0 150%
+fi

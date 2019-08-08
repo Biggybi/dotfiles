@@ -1,0 +1,1 @@
+for f in *.sh; do mv "$f" "${f%.sh}" ; done
