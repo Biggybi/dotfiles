@@ -8,6 +8,8 @@ let g:autoloaded_fugitive = 1
 
 if !exists('g:fugitive_git_executable')
   let g:fugitive_git_executable = 'git'
+elseif g:fugitive_git_executable =~# '^\w\+='
+  let g:fugitive_git_executable = 'env ' . g:fugitive_git_executable
 endif
 
 " Section: Utility

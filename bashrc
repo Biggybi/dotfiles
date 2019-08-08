@@ -28,6 +28,12 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 export DOT="$HOME/dotfiles"
 
+# caps2escape
+# if [[ -f $DOT/programs/caps2esc ]]
+# then
+# 	caps2esc
+# fi
+
 # Vim as pager
 # export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 #     vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
@@ -68,19 +74,11 @@ stty -ixon							# C-s as rev C-r, disable term flow (C-s C-q)
 shopt -s cmdhist					# Combine multiline commands into one
 shopt -s histappend					# append to the history file (no overwrite)
 shopt -s histverify					# show hist cmd (from !) without executing
-HISTSIZE= HISTFILESIZE= #
+HISTSIZE= HISTFILESIZE= #			# infinite history
 HISTIGNORE="&:ls:bg:fg:exit"		# ignore some commands
-HISTCONTROL=ignoreboth				# ignore dups and whitespace (= ignoredups:ignorespace)
-# HISTCONTROL=ignorespace			# ignore commands starting with whitespace (private cmd)
-# HISTCONTROL=ignoredups			# ignose duplicates
-
-# fd - cd to selected directory
-fd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-				  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
+HISTCONTROL=ignoreboth				# duplicates and whitespace
+# HISTCONTROL=ignorespace			# starting with whitespace
+# HISTCONTROL=ignoredups			# duplicates
 
 # fzf defaults
 export FZF_DEFAULT_OPTS='--height 10 -m'
