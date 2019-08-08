@@ -6,7 +6,7 @@
 "    By: tris <tristan.kapous@protonmail.com>       +:+   +:    +:    +:+      "
 "                                                  #+#   #+    #+    #+#       "
 "    Created: 2019/06/23 05:39:33 by tris         #+#   ##    ##    #+#        "
-"    Updated: 2019/07/05 10:57:23 by tkapous     ###    #+. /#+    ###.fr      "
+"    Updated: 2019/08/06 19:27:58 by tris        ###    #+. /#+    ###.fr      "
 "                                                          /                   "
 "                                                         /                    "
 " **************************************************************************** "
@@ -126,7 +126,6 @@ set splitbelow				" default split below
 set splitright				" default split right
 " set equalalways			" always equalize windows
 " set list					" show invisible characters
-" set listchars=tab:<Space><Space>,trail:·		" but only show tabs and		trailing whitespace
 " set listchars=tab:>\ ,trail:·	" but only show tabs and trailing whitespace
 set listchars=tab:\ \ 
 
@@ -212,10 +211,10 @@ endif
 nnoremap <leader>sc :call DarkLightSwitch()<CR>:source $MYVIMRC<CR>
 
 " source colors
-nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>:call lightline#enable()<CR>
-nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>:call lightline#enable()<CR>
-" nnoremap <leader>s1 :source $HOME/.vim/colors/trikai.vim<CR>
-" nnoremap <leader>s2 :source $HOME/.vim/colors/trikai_light.vim<CR>
+" nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>:call lightline#enable()<CR>
+" nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>:call lightline#enable()<CR>
+nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>
+nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>
 
 " code
 set encoding=utf8
@@ -229,38 +228,26 @@ set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
 " match overlength /\%81v.\+/
 
 " show traling whitespaces
-"highlight whitespacetrim ctermbg=203 ctermfg=white guibg=#592928
-" highlight TrailingWhitespace ctermbg=203 guibg=red
 
 match TrailWhite /\s\+$/
-autocmd bufwinenter * match TrailWhite /\s\+$/
-autocmd insertenter * match TrailWhite /\s\+\%#\@<!$/
-autocmd insertleave * match TrailWhite /\s\+$/
-autocmd bufwinleave * call clearmatches()
+autocmd BufWinEnter * match TrailWhite /\s\+$/
+autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
+autocmd InsertLeave * match TrailWhite /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 " cursorline curent window only
 augroup CursorLine
   au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline
   au WinLeave * setlocal nocursorline
 augroup END
 
-hi CursorLineNR cterm=bold
-augroup CLNRSet
-    autocmd! ColorScheme * hi CursorLineNR cterm=bold
-augroup END
+if exists('+colorcolumn')
+	set colorcolumn=81	" color column 81
+endif
 
-" set cursorline		" color current line
-set colorcolumn=81	" color column 81
-"highlight colorcolumn ctermbg=9
-" autocmd InsertEnter * highlight CursorLine guibg=#000050 guifg=fg
-" autocmd InsertLeave * highlight CursorLine guibg=#004000 guifg=fg
-
-" set textwidth=81
-" set textwidth=0
-" let &colorcolumn=join(range(82,999),",")
 " if exists('+colorcolumn')
-" 	set colorcolumn=80
+" 	set colorcolumn=81
 " else
 " 	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 " endif
@@ -302,8 +289,7 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd BufWritePost * filetype detect
 
 " auto chose tag from .git folder
-autocmd BufEnter *
-			\ set tags=.git/tags
+autocmd BufEnter * set tags=.git/tags
 
 " auto winwidth for code
 " autocmd Filetype html,c,cpp,java setlocal winwidth=86
@@ -412,7 +398,7 @@ let g:netrw_winsize = -25
 let g:netrw_sort_sequence = '[\/]$,*'				" sort folders on top
 " autocmd filetype netrw nmap <c-a> <cr>:wincmd W<cr>	" open file keep netrw focus
 
-" open netrw with vim
+" open netrw on startup
 " augroup ProjectDrawer
 "   autocmd!
 "   autocmd VimEnter * :Vexplore
@@ -460,6 +446,7 @@ endfunction
 
 nnoremap <leader>ct :Shell make ex<CR><CR>
 nnoremap <leader>cT :Shell make ex TESTFF=test/*<CR><CR>
+nnoremap <leader>c<C-T> :Shell make ex TESTFF=
 nnoremap <leader>cv :Shell make ex TEST=<CR><CR>
 nnoremap <leader>cm :Shell make re<CR><CR>
 nnoremap <leader>cr :Shell make re<CR>
@@ -493,7 +480,6 @@ function! s:RunShellCommand(cmdline)
 	endfor
 	vert new
 	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-" 	  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
 	call setline(1, a:cmdline . '  |  ' . expanded_cmdline)
 	call setline(2,substitute(getline(1),'.','-','g'))
 	execute '$read !'. expanded_cmdline
@@ -502,7 +488,7 @@ endfunction
 
 ""  Searching
 
-set path+=**			" recursive path from current path
+" set path+=**			" recursive path from current path
 " set incsearch
 set wildchar=<Tab>
 set wildmode=full
@@ -515,10 +501,10 @@ set hlsearch			" highlight all searches
 set incsearch			" set incremental search, like modern browsers
 set nolazyredraw		" don't redraw while executing macros
 
-set switchbuf=useopen	" open buffers in their window if exist (:sb nam)
+set switchbuf=useopen	" open buffers in their window if exist (:sb 'file')
 
 " ignore some files from fuzzy search
-" set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
+set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
 " set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
 
 set magic " Set magic on, for regex
@@ -581,7 +567,7 @@ inoremap IF if ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap WHILE while ()<CR>{<CR>}<Esc>2k3==f)i
 inoremap IMIN -2147483648
 inoremap IMAX 2147483647
-inoremap ENDL ft_putendl("");
+inoremap ENDL ft_putendl("");<left><left><left>
 
 nnoremap <leader><C-]> <C-W>v<C-]>z<CR>
 
@@ -783,39 +769,6 @@ set completeopt=longest,menuone
 
 ""  Window behaviour
 
-" Open buffer in split on partial search
-function! BufSel(pattern)
-  let bufcount = bufnr("$")
-  let currbufnr = 1
-  let nummatches = 0
-  let firstmatchingbufnr = 0
-  while currbufnr <= bufcount
-    if(bufexists(currbufnr))
-      let currbufname = bufname(currbufnr)
-      if(match(currbufname, a:pattern) > -1)
-        echo currbufnr . ": ". bufname(currbufnr)
-        let nummatches += 1
-        let firstmatchingbufnr = currbufnr
-      endif
-    endif
-    let currbufnr = currbufnr + 1
-  endwhile
-  if(nummatches == 1)
-    execute ":buffer ". firstmatchingbufnr
-  elseif(nummatches > 1)
-    let desiredbufnr = input("Enter buffer number: ")
-    if(strlen(desiredbufnr) != 0)
-      execute ":buffer ". desiredbufnr
-    endif
-  else
-    echo "No matching buffers"
-  endif
-endfunction
-
-"Bind the BufSel() function to a user-command
-command! -nargs=1 Bs :call BufSel("<args>")
-
-
 " open buffer with partial search
 nnoremap <leader>b :buffer<space>
 nnoremap <leader>B :sbuffer<space>
@@ -846,7 +799,7 @@ function! Term_toggle(height)
 endfunction
 
 nnoremap <leader>T :call Term_toggle(10)<cr>
-tnoremap <leader>T <C-\><C-n>:call Term_toggle(10)<cr>
+tnoremap <C-T> <C-\><C-n>:call Term_toggle(10)<cr>
 
 " move between windows with ctrl
 " nnoremap <C-h> :wincmd h<CR>
@@ -857,10 +810,10 @@ tnoremap <leader>T <C-\><C-n>:call Term_toggle(10)<cr>
 
 " Note: does not work anymore?
 " resize windows quicker
-" nnoremap <silent><C-w><C-.> :vertical resize +10<CR>
-" nnoremap <silent><C-w><C-,> :vertical resize -10<CR>
-" nnoremap <silent><C-w><C-=> :resize +10<CR>
-" nnoremap <silent><C-w><C--> :resize -10<CR>
+" nnoremap <C-w><C-.> :vertical resize +10<CR>
+" nnoremap <C-w><C-,> :vertical resize -10<CR>
+" nnoremap <C-w><C-=> :resize +10<CR>
+" nnoremap <C-w><C--> :resize -10<CR>
 
 " new file in vertical split instead of horizontal
 nnoremap <C-w><C-n> :vertical new<CR>
@@ -939,9 +892,7 @@ let g:syntastic_check_on_wq = 1
 set noshowmode " do not show mode in status line
 " Show full path of filename
 
-function! FilenameForLightline()
-    return expand('%')
-endfunction
+" let g:lightline.colorscheme = 'wombat'
 
 let g:lightline.mode_map = {
 			\	'n': 'NOR',
@@ -1023,7 +974,7 @@ else
 endif
 
 " man
-let g:ft_man_open_mode = 'vert'
+" let g:ft_man_open_mode = 'vert'
 
 set updatetime=20 " refresh more frequently from
 nmap ]h <Plug>GitGutterNextHunk
@@ -1032,9 +983,9 @@ nmap [h <Plug>GitGutterPrevHunk
 " FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>F :FZF /<CR>			"search files from root
-nnoremap <leader>f :FZF $HOME<CR>		"search files from HOME
-nnoremap <leader><C-F> :FZF .<CR>		"search files from curr
+nnoremap <leader>F :FZF /<CR>			" from root
+nnoremap <leader>f :FZF $HOME<CR>		" from HOME
+nnoremap <leader><C-F> :FZF .<CR>		" from here
 " nnoremap <leader>f :FZF<C-r>=fnamemodify(getcwd(), ':p')<CR><CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
