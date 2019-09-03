@@ -256,12 +256,6 @@ if exists('+colorcolumn')
  	autocmd Filetype c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81	" color column 81 for code
 endif
 
-" if exists('+colorcolumn')
-" 	set colorcolumn=81
-" else
-" 	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-" endif
-
 set mat=2 " how many tenths of a second to blink
 
 ""  File automation
