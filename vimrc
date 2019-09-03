@@ -669,8 +669,13 @@ nnoremap <c-g> %
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
-" set clipboard=unnamed
-" let g:clipbrdDefaultReg = '+'
+" delete without saving to register
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+" xnoremap <leader>p "_dP
+
+" rename file
+nnoremap <leader>mv :!mv % %:h:p/
 
 " paste with indentation
 " nnoremap P mp]P==`p
