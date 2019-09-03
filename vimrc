@@ -190,7 +190,7 @@ endif
 
 " switch between light and dark theme (UI + ligtline)
 function! DarkLightSwitch()
-    if g:DarkLightSwitch == 'light'
+	if g:DarkLightSwitch == 'light'
 		set background=light
 		source $HOME/.vim/colors/base16-onedark.vim
 		let g:lightline = { 'colorscheme': 'wombat' }
@@ -201,10 +201,19 @@ function! DarkLightSwitch()
 		let g:lightline = { 'colorscheme': 'wombat_light' }
 		let g:DarkLightSwitch = 'light'
 	endif
-" 	call lightline#enable()
+	if exists ("g:DarkLightOn")
+		call lightline#enable()
+	endif
+	let g:DarkLightOn = 'on'
 endfunction
+
 if ! exists ("g:DarkLightSwitch")
-	let g:DarkLightSwitch = 'light'
+	let hour = strftime("%H")
+	if 9 <= hour && hour < 20
+		let g:DarkLightSwitch = 'dark'
+	else
+		let g:DarkLightSwitch = 'light'
+	endif
 	call DarkLightSwitch()
 endif
 
