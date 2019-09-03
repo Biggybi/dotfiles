@@ -143,7 +143,7 @@ set virtualedit=block		" visual selection broken free
 
 set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
 set wrap					" no horizontal scroll
-set linebreak				" break lines
+" set linebreak				" break lines
 set breakindent				" with indent
 set showbreak=\ \ ¬			" ... showing a character
 
