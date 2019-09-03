@@ -129,8 +129,8 @@ set splitright				" default split right
 " set listchars=tab:>\ ,trail:·	" but only show tabs and trailing whitespace
 set listchars=tab:\ \ 
 
-set number					" show number column
-set relativenumber			" relative to current line
+" set number					" show number column
+" set relativenumber			" relative to current line
 
 " set number relativenumber
 " augroup NumToggle
