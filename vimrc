@@ -530,29 +530,32 @@ vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
 
 ""  Code mappings
 
-inoremap MAIN <Esc>:Header101<CR>iint<tab><tab>main(int ac, char **av)<CR>{<CR>}<Esc>Oreturn(0);<Esc>O
-inoremap IF if ()<CR>{<CR>}<Esc>2k3==f)i
-inoremap WHILE while ()<CR>{<CR>}<Esc>2k3==f)i
-inoremap IMIN -2147483648
-inoremap IMAX 2147483647
-inoremap ENDL ft_putendl("");<left><left><left>
+augroup Cmaps
+	autocmd! Cmaps
 
-nnoremap <leader><C-]> <C-W>v<C-]>z<CR>
+	" Word count
+	autocmd FileType c map <buffer> <leader>w :w !detex \| wc -w<CR>
+	autocmd FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
+	autocmd FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoremap <buffer> ,imin -2147483648
+	autocmd FileType c inoremap <buffer> ,imax 2147483647
+	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
 
-nnoremap g<C-G> gg=G<C-O><C-O>
+	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 
-" compile and execute current
-nnoremap <leader>gcc :Shell cc -Wall -Wextra % && ./a.out
-nnoremap <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
+	autocmd FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
 
-" rename file
-nnoremap <leader>rn :!mv % %:h:p/
+	" compile and execute current
+	autocmd FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
+	autocmd FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
 
-" auto close brackets
-inoremap {<CR>  {<CR>}<Esc>O
+	" auto close brackets
+	autocmd FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
 
-" put brackets around paragraph
-nnoremap <leader>{} {S{<Esc>}S}<c-c>=%<C-O><C-O>=iB
+	" put brackets around paragraph
+	autocmd FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
+augroup end
 
 """ auto parenthesis and others, remembers count
 " inoremap ( ()<esc>:call BC_AddChar(")")<cr>i
