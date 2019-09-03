@@ -244,15 +244,16 @@ autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
 autocmd InsertLeave * match TrailWhite /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-" cursorline curent window only
-augroup CursorLine
+" focus current window : cursorline and relative numbers
+augroup WinFocus
   au!
-  au VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-augroup END
+  au VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
+  au WinLeave * setlocal nocursorline "norelativenumber number
+augroup end
 
 if exists('+colorcolumn')
-	set colorcolumn=81	" color column 81
+" 	set colorcolumn=81	" color column 81
+ 	autocmd Filetype c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81	" color column 81 for code
 endif
 
 " if exists('+colorcolumn')
