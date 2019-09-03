@@ -151,7 +151,7 @@ set sidescrolloff=3			" horizontal cursor max value
 let &scrolloff=winheight(win_getid())/10 " minumum lines before/after cursor
 
 " toggle always in middle with zz
-nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
+nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
 
 " status line
 set laststatus=2			" show the satus line all the time
