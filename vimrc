@@ -304,29 +304,21 @@ autocmd BufEnter * set tags=.git/tags
 " set tags=tags;./git/
 " set tags=./tags;
 
-augroup HelpManLeft
-	autocmd!
-	autocmd Filetype help,man setlocal wrap nobuflisted cursorline
-	autocmd FileType help,man wincmd H
-augroup END
+autocmd FileType help,man setlocal noswapfile nobackup nobuflisted wrap nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+augroup TopManLeft
+	autocmd! TopManLeft
+" 	echo winwidth(0)
+	if (winwidth(0)) < 81
+		autocmd FileType help,man wincmd K
+	else
+		autocmd FileType help,man wincmd H
+	endif
+augroup end
 
-" " help on the left
-" if has('autocmd')
-" 	function! ILikeHelpToTheLeft()
-" 		if !exists('w:help_is_moved') || w:help_is_moved != "left"
-" 			wincmd H
-" " 			let w:help_is_moved = "left"
-" 			echo "man on the left"
-" 		endif
-" 	endfunction
-" 	augroup HelpPages
-" 		autocmd FileType help nested call ILikeHelpToTheLeft()
-" 		" 	augroup setlocal wrap nobuflisted noswapfile cursorline
-" 		autocmd Filetype help setlocal wrap nobuflisted noswapfile
-" " 		let w:help_is_moved = ""
-" 	augroup END
-" endif
-" " autocmd FileType help wincmd L setlocal wrap nobuflisted noswapfile
+augroup HelpManMaps
+	autocmd! HelpManMaps
+	autocmd Filetype help,man nnoremap <buffer> <silent> q :bw<CR>
+augroup end
 
 " Open man page in vim split, defaults to K
 runtime! ftplugin/man.vim
