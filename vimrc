@@ -607,6 +607,55 @@ noremap <silent> <leader>"" :<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')
 noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
 
+""  Latex Mappings
+
+augroup LatexSmith
+	autocmd! LatexSmith
+	" Navigating with guides
+" 	autocmd FileType tex silent inoremap <buffer> <space><space> <esc>/<++><cr>"_3si
+" 	autocmd FileType tex silent vnoremap <buffer> <space><space> <esc>/<++><cr>"_3si
+" 	autocmd FileType tex silent map <buffer> <space><space> <Esc>/<++><cr>"_3si
+"
+	" Word count
+	autocmd FileType tex map <buffer> <leader>w :w !detex \| wc -w<CR>
+
+	" Code snippets
+	autocmd FileType tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><Esc>6kf}i
+	autocmd FileType tex inoremap <buffer> ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><Esc>3kA
+	autocmd FileType tex inoremap <buffer> ,exe \begin{exe}<Enter>\ex<Space><Enter>\end{exe}<Enter><Enter><++><Esc>3kA
+	autocmd FileType tex inoremap <buffer> ,em \emph{}<++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,bf \textbf{}<++><Esc>T{i
+	autocmd FileType tex vnoremap <buffer> , <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
+	autocmd FileType tex inoremap <buffer> ,it \textit{}<++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,ct \textcite{}<++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,cp \parencite{}<++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,glos {\gll<Space><++><Space>\\<Enter><++><Space>\\<Enter>\trans{``<++>''}}<Esc>2k2bcw
+	autocmd FileType tex inoremap <buffer> ,x \begin{xlist}<Enter>\ex<Space><Enter>\end{xlist}<Esc>kA<Space>
+	autocmd FileType tex inoremap <buffer> ,ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
+	autocmd FileType tex inoremap <buffer> ,ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
+	autocmd FileType tex inoremap <buffer> ,li <Enter>\item<Space>
+	autocmd FileType tex inoremap <buffer> ,ref \ref{}<Space><++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><Esc>4kA{}<Esc>i
+	autocmd FileType tex inoremap <buffer> ,ot \begin{tableau}<Enter>\inp{<++>}<Tab>\const{<++>}<Tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><Esc>5kA{}<Esc>i
+	autocmd FileType tex inoremap <buffer> ,can \cand{}<Tab><++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,con \const{}<Tab><++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,v \vio{}<Tab><++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,a \href{}{<++>}<Space><++><Esc>2T{i
+	autocmd FileType tex inoremap <buffer> ,sc \textsc{}<Space><++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,chap \chapter{}<Enter><Enter><++><Esc>2kf}i
+	autocmd FileType tex inoremap <buffer> ,sec \section{}<Enter><Enter><++><Esc>2kf}i
+	autocmd FileType tex inoremap <buffer> ,ssec \subsection{}<Enter><Enter><++><Esc>2kf}i
+	autocmd FileType tex inoremap <buffer> ,sssec \subsubsection{}<Enter><Enter><++><Esc>2kf}i
+	autocmd FileType tex inoremap <buffer> ,st <Esc>F{i*<Esc>f}i
+	autocmd FileType tex inoremap <buffer> ,beg \begin{}<Enter><++><Enter>\end{}<Enter><Enter><++><Esc>4k0f{a
+	autocmd FileType tex inoremap <buffer> ,up <Esc>/usepackage<Enter>o\usepackage{}<Esc>i
+	autocmd FileType tex nnoremap <buffer> ,up /usepackage<Enter>o\usepackage{}<Esc>i
+	autocmd FileType tex inoremap <buffer> ,tt \texttt{}<Space><++><Esc>T{i
+	autocmd FileType tex inoremap <buffer> ,bt {\blindtext}
+	autocmd FileType tex inoremap <buffer> ,nu $\varnothing$
+	autocmd FileType tex inoremap <buffer> ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<Esc>5kA
+	autocmd FileType tex inoremap <buffer> ,rn (\ref{})<++><Esc>F}i
+augroup end
 
 ""  Mappings
 
