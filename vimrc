@@ -520,8 +520,7 @@ nnoremap gR :%s/<c-r>///g<left><left>
 function! s:VSetSearch()
 	let temp = @@
 	norm! gvy
-" 	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-	let @/ = substitute(escape(@@, '\'), '\n', '\\n', 'g')
+	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
 	let @@ = temp
 endfunction
 
