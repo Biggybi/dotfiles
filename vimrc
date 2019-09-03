@@ -25,21 +25,21 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <silent><leader>sv :source $MYVIMRC<CR>:nohlsearch<CR>:echo "vimrc sourced" <CR>:w<CR>
-nnoremap <leader>sy :YcmRestartServer<CR>:echo "YCM fresh"<CR>:w<CR>
-nnoremap <leader>ss :source $MYVIMRC<CR>:nohlsearch<CR>:YcmRestartServer<CR>:redraw<CR>:w<CR>:echo "all fresh"<CR>
+nnoremap <silent><leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:echo "vimrc sourced" <cr>:w<cr>
+nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>:w<cr>
+nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:YcmRestartServer<cr>:redraw<cr>:w<cr>:echo "all fresh"<cr>
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
-nnoremap <leader>e<C-V> :vertical split $DOT/vimrc<cr>
+nnoremap <leader>e<c-v> :vertical split $DOT/vimrc<cr>
 nnoremap <leader>eb :e $DOT/bashrc<cr>
-nnoremap <leader>e<C-B> :vertical split $DOT/bashrc<cr>
+nnoremap <leader>e<c-b> :vertical split $DOT/bashrc<cr>
 nnoremap <leader>ea :e $DOT/bash_aliases<cr>
-nnoremap <leader>e<C-A> :vertical split $DOT/bash_aliases<cr>
+nnoremap <leader>e<c-a> :vertical split $DOT/bash_aliases<cr>
 nnoremap <leader>ei :e $DOT/inputrc<cr>
-nnoremap <leader>e<C-I> :vertical split $DOT/inputrc<cr>
+nnoremap <leader>e<c-i> :vertical split $DOT/inputrc<cr>
 nnoremap <leader>ep $DOT/bash_profile<cr>
-nnoremap <leader>e<C-P> :vertical split $DOT/bash_profile<cr>
+nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
 nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
 nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
 set notimeout
@@ -57,14 +57,14 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-inoremap jk <ESC>
-cmap jk <ESC>
+inoremap jk <esc>
+cmap jk <esc>
 nnoremap gI `.
 nnoremap Q <nul> "no more default ex mode
-" inoremap <C-w><C-e> <Esc><silent>:write<CR>
-" nnoremap <C-w><C-e> <silent>:write<CR>
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <C-O>:stopinsert<CR>:w<CR>
+" inoremap <c-w><c-e> <esc><silent>:write<cr>
+" nnoremap <c-w><c-e> <silent>:write<cr>
+nnoremap <c-s> :w<cr>
+inoremap <c-s> <c-o>:stopinsert<cr>:w<cr>
 cmap W! %!sudo tee > /dev/null %
 
 set history=10000 " default 20
@@ -159,7 +159,7 @@ set laststatus=2			" show the satus line all the time
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 " open file under cursor in vertical split
-nnoremap g<C-F> :vertical wincmd f<CR>
+nnoremap g<c-f> :vertical wincmd f<cr>
 
 
 ""  look / theme
@@ -208,13 +208,13 @@ if ! exists ("g:DarkLightSwitch")
 	call DarkLightSwitch()
 endif
 
-nnoremap <leader>sc :call DarkLightSwitch()<CR>:source $MYVIMRC<CR>
+nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
 " source colors
-" nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>:call lightline#enable()<CR>
-" nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>:call lightline#enable()<CR>
-nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<CR>
-nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<CR>
+" nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>:call lightline#enable()<cr>
+" nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>:call lightline#enable()<cr>
+nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
+nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 " code
 set encoding=utf8
@@ -253,7 +253,6 @@ endif
 " endif
 
 set mat=2 " how many tenths of a second to blink
-
 
 ""  File automation
 
@@ -340,9 +339,9 @@ set foldlevel=1
 autocmd BufWinLeave * if expand("%") != "" | mkview | endif
 autocmd BufWinEnter * if expand("%") != "" | loadview | endif
 
-" inoremap <leader><space> <C-O>za
+" inoremap <leader><space> <c-o>za
 nnoremap <leader><space> za
-onoremap <leader><space> <C-C>za
+onoremap <leader><space> <c-c>za
 vnoremap <leader><space> zf
 
 " `zo` recursively open even partial folds
@@ -414,7 +413,7 @@ augroup ft_quickfix
 
 	" vimscript is a joke
 	au Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
-augroup END
+augroup end
 
 au FileType qf call AdjustWindowHeight(1, 5)
 function! AdjustWindowHeight(minheight, maxheight)
@@ -444,27 +443,27 @@ endfunction
 " autocmd QuickFixCmdPost [^l]* nested botright copen
 " autocmd QuickFixCmdPost    l* nested botright lwindo
 
-nnoremap <leader>ct :Shell make ex<CR><CR>
-nnoremap <leader>cT :Shell make ex TESTFF=test/*<CR><CR>
-nnoremap <leader>c<C-T> :Shell make ex TESTFF=
-nnoremap <leader>cv :Shell make ex TEST=<CR><CR>
-nnoremap <leader>cm :Shell make re<CR><CR>
-nnoremap <leader>cr :Shell make re<CR>
-nnoremap <leader>cc :ll<CR>
-nnoremap <leader>cn :lnext<CR>
-nnoremap <leader>cp :lprevious<CR>
+nnoremap <leader>ct :Shell make ex<cr><cr>
+nnoremap <leader>cT :Shell make ex TESTFF=test/*<cr><cr>
+nnoremap <leader>c<c-t> :Shell make ex TESTFF=
+nnoremap <leader>cv :Shell make ex TEST=<cr><cr>
+nnoremap <leader>cm :Shell make re<cr><cr>
+nnoremap <leader>cr :Shell make re<cr>
+nnoremap <leader>cc :ll<cr>
+nnoremap <leader>cn :lnext<cr>
+nnoremap <leader>cp :lprevious<cr>
 
-nnoremap ]<C-Q> :cc<CR>
-nnoremap [q :cprev<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
+nnoremap ]<c-q> :cc<cr>
+nnoremap [q :cprev<cr>
+nnoremap ]q :cnext<cr>
+nnoremap [Q :cfirst<cr>
+nnoremap ]Q :clast<cr>
 
-nnoremap [<C-W> :ll<CR>
-nnoremap [w :lprev<CR>
-nnoremap ]w :lnext<CR>
-nnoremap [W :lfirst<CR>
-nnoremap ]W :llast<CR>
+nnoremap [<c-w> :ll<cr>
+nnoremap [w :lprev<cr>
+nnoremap ]w :lnext<cr>
+nnoremap [W :lfirst<cr>
+nnoremap ]W :llast<cr>
 
 ""  Shell output split
 
@@ -532,13 +531,12 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight pressing Enter
-nnoremap <silent>- :nohlsearch<CR>
+nnoremap <silent> - :nohlsearch<cr>
+
 " For local sed replace
-nnoremap gr :s/<C-R>///g<left><left>
-vnoremap gr :s/<C-R>///g<left><left>
-" For global sed replace
-nnoremap gR :%s/<C-R>///g<left><left>
-vnoremap gR :%s/<C-R>///g<left><left>
+nnoremap gr :s/<c-r>///g<left><left>
+vnoremap gr :s/<c-r>///g<left><left>
+nnoremap gR :%s/<c-r>///g<left><left>
 
 " search visual selection
 function! s:VSetSearch()
@@ -549,16 +547,9 @@ function! s:VSetSearch()
 	let @@ = temp
 endfunction
 
-vnoremap * :<C-u>cal <SID>VSetSearch()<CR>//<CR><c-o>
-vnoremap # :<C-u>cal <SID>VSetSearch()<CR>??<CR><c-o>
+vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
+vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
 
-
-""  Edit mappings
-
-" delete without saving to register
-nnoremap <leader>d "_d
-xnoremap <leader>d "_d
-" xnoremap <leader>p "_dP
 
 ""  Code mappings
 
@@ -587,13 +578,13 @@ inoremap {<CR>  {<CR>}<Esc>O
 nnoremap <leader>{} {S{<Esc>}S}<c-c>=%<C-O><C-O>=iB
 
 """ auto parenthesis and others, remembers count
-" inoremap ( ()<Esc>:call BC_AddChar(")")<CR>i
-" inoremap { {<CR>}<Esc>:call BC_AddChar("}")<CR><Esc>kA<CR>
-" inoremap [ []<Esc>:call BC_AddChar("]")<CR>i
-" inoremap " ""<Esc>:call BC_AddChar("\"")<CR>i
-" inoremap ' ''<Esc>:call BC_AddChar("\'")<CR>i
+" inoremap ( ()<esc>:call BC_AddChar(")")<cr>i
+" inoremap { {<cr>}<esc>:call BC_AddChar("}")<cr><esc>kA<cr>
+" inoremap [ []<esc>:call BC_AddChar("]")<cr>i
+" inoremap " ""<esc>:call BC_AddChar("\"")<cr>i
+" inoremap ' ''<esc>:call BC_AddChar("\'")<cr>i
 " jump out of parenthesis
-" inoremap <C-g> <Esc>:call search(BC_GetChar(), "W")<CR>a
+" inoremap <c-g> <esc>:call search(BC_GetChar(), "W")<cr>a
 
 " function! BC_AddChar(schar)
 "  if exists("b:robstack")
@@ -602,7 +593,7 @@ nnoremap <leader>{} {S{<Esc>}S}<c-c>=%<C-O><C-O>=iB
 "  let b:robstack = a:schar
 "  endif
 " endfunction
-" 
+
 " function! BC_GetChar()
 "  let l:char = b:robstack[strlen(b:robstack)-1]
 "  let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
@@ -611,11 +602,11 @@ nnoremap <leader>{} {S{<Esc>}S}<c-c>=%<C-O><C-O>=iB
 
 
 " put semicolon EOL
-" inoremap <leader>; <C-o>m`<C-o>A;<Esc>``i
-nnoremap <leader>; i<C-o>m`<C-o>A;<Esc>``<Esc>
+" inoremap <leader>; <c-o>m`<c-o>A;<esc>``i
+nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 
 " go to name of current c function (needs '()')
-nnoremap <silent> g<C-D> j[[h^t(b
+nnoremap <silent> g<c-d> j[[h^t(b
 " select all text in function
 nnoremap <leader>vf j[[V%o
 " nnoremap viB [[%v%jok$
@@ -631,17 +622,19 @@ autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
 autocmd FileType readline         let b:comment_leader = '# '
-noremap <silent> <leader>'' :<C-B> <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <leader>"" :<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-noremap <silent> <leader>'p yypk:<C-B> <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>'' :<c-b> <c-e>s/^/<c-r>=escape(b:comment_leader,'\/')<cr>/<cr>:nohlsearch<cr>
+noremap <silent> <leader>"" :<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+
+
 
 ""  Mappings
 
 " <c-z> in insert mode
-inoremap <C-Z> <C-[><C-Z>
+inoremap <c-z> <c-[><c-z>
 
-" % as <C-G>
-nnoremap <C-G> %
+" % as <c-g>
+nnoremap <c-g> %
 
 " up down on lines as seen
 nnoremap <silent> j gj
@@ -681,28 +674,28 @@ vnoremap <leader>y "*y
 
 nnoremap H ^
 nnoremap L g_
-nnoremap <C-h> B
-nnoremap <C-l> W
-nnoremap <C-k> {
-nnoremap <C-j> }
-nnoremap <C-q> <silent>:redraw<CR>
+nnoremap <c-h> B
+nnoremap <c-l> W
+nnoremap <c-k> {
+nnoremap <c-j> }
+nnoremap <c-q> <silent>:redraw<cr>
 
 vnoremap H ^
 vnoremap L g_
-vnoremap <C-h> B
-vnoremap <C-l> W
-vnoremap <C-k> {
-vnoremap <C-j> }
+vnoremap <c-h> B
+vnoremap <c-l> W
+vnoremap <c-k> {
+vnoremap <c-j> }
 
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-k> <Up>
-cnoremap <C-j> <Down>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <C-l> <S-Right>
-cnoremap <C-h> <S-Left>
-cnoremap <C-x> <Del>
+cnoremap <c-a> <Home>
+cnoremap <c-e> <End>
+cnoremap <c-k> <Up>
+cnoremap <c-j> <Down>
+cnoremap <c-b> <Left>
+cnoremap <c-f> <Right>
+cnoremap <c-l> <S-Right>
+cnoremap <c-h> <S-Left>
+cnoremap <c-x> <Del>
 
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
@@ -749,21 +742,21 @@ set completeopt=longest,menuone
 " inoremap <c-x>l <c-x><c-l>
 
 " auto show autocomplete omnibox
-" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-" inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-"   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <expr> <c-n> pumvisible() ? '<c-n>' :
+"   \ '<c-n><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
+" inoremap <expr> <M-,> pumvisible() ? '<c-n>' :
+"   \ '<c-x><c-o><c-n><c-p><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
 "
 " " " enter selects menu element
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" " " better menu behavior (keeps element hihlighted, <CR> (enter) to select always)
-" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-" inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-"   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+" " " better menu behavior (keeps element hihlighted, <cr> (enter) to select always)
+" inoremap <expr> <c-n> pumvisible() ? '<c-n>' :
+"   \ '<c-n><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
+" inoremap <expr> <M-,> pumvisible() ? '<c-n>' :
+"   \ '<c-x><c-o><c-n><c-p><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
 " " " open omni completion menu closing previous if open and opening new menu without changing the text
-" inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
-"              \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+" inoremap <expr> <c-space> (pumvisible() ? (col('.') > 1 ? '<esc>i<Right>' : '<esc>i') : '') .
+"              \ '<c-x><c-o><c-r>=pumvisible() ? "\<lt>c-n>\<lt>c-p>\<lt>Down>" : ""<cr>'
 "
 
 
@@ -772,12 +765,12 @@ set completeopt=longest,menuone
 " open buffer with partial search
 nnoremap <leader>b :buffer<space>
 nnoremap <leader>B :sbuffer<space>
-nnoremap <leader><C-b> :vertical sbuffer<space>
-" nnoremap <leader>T :vertical sbuffer !/bin/bash<CR>
+nnoremap <leader><c-b> :vertical sbuffer<space>
+" nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
 "go to next / previous buffer
-nnoremap <leader>] :bn<CR>
-nnoremap <leader>[ :bp<CR>
+nnoremap <leader>] :bn<cr>
+nnoremap <leader>[ :bp<cr>
 
 let g:term_buf = 0
 let g:term_win = 0
@@ -799,50 +792,50 @@ function! Term_toggle(height)
 endfunction
 
 nnoremap <leader>T :call Term_toggle(10)<cr>
-tnoremap <C-T> <C-\><C-n>:call Term_toggle(10)<cr>
+tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
 
 " move between windows with ctrl
-" nnoremap <C-h> :wincmd h<CR>
-" nnoremap <C-j> :wincmd j<CR>
-" nnoremap <C-k> :wincmd k<CR>
-" nnoremap <C-l> :wincmd l<CR>
-" imap <C-w> <C-o><C-w>
+" nnoremap <c-h> :wincmd h<cr>
+" nnoremap <c-j> :wincmd j<cr>
+" nnoremap <c-k> :wincmd k<cr>
+" nnoremap <c-l> :wincmd l<cr>
+" imap <c-w> <c-o><c-w>
 
 " Note: does not work anymore?
 " resize windows quicker
-" nnoremap <C-w><C-.> :vertical resize +10<CR>
-" nnoremap <C-w><C-,> :vertical resize -10<CR>
-" nnoremap <C-w><C-=> :resize +10<CR>
-" nnoremap <C-w><C--> :resize -10<CR>
+" nnoremap <c-w><c-.> :vertical resize +10<cr>
+" nnoremap <c-w><c-,> :vertical resize -10<cr>
+" nnoremap <c-w><c-=> :resize +10<cr>
+" nnoremap <c-w><c--> :resize -10<cr>
 
 " new file in vertical split instead of horizontal
-nnoremap <C-w><C-n> :vertical new<CR>
-nnoremap <C-w>n :vertical new<CR>
-nnoremap <C-w><C-f> :vertical wincmd f<CR>
+nnoremap <c-w><c-n> :vertical new<cr>
+nnoremap <c-w>n :vertical new<cr>
+nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
 
 ""  Plugins settings
-
+""" Pathogen
 execute pathogen#infect()
 
-" fugitive
-nnoremap <silent> <leader>gg :vertical Gstatus<CR>
+""" Fugitive
+nnoremap <silent> <leader>gg :vertical Gstatus<cr>
 set diffopt+=vertical " vertical split for diff
 
-" YouCompleteMe
+""" YouCompleteMe
 
 " YCM move mappings
-nnoremap <silent> <leader>cf :ll<CR>:YcmCompleter FixIt<CR>:w<CR>
-nnoremap <silent> <leader>gt :YcmCompleter GoTo<CR>
-nnoremap <silent> <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <silent> <leader>ga :YcmCompleter GoToDeclaration<CR>
-nnoremap <silent> <leader>gf :YcmCompleter GoToInclude<CR>
+nnoremap <silent> <leader>cf :ll<cr>:YcmCompleter FixIt<cr>:w<cr>
+nnoremap <silent> <leader>gt :YcmCompleter GoTo<cr>
+nnoremap <silent> <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<cr>
+nnoremap <silent> <leader>ga :YcmCompleter GoToDeclaration<cr>
+nnoremap <silent> <leader>gf :YcmCompleter GoToInclude<cr>
 
 " autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
 let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
-let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ] " validate with Enter
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']	" next
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']	" previous
+let g:ycm_key_list_stop_completion = [ '<c-y>', '<Enter>' ] " validate with Enter
+let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']	" next
+let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 let g:ycm_filetype_blacklist = {
       \ 'tagbar': 1,
@@ -861,11 +854,11 @@ let g:ycm_filetype_blacklist = {
 
 " let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
-" inoremap <expr> <TAB> pumvisible() ? "\<C-v>\<TAB>" : "\<TAB>"
-" inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" inoremap <expr> <tab> pumvisible() ? "\<c-v>\<tab>" : "\<tab>"
+" inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<S-tab>"
 
-" syntastic
+""" Syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 let g:syntastic_c_include_dirs = ['inc']
 let g:syntastic_c_compiler_options = "-Wall -Wextra"
@@ -888,7 +881,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 
 
-" lightline
+""" Lightline
 set noshowmode " do not show mode in status line
 " Show full path of filename
 
@@ -900,11 +893,11 @@ let g:lightline.mode_map = {
 			\	'R': 'REP',
 			\	'v': ' V ',
 			\	'V': 'V-L',
-			\	"\<C-v>": 'V-B',
+			\	"\<c-v>": 'V-B',
 			\	'c': 'CMD',
 			\	's': 'SEL',
 			\	'S': 'S-L',
-			\	"\<C-s>": 'S-B',
+			\	"\<c-s>": 'S-B',
 			\	't': 'TRM' }
 
 let g:lightline.active = {
@@ -966,27 +959,27 @@ function! LightlineFugitive()
 	return ''
 endfunction
 
-" gitgutter
+""" Gitgutter
 if exists('&signcolumn')  " Vim 7.4.2201
 	set signcolumn=yes
 else
 	let g:gitgutter_sign_column_always = 1
 endif
 
-" man
+""" Man
 " let g:ft_man_open_mode = 'vert'
 
-set updatetime=20 " refresh more frequently from
+" set updatetime=20 " refresh more frequently from
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-" FZF
+""" FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-nnoremap <leader>F :FZF /<CR>			" from root
-nnoremap <leader>f :FZF $HOME<CR>		" from HOME
-nnoremap <leader><C-F> :FZF .<CR>		" from here
-" nnoremap <leader>f :FZF<C-r>=fnamemodify(getcwd(), ':p')<CR><CR>
+nnoremap <leader>F :FZF /<cr>			" from root
+nnoremap <leader>f :FZF $HOME<cr>		" from HOME
+nnoremap <leader><c-f> :FZF .<cr>		" from here
+" nnoremap <leader>f :FZF<c-r>=fnamemodify(getcwd(), ':p')<cr><cr>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_layout = { 'down' : '10 reverse' }
@@ -1005,17 +998,19 @@ let g:fzf_colors =
 			\ 'spinner': ['fg', 'Label'],
 			\ 'header':  ['fg', 'Comment'] }
 
-" Root
+""" Root
 let g:root#auto = 1
 let g:root#echo = 0
 
-" Searchhi
+""" Searchhi
 let g:searchhi_clear_all_autocmds = 'InsertEnter'
 let g:searchhi_update_all_autocmds = 'InsertLeave'
 let g:searchhi_open_folds = 0
 
-""  101
-""" 101Header
+""" Latex Live Preview
+autocmd Filetype tex setl updatetime=1
+""  42
+""" 42Header
 
 
 let s:asciiart = [
@@ -1166,8 +1161,8 @@ endfunction
 
 " Bind command and shortcut
 command! Header101 call Stdheader()
-" nnoremap <leader>h1 :Header101<CR>
-nnoremap <silent> <leader>h1 :call Stdheader()<CR>
+" nnoremap <leader>h1 :Header101<cr>
+nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 " autocmd BufWritePre * call s:update ()
 
 
@@ -1197,7 +1192,7 @@ augroup suffixes
     for ft in associations
         execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
     endfor
-augroup END
+augroup end
 
 """ Vimrc folding
 function! VimFold()
