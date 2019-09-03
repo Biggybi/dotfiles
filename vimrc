@@ -882,7 +882,8 @@ let g:ycm_filetype_blacklist = {
       \ 'pandoc': 1,
       \ 'infolog': 1,
       \ 'mail': 1,
-	  \ 'qf': 1
+	  \ 'qf': 1,
+	  \ 'help': 1
       \}
 "  	  \ 'fugitive': 1,
 
