@@ -1,15 +1,24 @@
 " **************************************************************************** "
-"                                                           LE - /             "
-"                                                               /              "
-"    vimrc                                            .::    .:/ .      .::    "
-"                                                  +:+:+   +:    +:  +:+:+     "
-"    By: tris <tristan.kapous@protonmail.com>       +:+   +:    +:    +:+      "
-"                                                  #+#   #+    #+    #+#       "
-"    Created: 2019/06/23 05:39:33 by tris         #+#   ##    ##    #+#        "
-"    Updated: 2019/08/06 19:27:58 by tris        ###    #+. /#+    ###.fr      "
-"                                                          /                   "
-"                                                         /                    "
+"                                                                              "
+"    vimrc                                                                     "
+"                                                |_   _|  _ __  (_)  ___       "
+"    By: tris <tristan.kapous@protonmail.com>      | |   | '__| | | / __|      "
+"                                                  | |   | |    | | \__ \      "
+"    Created: 2019/06/23 05:39:33 by tris          |_|   |_|    |_| |___/      "
+"    Updated: 2019/08/06 19:27:58 by tris                                      "
+"                                                                              "
 " **************************************************************************** "
+
+""  Signature
+" """""""""""""""""""""""""""""""""""""""""""""""""""
+"  ____ _____ _____  _______     ______ _____		"
+" |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
+" | |_) || || |  __| |  __ \ \_/ /| |_) || |		"
+" |  _ < | || | |_ | | |_ | \   / |  _ < | |		"
+" | |_) || || |__| | |__| |  | |  | |_) || |_		"
+" |____/_____\_____|\_____|  |_|  |____/_____|vimrc "
+"													"
+" """""""""""""""""""""""""""""""""""""""""""""""""""
 
 ""  Vimrc settings
 
@@ -18,8 +27,10 @@ filetype plugin on
 " set shellcmdflag=-ic
 let $BASH_ENV = "$HOME/dotfiles/bash_aliases" " use aliases in vim
 let $PAGER=''	" clear pager env var in vim (for vim as pager)
+
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
 
 " automatically reload vimrc when modified
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
@@ -51,7 +62,9 @@ set ttimeoutlen=10
 
 " let mapleader = " "
 " let leader = " "
-map <Space> <leader>
+map <space> <leader>
+set iskeyword+=,
+
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
@@ -99,6 +112,18 @@ set suffixesadd=.tex,.latex,.java,.c,.h,.js
 
 " set noswapfile
 
+" gnome adaptive cursor shape
+" if has("autocmd")
+"   au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+"   au InsertEnter,InsertChange *
+"     \ if v:insertmode == 'i' |
+"     \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+"     \ elseif v:insertmode == 'r' |
+"     \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+"     \ endif
+"   au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+" endif
+
 
 ""  User Interface
 
@@ -111,7 +136,7 @@ set wildmenu
 set showmode
 set showcmd
 
-" Tabulation control
+" tabulation control
 set noexpandtab				" tabs ftw
 set smarttab				" tab respects 'tabstop' 'shiftwidth' 'softtabstop'
 set tabstop=4				" the visible width of tabs
@@ -127,10 +152,9 @@ set splitright				" default split right
 " set equalalways			" always equalize windows
 " set list					" show invisible characters
 " set listchars=tab:>\ ,trail:·	" but only show tabs and trailing whitespace
-set listchars=tab:\ \ 
 
-" set number					" show number column
-" set relativenumber			" relative to current line
+set number					" show number column
+set relativenumber			" relative to current line
 
 " set number relativenumber
 " augroup NumToggle
@@ -162,7 +186,7 @@ set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 nnoremap g<c-f> :vertical wincmd f<cr>
 
 
-""  look / theme
+""  Look / Theme
 
 syntax on
 
@@ -231,7 +255,7 @@ let base16colorspace=256  " access colors present in 256 colorspace"
 set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
 
 
-""  highlights / match
+""  Highlights / Match
 
 " highlight overlength ctermbg=203 ctermfg=white guibg=#592928
 " match overlength /\%81v.\+/
@@ -258,6 +282,79 @@ endif
 
 set mat=2 " how many tenths of a second to blink
 
+""  Window behaviour
+
+" open buffer with partial search
+nnoremap <leader>b :buffer<space>
+nnoremap <leader>B :sbuffer<space>
+nnoremap <leader><c-b> :vertical sbuffer<space>
+" nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
+
+"go to next / previous buffer
+nnoremap <leader>] :bn<cr>
+nnoremap <leader>[ :bp<cr>
+
+let g:term_buf = 0
+let g:term_win = 0
+
+function! Term_toggle(height)
+	if win_gotoid(g:term_win)
+		let g:term_win = 0
+		hide
+	else
+		try
+			exec "buffer " . g:term_buf
+		catch
+			vertical terminal
+			"             let g:term_buf = bufnr("")
+		endtry
+		startinsert!
+		let g:term_win = win_getid()
+	endif
+endfunction
+
+nnoremap <leader>T :call Term_toggle(10)<cr>
+tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
+
+" move between windows with ctrl
+" nnoremap <c-h> :wincmd h<cr>
+" nnoremap <c-j> :wincmd j<cr>
+" nnoremap <c-k> :wincmd k<cr>
+" nnoremap <c-l> :wincmd l<cr>
+" imap <c-w> <c-o><c-w>
+
+" Note: does not work anymore?
+" resize windows quicker
+" nnoremap <c-w><c-.> :vertical resize +10<cr>
+" nnoremap <c-w><c-,> :vertical resize -10<cr>
+" nnoremap <c-w><c-=> :resize +10<cr>
+" nnoremap <c-w><c--> :resize -10<cr>
+
+" new file in vertical split instead of horizontal
+nnoremap <c-w><c-n> :vertical new<cr>
+nnoremap <c-w>n :vertical new<cr>
+nnoremap <c-w><c-f> :vertical wincmd f<cr>
+
+
+""  Folding
+
+set foldmethod=syntax " fold based on indent
+set foldnestmax=10 " deepest fold is 10 levels
+set nofoldenable " don't fold by default
+set foldlevel=1
+
+" automatily save and restore files views (folding state among others)
+autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+autocmd BufWinEnter * if expand("%") != "" | loadview | endif
+
+" inoremap <leader><space> <c-o>za
+nnoremap <leader><space> za
+onoremap <leader><space> <c-c>za
+vnoremap <leader><space> zf
+
+" `zo` recursively open even partial folds
+nnoremap zo zczO
+
 ""  File automation
 
 set autoread "not working until cmd like :e
@@ -281,11 +378,11 @@ autocmd BufReadPost *
 			\ endif
 
 " filetype recognition
-au FileType c setl ofu=ccomplete#CompleteCpp
-au FileType css setl ofu=csscomplete#CompleteCSS
-au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
-au FileType php setl ofu=phpcomplete#CompletePHP
-au FileType ruby,eruby setl ofu=rubycomplete#Complete
+au FileType c setlocal ofu=ccomplete#CompleteCpp
+au FileType css setlocal ofu=csscomplete#CompleteCSS
+au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
+au FileType php setlocal ofu=phpcomplete#CompletePHP
+au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " refresh filetype upon writing
@@ -325,7 +422,7 @@ cnoreabbrev h <c-r>=(winwidth('%') >= 162 && getcmdtype() ==# ':' && getcmdpos()
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
-	autocmd Filetype help,man nnoremap <buffer> <silent> q :bw<CR>
+	autocmd Filetype help,man nnoremap <buffer> <silent> q :bw<cr>
 augroup end
 
 " Open man page in vim split, defaults to K
@@ -333,23 +430,278 @@ runtime! ftplugin/man.vim
 set keywordprg=:Man
 
 
-""  Folding
+""  Searching
 
-set foldmethod=syntax " fold based on indent
-set foldnestmax=10 " deepest fold is 10 levels
-set nofoldenable " don't fold by default
-set foldlevel=1
-" automatily save and restore views (folding state of files)
-autocmd BufWinLeave * if expand("%") != "" | mkview | endif
-autocmd BufWinEnter * if expand("%") != "" | loadview | endif
+" set path+=**			" recursive path from current path
+" set incsearch
+set wildchar=<tab>
+set wildmode=full
+" set wildmode=longest:full:list,full
 
-" inoremap <leader><space> <c-o>za
-nnoremap <leader><space> za
-onoremap <leader><space> <c-c>za
-vnoremap <leader><space> zf
 
-" `zo` recursively open even partial folds
-nnoremap zo zczO
+set ignorecase			" case insensitive searching
+set smartcase			" case-sensitive if expresson contains a capital letter
+set hlsearch			" highlight all searches
+set incsearch			" set incremental search, like modern browsers
+set nolazyredraw		" don't redraw while executing macros
+
+set switchbuf=useopen	" open buffers in their window if exist (:sb 'file')
+
+" ignore some files from fuzzy search
+set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
+" set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
+
+set magic " Set magic on, for regex
+
+" keep cursor in middle of screen when searching / folding
+" nnoremap n nzz
+" nnoremap N Nzz
+" nnoremap * *zz
+" nnoremap # #zz
+" nnoremap g* g*zz
+" nnoremap g# g#zz
+" nnoremap zM zMzz
+" " nnoremap za zazz
+" nnoremap zA zAzz
+" nnoremap <leader>za zMzvzz
+
+
+" use unix regex in searches
+" nnoremap / /\v
+" vnoremap / /\v
+
+"do not move cursor with match
+nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
+" vnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
+nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
+
+"Clear search highlight pressing Enter
+nnoremap <silent> - :nohlsearch<cr>
+
+" For local sed replace
+nnoremap gr :s/<c-r>///g<left><left>
+vnoremap gr :s/<c-r>///g<left><left>
+nnoremap gR :%s/<c-r>///g<left><left>
+
+" search visual selection
+function! s:VSetSearch()
+	let temp = @@
+	norm! gvy
+	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+	let @@ = temp
+endfunction
+
+vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
+vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
+
+
+""  Autocompletion
+
+set completeopt=longest,menuone
+" set completeopt=menuone
+
+
+" inoremap <c-x>f <c-x><c-f>
+" inoremap <c-x>] <c-x><c-]>
+" inoremap <c-x>l <c-x><c-l>
+
+
+""  Plugins settings
+""" Fugitive
+
+nnoremap <silent> <leader>gg :vertical Gstatus<cr>
+set diffopt+=vertical " vertical split for diff
+
+""" YouCompleteMe
+
+" YCM move mappings
+nnoremap <silent> <leader>cf :ll<cr>:YcmCompleter FixIt<cr>:w<cr>
+nnoremap <silent> <leader>gt :YcmCompleter GoTo<cr>
+nnoremap <silent> <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<cr>
+nnoremap <silent> <leader>ga :YcmCompleter GoToDeclaration<cr>
+nnoremap <silent> <leader>gf :YcmCompleter GoToInclude<cr>
+
+" autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
+let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
+let g:ycm_key_list_stop_completion = [ '<c-y>', '<Enter>' ] " validate with Enter
+let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']	" next
+let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']	" previous
+let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar': 1,
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'netrw': 1,
+      \ 'unite': 1,
+      \ 'text': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'mail': 1,
+	  \ 'qf': 1,
+	  \ 'fugitive': 1,
+	  \ 'help': 1
+      \}
+
+" let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
+
+" inoremap <expr> <tab> pumvisible() ? "\<c-v>\<tab>" : "\<tab>"
+" inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<S-tab>"
+
+""" Syntastic
+" let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
+let g:syntastic_c_include_dirs = ['inc']
+let g:syntastic_c_compiler_options = "-Wall -Wextra"
+let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+" set statusline+=%H*
+
+let g:syntastic_c_remove_include_errors = 1
+let g:syntastic_enable_c_checker = 1
+let g:syntastic_c_check_header = 1
+let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
+let g:ycm_use_clangd = 1
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+
+""" Lightline
+set noshowmode " do not show mode in status line
+" Show full path of filename
+
+" let g:lightline.colorscheme = 'wombat'
+
+let g:lightline.mode_map = {
+			\	'n': 'NOR',
+			\	'i': 'INS',
+			\	'R': 'REP',
+			\	'v': ' V ',
+			\	'V': 'V-L',
+			\	"\<c-v>": 'V-B',
+			\	'c': 'CMD',
+			\	's': 'SEL',
+			\	'S': 'S-L',
+			\	"\<c-s>": 'S-B',
+			\	't': 'TRM' }
+
+let g:lightline.active = {
+			\	'left': [ [ 'mode', 'paste' ],
+			\			[ 'readonly', 'gitbranch' ],
+			\			[ 'relativepath', 'modified' ] ],
+		    \	'right': [ [ 'lineinfo' ],
+			\			[ 'percent' ],
+		    \			[ 'filetype' ] ] }
+
+let g:lightline.inactive = {
+			\	'left': [ [ 'readonly', 'gitbranch' ],
+			\			[ 'relativepath', 'modified' ] ],
+		    \	'right': [ [ 'lineinfo' ],
+			\			[ 'percent' ],
+		    \			[ 'filetype' ] ] }
+
+" git branch from fugitive
+let g:lightline.component_function = {
+			\	'format': 'LightlineFileformat',
+			\	'modified': 'LightlineModified',
+			\	'fugitive': 'LightlineFugitive',
+			\	'readonly': 'LightlineReadonly',
+			\	'gitbranch': 'fugitive#head',
+			\	'filename': 'FilenameForLightline' }
+
+" let g:lightline.mode_map = {
+" let g:lightline.separator = { 'left': '', 'right': '' }
+" let g:lightline.subseparator = { 'left': '', 'right': '' }
+let g:lightline.separator = { 'left': '', 'right': '' }
+let g:lightline.subseparator = { 'left': '', 'right': '|' }
+
+function! LightlineModified()
+	return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightlineReadonly()
+	return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
+endfunction
+
+function! LightlineFilename()
+	return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+				\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+				\  &ft == 'unite' ? unite#get_status_string() :
+				\  &ft == 'vimshell' ? vimshell#get_status_string() :
+				\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+				\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+function! LightlineFileformat()
+	return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFugitive()
+	if exists('*fugitive#head')
+		let branch = fugitive#head()
+		return branch !=# '' ? ''.branch : ''
+	endif
+	return ''
+endfunction
+
+""" Gitgutter
+if exists('&signcolumn')  " Vim 7.4.2201
+	set signcolumn=yes
+else
+	let g:gitgutter_sign_column_always = 1
+endif
+
+""" Man
+" let g:ft_man_open_mode = 'vert'
+
+set updatetime=20 " time before writing swap, faster gitgutter
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+
+""" FZF
+" let g:fzf_layout = { 'window': 'below 10split enew' }
+" call fzf#run({'options': '--reverse'})
+nnoremap <leader>F :FZF /<cr>			" from root
+nnoremap <leader>f :FZF $HOME<cr>		" from HOME
+nnoremap <leader><c-f> :FZF .<cr>		" from here
+" nnoremap <leader>f :FZF<c-r>=fnamemodify(getcwd(), ':p')<cr><cr>
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+let g:fzf_layout = { 'down' : '10 reverse' }
+let g:fzf_colors =
+			\ { 'fg':      ['fg', 'Normal'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'Comment'],
+			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':     ['fg', 'Statement'],
+			\ 'info':    ['fg', 'PreProc'],
+			\ 'border':  ['fg', 'Ignore'],
+			\ 'prompt':  ['fg', 'Conditional'],
+			\ 'pointer': ['fg', 'Exception'],
+			\ 'marker':  ['fg', 'Keyword'],
+			\ 'spinner': ['fg', 'Label'],
+			\ 'header':  ['fg', 'Comment'] }
+
+""" Root
+let g:root#auto = 1
+let g:root#echo = 0
+
+
+""" Searchhi
+let g:searchhi_clear_all_autocmds = 'InsertEnter'
+let g:searchhi_update_all_autocmds = 'InsertLeave'
+let g:searchhi_open_folds = 0
+
+
+""" Latex Live Preview
+autocmd Filetype tex setl updatetime=1
+
 
 ""  Netrw
 
@@ -471,590 +823,8 @@ function! s:RunShellCommand(cmdline)
 " 	setlocal nomodifiable
 endfunction
 
-""  Searching
-
-" set path+=**			" recursive path from current path
-" set incsearch
-set wildchar=<Tab>
-set wildmode=full
-" set wildmode=longest:full:list,full
-
-
-set ignorecase			" case insensitive searching
-set smartcase			" case-sensitive if expresson contains a capital letter
-set hlsearch			" highlight all searches
-set incsearch			" set incremental search, like modern browsers
-set nolazyredraw		" don't redraw while executing macros
-
-set switchbuf=useopen	" open buffers in their window if exist (:sb 'file')
-
-" ignore some files from fuzzy search
-set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
-" set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
-
-set magic " Set magic on, for regex
-
-" keep cursor in middle of screen when searching / folding
-" nnoremap n nzz
-" nnoremap N Nzz
-" nnoremap * *zz
-" nnoremap # #zz
-" nnoremap g* g*zz
-" nnoremap g# g#zz
-" nnoremap zM zMzz
-" " nnoremap za zazz
-" nnoremap zA zAzz
-" nnoremap <leader>za zMzvzz
-
-
-" use unix regex in searches
-" nnoremap / /\v
-" vnoremap / /\v
-
-"do not move cursor with match
-nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
-" vnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
-nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
-
-"Clear search highlight pressing Enter
-nnoremap <silent> - :nohlsearch<cr>
-
-" For local sed replace
-nnoremap gr :s/<c-r>///g<left><left>
-vnoremap gr :s/<c-r>///g<left><left>
-nnoremap gR :%s/<c-r>///g<left><left>
-
-" search visual selection
-function! s:VSetSearch()
-	let temp = @@
-	norm! gvy
-	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-	let @@ = temp
-endfunction
-
-vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
-vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
-
-
-""  Code mappings
-
-augroup Cmaps
-	autocmd! Cmaps
-
-	" Word count
-	autocmd FileType c map <buffer> <leader>w :w !detex \| wc -w<CR>
-	autocmd FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
-	autocmd FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoremap <buffer> ,imin -2147483648
-	autocmd FileType c inoremap <buffer> ,imax 2147483647
-	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
-
-	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
-
-	autocmd FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
-
-	" compile and execute current
-	autocmd FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
-	autocmd FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
-
-	" auto close brackets
-	autocmd FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
-
-	" put brackets around paragraph
-	autocmd FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
-augroup end
-
-""" auto parenthesis and others, remembers count
-" inoremap ( ()<esc>:call BC_AddChar(")")<cr>i
-" inoremap { {<cr>}<esc>:call BC_AddChar("}")<cr><esc>kA<cr>
-" inoremap [ []<esc>:call BC_AddChar("]")<cr>i
-" inoremap " ""<esc>:call BC_AddChar("\"")<cr>i
-" inoremap ' ''<esc>:call BC_AddChar("\'")<cr>i
-" jump out of parenthesis
-" inoremap <c-g> <esc>:call search(BC_GetChar(), "W")<cr>a
-
-" function! BC_AddChar(schar)
-"  if exists("b:robstack")
-"  let b:robstack = b:robstack . a:schar
-"  else
-"  let b:robstack = a:schar
-"  endif
-" endfunction
-
-" function! BC_GetChar()
-"  let l:char = b:robstack[strlen(b:robstack)-1]
-"  let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
-"  return l:char
-" endfunction
-
-
-" put semicolon EOL
-" inoremap <leader>; <c-o>m`<c-o>A;<esc>``i
-nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
-
-" go to name of current c function (needs '()')
-nnoremap <silent> g<c-d> j[[h^t(b
-" select all text in function
-nnoremap <leader>vf j[[V%o
-" nnoremap viB [[%v%jok$
-" nnoremap vaB [[%v%
-" " nnoremap vib [{%v%jok$
-" nnoremap vab [{%v%
-
-" Commenting blocks of code.
-autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-autocmd FileType conf,fstab       let b:comment_leader = '# '
-autocmd FileType tex              let b:comment_leader = '% '
-autocmd FileType mail             let b:comment_leader = '> '
-autocmd FileType vim              let b:comment_leader = '" '
-autocmd FileType readline         let b:comment_leader = '# '
-noremap <silent> <leader>'' :<c-b> <c-e>s/^/<c-r>=escape(b:comment_leader,'\/')<cr>/<cr>:nohlsearch<cr>
-noremap <silent> <leader>"" :<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
-noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
-
-
-""  Latex Mappings
-
-augroup LatexSmith
-	autocmd! LatexSmith
-	" Navigating with guides
-" 	autocmd FileType tex silent inoremap <buffer> <space><space> <esc>/<++><cr>"_3si
-" 	autocmd FileType tex silent vnoremap <buffer> <space><space> <esc>/<++><cr>"_3si
-" 	autocmd FileType tex silent map <buffer> <space><space> <Esc>/<++><cr>"_3si
-"
-	" Word count
-	autocmd FileType tex map <buffer> <leader>w :w !detex \| wc -w<CR>
-
-	" Code snippets
-	autocmd FileType tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><Esc>6kf}i
-	autocmd FileType tex inoremap <buffer> ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><Esc>3kA
-	autocmd FileType tex inoremap <buffer> ,exe \begin{exe}<Enter>\ex<Space><Enter>\end{exe}<Enter><Enter><++><Esc>3kA
-	autocmd FileType tex inoremap <buffer> ,em \emph{}<++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,bf \textbf{}<++><Esc>T{i
-	autocmd FileType tex vnoremap <buffer> , <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
-	autocmd FileType tex inoremap <buffer> ,it \textit{}<++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,ct \textcite{}<++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,cp \parencite{}<++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,glos {\gll<Space><++><Space>\\<Enter><++><Space>\\<Enter>\trans{``<++>''}}<Esc>2k2bcw
-	autocmd FileType tex inoremap <buffer> ,x \begin{xlist}<Enter>\ex<Space><Enter>\end{xlist}<Esc>kA<Space>
-	autocmd FileType tex inoremap <buffer> ,ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
-	autocmd FileType tex inoremap <buffer> ,ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
-	autocmd FileType tex inoremap <buffer> ,li <Enter>\item<Space>
-	autocmd FileType tex inoremap <buffer> ,ref \ref{}<Space><++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><Esc>4kA{}<Esc>i
-	autocmd FileType tex inoremap <buffer> ,ot \begin{tableau}<Enter>\inp{<++>}<Tab>\const{<++>}<Tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><Esc>5kA{}<Esc>i
-	autocmd FileType tex inoremap <buffer> ,can \cand{}<Tab><++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,con \const{}<Tab><++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,v \vio{}<Tab><++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,a \href{}{<++>}<Space><++><Esc>2T{i
-	autocmd FileType tex inoremap <buffer> ,sc \textsc{}<Space><++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,chap \chapter{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap <buffer> ,sec \section{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap <buffer> ,ssec \subsection{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap <buffer> ,sssec \subsubsection{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap <buffer> ,st <Esc>F{i*<Esc>f}i
-	autocmd FileType tex inoremap <buffer> ,beg \begin{}<Enter><++><Enter>\end{}<Enter><Enter><++><Esc>4k0f{a
-	autocmd FileType tex inoremap <buffer> ,up <Esc>/usepackage<Enter>o\usepackage{}<Esc>i
-	autocmd FileType tex nnoremap <buffer> ,up /usepackage<Enter>o\usepackage{}<Esc>i
-	autocmd FileType tex inoremap <buffer> ,tt \texttt{}<Space><++><Esc>T{i
-	autocmd FileType tex inoremap <buffer> ,bt {\blindtext}
-	autocmd FileType tex inoremap <buffer> ,nu $\varnothing$
-	autocmd FileType tex inoremap <buffer> ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<Esc>5kA
-	autocmd FileType tex inoremap <buffer> ,rn (\ref{})<++><Esc>F}i
-augroup end
-
-""  Mappings
-
-" <c-z> in insert mode
-inoremap <c-z> <c-[><c-z>
-
-" % as <c-g>
-nnoremap <c-g> %
-
-" up down on lines as seen
-nnoremap <silent> j gj
-nnoremap <silent> k gk
-
-" delete without saving to register
-nnoremap <leader>d "_d
-xnoremap <leader>d "_d
-" xnoremap <leader>p "_dP
-
-" rename file
-nnoremap <leader>mv :!mv % %:h:p/
-
-" paste with indentation
-" nnoremap P mp]P==`p
-" nnoremap p mp]p==`p
-
-nnoremap cl c$
-nnoremap dl d$
-nnoremap yl y$
-nnoremap ch c^
-nnoremap dh d^
-nnoremap yh y^
-
-" vnoremap cl c$
-" vnoremap dl d$
-" vnoremap yl y$
-" vnoremap ch c^
-" vnoremap dh d^
-" vnoremap yh y^
-
-" Copy/paste text to/from the system clipboard.
-nnoremap <leader>p mp"*]p==`p
-nnoremap <leader>P mp"*]P==`p
-nnoremap <leader>y "*y
-nnoremap <leader>Y "*y$
-
-" vnoremap <leader>p mp"*]p==`p
-" vnoremap <leader>P mp"*]P==`p
-vnoremap <leader>y "*y
-" vnoremap <leader>Y "*yy
-
-nnoremap H ^
-nnoremap L g_
-nnoremap <c-h> B
-nnoremap <c-l> W
-nnoremap <c-k> {
-nnoremap <c-j> }
-nnoremap <c-q> <silent>:redraw<cr>
-
-vnoremap H ^
-vnoremap L g_
-vnoremap <c-h> B
-vnoremap <c-l> W
-vnoremap <c-k> {
-vnoremap <c-j> }
-
-cnoremap <c-a> <Home>
-cnoremap <c-e> <End>
-cnoremap <c-k> <Up>
-cnoremap <c-j> <Down>
-cnoremap <c-b> <Left>
-cnoremap <c-f> <Right>
-cnoremap <c-l> <S-Right>
-cnoremap <c-h> <S-Left>
-cnoremap <c-x> <Del>
-
-" helpers for dealing with other people's code
-" nmap \t :set ts=4 sts=4 sw=4 noet<cr>
-" nmap \s :set ts=4 sts=4 sw=4 et<cr>
-
-
-""  Auto Header
-"""  SH Auto Header
-au bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
-
-"""  Auto protect .h
-if !exists("autocommands_loaded")
-	let autocommands_loaded = 1
-	au BufNewFile *.h call InsertCHHeader()
-endif
-
-function! InsertCHHeader()
-	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
-	" Save cpoptions
-	let cpoptions = &cpoptions
-	" Remove the 'a' option - prevents the name of the
-	" alternate file being overwritten with a :read command
-	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-	exe "read " . path_to_skeletons
-	" Restore cpoptions
-	exe "set cpoptions=" . cpoptions
-	1, 1 delete _
-
-	let fname = expand("%:t")
-	let fname = toupper(fname)
-	let fname = substitute(fname, "\\.", "_", "g")
-	%s/HEADERNAME/\=fname/g
-endfunction
-
-
-""  Autocompletion
-
-set completeopt=longest,menuone
-" set completeopt=menuone
-
-
-" inoremap <c-x>f <c-x><c-f>
-" inoremap <c-x>] <c-x><c-]>
-" inoremap <c-x>l <c-x><c-l>
-
-" auto show autocomplete omnibox
-" inoremap <expr> <c-n> pumvisible() ? '<c-n>' :
-"   \ '<c-n><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
-" inoremap <expr> <M-,> pumvisible() ? '<c-n>' :
-"   \ '<c-x><c-o><c-n><c-p><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
-"
-" " " enter selects menu element
-" inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-" " " better menu behavior (keeps element hihlighted, <cr> (enter) to select always)
-" inoremap <expr> <c-n> pumvisible() ? '<c-n>' :
-"   \ '<c-n><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
-" inoremap <expr> <M-,> pumvisible() ? '<c-n>' :
-"   \ '<c-x><c-o><c-n><c-p><c-r>=pumvisible() ? "\<lt>Down>" : ""<cr>'
-" " " open omni completion menu closing previous if open and opening new menu without changing the text
-" inoremap <expr> <c-space> (pumvisible() ? (col('.') > 1 ? '<esc>i<Right>' : '<esc>i') : '') .
-"              \ '<c-x><c-o><c-r>=pumvisible() ? "\<lt>c-n>\<lt>c-p>\<lt>Down>" : ""<cr>'
-"
-
-
-""  Window behaviour
-
-" open buffer with partial search
-nnoremap <leader>b :buffer<space>
-nnoremap <leader>B :sbuffer<space>
-nnoremap <leader><c-b> :vertical sbuffer<space>
-" nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
-
-"go to next / previous buffer
-nnoremap <leader>] :bn<cr>
-nnoremap <leader>[ :bp<cr>
-
-let g:term_buf = 0
-let g:term_win = 0
-
-function! Term_toggle(height)
-	if win_gotoid(g:term_win)
-		let g:term_win = 0
-		hide
-	else
-		try
-			exec "buffer " . g:term_buf
-		catch
-			vertical terminal
-			"             let g:term_buf = bufnr("")
-		endtry
-		startinsert!
-		let g:term_win = win_getid()
-	endif
-endfunction
-
-nnoremap <leader>T :call Term_toggle(10)<cr>
-tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
-
-" move between windows with ctrl
-" nnoremap <c-h> :wincmd h<cr>
-" nnoremap <c-j> :wincmd j<cr>
-" nnoremap <c-k> :wincmd k<cr>
-" nnoremap <c-l> :wincmd l<cr>
-" imap <c-w> <c-o><c-w>
-
-" Note: does not work anymore?
-" resize windows quicker
-" nnoremap <c-w><c-.> :vertical resize +10<cr>
-" nnoremap <c-w><c-,> :vertical resize -10<cr>
-" nnoremap <c-w><c-=> :resize +10<cr>
-" nnoremap <c-w><c--> :resize -10<cr>
-
-" new file in vertical split instead of horizontal
-nnoremap <c-w><c-n> :vertical new<cr>
-nnoremap <c-w>n :vertical new<cr>
-nnoremap <c-w><c-f> :vertical wincmd f<cr>
-
-
-""  Plugins settings
-""" Pathogen
-execute pathogen#infect()
-
-""" Fugitive
-nnoremap <silent> <leader>gg :vertical Gstatus<cr>
-set diffopt+=vertical " vertical split for diff
-
-""" YouCompleteMe
-
-" YCM move mappings
-nnoremap <silent> <leader>cf :ll<cr>:YcmCompleter FixIt<cr>:w<cr>
-nnoremap <silent> <leader>gt :YcmCompleter GoTo<cr>
-nnoremap <silent> <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<cr>
-nnoremap <silent> <leader>ga :YcmCompleter GoToDeclaration<cr>
-nnoremap <silent> <leader>gf :YcmCompleter GoToInclude<cr>
-
-" autocmd insertenter * silent! :YcmRestartServer "keep Ycm from fuckin up
-let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
-let g:ycm_key_list_stop_completion = [ '<c-y>', '<Enter>' ] " validate with Enter
-let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']	" next
-let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']	" previous
-let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar': 1,
-      \ 'notes': 1,
-      \ 'markdown': 1,
-      \ 'netrw': 1,
-      \ 'unite': 1,
-      \ 'text': 1,
-      \ 'vimwiki': 1,
-      \ 'pandoc': 1,
-      \ 'infolog': 1,
-      \ 'mail': 1,
-	  \ 'qf': 1,
-	  \ 'help': 1
-      \}
-"  	  \ 'fugitive': 1,
-
-" let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
-
-" inoremap <expr> <tab> pumvisible() ? "\<c-v>\<tab>" : "\<tab>"
-" inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<tab>"
-" inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<S-tab>"
-
-""" Syntastic
-" let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
-let g:syntastic_c_include_dirs = ['inc']
-let g:syntastic_c_compiler_options = "-Wall -Wextra"
-let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-" set statusline+=%H*
-
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_enable_c_checker = 1
-let g:syntastic_c_check_header = 1
-let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
-let g:ycm_use_clangd = 1
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-
-
-""" Lightline
-set noshowmode " do not show mode in status line
-" Show full path of filename
-
-" let g:lightline.colorscheme = 'wombat'
-
-let g:lightline.mode_map = {
-			\	'n': 'NOR',
-			\	'i': 'INS',
-			\	'R': 'REP',
-			\	'v': ' V ',
-			\	'V': 'V-L',
-			\	"\<c-v>": 'V-B',
-			\	'c': 'CMD',
-			\	's': 'SEL',
-			\	'S': 'S-L',
-			\	"\<c-s>": 'S-B',
-			\	't': 'TRM' }
-
-let g:lightline.active = {
-			\	'left': [ [ 'mode', 'paste' ],
-			\			[ 'readonly', 'gitbranch' ],
-			\			[ 'relativepath', 'modified' ] ],
-		    \	'right': [ [ 'lineinfo' ],
-			\			[ 'percent' ],
-		    \			[ 'filetype' ] ] }
-
-let g:lightline.inactive = {
-			\	'left': [ [ 'readonly', 'gitbranch' ],
-			\			[ 'relativepath', 'modified' ] ],
-		    \	'right': [ [ 'lineinfo' ],
-			\			[ 'percent' ],
-		    \			[ 'filetype' ] ] }
-
-" git branch from fugitive
-let g:lightline.component_function = {
-			\	'format': 'LightlineFileformat',
-			\	'modified': 'LightlineModified',
-			\	'fugitive': 'LightlineFugitive',
-			\	'readonly': 'LightlineReadonly',
-			\	'gitbranch': 'fugitive#head',
-			\	'filename': 'FilenameForLightline' }
-
-" let g:lightline.mode_map = {
-" let g:lightline.separator = { 'left': '', 'right': '' }
-" let g:lightline.subseparator = { 'left': '', 'right': '' }
-let g:lightline.separator = { 'left': '', 'right': '' }
-let g:lightline.subseparator = { 'left': '', 'right': '|' }
-
-function! LightlineModified()
-	return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightlineReadonly()
-	return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
-endfunction
-
-function! LightlineFilename()
-	return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-				\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-				\  &ft == 'unite' ? unite#get_status_string() :
-				\  &ft == 'vimshell' ? vimshell#get_status_string() :
-				\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-				\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
-
-function! LightlineFileformat()
-	return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFugitive()
-	if exists('*fugitive#head')
-		let branch = fugitive#head()
-		return branch !=# '' ? ''.branch : ''
-	endif
-	return ''
-endfunction
-
-""" Gitgutter
-if exists('&signcolumn')  " Vim 7.4.2201
-	set signcolumn=yes
-else
-	let g:gitgutter_sign_column_always = 1
-endif
-
-""" Man
-" let g:ft_man_open_mode = 'vert'
-
-" set updatetime=20 " refresh more frequently from
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-
-""" FZF
-" let g:fzf_layout = { 'window': 'below 10split enew' }
-" call fzf#run({'options': '--reverse'})
-nnoremap <leader>F :FZF /<cr>			" from root
-nnoremap <leader>f :FZF $HOME<cr>		" from HOME
-nnoremap <leader><c-f> :FZF .<cr>		" from here
-" nnoremap <leader>f :FZF<c-r>=fnamemodify(getcwd(), ':p')<cr><cr>
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-let g:fzf_layout = { 'down' : '10 reverse' }
-let g:fzf_colors =
-			\ { 'fg':      ['fg', 'Normal'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Comment'],
-			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':     ['fg', 'Statement'],
-			\ 'info':    ['fg', 'PreProc'],
-			\ 'border':  ['fg', 'Ignore'],
-			\ 'prompt':  ['fg', 'Conditional'],
-			\ 'pointer': ['fg', 'Exception'],
-			\ 'marker':  ['fg', 'Keyword'],
-			\ 'spinner': ['fg', 'Label'],
-			\ 'header':  ['fg', 'Comment'] }
-
-""" Root
-let g:root#auto = 1
-let g:root#echo = 0
-
-""" Searchhi
-let g:searchhi_clear_all_autocmds = 'InsertEnter'
-let g:searchhi_update_all_autocmds = 'InsertLeave'
-let g:searchhi_open_folds = 0
-
-""" Latex Live Preview
-autocmd Filetype tex setl updatetime=1
 ""  42
 """ 42Header
-
 
 let s:asciiart = [
 			\"               /          ",
@@ -1068,6 +838,22 @@ let s:asciiart = [
 			\"         /                ",
 			\"           LE - /         "
 			\]
+
+" let s:asciiart = [
+" 			\":.:      .: .:  .:      .:",
+" 			\" :+:   :+: +:+ +:+:   :+:+",
+" 			\"  +:+ +:+  +:+ +:+:+ +:+:+",
+" 			\"    #+#    #+# #+# #+# #+#",
+" 			\"     +     #+# #+#  +  #+#",
+" 			\""
+" 			\]
+
+" :.:     :.: :.: :.:     :.:
+"  :+:   :+:  +:+ +:+:   :+:+
+"   +:+ +:+   +:+ +:+:+ +:+:+
+"    +#+#+    #+# #+# #+# #+#
+"     #+#     #+# #+# #+# #+#
+"      +      #+# #+#  +  #+#
 
 " let s:asciiart = [
 " 			\"        :::      ::::::::",
@@ -1208,19 +994,243 @@ command! Header101 call Stdheader()
 nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 " autocmd BufWritePre * call s:update ()
 
+""  Mappings
 
-""  Signature
-" """""""""""""""""""""""""""""""""""""""""""""""""""
-"  ____ _____ _____  _______     ______ _____		"
-" |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
-" | |_) || || |  __| |  __ \ \_/ /| |_) || |		"
-" |  _ < | || | |_ | | |_ | \   / |  _ < | |		"
-" | |_) || || |__| | |__| |  | |  | |_) || |_		"
-" |____/_____\_____|\_____|  |_|  |____/_____|vimrc "
-"													"
-" """""""""""""""""""""""""""""""""""""""""""""""""""
+" Word count
+nnoremap <leader>w :w !detex \| wc -w<cr>
 
-""  Dotfiles
+" <c-z> in insert mode
+inoremap <c-z> <c-[><c-z>
+
+" % as <c-g>
+nnoremap <c-g> %
+
+" up down on lines as seen
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+
+" delete without saving to register
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+" xnoremap <leader>p "_dP
+
+" rename file
+nnoremap <leader>mv :!mv % %:h:p/
+
+" paste with indentation
+" nnoremap P mp]P==`p
+" nnoremap p mp]p==`p
+
+nnoremap cl c$
+nnoremap dl d$
+nnoremap yl y$
+nnoremap ch c^
+nnoremap dh d^
+nnoremap yh y^
+
+" vnoremap cl c$
+" vnoremap dl d$
+" vnoremap yl y$
+" vnoremap ch c^
+" vnoremap dh d^
+" vnoremap yh y^
+
+" Copy/paste text to/from the system clipboard.
+nnoremap <leader>p mp"*]p==`p
+nnoremap <leader>P mp"*]P==`p
+nnoremap <leader>y "*y
+nnoremap <leader>Y "*y$
+
+" vnoremap <leader>p mp"*]p==`p
+" vnoremap <leader>P mp"*]P==`p
+vnoremap <leader>y "*y
+" vnoremap <leader>Y "*yy
+
+nnoremap H ^
+nnoremap L g_
+nnoremap <c-h> B
+nnoremap <c-l> W
+nnoremap <c-k> {
+nnoremap <c-j> }
+nnoremap <c-q> <silent>:redraw<cr>
+
+vnoremap H ^
+vnoremap L g_
+vnoremap <c-h> B
+vnoremap <c-l> W
+vnoremap <c-k> {
+vnoremap <c-j> }
+
+cnoremap <c-a> <Home>
+cnoremap <c-e> <End>
+cnoremap <c-k> <Up>
+cnoremap <c-j> <Down>
+cnoremap <c-b> <Left>
+cnoremap <c-f> <Right>
+cnoremap <c-l> <S-Right>
+cnoremap <c-h> <S-Left>
+cnoremap <c-x> <Del>
+
+" helpers for dealing with other people's code
+" nmap \t :set ts=4 sts=4 sw=4 noet<cr>
+" nmap \s :set ts=4 sts=4 sw=4 et<cr>
+
+
+""  Code mappings
+
+augroup Cmaps
+	autocmd! Cmaps
+	autocmd FileType c inoreabbrev <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
+	autocmd FileType c inoreabbrev <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoreabbrev <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoreabbrev <buffer> ,imin -2147483648
+	autocmd FileType c inoreabbrev <buffer> ,imax 2147483647
+	autocmd FileType c inoreabbrev <buffer> ,endl ft_putendl("");<left><left><left>
+
+	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+
+	autocmd FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
+
+	" compile and execute current
+	autocmd FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
+	autocmd FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
+
+	" auto close brackets
+	autocmd FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
+
+	" put brackets around paragraph
+	autocmd FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
+augroup end
+
+""" auto parenthesis and others, remembers count
+" inoremap ( ()<esc>:call BC_AddChar(")")<cr>i
+" inoremap { {<cr>}<esc>:call BC_AddChar("}")<cr><esc>kA<cr>
+" inoremap [ []<esc>:call BC_AddChar("]")<cr>i
+" inoremap " ""<esc>:call BC_AddChar("\"")<cr>i
+" inoremap ' ''<esc>:call BC_AddChar("\'")<cr>i
+" jump out of parenthesis
+" inoremap <c-g> <esc>:call search(BC_GetChar(), "W")<cr>a
+
+" function! BC_AddChar(schar)
+"  if exists("b:robstack")
+"  let b:robstack = b:robstack . a:schar
+"  else
+"  let b:robstack = a:schar
+"  endif
+" endfunction
+
+" function! BC_GetChar()
+"  let l:char = b:robstack[strlen(b:robstack)-1]
+"  let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
+"  return l:char
+" endfunction
+
+
+" put semicolon EOL
+" inoremap <leader>; <c-o>m`<c-o>A;<esc>``i
+nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+
+" go to name of current c function (needs '()')
+nnoremap <silent> g<c-d> j[[h^t(b
+" select all text in function
+nnoremap <leader>vf j[[V%o
+" nnoremap viB [[%v%jok$
+" nnoremap vaB [[%v%
+" " nnoremap vib [{%v%jok$
+" nnoremap vab [{%v%
+
+" Commenting blocks of code.
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType vim              let b:comment_leader = '" '
+autocmd FileType readline         let b:comment_leader = '# '
+noremap <silent> <leader>'' :<c-b> <c-e>s/^/<c-r>=escape(b:comment_leader,'\/')<cr>/<cr>:nohlsearch<cr>
+noremap <silent> <leader>"" :<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+
+
+""  Auto Header
+"""  SH Auto Header
+
+au bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
+
+"""  Auto protect c header
+if !exists("autocommands_loaded")
+	let autocommands_loaded = 1
+	au BufNewFile *.h call InsertCHHeader()
+endif
+
+function! InsertCHHeader()
+	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
+	" Save cpoptions
+	let cpoptions = &cpoptions
+	" Remove the 'a' option - prevents the name of the
+	" alternate file being overwritten with a :read command
+	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+	exe "read " . path_to_skeletons
+	" Restore cpoptions
+	exe "set cpoptions=" . cpoptions
+	1, 1 delete _
+
+	let fname = expand("%:t")
+	let fname = toupper(fname)
+	let fname = substitute(fname, "\\.", "_", "g")
+	%s/HEADERNAME/\=fname/g
+endfunction
+
+
+""  Latex Mappings
+
+augroup LatexSmith
+	autocmd! LatexSmith
+	" Navigating with guides
+" 	autocmd FileType tex silent inoremap <buffer> <space><space> <esc>/<++><cr>"_3si
+" 	autocmd FileType tex silent vnoremap <buffer> <space><space> <esc>/<++><cr>"_3si
+" 	autocmd FileType tex silent map <buffer> <space><space> <esc>/<++><cr>"_3si
+
+	" Latex snippets
+	autocmd FileType tex inoreabbrev <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><esc>6kf}i
+	autocmd FileType tex inoreabbrev <buffer> ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><esc>3kA
+	autocmd FileType tex inoreabbrev <buffer> ,exe \begin{exe}<Enter>\ex<space><Enter>\end{exe}<Enter><Enter><++><esc>3kA
+	autocmd FileType tex inoreabbrev <buffer> ,em \emph{}<++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,bf \textbf{}<++><esc>T{i
+	autocmd FileType tex vnoremap <buffer> , <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
+	autocmd FileType tex inoreabbrev <buffer> ,it \textit{}<++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,ct \textcite{}<++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,cp \parencite{}<++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,glos {\gll<space><++><space>\\<Enter><++><space>\\<Enter>\trans{``<++>''}}<esc>2k2bcw
+	autocmd FileType tex inoreabbrev <buffer> ,x \begin{xlist}<Enter>\ex<space><Enter>\end{xlist}<esc>kA<space>
+	autocmd FileType tex inoreabbrev <buffer> ,ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><esc>3kA\item<space>
+	autocmd FileType tex inoreabbrev <buffer> ,ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><esc>3kA\item<space>
+	autocmd FileType tex inoreabbrev <buffer> ,li <Enter>\item<space>
+	autocmd FileType tex inoreabbrev <buffer> ,ref \ref{}<space><++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><esc>4kA{}<esc>i
+	autocmd FileType tex inoreabbrev <buffer> ,ot \begin{tableau}<Enter>\inp{<++>}<tab>\const{<++>}<tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><esc>5kA{}<esc>i
+	autocmd FileType tex inoreabbrev <buffer> ,can \cand{}<tab><++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,con \const{}<tab><++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,v \vio{}<tab><++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,a \href{}{<++>}<space><++><esc>2T{i
+	autocmd FileType tex inoreabbrev <buffer> ,sc \textsc{}<space><++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,chap \chapter{}<Enter><Enter><++><esc>2kf}i
+	autocmd FileType tex inoreabbrev <buffer> ,sec \section{}<Enter><Enter><++><esc>2kf}i
+	autocmd FileType tex inoreabbrev <buffer> ,ssec \subsection{}<Enter><Enter><++><esc>2kf}i
+	autocmd FileType tex inoreabbrev <buffer> ,sssec \subsubsection{}<Enter><Enter><++><esc>2kf}i
+	autocmd FileType tex inoreabbrev <buffer> ,st <esc>F{i*<esc>f}i
+	autocmd FileType tex inoreabbrev <buffer> ,beg \begin{}<Enter><++><Enter>\end{}<Enter><Enter><++><esc>4k0f{a
+	autocmd FileType tex inoreabbrev <buffer> ,up <esc>/usepackage<Enter>o\usepackage{}<esc>i
+	autocmd FileType tex nnoremap <buffer> ,up /usepackage<Enter>o\usepackage{}<esc>i
+	autocmd FileType tex inoreabbrev <buffer> ,tt \texttt{}<space><++><esc>T{i
+	autocmd FileType tex inoreabbrev <buffer> ,bt {\blindtext}
+	autocmd FileType tex inoreabbrev <buffer> ,nu $\varnothing$
+	autocmd FileType tex inoreabbrev <buffer> ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<esc>5kA
+	autocmd FileType plaintex inoreabbrev <buffer> ,rn (\ref{})<++><esc>F}i
+augroup end
+
+
+""  Dotfiles settings
 """ Filetype
 au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
 
