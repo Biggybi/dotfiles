@@ -77,7 +77,7 @@ nnoremap Q <nul> "no more default ex mode
 " inoremap <c-w><c-e> <esc><silent>:write<cr>
 " nnoremap <c-w><c-e> <silent>:write<cr>
 nnoremap <c-s> :w<cr>
-inoremap <c-s> <c-o>:stopinsert<cr>:w<cr>
+inoremap <c-s> <c-o>:stopinsert<cr>:w<cr><esc>
 cmap W! %!sudo tee > /dev/null %
 
 set history=10000 " default 20
@@ -511,7 +511,7 @@ set completeopt=longest,menuone
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
 set diffopt+=vertical " vertical split for diff
-autocmd BufEnter * if ('&filetype = gitcommit') | start | endif
+autocmd FileType gitcommit start
 
 """ YouCompleteMe
 
