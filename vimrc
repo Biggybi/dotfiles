@@ -511,6 +511,7 @@ set completeopt=longest,menuone
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
 set diffopt+=vertical " vertical split for diff
+autocmd BufEnter * if ('&filetype = gitcommit') | start | endif
 
 """ YouCompleteMe
 
