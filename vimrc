@@ -1,13 +1,13 @@
-" **************************************************************************** "
-"                                                                              "
-"    vimrc                                                                     "
-"                                                |_   _|  _ __  (_)  ___       "
-"    By: tris <tristan.kapous@protonmail.com>      | |   | '__| | | / __|      "
-"                                                  | |   | |    | | \__ \      "
-"    Created: 2019/06/23 05:39:33 by tris          |_|   |_|    |_| |___/      "
-"    Updated: 2019/08/06 19:27:58 by tris                                      "
-"                                                                              "
-" **************************************************************************** "
+" ************************************************************************** "
+"                                                                            "
+"    vimrc                                                                   "
+"                                               |_   _|  _ __  (_)  ___      "
+"    By: tris <tristan.kapous@protonmail.com>     | |   | '__| | | / __|     "
+"                                                 | |   | |    | | \__ \     "
+"    Created: 2019/06/23 05:39:33 by tris         |_|   |_|    |_| |___/     "
+"    Updated: 2019/08/06 19:27:58 by tris                                    "
+"                                                                            "
+" ************************************************************************** "
 
 ""  Signature
 " """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -72,7 +72,8 @@ vnoremap : ;
 
 inoremap jk <esc>
 cmap jk <esc>
-nnoremap gI `.
+" nnoremap gI `.
+nnoremap gI gi<esc>
 nnoremap Q <nul> "no more default ex mode
 " inoremap <c-w><c-e> <esc><silent>:write<cr>
 " nnoremap <c-w><c-e> <silent>:write<cr>
@@ -1253,8 +1254,8 @@ function! VimFold()
 	let line = getline(v:foldstart)
 
 	let nucolwidth = &fdc + &number * &numberwidth
-	let windowwidth = winwidth(0) - nucolwidth - 3
-	if windowwidth > 80
+	let windowwidth = winwidth(0) - nucolwidth - 4
+	if windowwidth > 79
 		let windowwidth = 79
 	endif
 	let foldedlinecount = v:foldend - v:foldstart
