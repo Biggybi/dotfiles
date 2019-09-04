@@ -304,16 +304,24 @@ autocmd BufEnter * set tags=.git/tags
 " set tags=tags;./git/
 " set tags=./tags;
 
-autocmd FileType help,man setlocal noswapfile nobackup nobuflisted wrap nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-augroup TopManLeft
-	autocmd! TopManLeft
-" 	echo winwidth(0)
-	if (winwidth(0)) < 81
-		autocmd FileType help,man wincmd K
-	else
-		autocmd FileType help,man wincmd H
-	endif
-augroup end
+autocmd FileType help,man setlocal noswapfile nobackup nobuflisted nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+" function! HelpManTopOrLeft()
+" 	if (winwidth('%')) < 162 | wincmd K | else | wincmd H | endif
+" endfunction
+
+" function! HelpTopOrLeft()
+" 		if (winwidth('%')) < 162 | wincmd K | else | wincmd H | endif
+" endfunction
+" function! ManTopOrLeft()
+" 		if (winwidth('%')) < 162 | wincmd K | else | wincmd H | endif
+" endfunction
+
+" augroup TopManLeft
+" 	autocmd! TopManLeft
+" 	autocmd FileType man call ManTopOrLeft()
+" 	autocmd FileType help call HelpTopOrLeft()
+" augroup end
+cnoreabbrev h <c-r>=(winwidth('%') >= 162 && getcmdtype() ==# ':' && getcmdpos() == 1 ? 'vertical topleft help' : 'botright help')<cr>
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
