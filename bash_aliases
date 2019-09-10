@@ -137,6 +137,9 @@ alias fg5='fg 5'
 
 ### Maintainance
 alias apti='sudo apt install'
+aptif () {
+	sudo apt install -y $(grep -o ^[^#][[:alnum:]-]* "$1")
+}
 alias aptrm='sudo apt autoremove'
 alias aptu='sudo apt update'
 alias aptg='sudo apt upgrade'

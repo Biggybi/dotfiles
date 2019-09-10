@@ -30,7 +30,7 @@ git
 openssh-server
 
 lacheck
-pdflatex
+# pdflatex
 texlive-full
 
 gcc
