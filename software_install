@@ -1,0 +1,57 @@
+# sudo apt-get update -qq
+# sudo apt-get upgrade -y
+# sudo apt-get autoremove -y
+
+gdm3
+gnome-session
+gnome-tweaks
+dconf-editor
+gconf2
+# gnome-open
+ppa-purge
+
+xsel
+xcape
+# xmodemap
+entr
+
+vim
+vim-gtk3			#for linux clipbloard (lazy workaround)
+exuberant-ctags
+fzf
+highlight
+# adobe-source-code-pro-fonts
+
+ranger
+mutter
+mutt
+
+git
+openssh-server
+
+lacheck
+pdflatex
+texlive-full
+
+gcc
+make
+cmake
+
+build-essential
+python3-dev
+ruby
+
+autoconf
+autotools-dev
+xdotool
+ethtool			# WOL
+curl
+
+lm-sensors
+hidpi-daemon
+
+vlc
+youtube-dl
+epiphany-browser
+chrome-gnome-shell
+libinput-tools
