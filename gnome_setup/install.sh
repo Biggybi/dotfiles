@@ -29,18 +29,44 @@ sudo apt-get update -qq
 sudo apt-get upgrade -y
 sudo apt-get autoremove -y
 
+sudo apt-get install -yy gdm3
+sudo apt-get install -yy gnome-session
+sudo apt-get install -yy gnome-tweaks
+sudo apt-get install -yy dconf-editor
+sudo apt-get install -yy gconf2
+# sudo apt-get install -yy gnome-open
+sudo apt-get install -yy ppa-purge
+
+sudo apt-get install -yy xsel
+sudo apt-get install -yy xcape
+# sudo apt-get install -yy xmodemap
+sudo apt-get install -yy entr
+
 sudo apt-get install -yy vim
 sudo apt-get install -yy vim-gtk3			#for linux clipbloard (lazy workaround)
+sudo apt-get install -yy exuberant-ctags
 sudo apt-get install -yy fzf
-sudo apt-get install -yy git
 sudo apt-get install -yy highlight
+# sudo apt-get install -yy adobe-source-code-pro-fonts
+
+sudo apt-get install -yy ranger
+sudo apt-get install -yy mutter
+sudo apt-get install -yy mutt
+
+sudo apt-get install -yy git
+sudo apt-get install -yy openssh-server
+
+sudo apt-get install -yy lacheck
+# sudo apt-get install -yy pdflatex
+sudo apt-get install -yy texlive-full
 
 sudo apt-get install -yy gcc
 sudo apt-get install -yy make
 sudo apt-get install -yy cmake
-sudo apt-get install -yy openssh-server
+
 sudo apt-get install -yy build-essential
 sudo apt-get install -yy python3-dev
+sudo apt-get install -yy ruby
 
 sudo apt-get install -yy autoconf
 sudo apt-get install -yy autotools-dev
@@ -48,22 +74,14 @@ sudo apt-get install -yy xdotool
 sudo apt-get install -yy ethtool			# WOL
 sudo apt-get install -yy curl
 
-sudo apt-get install -yy gnome-session
-sudo apt-get install -yy gnome-tweaks
-sudo apt-get install -yy dconf-editor
-sudo apt-get install -yy gconf2
-
-sudo apt-get install -yy chrome-gnome-shell
-sudo apt-get install -yy ppa-purge
-sudo apt-get install -yy libinput-tools
-
 sudo apt-get install -yy lm-sensors
-sudo apt-get install -yy xsel
 sudo apt-get install -yy hidpi-daemon
 
 sudo apt-get install -yy vlc
 sudo apt-get install -yy youtube-dl
 sudo apt-get install -yy epiphany-browser
+sudo apt-get install -yy chrome-gnome-shell
+sudo apt-get install -yy libinput-tools
 
 sudo snap install slack
 
@@ -78,7 +96,6 @@ sudo sed -i s/Prompt=normal/Prompt=never/ /etc/update-manager/release-upgrades
 # gsettings set com.ubuntu.update-notifier release-check-time 1557449824
 
 #gdm3
-sudo apt-get install -yy gdm3
 sudo cp themes/gdm3.css /usr/share/gnome-shell/theme/gdm3.css
 sudo update-alternatives --config gdm3.css
 
@@ -96,7 +113,6 @@ sudo cp -r themes/Materia-light /usr/share/gnome-shell/themes
 #mkdir $HOME/Wallpapers
 
 #fusuma
-sudo apt-get install -yy ruby
 sudo gpasswd -a $USER input
 #sudo snap install --classic ruby
 sudo gem install fusuma
