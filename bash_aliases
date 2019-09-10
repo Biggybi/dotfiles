@@ -12,6 +12,9 @@ then
 	alias ls='ls -h'
 fi
 
+#caps2escape
+alias c2e='caps2esc'
+
 ## 42 piscine
 newday () {
 	if [ $1 != '.' ] | [ $# == 1 ]
@@ -98,9 +101,10 @@ alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
 # alias o='xdg-open '
-o () {
+open () {
 	xdg-open $1 &
 }
+alias o=open
 alias fzf='fzf --color="dark" --tabstop=4'
 # alias fd='fd ~'
 alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
@@ -247,7 +251,7 @@ ef () {
 	P=$(fzf --height=10)
 	[ "$P" != "" ] && $EDITOR $P
 }
-alias f='ef $HOME'
+# alias f='ef $HOME'
 
 # fd - cd to selected directory
 # fd () {

@@ -186,7 +186,7 @@ color_ps1 () {
 	fi
 	PS1="$USER  $SEP  $HOST  $DIR  $BRANCH $PROMPT"
 }
-color_ps1
+# color_ps1
 
 # Title if xterm
 case "$TERM" in
@@ -196,6 +196,7 @@ case "$TERM" in
 	*)
 		;;
 esac
+color_ps1
 
 ## Terminal login banner message
 # linuxlogo -L 27
