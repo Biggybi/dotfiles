@@ -6,7 +6,8 @@
 " =============================================================================
 let s:base03 = [ '#242424', 235 ]
 let s:base023 = [ '#353535 ', 236 ]
-let s:base02 = [ '#444444 ', 238 ]
+" let s:base02 = [ '#444444 ', 238 ]
+let s:base02 = [ '#383838', 238 ]
 let s:base01 = [ '#585858', 240 ]
 let s:base00 = [ '#666666', 242  ]
 let s:base0 = [ '#808080', 244 ]
@@ -17,9 +18,11 @@ let s:yellow = [ '#cae682', 180 ]
 let s:orange = [ '#e5786d', 173 ]
 let s:red = [ '#e5786d', 203 ]
 let s:magenta = [ '#f2c68a', 216 ]
-let s:blue = [ '#8ac6f2', 117 ]
+" let s:blue = [ '#8ac6f2', 117 ]
+let s:blue = [ '#56b6c2', 117 ]
 let s:cyan = s:blue
-let s:green = [ '#95e454', 119 ]
+" let s:green = [ '#95e454', 119 ]
+let s:green = [ '#98c379', 119 ]
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 let s:p.normal.left = [ [ s:base02, s:blue ], [ s:base3, s:base01 ] ]
 let s:p.normal.right = [ [ s:base02, s:base0 ], [ s:base1, s:base01 ] ]
