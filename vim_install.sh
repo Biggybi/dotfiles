@@ -3,7 +3,6 @@
 INSTALLDIR=/usr/share/vim/vim81
 VIMSOURCE=$HOME/dotfiles/programs/vim
 PYTHONCONF=/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu
-cd ~
 [ -d $VIMSOURCE ] || git clone https://github.com/vim/vim.git $VIMSOURCE
 cd $VIMSOURCE
 
@@ -14,6 +13,8 @@ cd $VIMSOURCE
 	--with-python3-config-dir=/usr/lib/python3.5/config \
 	--enable-perlinterp=yes \
 	--enable-cscope \
+	--enable-gui \
+	--with-x \
 	--prefix=/usr/local
 
 make VIMRUNTIMEDIR=$INSTALLDIR
