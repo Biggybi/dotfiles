@@ -385,9 +385,9 @@ autocmd BufEnter * set tags=.git/tags
 " set tags=./tags;
 
 autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-autocmd FileType help wincmd H | 78 wincmd|
+autocmd FileType help wincmd H | 79 wincmd|
 autocmd FileType man wincmd H
-autocmd BufEnter *.txt if (&filetype == 'help') | 78 wincmd| | endif
+autocmd BufEnter *.txt if (&filetype == 'help') | 79 wincmd| | endif
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
