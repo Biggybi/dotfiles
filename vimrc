@@ -1003,10 +1003,11 @@ nnoremap dh d^
 nnoremap yh y^
 
 " Copy/paste text to/from the system clipboard.
-nnoremap <leader>p mp"*]p==`p
-nnoremap <leader>P mp"*]P==`p
-nnoremap <leader>y "*y
-nnoremap <leader>Y "*y$
+set clipboard=unnamed
+nnoremap <leader>p mp"+]p==`p
+nnoremap <leader>P mp"+]P==`p
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+y$
 " nnoremap <leader>p V !xsel -o
 " nnoremap <leader>P 
 " nnoremap <leader>y !xsel -b<cr>

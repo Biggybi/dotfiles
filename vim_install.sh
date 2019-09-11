@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INSTALLDIR=/usr/share/vim/vim81
+INSTALLDIR=/usr/local/share/vim/vim81
 VIMSOURCE=$HOME/dotfiles/programs/vim
 PYTHONCONF=/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu
 [ -d $VIMSOURCE ] || git clone https://github.com/vim/vim.git $VIMSOURCE
