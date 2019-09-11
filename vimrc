@@ -481,6 +481,7 @@ set completeopt=longest,menuone
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
 set diffopt+=vertical " vertical split for diff
 autocmd FileType gitcommit start
+autocmd FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
 
 """ YouCompleteMe
 
