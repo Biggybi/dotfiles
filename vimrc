@@ -497,20 +497,27 @@ let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']	" next
 let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']	" previous
 let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
 let g:ycm_filetype_blacklist = {
-      \ 'tagbar': 1,
-      \ 'notes': 1,
-      \ 'markdown': 1,
-      \ 'netrw': 1,
-      \ 'unite': 1,
-      \ 'text': 1,
-      \ 'vimwiki': 1,
-      \ 'pandoc': 1,
-      \ 'infolog': 1,
-      \ 'mail': 1,
-	  \ 'qf': 1,
-	  \ 'fugitive': 1,
-	  \ 'help': 1
-      \}
+			\ 'tagbar': 1,
+			\ 'notes': 1,
+			\ 'markdown': 1,
+			\ 'netrw': 1,
+			\ 'unite': 1,
+			\ 'text': 1,
+			\ 'vimwiki': 1,
+			\ 'pandoc': 1,
+			\ 'infolog': 1,
+			\ 'mail': 1,
+			\ 'qf': 1,
+			\ 'fugitive': 1,
+			\ 'gitcommit': 1,
+			\ 'help': 1,
+			\ 'tags': 1
+			\}
+
+let g:ycm_filetype_specific_completion_to_disable = {
+			\ 'fugitive': 1,
+			\ 'gitcommit': 1
+			\}
 
 " let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
 
