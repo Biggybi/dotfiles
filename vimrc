@@ -404,7 +404,8 @@ set keywordprg=:Man
 " set path+=**			" recursive path from current path
 " set incsearch
 set wildchar=<tab>
-set wildmode=full
+set wildmenu wildmode=longest:full,full
+" set wildmode=full
 " set wildmode=longest:full:list,full
 
 
