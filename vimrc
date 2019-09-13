@@ -278,9 +278,12 @@ nnoremap <leader><c-b> :vertical sbuffer<space>
 nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
 
+augroup myterm | au!
+au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
+augroup end
+
 let g:term_buf = 0
 let g:term_win = 0
-
 function! Term_toggle(height)
 	if win_gotoid(g:term_win)
 		let g:term_win = 0
