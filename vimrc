@@ -1243,6 +1243,11 @@ function! VimFold()
 endfunction
 set modelineexpr
 
+""" Vimrc mappings
+augroup VimrcMaps
+	autocmd! VimrcMaps
+	autocmd FileType vim nnoremap <silent> <buffer> zm zM100<c-y>
+augroup end
 """ Vimrc modeline
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
