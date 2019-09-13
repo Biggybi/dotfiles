@@ -1068,12 +1068,12 @@ cnoremap <c-o> <s-tab>
 
 augroup Cmaps
 	autocmd! Cmaps
-	autocmd FileType c inoreabbrev <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
-	autocmd FileType c inoreabbrev <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoreabbrev <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoreabbrev <buffer> ,imin -2147483648
-	autocmd FileType c inoreabbrev <buffer> ,imax 2147483647
-	autocmd FileType c inoreabbrev <buffer> ,endl ft_putendl("");<left><left><left>
+	autocmd FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
+	autocmd FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoremap <buffer> ,imin -2147483648
+	autocmd FileType c inoremap <buffer> ,imax 2147483647
+	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
 
 	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 
