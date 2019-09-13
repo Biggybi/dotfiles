@@ -979,7 +979,11 @@ nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 ""  Mappings
 
 " Word count
-nnoremap <leader>w :w !detex \| wc -w<cr>
+function! WC()
+    echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+endfunction
+nnoremap <leader>wc :call WC()<cr>
+" nnoremap <leader>w :w !detex \| wc -w<cr>
 
 " <c-z> in insert mode
 inoremap <c-z> <c-[><c-z>
