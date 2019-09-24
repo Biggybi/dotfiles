@@ -166,25 +166,26 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 git_branch() {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' -e 's/(//;s/)//'
+	git symbolic-ref --short HEAD 2> /dev/null
 }
 
 # Prompt PS1
-color_ps1 () {
-	local USER="\[\e[01;36;100m\]  \u"
-	local SEP="\[\e[01;37;100m\]┃"
+color_ps1() {
+	local START="\[\e[01;32m\]╭─ "
+	local USER="\[\e[01;33;100m\]  \u"
+	local SEP="\[\e[01;39;100m\]∴"
 	local HOST="\[\e[01;94;100m\]\h"
 	local DIR="\[\e[00;01;91m\]  \w"
-	local BRANCH="\033[01;92m\]\$(git_branch %s)"
-# 	local BRANCH="\033[01;92m\]\$(__git_ps1 %s)"
+	local BRANCH="\033[01;35m\]\$(git_branch %s)"
 	local PROMPT="\n \[\e[0m\]"
 	if [ -n "$SSH_CLIENT" ] ; then						# for ssh
 		local SEP="\[\e[01;93;100m\]|"					# yellow sep
 	fi
 	if [ "$(id -u)" = 0 ] ; then						# for root
 		local SEP="\[\e[01;31;100m\]|"					# red sep
+	local START="\[\e[01;31;100m\]╭─ "
 	fi
-	PS1="$USER  $SEP  $HOST  $DIR  $BRANCH $PROMPT"
+	PS1="$START $USER $SEP $HOST  $DIR  $BRANCH $PROMPT"
 }
 # color_ps1
 
