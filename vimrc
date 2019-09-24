@@ -36,9 +36,9 @@ execute pathogen#infect()
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:w<cr>:echo "vimrc sourced"<cr>
-nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>:w<cr>
-nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:YcmRestartServer<cr>:redraw<cr>:w<cr>:echo "all fresh"<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>:echo "vimrc sourced"<cr>:w<cr>call lightline#enable()<cr>
+nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>
+nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:YcmRestartServer<cr>:redraw<cr>:echo "all fresh"<cr>
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
@@ -115,14 +115,14 @@ set suffixesadd=.tex,.latex,.java,.c,.h,.js
 
 " gnome adaptive cursor shape
 " if has("autocmd")
-"   au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
-"   au InsertEnter,InsertChange *
+"   atocmdu VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+"   autocmd InsertEnter,InsertChange *
 "     \ if v:insertmode == 'i' |
 "     \   silent execute '!echo -ne "\e[6 q"' | redraw! |
 "     \ elseif v:insertmode == 'r' |
 "     \   silent execute '!echo -ne "\e[4 q"' | redraw! |
 "     \ endif
-"   au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+"   autocmd VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 " endif
 
 
@@ -172,8 +172,8 @@ set wrap					" no horizontal scroll
 set breakindent				" with indent
 set showbreak=\ \ ¬			" ... showing a character
 
-set sidescrolloff=3			" horizontal cursor max value
-let &scrolloff=winheight(win_getid())/10 " minumum lines before/after cursor
+set sidescrolloff=5			" horizontal cursor max value
+let &scrolloff=winheight(win_getid())/10 + 1 " minumum lines before/after cursor
 
 " toggle always in middle with zz
 nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
@@ -235,8 +235,8 @@ nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 " code
 set encoding=utf8
-let base16colorspace=256  " access colors present in 256 colorspace"
-set t_Co=256 " explicitly tell vim that the terminal supports 256 colors"
+let base16colorspace=256	" access colors present in 256 colorspace"
+set t_Co=256	" explicitly tell vim that the terminal supports 256 colors"
 
 
 ""  Highlights / Match
@@ -266,11 +266,38 @@ endif
 
 set mat=2 " how many tenths of a second to blink
 
+" " Highlight 'f' searchers
+" function! HighlightFSearches(cmd)
+"   " Get extra character for the command.
+"   let char = nr2char(getchar())
+"   if char ==# ''
+"     " Skip special keys: arrows, backspace...
+"     return ''
+"   endif
+"   " Highlight 'char' on the current line.
+"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
+"   execute match_str
+"   " Finally, execute the original command with char appended to it
+"   return a:cmd.char
+" endfunction
+
+" " highlight searches using 'f'
+" nnoremap <expr> f HighlightFSearches('f')
+" nnoremap f<bs> <nop>
+" vnoremap <expr> f HighlightFSearches('f')
+" vnoremap f<bs> <nop>
+
+" " highlight searches using 'F'
+" nnoremap <expr> F HighlightFSearches('F')
+" nnoremap F<bs> <nop>
+" vnoremap <expr> F HighlightFSearches('F')
+" vnoremap F<bs> <nop>
+
 ""  Window behaviour
 
 " open buffer with partial search
-nnoremap <leader>b :buffer<space>
-nnoremap <leader>B :sbuffer<space>
+nnoremap <leader>b :sbuffer<space>
+nnoremap <leader>B :buffer<space>
 nnoremap <leader><c-b> :vertical sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
@@ -279,7 +306,7 @@ nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
 
 augroup myterm | au!
-au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
+	autocmd TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
 augroup end
 
 let g:term_buf = 0
@@ -302,6 +329,10 @@ endfunction
 
 nnoremap <leader>T :call Term_toggle(10)<cr>
 tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
+" tnoremap <a-h> <c-\><c-n><c-w>h
+" tnoremap <a-j> <c-\><c-n><c-w>j
+" tnoremap <a-k> <c-\><c-n><c-w>k
+" tnoremap <a-l> <c-\><c-n><c-w>l
 
 " move between windows with ctrl
 " nnoremap <c-h> :wincmd h<cr>
@@ -365,12 +396,12 @@ autocmd BufReadPost *
 			\ endif
 
 " filetype recognition
-au FileType c setlocal ofu=ccomplete#CompleteCpp
-au FileType css setlocal ofu=csscomplete#CompleteCSS
-au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-au FileType php setlocal ofu=phpcomplete#CompletePHP
-au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+autocmd FileType c setlocal ofu=ccomplete#CompleteCpp
+autocmd FileType css setlocal ofu=csscomplete#CompleteCSS
+autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
+autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
+autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " refresh filetype upon writing
 autocmd BufWritePost * filetype detect
@@ -382,8 +413,8 @@ autocmd BufEnter * set tags=.git/tags
 " autocmd Filetype html,c,cpp,java setlocal winwidth=86
 
 " autoreload tags file on save
-" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
-" au BufWritePost *.cpp silent! !ctags -R &
+" autocmd BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+" autocmd BufWritePost *.cpp silent! !ctags -R &
 " set tags=tags;./git/
 " set tags=./tags;
 
@@ -495,6 +526,7 @@ nnoremap <silent> <leader>gt :YcmCompleter GoTo<cr>
 nnoremap <silent> <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nnoremap <silent> <leader>ga :YcmCompleter GoToDeclaration<cr>
 nnoremap <silent> <leader>gf :YcmCompleter GoToInclude<cr>
+nnoremap <silent> <leader>gif k][%k0t(B
 
 let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
 let g:ycm_key_list_stop_completion = [ '<c-y>', '<Enter>' ] " pick with Enter
@@ -732,14 +764,14 @@ augroup end
 ""  Quickfix
 
 augroup ft_quickfix
-	au!
-	au Filetype qf setlocal colorcolumn=0 nolist nocursorline tw=0
+	autocmd!
+	autocmd Filetype qf setlocal colorcolumn=0 nolist nocursorline tw=0
 
 	" vimscript is a joke
-	au Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+	autocmd Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
 augroup end
 
-au FileType qf call AdjustWindowHeight(1, 5)
+autocmd FileType qf call AdjustWindowHeight(1, 5)
 function! AdjustWindowHeight(minheight, maxheight)
 	let l = 1
 	let n_lines = 0
@@ -1078,6 +1110,8 @@ augroup Cmaps
 	autocmd FileType c inoremap <buffer> ,imin -2147483648
 	autocmd FileType c inoremap <buffer> ,imax 2147483647
 	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
+	autocmd FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
+	autocmd FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
 
 	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 
@@ -1127,12 +1161,12 @@ nnoremap <leader>vf j[[V%o
 ""  Auto Header
 """  SH Auto Header
 
-au bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
+autocmd bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
 
 """  Auto protect c header
 if !exists("autocommands_loaded")
 	let autocommands_loaded = 1
-	au BufNewFile *.h call InsertCHHeader()
+	autocmd BufNewFile *.h call InsertCHHeader()
 endif
 
 function! InsertCHHeader()
@@ -1208,7 +1242,7 @@ augroup end
 
 ""  Dotfiles settings
 """ Filetype
-au BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
+autocmd BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
 
 augroup suffixes
     autocmd!
