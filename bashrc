@@ -171,19 +171,19 @@ git_branch() {
 
 # Prompt PS1
 color_ps1() {
-	local START="\[\e[01;32m\]╭─ "
-	local USER="\[\e[01;33;100m\]  \u"
-	local SEP="\[\e[01;39;100m\]∴"
-	local HOST="\[\e[01;94;100m\]\h"
-	local DIR="\[\e[00;01;91m\]  \w"
-	local BRANCH="\033[01;35m\]\$(git_branch %s)"
+	local START="\[\e[01;92m\]╭─ "
+	local USER="\[\e[01;93;100m\]  \u"
+	local SEP="\[\e[01;37;100m\]  ⃒"
+	local HOST="\[\e[01;92;100m\]\h"
+	local DIR="\[\e[00;01;95m\]  \w"
+	local BRANCH="\033[01;94m\]\$(git_branch %s)"
 	local PROMPT="\n \[\e[0m\]"
 	if [ -n "$SSH_CLIENT" ] ; then						# for ssh
 		local SEP="\[\e[01;93;100m\]|"					# yellow sep
 	fi
 	if [ "$(id -u)" = 0 ] ; then						# for root
-		local SEP="\[\e[01;31;100m\]|"					# red sep
-	local START="\[\e[01;31;100m\]╭─ "
+		# local SEP="\[\e[01;31;100m\]|"					# red sep
+		local USER="\[\e[01;91;100m\]  \u"
 	fi
 	PS1="$START $USER $SEP $HOST  $DIR  $BRANCH $PROMPT"
 }
