@@ -183,7 +183,7 @@ color_ps1() {
 	fi
 	if [ "$(id -u)" = 0 ] ; then						# for root
 		# local SEP="\[\e[01;31;100m\]|"					# red sep
-		local USER="\[\e[01;91;100m\]  \u"
+		local USER="\[\e[01;33;100m\]  \u"
 	fi
 	PS1="$START $USER $SEP $HOST  $DIR  $BRANCH $PROMPT"
 }
