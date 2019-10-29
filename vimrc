@@ -301,9 +301,9 @@ set mat=2 " how many tenths of a second to blink
 ""  Window behaviour
 
 " open buffer with partial search
-nnoremap <leader>b :sbuffer<space>
+nnoremap <leader>b :vertical sbuffer<space>
 nnoremap <leader>B :buffer<space>
-nnoremap <leader><c-b> :vertical sbuffer<space>
+nnoremap <leader><c-b> :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
 "go to next / previous buffer
