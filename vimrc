@@ -73,7 +73,7 @@ vnoremap : ;
 inoremap jk <esc>
 cnoremap jk <esc>
 " nnoremap gI `.
-nnoremap gI gi<esc>
+nnoremap gI `.gi<esc>
 nnoremap Q <nul> "no more default ex mode
 " inoremap <c-w><c-e> <esc><silent>:write<cr>
 " nnoremap <c-w><c-e> <silent>:write<cr>
