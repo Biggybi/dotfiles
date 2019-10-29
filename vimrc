@@ -89,6 +89,11 @@ set backspace=indent,eol,start
 " faster redrawing
 set ttyfast
 
+" restore undo history
+if exists('+undofile')
+  set undofile
+endif
+
 " Backup files dir
 set backupskip=/tmp/*,/private/tmp/*"		" vim can edit crontab
 set backupdir=$HOME/.vim/backup//
