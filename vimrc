@@ -36,7 +36,7 @@ execute pathogen#infect()
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:echo "vimrc sourced"<cr>:w<cr>call lightline#enable()<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>:w<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
 nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>
 nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:YcmRestartServer<cr>:redraw<cr>:echo "all fresh"<cr>
 
