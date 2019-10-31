@@ -282,3 +282,6 @@ alias ex='return && echo end'
 # firefox
 alias ffn='firefox -new-window '
 alias fyt='firefox -new-window youtube.co'
+change_shell() {
+	chsh -s $(which $1)
+}
