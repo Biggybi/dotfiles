@@ -348,8 +348,8 @@ tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
 
 " Note: does not work anymore?
 " resize windows quicker
-" nnoremap <c-w><c-.> :vertical resize +10<cr>
-" nnoremap <c-w><c-,> :vertical resize -10<cr>
+nnoremap <leader>= :exe "vertical resize +10"<cr>
+nnoremap <leader>- :exe "vertical resize -10"<cr>
 " nnoremap <c-w><c-=> :resize +10<cr>
 " nnoremap <c-w><c--> :resize -10<cr>
 
@@ -1056,11 +1056,13 @@ nnoremap dh d^
 nnoremap yh y^
 
 " Copy/paste text to/from the system clipboard.
-set clipboard=unnamed
+" set clipboard=unnamed
+
 nnoremap <leader>p mp"+]p==`p
 nnoremap <leader>P mp"+]P==`p
 nnoremap <leader>y "+y
 nnoremap <leader>yl "+y$
+vnoremap <leader>y "+y
 
 " nnoremap <leader>p V !xsel -o
 " nnoremap <leader>P 
