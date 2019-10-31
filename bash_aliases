@@ -248,7 +248,7 @@ alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec b
 
 ## FZF functions
 
-ef () {
+ef() {
 	# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	cd "$1"
 	P=$(fzf --height=10)
