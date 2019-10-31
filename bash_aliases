@@ -3,6 +3,8 @@ ALIAS_101_LFT=$HOME/101/libft
 
 shopt -s expand_aliases
 
+alias s='sudo'
+
 ## color
 alias ls='ls -h --group-directories-first --color=auto'
 alias dir='dir --color=auto'
