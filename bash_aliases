@@ -89,6 +89,8 @@ alias sobash='. $HOME/.bashrc'
 alias somacbash='. $HOME/.bash_profile'
 alias socolor='eval "$(dircolors $HOME/.dircolors)"'
 alias soalias='. $HOME/.bash_aliases'
+alias soinputrc='bind -f ~/.inputrc'
+alias soall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
 
 alias dot='cd $HOME/dotfiles'
 alias dots='git -C $HOME/dotfiles status'
