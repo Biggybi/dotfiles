@@ -1100,6 +1100,7 @@ cnoremap <c-l> <S-Right>
 cnoremap <c-h> <S-Left>
 cnoremap <c-x> <Del>
 cnoremap <c-o> <s-tab>
+cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
