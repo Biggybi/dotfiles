@@ -12,6 +12,9 @@ then
 	alias ls='ls -h'
 fi
 
+# clear
+alias c='clear'
+
 #caps2escape
 alias c2e='caps2esc'
 alias cc='c2e 2&> /dev/null ; clear'
