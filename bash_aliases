@@ -5,7 +5,7 @@ shopt -s expand_aliases
 
 ## color
 alias ls='ls -h --group-directories-first --color=auto'
-alias dir='dir -color=auto'
+alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 if [[ "$OSTYPE" == "darwin"* ]]
 then
