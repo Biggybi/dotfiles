@@ -70,6 +70,16 @@ alias histoff='set +o history'
 alias dnd='daynight d && source $HOME/.bashrc'
 alias dnn='daynight n && source $HOME/.bashrc'
 
+# terminal_profile_switch () {
+#       xdotool --clearmodifiers key Shift+F10 r $1
+# }
+
+terminal_profile_switch () {
+	xdotool key --delay 50 Menu r $1
+}
+
+alias chp='terminal_profile_switch'
+
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
