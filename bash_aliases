@@ -271,7 +271,7 @@ fd() {
 }
 
 
-get_hidden_mail_adress () {
+get_hidden_mail_adress() {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
 }
 
