@@ -1073,7 +1073,6 @@ vnoremap <leader>y "+y
 
 " vnoremap <leader>p mp"*]p==`p
 " vnoremap <leader>P mp"*]P==`p
-vnoremap <leader>y "*y
 " vnoremap <leader>Y "*yy
 
 nnoremap H ^
