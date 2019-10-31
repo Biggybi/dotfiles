@@ -36,7 +36,7 @@ execute pathogen#infect()
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:echo "vimrc sourced"<cr>:w<cr>call lightline#enable()<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>:w<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
 nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>
 nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:YcmRestartServer<cr>:redraw<cr>:echo "all fresh"<cr>
 
@@ -73,7 +73,7 @@ vnoremap : ;
 inoremap jk <esc>
 cnoremap jk <esc>
 " nnoremap gI `.
-nnoremap gI gi<esc>
+nnoremap gI `.gi<esc>
 nnoremap Q <nul> "no more default ex mode
 " inoremap <c-w><c-e> <esc><silent>:write<cr>
 " nnoremap <c-w><c-e> <silent>:write<cr>
@@ -88,6 +88,11 @@ set backspace=indent,eol,start
 
 " faster redrawing
 set ttyfast
+
+" restore undo history
+if exists('+undofile')
+  set undofile
+endif
 
 " Backup files dir
 set backupskip=/tmp/*,/private/tmp/*		" vim can edit crontab
@@ -296,9 +301,9 @@ set mat=2 " how many tenths of a second to blink
 ""  Window behaviour
 
 " open buffer with partial search
-nnoremap <leader>b :sbuffer<space>
+nnoremap <leader>b :vertical sbuffer<space>
 nnoremap <leader>B :buffer<space>
-nnoremap <leader><c-b> :vertical sbuffer<space>
+nnoremap <leader><c-b> :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
 "go to next / previous buffer
@@ -343,8 +348,8 @@ tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
 
 " Note: does not work anymore?
 " resize windows quicker
-" nnoremap <c-w><c-.> :vertical resize +10<cr>
-" nnoremap <c-w><c-,> :vertical resize -10<cr>
+nnoremap <leader>= :exe "vertical resize +10"<cr>
+nnoremap <leader>- :exe "vertical resize -10"<cr>
 " nnoremap <c-w><c-=> :resize +10<cr>
 " nnoremap <c-w><c--> :resize -10<cr>
 
@@ -1051,11 +1056,13 @@ nnoremap dh d^
 nnoremap yh y^
 
 " Copy/paste text to/from the system clipboard.
-set clipboard=unnamed
+" set clipboard=unnamed
+
 nnoremap <leader>p mp"+]p==`p
 nnoremap <leader>P mp"+]P==`p
 nnoremap <leader>y "+y
 nnoremap <leader>yl "+y$
+vnoremap <leader>y "+y
 
 " nnoremap <leader>p V !xsel -o
 " nnoremap <leader>P 
@@ -1066,7 +1073,6 @@ nnoremap <leader>yl "+y$
 
 " vnoremap <leader>p mp"*]p==`p
 " vnoremap <leader>P mp"*]P==`p
-vnoremap <leader>y "*y
 " vnoremap <leader>Y "*yy
 
 nnoremap H ^
@@ -1094,6 +1100,7 @@ cnoremap <c-l> <S-Right>
 cnoremap <c-h> <S-Left>
 cnoremap <c-x> <Del>
 cnoremap <c-o> <s-tab>
+cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>

@@ -3,17 +3,23 @@ ALIAS_101_LFT=$HOME/101/libft
 
 shopt -s expand_aliases
 
+alias s='sudo'
+
 ## color
 alias ls='ls -h --group-directories-first --color=auto'
-alias dir='dir -color=auto'
+alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	alias ls='ls -h'
 fi
 
+# clear
+alias c='clear'
+
 #caps2escape
 alias c2e='caps2esc'
+alias cc='c2e 2&> /dev/null ; clear'
 
 ## 42 piscine
 newday () {
@@ -70,10 +76,25 @@ alias histoff='set +o history'
 alias dnd='daynight d && source $HOME/.bashrc'
 alias dnn='daynight n && source $HOME/.bashrc'
 
+# terminal_profile_switch () {
+#       xdotool --clearmodifiers key Shift+F10 r $1
+# }
+
+terminal_profile_switch () {
+	xdotool key --delay 50 Menu r $1
+}
+
+alias chp='terminal_profile_switch'
+
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
+
+pluginstall () {
+	cd $HOME/dotfiles/vim/bundle/
+	git clone $1
+}
 
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
 alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
@@ -89,6 +110,8 @@ alias sobash='. $HOME/.bashrc'
 alias somacbash='. $HOME/.bash_profile'
 alias socolor='eval "$(dircolors $HOME/.dircolors)"'
 alias soalias='. $HOME/.bash_aliases'
+alias soinputrc='bind -f ~/.inputrc'
+alias soall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
 
 alias dot='cd $HOME/dotfiles'
 alias dots='git -C $HOME/dotfiles status'
@@ -145,7 +168,7 @@ alias aptu='sudo apt update'
 alias aptg='sudo apt upgrade'
 alias aptd='sudo apt dist-upgrade'
 alias apts='apt search'
-alias uuu='aptu && aptd && aptg'
+alias uuu='aptu && aptg'
 alias uu='aptu && aptg'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
@@ -248,7 +271,7 @@ alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec b
 
 ## FZF functions
 
-ef () {
+ef() {
 	# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	cd "$1"
 	P=$(fzf --height=10)
@@ -263,7 +286,7 @@ ef () {
 # 		-o -type d -print 2> /dev/null | fzf +m) &&
 # 		cd "$dir"
 # }
-fd () {
+fd() {
 	local dir
 	dir=$(find ${1:-~} -path '*/\.*' -prune \
 		-o -type d -print 2> /dev/null | fzf +m) &&
@@ -271,7 +294,7 @@ fd () {
 }
 
 
-get_hidden_mail_adress () {
+get_hidden_mail_adress() {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
 }
 
@@ -282,3 +305,6 @@ alias ex='return && echo end'
 # firefox
 alias ffn='firefox -new-window '
 alias fyt='firefox -new-window youtube.co'
+change_shell() {
+	chsh -s $(which $1)
+}
