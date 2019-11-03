@@ -75,7 +75,7 @@ shopt -s cmdhist					# Combine multiline commands into one
 shopt -s histappend					# append to the history file (no overwrite)
 shopt -s histverify					# show hist cmd (from !) without executing
 HISTSIZE= HISTFILESIZE= #			# infinite history
-HISTIGNORE="&:ls:bg:fg:exit"		# ignore some commands
+HISTIGNORE="&:ls:bg:fg:exit:clear"		# ignore some commands
 HISTCONTROL=ignoreboth				# duplicates and whitespace
 # HISTCONTROL=ignorespace			# starting with whitespace
 # HISTCONTROL=ignoredups			# duplicates
@@ -171,12 +171,12 @@ git_branch() {
 
 # Prompt PS1
 color_ps1() {
-	local START="\[\e[01;92m\]╭─ "
+	local START="\[\e[01;92m\]╭─"
 	local USER="\[\e[01;93;100m\]  \u"
 	local SEP="\[\e[01;37;100m\]  ⃒"
 	local HOST="\[\e[01;92;100m\]\h"
-	local DIR="\[\e[00;01;95m\]  \w"
-	local BRANCH="\033[01;94m\]\$(git_branch %s)"
+	local DIR="\[\e[00;01;94m\]  \w"
+	local BRANCH="\033[01;95m\]\$(git_branch %s)"
 	local PROMPT="\n \[\e[0m\]"
 	if [ -n "$SSH_CLIENT" ] ; then						# for ssh
 		local SEP="\[\e[01;93;100m\]|"					# yellow sep
