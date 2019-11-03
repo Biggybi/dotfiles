@@ -279,7 +279,7 @@ augroup end
 
 " color column 81 for code
 if exists('+colorcolumn')
- 	autocmd Filetype c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
+ 	autocmd FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
 endif
 
 set mat=2 " how many tenths of a second to blink
