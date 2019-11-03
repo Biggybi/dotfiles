@@ -783,10 +783,10 @@ augroup end
 
 augroup ft_quickfix
 	autocmd!
-	autocmd Filetype qf setlocal colorcolumn=0 nolist nocursorline tw=0
+	autocmd FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0
 
 	" vimscript is a joke
-	autocmd Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+	autocmd FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
 augroup end
 
 autocmd FileType qf call AdjustWindowHeight(1, 5)
