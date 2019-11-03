@@ -365,6 +365,8 @@ nnoremap <leader>= :exe "vertical resize +10"<cr>
 nnoremap <leader>- :exe "vertical resize -10"<cr>
 " nnoremap <c-w><c-=> :resize +10<cr>
 " nnoremap <c-w><c--> :resize -10<cr>
+nnoremap <leader>> :exe "vertical resize +10"<CR>:echo "width -"<cr>
+nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
 
 " new file in vertical split instead of horizontal
 nnoremap <c-w><c-n> :vertical new<cr>
