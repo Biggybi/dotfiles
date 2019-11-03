@@ -1221,7 +1221,7 @@ augroup LatexSmith
 	autocmd FileType plaintex,tex silent vnoremap <buffer> ,, <esc>/<++><cr>"_4s
 	autocmd FileType plaintex,tex silent map <buffer> ,, <esc>/<++><cr>"_4s
 
-	autocmd Filetype plaintex,tex silent nnoremap <buffer> \ll :LLPStartPreview
+	autocmd FileType plaintex,tex silent nnoremap <buffer> <leader>ll :LLPStartPreview
 
 	" Latex snippets
 	autocmd FileType plaintex,tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><esc>6kf}i
