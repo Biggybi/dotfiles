@@ -1172,7 +1172,7 @@ augroup end
 " autocmd FileType mail             let b:com_size = '2' | let b:com = '> '
 " autocmd FileType vim              let b:com_size = '2' | let b:com = '" '
 " autocmd FileType readline         let b:com_size = '2' | let b:com = '# '
- 
+
 " nnoremap <silent> <leader>'' m'V:norm i<c-r>=expand(b:com)<cr><cr>`'<right><right>
 " vnoremap <silent> <leader>'' m':norm i<c-r>=expand(b:com)<cr><cr>`'
 
