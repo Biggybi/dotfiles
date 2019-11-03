@@ -734,7 +734,7 @@ let g:searchhi_open_folds = 0
 """ Latex Live Preview
 
 " autocmd FileType tex,plaintex let g:tex_fold_enabled=1
-autocmd Filetype tex setlocal updatetime=1000
+autocmd FileType tex setlocal updatetime=1000
 " let g:livepreview_previewer = 'zathura'
 " let g:livepreview_cursorhold_recompile = 0
 " let g:livepreview_engine = 'your_engine' . ' [options]'
