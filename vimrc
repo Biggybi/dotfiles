@@ -583,7 +583,7 @@ let g:ycm_filetype_specific_completion_to_disable = {
 
 """ Syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
-let g:syntastic_c_include_dirs = ['inc']
+let g:syntastic_c_include_dirs = ["inc", "incs", "includes", "headers"]
 let g:syntastic_c_compiler_options = "-Wall -Wextra"
 let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
 
