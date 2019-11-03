@@ -201,35 +201,48 @@ if (has("termguicolors"))
 endif
 
 " open vim with different color based on time of day
-let hour = strftime("%H")
 
 " switch between light and dark theme (UI + ligtline)
 function! DarkLightSwitch()
-	if g:DarkLightSwitch == 'light'
-		set background=light
+	if g:DarkLightSwitch == 'dark'
+		set background=dark
 		source $HOME/.vim/colors/base16-onedark.vim
 		let g:lightline = { 'colorscheme': 'wombat' }
-		let g:DarkLightSwitch = 'dark'
+		let g:DarkLightSwitch = 'light'
 	else
-		set background=dark
+	incs,	set background=light
 		source $HOME/.vim/colors/base16-one-light.vim
 		let g:lightline = { 'colorscheme': 'wombat_light' }
-		let g:DarkLightSwitch = 'light'
+		let g:DarkLightSwitch = 'dark'
 	endif
 	if exists("g:DarkLightOn")
 		call lightline#enable()
 	endif
-	let g:DarkLightOn = 'on'
+	let g:DarkLightOn = '0'
 endfunction
 
-if ! exists ("g:DarkLightSwitch")
-	let hour = strftime("%H")
-	if 9 <= hour && hour < 19
-		let g:DarkLightSwitch = 'dark'
-	else
-		let g:DarkLightSwitch = 'light'
+let g:DarkLightMod = '1'
+" 0 : auto
+" 1 : force dark
+" 2 : force light
+if g:DarkLightMod == '0'
+	if ! exists("g:DarkLightOn")
+		let hour = strftime("%H")
+		if 9 <= hour && hour < 19
+			let g:DarkLightSwitch = 'light'
+		else
+			let g:DarkLightSwitch = 'dark'
+		endif
+		call DarkLightSwitch()
 	endif
-	call DarkLightSwitch()
+else
+	if g:DarkLightMod == '1'
+		let g:DarkLightSwitch = 'dark'
+		call DarkLightSwitch()
+	elseif g:DarkLightMod == '2'
+		let g:DarkLightSwitch = 'light'
+		call DarkLightSwitch()
+	endif
 endif
 
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
