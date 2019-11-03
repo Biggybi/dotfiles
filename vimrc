@@ -444,7 +444,7 @@ autocmd BufEnter *.txt if (&filetype == 'help') | 79 wincmd| | endif
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
-	autocmd Filetype help,man nnoremap <buffer> <silent> q :bw<cr>
+	autocmd FileType help,man nnoremap <buffer> <silent> q :bw<cr>
 augroup end
 
 " Open man page in vim split, defaults to K
