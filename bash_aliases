@@ -128,6 +128,7 @@ open () {
 	xdg-open $1 &
 }
 alias o=open
+
 alias fzf='fzf --color="dark" --tabstop=4'
 # alias fd='fd ~'
 alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
@@ -182,6 +183,7 @@ alias myopt='sudo dpkg -S /opt/*'
 alias pingg='ping -c 3 www.qwant.com'
 
 alias cip='xsel -b'
+alias pw='pwd'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
