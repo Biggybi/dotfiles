@@ -429,8 +429,7 @@ autocmd BufWritePost * filetype detect
 " auto chose tag from .git folder
 autocmd BufEnter * set tags=.git/tags
 
-" auto winwidth for code
-" autocmd Filetype html,c,cpp,java setlocal winwidth=86
+autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,headers
 
 " autoreload tags file on save
 " autocmd BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
