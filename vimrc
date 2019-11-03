@@ -769,7 +769,6 @@ let g:netrw_browse_split = 2
 let g:netrw_altv = 1
 let g:netrw_winsize = -25
 let g:netrw_sort_sequence = '[\/]$,*'					" sort folders on top
-autocmd FileType netrw nmap <c-a> <cr>:wincmd W<cr>
 
 " open netrw if vim starts without file
 let g:netrw_startup = 0
