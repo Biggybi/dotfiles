@@ -1132,6 +1132,7 @@ augroup Cmaps
 	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
 	autocmd FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
 	autocmd FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
+	autocmd FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>
 
 	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 
@@ -1146,15 +1147,18 @@ augroup Cmaps
 
 	" put brackets around paragraph
 	autocmd FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
+	autocmd FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
+
+	" go to name of current c function (needs '()')
+	autocmd FileType c nnoremap <silent> g<c-d> j[[h^t(b
+
+	" put semicolon EOL
+	autocmd FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+
+	" select all text in function
+	autocmd FileType c nnoremap <leader>vf j[[V%o
 augroup end
 
-" put semicolon EOL
-nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
-
-" go to name of current c function (needs '()')
-nnoremap <silent> g<c-d> j[[h^t(b
-" select all text in function
-nnoremap <leader>vf j[[V%o
 " nnoremap viB [[%v%jok$
 " nnoremap vaB [[%v%
 " " nnoremap vib [{%v%jok$
