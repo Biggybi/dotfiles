@@ -323,6 +323,11 @@ nnoremap <leader><c-b> :sbuffer<space>
 nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
 
+"navigate through git commits
+nnoremap ]g :!git checkout HEAD~1<cr>
+nnoremap [g :!git checkout HEAD^1<cr>
+
+
 augroup myterm | au!
 	autocmd TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
 augroup end
