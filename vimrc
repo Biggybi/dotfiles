@@ -415,6 +415,8 @@ autocmd BufReadPost *
 			\   exe "normal! g`\"" |
 			\ endif
 
+autocmd BufEnter * Gcd
+
 " filetype recognition
 autocmd FileType c setlocal ofu=ccomplete#CompleteCpp
 autocmd FileType css setlocal ofu=csscomplete#CompleteCSS
