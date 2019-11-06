@@ -728,8 +728,8 @@ let g:fzf_colors =
 			\ 'header':  ['fg', 'Comment'] }
 
 """ Root
-let g:root#auto = 1
-let g:root#echo = 0
+" let g:root#auto = 1
+" let g:root#echo = 0
 
 
 """ Searchhi
