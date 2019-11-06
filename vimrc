@@ -324,8 +324,8 @@ nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
 
 "navigate through git commits
-nnoremap ]g :!git checkout HEAD^1<cr>
-nnoremap [g :!git checkout HEAD~1<cr>
+nnoremap [g :!git checkout HEAD^1<cr>
+nnoremap ]g :!git checkout $(git log --all --ancestry-path ^HEADERNAME \| tail -n 5 \| grep commit \| sed -e 's/.*commit \(.*\).*/\1/')<cr>
 
 
 augroup myterm | au!
