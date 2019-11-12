@@ -210,7 +210,7 @@ function! DarkLightSwitch()
 		let g:lightline = { 'colorscheme': 'wombat' }
 		let g:DarkLightSwitch = 'light'
 	else
-	incs,	set background=light
+		set background=light
 		source $HOME/.vim/colors/base16-one-light.vim
 		let g:lightline = { 'colorscheme': 'wombat_light' }
 		let g:DarkLightSwitch = 'dark'
