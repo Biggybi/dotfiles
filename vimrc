@@ -324,8 +324,8 @@ nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
 
 "navigate through git commits
-nnoremap ]g :!git checkout HEAD~1<cr>
-nnoremap [g :!git checkout HEAD^1<cr>
+" nnoremap ]g :!git checkout HEAD~1<cr>
+" nnoremap [g :!git checkout HEAD^1<cr>
 
 
 augroup myterm | au!
@@ -1142,6 +1142,7 @@ augroup Cmaps
 	autocmd FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>
 
 	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+	autocmd FileType c nnoremap <buffer> <leader>xt Ji<space>:<esc>$i 0<esc>^dw
 
 	autocmd FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
 

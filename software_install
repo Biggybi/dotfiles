@@ -55,3 +55,6 @@ youtube-dl
 epiphany-browser
 chrome-gnome-shell
 libinput-tools
+
+nfs-common
+cifs-utils
