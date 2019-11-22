@@ -420,7 +420,8 @@ autocmd BufReadPost *
 			\   exe "normal! g`\"" |
 			\ endif
 
-autocmd BufEnter * Gcd
+" auto change dir to git rep
+autocmd BufEnter * silent! Gcd
 
 " filetype recognition
 autocmd FileType c setlocal ofu=ccomplete#CompleteCpp
