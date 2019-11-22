@@ -46,6 +46,7 @@ autotools-dev
 xdotool
 ethtool			# WOL
 curl
+nmap
 
 lm-sensors
 hidpi-daemon
@@ -55,3 +56,6 @@ youtube-dl
 epiphany-browser
 chrome-gnome-shell
 libinput-tools
+
+nfs-common
+cifs-utils

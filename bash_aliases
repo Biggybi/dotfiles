@@ -49,6 +49,8 @@ alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 alias le='less'
 alias ccat='highlight --out-format=ansi'
 
+alias r='ranger'
+
 ## df
 alias df='df -h'
 

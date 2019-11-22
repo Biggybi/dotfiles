@@ -210,7 +210,7 @@ function! DarkLightSwitch()
 		let g:lightline = { 'colorscheme': 'wombat' }
 		let g:DarkLightSwitch = 'light'
 	else
-	incs,	set background=light
+		set background=light
 		source $HOME/.vim/colors/base16-one-light.vim
 		let g:lightline = { 'colorscheme': 'wombat_light' }
 		let g:DarkLightSwitch = 'dark'
@@ -324,8 +324,8 @@ nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
 
 "navigate through git commits
-nnoremap [g :!git checkout HEAD^1<cr>
-nnoremap ]g :!git checkout $(git log --all --ancestry-path ^HEADERNAME \| tail -n 5 \| grep commit \| sed -e 's/.*commit \(.*\).*/\1/')<cr>
+" nnoremap ]g :!git checkout HEAD~1<cr>
+" nnoremap [g :!git checkout HEAD^1<cr>
 
 
 augroup myterm | au!
@@ -1128,12 +1128,19 @@ cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
 
 ""  Code mappings
+""" bash maps
+augroup Shmaps
+	autocmd! Shmaps
+	autocmd FileType sh inoremap <buffer> ,#! #!/bin/bash
+augroup end
 
+""" C maps
 augroup Cmaps
 	autocmd! Cmaps
 	autocmd FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
 	autocmd FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 	autocmd FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoremap <buffer> ,ret return (0);<esc>^
 	autocmd FileType c inoremap <buffer> ,imin -2147483648
 	autocmd FileType c inoremap <buffer> ,imax 2147483647
 	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
@@ -1142,6 +1149,7 @@ augroup Cmaps
 	autocmd FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>
 
 	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+	autocmd FileType c nnoremap <buffer> <leader>xt Ji<space>?<esc>$i : 0<esc>^dw
 
 	autocmd FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
 
