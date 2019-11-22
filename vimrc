@@ -1128,12 +1128,19 @@ cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
 
 ""  Code mappings
+""" bash maps
+augroup Shmaps
+	autocmd! Shmaps
+	autocmd FileType sh inoremap <buffer> ,#! #!/bin/bash
+augroup end
 
+""" C maps
 augroup Cmaps
 	autocmd! Cmaps
 	autocmd FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
 	autocmd FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 	autocmd FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	autocmd FileType c inoremap <buffer> ,ret return (0);<esc>^
 	autocmd FileType c inoremap <buffer> ,imin -2147483648
 	autocmd FileType c inoremap <buffer> ,imax 2147483647
 	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
