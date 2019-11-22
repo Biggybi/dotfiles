@@ -46,6 +46,7 @@ autotools-dev
 xdotool
 ethtool			# WOL
 curl
+nmap
 
 lm-sensors
 hidpi-daemon
