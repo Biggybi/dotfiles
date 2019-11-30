@@ -538,6 +538,46 @@ set completeopt=longest,menuone
 
 
 ""  Plugins settings
+"""  Netrw
+
+" Toggle Vexplore with <leader>t
+function! ToggleVExplorer()
+	if exists("t:expl_buf_num")
+		let expl_win_num = bufwinnr(t:expl_buf_num)
+		let cur_win_num = winnr()
+		if expl_win_num != -1
+			while expl_win_num != cur_win_num
+				exec "wincmd w"
+				let cur_win_num = winnr()
+			endwhile
+			close
+		endif
+		unlet t:expl_buf_num
+	else
+		silent Lexplore
+		let t:expl_buf_num = bufnr("%")
+	endif
+endfunction
+nnoremap <silent> <leader>t :call ToggleVExplorer()<cr>
+
+" Netrw customization
+let g:netrw_keepdir= 0
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 2
+let g:netrw_altv = 1
+let g:netrw_winsize = -25
+let g:netrw_sort_sequence = '[\/]$,*'					" sort folders on top
+
+" open netrw if vim starts without file
+let g:netrw_startup = 0
+let g:netrw_startup_no_file = 1
+augroup NetrwStartup
+	autocmd!
+	autocmd VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
+  autocmd VimEnter * if g:netrw_startup == '1' | e . | endif
+augroup end
+
 """ Fugitive
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
@@ -747,46 +787,6 @@ autocmd FileType tex setlocal updatetime=1000
 " let g:livepreview_cursorhold_recompile = 0
 " let g:livepreview_engine = 'your_engine' . ' [options]'
 
-""  Netrw
-
-" Toggle Vexplore with <leader>t
-function! ToggleVExplorer()
-	if exists("t:expl_buf_num")
-		let expl_win_num = bufwinnr(t:expl_buf_num)
-		let cur_win_num = winnr()
-		if expl_win_num != -1
-			while expl_win_num != cur_win_num
-				exec "wincmd w"
-				let cur_win_num = winnr()
-			endwhile
-			close
-		endif
-		unlet t:expl_buf_num
-	else
-		silent Lexplore
-		let t:expl_buf_num = bufnr("%")
-	endif
-endfunction
-nnoremap <silent> <leader>t :call ToggleVExplorer()<cr>
-
-" Netrw customization
-let g:netrw_keepdir= 0
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 2
-let g:netrw_altv = 1
-let g:netrw_winsize = -25
-let g:netrw_sort_sequence = '[\/]$,*'					" sort folders on top
-
-" open netrw if vim starts without file
-let g:netrw_startup = 0
-let g:netrw_startup_no_file = 1
-augroup NetrwStartup
-	autocmd!
-	autocmd VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-  autocmd VimEnter * if g:netrw_startup == '1' | e . | endif
-augroup end
-
 ""  Quickfix
 
 augroup ft_quickfix
@@ -825,9 +825,9 @@ endfunction
 " autocmd QuickFixCmdPost [^l]* nested botright copen
 " autocmd QuickFixCmdPost    l* nested botright lwindo
 
-nnoremap <leader>ct :Shell make ex<cr><cr>
-nnoremap <leader>cT :Shell make ex TESTFF=test/*<cr><cr>
-nnoremap <leader>c<c-t> :Shell make ex TESTFF=
+nnoremap <leader>ct :Shell make ex TESTFF=test/*<cr><cr>
+nnoremap <leader>c<c-t> :Shell make ex<cr><cr>
+nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>cv :Shell make ex TEST=<cr><cr>
 nnoremap <leader>cm :Shell make re<cr><cr>
 nnoremap <leader>cr :Shell make re<cr>
