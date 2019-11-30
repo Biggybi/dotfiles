@@ -75,8 +75,8 @@ alias histon='set -o history'
 alias histoff='set +o history'
 
 ### daynight
-alias dnd='daynight d && source $HOME/.bashrc'
-alias dnn='daynight n && source $HOME/.bashrc'
+alias dnd='daynight d && source $HOME/.bashrc && notify-send "Day"'
+alias dnn='daynight n && source $HOME/.bashrc && notify-send "Night"'
 
 # terminal_profile_switch () {
 #       xdotool --clearmodifiers key Shift+F10 r $1
@@ -167,12 +167,12 @@ aptif () {
 	sudo apt install -y $(grep -o ^[^#][[:alnum:]-]* "$1")
 }
 alias aptrm='sudo apt autoremove'
-alias aptu='sudo apt update'
+alias aptu='sudo apt update && notify-send "Update done"'
 alias aptg='sudo apt upgrade'
 alias aptd='sudo apt dist-upgrade'
 alias apts='apt search'
-alias uuu='aptu && aptg'
-alias uu='aptu && aptg'
+alias uuu='aptu && aptg && notify-send "Update done"'
+alias uu='aptu && apt && notify-send "Update done"'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
 alias myip='hostname -I | sed "s/\ .*//g"'
