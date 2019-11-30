@@ -257,59 +257,6 @@ let base16colorspace=256	" access colors present in 256 colorspace"
 set t_Co=256	" explicitly tell vim that the terminal supports 256 colors"
 
 
-""  Highlights / Match
-
-" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
-" match overlength /\%81v.\+/
-
-" show traling whitespaces
-
-match TrailWhite /\s\+$/
-autocmd BufWinEnter * match TrailWhite /\s\+$/
-autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
-autocmd InsertLeave * match TrailWhite /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" focus current window : cursorline and relative numbers
-augroup WinFocus
-  autocmd!
-  autocmd VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
-  autocmd WinLeave * setlocal nocursorline "norelativenumber number
-augroup end
-
-" color column 81 for code
-if exists('+colorcolumn')
- 	autocmd FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
-endif
-
-set mat=2 " how many tenths of a second to blink
-
-" " Highlight 'f' searchers
-" function! HighlightFSearches(cmd)
-"   " Get extra character for the command.
-"   let char = nr2char(getchar())
-"   if char ==# ''
-"     " Skip special keys: arrows, backspace...
-"     return ''
-"   endif
-"   " Highlight 'char' on the current line.
-"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
-"   execute match_str
-"   " Finally, execute the original command with char appended to it
-"   return a:cmd.char
-" endfunction
-
-" " highlight searches using 'f'
-" nnoremap <expr> f HighlightFSearches('f')
-" nnoremap f<bs> <nop>
-" vnoremap <expr> f HighlightFSearches('f')
-" vnoremap f<bs> <nop>
-
-" " highlight searches using 'F'
-" nnoremap <expr> F HighlightFSearches('F')
-" nnoremap F<bs> <nop>
-" vnoremap <expr> F HighlightFSearches('F')
-" vnoremap F<bs> <nop>
 
 ""  Window behaviour
 
@@ -379,6 +326,60 @@ nnoremap <c-w>n :vertical new<cr>
 nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
 
+""  Highlights / Match
+
+" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
+" match overlength /\%81v.\+/
+
+" show traling whitespaces
+
+match TrailWhite /\s\+$/
+autocmd BufWinEnter * match TrailWhite /\s\+$/
+autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
+autocmd InsertLeave * match TrailWhite /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" focus current window : cursorline and relative numbers
+augroup WinFocus
+  autocmd!
+  autocmd VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
+  autocmd WinLeave * setlocal nocursorline "norelativenumber number
+augroup end
+
+" color column 81 for code
+if exists('+colorcolumn')
+ 	autocmd FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
+endif
+
+set mat=2 " how many tenths of a second to blink
+
+" " Highlight 'f' searchers
+" function! HighlightFSearches(cmd)
+"   " Get extra character for the command.
+"   let char = nr2char(getchar())
+"   if char ==# ''
+"     " Skip special keys: arrows, backspace...
+"     return ''
+"   endif
+"   " Highlight 'char' on the current line.
+"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
+"   execute match_str
+"   " Finally, execute the original command with char appended to it
+"   return a:cmd.char
+" endfunction
+
+" " highlight searches using 'f'
+" nnoremap <expr> f HighlightFSearches('f')
+" nnoremap f<bs> <nop>
+" vnoremap <expr> f HighlightFSearches('f')
+" vnoremap f<bs> <nop>
+
+" " highlight searches using 'F'
+" nnoremap <expr> F HighlightFSearches('F')
+" nnoremap F<bs> <nop>
+" vnoremap <expr> F HighlightFSearches('F')
+" vnoremap F<bs> <nop>
+
 ""  Folding
 
 set foldmethod=syntax " fold based on indent
@@ -420,7 +421,7 @@ autocmd BufReadPost *
 			\   exe "normal! g`\"" |
 			\ endif
 
-" auto change dir to git rep
+" auto change dir to git repo
 autocmd BufEnter * silent! Gcd
 
 " filetype recognition
@@ -446,9 +447,8 @@ autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,hea
 " set tags=./tags;
 
 autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-autocmd FileType help wincmd H | 79 wincmd|
-autocmd FileType man wincmd H | 79 wincmd|
-autocmd BufEnter *.txt if (&filetype == 'help') | 79 wincmd| | endif
+autocmd FileType man,help wincmd H | 79 wincmd|
+" autocmd BufEnter *.txt if (&filetype == 'help') | 79 wincmd| | endif
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
@@ -847,7 +847,8 @@ nnoremap ]w :lnext<cr>
 nnoremap [W :lfirst<cr>
 nnoremap ]W :llast<cr>
 
-""  Shell output split
+""  Mini plugins
+"""  Shell output split
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -867,7 +868,7 @@ function! s:RunShellCommand(cmdline)
 " 	setlocal nomodifiable
 endfunction
 
-""  42
+""  Headers
 """ 42Header
 
 let s:asciiart = [
