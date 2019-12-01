@@ -539,7 +539,7 @@ set completeopt=longest,menuone
 
 
 ""  Plugins settings
-"""  Netrw
+""" Netrw
 
 " Toggle Vexplore with <leader>t
 function! ToggleVExplorer()
@@ -578,6 +578,7 @@ augroup NetrwStartup
 	autocmd VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
   autocmd VimEnter * if g:netrw_startup == '1' | e . | endif
 augroup end
+
 
 """ Fugitive
 
@@ -736,10 +737,6 @@ if exists('&signcolumn')  " Vim 7.4.2201
 else
 	let g:gitgutter_sign_column_always = 1
 endif
-
-""" Man
-" let g:ft_man_open_mode = 'vert'
-
 set updatetime=20 " time before writing swap, faster gitgutter
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
