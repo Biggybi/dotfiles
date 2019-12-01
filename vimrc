@@ -448,7 +448,8 @@ autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,hea
 
 autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
 autocmd FileType man,help wincmd H | 79 wincmd|
-" autocmd BufEnter *.txt if (&filetype == 'help') | 79 wincmd| | endif
+autocmd BufEnter * if (&filetype == 'help') | 79 wincmd| | endif
+autocmd BufEnter * if (&filetype == 'man') | 79 wincmd| | endif
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
