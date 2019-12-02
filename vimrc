@@ -516,16 +516,16 @@ vnoremap gr :s/<c-r>///g<left><left>
 nnoremap gR :%s/<c-r>///g<left><left>
 
 " search visual selection
-function! s:VSetSearch()
-	let temp = @@
-	norm! gvy
-	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-	let @@ = temp
-endfunction
+" function! s:VSetSearch()
+" 	let temp = @@
+" 	norm! gvy
+" 	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+" 	let @@ = temp
+" endfunction
 
-vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
-vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
-
+" vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
+" vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 ""  Autocompletion
 
