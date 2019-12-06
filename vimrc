@@ -551,7 +551,7 @@ function! ToggleVExplorer()
 				exec "wincmd w"
 				let cur_win_num = winnr()
 			endwhile
-			close
+			bwipeout
 		endif
 		unlet t:expl_buf_num
 	else
