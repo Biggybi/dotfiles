@@ -1152,51 +1152,51 @@ cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
 
-""  Code mappings
-""" bash maps
+""  Code
+""" bash
 augroup Shmaps
 	autocmd! Shmaps
 	autocmd FileType sh inoremap <buffer> ,#! #!/bin/bash
 augroup end
 
-""" C maps
+""" C
 augroup Cmaps
-	autocmd! Cmaps
-	autocmd FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
-	autocmd FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoremap <buffer> ,ret return (0);<esc>^
-	autocmd FileType c inoremap <buffer> ,imin -2147483648
-	autocmd FileType c inoremap <buffer> ,imax 2147483647
-	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
-	autocmd FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
-	autocmd FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
-	autocmd FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>
+	au! Cmaps
+	au FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
+	au FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+	au FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	au FileType c inoremap <buffer> ,ret return (0);<esc>^
+	au FileType c inoremap <buffer> ,imin -2147483648
+	au FileType c inoremap <buffer> ,imax 2147483647
+	au FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
+	au FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
+	au FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
+	au FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>
 
-	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
-	autocmd FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
+	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 
-	autocmd FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
+	au FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
 
-	" compile and execute current
-	autocmd FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
-	autocmd FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
+	" le and execute current
+	au FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
+	au FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
 
-	" auto close brackets
-	autocmd FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
+	" close brackets
+	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
 
-	" put brackets around paragraph
-	autocmd FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
-	autocmd FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
+	" rackets around paragraph
+	au FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
+	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
-	" go to name of current c function (needs '()')
-	autocmd FileType c nnoremap <silent> g<c-d> j[[h^t(b
+	"  name of current c function (needs '()')
+	au FileType c nnoremap <silent> g<c-d> j[[h^t(b
 
-	" put semicolon EOL
-	autocmd FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+	" emicolon EOL
+	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 
-	" select all text in function
-	autocmd FileType c nnoremap <leader>vf j[[V%o
+	" t all text in function
+	au FileType c nnoremap <leader>vf j[[V%o
 augroup end
 
 " nnoremap viB [[%v%jok$
@@ -1221,6 +1221,59 @@ augroup end
 
 " noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
+""" PHP/HTML/CSS
+augroup Webmaps
+	au! Webmaps
+	au FileType css inoremap <buffer> {<cr>  {<cr>}<esc>O
+	au FileType php,html inoremap <buffer> ,php <?php<cr>?><esc>O
+	au FileType php,html inoremap <buffer> ,bo <body></body><esc>F<i
+	au FileType php,html inoremap <buffer> ,h1 <h1></h1><esc>F<i
+	au FileType php,html inoremap <buffer> ,h2 <h2></h2><esc>F<i
+	au FileType php,html inoremap <buffer> ,h3 <h3></h3><esc>F<i
+	au FileType php,html inoremap <buffer> ,h4 <h4></h4><esc>F<i
+	au FileType php,html inoremap <buffer> ,h5 <h5></h5><esc>F<i
+	au FileType php,html inoremap <buffer> ,h6 <h6></h6><esc>F<i
+	au FileType php,html inoremap <buffer> ,pp <p></p><esc>F<i
+	au FileType php,html inoremap <buffer> ,br <br/>
+	au FileType php,html inoremap <buffer> ,aa <a href="" alt=""></a><esc>F<i
+	au FileType php,html inoremap <buffer> ,img <img src="" alt=""></img><esc>F<i
+	au FileType php,html inoremap <buffer> ,uu <u></u><esc>F<i
+	au FileType php,html inoremap <buffer> ,ii <i></i><esc>F<i
+	au FileType php,html inoremap <buffer> ,bb <b></b><esc>F<i
+	au FileType php,html inoremap <buffer> ,sk <strike></strike><esc>F<i
+	au FileType php,html inoremap <buffer> ,sup <sup></sup><esc>F<i
+	au FileType php,html inoremap <buffer> ,sub <sub></sub><esc>F<i
+	au FileType php,html inoremap <buffer> ,sm <small></small><esc>F<i
+	au FileType php,html inoremap <buffer> ,tt <tt></tt><esc>F<i
+	au FileType php,html inoremap <buffer> ,pre <pre></pre><esc>F<i
+	au FileType php,html inoremap <buffer> ,bq <blockquote></blockquote><esc>F<i
+	au FileType php,html inoremap <buffer> ,st <strong></strong><esc>F<i
+	au FileType php,html inoremap <buffer> ,em <em></em><esc>F<i
+	au FileType php,html inoremap <buffer> ,ol <ol></ol><esc>F<i
+	au FileType php,html inoremap <buffer> ,dd <dd></dd><esc>F<i
+	au FileType php,html inoremap <buffer> ,dt <dt></dt><esc>F<i
+	au FileType php,html inoremap <buffer> ,dl <dl></dl><esc>F<i
+	au FileType php,html inoremap <buffer> ,ul <ul></ul><esc>F<i
+	au FileType php,html inoremap <buffer> ,li <li></li><esc>F<i
+	au FileType php,html inoremap <buffer> ,hr <hr></hr><esc>F<i
+	au FileType php,html inoremap <buffer> ,di <div></div><esc>F<i
+	au FileType php,html inoremap <buffer> ,sp <span></span><esc>F<i
+	au FileType php,html inoremap <buffer> ,se <select></select><esc>F<i
+	au FileType php,html inoremap <buffer> ,op <optionlect></optionlect><esc>F<i
+	au FileType php,html inoremap <buffer> ,tx <textarealect></textarealect><esc>F<i
+
+	au FileType php,html inoremap <buffer> ,fo <form action="" method=""><return><input type="text" name=""><return></form>
+	au FileType php,html inoremap <buffer> ,fg <form action="" method="get"><return><input type="text" name=""><return></form>
+	au FileType php,html inoremap <buffer> ,fp <form action="" method="post"><return><input type="text" name=""><return></form>
+	au FileType php,html inoremap <buffer> ,in <input type="" name="" value=""></input><esc>F<i
+
+	au FileType php,html inoremap <buffer> ,ec echo "";<esc>hi
+	au FileType php,html inoremap <buffer> ,ge $_GET[""]<esc>hi
+	au FileType php,html inoremap <buffer> ,po $_POST[""]<esc>hi
+	au FileType php,html inoremap <buffer> ,lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+
+	au FileType php,html nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+augroup end
 
 ""  Auto Header
 """  SH Auto Header
