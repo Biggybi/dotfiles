@@ -1078,6 +1078,11 @@ nnoremap <leader>wc :call WC()<cr>
 " <c-z> in insert mode
 inoremap <c-z> <c-[><c-z>
 
+" trim current line
+nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
+"trim file
+nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
+
 " % as <c-g>
 nnoremap <c-g> %
 
