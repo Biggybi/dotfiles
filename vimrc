@@ -431,6 +431,14 @@ autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
+autocmd BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
+autocmd BufNewFile,BufFilePre,BufRead *.php set filetype=php
+autocmd BufNewFile,BufFilePre,BufRead *.css set filetype=css
+autocmd BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
+autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
+autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
+" autocmd BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 
 " refresh filetype upon writing
 autocmd BufWritePost * filetype detect
