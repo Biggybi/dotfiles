@@ -1276,9 +1276,9 @@ augroup Webmaps
 augroup end
 
 ""  Auto Header
-"""  SH Auto Header
-
-autocmd bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
+"""  Basic headers
+autocmd BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
+autocmd BufNewFile *.html 0r $HOME/.vim/skel/html_header
 
 """  Auto protect c header
 if !exists("autocommands_loaded")
