@@ -446,10 +446,13 @@ autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,hea
 " set tags=tags;./git/
 " set tags=./tags;
 
-autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-autocmd FileType man,help wincmd H | 79 wincmd|
-autocmd BufEnter * if (&filetype == 'help') | 79 wincmd| | endif
-autocmd BufEnter * if (&filetype == 'man') | 79 wincmd| | endif
+autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak nowrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+" autocmd FileType man,help wincmd H | 79 wincmd|
+autocmd BufEnter * silent! if (&filetype == 'help') | wincmd H | 78 wincmd| | endif
+autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
+
+"css width
+" autocmd BufEnter *.css silent! if (&filetype == 'css') | 40 wincmd| | endif
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
