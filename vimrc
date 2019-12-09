@@ -1175,6 +1175,45 @@ cnoremap <c-x> <Del>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
+" rename file
+nnoremap <leader>mv :!mv % %:h:p/
+
+""" Copy/Paste/Delete
+
+" delete without saving to register
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+" xnoremap <leader>p "_dP
+
+" paste with indentation
+" nnoremap P mp]P==`p
+" nnoremap p mp]p==`p
+
+nnoremap cl c$
+nnoremap dl d$
+nnoremap yl y$
+nnoremap ch c^
+nnoremap dh d^
+nnoremap yh y^
+
+" System clipboard interraction
+
+" paste from clipboard ...
+nnoremap <leader>p mp"+]p==`p
+nnoremap <leader>P mp"+]P==`p
+" ... on new line ...
+nnoremap <leader>op o<esc>"+]p==
+" ... above
+nnoremap <leader>oP O<esc>"+]p==
+nnoremap <leader>Op O<esc>"+]p==
+nnoremap <leader>OP O<esc>"+]p==
+
+" copy to clipboard
+nnoremap <leader>y "+y
+nnoremap <leader>yl "+y$
+nnoremap <leader>yh "+y^
+vnoremap <leader>y "+y
+
 " helpers for dealing with other people's code
 " nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
