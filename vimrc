@@ -518,8 +518,8 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 " vnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
-"Clear search highlight pressing Enter
-nnoremap <silent> _ :nohlsearch<cr>
+"Clear search highlight
+nnoremap <silent> - :nohlsearch<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
