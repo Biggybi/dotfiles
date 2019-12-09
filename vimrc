@@ -574,7 +574,7 @@ set completeopt=longest,menuone
 """ Netrw
 
 " Toggle Vexplore with <leader>t
-function! ToggleVExplorer()
+function! ToggleNetrw()
 	if exists("t:expl_buf_num")
 		let expl_win_num = bufwinnr(t:expl_buf_num)
 		let cur_win_num = winnr()
@@ -583,7 +583,7 @@ function! ToggleVExplorer()
 				exec "wincmd w"
 				let cur_win_num = winnr()
 			endwhile
-			bwipeout
+			exec "bwipeout"
 		endif
 		unlet t:expl_buf_num
 	else
@@ -591,7 +591,42 @@ function! ToggleVExplorer()
 		let t:expl_buf_num = bufnr("%")
 	endif
 endfunction
-nnoremap <silent> <leader>t :call ToggleVExplorer()<cr>
+" let g:NetrwIsOpen=0
+
+" function! ToggleNetrw()
+" 	if g:NetrwIsOpen
+" 		let i = bufnr("$")
+" 		while (i >= 1)
+" 			if (getbufvar(i, "&filetype") == "netrw")
+" 				silent exe "bwipeout " . i
+" 			endif
+" 			let i-=1
+" 		endwhile
+" 		let g:NetrwIsOpen=0
+" 	else
+" 		let g:NetrwIsOpen=1
+" 		silent Lexplore
+" 	endif
+" endfunction
+
+" function! ToggleNetrw()
+" let i = bufnr("$")
+" let wasOpen = 0
+" while (i >= 1)
+" 	if (getbufvar(i, "&filetype") == "netrw")
+" 		silent exe "bwipeout " . i
+" 		let wasOpen = 1
+" 	endif
+" 	let i-=1
+" endwhile
+" if !wasOpen
+" silent Lexplore
+" endif
+" endfunction
+
+" Add your own mapping. For example:
+nnoremap <silent> <leader>t :call ToggleNetrw()<cr>
+" nnoremap <silent> <leader>t :call ToggleVExplorer()<cr>
 
 " Netrw customization
 let g:netrw_keepdir= 0
@@ -1157,50 +1192,6 @@ nnoremap <c-g> %
 " up down on lines as seen
 nnoremap <silent> j gj
 nnoremap <silent> k gk
-
-" delete without saving to register
-nnoremap <leader>d "_d
-xnoremap <leader>d "_d
-" xnoremap <leader>p "_dP
-
-" rename file
-nnoremap <leader>mv :!mv % %:h:p/
-
-" paste with indentation
-" nnoremap P mp]P==`p
-" nnoremap p mp]p==`p
-
-nnoremap cl c$
-nnoremap dl d$
-nnoremap yl y$
-nnoremap ch c^
-nnoremap dh d^
-nnoremap yh y^
-
-" Copy/paste text to/from the system clipboard.
-" set clipboard=unnamed
-
-nnoremap <leader>p mp"+]p==`p
-nnoremap <leader>P mp"+]P==`p
-nnoremap <leader>op o<esc>"+]p==
-nnoremap <leader>Op O<esc>"+]p==
-nnoremap <leader>oP O<esc>"+]p==
-nnoremap <leader>OP O<esc>"+]p==
-nnoremap <leader>y "+y
-
-nnoremap <leader>yl "+y$
-vnoremap <leader>y "+y
-
-" nnoremap <leader>p V !xsel -o
-" nnoremap <leader>P 
-" nnoremap <leader>y !xsel -b<cr>
-" nnoremap <leader>y V !xclip -i<cr>
-" nnoremap <leader>Y 
-
-
-" vnoremap <leader>p mp"*]p==`p
-" vnoremap <leader>P mp"*]P==`p
-" vnoremap <leader>Y "*yy
 
 nnoremap H ^
 nnoremap L g_
