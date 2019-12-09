@@ -441,7 +441,7 @@ autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
 " autocmd BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 
 " refresh filetype upon writing
-autocmd BufWritePost * filetype detect
+" autocmd BufWritePost * filetype detect
 
 " auto chose tag from .git folder
 autocmd BufEnter * set tags=.git/tags
