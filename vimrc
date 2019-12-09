@@ -1128,7 +1128,12 @@ nnoremap yh y^
 
 nnoremap <leader>p mp"+]p==`p
 nnoremap <leader>P mp"+]P==`p
+nnoremap <leader>op o<esc>"+]p==
+nnoremap <leader>Op O<esc>"+]p==
+nnoremap <leader>oP O<esc>"+]p==
+nnoremap <leader>OP O<esc>"+]p==
 nnoremap <leader>y "+y
+
 nnoremap <leader>yl "+y$
 vnoremap <leader>y "+y
 
