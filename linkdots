@@ -29,7 +29,7 @@ LINK=(.vim
 	bin
 	.git_template
 	.fonts
-	"")
+	.zshrc)
 
 # links to create localy for Mac
 if [[ "$OSTYPE" == "darwin"* ]]
@@ -59,7 +59,7 @@ then
 	git submodule init
 	git submodule update
 else
-	echo "Plugin already installed"
+	echo "Plugins already installed"
 fi
 
 i=0

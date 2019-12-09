@@ -6,4 +6,5 @@ then
 	exit
 fi
 
-$EDITOR $(whereis $1 | sed -n '$p' | cut -d' ' -f2)
+# $EDITOR $(whereis $1 | sed -n '$p' | cut -d' ' -f2)
+$EDITOR $(whereis $1 | cut -d' ' -f2)

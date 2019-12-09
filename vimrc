@@ -1,13 +1,13 @@
-" ************************************************************************** "
-"                                                                            "
-"    vimrc                                                                   "
-"                                                |_   _|  _ __  (_)  ___     "
-"    By: tris <tristan.kapous@protonmail.com>      | |   | '__| | | / __|    "
-"                                                  | |   | |    | | \__ \    "
-"    Created: 2019/06/23 05:39:33 by tris          |_|   |_|    |_| |___/    "
-"    Updated: 2019/08/06 19:27:58 by tris                                    "
-"                                                                            "
-" ************************************************************************** "
+" *************************************************************************** "
+"                                                                             "
+" vimrc                                                                       "
+"                                                 _____  _ __ _    _          "
+" By: tris <tristan.kapous@protonmail.com>       |_   _|| '__|\ \/ /          "
+"                                                  | |  | |    '  '           "
+" Created: 2019/06/23 05:39:33 by tris             |_|  |_|   /_/\_\          "
+" Updated: 2019/08/06 19:27:58 by tris                                        "
+"                                                                             "
+" *************************************************************************** "
 
 ""  Signature
 " """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -201,35 +201,48 @@ if (has("termguicolors"))
 endif
 
 " open vim with different color based on time of day
-let hour = strftime("%H")
 
 " switch between light and dark theme (UI + ligtline)
 function! DarkLightSwitch()
-	if g:DarkLightSwitch == 'light'
-		set background=light
+	if g:DarkLightSwitch == 'dark'
+		set background=dark
 		source $HOME/.vim/colors/base16-onedark.vim
 		let g:lightline = { 'colorscheme': 'wombat' }
-		let g:DarkLightSwitch = 'dark'
+		let g:DarkLightSwitch = 'light'
 	else
-		set background=dark
+		set background=light
 		source $HOME/.vim/colors/base16-one-light.vim
 		let g:lightline = { 'colorscheme': 'wombat_light' }
-		let g:DarkLightSwitch = 'light'
+		let g:DarkLightSwitch = 'dark'
 	endif
 	if exists("g:DarkLightOn")
 		call lightline#enable()
 	endif
-	let g:DarkLightOn = 'on'
+	let g:DarkLightOn = '0'
 endfunction
 
-if ! exists ("g:DarkLightSwitch")
-	let hour = strftime("%H")
-	if 9 <= hour && hour < 19
-		let g:DarkLightSwitch = 'dark'
-	else
-		let g:DarkLightSwitch = 'light'
+let g:DarkLightMod = '1'
+" 0 : auto
+" 1 : force dark
+" 2 : force light
+if g:DarkLightMod == '0'
+	if ! exists("g:DarkLightOn")
+		let hour = strftime("%H")
+		if 9 <= hour && hour < 19
+			let g:DarkLightSwitch = 'light'
+		else
+			let g:DarkLightSwitch = 'dark'
+		endif
+		call DarkLightSwitch()
 	endif
-	call DarkLightSwitch()
+else
+	if g:DarkLightMod == '1'
+		let g:DarkLightSwitch = 'dark'
+		call DarkLightSwitch()
+	elseif g:DarkLightMod == '2'
+		let g:DarkLightSwitch = 'light'
+		call DarkLightSwitch()
+	endif
 endif
 
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
@@ -244,71 +257,23 @@ let base16colorspace=256	" access colors present in 256 colorspace"
 set t_Co=256	" explicitly tell vim that the terminal supports 256 colors"
 
 
-""  Highlights / Match
-
-" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
-" match overlength /\%81v.\+/
-
-" show traling whitespaces
-
-match TrailWhite /\s\+$/
-autocmd BufWinEnter * match TrailWhite /\s\+$/
-autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
-autocmd InsertLeave * match TrailWhite /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" focus current window : cursorline and relative numbers
-augroup WinFocus
-  autocmd!
-  autocmd VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
-  autocmd WinLeave * setlocal nocursorline "norelativenumber number
-augroup end
-
-" color column 81 for code
-if exists('+colorcolumn')
- 	autocmd Filetype c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
-endif
-
-set mat=2 " how many tenths of a second to blink
-
-" " Highlight 'f' searchers
-" function! HighlightFSearches(cmd)
-"   " Get extra character for the command.
-"   let char = nr2char(getchar())
-"   if char ==# ''
-"     " Skip special keys: arrows, backspace...
-"     return ''
-"   endif
-"   " Highlight 'char' on the current line.
-"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
-"   execute match_str
-"   " Finally, execute the original command with char appended to it
-"   return a:cmd.char
-" endfunction
-
-" " highlight searches using 'f'
-" nnoremap <expr> f HighlightFSearches('f')
-" nnoremap f<bs> <nop>
-" vnoremap <expr> f HighlightFSearches('f')
-" vnoremap f<bs> <nop>
-
-" " highlight searches using 'F'
-" nnoremap <expr> F HighlightFSearches('F')
-" nnoremap F<bs> <nop>
-" vnoremap <expr> F HighlightFSearches('F')
-" vnoremap F<bs> <nop>
 
 ""  Window behaviour
 
 " open buffer with partial search
-nnoremap <leader>b :vertical sbuffer<space>
-nnoremap <leader>B :buffer<space>
-nnoremap <leader><c-b> :sbuffer<space>
+nnoremap <leader>b :buffer<space>
+nnoremap <leader><c-b> :vertical sbuffer<space>
+nnoremap <leader>B :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
 "go to next / previous buffer
 nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
+
+"navigate through git commits
+" nnoremap ]g :!git checkout HEAD~1<cr>
+" nnoremap [g :!git checkout HEAD^1<cr>
+
 
 augroup myterm | au!
 	autocmd TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
@@ -352,12 +317,68 @@ nnoremap <leader>= :exe "vertical resize +10"<cr>
 nnoremap <leader>- :exe "vertical resize -10"<cr>
 " nnoremap <c-w><c-=> :resize +10<cr>
 " nnoremap <c-w><c--> :resize -10<cr>
+nnoremap <leader>> :exe "vertical resize +10"<CR>:echo "width -"<cr>
+nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
 
 " new file in vertical split instead of horizontal
 nnoremap <c-w><c-n> :vertical new<cr>
 nnoremap <c-w>n :vertical new<cr>
 nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
+
+""  Highlights / Match
+
+" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
+" match overlength /\%81v.\+/
+
+" show traling whitespaces
+
+match TrailWhite /\s\+$/
+autocmd BufWinEnter * match TrailWhite /\s\+$/
+autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
+autocmd InsertLeave * match TrailWhite /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" focus current window : cursorline and relative numbers
+augroup WinFocus
+  autocmd!
+  autocmd VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
+  autocmd WinLeave * setlocal nocursorline "norelativenumber number
+augroup end
+
+" color column 81 for code
+if exists('+colorcolumn')
+ 	autocmd FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
+endif
+
+set mat=2 " how many tenths of a second to blink
+
+" " Highlight 'f' searchers
+" function! HighlightFSearches(cmd)
+"   " Get extra character for the command.
+"   let char = nr2char(getchar())
+"   if char ==# ''
+"     " Skip special keys: arrows, backspace...
+"     return ''
+"   endif
+"   " Highlight 'char' on the current line.
+"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
+"   execute match_str
+"   " Finally, execute the original command with char appended to it
+"   return a:cmd.char
+" endfunction
+
+" " highlight searches using 'f'
+" nnoremap <expr> f HighlightFSearches('f')
+" nnoremap f<bs> <nop>
+" vnoremap <expr> f HighlightFSearches('f')
+" vnoremap f<bs> <nop>
+
+" " highlight searches using 'F'
+" nnoremap <expr> F HighlightFSearches('F')
+" nnoremap F<bs> <nop>
+" vnoremap <expr> F HighlightFSearches('F')
+" vnoremap F<bs> <nop>
 
 ""  Folding
 
@@ -400,6 +421,9 @@ autocmd BufReadPost *
 			\   exe "normal! g`\"" |
 			\ endif
 
+" auto change dir to git repo
+autocmd BufEnter * silent! Gcd
+
 " filetype recognition
 autocmd FileType c setlocal ofu=ccomplete#CompleteCpp
 autocmd FileType css setlocal ofu=csscomplete#CompleteCSS
@@ -407,6 +431,14 @@ autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
+autocmd BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
+autocmd BufNewFile,BufFilePre,BufRead *.php set filetype=php
+autocmd BufNewFile,BufFilePre,BufRead *.css set filetype=css
+autocmd BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
+autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
+autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
+" autocmd BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 
 " refresh filetype upon writing
 autocmd BufWritePost * filetype detect
@@ -414,8 +446,7 @@ autocmd BufWritePost * filetype detect
 " auto chose tag from .git folder
 autocmd BufEnter * set tags=.git/tags
 
-" auto winwidth for code
-" autocmd Filetype html,c,cpp,java setlocal winwidth=86
+autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,headers
 
 " autoreload tags file on save
 " autocmd BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
@@ -423,14 +454,17 @@ autocmd BufEnter * set tags=.git/tags
 " set tags=tags;./git/
 " set tags=./tags;
 
-autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-autocmd FileType help wincmd H | 79 wincmd|
-autocmd FileType man wincmd H
-autocmd BufEnter *.txt if (&filetype == 'help') | 79 wincmd| | endif
+autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak nowrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+" autocmd FileType man,help wincmd H | 79 wincmd|
+autocmd BufEnter * silent! if (&filetype == 'help') | wincmd H | 78 wincmd| | endif
+autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
+
+"css width
+" autocmd BufEnter *.css silent! if (&filetype == 'css') | 40 wincmd| | endif
 
 augroup HelpManMaps
 	autocmd! HelpManMaps
-	autocmd Filetype help,man nnoremap <buffer> <silent> q :bw<cr>
+	autocmd FileType help,man nnoremap <buffer> <silent> q :bw<cr>
 augroup end
 
 " Open man page in vim split, defaults to K
@@ -485,7 +519,7 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight pressing Enter
-nnoremap <silent> - :nohlsearch<cr>
+nnoremap <silent> _ :nohlsearch<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
@@ -493,16 +527,16 @@ vnoremap gr :s/<c-r>///g<left><left>
 nnoremap gR :%s/<c-r>///g<left><left>
 
 " search visual selection
-function! s:VSetSearch()
-	let temp = @@
-	norm! gvy
-	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-	let @@ = temp
-endfunction
+" function! s:VSetSearch()
+" 	let temp = @@
+" 	norm! gvy
+" 	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+" 	let @@ = temp
+" endfunction
 
-vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
-vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
-
+" vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
+" vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 ""  Autocompletion
 
@@ -516,6 +550,47 @@ set completeopt=longest,menuone
 
 
 ""  Plugins settings
+""" Netrw
+
+" Toggle Vexplore with <leader>t
+function! ToggleVExplorer()
+	if exists("t:expl_buf_num")
+		let expl_win_num = bufwinnr(t:expl_buf_num)
+		let cur_win_num = winnr()
+		if expl_win_num != -1
+			while expl_win_num != cur_win_num
+				exec "wincmd w"
+				let cur_win_num = winnr()
+			endwhile
+			bwipeout
+		endif
+		unlet t:expl_buf_num
+	else
+		silent Lexplore
+		let t:expl_buf_num = bufnr("%")
+	endif
+endfunction
+nnoremap <silent> <leader>t :call ToggleVExplorer()<cr>
+
+" Netrw customization
+let g:netrw_keepdir= 0
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 2
+let g:netrw_altv = 1
+let g:netrw_winsize = -25
+let g:netrw_sort_sequence = '[\/]$,*'					" sort folders on top
+
+" open netrw if vim starts without file
+let g:netrw_startup = 0
+let g:netrw_startup_no_file = 1
+augroup NetrwStartup
+	autocmd!
+	autocmd VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
+  autocmd VimEnter * if g:netrw_startup == '1' | e . | endif
+augroup end
+
+
 """ Fugitive
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
@@ -569,7 +644,7 @@ let g:ycm_filetype_specific_completion_to_disable = {
 
 """ Syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
-let g:syntastic_c_include_dirs = ['inc']
+let g:syntastic_c_include_dirs = ["inc", "incs", "includes", "headers"]
 let g:syntastic_c_compiler_options = "-Wall -Wextra"
 let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
 
@@ -589,6 +664,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
+
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_args = '--ignore="E501"' " ignore long lines
+let g:syntastic_json_checkers=['jsonlint']
 
 """ Lightline
 set noshowmode " do not show mode in status line
@@ -673,10 +752,6 @@ if exists('&signcolumn')  " Vim 7.4.2201
 else
 	let g:gitgutter_sign_column_always = 1
 endif
-
-""" Man
-" let g:ft_man_open_mode = 'vert'
-
 set updatetime=20 " time before writing swap, faster gitgutter
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
@@ -707,8 +782,8 @@ let g:fzf_colors =
 			\ 'header':  ['fg', 'Comment'] }
 
 """ Root
-let g:root#auto = 1
-let g:root#echo = 0
+" let g:root#auto = 1
+" let g:root#echo = 0
 
 
 """ Searchhi
@@ -720,60 +795,19 @@ let g:searchhi_open_folds = 0
 """ Latex Live Preview
 
 " autocmd FileType tex,plaintex let g:tex_fold_enabled=1
-autocmd Filetype tex setlocal updatetime=1000
+autocmd FileType tex setlocal updatetime=1000
 " let g:livepreview_previewer = 'zathura'
 " let g:livepreview_cursorhold_recompile = 0
 " let g:livepreview_engine = 'your_engine' . ' [options]'
-
-""  Netrw
-
-" Toggle Vexplore with <leader>t
-function! ToggleVExplorer()
-	if exists("t:expl_buf_num")
-		let expl_win_num = bufwinnr(t:expl_buf_num)
-		let cur_win_num = winnr()
-		if expl_win_num != -1
-			while expl_win_num != cur_win_num
-				exec "wincmd w"
-				let cur_win_num = winnr()
-			endwhile
-			close
-		endif
-		unlet t:expl_buf_num
-	else
-		silent Lexplore
-		let t:expl_buf_num = bufnr("%")
-	endif
-endfunction
-nnoremap <silent> <leader>t :call ToggleVExplorer()<cr>
-
-" Netrw customization
-let g:netrw_keepdir= 0
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 2
-let g:netrw_altv = 1
-let g:netrw_winsize = -25
-let g:netrw_sort_sequence = '[\/]$,*'					" sort folders on top
-autocmd FileType netrw nmap <c-a> <cr>:wincmd W<cr>
-
-" open netrw if vim starts without file
-let g:netrw_startup = 0
-let g:netrw_startup_no_file = 1
-augroup NetrwStartup
-	autocmd!
-	autocmd VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-  autocmd VimEnter * if g:netrw_startup == '1' | e . | endif
-augroup end
 
 ""  Quickfix
 
 augroup ft_quickfix
 	autocmd!
-	autocmd Filetype qf setlocal colorcolumn=0 nolist nocursorline tw=0
+	autocmd FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0
 
 	" vimscript is a joke
-	autocmd Filetype qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+	autocmd FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
 augroup end
 
 autocmd FileType qf call AdjustWindowHeight(1, 5)
@@ -804,9 +838,9 @@ endfunction
 " autocmd QuickFixCmdPost [^l]* nested botright copen
 " autocmd QuickFixCmdPost    l* nested botright lwindo
 
-nnoremap <leader>ct :Shell make ex<cr><cr>
-nnoremap <leader>cT :Shell make ex TESTFF=test/*<cr><cr>
-nnoremap <leader>c<c-t> :Shell make ex TESTFF=
+nnoremap <leader>ct :Shell make ex TESTFF=test/*<cr><cr>
+nnoremap <leader>c<c-t> :Shell make ex<cr><cr>
+nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>cv :Shell make ex TEST=<cr><cr>
 nnoremap <leader>cm :Shell make re<cr><cr>
 nnoremap <leader>cr :Shell make re<cr>
@@ -826,7 +860,8 @@ nnoremap ]w :lnext<cr>
 nnoremap [W :lfirst<cr>
 nnoremap ]W :llast<cr>
 
-""  Shell output split
+""  Mini plugins
+"""  Shell output split
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -846,7 +881,32 @@ function! s:RunShellCommand(cmdline)
 " 	setlocal nomodifiable
 endfunction
 
-""  42
+"""  Scrollbar
+" shows a horizontal scroll line, incompatible with lightline
+" func! STL()
+"   let stl = '%f [%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}%M%R%H%W] %y [%l/%L,%v] [%p%%]'
+"   let barWidth = &columns - 65 " <-- wild guess
+"   let barWidth = barWidth < 3 ? 3 : barWidth
+
+"   if line('$') > 1
+" 	let progress = (line('.')-1) * (barWidth-1) / (line('$')-1)
+"   else
+" 	let progress = barWidth/2
+"   endif
+"   " line + vcol + %
+"   let pad = strlen(line('$'))-strlen(line('.')) + 3 - strlen(virtcol('.')) + 3 - strlen(line('.')*100/line('$'))
+"   let bar = repeat(' ',pad).' [%1*%'.barWidth.'.'.barWidth.'('
+" 		\.repeat('-',progress )
+" 		\.'%2*0%1*'
+" 		\.repeat('-',barWidth - progress - 1).'%0*%)%<]'
+
+"   return stl.bar
+" endfun
+
+" hi def link User1 DiffAdd
+" hi def link User2 DiffDelete
+" set stl=%!STL()
+""  Headers
 """ 42Header
 
 let s:asciiart = [
@@ -1029,6 +1089,11 @@ nnoremap <leader>wc :call WC()<cr>
 " <c-z> in insert mode
 inoremap <c-z> <c-[><c-z>
 
+" trim current line
+nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
+"trim file
+nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
+
 " % as <c-g>
 nnoremap <c-g> %
 
@@ -1107,41 +1172,53 @@ cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
 
-""  Code mappings
-
-augroup Cmaps
-	autocmd! Cmaps
-	autocmd FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
-	autocmd FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
-	autocmd FileType c inoremap <buffer> ,imin -2147483648
-	autocmd FileType c inoremap <buffer> ,imax 2147483647
-	autocmd FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
-	autocmd FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
-	autocmd FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
-
-	autocmd FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
-
-	autocmd FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
-
-	" compile and execute current
-	autocmd FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
-	autocmd FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
-
-	" auto close brackets
-	autocmd FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
-
-	" put brackets around paragraph
-	autocmd FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
+""  Code
+""" bash
+augroup Shmaps
+	autocmd! Shmaps
+	autocmd FileType sh inoremap <buffer> ,#! #!/bin/bash
 augroup end
 
-" put semicolon EOL
-nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+""" C
+augroup Cmaps
+	au! Cmaps
+	au FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
+	au FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+	au FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	au FileType c inoremap <buffer> ,ret return (0);<esc>^
+	au FileType c inoremap <buffer> ,imin -2147483648
+	au FileType c inoremap <buffer> ,imax 2147483647
+	au FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
+	au FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
+	au FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
+	au FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>
 
-" go to name of current c function (needs '()')
-nnoremap <silent> g<c-d> j[[h^t(b
-" select all text in function
-nnoremap <leader>vf j[[V%o
+	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
+
+	au FileType c nnoremap <buffer> g<c-g> gg=G<c-o><c-o>
+
+	" le and execute current
+	au FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
+	au FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
+
+	" close brackets
+	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
+
+	" rackets around paragraph
+	au FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
+	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
+
+	"  name of current c function (needs '()')
+	au FileType c nnoremap <silent> g<c-d> j[[h^t(b
+
+	" emicolon EOL
+	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+
+	" t all text in function
+	au FileType c nnoremap <leader>vf j[[V%o
+augroup end
+
 " nnoremap viB [[%v%jok$
 " nnoremap vaB [[%v%
 " " nnoremap vib [{%v%jok$
@@ -1155,7 +1232,7 @@ nnoremap <leader>vf j[[V%o
 " autocmd FileType mail             let b:com_size = '2' | let b:com = '> '
 " autocmd FileType vim              let b:com_size = '2' | let b:com = '" '
 " autocmd FileType readline         let b:com_size = '2' | let b:com = '# '
- 
+
 " nnoremap <silent> <leader>'' m'V:norm i<c-r>=expand(b:com)<cr><cr>`'<right><right>
 " vnoremap <silent> <leader>'' m':norm i<c-r>=expand(b:com)<cr><cr>`'
 
@@ -1164,11 +1241,64 @@ nnoremap <leader>vf j[[V%o
 
 " noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
+""" PHP/HTML/CSS
+augroup Webmaps
+	au! Webmaps
+	au FileType css inoremap <buffer> {<cr>  {<cr>}<esc>O
+	au FileType php,html inoremap <buffer> ,php <?php<cr>?><esc>O
+	au FileType php,html inoremap <buffer> ,bo <body></body><esc>F<i
+	au FileType php,html inoremap <buffer> ,h1 <h1></h1><esc>F<i
+	au FileType php,html inoremap <buffer> ,h2 <h2></h2><esc>F<i
+	au FileType php,html inoremap <buffer> ,h3 <h3></h3><esc>F<i
+	au FileType php,html inoremap <buffer> ,h4 <h4></h4><esc>F<i
+	au FileType php,html inoremap <buffer> ,h5 <h5></h5><esc>F<i
+	au FileType php,html inoremap <buffer> ,h6 <h6></h6><esc>F<i
+	au FileType php,html inoremap <buffer> ,pp <p></p><esc>F<i
+	au FileType php,html inoremap <buffer> ,br <br/>
+	au FileType php,html inoremap <buffer> ,aa <a href="" alt=""></a><esc>F<i
+	au FileType php,html inoremap <buffer> ,img <img src="" alt=""></img><esc>F<i
+	au FileType php,html inoremap <buffer> ,uu <u></u><esc>F<i
+	au FileType php,html inoremap <buffer> ,ii <i></i><esc>F<i
+	au FileType php,html inoremap <buffer> ,bb <b></b><esc>F<i
+	au FileType php,html inoremap <buffer> ,sk <strike></strike><esc>F<i
+	au FileType php,html inoremap <buffer> ,sup <sup></sup><esc>F<i
+	au FileType php,html inoremap <buffer> ,sub <sub></sub><esc>F<i
+	au FileType php,html inoremap <buffer> ,sm <small></small><esc>F<i
+	au FileType php,html inoremap <buffer> ,tt <tt></tt><esc>F<i
+	au FileType php,html inoremap <buffer> ,pre <pre></pre><esc>F<i
+	au FileType php,html inoremap <buffer> ,bq <blockquote></blockquote><esc>F<i
+	au FileType php,html inoremap <buffer> ,st <strong></strong><esc>F<i
+	au FileType php,html inoremap <buffer> ,em <em></em><esc>F<i
+	au FileType php,html inoremap <buffer> ,ol <ol></ol><esc>F<i
+	au FileType php,html inoremap <buffer> ,dd <dd></dd><esc>F<i
+	au FileType php,html inoremap <buffer> ,dt <dt></dt><esc>F<i
+	au FileType php,html inoremap <buffer> ,dl <dl></dl><esc>F<i
+	au FileType php,html inoremap <buffer> ,ul <ul></ul><esc>F<i
+	au FileType php,html inoremap <buffer> ,li <li></li><esc>F<i
+	au FileType php,html inoremap <buffer> ,hr <hr></hr><esc>F<i
+	au FileType php,html inoremap <buffer> ,di <div></div><esc>F<i
+	au FileType php,html inoremap <buffer> ,sp <span></span><esc>F<i
+	au FileType php,html inoremap <buffer> ,se <select></select><esc>F<i
+	au FileType php,html inoremap <buffer> ,op <optionlect></optionlect><esc>F<i
+	au FileType php,html inoremap <buffer> ,tx <textarealect></textarealect><esc>F<i
+
+	au FileType php,html inoremap <buffer> ,fo <form action="" method=""><return><input type="text" name=""><return></form>
+	au FileType php,html inoremap <buffer> ,fg <form action="" method="get"><return><input type="text" name=""><return></form>
+	au FileType php,html inoremap <buffer> ,fp <form action="" method="post"><return><input type="text" name=""><return></form>
+	au FileType php,html inoremap <buffer> ,in <input type="" name="" value=""></input><esc>F<i
+
+	au FileType php,html inoremap <buffer> ,ec echo "";<esc>hi
+	au FileType php,html inoremap <buffer> ,ge $_GET[""]<esc>hi
+	au FileType php,html inoremap <buffer> ,po $_POST[""]<esc>hi
+	au FileType php,html inoremap <buffer> ,lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+
+	au FileType php,html nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+augroup end
 
 ""  Auto Header
-"""  SH Auto Header
-
-autocmd bufnewfile *.sh 0r $HOME/.vim/skel/bash_header
+"""  Basic headers
+autocmd BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
+autocmd BufNewFile *.html 0r $HOME/.vim/skel/html_header
 
 """  Auto protect c header
 if !exists("autocommands_loaded")
@@ -1204,7 +1334,7 @@ augroup LatexSmith
 	autocmd FileType plaintex,tex silent vnoremap <buffer> ,, <esc>/<++><cr>"_4s
 	autocmd FileType plaintex,tex silent map <buffer> ,, <esc>/<++><cr>"_4s
 
-	autocmd Filetype plaintex,tex silent nnoremap <buffer> \ll :LLPStartPreview
+	autocmd FileType plaintex,tex silent nnoremap <buffer> <leader>ll :LLPStartPreview
 
 	" Latex snippets
 	autocmd FileType plaintex,tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><esc>6kf}i

@@ -49,6 +49,8 @@ alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 alias le='less'
 alias ccat='highlight --out-format=ansi'
 
+alias r='ranger'
+
 ## df
 alias df='df -h'
 
@@ -63,7 +65,8 @@ alias sv="sudo vim"
 
 ### ssh
 alias sshhome='ssh biggybi@192.168.1.28'
-alias sshpi='ssh pi@192.168.1.101 -p 42'
+alias sshpi='ssh pi@192.168.1.102 -p 42'
+alias sshlab='ssh tris@192.168.1.101 -p 42'
 
 ### various defaults
 alias dconf-editor='dcond-editor --I-understand-that-changing-options-can-break-applications'
@@ -73,8 +76,8 @@ alias histon='set -o history'
 alias histoff='set +o history'
 
 ### daynight
-alias dnd='daynight d && source $HOME/.bashrc'
-alias dnn='daynight n && source $HOME/.bashrc'
+alias dnd='daynight d && source $HOME/.bashrc && notify-send "Day"'
+alias dnn='daynight n && source $HOME/.bashrc && notify-send "Night"'
 
 # terminal_profile_switch () {
 #       xdotool --clearmodifiers key Shift+F10 r $1
@@ -105,6 +108,8 @@ alias vimrc='vim $HOME/dotfiles/vimrc'
 alias viinputrc='vim $HOME/dotfiles/inputrc'
 alias vifstab='sudo vim /etc/fstab'
 alias viapt='sudo vim /etc/apt/sources.list'
+alias vimgit='sh .git/vimgit'
+alias vg='sh .git/vimgit'
 
 alias sobash='. $HOME/.bashrc'
 alias somacbash='. $HOME/.bash_profile'
@@ -115,8 +120,8 @@ alias soall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
 
 alias dot='cd $HOME/dotfiles'
 alias dots='git -C $HOME/dotfiles status'
-alias dotclone='git clone https://github.com/biggybi/dotfiles'
-alias dotclssh='git clone git@github.com:Biggybi/dotfiles'
+alias dotclh='git clone https://github.com/biggybi/dotfiles'
+alias dotcl='git clone git@github.com:Biggybi/dotfiles'
 alias dotssh='git clone git@github.com:Biggybi/dotfiles'
 
 alias please='sudo $(fc -ln -1)'
@@ -128,6 +133,7 @@ open () {
 	xdg-open $1 &
 }
 alias o=open
+
 alias fzf='fzf --color="dark" --tabstop=4'
 # alias fd='fd ~'
 alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
@@ -164,12 +170,13 @@ aptif () {
 	sudo apt install -y $(grep -o ^[^#][[:alnum:]-]* "$1")
 }
 alias aptrm='sudo apt autoremove'
-alias aptu='sudo apt update'
+alias aptu='sudo apt update && notify-send "Update done"'
 alias aptg='sudo apt upgrade'
 alias aptd='sudo apt dist-upgrade'
 alias apts='apt search'
-alias uuu='aptu && aptg'
-alias uu='aptu && aptg'
+alias aptl='apt list'
+alias uuu='sudo apt update && sudo apt upgrade && notify-send "Update done"'
+alias uu='sudo apt upgrade && sudo apt && notify-send "Update done"'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
 alias myip='hostname -I | sed "s/\ .*//g"'
@@ -182,6 +189,7 @@ alias myopt='sudo dpkg -S /opt/*'
 alias pingg='ping -c 3 www.qwant.com'
 
 alias cip='xsel -b'
+alias pw='pwd'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
@@ -196,6 +204,7 @@ alias lftmk='make -C $ALIAS_101_HOME/'
 alias lftln='ln -s $ALIAS_101_LFT/ .'
 alias lftls='ls $ALIAS_101_LFT/src/*.c | cut -d/ -f7'
 alias lftcp='cp -ru $ALIAS_101_HOME/libft.a $ALIAS_101_LFT/inc/libft.h .'
+alias lftcl='git clone git@github.com:Biggybi/libft'
 alias lftccp='cp -rf $ALIAS_101_LFT/ .'
 alias cdgnl='cd $ALIAS_101_HOME/GNL'
 alias cdls='cd $ALIAS_101_HOME/ft_ls'
