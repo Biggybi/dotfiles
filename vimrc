@@ -1333,6 +1333,17 @@ augroup end
 
 " noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
+""" JavaScript
+
+augroup JSmaps
+	au!
+	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+	au FileType javascript inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+	au FileType javascript inoremap <buffer> ,cl console.log();<esc>F)i
+	au FileType javascript nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
+	au FileType javascript vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
+augroup end
+
 """ PHP/HTML/CSS
 augroup Webmaps
 	au! Webmaps
