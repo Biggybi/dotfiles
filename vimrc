@@ -653,6 +653,11 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " set statusline+=%H*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+
 let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_enable_c_checker = 1
 let g:syntastic_c_check_header = 1
@@ -660,14 +665,12 @@ let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
 let g:syntastic_tex_checkers = ['lacheck']
 let g:ycm_use_clangd = 1
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_python_flake8_args = '--ignore="E501"' " ignore long lines
+
 let g:syntastic_json_checkers=['jsonlint']
+
+let g:syntastic_html_checkers=['tidy']
 
 """ Lightline
 set noshowmode " do not show mode in status line
