@@ -95,7 +95,7 @@ if exists('+undofile')
 endif
 
 " Backup files dir
-set backupskip=/tmp/*,/private/tmp/*"		" vim can edit crontab
+set backupskip=/tmp/*,/private/tmp/*		" vim can edit crontab
 set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
