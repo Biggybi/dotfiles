@@ -334,10 +334,13 @@ nnoremap <c-w><c-f> :vertical wincmd f<cr>
 " show traling whitespaces
 
 match TrailWhite /\s\+$/
-autocmd BufWinEnter * match TrailWhite /\s\+$/
-autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
-autocmd InsertLeave * match TrailWhite /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+augroup TrailWhite
+	au!
+	autocmd BufWinEnter * match TrailWhite /\s\+$/
+	autocmd InsertEnter * match TrailWhite /\s\+\%#\@<!$/
+	autocmd InsertLeave * match TrailWhite /\s\+$/
+	autocmd BufWinLeave * call clearmatches()
+augroup end
 
 " focus current window : cursorline and relative numbers
 augroup WinFocus
@@ -388,8 +391,11 @@ set nofoldenable " don't fold by default
 set foldlevel=1
 
 " automatily save and restore files views (folding state and more)
-autocmd BufWinLeave * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | mkview | endif
-autocmd BufWinEnter * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | loadview | endif
+augroup ReViews
+	au!
+	autocmd BufWinLeave * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | mkview | endif
+	autocmd BufWinEnter * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | loadview | endif
+augroup end
 
 " inoremap <leader><space> <c-o>za
 nnoremap <leader><space> za
@@ -416,37 +422,49 @@ endfunction
 " autocmd TextChanged,TextChangedI <buffer> silent write
 
 " open file where it was closed
-autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\   exe "normal! g`\"" |
-			\ endif
+augroup ReOpen
+	au!
+	autocmd BufReadPost *
+				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+				\   exe "normal! g`\"" |
+				\ endif
+augroup end
 
 " auto change dir to git repo
-autocmd BufEnter * silent! Gcd
+augroup GitRoot
+	au!
+	autocmd BufEnter * silent! Gcd
+augroup end
 
 " filetype recognition
-autocmd FileType c setlocal ofu=ccomplete#CompleteCpp
-autocmd FileType css setlocal ofu=csscomplete#CompleteCSS
-autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
-autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
-autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
-autocmd BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
-autocmd BufNewFile,BufFilePre,BufRead *.php set filetype=php
-autocmd BufNewFile,BufFilePre,BufRead *.css set filetype=css
-autocmd BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
-autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
-autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
-" autocmd BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
+augroup FileTypeSelect
+	au!
+	autocmd FileType c setlocal ofu=ccomplete#CompleteCpp
+	autocmd FileType css setlocal ofu=csscomplete#CompleteCSS
+	autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
+	autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
+	autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
+	autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+	autocmd BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
+	autocmd BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
+	autocmd BufNewFile,BufFilePre,BufRead *.php set filetype=php
+	autocmd BufNewFile,BufFilePre,BufRead *.css set filetype=css
+	autocmd BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
+	autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
+	autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
+	" autocmd BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
+augroup end
 
 " refresh filetype upon writing
 " autocmd BufWritePost * filetype detect
 
 " auto chose tag from .git folder
-autocmd BufEnter * set tags=.git/tags
-
-autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,headers
+" set path for code
+augroup HeadersTags
+	au!
+	autocmd BufEnter * set tags=.git/tags
+	autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,headers
+augroup end
 
 " autoreload tags file on save
 " autocmd BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
@@ -454,10 +472,13 @@ autocmd FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,hea
 " set tags=tags;./git/
 " set tags=./tags;
 
-autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak nowrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-" autocmd FileType man,help wincmd H | 79 wincmd|
-autocmd BufEnter * silent! if (&filetype == 'help') | wincmd H | 78 wincmd| | endif
-autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
+augroup HelpManDisplay
+	au!
+	autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak nowrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+	" autocmd FileType man,help wincmd H | 79 wincmd|
+	autocmd BufEnter * silent! if (&filetype == 'help') | wincmd H | 78 wincmd| | endif
+	autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
+augroup end
 
 "css width
 " autocmd BufEnter *.css silent! if (&filetype == 'css') | 40 wincmd| | endif
@@ -595,8 +616,11 @@ augroup end
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
 set diffopt+=vertical " vertical split for diff
-autocmd FileType gitcommit start
-autocmd FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
+augroup FugitiveSet
+	au!
+	" autocmd FileType gitcommit start
+	autocmd FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
+augroup end
 
 """ YouCompleteMe
 
@@ -798,10 +822,13 @@ let g:searchhi_open_folds = 0
 """ Latex Live Preview
 
 " autocmd FileType tex,plaintex let g:tex_fold_enabled=1
-autocmd FileType tex setlocal updatetime=1000
-" let g:livepreview_previewer = 'zathura'
-" let g:livepreview_cursorhold_recompile = 0
-" let g:livepreview_engine = 'your_engine' . ' [options]'
+augroup TexSet
+	au!
+	autocmd FileType tex setlocal updatetime=1000
+	" let g:livepreview_previewer = 'zathura'
+	" let g:livepreview_cursorhold_recompile = 0
+	" let g:livepreview_engine = 'your_engine' . ' [options]'
+augroup end
 
 ""  Quickfix
 
@@ -811,9 +838,9 @@ augroup ft_quickfix
 
 	" vimscript is a joke
 	autocmd FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+	autocmd FileType qf call AdjustWindowHeight(1, 5)
 augroup end
 
-autocmd FileType qf call AdjustWindowHeight(1, 5)
 function! AdjustWindowHeight(minheight, maxheight)
 	let l = 1
 	let n_lines = 0
@@ -909,6 +936,33 @@ endfunction
 " hi def link User1 DiffAdd
 " hi def link User2 DiffDelete
 " set stl=%!STL()
+
+""" Smooth scroll
+" function SmoothScroll(up)
+"     if a:up
+"         let scrollaction=""
+"     else
+"         let scrollaction=""
+"     endif
+"     exec "normal " . scrollaction
+"     redraw
+"     let counter=1
+"     while counter<&scroll
+"         let counter+=1
+"         sleep 10m
+"         redraw
+"         exec "normal " . scrollaction
+"     endwhile
+" endfunction
+
+" nnoremap <C-U> :call SmoothScroll(1)<Enter>
+" nnoremap <C-D> :call SmoothScroll(0)<Enter>
+" inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
+" inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
+
+" map <ScrollWheelUp> <C-Y>
+" map <ScrollWheelDown> <C-E>
+
 ""  Headers
 """ 42Header
 
@@ -1291,6 +1345,7 @@ augroup end
 """ PHP/HTML/CSS
 augroup Webmaps
 	au! Webmaps
+	au FileType css nnoremap <buffer> <c-w>u :40 wincmd\|<cr>
 	au FileType css inoremap <buffer> {<cr>  {<cr>}<esc>O
 	au FileType php,html inoremap <buffer> ,php <?php<cr>?><esc>O
 	au FileType php,html inoremap <buffer> ,bo <body></body><esc>F<i
@@ -1344,8 +1399,11 @@ augroup end
 
 ""  Auto Header
 """  Basic headers
-autocmd BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
-autocmd BufNewFile *.html 0r $HOME/.vim/skel/html_header
+augroup headers
+	au!
+	autocmd BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
+	autocmd BufNewFile *.html 0r $HOME/.vim/skel/html_header
+augroup end
 
 """  Auto protect c header
 if !exists("autocommands_loaded")
@@ -1426,7 +1484,10 @@ augroup end
 
 ""  Dotfiles settings
 """ Filetype
-autocmd BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
+augroup dotfiles_sh
+	au!
+	autocmd BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
+augroup end
 
 augroup suffixes
     autocmd!
