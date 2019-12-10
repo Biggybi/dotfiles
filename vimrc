@@ -1404,6 +1404,7 @@ augroup end
 
 augroup JSmaps
 	au!
+	au FileType javascript nnoremap <buffer> <leader>gcc :Shell node %
 	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,cl console.log();<esc>F)i
