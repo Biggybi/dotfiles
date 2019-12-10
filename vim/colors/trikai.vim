@@ -115,16 +115,16 @@ hi TabLineFill     guifg=#1B1D1E guibg=#1B1D1E gui=bold
 " hi TabLine         guibg=#1B1D1E guifg=#808080 gui=none
 hi TabLine         guibg=#1B1D1E guifg=#1B1D1E gui=bold
 
-   hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
-   hi Comment         guifg=#7E8E91
-   hi CursorLine                    guibg=#293739
-   hi CursorLineNr    guifg=#FD971F               gui=none
-   hi CursorColumn                  guibg=#293739
-   hi ColorColumn                   guibg=#000007
+hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
+hi Comment         guifg=#7E8E91
+hi CursorLine                    guibg=#293739
+hi CursorLineNr    guifg=#FD971F               gui=none
+hi CursorColumn                  guibg=#293739
+hi ColorColumn                   guibg=#000007
 "    hi ColorColumn                   guibg=#232526
-   hi LineNr          guifg=#465457 guibg=#232526
-   hi NonText         guifg=#465457
-   hi SpecialKey      guifg=#465457
+hi LineNr          guifg=#465457 guibg=#232526
+hi NonText         guifg=#465457
+hi SpecialKey      guifg=#465457
 
 if &t_Co > 255
       hi Normal       ctermfg=252 ctermbg=234
