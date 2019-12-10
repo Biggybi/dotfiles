@@ -1190,6 +1190,72 @@ nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
 " % as <c-g>
 nnoremap <c-g> %
 
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap in) :<c-u>normal! f(vi(<cr>
+onoremap an( :<c-u>normal! f(va(<cr>
+onoremap an) :<c-u>normal! f(va(<cr>
+onoremap iN( :<c-u>normal! F(vi(<cr>
+onoremap iN) :<c-u>normal! F(vi(<cr>
+onoremap aN( :<c-u>normal! F(va(<cr>
+onoremap aN) :<c-u>normal! F(va(<cr>
+
+onoremap in{ :<c-u>normal! f{vi{<cr>
+onoremap in} :<c-u>normal! f{vi{<cr>
+onoremap an{ :<c-u>normal! f{va{<cr>
+onoremap an} :<c-u>normal! f{va{<cr>
+onoremap iN{ :<c-u>normal! F{vi{<cr>
+onoremap iN} :<c-u>normal! F{vi{<cr>
+onoremap aN{ :<c-u>normal! F{va{<cr>
+onoremap aN} :<c-u>normal! F{va{<cr>
+
+onoremap in[ :<c-u>normal! f[vi[<cr>
+onoremap in] :<c-u>normal! f[vi[<cr>
+onoremap an[ :<c-u>normal! f[va[<cr>
+onoremap an] :<c-u>normal! f[va[<cr>
+onoremap iN[ :<c-u>normal! F[vi[<cr>
+onoremap iN] :<c-u>normal! F[vi[<cr>
+onoremap aN[ :<c-u>normal! F[va[<cr>
+onoremap aN] :<c-u>normal! F[va[<cr>
+
+onoremap in< :<c-u>normal! f<vi<<cr>
+onoremap in> :<c-u>normal! f<vi<<cr>
+onoremap an< :<c-u>normal! f<va<<cr>
+onoremap an> :<c-u>normal! f<va<<cr>
+onoremap iN< :<c-u>normal! F<vi<<cr>
+onoremap iN> :<c-u>normal! F<vi<<cr>
+onoremap aN< :<c-u>normal! F<va<<cr>
+onoremap aN> :<c-u>normal! F<va<<cr>
+
+onoremap in" :<c-u>normal! f"vi"<cr>
+onoremap an" :<c-u>normal! f"va"<cr>
+onoremap iN" :<c-u>normal! F"vi"<cr>
+onoremap aN" :<c-u>normal! F"va"<cr>
+
+onoremap in' :<c-u>normal! f'vi'<cr>
+onoremap an' :<c-u>normal! f'va'<cr>
+onoremap iN' :<c-u>normal! F'vi'<cr>
+onoremap aN' :<c-u>normal! F'va'<cr>
+
+onoremap in. :<c-u>normal! f.vi.<cr>
+onoremap an. :<c-u>normal! f.va.<cr>
+onoremap iN. :<c-u>normal! F.vi.<cr>
+onoremap aN. :<c-u>normal! F.va.<cr>
+
+onoremap in- :<c-u>normal! f-vi-<cr>
+onoremap an- :<c-u>normal! f-va-<cr>
+onoremap iN- :<c-u>normal! F-vi-<cr>
+onoremap aN- :<c-u>normal! F-va-<cr>
+
+onoremap in, :<c-u>normal, f,vi,<cr>
+onoremap an, :<c-u>normal, f,va,<cr>
+onoremap iN, :<c-u>normal, F,vi,<cr>
+onoremap aN, :<c-u>normal, F,va,<cr>
+
+onoremap in* :<c-u>normal! f*vi*<cr>
+onoremap an* :<c-u>normal! f*va*<cr>
+onoremap iN* :<c-u>normal! F*vi*<cr>
+onoremap aN* :<c-u>normal! F*va*<cr>
+
 " up down on lines as seen
 nnoremap <silent> j gj
 nnoremap <silent> k gk
