@@ -244,7 +244,7 @@ alias gitls='git ls-tree --full-tree -r --name-only HEAD'
 
 alias gcc='clang '
 alias gccf='gcc -Wall -Wextra '
-
+alias phpserv='php -S localhost:4000'
 alias bc='bc -q'
 alias asciid="man ascii | grep Tables -A15 | cut -c 25- | sed 's/^ /    /;s/$^//;1,2d;5d'"
 alias asciidh="man ascii | grep ".*30.*40.*" -A18 -B1"
