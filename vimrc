@@ -1263,7 +1263,7 @@ nnoremap <silent> k gk
 nnoremap H ^
 nnoremap L g_
 nnoremap <c-h> B
-nnoremap <c-l> W
+nnoremap <c-l> E
 nnoremap <c-k> {
 nnoremap <c-j> }
 nnoremap <c-q> <silent>:redraw<cr>
