@@ -822,6 +822,7 @@ nmap [h <Plug>GitGutterPrevHunk
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
 nnoremap <leader>b :Buffers<cr>
+nnoremap <leader><c-b> :Windows<cr>
 nnoremap <leader>F :FZF /<cr>			" from root
 nnoremap <leader>f :FZF $HOME<cr>		" from HOME
 nnoremap <leader><c-f> :FZF .<cr>		" from here
