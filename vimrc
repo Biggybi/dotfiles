@@ -686,6 +686,7 @@ let g:ycm_filetype_blacklist = {
 			\ 'fugitive': 1,
 			\ 'gitcommit': 1,
 			\ 'help': 1,
+			\ 'man': 1,
 			\ 'tags': 1
 			\}
 
