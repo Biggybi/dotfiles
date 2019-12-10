@@ -470,10 +470,13 @@ augroup end
 
 augroup HelpManDisplay
 	au!
-	autocmd FileType man,help setlocal noswapfile nobackup nobuflisted nolinebreak nowrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-	" autocmd FileType man,help wincmd H | 79 wincmd|
-	autocmd BufEnter * silent! if (&filetype == 'help') | wincmd H | 78 wincmd| | endif
-	autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
+	" autocmd FileType man,help
+	" 	 \ au BufEnter,BufNewFile,BufNew <buffer> wincmd H | 78 wincmd|
+	" 	 \ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+	autocmd FileType man,help  wincmd H | 79 wincmd|
+		 \ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+	" autocmd BufEnter * silent! if (&filetype == 'help' || &filetype == 'man') | wincmd H | 78 wincmd| | endif
+	" autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
 augroup end
 
 "css width
