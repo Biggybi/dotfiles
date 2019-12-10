@@ -51,11 +51,12 @@ fi
 #better completion
 
 bind 'TAB':menu-complete					# cycle through matches
-bind 'set menu-complete-display-prefix on'	# partial completion first, then cycle
+bind 'set menu-complete-display-prefix on'	# partial completion, then cycle
 bind 'set show-all-if-ambiguous on'			# show list of matching files
 # bind 'set mark-directories on'
 
-# programmable completion features, no need if in /etc/bash.bashrc sourced by /etc/profile
+# programmable completion features, no need if
+# in /etc/bash.bashrc sourced by /etc/profile
 if ! shopt -oq posix; then
 	if [ -f /usr/share/bash-completion/bash_completion ]; then
 		. /usr/share/bash-completion/bash_completion
@@ -70,15 +71,18 @@ if [ -f /usr/share/bash-completion/completions/git ]; then
 fi
 
 # history
-stty -ixon							# C-s as rev C-r, disable term flow (C-s C-q)
-shopt -s cmdhist					# Combine multiline commands into one
-shopt -s histappend					# append to the history file (no overwrite)
-shopt -s histverify					# show hist cmd (from !) without executing
-HISTSIZE= HISTFILESIZE= #			# infinite history
-HISTIGNORE="&:ls:bg:fg:exit:clear"		# ignore some commands
-HISTCONTROL=ignoreboth				# duplicates and whitespace
-# HISTCONTROL=ignorespace			# starting with whitespace
-# HISTCONTROL=ignoredups			# duplicates
+stty -ixon												# no term flow (C-q)
+shopt -s cmdhist										# command one-liner
+shopt -s histappend										# append to history
+shopt -s histverify										# expand '!'
+HISTSIZE= HISTFILESIZE= #								# infinite history
+HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear"		# ignored commands
+HISTCONTROL=ignoreboth									# duplicate + whitespace
+# HISTCONTROL=ignorespace								# whitespace
+# HISTCONTROL=ignoredups								# duplicates
+
+# man with vim
+vman() { vim -c "set ft=man" <(man $1); }
 
 # fzf defaults
 export FZF_DEFAULT_OPTS='--height 10 -m'
