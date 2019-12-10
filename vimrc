@@ -257,9 +257,9 @@ set t_Co=256	" explicitly tell vim that the terminal supports 256 colors"
 ""  Window behaviour
 
 " open buffer with partial search
-nnoremap <leader>b :buffer<space>
-nnoremap <leader><c-b> :vertical sbuffer<space>
-nnoremap <leader>B :sbuffer<space>
+" nnoremap <leader>b :buffer<space>
+" nnoremap <leader><c-b> :vertical sbuffer<space>
+" nnoremap <leader>B :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
 "go to next / previous buffer
@@ -817,6 +817,7 @@ nmap [h <Plug>GitGutterPrevHunk
 """ FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
+nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :FZF /<cr>			" from root
 nnoremap <leader>f :FZF $HOME<cr>		" from HOME
 nnoremap <leader><c-f> :FZF .<cr>		" from here
