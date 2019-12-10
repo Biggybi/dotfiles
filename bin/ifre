@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -ne $1 ]
+then
+	INTERFACE=$(ip a | grep 192\.168 -B 2 | head -n 1 | sed 's/.*: \(.*\): .*/\1/' | head -n1)
+else
+	INTERFACE=$1
+fi
+
+sudo ifdown $INTERFACE
+sudo ifup $INTERFACE
