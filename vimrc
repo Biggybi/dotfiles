@@ -478,16 +478,16 @@ augroup HelpManSplit
 	" autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
 
 	autocmd FileType man autocmd! BufEnter <buffer> silent!
-		\ | wincmd H | 73 wincmd|
+		\ | silent! wincmd H | 79 wincmd|
 		\ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap showbreak=
 		\ | setlocal cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
 	autocmd FileType man
-		\ | wincmd H | 73 wincmd|
+		\ | silent! wincmd H | 79 wincmd|
 		\ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap showbreak=
 		\ | setlocal cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
 
 	autocmd FileType help autocmd! BufEnter <buffer> silent!
-		\ | wincmd H | 79 wincmd|
+		\ | silent! wincmd H | 79 wincmd|
 		\ | setlocal noswapfile nobackup nobuflisted nolinebreak nowrap showbreak=
 		\ | setlocal cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
 	" autocmd FileType help silent!
