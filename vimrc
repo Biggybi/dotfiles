@@ -866,16 +866,10 @@ let g:fzf_colors =
 			\ 'spinner': ['fg', 'Label'],
 			\ 'header':  ['fg', 'Comment'] }
 
-""" Root
-" let g:root#auto = 1
-" let g:root#echo = 0
-
-
 """ Searchhi
 let g:searchhi_clear_all_autocmds = 'InsertEnter'
 let g:searchhi_update_all_autocmds = 'InsertLeave'
 let g:searchhi_open_folds = 0
-
 
 """ Latex Live Preview
 
@@ -1490,40 +1484,7 @@ augroup Webmaps
 	au FileType php,html nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 augroup end
 
-""  Auto Header
-"""  Basic headers
-augroup headers
-	au!
-	autocmd BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
-	autocmd BufNewFile *.html 0r $HOME/.vim/skel/html_header
-augroup end
-
-"""  Auto protect c header
-if !exists("autocommands_loaded")
-	let autocommands_loaded = 1
-	autocmd BufNewFile *.h call InsertCHHeader()
-endif
-
-function! InsertCHHeader()
-	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
-	" Save cpoptions
-	let cpoptions = &cpoptions
-	" Remove the 'a' option - prevents the name of the
-	" alternate file being overwritten with a :read command
-	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-	exe "read " . path_to_skeletons
-	" Restore cpoptions
-	exe "set cpoptions=" . cpoptions
-	1, 1 delete _
-
-	let fname = expand("%:t")
-	let fname = toupper(fname)
-	let fname = substitute(fname, "\\.", "_", "g")
-	%s/HEADERNAME/\=fname/g
-endfunction
-
-
-""  Latex Mappings
+""" LATEX
 
 augroup LatexSmith
 	autocmd! LatexSmith
@@ -1573,6 +1534,39 @@ augroup LatexSmith
 	autocmd FileType plaintex,tex inoremap <buffer> ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<esc>5kA
 	autocmd FileType plaintex,tex inoremap <buffer> ,rn (\ref{})<++><esc>F}i
 augroup end
+
+
+""  Auto Header
+"""  Basic headers
+augroup headers
+	au!
+	autocmd BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
+	autocmd BufNewFile *.html 0r $HOME/.vim/skel/html_header
+augroup end
+
+"""  Auto protect c header
+if !exists("autocommands_loaded")
+	let autocommands_loaded = 1
+	autocmd BufNewFile *.h call InsertCHHeader()
+endif
+
+function! InsertCHHeader()
+	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
+	" Save cpoptions
+	let cpoptions = &cpoptions
+	" Remove the 'a' option - prevents the name of the
+	" alternate file being overwritten with a :read command
+	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+	exe "read " . path_to_skeletons
+	" Restore cpoptions
+	exe "set cpoptions=" . cpoptions
+	1, 1 delete _
+
+	let fname = expand("%:t")
+	let fname = toupper(fname)
+	let fname = substitute(fname, "\\.", "_", "g")
+	%s/HEADERNAME/\=fname/g
+endfunction
 
 
 ""  Dotfiles settings
