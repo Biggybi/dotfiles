@@ -421,9 +421,9 @@ endfunction
 augroup ReOpen
 	au!
 	autocmd BufReadPost *
-				\ if line("'\"") > 0 && line("'\"") <= line("$") |
-				\   exe "normal! g`\"" |
-				\ endif
+		\ if line("'\"") > 0 && line("'\"") <= line("$") |
+		\   exe "normal! g`\"" |
+		\ endif
 augroup end
 
 " auto change dir to git repo
@@ -842,7 +842,7 @@ nmap [h <Plug>GitGutterPrevHunk
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
 nnoremap <leader>, :Buffers<cr>
-nnoremap <leader>, :Windows<cr>
+nnoremap <leader>. :Windows<cr>
 nnoremap <leader>/ :Tags<cr>
 nnoremap <leader>F :FZF /<cr>			" from root
 nnoremap <leader>f :FZF $HOME<cr>		" from HOME
@@ -1331,7 +1331,6 @@ nnoremap dh d^
 nnoremap yh y^
 
 " System clipboard interraction
-
 " paste from clipboard ...
 nnoremap <leader>p mp"+]p==`p
 nnoremap <leader>P mp"+]P==`p
@@ -1341,7 +1340,6 @@ nnoremap <leader>op o<esc>"+]p==
 nnoremap <leader>oP O<esc>"+]p==
 nnoremap <leader>Op O<esc>"+]p==
 nnoremap <leader>OP O<esc>"+]p==
-
 " copy to clipboard
 nnoremap <leader>y "+y
 nnoremap <leader>yl "+y$
@@ -1386,14 +1384,14 @@ augroup Cmaps
 	" close brackets
 	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
 
-	" rackets around paragraph
+	" brackets around paragraph
 	au FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
 	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 	"  name of current c function (needs '()')
 	au FileType c nnoremap <silent> g<c-d> j[[h^t(b
 
-	" emicolon EOL
+	" semicolon EOL
 	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 
 	" t all text in function
@@ -1423,15 +1421,18 @@ augroup end
 " noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
 """ JavaScript
-
 augroup JSmaps
 	au!
+	" close brackets
+	au FileType javascript inoremap <buffer> {<cr>  {<cr>}<esc>O
 	au FileType javascript nnoremap <buffer> <leader>gcc :Shell node %
 	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+	au FileType javascript inoremap <buffer> ,fo for ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,cl console.log();<esc>F)i
 	au FileType javascript nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
 	au FileType javascript vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
+	au FileType javascript vnoremap <buffer> <leader>gcc :!live-server %
 augroup end
 
 """ PHP/HTML/CSS
@@ -1624,5 +1625,6 @@ augroup VimrcMaps
 	autocmd FileType vim nnoremap <silent> <buffer> zm zM100<c-y>
 augroup end
 """ Vimrc modeline
+" vim:tw=0
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
