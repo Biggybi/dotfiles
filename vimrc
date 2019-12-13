@@ -9,7 +9,7 @@
 "                                                                             "
 " *************************************************************************** "
 
-""  Signature
+""    Signature
 " """""""""""""""""""""""""""""""""""""""""""""""""""
 "  ____ _____ _____  _______     ______ _____		"
 " |  _ \_   _/ ____|/ ____\ \   / /  _ \_   _|		"
@@ -20,7 +20,7 @@
 "													"
 " """""""""""""""""""""""""""""""""""""""""""""""""""
 
-""  Vimrc settings
+""    Vimrc settings
 
 set nocompatible " not compatible with vi
 filetype plugin on
@@ -35,47 +35,7 @@ execute pathogen#infect()
 " automatically reload vimrc when modified
 " autocmd! BufWritePost $MYVIMRC silent source $MYVIMRC
 
-" source vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:w<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
-nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>
-nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:YcmRestartServer<cr>:redraw<cr>:echo "all fresh"<cr>
-
-" edit dotfiles
-nnoremap <leader>ev :e $DOT/vimrc<cr>
-nnoremap <leader>e<c-v> :vertical split $DOT/vimrc<cr>
-nnoremap <leader>eb :e $DOT/bashrc<cr>
-nnoremap <leader>e<c-b> :vertical split $DOT/bashrc<cr>
-nnoremap <leader>ea :e $DOT/bash_aliases<cr>
-nnoremap <leader>e<c-a> :vertical split $DOT/bash_aliases<cr>
-nnoremap <leader>ei :e $DOT/inputrc<cr>
-nnoremap <leader>e<c-i> :vertical split $DOT/inputrc<cr>
-nnoremap <leader>ep $DOT/bash_profile<cr>
-nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
-nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
-nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-
-
-""  General
-
-map <space> <leader>
-set iskeyword+=,
-
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-
-inoremap jk <esc>
-cnoremap jk <esc>
-nnoremap gI `.gi<esc>
-" no more default ex mode
-nnoremap Q <nul>
-nnoremap <c-s> :w<cr>
-inoremap <c-s> <c-o>:stopinsert<cr>:w<cr><esc>
-cnoremap W! %!sudo tee > /dev/null %
+""    General
 
 set history=10000 " default 20
 
@@ -84,6 +44,9 @@ set backspace=indent,eol,start
 
 " faster redrawing
 set ttyfast
+
+" coma is end of word
+set iskeyword+=,
 
 " restore undo history
 if exists('+undofile')
@@ -127,7 +90,7 @@ set suffixesadd=.tex,.latex,.java,.c,.h,.js
 " endif
 
 
-""  User Interface
+""    User Interface
 
 set ruler
 set mouse=a
@@ -176,19 +139,12 @@ set showbreak=\ \ ¬			" ... showing a character
 set sidescrolloff=5			" horizontal cursor max value
 let &scrolloff=winheight(win_getid())/10 + 1 " minumum lines before/after cursor
 
-" toggle always in middle with zz
-nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
-
 " status line
 set laststatus=2			" show the satus line all the time
 " show buffer number
 set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
-" open file under cursor in vertical split
-nnoremap g<c-f> :vertical wincmd f<cr>
-
-
-""  Look / Theme
+""    Look / Theme
 
 syntax on
 
@@ -243,10 +199,6 @@ endif
 
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
-" source colors
-nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
-nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
-
 " code
 set encoding=utf8
 let base16colorspace=256	" access colors present in 256 colorspace"
@@ -254,22 +206,7 @@ set t_Co=256	" explicitly tell vim that the terminal supports 256 colors"
 
 
 
-""  Window behaviour
-
-" open buffer with partial search
-" nnoremap <leader>b :buffer<space>
-" nnoremap <leader><c-b> :vertical sbuffer<space>
-" nnoremap <leader>B :sbuffer<space>
-" nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
-
-"go to next / previous buffer
-nnoremap <leader>] :bn<cr>
-nnoremap <leader>[ :bp<cr>
-
-"navigate through git commits
-" nnoremap ]g :!git checkout HEAD~1<cr>
-" nnoremap [g :!git checkout HEAD^1<cr>
-
+""    Window behaviour
 
 augroup myterm | au!
 	autocmd TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
@@ -300,13 +237,6 @@ tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
 " tnoremap <a-k> <c-\><c-n><c-w>k
 " tnoremap <a-l> <c-\><c-n><c-w>l
 
-" move between windows with ctrl
-" nnoremap <c-h> :wincmd h<cr>
-" nnoremap <c-j> :wincmd j<cr>
-" nnoremap <c-k> :wincmd k<cr>
-" nnoremap <c-l> :wincmd l<cr>
-" imap <c-w> <c-o><c-w>
-
 " Note: does not work anymore?
 " resize windows quicker
 nnoremap <leader>= :exe "vertical resize +10"<cr>
@@ -322,7 +252,7 @@ nnoremap <c-w>n :vertical new<cr>
 nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
 
-""  Highlights / Match
+""    Highlights / Match
 
 " highlight overlength ctermbg=203 ctermfg=white guibg=#592928
 " match overlength /\%81v.\+/
@@ -379,7 +309,7 @@ set mat=2 " how many tenths of a second to blink
 " vnoremap <expr> F HighlightFSearches('F')
 " vnoremap F<bs> <nop>
 
-""  Folding
+""    Folding
 
 set foldmethod=syntax " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
@@ -401,7 +331,7 @@ vnoremap <leader><space> zf
 " recursively open even partial folds
 nnoremap zo zczO
 
-""  File automation
+""    File automation
 
 set autoread "not working until cmd like :e
 " detect when a file is changed
@@ -470,33 +400,22 @@ augroup end
 
 augroup HelpManSplit
 	au!
-	" autocmd FileType man,help
-	" \ au BufEnter,BufNewFile,BufNew <buffer> wincmd H | 78 wincmd|
-	" \ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-	" autocmd FileType man,help  wincmd H | 78 wincmd|
-	" \ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-	" autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
-
 	autocmd FileType man autocmd! BufEnter <buffer> silent!
 		\ | silent! wincmd H | 79 wincmd|
-		\ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap showbreak=
-		\ | setlocal cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+		\ | setlocal noswapfile nobackup nobuflisted
+		\ | setlocal nolinebreak wrap showbreak=
+		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
 	autocmd FileType man
 		\ | silent! wincmd H | 79 wincmd|
-		\ | setlocal noswapfile nobackup nobuflisted nolinebreak wrap showbreak=
-		\ | setlocal cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
+		\ | setlocal noswapfile nobackup nobuflisted
+		\ | setlocal nolinebreak wrap showbreak=
+		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
 
 	autocmd FileType help autocmd! BufEnter <buffer> silent!
 		\ | silent! wincmd H | 79 wincmd|
-		\ | setlocal noswapfile nobackup nobuflisted nolinebreak nowrap showbreak=
-		\ | setlocal cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-	" autocmd FileType help silent!
-	" 	\ | wincmd H | 79 wincmd|
-	" 	\ | setlocal noswapfile nobackup nobuflisted nolinebreak nowrap showbreak=
-	" 	\ | setlocal cursorline norelativenumber nonumber colorcolumn=0 signcolumn=no
-
-	" autocmd BufEnter * silent! if (&filetype == 'help' || &filetype == 'man') | wincmd H | 78 wincmd| | endif
-	" autocmd BufEnter * silent! if (&filetype == 'man') | wincmd H | 78 wincmd| | endif
+		\ | setlocal noswapfile nobackup nobuflisted
+		\ | setlocal nolinebreak nowrap showbreak=
+		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
 augroup end
 
 "css width
@@ -512,7 +431,8 @@ runtime! ftplugin/man.vim
 set keywordprg=:Man
 
 
-""  Searching
+""    Searching
+nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
 
 " set path+=**			" recursive path from current path
 " set incsearch
@@ -578,7 +498,7 @@ nnoremap gR :%s/<c-r>///g<left><left>
 " vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
-""  Autocompletion
+""    Autocompletion
 
 set completeopt=longest,menuone
 " set completeopt=menuone
@@ -589,8 +509,8 @@ set completeopt=longest,menuone
 " inoremap <c-x>l <c-x><c-l>
 
 
-""  Plugins settings
-""" Netrw
+""    Plugins settings
+"""        Netrw
 
 " Toggle Vexplore with <leader>t
 function! ToggleNetrw()
@@ -666,7 +586,7 @@ augroup NetrwStartup
 augroup end
 
 
-""" Fugitive
+"""        Fugitive
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
 set diffopt+=vertical " vertical split for diff
@@ -676,7 +596,7 @@ augroup FugitiveSet
 	autocmd FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
 augroup end
 
-""" YouCompleteMe
+"""        YouCompleteMe
 
 " YCM move mappings
 nnoremap <silent> <leader>cf :ll<cr>:YcmCompleter FixIt<cr>:w<cr>
@@ -721,7 +641,7 @@ let g:ycm_filetype_specific_completion_to_disable = {
 " inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<tab>"
 " inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<S-tab>"
 
-""" Syntastic
+"""        Syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 let g:syntastic_c_include_dirs = ["inc", "incs", "includes", "headers"]
 let g:syntastic_c_compiler_options = "-Wall -Wextra"
@@ -751,7 +671,7 @@ let g:syntastic_json_checkers=['jsonlint']
 
 let g:syntastic_html_checkers=['tidy']
 
-""" Lightline
+"""        Lightline
 set noshowmode " do not show mode in status line
 " Show full path of filename
 
@@ -828,7 +748,7 @@ function! LightlineFugitive()
 	return ''
 endfunction
 
-""" Gitgutter
+"""        Gitgutter
 if exists('&signcolumn')  " Vim 7.4.2201
 	set signcolumn=yes
 else
@@ -838,7 +758,7 @@ set updatetime=20 " time before writing swap, faster gitgutter
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-""" FZF
+"""        FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
 nnoremap <leader>, :Buffers<cr>
@@ -866,12 +786,12 @@ let g:fzf_colors =
 			\ 'spinner': ['fg', 'Label'],
 			\ 'header':  ['fg', 'Comment'] }
 
-""" Searchhi
+"""        Searchhi
 let g:searchhi_clear_all_autocmds = 'InsertEnter'
 let g:searchhi_update_all_autocmds = 'InsertLeave'
 let g:searchhi_open_folds = 0
 
-""" Latex Live Preview
+"""        Latex Live Preview
 
 " autocmd FileType tex,plaintex let g:tex_fold_enabled=1
 augroup TexSet
@@ -882,7 +802,7 @@ augroup TexSet
 	" let g:livepreview_engine = 'your_engine' . ' [options]'
 augroup end
 
-""  Quickfix
+""    Quickfix
 
 augroup ft_quickfix
 	autocmd!
@@ -942,8 +862,8 @@ nnoremap ]w :lnext<cr>
 nnoremap [W :lfirst<cr>
 nnoremap ]W :llast<cr>
 
-""  Mini plugins
-"""  Shell output split
+""    Mini plugins
+"""        Shell output split
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -963,7 +883,7 @@ function! s:RunShellCommand(cmdline)
 " 	setlocal nomodifiable
 endfunction
 
-"""  Scrollbar
+"""        Scrollbar
 " shows a horizontal scroll line, incompatible with lightline
 " func! STL()
 "   let stl = '%f [%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}%M%R%H%W] %y [%l/%L,%v] [%p%%]'
@@ -989,7 +909,7 @@ endfunction
 " hi def link User2 DiffDelete
 " set stl=%!STL()
 
-""" Smooth scroll
+"""        Smooth scroll
 " function SmoothScroll(up)
 "     if a:up
 "         let scrollaction=""
@@ -1015,8 +935,8 @@ endfunction
 " map <ScrollWheelUp> <C-Y>
 " map <ScrollWheelDown> <C-E>
 
-""  Headers
-""" 42Header
+""    Headers
+"""        42Header
 
 let s:asciiart = [
 			\"               /          ",
@@ -1186,17 +1106,41 @@ command! Header101 call Stdheader()
 nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 " autocmd BufWritePre * call s:update ()
 
-""  Mappings
+""    Mappings
+"""        Modes
+" space as leader
+map <space> <leader>
 
-" Word count
-function! WC()
-    echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
-endfunction
-nnoremap <leader>wc :call WC()<cr>
-" nnoremap <leader>w :w !detex \| wc -w<cr>
+" enter command mode with ;
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+" jk enter normal mode
+inoremap jk <esc>
+cnoremap jk <esc>
+nnoremap gI `.gi<esc>
+
+" no more default ex mode
+nnoremap Q <nul>
 
 " <c-z> in insert mode
 inoremap <c-z> <c-[><c-z>
+
+" <c-s> save and enter normal mode
+nnoremap <c-s> :w<cr>
+inoremap <c-s> <c-o>:stopinsert<cr>:w<cr><esc>
+
+" :W! save files as root
+cnoremap W! %!sudo tee > /dev/null %
+
+"""        Files
+" toggle cursor always in middle with <leader>zz
+nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
+
+" open file under cursor in vertical split
+nnoremap g<c-f> :vertical wincmd f<cr>
 
 " trim current line
 nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
@@ -1206,6 +1150,47 @@ nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
 " % as <c-g>
 nnoremap <c-g> %
 
+" Word count
+function! WC()
+    echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+endfunction
+nnoremap <leader>wc :call WC()<cr>
+" nnoremap <leader>w :w !detex \| wc -w<cr>
+
+"""        Dotfiles
+
+" source vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>:w<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
+nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>
+nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:YcmRestartServer<cr>:redraw<cr>:echo "all fresh"<cr>
+
+" source colors
+nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
+nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
+
+
+" edit dotfiles
+nnoremap <leader>ev :e $DOT/vimrc<cr>
+nnoremap <leader>e<c-v> :vertical split $DOT/vimrc<cr>
+nnoremap <leader>eb :e $DOT/bashrc<cr>
+nnoremap <leader>e<c-b> :vertical split $DOT/bashrc<cr>
+nnoremap <leader>ea :e $DOT/bash_aliases<cr>
+nnoremap <leader>e<c-a> :vertical split $DOT/bash_aliases<cr>
+nnoremap <leader>ei :e $DOT/inputrc<cr>
+nnoremap <leader>e<c-i> :vertical split $DOT/inputrc<cr>
+nnoremap <leader>ep $DOT/bash_profile<cr>
+nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
+nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
+nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+
+" " rename file
+" nnoremap <leader>mv :!mv % %:h:p/
+
+"""        Operators
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap in) :<c-u>normal! f(vi(<cr>
 onoremap an( :<c-u>normal! f(va(<cr>
@@ -1272,9 +1257,12 @@ onoremap an* :<c-u>normal! f*va*<cr>
 onoremap iN* :<c-u>normal! F*vi*<cr>
 onoremap aN* :<c-u>normal! F*va*<cr>
 
-" up down on lines as seen
+"""        Movement
+" up down on visual lines
 nnoremap <silent> j gj
 nnoremap <silent> k gk
+xnoremap <silent> j gj
+xnoremap <silent> k gk
 
 nnoremap H ^
 nnoremap L g_
@@ -1284,13 +1272,35 @@ nnoremap <c-k> {
 nnoremap <c-j> }
 nnoremap <c-q> <silent>:redraw<cr>
 
+"go to next / previous buffer
+nnoremap <leader>] :bn<cr>
+nnoremap <leader>[ :bp<cr>
+
 vnoremap H ^
 vnoremap L g_
 vnoremap <c-h> B
-vnoremap <c-l> W
+vnoremap <c-l> E
 vnoremap <c-k> {
 vnoremap <c-j> }
 
+" move between windows with ctrl
+" nnoremap <c-h> :wincmd h<cr>
+" nnoremap <c-j> :wincmd j<cr>
+" nnoremap <c-k> :wincmd k<cr>
+" nnoremap <c-l> :wincmd l<cr>
+" imap <c-w> <c-o><c-w>
+
+" open buffer with partial search
+" nnoremap <leader>b :buffer<space>
+" nnoremap <leader><c-b> :vertical sbuffer<space>
+" nnoremap <leader>B :sbuffer<space>
+" nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
+
+"navigate through git commits
+" nnoremap ]g :!git checkout HEAD~1<cr>
+" nnoremap [g :!git checkout HEAD^1<cr>
+
+"""        Command
 cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 cnoremap <c-k> <Up>
@@ -1303,10 +1313,7 @@ cnoremap <c-x> <Del>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
-" rename file
-nnoremap <leader>mv :!mv % %:h:p/
-
-""" Copy/Paste/Delete
+"""        Clipboard
 
 " delete without saving to register
 nnoremap <leader>d "_d
@@ -1345,14 +1352,14 @@ vnoremap <leader>y "+y
 " nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
 
-""  Code
-""" bash
+""    Code Mappings
+"""        bash
 augroup Shmaps
 	autocmd! Shmaps
 	autocmd FileType sh inoremap <buffer> ,#! #!/bin/bash
 augroup end
 
-""" C
+"""        C
 augroup Cmaps
 	au! Cmaps
 	au FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
@@ -1414,7 +1421,7 @@ augroup end
 
 " noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
-""" JavaScript
+"""        JavaScript
 augroup JSmaps
 	au!
 	" close brackets
@@ -1429,7 +1436,7 @@ augroup JSmaps
 	au FileType javascript vnoremap <buffer> <leader>gcc :!live-server %
 augroup end
 
-""" PHP/HTML/CSS
+"""        PHP/HTML/CSS
 augroup Webmaps
 	au! Webmaps
 	au FileType css nnoremap <buffer> <c-w>u :40 wincmd\|<cr>
@@ -1484,8 +1491,7 @@ augroup Webmaps
 	au FileType php,html nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 augroup end
 
-""" LATEX
-
+"""        LATEX
 augroup LatexSmith
 	autocmd! LatexSmith
 	" Navigating with guides
@@ -1536,15 +1542,15 @@ augroup LatexSmith
 augroup end
 
 
-""  Auto Header
-"""  Basic headers
+""    Auto Header
+"""        Basic headers
 augroup headers
 	au!
 	autocmd BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
 	autocmd BufNewFile *.html 0r $HOME/.vim/skel/html_header
 augroup end
 
-"""  Auto protect c header
+"""        Auto protect c header
 if !exists("autocommands_loaded")
 	let autocommands_loaded = 1
 	autocmd BufNewFile *.h call InsertCHHeader()
@@ -1568,9 +1574,8 @@ function! InsertCHHeader()
 	%s/HEADERNAME/\=fname/g
 endfunction
 
-
-""  Dotfiles settings
-""" Filetype
+""    Dotfiles settings
+"""        Filetype
 augroup dotfiles_sh
 	au!
 	autocmd BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
@@ -1589,7 +1594,7 @@ augroup suffixes
     endfor
 augroup end
 
-""" Vimrc folding
+"""        Vimrc folding
 function! VimFold()
 	let line = getline(v:foldstart)
 
@@ -1613,12 +1618,16 @@ function! VimFold()
 endfunction
 set modelineexpr
 
-""" Vimrc mappings
+"""        Vimrc mappings
 augroup VimrcMaps
 	autocmd! VimrcMaps
 	autocmd FileType vim nnoremap <silent> <buffer> zm zM100<c-y>
+	autocmd FileType vim inoremap ,""<space> ""<space><space><space><space>
+	autocmd FileType vim inoremap ,"""<space> """<space><space><space><space><space><space><space><space>
+	autocmd FileType vim inoremap ,''<space> ""<space><space><space><space>
+	autocmd FileType vim inoremap ,'''<space> """<space><space><space><space><space><space><space><space>
 augroup end
-""" Vimrc modeline
+"""        Vimrc modeline
 " vim:tw=0
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
