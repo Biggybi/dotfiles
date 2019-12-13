@@ -764,6 +764,8 @@ nmap [h <Plug>GitGutterPrevHunk
 """        FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
 nnoremap <leader>, :Buffers<cr>
 nnoremap <leader>. :Windows<cr>
 nnoremap <leader>/ :Tags<cr>

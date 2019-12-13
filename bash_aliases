@@ -257,6 +257,11 @@ alias cdapp='cd /usr/share/applications/'
 
 alias ydl='youtube-dl'
 
+# alias vzf='find $HOM_VID/* -type f -print0 | sed s/*\//g;s/^/"/;s/$/" | fzf -d/ -n3.. --height=10 | xargs -r -0 vlc"'
+vzf()
+{
+	find $HOM_VID/* -type f | sed 's/*//g;s/^/\"/;s/$/\"/' | fzf -d/ -n3.. --height=10 | xargs -r vlc
+}
 ##alias sedtrim="sed -n '1h;1!ALIAS_101_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
