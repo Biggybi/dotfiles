@@ -1578,7 +1578,7 @@ endfunction
 """        Filetype
 augroup dotfiles_sh
 	au!
-	autocmd BufNewFile,BufRead bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
+	autocmd BufEnter bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh set nowrap
 augroup end
 
 augroup suffixes
