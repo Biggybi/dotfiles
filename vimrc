@@ -416,6 +416,9 @@ augroup HelpManSplit
 		\ | setlocal noswapfile nobackup nobuflisted
 		\ | setlocal nolinebreak nowrap showbreak=
 		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
+
+	autocmd FileType help,man autocmd! BufLeave <buffer> silent!
+		\ | if (&columns < 88) | 0 wincmd| | endif
 augroup end
 
 "css width
