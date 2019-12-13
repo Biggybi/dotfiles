@@ -766,11 +766,11 @@ nmap [h <Plug>GitGutterPrevHunk
 " call fzf#run({'options': '--reverse'})
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
-nnoremap <leader>, :Buffers<cr>
-nnoremap <leader>. :Windows<cr>
-nnoremap <leader>/ :Tags<cr>
+nnoremap <leader>fb :Buffers<cr>
+nnoremap <leader>fw :Windows<cr>
+nnoremap <leader>ft :Tags<cr>
+nnoremap <leader>ff :FZF $HOME<cr>		" from HOME
 nnoremap <leader>F :FZF /<cr>			" from root
-nnoremap <leader>f :FZF $HOME<cr>		" from HOME
 nnoremap <leader><c-f> :FZF .<cr>		" from here
 " nnoremap <leader>f :FZF<c-r>=fnamemodify(getcwd(), ':p')<cr><cr>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
