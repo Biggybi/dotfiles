@@ -27,6 +27,12 @@ export PATH=$PATH:~/bin:/usr/lib
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export DOT="$HOME/dotfiles"
+export HOM_VID="$HOME/Videos"
+export HOM_PIC="$HOME/Pictures"
+export HOM_GAM="$HOME/Games"
+export HOM_DOC="$HOME/Documents"
+export HOM_MUS="$HOME/Music"
+export HOM_42="$HOME/42"
 
 # caps2escape
 # if [[ -f $DOT/programs/caps2esc ]]
@@ -82,10 +88,12 @@ HISTCONTROL=ignoreboth									# duplicate + whitespace
 # HISTCONTROL=ignoredups								# duplicates
 
 # man with vim
-vman() { vim -c "set ft=man" <(man $1); }
+van() { vim -c "set ft=man" <(man $1); }
 
 # fzf defaults
 export FZF_DEFAULT_OPTS='--height 10 -m'
+export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # fzf history on C-r
 bind '"\C-r": "\C-x1\e^\er"';
 bind -x '"\C-x1": __fzf_history';

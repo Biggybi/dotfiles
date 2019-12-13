@@ -22,7 +22,7 @@ alias c2e='caps2esc'
 alias cc='c2e 2&> /dev/null ; clear'
 
 ## 42 piscine
-newday () {
+newday() {
 	if [ $1 != '.' ] | [ $# == 1 ]
 	then
 		mkdir d"$1"
@@ -79,28 +79,37 @@ alias histoff='set +o history'
 alias dnd='daynight d && source $HOME/.bashrc && notify-send "Day"'
 alias dnn='daynight n && source $HOME/.bashrc && notify-send "Night"'
 
-# terminal_profile_switch () {
+# terminal_profile_switch() {
 #       xdotool --clearmodifiers key Shift+F10 r $1
 # }
 
-terminal_profile_switch () {
+terminal_profile_switch() {
 	xdotool key --delay 50 Menu r $1
 }
-
 alias chp='terminal_profile_switch'
+
+alias xdotool='windowsize $(xdotool getactivewindow) 100% 100%'
 
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
 
-pluginstall () {
+pluginstall() {
 	cd $HOME/dotfiles/vim/bundle/
 	git clone $1
 }
 
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
 alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
+
+alias eb='vim $HOME/dotfiles/bashrc'
+alias ea='vim $HOME/dotfiles/bash_aliases'
+alias ev='vim $HOME/dotfiles/vimrc'
+alias ei='vim $HOME/dotfiles/inputrc'
+alias efs='sudo vim /etc/fstab'
+alias eapt='sudo vim /etc/apt/sources.list'
+alias eg='sh .git/vimgit'
 
 alias vibashrc='vim $HOME/dotfiles/bashrc'
 alias vialias='vim $HOME/dotfiles/bash_aliases'
@@ -129,7 +138,7 @@ alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
 # alias o='xdg-open '
-open () {
+open() {
 	xdg-open $1 &
 }
 alias o=open
@@ -166,7 +175,7 @@ alias fg5='fg 5'
 
 ### Maintainance
 alias apti='sudo apt install'
-aptif () {
+aptif() {
 	sudo apt install -y $(grep -o ^[^#][[:alnum:]-]* "$1")
 }
 alias aptrm='sudo apt autoremove'
@@ -258,10 +267,11 @@ alias cdapp='cd /usr/share/applications/'
 alias ydl='youtube-dl'
 
 # alias vzf='find $HOM_VID/* -type f -print0 | sed s/*\//g;s/^/"/;s/$/" | fzf -d/ -n3.. --height=10 | xargs -r -0 vlc"'
-vzf()
-{
-	find $HOM_VID/* -type f | sed 's/*//g;s/^/\"/;s/$/\"/' | fzf -d/ -n3.. --height=10 | xargs -r vlc
+vzf() {
+	find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/*//g;s/^/\"/;s/$/\"/;s/.*Videos\///' | fzf -d/ -n3.. --height=10 | xargs -r vlc
 }
+alias r='fc -s'
+
 ##alias sedtrim="sed -n '1h;1!ALIAS_101_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
@@ -294,12 +304,13 @@ ef() {
 # alias f='ef $HOME'
 
 # fd - cd to selected directory
-# fd () {
+# fd() {
 # 	local dir
 # 	dir=$(find ${1:-.} -path '*/\.*' -prune \
 # 		-o -type d -print 2> /dev/null | fzf +m) &&
 # 		cd "$dir"
 # }
+
 fd() {
 	local dir
 	dir=$(find ${1:-~} -path '*/\.*' -prune \
