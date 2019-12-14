@@ -16,6 +16,7 @@
 [submodule "gnome_setup/xcape"]
 	path = gnome_setup/xcape
 	url = https://github.com/alols/xcape.git
+	ignore = dirty
 [submodule "vim/bundle/https:/github.com/junegunn/fzf.vim"]
 	path = vim/bundle/https:/github.com/junegunn/fzf.vim
 	url = git@github.com:metakirby5/codi.vim.git
@@ -49,12 +50,14 @@
 [submodule "vim/bundle/vimroom"]
 	path = vim/bundle/vimroom
 	url = https://github.com/mikewest/vimroom
+	ignore = dirty
 [submodule "vim/bundle/vim-snipmate"]
 	path = vim/bundle/vim-snipmate
 	url = https://github.com/garbas/vim-snipmate
 [submodule "vim/bundle/vim-snippets"]
 	path = vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets
+	ignore = dirty
 [submodule "vim/bundle/vim-speeddating"]
 	path = vim/bundle/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
