@@ -1260,6 +1260,32 @@ endfunction
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 """        Operators
+" in
+" onoremap i| :<c-u>normal! T|vt|<cr>
+" onoremap a| :<c-u>normal! F|vf|<cr>
+
+" onoremap i: :<c-u>normal! T:vt:<cr>
+" onoremap a: :<c-u>normal! F:vf:<cr>
+
+" onoremap i; :<c-u>normal! T;vt;<cr>
+" onoremap a; :<c-u>normal! F;vf;<cr>
+
+" onoremap i, :<c-u>normal! T,vt,<cr>
+" onoremap a, :<c-u>normal! F,vf,<cr>
+
+" onoremap i. :<c-u>normal! T.vt.<cr>
+" onoremap a. :<c-u>normal! F.vf.<cr>
+
+" onoremap i/ :<c-u>normal! T/vt/<cr>
+" onoremap a/ :<c-u>normal! F/vf/<cr>
+
+" " onoremap i\ :<c-u>normal! T\vt\<cr>
+" " onoremap a\ :<c-u>normal! F\vf\<cr>
+
+" onoremap i! :<c-u>normal! T!vt!<cr>
+" onoremap a! :<c-u>normal! F!vf!<cr>
+
+" " in next
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap in) :<c-u>normal! f(vi(<cr>
 onoremap an( :<c-u>normal! f(va(<cr>

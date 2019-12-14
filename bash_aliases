@@ -268,7 +268,12 @@ alias ydl='youtube-dl'
 
 # alias vzf='find $HOM_VID/* -type f -print0 | sed s/*\//g;s/^/"/;s/$/" | fzf -d/ -n3.. --height=10 | xargs -r -0 vlc"'
 vzf() {
-	find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/*//g;s/^/\"/;s/$/\"/;s/.*Videos\///' | fzf -d/ -n3.. --height=10 | xargs -r vlc
+	cd $HOM_VID
+	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Videos\///' | fzf --height=10 | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc 
+}
+mzf() {
+	cd $HOM_MUS
+	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --height=10 | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc 
 }
 alias r='fc -s'
 
