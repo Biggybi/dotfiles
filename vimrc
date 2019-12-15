@@ -157,53 +157,6 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-" open vim with different color based on time of day
-
-" switch between light and dark theme (UI + ligtline)
-function! DarkLightSwitch()
-	if g:DarkLightSwitch == 'dark'
-		set background=dark
-		source $HOME/.vim/colors/base16-onedark.vim
-		let g:lightline = { 'colorscheme': 'wombat' }
-		let g:DarkLightSwitch = 'light'
-	else
-		set background=light
-		source $HOME/.vim/colors/base16-one-light.vim
-		let g:lightline = { 'colorscheme': 'wombat_light' }
-		let g:DarkLightSwitch = 'dark'
-	endif
-	if exists("g:DarkLightOn")
-		call lightline#enable()
-	endif
-	let g:DarkLightOn = '0'
-endfunction
-
-let g:DarkLightMod = '1'
-" 0 : auto
-" 1 : force dark
-" 2 : force light
-if g:DarkLightMod == '0'
-	if ! exists("g:DarkLightOn")
-		let hour = strftime("%H")
-		if 9 <= hour && hour < 19
-			let g:DarkLightSwitch = 'light'
-		else
-			let g:DarkLightSwitch = 'dark'
-		endif
-		call DarkLightSwitch()
-	endif
-else
-	if g:DarkLightMod == '1'
-		let g:DarkLightSwitch = 'dark'
-		call DarkLightSwitch()
-	elseif g:DarkLightMod == '2'
-		let g:DarkLightSwitch = 'light'
-		call DarkLightSwitch()
-	endif
-endif
-
-nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-
 " code
 set encoding=utf8
 let base16colorspace=256	" access colors present in 256 colorspace"
@@ -258,6 +211,57 @@ nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
 
 ""    Highlights / Match
+"""        DarkLightSwitch
+" switch between light and dark theme (UI + ligtline)
+function! DarkLightSwitch()
+	if g:DarkLightSwitch == 'dark'
+		set background=dark
+		source $HOME/.vim/colors/base16-onedark.vim
+		let g:lightline = { 'colorscheme': 'wombat' }
+		let g:DarkLightSwitch = 'light'
+	else
+		set background=light
+		source $HOME/.vim/colors/base16-one-light.vim
+		let g:lightline = { 'colorscheme': 'wombat_light' }
+		let g:DarkLightSwitch = 'dark'
+	endif
+	if exists("g:DarkLightOn")
+		call lightline#enable()
+	endif
+	let g:DarkLightOn = '0'
+endfunction
+
+" open vim with different color based on time of day
+
+let g:DarkLightMod = '0'
+" 0 : auto
+" 1 : force dark
+" 2 : force light
+if ! exists("g:DarkLightMod")
+	let g:DarkLightMod = '0'
+endif
+if g:DarkLightMod == '0'
+	if ! exists("g:DarkLightOn")
+		let hour = strftime("%H")
+		if 9 <= hour && hour < 19
+			let g:DarkLightSwitch = 'light'
+		else
+			let g:DarkLightSwitch = 'dark'
+		endif
+		call DarkLightSwitch()
+	endif
+else
+	if g:DarkLightMod == '1'
+		let g:DarkLightSwitch = 'dark'
+		call DarkLightSwitch()
+	elseif g:DarkLightMod == '2'
+		let g:DarkLightSwitch = 'light'
+		call DarkLightSwitch()
+	endif
+endif
+
+nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
+
 
 " highlight overlength ctermbg=203 ctermfg=white guibg=#592928
 " match overlength /\%81v.\+/
@@ -649,8 +653,6 @@ augroup end
 " inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<tab>"
 " inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<S-tab>"
 
-"""        Coc
-
 """        Syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
 " let g:syntastic_c_include_dirs = ["inc", "incs", "includes", "headers"]
@@ -776,6 +778,7 @@ nmap [h <Plug>GitGutterPrevHunk
 let g:fzf_buffers_jump = 1
 nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fw :Windows<cr>
+nnoremap <leader>fc :Commit<cr>
 nnoremap <leader>fg :GFiles?<cr>
 nnoremap <leader>f<c-g> :GFiles<cr>
 nnoremap <leader>ft :Tags<cr>
@@ -1193,9 +1196,12 @@ nnoremap <leader>wc :call WC()<cr>
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : ""
 inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : ""
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-@> coc#refresh()
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
 			\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" inoremap <c-@> <c-u><esc>:
+nnoremap <c-@> <esc>:
 
 
 """        Coc
@@ -1727,11 +1733,12 @@ augroup end
 """        Vimrc mappings
 augroup VimrcMaps
 	au! VimrcMaps
+	au FileType vim nnoremap <buffer> <leader>sv :source $MYVIMRC<cr>:w<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr><c-o>
 	au FileType vim nnoremap <silent> <buffer> zm zM100<c-y>
-	au FileType vim inoremap ,""<space> ""<space><space><space><space>
-	au FileType vim inoremap ,"""<space> """<space><space><space><space><space><space><space><space>
-	au FileType vim inoremap ,''<space> ""<space><space><space><space>
-	au FileType vim inoremap ,'''<space> """<space><space><space><space><space><space><space><space>
+	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
+	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
+	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
+	au FileType vim inoremap <buffer> ,'''<space> """<space><space><space><space><space><space><space><space>
 augroup end
 """        Vimrc folding
 function! VimFold()
