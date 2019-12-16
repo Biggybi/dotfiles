@@ -31,8 +31,8 @@ let $PAGER=''	" clear pager env var in vim (for vim as pager)
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
-execute pathogen#helptags()
-command! PHelpTags :call pathogen#helptags()
+" execute pathogen#helptags()
+" command! PHelpTags :call pathogen#helptags()
 " function! PHelpTags ()
 " 	call pathogen#helptags()
 " endfunction
@@ -41,6 +41,9 @@ command! PHelpTags :call pathogen#helptags()
 " au! BufWritePost $MYVIMRC silent source $MYVIMRC
 
 ""    General
+
+" for 'gf' : add suffix to word under cursor
+set suffixesadd=.tex,.latex,.java,.c,.h,.js
 
 set history=10000 " default 20
 
@@ -59,6 +62,7 @@ if exists('+undofile')
 endif
 
 " Backup files dir
+set hidden
 set backupskip=/tmp/*,/private/tmp/*		" vim can edit crontab
 set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
@@ -77,8 +81,6 @@ set shortmess+=x				" Abbreviation for dos and mac format
 set shortmess+=W				" No message when writing
 " set cmdheight=2
 
-set hidden
-set suffixesadd=.tex,.latex,.java,.c,.h,.js
 
 " set noswapfile
 
@@ -141,13 +143,13 @@ set wrap					" no horizontal scroll
 set breakindent				" with indent
 set showbreak=\ \ ¬			" ... showing a character
 
-set sidescrolloff=5			" horizontal cursor max value
-let &scrolloff=winheight(win_getid())/10 + 1 " minumum lines before/after cursor
+set sidescrolloff=5			" min horizontal cursor offset
+let &scrolloff=winheight(win_getid())/10 + 1 " min vertical cursor offset
 
 " status line
 set laststatus=2			" show the satus line all the time
 " show buffer number
-set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 ""    Look / Theme
 
@@ -243,7 +245,7 @@ endif
 if g:DarkLightMod == '0'
 	if ! exists("g:DarkLightOn")
 		let hour = strftime("%H")
-		if 9 <= hour && hour < 19
+		if 9 <= hour && hour < 15
 			let g:DarkLightSwitch = 'light'
 		else
 			let g:DarkLightSwitch = 'dark'
@@ -767,14 +769,16 @@ if exists('&signcolumn')  " Vim 7.4.2201
 else
 	let g:gitgutter_sign_column_always = 1
 endif
-set updatetime=100 " time before writing swap, faster gitgutter
+set updatetime=100						" need for Coc + gitgutter
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 let g:gitgutter_sign_added = '▎'
 let g:gitgutter_sign_modified = '▎'
-let g:gitgutter_sign_removed = '▏'
+let g:gitgutter_sign_removed = '▎'
+" let g:gitgutter_sign_removed = '▏'
 let g:gitgutter_sign_removed_first_line = '▔'
-let g:gitgutter_sign_modified_removed = '▋'
+let g:gitgutter_sign_modified_removed = '▎'
+" let g:gitgutter_sign_modified_removed = '▋'
 
 """        FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
@@ -827,9 +831,9 @@ let g:UltiSnipsJumpForwardTrigger = "<c-n>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 
 """        Searchhi
-let g:searchhi_clear_all_aus = 'InsertEnter'
-let g:searchhi_update_all_aus = 'InsertLeave'
-let g:searchhi_open_folds = 0
+" let g:searchhi_clear_all_aus = 'InsertEnter'
+" let g:searchhi_update_all_aus = 'InsertLeave'
+" let g:searchhi_open_folds = 0
 
 """        Latex Live Preview
 
@@ -880,7 +884,7 @@ endfunction
 " au QuickFixCmdPost [^l]* nested botright copen
 " au QuickFixCmdPost    l* nested botright lwindo
 
-nnoremap <leader>ct :Shell make ex TESTFF=test/*<cr><cr>
+nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>c<c-t> :Shell make ex<cr><cr>
 nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>cv :Shell make ex TEST=<cr><cr>
@@ -1197,17 +1201,15 @@ endfunction
 nnoremap <leader>wc :call WC()<cr>
 " nnoremap <leader>w :w !detex \| wc -w<cr>
 
+
 """        Popup Menu Completion
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : ""
 inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : ""
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" inoremap <silent><expr> <c-@> coc#refresh()
+nnoremap <silent><expr> <c-@> coc#refresh()
+inoremap <silent><expr> <c-@> coc#refresh()
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
 			\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" inoremap <c-@> <c-u><esc>:
-nnoremap <c-@> <esc>:
-
 
 """        Coc
 " function text object mappings
@@ -1268,6 +1270,18 @@ function! StatusDiagnostic() abort
 	endif
 	return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
+
+"bash language server settings
+" if executable('bash-language-server')
+"   au User lsp_setup call lsp#register_server({
+"         \ 'name': 'bash-language-server',
+"         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+"         \ 'whitelist': ['sh'],
+"         \ })
+" endif
+
+let g:markdown_fenced_languages = ['css', 'js=javascript']
+
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 """        Operators
@@ -1461,9 +1475,8 @@ vnoremap <leader>y "+y
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:w<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
-nnoremap <leader>sy :YcmRestartServer<cr>:echo "YCM fresh"<cr>
-nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:YcmRestartServer<cr>:redraw<cr>:echo "all fresh"<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
+nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:redraw<cr>:echo "all fresh"<cr>
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
@@ -1483,6 +1496,7 @@ nnoremap <leader>ep $DOT/bash_profile<cr>
 nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
 nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
 nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
+nnoremap <leader>eco :CocConfig<cr>
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -1627,7 +1641,17 @@ augroup Webmaps
 	au FileType php,html inoremap <buffer> ,ec echo "";<esc>hi
 	au FileType php,html inoremap <buffer> ,ge $_GET[""]<esc>hi
 	au FileType php,html inoremap <buffer> ,po $_POST[""]<esc>hi
-	au FileType php,html inoremap <buffer> ,lorem Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+	au FileType php,html inoremap <buffer> ,lorem Lorem ipsum dolor sit amet,
+				\ consectetuer adipiscing elit, sed diam nonummy nibh
+				\ euismod tincidunt ut laoreet dolore magna aliquam erat
+				\ volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+				\ tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
+				\ commodo consequat. Duis autem vel eum iriure dolor in
+				\ hendrerit in vulputate velit esse molestie consequat, vel
+				\ illum dolore eu feugiat nulla facilisis at vero eros et
+				\ accumsan et iusto odio dignissim qui blandit praesent
+				\ luptatum zzril delenit augue duis dolore te feugait nulla
+				\ facilisi.
 
 	au FileType php,html nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 augroup end
@@ -1738,8 +1762,8 @@ augroup end
 """        Vimrc mappings
 augroup VimrcMaps
 	au! VimrcMaps
-	au FileType vim nnoremap <buffer> <leader>sv :source $MYVIMRC<cr>:w<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr><c-o>
 	au FileType vim nnoremap <silent> <buffer> zm zM100<c-y>
+	" au FileType vim nnoremap <silent> <buffer> zm mpzM100<c-y>k`pzC
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
 	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
