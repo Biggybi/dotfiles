@@ -783,24 +783,26 @@ let g:gitgutter_sign_modified_removed = '▎'
 """        FZF
 " let g:fzf_layout = { 'window': 'below 10split enew' }
 " call fzf#run({'options': '--reverse'})
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-nnoremap <leader>fb :Buffers<cr>
-nnoremap <leader>fw :Windows<cr>
-nnoremap <leader>fc :Commit<cr>
-nnoremap <leader>fg :GFiles?<cr>
-nnoremap <leader>f<c-g> :GFiles<cr>
-nnoremap <leader>ft :Tags<cr>
-nnoremap <leader>f<c-t> :BTags<cr>
-nnoremap <leader>ff :FZF $HOME<cr>		" from HOME
-nnoremap <leader>F :FZF /<cr>			" from root
-nnoremap <leader><c-f> :FZF .<cr>		" from here
-nnoremap <leader>fl :Lines<cr>
-nnoremap <leader>f<c-l> :BLines<cr>
-nnoremap <leader>f: :History:<cr>
-nnoremap <leader>f/ :History/<cr>
-nnoremap <leader>fh :History<cr>
-nnoremap <leader>fs <esc>:Snippets<cr>
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_buffers_jump = 1 				" [Buffers] to existing window
+
+nnoremap <leader>ff :FZF $HOME<cr>
+nnoremap <leader><c-f> :FZF .<cr>
+nnoremap <leader>F :FZF /<cr>
+nnoremap <leader>fb :FzfBuffers<cr>
+nnoremap <leader>fw :FzfWindows<cr>
+nnoremap <leader>ft :FzfTags<cr>
+nnoremap <leader>f<c-t> :FzfBTags<cr>
+nnoremap <leader>fc :FzfCommit<cr>
+nnoremap <leader>fg :FzfGFiles?<cr>
+nnoremap <leader>f<c-g> :FzfGFiles<cr>
+nnoremap <leader>fl :FzfLines<cr>
+nnoremap <leader>f<c-l> :FzfBLines<cr>
+nnoremap <leader>f: :FzfHistory:<cr>
+nnoremap <leader>f/ :FzfHistory/<cr>
+nnoremap <leader>fh :FzfHistory<cr>
+nnoremap <leader>fm :FzfHelptags<cr>
+nnoremap <leader>fs <esc>:FzfSnippets<cr>
 inoremap <c-f> <c-o>:Snippets<cr>
 " nnoremap <leader>f :FZF<c-r>=fnamemodify(getcwd(), ':p')<cr><cr>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
