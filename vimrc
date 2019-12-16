@@ -1764,7 +1764,7 @@ augroup end
 """        Vimrc mappings
 augroup VimrcMaps
 	au! VimrcMaps
-	au FileType vim nnoremap <silent> <buffer> zm zM100<c-y>
+	au FileType vim nnoremap <silent> <buffer> zm mpzM100<c-y>`pzC
 	" au FileType vim nnoremap <silent> <buffer> zm mpzM100<c-y>k`pzC
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
