@@ -185,7 +185,7 @@ alias aptd='sudo apt dist-upgrade'
 alias apts='apt search'
 alias aptl='apt list'
 alias uuu='sudo apt update && sudo apt upgrade && notify-send "Update done"'
-alias uu='sudo apt upgrade && sudo apt && notify-send "Update done"'
+alias uu='sudo apt update && sudo apt upgrade&& notify-send "Update done"'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
 alias myip='hostname -I | sed "s/\ .*//g"'
@@ -294,7 +294,7 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 ## alias se='$EDITOR $(find ~/bin/* -type f | fzf)';
 ## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
 ##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-alias eb='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
+alias ebin='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
 alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --height=10)'
 # alias ev='$EDITOR $(fzf --height=10)'
 
