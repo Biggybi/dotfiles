@@ -270,7 +270,7 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
 " show traling whitespaces
 
-match TrailWhite /\s\+$/
+" match TrailWhite /\s\+$/
 augroup TrailWhite
 	au!
 	au BufWinEnter * match TrailWhite /\s\+$/
