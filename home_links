@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# home
+# sets media folders as simlinks to folders in DATA
+
+DATA=/media/data
+FOLDERS=(Downloads
+	Books
+	Documents
+	Games
+	Music
+	Pictures
+	Videos)
+
+[ ! $DATA ] && mkdir $DATA && echo "$DATA created"
+
+for f in "${FOLDERS[@]}"
+do
+	echo $f
+	if [ -d $HOME/$f ]
+	then
+		mv $HOME/$f $HOME/.$f.old
+		echo "- Backup (.$f.old)"
+	fi
+	if [ -L $HOME/$f ]
+	then
+		echo "- Link removed"
+		rm $HOME/$f
+	fi
+	if [ ! -L $HOME/$f ]
+	then
+		echo "- Link => $DATA/$f"
+		ln -s $DATA/$f $HOME/
+	fi
+done
