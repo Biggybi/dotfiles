@@ -107,6 +107,7 @@ set t_vb=
 set wildmenu
 set showmode
 set showcmd
+set completeopt=longest,menuone
 
 " tabulation control
 set noexpandtab				" tabs ftw
@@ -847,6 +848,14 @@ augroup TexSet
 	" let g:livepreview_cursorhold_recompile = 0
 	" let g:livepreview_engine = 'your_engine' . ' [options]'
 augroup end
+
+"""        Vim-run
+let g:vim_run_command_map = {
+  \'javascript': 'node',
+  \'php': 'php',
+  \'python': 'python',
+  \'markdown': 'markdown',
+  \}
 
 ""    Quickfix
 
@@ -1603,11 +1612,12 @@ augroup end
 
 """        JavaScript
 augroup JSmaps
-	au!
-	" close brackets
-	au FileType javascript nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+	au! JSmaps
+	au FileType javascript nnoremap <buffer> <leader>gr :AutoRun<cr>:Run<cr>
+	au FileType javascript nnoremap <buffer> <leader>ga :AutoRun<cr>
+	au FileType javascript nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 	au FileType javascript inoremap <buffer> {<cr>  {<cr>}<esc>O
-	au FileType javascript nnoremap <buffer> <leader>gcc :Shell node %
+	au FileType javascript nnoremap <buffer> <leader>gcc :Shell node %<cr>
 	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,fo for ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
@@ -1732,6 +1742,13 @@ augroup LatexSmith
 	au FileType plaintex,tex inoremap <buffer> ,rn (\ref{})<++><esc>F}i
 augroup end
 
+"""        Markdown
+augroup MarkdownMaps
+	au!
+	au FileType markdown nnoremap <buffer> <leader>gr :AutoRun<cr>:Run<cr>
+	au FileType markdown nnoremap <buffer> <leader>ga :AutoRun<cr>
+	au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
+augroup end
 
 ""    Auto Header
 """        Basic headers
@@ -1788,7 +1805,7 @@ augroup end
 """        Vimrc mappings
 augroup VimrcMaps
 	au! VimrcMaps
-	au FileType vim nnoremap <silent> <buffer> zm mpzM100<c-y>`pzC
+	au FileType vim silent nnoremap <buffer> zm mpzM100<c-y>`pzC
 	" au FileType vim nnoremap <silent> <buffer> zm mpzM100<c-y>k`pzC
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
