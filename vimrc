@@ -214,6 +214,62 @@ nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
 
 ""    Highlights / Match
+"""        Global
+" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
+" match overlength /\%81v.\+/
+
+" show traling whitespaces
+
+" match TrailWhite /\s\+$/
+augroup TrailWhite
+	au!
+	au BufWinEnter * match TrailWhite /\s\+$/
+	au InsertEnter * match TrailWhite /\s\+\%#\@<!$/
+	au InsertLeave * match TrailWhite /\s\+$/
+	au BufWinLeave * call clearmatches()
+augroup end
+
+" focus current window : cursorline and relative numbers
+augroup WinFocus
+	au!
+	au VimEnter,WinEnter,BufNew,WinNew * setlocal nocursorline "relativenumber number
+	au WinLeave * setlocal nocursorline "norelativenumber number
+augroup end
+
+" color column 81 for code
+if exists('+colorcolumn')
+ 	au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
+endif
+
+set mat=2 " how many tenths of a second to blink
+
+" " Highlight 'f' searchers
+" function! HighlightFSearches(cmd)
+"   " Get extra character for the command.
+"   let char = nr2char(getchar())
+"   if char ==# ''
+"     " Skip special keys: arrows, backspace...
+"     return ''
+"   endif
+"   " Highlight 'char' on the current line.
+"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
+"   execute match_str
+"   " Finally, execute the original command with char appended to it
+"   return a:cmd.char
+" endfunction
+
+" " highlight searches using 'f'
+" nnoremap <expr> f HighlightFSearches('f')
+" nnoremap f<bs> <nop>
+" vnoremap <expr> f HighlightFSearches('f')
+" vnoremap f<bs> <nop>
+
+" " highlight searches using 'F'
+" nnoremap <expr> F HighlightFSearches('F')
+" nnoremap F<bs> <nop>
+" vnoremap <expr> F HighlightFSearches('F')
+" vnoremap F<bs> <nop>
+
 """        DarkLightSwitch
 " switch between light and dark theme (UI + ligtline)
 function! DarkLightSwitch()
@@ -263,63 +319,9 @@ else
 	endif
 endif
 
-nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
-
-" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
-" match overlength /\%81v.\+/
-
-" show traling whitespaces
-
-" match TrailWhite /\s\+$/
-augroup TrailWhite
-	au!
-	au BufWinEnter * match TrailWhite /\s\+$/
-	au InsertEnter * match TrailWhite /\s\+\%#\@<!$/
-	au InsertLeave * match TrailWhite /\s\+$/
-	au BufWinLeave * call clearmatches()
-augroup end
-
-" focus current window : cursorline and relative numbers
-augroup WinFocus
-  au!
-  au VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
-  au WinLeave * setlocal nocursorline "norelativenumber number
-augroup end
-
-" color column 81 for code
-if exists('+colorcolumn')
- 	au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
-endif
-
-set mat=2 " how many tenths of a second to blink
-
-" " Highlight 'f' searchers
-" function! HighlightFSearches(cmd)
-"   " Get extra character for the command.
-"   let char = nr2char(getchar())
-"   if char ==# ''
-"     " Skip special keys: arrows, backspace...
-"     return ''
-"   endif
-"   " Highlight 'char' on the current line.
-"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
-"   execute match_str
-"   " Finally, execute the original command with char appended to it
-"   return a:cmd.char
-" endfunction
-
-" " highlight searches using 'f'
-" nnoremap <expr> f HighlightFSearches('f')
-" nnoremap f<bs> <nop>
-" vnoremap <expr> f HighlightFSearches('f')
-" vnoremap f<bs> <nop>
-
-" " highlight searches using 'F'
-" nnoremap <expr> F HighlightFSearches('F')
-" nnoremap F<bs> <nop>
-" vnoremap <expr> F HighlightFSearches('F')
-" vnoremap F<bs> <nop>
+nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>:call lightline#enable()<cr>
+" nnoremap <leader>sv :source $MYVIMRC<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
 
 ""    Folding
 
@@ -412,19 +414,19 @@ augroup end
 
 augroup HelpManSplit
 	au!
-	au FileType man au! BufEnter <buffer> silent!
-		\ | silent! wincmd H | 79 wincmd|
+	au FileType man au! BufEnter <buffer>
+		\ | silent! wincmd H | silent! 79 wincmd|
 		\ | setlocal noswapfile nobackup nobuflisted
 		\ | setlocal nolinebreak wrap showbreak=
 		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
 	au FileType man
-		\ | silent! wincmd H | 79 wincmd|
+		\ | silent! wincmd H | silent! 79 wincmd|
 		\ | setlocal noswapfile nobackup nobuflisted
 		\ | setlocal nolinebreak wrap showbreak=
 		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
 
-	au FileType help au! BufEnter <buffer> silent!
-		\ | silent! wincmd H | 79 wincmd|
+	au FileType help au! BufEnter <buffer>
+		\ | silent! wincmd H | silent! 79 wincmd|
 		\ | setlocal noswapfile nobackup nobuflisted
 		\ | setlocal nolinebreak nowrap showbreak=
 		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
@@ -444,6 +446,7 @@ augroup end
 " Open man page in vim split, defaults to K
 runtime! ftplugin/man.vim
 set keywordprg=:Man
+let $PAGER=''
 
 
 ""    Searching
@@ -494,7 +497,7 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight
-nnoremap <silent> - :nohlsearch<cr>:call searchhi#clear_all()<cr>
+nnoremap <silent> - :nohlsearch<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
@@ -514,10 +517,6 @@ nnoremap gR :%s/<c-r>///g<left><left>
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 ""    Autocompletion
-
-set completeopt=longest,menuone
-" set completeopt=menuone
-
 
 " inoremap <c-x>f <c-x><c-f>
 " inoremap <c-x>] <c-x><c-]>
