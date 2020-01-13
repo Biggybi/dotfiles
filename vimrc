@@ -890,8 +890,11 @@ nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>c<c-t> :Shell make ex<cr><cr>
 nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>cv :Shell make ex TEST=<cr><cr>
-nnoremap <leader>cm :Shell make re<cr><cr>
+nnoremap <leader>cm :Shell make<cr><cr>
+nnoremap <leader>cb :make<cr><cr><cr>
+nnoremap <leader>cM :Shell make<cr>
 nnoremap <leader>cr :Shell make re<cr>
+nnoremap <leader>c% :Shell make ex TEST=test/%<cr><cr>
 nnoremap <leader>cc :ll<cr>
 nnoremap <leader>cn :lnext<cr>
 nnoremap <leader>cp :lprevious<cr>
@@ -1152,6 +1155,120 @@ command! Header101 call Stdheader()
 nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 " au BufWritePre * call s:update ()
 
+""    Operators
+"""        Start / End of line
+
+onoremap ah :<c-u>normal! v^<cr>
+onoremap ih :<c-u>normal! v^<cr>
+
+"""        Surroundings
+
+onoremap i. :<c-u>normal! T.vt.<cr>
+onoremap a. :<c-u>normal! F.vf.<cr>
+
+onoremap i, :<c-u>normal, T,vt,<cr>
+onoremap a, :<c-u>normal, F,vf,<cr>
+
+onoremap i: :<c-u>normal! T:vt:<cr>
+onoremap a: :<c-u>normal! F:vf:<cr>
+
+onoremap i; :<c-u>normal! T;vt;<cr>
+onoremap a; :<c-u>normal! F;vf;<cr>
+
+onoremap i? :<c-u>normal! T?vt?<cr>
+onoremap a? :<c-u>normal! F?vf?<cr>
+
+onoremap i! :<c-u>normal! T!vt!<cr>
+onoremap a! :<c-u>normal! F!vf!<cr>
+
+onoremap i- :<c-u>normal! T-vt-<cr>
+onoremap a- :<c-u>normal! F-vf-<cr>
+
+onoremap i_ :<c-u>normal! T_vt_<cr>
+onoremap a_ :<c-u>normal! F_vf_<cr>
+
+onoremap i/ :<c-u>normal! T/vt/<cr>
+onoremap a/ :<c-u>normal! F/vf/<cr>
+
+onoremap i\ :<c-u>normal! T\vt\<cr>
+onoremap a\ :<c-u>normal! F\vf\<cr>
+
+onoremap i@ :<c-u>normal! T@vt@<cr>
+onoremap a@ :<c-u>normal! F@vf@<cr>
+
+onoremap i* :<c-u>normal! T*vt*<cr>
+onoremap a* :<c-u>normal! F*vf*<cr>
+
+" onoremap i| :<c-u>normal! T|vt|<cr>
+" onoremap a| :<c-u>normal! F|vf|<cr>
+
+"""        Next Surroundings
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap in) :<c-u>normal! f(vi(<cr>
+onoremap an( :<c-u>normal! f(va(<cr>
+onoremap an) :<c-u>normal! f(va(<cr>
+onoremap iN( :<c-u>normal! F(vi(<cr>
+onoremap iN) :<c-u>normal! F(vi(<cr>
+onoremap aN( :<c-u>normal! F(va(<cr>
+onoremap aN) :<c-u>normal! F(va(<cr>
+
+onoremap in{ :<c-u>normal! f{vi{<cr>
+onoremap in} :<c-u>normal! f{vi{<cr>
+onoremap an{ :<c-u>normal! f{va{<cr>
+onoremap an} :<c-u>normal! f{va{<cr>
+onoremap iN{ :<c-u>normal! F{vi{<cr>
+onoremap iN} :<c-u>normal! F{vi{<cr>
+onoremap aN{ :<c-u>normal! F{va{<cr>
+onoremap aN} :<c-u>normal! F{va{<cr>
+
+onoremap in[ :<c-u>normal! f[vi[<cr>
+onoremap in] :<c-u>normal! f[vi[<cr>
+onoremap an[ :<c-u>normal! f[va[<cr>
+onoremap an] :<c-u>normal! f[va[<cr>
+onoremap iN[ :<c-u>normal! F[vi[<cr>
+onoremap iN] :<c-u>normal! F[vi[<cr>
+onoremap aN[ :<c-u>normal! F[va[<cr>
+onoremap aN] :<c-u>normal! F[va[<cr>
+
+onoremap in< :<c-u>normal! f<vi<<cr>
+onoremap in> :<c-u>normal! f<vi<<cr>
+onoremap an< :<c-u>normal! f<va<<cr>
+onoremap an> :<c-u>normal! f<va<<cr>
+onoremap iN< :<c-u>normal! F<vi<<cr>
+onoremap iN> :<c-u>normal! F<vi<<cr>
+onoremap aN< :<c-u>normal! F<va<<cr>
+onoremap aN> :<c-u>normal! F<va<<cr>
+
+onoremap in" :<c-u>normal! f"vi"<cr>
+onoremap an" :<c-u>normal! f"va"<cr>
+onoremap iN" :<c-u>normal! F"vi"<cr>
+onoremap aN" :<c-u>normal! F"va"<cr>
+
+onoremap in' :<c-u>normal! f'vi'<cr>
+onoremap an' :<c-u>normal! f'va'<cr>
+onoremap iN' :<c-u>normal! F'vi'<cr>
+onoremap aN' :<c-u>normal! F'va'<cr>
+
+onoremap in. :<c-u>normal! f.lvt.<cr>
+onoremap an. :<c-u>normal! f.vf.<cr>
+onoremap iN. :<c-u>normal! F.hvT.<cr>
+onoremap aN. :<c-u>normal! F.vF.<cr>
+
+onoremap in- :<c-u>normal! f-lvt-<cr>
+onoremap an- :<c-u>normal! f-vf-<cr>
+onoremap iN- :<c-u>normal! F-hvT-<cr>
+onoremap aN- :<c-u>normal! F-vF-<cr>
+
+onoremap in, :<c-u>normal, f,lvt,<cr>
+onoremap an, :<c-u>normal, f,vf,<cr>
+onoremap iN, :<c-u>normal, F,hvT,<cr>
+onoremap aN, :<c-u>normal, F,vF,<cr>
+
+onoremap in* :<c-u>normal! f*lvt*<cr>
+onoremap an* :<c-u>normal! f*vf*<cr>
+onoremap iN* :<c-u>normal! F*hvT*<cr>
+onoremap aN* :<c-u>normal! F*vF*<cr>
+
 ""    Mappings
 """        Modes
 " space as leader
@@ -1285,99 +1402,6 @@ endfunction
 let g:markdown_fenced_languages = ['css', 'js=javascript']
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-"""        Operators
-" in
-" onoremap i| :<c-u>normal! T|vt|<cr>
-" onoremap a| :<c-u>normal! F|vf|<cr>
-
-" onoremap i: :<c-u>normal! T:vt:<cr>
-" onoremap a: :<c-u>normal! F:vf:<cr>
-
-" onoremap i; :<c-u>normal! T;vt;<cr>
-" onoremap a; :<c-u>normal! F;vf;<cr>
-
-" onoremap i, :<c-u>normal! T,vt,<cr>
-" onoremap a, :<c-u>normal! F,vf,<cr>
-
-" onoremap i. :<c-u>normal! T.vt.<cr>
-" onoremap a. :<c-u>normal! F.vf.<cr>
-
-" onoremap i/ :<c-u>normal! T/vt/<cr>
-" onoremap a/ :<c-u>normal! F/vf/<cr>
-
-" " onoremap i\ :<c-u>normal! T\vt\<cr>
-" " onoremap a\ :<c-u>normal! F\vf\<cr>
-
-" onoremap i! :<c-u>normal! T!vt!<cr>
-" onoremap a! :<c-u>normal! F!vf!<cr>
-
-" " in next
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap in) :<c-u>normal! f(vi(<cr>
-onoremap an( :<c-u>normal! f(va(<cr>
-onoremap an) :<c-u>normal! f(va(<cr>
-onoremap iN( :<c-u>normal! F(vi(<cr>
-onoremap iN) :<c-u>normal! F(vi(<cr>
-onoremap aN( :<c-u>normal! F(va(<cr>
-onoremap aN) :<c-u>normal! F(va(<cr>
-
-onoremap in{ :<c-u>normal! f{vi{<cr>
-onoremap in} :<c-u>normal! f{vi{<cr>
-onoremap an{ :<c-u>normal! f{va{<cr>
-onoremap an} :<c-u>normal! f{va{<cr>
-onoremap iN{ :<c-u>normal! F{vi{<cr>
-onoremap iN} :<c-u>normal! F{vi{<cr>
-onoremap aN{ :<c-u>normal! F{va{<cr>
-onoremap aN} :<c-u>normal! F{va{<cr>
-
-onoremap in[ :<c-u>normal! f[vi[<cr>
-onoremap in] :<c-u>normal! f[vi[<cr>
-onoremap an[ :<c-u>normal! f[va[<cr>
-onoremap an] :<c-u>normal! f[va[<cr>
-onoremap iN[ :<c-u>normal! F[vi[<cr>
-onoremap iN] :<c-u>normal! F[vi[<cr>
-onoremap aN[ :<c-u>normal! F[va[<cr>
-onoremap aN] :<c-u>normal! F[va[<cr>
-
-onoremap in< :<c-u>normal! f<vi<<cr>
-onoremap in> :<c-u>normal! f<vi<<cr>
-onoremap an< :<c-u>normal! f<va<<cr>
-onoremap an> :<c-u>normal! f<va<<cr>
-onoremap iN< :<c-u>normal! F<vi<<cr>
-onoremap iN> :<c-u>normal! F<vi<<cr>
-onoremap aN< :<c-u>normal! F<va<<cr>
-onoremap aN> :<c-u>normal! F<va<<cr>
-
-onoremap in" :<c-u>normal! f"vi"<cr>
-onoremap an" :<c-u>normal! f"va"<cr>
-onoremap iN" :<c-u>normal! F"vi"<cr>
-onoremap aN" :<c-u>normal! F"va"<cr>
-
-onoremap in' :<c-u>normal! f'vi'<cr>
-onoremap an' :<c-u>normal! f'va'<cr>
-onoremap iN' :<c-u>normal! F'vi'<cr>
-onoremap aN' :<c-u>normal! F'va'<cr>
-
-onoremap in. :<c-u>normal! f.vi.<cr>
-onoremap an. :<c-u>normal! f.va.<cr>
-onoremap iN. :<c-u>normal! F.vi.<cr>
-onoremap aN. :<c-u>normal! F.va.<cr>
-
-onoremap in- :<c-u>normal! f-vi-<cr>
-onoremap an- :<c-u>normal! f-va-<cr>
-onoremap iN- :<c-u>normal! F-vi-<cr>
-onoremap aN- :<c-u>normal! F-va-<cr>
-
-onoremap in, :<c-u>normal, f,vi,<cr>
-onoremap an, :<c-u>normal, f,va,<cr>
-onoremap iN, :<c-u>normal, F,vi,<cr>
-onoremap aN, :<c-u>normal, F,va,<cr>
-
-onoremap in* :<c-u>normal! f*vi*<cr>
-onoremap an* :<c-u>normal! f*va*<cr>
-onoremap iN* :<c-u>normal! F*vi*<cr>
-onoremap aN* :<c-u>normal! F*va*<cr>
 
 """        Movement
 " up down on visual lines
