@@ -1,5 +1,5 @@
-ALIAS_101_HOME=$HOME/101
-ALIAS_101_LFT=$HOME/101/libft
+ALIAS_101_HOME=$HOME/42
+ALIAS_101_LFT=$HOME/42/libft
 
 shopt -s expand_aliases
 
