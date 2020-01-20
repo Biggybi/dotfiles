@@ -211,8 +211,8 @@ tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
 
 " Note: does not work anymore?
 " resize windows quicker
-nnoremap <leader>= :exe "vertical resize +10"<cr>
-nnoremap <leader>- :exe "vertical resize -10"<cr>
+nnoremap <leader>= :exe "resize +10"<cr>
+nnoremap <leader>- :exe "resize -10"<cr>
 " nnoremap <c-w><c-=> :resize +10<cr>
 " nnoremap <c-w><c--> :resize -10<cr>
 nnoremap <leader>> :exe "vertical resize +10"<CR>:echo "width -"<cr>
