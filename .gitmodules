@@ -64,3 +64,12 @@
 [submodule "vim/bundle/vim-surround"]
 	path = vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "vim/bundle/vim-unimpaired"]
+	path = vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule "vim/bundle/vim-repeat"]
+	path = vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "fonts/monaco.ttf"]
+	path = fonts/monaco.ttf
+	url = git@github.com:todylu/monaco.ttf.git
