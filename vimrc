@@ -894,30 +894,45 @@ endfunction
 " au QuickFixCmdPost [^l]* nested botright copen
 " au QuickFixCmdPost    l* nested botright lwindo
 
-nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>c<c-t> :Shell make ex<cr><cr>
-nnoremap <leader>cT :Shell make ex TESTFF=
-nnoremap <leader>cv :Shell make ex TEST=<cr><cr>
-nnoremap <leader>cm :Shell make<cr><cr>
-nnoremap <leader>cb :make<cr><cr><cr>
-nnoremap <leader>cM :Shell make<cr>
-nnoremap <leader>cr :Shell make re<cr>
-nnoremap <leader>c% :Shell make ex TEST=test/%<cr><cr>
-nnoremap <leader>cc :ll<cr>
-nnoremap <leader>cn :lnext<cr>
-nnoremap <leader>cp :lprevious<cr>
+" augroup AutoQuickFix
+" 	au QuickFixCmdPost [^l]* nested botright lopen
+" 	au QuickFixCmdPost    l* nested botright lwindow
+" augroup end
+	au QuickFixCmdPost [^l]* nested botright lopen
+	au QuickFixCmdPost    l* nested botright lwindow
 
-nnoremap ]<c-q> :cc<cr>
-nnoremap [q :cprev<cr>
-nnoremap ]q :cnext<cr>
-nnoremap [Q :cfirst<cr>
-nnoremap ]Q :clast<cr>
+nnoremap <leader>cm :make<cr><cr>
+nnoremap <leader>cr :make re<cr><cr>
+nnoremap <leader>ce :make ex<cr><cr>
+nnoremap <leader>ct :make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cT :make ex TESTFF=
+nnoremap <leader>cv :make ex TEST=<cr><cr>
+nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
-nnoremap [<c-w> :ll<cr>
-nnoremap [w :lprev<cr>
-nnoremap ]w :lnext<cr>
-nnoremap [W :lfirst<cr>
-nnoremap ]W :llast<cr>
+nnoremap <leader>csm :Shell make<cr>
+nnoremap <leader>csr :Shell make re<cr>
+nnoremap <leader>cse :Shell make ex<cr><cr>
+nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cs<c-t> :Shell make ex TEST=test/%<cr><cr>
+nnoremap <leader>csT :Shell make ex TESTFF=
+nnoremap <leader>csv :Shell make ex TEST=<cr><cr>
+nnoremap <leader>csm :Shell make<cr><cr>
+
+" nnoremap <leader>cc :ll<cr>
+" nnoremap <leader>cn :lnext<cr>
+" nnoremap <leader>cp :lprevious<cr>
+
+" nnoremap ]<c-q> :cc<cr>
+" nnoremap [q :cprev<cr>
+" nnoremap ]q :cnext<cr>
+" nnoremap [Q :cfirst<cr>
+" nnoremap ]Q :clast<cr>
+
+" nnoremap [<c-w> :ll<cr>
+" nnoremap [w :lprev<cr>
+" nnoremap ]w :lnext<cr>
+" nnoremap [W :lfirst<cr>
+" nnoremap ]W :llast<cr>
 
 ""    Mini plugins
 """        Shell output split
