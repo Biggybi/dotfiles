@@ -727,6 +727,7 @@ let g:lightline.component_function = {
 			\	'readonly': 'LightlineReadonly',
 			\	'gitbranch': 'fugitive#head',
 			\   'cocstatus': 'coc#status',
+			\   'currentfunction': 'CocCurrentFunction',
 			\	'filename': 'FilenameForLightline' }
 
 " let g:lightline.separator = { 'left': '', 'right': '' }
