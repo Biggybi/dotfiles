@@ -1744,9 +1744,9 @@ augroup end
 """        Markdown
 augroup MarkdownMaps
 	au!
-	au FileType markdown nnoremap <buffer> <leader>gr :AutoRun<cr>:Run<cr>
-	au FileType markdown nnoremap <buffer> <leader>ga :AutoRun<cr>
-	au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
+	au FileType markdown nnoremap <buffer> <leader>cr :Run<cr>
+	au FileType markdown nnoremap <buffer> <leader>ca :AutoRun<cr>
+	" au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
 ""    Auto Header
