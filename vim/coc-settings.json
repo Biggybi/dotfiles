@@ -16,11 +16,6 @@
 			"command": "efm-langserver",
 			"args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"],
 			"filetypes": ["vim", "eruby", "markdown"]
-		},
-		"latex": {
-			"command": "/PATH/TO/texlab",
-			"ignoredRootPaths": ["~"],
-			"filetypes": ["tex", "bib", "plaintex", "context"]
 		}
 	},
 	"eslint.filetypes": [
