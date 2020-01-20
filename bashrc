@@ -23,7 +23,7 @@ fi
 set -o vi
 
 # Environement variables
-export PATH=$PATH:~/bin:/usr/lib
+export PATH=$PATH:~/bin:/usr/lib:~/.npm-global/bin:/home/tris/go/bin:/home/linuxbrew/.linuxbrew/bin
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export DOT="$HOME/dotfiles"
@@ -33,6 +33,7 @@ export HOM_GAM="$HOME/Games"
 export HOM_DOC="$HOME/Documents"
 export HOM_MUS="$HOME/Music"
 export HOM_42="$HOME/42"
+export GOPATH="$HOME/go"
 
 # caps2escape
 # if [[ -f $DOT/programs/caps2esc ]]
@@ -88,7 +89,29 @@ HISTCONTROL=ignoreboth									# duplicate + whitespace
 # HISTCONTROL=ignoredups								# duplicates
 
 # man with vim
-van() { vim -c "set ft=man" <(man $1); }
+van() {
+	if man "$1" > /dev/null 2>&1
+	then
+		vim -c "set ft=man" <(man $@);
+	elif [ $# == 1 ]
+	then
+		echo "I don't have a man to $@"
+	fi
+}
+
+# van() {
+# 	echo $#
+# 	echo $1
+# 	if [ man "$1" > /dev/null 2>&1 ]
+# 	then
+# 		vim -c "set ft=man" <(man $@);
+# 	elif [ $# -gt 0 ]
+# 	then
+# 		echo "I don't have a man to $@"
+# 	else
+# 		echo "Chose a van page"
+# 	fi
+# }
 
 # fzf defaults
 export FZF_DEFAULT_OPTS='--height 10 -m'
@@ -153,9 +176,9 @@ __fzf_history ()
 
 if [[ "$OSTYPE" != "darwin"* ]]
 then
-	builtin set -o histexpand;
-	builtin bind -x '"\C-x1": __fzf_history';
-	builtin bind '"\C-r": "\C-x1\e^\er"';
+	builtin set -o histexpand
+	builtin bind '"\C-x": __fzf_history'
+	builtin bind '"\C-r": "\C-x1\e^\er"'
 fi
 
 # enable color support of ls and also add handy aliases
