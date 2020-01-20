@@ -40,6 +40,17 @@ execute pathogen#infect()
 " automatically reload vimrc when modified
 " au! BufWritePost $MYVIMRC silent source $MYVIMRC
 
+""    Environement
+
+let DOT="$HOME/dotfiles"
+let HOM_VID="$HOME/Videos"
+let HOM_PIC="$HOME/Pictures"
+let HOM_GAM="$HOME/Games"
+let HOM_DOC="$HOME/Documents"
+let HOM_MUS="$HOME/Music"
+let HOM_42="$HOME/42"
+let GOPATH="$HOME/go"
+
 ""    General
 
 " for 'gf' : add suffix to word under cursor
@@ -309,14 +320,12 @@ if g:DarkLightMod == '0'
 		endif
 		call DarkLightSwitch()
 	endif
-else
-	if g:DarkLightMod == '1'
-		let g:DarkLightSwitch = 'dark'
-		call DarkLightSwitch()
-	elseif g:DarkLightMod == '2'
-		let g:DarkLightSwitch = 'light'
-		call DarkLightSwitch()
-	endif
+elseif g:DarkLightMod == '1'
+	let g:DarkLightSwitch = 'dark'
+	call DarkLightSwitch()
+elseif g:DarkLightMod == '2'
+	let g:DarkLightSwitch = 'light'
+	call DarkLightSwitch()
 endif
 
 
@@ -609,51 +618,6 @@ augroup FugitiveSet
 	" au FileType gitcommit start
 	au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
 augroup end
-
-"""        YouCompleteMe
-
-" YCM move mappings
-" nnoremap <silent> <leader>cf :ll<cr>:YcmCompleter FixIt<cr>:w<cr>
-" nnoremap <silent> <leader>gt :YcmCompleter GoTo<cr>
-" nnoremap <silent> <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<cr>
-" nnoremap <silent> <leader>ga :YcmCompleter GoToDeclaration<cr>
-" nnoremap <silent> <leader>gf :YcmCompleter GoToInclude<cr>
-" nnoremap <silent> <leader>gif k][%k0t(B
-
-" let g:ycm_show_diagnostics_ui = 0 " keep syntastic errors
-" let g:ycm_key_list_stop_completion = [ '<c-y>', '<Enter>' ] " pick with Enter
-" let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']	" next
-" let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']	" previous
-" let g:ycm_collect_identifiers_from_tags_files = 1			"use tags
-" let g:ycm_filetype_blacklist = {
-" 			\ 'tagbar': 1,
-" 			\ 'notes': 1,
-" 			\ 'markdown': 1,
-" 			\ 'netrw': 1,
-" 			\ 'unite': 1,
-" 			\ 'text': 1,
-" 			\ 'vimwiki': 1,
-" 			\ 'pandoc': 1,
-" 			\ 'infolog': 1,
-" 			\ 'mail': 1,
-" 			\ 'qf': 1,
-" 			\ 'fugitive': 1,
-" 			\ 'gitcommit': 1,
-" 			\ 'help': 1,
-" 			\ 'man': 1,
-" 			\ 'tags': 1
-" 			\}
-
-" let g:ycm_filetype_specific_completion_to_disable = {
-" 			\ 'fugitive': 1,
-" 			\ 'gitcommit': 1
-" 			\}
-
-" let g:ycm_disable_for_files_larger_than_kb = 12000	" for fugitive status window
-
-" inoremap <expr> <tab> pumvisible() ? "\<c-v>\<tab>" : "\<tab>"
-" inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<tab>"
-" inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<S-tab>"
 
 """        Syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
