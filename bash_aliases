@@ -1,5 +1,5 @@
-ALIAS_101_HOME=$HOME/42
-ALIAS_101_LFT=$HOME/42/libft
+ALIAS_42_HOME=$HOME/42
+ALIAS_42_LFT=$HOME/42/libft
 
 shopt -s expand_aliases
 
@@ -105,30 +105,46 @@ pluginstall() {
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
 alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
 
-alias eb='vim $HOME/dotfiles/bashrc'
-alias ea='vim $HOME/dotfiles/bash_aliases'
-alias ev='vim $HOME/dotfiles/vimrc'
-alias ei='vim $HOME/dotfiles/inputrc'
-alias eh='vim $HOME/.bash_history'
-alias efs='sudo vim /etc/fstab'
-alias eapt='sudo vim /etc/apt/sources.list'
+alias eb='$EDITOR $HOME/dotfiles/bashrc'
+alias ea='$EDITOR $HOME/dotfiles/bash_aliases'
+alias ev='$EDITOR $HOME/dotfiles/vimrc'
+alias ei='$EDITOR $HOME/dotfiles/inputrc'
+alias eh='$EDITOR $HOME/.bash_history'
+alias efs='sudo $EDITOR /etc/fstab'
+alias eapt='sudo $EDITOR /etc/apt/sources.list'
 alias eg='sh .git/vimgit'
 
-alias vibashrc='vim $HOME/dotfiles/bashrc'
-alias vialias='vim $HOME/dotfiles/bash_aliases'
-alias vimrc='vim $HOME/dotfiles/vimrc'
-alias viinputrc='vim $HOME/dotfiles/inputrc'
-alias vifstab='sudo vim /etc/fstab'
-alias viapt='sudo vim /etc/apt/sources.list'
-alias vimgit='sh .git/vimgit'
+alias vb='vim $HOME/dotfiles/bashrc'
+alias va='vim $HOME/dotfiles/bash_aliases'
+alias vv='vim $HOME/dotfiles/vimrc'
+alias vn='vim $HOME/dotfiles/inputrc'
+alias vh='vim $HOME/.bash_history'
+alias vfs='sudo vim /etc/fstab'
+alias vapt='sudo vim /etc/apt/sources.list'
 alias vg='sh .git/vimgit'
 
-alias sobash='. $HOME/.bashrc'
-alias somacbash='. $HOME/.bash_profile'
-alias socolor='eval "$(dircolors $HOME/.dircolors)"'
-alias soalias='. $HOME/.bash_aliases'
-alias soinputrc='bind -f ~/.inputrc'
-alias soall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
+alias vbashrc='vim $HOME/dotfiles/bashrc'
+alias valias='vim $HOME/dotfiles/bash_aliases'
+alias vimrc='vim $HOME/dotfiles/vimrc'
+alias vinputrc='vim $HOME/dotfiles/inputrc'
+alias vfstab='sudo vim /etc/fstab'
+alias vapt='sudo vim /etc/apt/sources.list'
+alias vmgit='sh .git/vimgit'
+alias vg='sh .git/vimgit'
+
+alias sbash='. $HOME/.bashrc'
+alias smacbash='. $HOME/.bash_profile'
+alias scolor='eval "$(dircolors $HOME/.dircolors)"'
+alias salias='. $HOME/.bash_aliases'
+alias sinputrc='bind -f ~/.inputrc'
+alias sall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
+
+alias sb='. $HOME/.bashrc'
+alias sm='. $HOME/.bash_profile'
+alias sc='eval "$(dircolors $HOME/.dircolors)"'
+alias sa='. $HOME/.bash_aliases'
+alias si='bind -f ~/.inputrc'
+alias sall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
 
 alias dot='cd $HOME/dotfiles'
 alias dots='git -C $HOME/dotfiles status'
@@ -181,6 +197,7 @@ alias apti='sudo apt install'
 aptif() {
 	sudo apt install -y $(grep -o ^[^#][[:alnum:]-]* "$1")
 }
+
 alias aptrm='sudo apt autoremove'
 alias aptu='sudo apt update && notify-send "Update done"'
 alias aptg='sudo apt upgrade'
@@ -206,22 +223,22 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
 alias cdinstall='cd $HOME/Documents/Install/Ubuntu'
-alias cd101='cd $ALIAS_101_HOME'
-alias echo101='echo $ALIAS_101_HOME'
-alias 101clone='git clone git@github.com:Biggybi/101.git'
+alias cd42='cd $ALIAS_42_HOME'
+alias echo42='echo $ALIAS_42_HOME'
+alias 42clone='git clone git@github.com:Biggybi/42.git'
 
-alias lftcd='cd $ALIAS_101_LFT'
-alias cdlft='cd $ALIAS_101_LFT'
-alias lftmk='make -C $ALIAS_101_HOME/'
-alias lftln='ln -s $ALIAS_101_LFT/ .'
-alias lftls='ls $ALIAS_101_LFT/src/*.c | cut -d/ -f7'
-alias lftcp='cp -ru $ALIAS_101_HOME/libft.a $ALIAS_101_LFT/inc/libft.h .'
+alias lftcd='cd $ALIAS_42_LFT'
+alias cdlft='cd $ALIAS_42_LFT'
+alias lftmk='make -C $ALIAS_42_HOME/'
+alias lftln='ln -s $ALIAS_42_LFT/ .'
+alias lftls='ls $ALIAS_42_LFT/src/*.c | cut -d/ -f7'
+alias lftcp='cp -ru $ALIAS_42_HOME/libft.a $ALIAS_42_LFT/inc/libft.h .'
 alias lftcl='git clone git@github.com:Biggybi/libft'
-alias lftccp='cp -rf $ALIAS_101_LFT/ .'
-alias cdgnl='cd $ALIAS_101_HOME/GNL'
-alias cdls='cd $ALIAS_101_HOME/ft_ls'
+alias lftccp='cp -rf $ALIAS_42_LFT/ .'
+alias cdgnl='cd $ALIAS_42_HOME/GNL'
+alias cdls='cd $ALIAS_42_HOME/ft_ls'
 alias cdbin='cd $HOME/bin'
-alias todoscript='vim $ALIAS_101_HOME/bin/.todo'
+alias todoscript='vim $ALIAS_42_HOME/bin/.todo'
 
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
@@ -280,7 +297,7 @@ mzf() {
 }
 alias r='fc -s'
 
-##alias sedtrim="sed -n '1h;1!ALIAS_101_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
+##alias sedtrim="sed -n '1h;1!ALIAS_42_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
@@ -298,7 +315,7 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 ## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
 ##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
 alias ebin='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
-alias elft='$EDITOR $ALIAS_101_LFT/src/$(find $ALIAS_101_LFT/src -type f -exec basename {} \; | fzf --height=10)'
+alias elft='$EDITOR $ALIAS_42_LFT/src/$(find $ALIAS_42_LFT/src -type f -exec basename {} \; | fzf --height=10)'
 # alias ev='$EDITOR $(fzf --height=10)'
 
 ## FZF functions
@@ -319,13 +336,13 @@ ef() {
 # 		cd "$dir"
 # }
 
+# fd - cd to selected directory
 fd() {
 	local dir
-	dir=$(find ${1:-~} -path '*/\.*' -prune \
+	dir=$(find -L ${1:-~} -path '*/\.*' -prune \
 		-o -type d -print 2> /dev/null | fzf +m) &&
 		cd "$dir"
 }
-
 
 get_hidden_mail_adress() {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
