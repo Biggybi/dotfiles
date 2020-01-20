@@ -1165,12 +1165,13 @@ nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 
 ""    Operators
 """        Start / End of line
+onoremap ah :<c-u>normal! ^<cr>
+onoremap ih :<c-u>normal! h^<cr>
 
-onoremap ah :<c-u>normal! v^<cr>
-onoremap ih :<c-u>normal! v^<cr>
+onoremap al :<c-u>normal! v$<cr>
+onoremap il :<c-u>normal! lv$<cr>
 
 """        Surroundings
-
 onoremap i. :<c-u>normal! T.vt.<cr>
 onoremap a. :<c-u>normal! F.vf.<cr>
 
