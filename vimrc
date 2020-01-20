@@ -1689,6 +1689,7 @@ augroup Webmaps
 				\ facilisi.
 
 	au FileType php,html nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+	au FileType php,html nnoremap <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
 augroup end
 
 """        LATEX
