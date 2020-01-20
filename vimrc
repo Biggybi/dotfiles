@@ -858,12 +858,11 @@ endfunction
 " au QuickFixCmdPost [^l]* nested botright copen
 " au QuickFixCmdPost    l* nested botright lwindo
 
-" augroup AutoQuickFix
-" 	au QuickFixCmdPost [^l]* nested botright lopen
-" 	au QuickFixCmdPost    l* nested botright lwindow
-" augroup end
+augroup AutoLocationWindow
+	au!
 	au QuickFixCmdPost [^l]* nested botright lopen
 	au QuickFixCmdPost    l* nested botright lwindow
+augroup end
 
 nnoremap <leader>cm :make<cr><cr>
 nnoremap <leader>cr :make re<cr><cr>
