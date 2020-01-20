@@ -790,6 +790,7 @@ nnoremap <leader>ff :FZF $HOME<cr>
 nnoremap <leader><c-f> :FZF .<cr>
 nnoremap <leader>F :FZF /<cr>
 nnoremap <leader>fb :FzfBuffers<cr>
+nnoremap <leader>b :FzfBuffers<cr>
 nnoremap <leader>fw :FzfWindows<cr>
 nnoremap <leader>ft :FzfTags<cr>
 nnoremap <leader>f<c-t> :FzfBTags<cr>
@@ -798,7 +799,7 @@ nnoremap <leader>fg :FzfGFiles?<cr>
 nnoremap <leader>f<c-g> :FzfGFiles<cr>
 nnoremap <leader>fl :FzfLines<cr>
 nnoremap <leader>f<c-l> :FzfBLines<cr>
-nnoremap <leader>f: :FzfHistory:<cr>
+nnoremap <leader>f; :FzfHistory:<cr>
 nnoremap <leader>f/ :FzfHistory/<cr>
 nnoremap <leader>fh :FzfHistory<cr>
 nnoremap <leader>fm :FzfHelptags<cr>
