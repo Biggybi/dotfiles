@@ -1348,8 +1348,8 @@ omap af <Plug>(coc-funcobj-a)
 " pmenu mappings
 set cmdheight=2
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gu <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> [w <Plug>(coc-diagnostic-prev)
 nmap <silent> ]w <Plug>(coc-diagnostic-next)
@@ -1567,8 +1567,8 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 
 	" le and execute current
-	au FileType c nnoremap <buffer> <leader>gcc :Shell gcc -Wall -Wextra % && ./a.out
-	au FileType c nnoremap <buffer> <leader>gcm :Shell gcc -Wall -Wextra % main.c && ./a.out
+	au FileType c nnoremap <buffer> <leader>cc :Shell gcc -Wall -Wextra % && ./a.out
+	au FileType c nnoremap <buffer> <leader>cm :Shell gcc -Wall -Wextra % main.c && ./a.out
 
 	" close brackets
 	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
@@ -1580,8 +1580,9 @@ augroup Cmaps
 	"  name of current c function (needs '()')
 	au FileType c nnoremap <silent> g<c-d> j[[h^t(b
 
-	" semicolon EOL
+	" semicolon/coma EOL
 	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+	au FileType c nnoremap <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
 
 	" t all text in function
 	au FileType c nnoremap <leader>vf j[[V%o
@@ -1612,11 +1613,13 @@ augroup end
 """        JavaScript
 augroup JSmaps
 	au! JSmaps
-	au FileType javascript nnoremap <buffer> <leader>gr :AutoRun<cr>:Run<cr>
-	au FileType javascript nnoremap <buffer> <leader>ga :AutoRun<cr>
+	au FileType javascript nnoremap <buffer> <leader>cr :Run<cr>
+	au FileType javascript nnoremap <buffer> <leader>ca :AutoRun<cr>
 	au FileType javascript nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+	au FileType javascript nnoremap <buffer> <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
 	au FileType javascript inoremap <buffer> {<cr>  {<cr>}<esc>O
-	au FileType javascript nnoremap <buffer> <leader>gcc :Shell node %<cr>
+	au FileType javascript nnoremap <buffer> <leader>cc :Shell node %<cr>
+	au FileType javascript nnoremap <buffer> <leader>ls :!live-server %<cr>
 	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,fo for ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType javascript inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
