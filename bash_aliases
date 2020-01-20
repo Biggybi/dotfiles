@@ -30,6 +30,8 @@ newday() {
 	fi
 	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10
 }
+## vim nude
+alias vimnude='vim -u NONE'
 alias viday='vim $(find . -name "*.c")'
 alias gccfcday='gccf -c $(find ex* -name "*.c")'
 alias gccmday='gccf main.c $(find . -name "*.c")'
@@ -107,6 +109,7 @@ alias eb='vim $HOME/dotfiles/bashrc'
 alias ea='vim $HOME/dotfiles/bash_aliases'
 alias ev='vim $HOME/dotfiles/vimrc'
 alias ei='vim $HOME/dotfiles/inputrc'
+alias eh='vim $HOME/.bash_history'
 alias efs='sudo vim /etc/fstab'
 alias eapt='sudo vim /etc/apt/sources.list'
 alias eg='sh .git/vimgit'
