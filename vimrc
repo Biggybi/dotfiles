@@ -1623,7 +1623,14 @@ augroup JSmaps
 	au FileType javascript inoremap <buffer> ,cl console.log();<esc>F)i
 	au FileType javascript nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
 	au FileType javascript vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
-	au FileType javascript vnoremap <buffer> <leader>gcc :!live-server %
+augroup end
+
+"""        Json
+augroup Jsonmaps
+	au! Jsonmaps
+	au FileType json nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+	au FileType json nnoremap <buffer> <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
+	au FileType json inoremap <buffer> {<cr>  {<cr>}<esc>O
 augroup end
 
 """        PHP/HTML/CSS
