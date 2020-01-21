@@ -1,0 +1,32 @@
+user_time=$1
+date1=$(($(date +%s) + $user_time))
+
+# i=2
+# while [ $i -le $# ]
+# do
+# 	to_run="$to_run ${@:$i:1}"
+# 	((i++))
+# done
+# [ $to_run ] && echo "to run = $to_run"
+while [ "$date1" -ge `date +%s` ]
+do
+	echo -ne "$(date -u --date @$(($date1 - `date +%s` )) +%H:%M:%S)\r"
+done
+
+# [ $to_run ] && eval $to_run
+
+if [[ $1 -gt 1 ]]; then
+	echo "Time's up after $1 seconds"
+else
+	echo "Time's up after $1 second"
+fi
+
+i=0
+while [ $i -lt 20 ]
+do
+	paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+	((i++))
+	sleep 1
+	echo -n .
+done
+echo
