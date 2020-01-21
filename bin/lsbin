@@ -1,1 +1,3 @@
+#!/bin/bash
+
 cat $(type $1 | sed 's/.* (\//\//g;s/)$//g')

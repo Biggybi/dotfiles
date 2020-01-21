@@ -1,3 +1,5 @@
+#!/bin/bash
+
 user_time=$1
 date1=$(($(date +%s) + $user_time))
 

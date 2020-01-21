@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 1 ]
-	then
+then
 	echo "usage : psg [pattern]"
-	fi
+fi
 ps aux | grep $1
