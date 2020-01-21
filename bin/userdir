@@ -1,13 +1,27 @@
 #!/bin/bash
 
 # set media dirs to another location
+# you can set it via an exported $DATAPATH var
+# or modify it here (use absolute path)
+# or pass it as argument
 
+# data_path="$DATAPATH"
 
-if [ -n "$DATAPATH" ] && [ -z "$data_path" ]
+echo $#
+
+if [ $# -gt 1 ]
+then
+	echo "Usage: userdir [absolute_path]"
+	exit
+fi
+
+if [ -n "$DATAPATH" ] && [ -z "$data_path" ] && [ -z "$1" ]
 then
 	echo "$DATAPATH"
 	data_path="$DATAPATH"
 fi
+
+[ $# -eq 1 ] && data_path="$1"
 
 if [ -z "$data_path" ]
 then
