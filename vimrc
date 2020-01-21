@@ -407,11 +407,13 @@ augroup end
 
 " auto chose tag from .git folder
 " set path for code
-augroup HeadersTags
+augroup CodePathTags
 	au!
 	au BufEnter * set tags=.git/tags
-	au FileType c,cpp,css,java,python,ruby setlocal path+=inc,incs,includes,headers
+	au FileType c,cpp,css,java,python,ruby au! BufEnter <buffer>
+	\ | set path+=inc,incs,includes,headers
 augroup end
+" set path+=**			" recursive path from current path
 
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
