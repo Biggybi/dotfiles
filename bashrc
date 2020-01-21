@@ -34,6 +34,7 @@ export HOM_DOC="$HOME/Documents"
 export HOM_MUS="$HOME/Music"
 export HOM_42="$HOME/42"
 export GOPATH="$HOME/go"
+export LFT="$HOM_42/libft/"
 
 # caps2escape
 # if [[ -f $DOT/programs/caps2esc ]]

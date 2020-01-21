@@ -1,4 +1,5 @@
 #!/bin/bash
+
 FTPATH=~/101/libft/src
 BEFOR=ft_
 AFTER=\.c
