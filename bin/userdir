@@ -16,14 +16,9 @@ then
 fi
 echo "Setting media folders in $data_path"
 
-xdg-user-dirs-update --set\
-	XDG_MUSIC_DIR "$data_path/Music"
-xdg-user-dirs-update --set\
-	XDG_DOCUMENTS_DIR "$data_path/Documents"
-xdg-user-dirs-update --set\
-	XDG_DOWNLOAD_DIR "$data_path/Downloads"
-xdg-user-dirs-update --set\
-	XDG_PICTURES_DIR "$data_path/Images"
-xdg-user-dirs-update --set\
-	XDG_VIDEOS_DIR "$data_path/Videos"
+xdg-user-dirs-update --set XDG_MUSIC_DIR "$data_path/Music"
+xdg-user-dirs-update --set XDG_DOCUMENTS_DIR "$data_path/Documents"
+xdg-user-dirs-update --set XDG_DOWNLOAD_DIR "$data_path/Downloads"
+xdg-user-dirs-update --set XDG_PICTURES_DIR "$data_path/Images"
+xdg-user-dirs-update --set XDG_VIDEOS_DIR "$data_path/Videos"
 
