@@ -1378,15 +1378,6 @@ function! StatusDiagnostic() abort
 	return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
-"bash language server settings
-" if executable('bash-language-server')
-"   au User lsp_setup call lsp#register_server({
-"         \ 'name': 'bash-language-server',
-"         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
-"         \ 'whitelist': ['sh'],
-"         \ })
-" endif
-
 let g:markdown_fenced_languages = ['css', 'js=javascript']
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
