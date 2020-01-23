@@ -483,6 +483,10 @@ set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/bu
 
 set magic " Set magic on, for regex
 
+" use unix regex in searches
+nnoremap / /\v
+vnoremap / /\v
+
 " keep cursor in middle of screen when searching / folding
 " nnoremap n nzz
 " nnoremap N Nzz
@@ -494,11 +498,6 @@ nnoremap zM zMzz
 " " nnoremap za zazz
 " nnoremap zA zAzz
 " nnoremap <leader>za zMzvzz
-
-
-" use unix regex in searches
-" nnoremap / /\v
-" vnoremap / /\v
 
 "do not move cursor with match
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
@@ -746,10 +745,38 @@ let g:gitgutter_sign_modified_removed = '▎'
 " let g:gitgutter_sign_modified_removed = '▋'
 
 """        FZF
-" let g:fzf_layout = { 'window': 'below 10split enew' }
-" call fzf#run({'options': '--reverse'})
+
 let g:fzf_command_prefix = 'Fzf'
-let g:fzf_buffers_jump = 1 				" [Buffers] to existing window
+let g:fzf_buffers_jump = 1						" [Buffers] to existing window
+let g:fzf_layout = { 'down' : '10 reverse' }
+let g:fzf_colors =
+	\ { 'fg':      ['fg', 'Normal'],
+	\ 'bg':      ['bg', 'Normal'],
+	\ 'hl':      ['fg', 'Comment'],
+	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+	\ 'hl+':     ['fg', 'Statement'],
+	\ 'info':    ['fg', 'PreProc'],
+	\ 'border':  ['fg', 'Ignore'],
+	\ 'prompt':  ['fg', 'Conditional'],
+	\ 'pointer': ['fg', 'Exception'],
+	\ 'marker':  ['fg', 'Keyword'],
+	\ 'spinner': ['fg', 'Label'],
+	\ 'header':  ['fg', 'Comment'] }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" An action can be a reference to a function that processes selected lines
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 nnoremap <leader>ff :FZF $HOME<cr>
 nnoremap <leader><c-f> :FZF .<cr>
@@ -771,23 +798,12 @@ nnoremap <leader>fm :FzfHelptags<cr>
 nnoremap <leader>fs <esc>:FzfSnippets<cr>
 inoremap <c-f> <c-o>:Snippets<cr>
 " nnoremap <leader>f :FZF<c-r>=fnamemodify(getcwd(), ':p')<cr><cr>
-let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-let g:fzf_layout = { 'down' : '10 reverse' }
-let g:fzf_colors =
-			\ { 'fg':      ['fg', 'Normal'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Comment'],
-			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':     ['fg', 'Statement'],
-			\ 'info':    ['fg', 'PreProc'],
-			\ 'border':  ['fg', 'Ignore'],
-			\ 'prompt':  ['fg', 'Conditional'],
-			\ 'pointer': ['fg', 'Exception'],
-			\ 'marker':  ['fg', 'Keyword'],
-			\ 'spinner': ['fg', 'Label'],
-			\ 'header':  ['fg', 'Comment'] }
+command! -bang -complete=dir -nargs=* LS
+\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
+
+command! -bang -nargs=? -complete=dir Files
+	\ call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat {}']}, <bang>0)
 
 """        UltiSnips
 inoremap <c-p> <nop>
