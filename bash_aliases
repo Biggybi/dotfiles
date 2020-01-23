@@ -97,7 +97,7 @@ alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
 
-pluginstall() {
+vimpluginstall() {
 	cd $HOME/dotfiles/vim/bundle/
 	git clone $1
 }
