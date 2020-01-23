@@ -409,9 +409,9 @@ augroup end
 " set path for code
 augroup CodePathTags
 	au!
-	au BufEnter * set tags=.git/tags
-	au FileType c,cpp,css,java,python,ruby au! BufEnter <buffer>
-	\ | set path+=inc,incs,includes,headers
+	au BufEnter * silent! set tags+=.git/tags
+	au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
+	\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
 augroup end
 " set path+=**			" recursive path from current path
 
