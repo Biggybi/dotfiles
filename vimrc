@@ -1302,7 +1302,7 @@ nnoremap <c-s> :w<cr>
 inoremap <c-s> <c-o>:stopinsert<cr>:w<cr><esc>
 
 " :W! save files as root
-cnoremap W! %!sudo tee > /dev/null %
+cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
 """        Files
 " toggle cursor always in middle with <leader>zz
