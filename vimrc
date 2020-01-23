@@ -1515,6 +1515,8 @@ set ttimeoutlen=10
 ""    Code Mappings
 """        General
 nnoremap g<c-g> gg=G<c-o><c-o>
+nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
+			\ ":lclose<cr>" : ":lopen<cr><c-w>p"
 
 """        bash
 augroup Shmaps
