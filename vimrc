@@ -1305,6 +1305,10 @@ inoremap <c-s> <c-o>:stopinsert<cr>:w<cr><esc>
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
 """        Files
+
+" cd shell to vim current working directory
+nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : pwd"<cr>
+
 " toggle cursor always in middle with <leader>zz
 nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
 
@@ -1346,13 +1350,14 @@ omap af <Plug>(coc-funcobj-a)
 
 " pmenu mappings
 set cmdheight=2
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gu <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <leader>gf <Plug>(coc-definition)
+nmap <silent> <leader>gd <Plug>(coc-declaration)
+nmap <silent> <leader>gt <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
 nmap <silent> [w <Plug>(coc-diagnostic-prev)
 nmap <silent> ]w <Plug>(coc-diagnostic-next)
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>cf  <Plug>(coc-fix-current)
 
 " rename word
 nmap <leader>rn <Plug>(coc-rename)
