@@ -369,7 +369,7 @@ endfunction
 " au TextChanged,TextChangedI <buffer> silent write
 
 " open file where it was closed
-augroup ReOpen
+augroup ReOpenFileWhereLeft
 	au!
 	au BufReadPost *
 		\ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -377,14 +377,14 @@ augroup ReOpen
 		\ endif
 augroup end
 
-" auto change dir to git repo
-augroup GitRoot
+" auto change dir to git repo OR file directory
+augroup CdGitRootOrFileDir
 	au!
-	au BufEnter * silent! Gcd
+	au BufEnter * silent! cd %:p:h | silent! Gcd
 augroup end
 
 " filetype recognition
-augroup FileTypeSelect
+augroup FileTypeAutoSelect
 	au!
 	au FileType c setlocal ofu=ccomplete#CompleteCpp
 	au FileType css setlocal ofu=csscomplete#CompleteCSS
