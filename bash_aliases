@@ -340,15 +340,24 @@ ef() {
 fd() {
 	local dir
 	dir=$(find -L ${1:-~} -path '*/\.*' -prune \
-		-o -type d -print 2> /dev/null | fzf +m) &&
+		-o -type d -print 2> /dev/null | fzf --height=10 --preview="ls -la --color=always {}" +m) &&
 		cd "$dir"
+}
+
+fzv() {
+	cd $HOM_VID
+	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Videos\///' | fzf --height=10 --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
+}
+
+fzm() {
+	cd $HOM_MUS
+	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --height=10 --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
 }
 
 get_hidden_mail_adress() {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
 }
 
-alias ex='return && echo end'
 # alias fav='. fav'
 # vim: filetype=sh
 
