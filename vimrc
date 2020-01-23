@@ -1276,7 +1276,7 @@ onoremap aN* :<c-u>normal! F*vF*<cr>
 
 ""    Mappings
 """        Modes
-" space as leader
+" space as leader, prompt '\' in command line window :)
 map <space> <leader>
 
 " enter command mode with ;
@@ -1284,8 +1284,9 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+nnoremap <leader>; :!
 
-" jk enter normal mode
+" jk to enter normal mode
 inoremap jk <esc>
 cnoremap jk <esc>
 nnoremap gI `.gi<esc>
