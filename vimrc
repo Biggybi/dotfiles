@@ -1539,6 +1539,8 @@ set ttimeoutlen=10
 
 " indent all file easy
 nnoremap g<c-g> gg=G<c-o><c-o>
+
+" Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
 			\ ":lclose<cr>" : ":lopen<cr><c-w>p"
 
