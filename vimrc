@@ -20,26 +20,6 @@
 "													"
 " """""""""""""""""""""""""""""""""""""""""""""""""""
 
-""    Vimrc settings
-
-set nocompatible " not compatible with vi
-filetype plugin on
-" set shellcmdflag=-ic
-let $BASH_ENV = "$HOME/dotfiles/bash_aliases" " use aliases in vim
-let $PAGER=''	" clear pager env var in vim (for vim as pager)
-
-" pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-" execute pathogen#helptags()
-" command! PHelpTags :call pathogen#helptags()
-" function! PHelpTags ()
-" 	call pathogen#helptags()
-" endfunction
-
-" automatically reload vimrc when modified
-" au! BufWritePost $MYVIMRC silent source $MYVIMRC
-
 ""    Environement
 
 let DOT="$HOME/dotfiles"
@@ -51,21 +31,23 @@ let HOM_MUS="$HOME/Music"
 let HOM_42="$HOME/42"
 let GOPATH="$HOME/go"
 
-""    General
+""    Settings
+"""        General settings
 
-" for 'gf' : add suffix to word under cursor
-set suffixesadd=.tex,.latex,.java,.c,.h,.js
+filetype plugin on								" use filetype plugin
+filetype indent on								" use indent plugin
 
-set history=10000 " default 20
+set nocompatible								" not compatible with vi
+let $BASH_ENV = "$HOME/dotfiles/bash_aliases"	" use aliases in vim
+let $PAGER=''									" vim as pager
 
-" backspace behave in a sane manner
-set backspace=indent,eol,start
+" pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
 
-" faster redrawing
-set ttyfast
-
-" coma is end of word
-set iskeyword+=,
+set title										" window title (file)
+set encoding=utf8								" character encoding
+set ttyfast										" faster redrawing
 
 " restore undo history
 if exists('+undofile')
@@ -73,72 +55,119 @@ if exists('+undofile')
 endif
 
 " Backup files dir
+set history=10000								" long history
 set hidden
-set backupskip=/tmp/*,/private/tmp/*		" vim can edit crontab
+set backupskip=/tmp/*,/private/tmp/*			" vim can edit crontab
 set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
+"""        User Interface settings
+
+set mouse=a										" it's a secret
+
+" Mappings chill
+set notimeout									" no timeout on maps
+set ttimeout									" timeout on keycodes
+set ttimeoutlen=10								" of 10 ms
+
+" Command line window
+set cmdheight=2									" Command-line height
+set showcmd										" show command
+set wildmenu									" show matches to commands
+set showmode									" show mode
+set completeopt+=longest						" complete matching string
+set completeopt+=menuone						" pmenu on single match too
+
+" status line
+set laststatus=2								" always show satus line
+set ruler										" show cursor line / column
+set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P	" show buffer number
+
+
 " Shortmess : 'hit enter' prompt custzomization
-set shortmess+=A				" No error message when swap exists, just edit
-set shortmess+=f				" Abbreviation for file count
-set shortmess+=i				" Abbreviation for line without end
-set shortmess+=l				" Abbreviation for line and word count
-set shortmess+=m				" Abbreviation for modified
-set shortmess+=n				" Abbreviation for new file
-set shortmess+=r				" Abbreviation for read only
-set shortmess+=w				" Abbreviation for writter
-set shortmess+=x				" Abbreviation for dos and mac format
-set shortmess+=W				" No message when writing
-" set cmdheight=2
+set shortmess+=A								" Always edit if swap exists
+set shortmess+=f								" Abbrev file count
+set shortmess+=i								" Abbrev line without end
+set shortmess+=l								" Abbrev line and word count
+set shortmess+=m								" Abbrev modified
+set shortmess+=n								" Abbrev new file
+set shortmess+=r								" Abbrev read only
+set shortmess+=w								" Abbrev writter
+set shortmess+=x								" Abbrev dos and mac format
+set shortmess+=W								" No message when writing
 
-
-" set noswapfile
-
-" gnome adaptive cursor shape
-" if has("au")
-"   atocmdu VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
-"   au InsertEnter,InsertChange *
-"     \ if v:insertmode == 'i' |
-"     \   silent execute '!echo -ne "\e[6 q"' | redraw! |
-"     \ elseif v:insertmode == 'r' |
-"     \   silent execute '!echo -ne "\e[4 q"' | redraw! |
-"     \ endif
-"   au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
-" endif
-
-
-""    User Interface
-
-set ruler
-set mouse=a
-set visualbell
-set noerrorbells
-set t_vb=
-set wildmenu
-set showmode
-set showcmd
-set completeopt=longest,menuone
+" Bell
+set visualbell									" do not ring the bell
+set noerrorbells								" no bell for error messages
+set t_vb=										" no bell at all
 
 " tabulation control
-set noexpandtab				" tabs ftw
-set smarttab				" tab respects 'tabstop' 'shiftwidth' 'softtabstop'
-set tabstop=4				" the visible width of tabs
-set softtabstop=4			" tabs 4 characters wide
-set shiftwidth=4			" indents 4 characters wide
-set autoindent				" automatically set indent of new line
-set smartindent				" ... in a sane way
-set shiftround				" round indent to a multiple of 'shiftwidth'
-filetype indent on
+set noexpandtab									" tabs ftw
+set smarttab									" tab width start of line
+set tabstop=4									" visible width of tabs
+set softtabstop=4								" tabs 4 characters wide
+set shiftwidth=4								" indents 4 characters wide
+set autoindent									" automatically indent new line
+set smartindent									" ...in a sane way
+set shiftround									" indent congru shiftwidth
 
-set splitbelow				" default split below
-set splitright				" default split right
-" set equalalways			" always equalize windows
-" set list					" show invisible characters
-" set listchars=tab:>\ ,trail:·	" but only show tabs and trailing whitespace
+" splits
+set splitbelow									" default split below
+set splitright									" default split right
+"set list										" show hidden characters...
+set listchars=tab:·\ ,trail:-							" only tab / trailing ws
+augroup ShowBreak
+	au!
+	au InsertEnter * set list
+	au InsertLeave * set nolist
+augroup end
 
-set number					" show number column
-set relativenumber			" relative to current line
+set number										" show number column
+set relativenumber								" relative to current line
+set wrap										" no horizontal scroll
+set breakindent									" with indent
+set showbreak=\ \ ¬								" ... showing a character
+set virtualedit=block							" visual selection broken free
+
+" Moves boundaries
+set suffixesadd=.tex,.latex,.java,.c,.h,.js		" match file w/ ext
+set backspace=indent,eol,start					" backspace over lines
+set whichwrap+=<,>,h,l,[,]						" break cursor free
+set iskeyword+=,								" word boundaries
+set formatoptions+=j							" join comments smartly
+set nojoinspaces								" and spaces too
+set sidescrolloff=5								" min horizontal cursor offset
+let &scrolloff=winheight(win_getid())/10 + 1	" min vertical cursor offset
+
+" Folding
+set foldmethod=syntax							" fold based on indent
+set foldnestmax=10								" deepest fold is 10 levels
+set nofoldenable								" don't fold by default
+" set foldlevel=1
+
+let base16colorspace=256						" access 256 colorspace
+set t_Co=256									" say terminal supports 256
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+syntax on
+
+""    Look / Theme
+"""        gnome adaptive cursor shape
+augroup CursorShape
+	au!
+	au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' |
+	au InsertEnter,InsertChange *
+		\ if v:insertmode == 'i' |
+		\   silent execute '!echo -ne "\e[6 q"' |
+		\ elseif v:insertmode == 'r' |
+		\   silent execute '!echo -ne "\e[4 q"' |
+		\ endif
+	au VimLeave * silent execute '!echo -ne "\e[ q"' |
+augroup end
 
 " set number relativenumber
 " augroup NumToggle
@@ -147,36 +176,56 @@ set relativenumber			" relative to current line
 " 	au WinLeave * set nonumber norelativenumber
 " augroup END
 
-set virtualedit=block		" visual selection broken free
+"""        DarkLightSwitch
+" switch between light and dark theme (UI + ligtline)
+function! DarkLightSwitch()
+	if g:DarkLightSwitch == 'dark'
+		set background=dark
+		colorscheme	base16-onedark
+		let g:lightline = { 'colorscheme': 'wombat' }
+		let g:DarkLightSwitch = 'light'
+	elseif g:DarkLightSwitch == 'light'
+		" set background=light
+		colorscheme	base16-one-light
+		let g:lightline = { 'colorscheme': 'wombat_light' }
+		let g:DarkLightSwitch = 'dark'
+	endif
+	if exists("g:DarkLightOn")
+		" call lightline#enable()
+		" call lightline#init()
+	endif
+	let g:DarkLightOn = '0'
+endfunction
 
-set whichwrap+=<,>,h,l,[,]	" free cursor betweem lines
-set wrap					" no horizontal scroll
-" set linebreak				" break lines
-set breakindent				" with indent
-set showbreak=\ \ ¬			" ... showing a character
-
-set sidescrolloff=5			" min horizontal cursor offset
-let &scrolloff=winheight(win_getid())/10 + 1 " min vertical cursor offset
-
-" status line
-set laststatus=2			" show the satus line all the time
-" show buffer number
-" set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-
-""    Look / Theme
-
-syntax on
-
-if (has("termguicolors"))
-  set termguicolors
+" open vim with different color based on time of day
+let g:DarkLightMod = '1'
+" 0 : auto
+" 1 : force dark
+" 2 : force light
+if ! exists("g:DarkLightMod")
+	let g:DarkLightMod = '0'
 endif
-
-" code
-set encoding=utf8
-let base16colorspace=256	" access colors present in 256 colorspace"
-set t_Co=256	" explicitly tell vim that the terminal supports 256 colors"
-
-
+if g:DarkLightMod == '0'
+	if ! exists("g:DarkLightOn")
+	let hour = strftime("%H")
+	if 9 < hour && hour < 15
+		let g:DarkLightSwitch = 'light'
+	else
+		let g:DarkLightSwitch = 'dark'
+	endif
+	call DarkLightSwitch()
+endif
+elseif g:DarkLightMod == '1'
+	let g:DarkLightSwitch = 'dark'
+	call DarkLightSwitch()
+elseif g:DarkLightMod == '2'
+	let g:DarkLightSwitch = 'light'
+	call DarkLightSwitch()
+endif
+" nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
+nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
+nnoremap <silent> <leader>s<c-C> :syntax sync fromstart<cr>
+" nnoremap <leader>sv :source $MYVIMRC<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
 
 ""    Window behaviour
 
@@ -279,57 +328,6 @@ set mat=2 " how many tenths of a second to blink
 " vnoremap <expr> F HighlightFSearches('F')
 " vnoremap F<bs> <nop>
 
-"""        DarkLightSwitch
-" switch between light and dark theme (UI + ligtline)
-function! DarkLightSwitch()
-	if g:DarkLightSwitch == 'dark'
-		set background=dark
-		colorscheme	base16-onedark
-		let g:lightline = { 'colorscheme': 'wombat' }
-		let g:DarkLightSwitch = 'light'
-	elseif g:DarkLightSwitch == 'light'
-		" set background=light
-		colorscheme	base16-one-light
-		let g:lightline = { 'colorscheme': 'wombat_light' }
-		let g:DarkLightSwitch = 'dark'
-	endif
-	if exists("g:DarkLightOn")
-		call lightline#enable()
-		" call lightline#init()
-	endif
-	let g:DarkLightOn = '0'
-endfunction
-
-" open vim with different color based on time of day
-let g:DarkLightMod = '1'
-" 0 : auto
-" 1 : force dark
-" 2 : force light
-if ! exists("g:DarkLightMod")
-	let g:DarkLightMod = '0'
-endif
-if g:DarkLightMod == '0'
-	if ! exists("g:DarkLightOn")
-	let hour = strftime("%H")
-	if 9 < hour && hour < 15
-		let g:DarkLightSwitch = 'light'
-	else
-		let g:DarkLightSwitch = 'dark'
-	endif
-	call DarkLightSwitch()
-endif
-elseif g:DarkLightMod == '1'
-	let g:DarkLightSwitch = 'dark'
-	call DarkLightSwitch()
-elseif g:DarkLightMod == '2'
-	let g:DarkLightSwitch = 'light'
-	call DarkLightSwitch()
-endif
-
-" nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-" nnoremap <leader>sv :source $MYVIMRC<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
-
 ""    Folding
 
 set foldmethod=syntax " fold based on indent
@@ -375,6 +373,13 @@ augroup ReOpenFileWhereLeft
 		\ if line("'\"") > 0 && line("'\"") <= line("$") |
 		\   exe "normal! g`\"" |
 		\ endif
+augroup end
+
+" automatily save and restore files views (folding state and more)
+augroup ReViews
+	au!
+	au BufWinLeave * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | mkview | endif
+	au BufWinEnter * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | loadview | endif
 augroup end
 
 " auto change dir to git repo OR file directory
@@ -457,7 +462,6 @@ runtime! ftplugin/man.vim
 set keywordprg=:Man
 let $PAGER=''
 
-
 ""    Searching
 nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
 
@@ -486,6 +490,8 @@ set magic " Set magic on, for regex
 " use unix regex in searches
 nnoremap / /\v
 vnoremap / /\v
+nnoremap <leader>/ /
+vnoremap <leader>/ /
 
 " keep cursor in middle of screen when searching / folding
 " nnoremap n nzz
@@ -1319,9 +1325,11 @@ nnoremap g<c-f> :vertical wincmd f<cr>
 nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
 "trim file
 nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
+nnoremap <leader>XX :%s/\s\+$//<cr>:redraw<cr>
 
 " % as <c-g>
 nnoremap <c-g> %
+vnoremap <c-g> %
 
 " Word count
 function! WC()
@@ -1349,7 +1357,6 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " pmenu mappings
-set cmdheight=2
 nmap <silent> <leader>gf <Plug>(coc-definition)
 nmap <silent> <leader>gd <Plug>(coc-declaration)
 nmap <silent> <leader>gt <Plug>(coc-type-definition)
