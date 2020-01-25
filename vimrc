@@ -40,6 +40,9 @@ execute pathogen#infect()
 
 filetype plugin on								" use filetype plugin
 filetype indent on								" use indent plugin
+packadd! matchit
+runtime! ftplugin/man.vim
+set keywordprg=:Man
 
 let $BASH_ENV = "$HOME/dotfiles/bash_aliases"	" use aliases in vim
 let $PAGER=''									" vim as pager
@@ -49,7 +52,7 @@ set nocompatible								" not compatible with vi
 set title										" window title (file)
 set encoding=utf8								" character encoding
 set ttyfast										" faster redrawing
-set nolazyredraw								" don't redraw while executing macros
+set nolazyredraw								" no redraw executing macros
 
 " restore undo history
 if exists('+undofile')
