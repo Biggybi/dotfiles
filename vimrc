@@ -1825,8 +1825,7 @@ augroup end
 """        Vimrc mappings
 augroup VimrcMaps
 	au! VimrcMaps
-	au FileType vim silent nnoremap <buffer> zm mpzM100<c-y>`pzC
-	" au FileType vim nnoremap <silent> <buffer> zm mpzM100<c-y>k`pzC
+	au FileType vim silent nnoremap <buffer> zm :setlocal foldlevel=0<cr>100<c-y>
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
 	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
