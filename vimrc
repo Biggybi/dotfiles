@@ -20,7 +20,8 @@
 "													"
 " """""""""""""""""""""""""""""""""""""""""""""""""""
 
-""    Environement
+""    Settings
+"""    Environement
 
 let DOT="$HOME/dotfiles"
 let HOM_VID="$HOME/Videos"
@@ -31,23 +32,24 @@ let HOM_MUS="$HOME/Music"
 let HOM_42="$HOME/42"
 let GOPATH="$HOME/go"
 
-""    Settings
+"""        Pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+
 """        General settings
 
 filetype plugin on								" use filetype plugin
 filetype indent on								" use indent plugin
 
-set nocompatible								" not compatible with vi
 let $BASH_ENV = "$HOME/dotfiles/bash_aliases"	" use aliases in vim
 let $PAGER=''									" vim as pager
 
-" pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-
+syntax on
+set nocompatible								" not compatible with vi
 set title										" window title (file)
 set encoding=utf8								" character encoding
 set ttyfast										" faster redrawing
+set nolazyredraw								" don't redraw while executing macros
 
 " restore undo history
 if exists('+undofile')
@@ -62,6 +64,9 @@ set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
+set autoread									" detect file changes
+set modelineexpr								" flexible modeline set
+
 """        User Interface settings
 
 set mouse=a										" it's a secret
@@ -71,10 +76,29 @@ set notimeout									" no timeout on maps
 set ttimeout									" timeout on keycodes
 set ttimeoutlen=10								" of 10 ms
 
+" search
+set magic										" set magic on, for regex
+set ignorecase									" case insensitive search
+set smartcase									" case-sens if cap
+set hlsearch									" highlight all searches
+set incsearch									" highlight match while type
+" set path+=**									" recursive path from current path
+" ignore some files from wildcard expansion
+set wildignore+=**/__pycache__/**
+set wildignore+=**/venv/**
+set wildignore+=**/node_modules/**
+set wildignore+=**/dist/**
+set wildignore+=**/build/**
+set wildignore+=*.o
+set wildignore+=*.pyc
+set wildignore+=*.swp
+
 " Command line window
 set cmdheight=2									" Command-line height
 set showcmd										" show command
 set wildmenu									" show matches to commands
+set wildchar=<tab>								" complete w/ tab
+set wildmode=longest,full
 set showmode									" show mode
 set completeopt+=longest						" complete matching string
 set completeopt+=menuone						" pmenu on single match too
@@ -82,8 +106,7 @@ set completeopt+=menuone						" pmenu on single match too
 " status line
 set laststatus=2								" always show satus line
 set ruler										" show cursor line / column
-set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P	" show buffer number
-
+" set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P	" show buffer number
 
 " Shortmess : 'hit enter' prompt custzomization
 set shortmess+=A								" Always edit if swap exists
@@ -96,6 +119,8 @@ set shortmess+=r								" Abbrev read only
 set shortmess+=w								" Abbrev writter
 set shortmess+=x								" Abbrev dos and mac format
 set shortmess+=W								" No message when writing
+set shortmess+=F								" As if silent autocomands
+set shortmess+=c
 
 " Bell
 set visualbell									" do not ring the bell
@@ -113,32 +138,32 @@ set smartindent									" ...in a sane way
 set shiftround									" indent congru shiftwidth
 
 " splits
+set switchbuf=useopen							" open buffer window if exists
 set splitbelow									" default split below
 set splitright									" default split right
-"set list										" show hidden characters...
-set listchars=tab:·\ ,trail:-							" only tab / trailing ws
-augroup ShowBreak
-	au!
-	au InsertEnter * set list
-	au InsertLeave * set nolist
-augroup end
+" set list
 
+" guides smartisation
+set listchars=tab:\▎\ ,trail:-					" only tab / trailing ws
+set spellcapcheck=								" ignore leading cap in word
+set formatoptions+=j							" join comments smartly
+set nojoinspaces								" and spaces too
+set suffixesadd=.tex,.latex,.java,.c,.h,.js		" match file w/ ext
+
+" Main window
 set number										" show number column
 set relativenumber								" relative to current line
 set wrap										" no horizontal scroll
 set breakindent									" with indent
 set showbreak=\ \ ¬								" ... showing a character
-set virtualedit=block							" visual selection broken free
 
 " Moves boundaries
-set suffixesadd=.tex,.latex,.java,.c,.h,.js		" match file w/ ext
 set backspace=indent,eol,start					" backspace over lines
 set whichwrap+=<,>,h,l,[,]						" break cursor free
-set iskeyword+=,								" word boundaries
-set formatoptions+=j							" join comments smartly
-set nojoinspaces								" and spaces too
+set virtualedit=block							" visual selection broken free
 set sidescrolloff=5								" min horizontal cursor offset
 let &scrolloff=winheight(win_getid())/10 + 1	" min vertical cursor offset
+" set iskeyword+=,								" considered part of <cword>
 
 " Folding
 set foldmethod=syntax							" fold based on indent
@@ -146,14 +171,12 @@ set foldnestmax=10								" deepest fold is 10 levels
 set nofoldenable								" don't fold by default
 " set foldlevel=1
 
+" Colors
 let base16colorspace=256						" access 256 colorspace
 set t_Co=256									" say terminal supports 256
-
 if (has("termguicolors"))
-  set termguicolors
+  set termguicolors								" 24 bits colors
 endif
-
-syntax on
 
 ""    Look / Theme
 """        gnome adaptive cursor shape
