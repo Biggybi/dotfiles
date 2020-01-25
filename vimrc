@@ -865,7 +865,7 @@ let g:vim_run_command_map = {
 
 ""    Quickfix
 
-augroup ft_quickfix
+augroup QuickFixWindowSet
 	au!
 	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0
 
@@ -874,6 +874,7 @@ augroup ft_quickfix
 	au FileType qf call AdjustWindowHeight(1, 5)
 augroup end
 
+" Quickfix window height auto adjust if too big
 function! AdjustWindowHeight(minheight, maxheight)
 	let l = 1
 	let n_lines = 0
@@ -888,23 +889,11 @@ function! AdjustWindowHeight(minheight, maxheight)
 	exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of aus to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the au, this doesn't
-" seem to happen.
-
-" au QuickFixCmdPost [^l]* nested botright copen
-" au QuickFixCmdPost    l* nested botright lwindo
-
+" Auto location list on make
 augroup AutoLocationWindow
 	au!
-	au QuickFixCmdPost [^l]* nested botright lopen
-	au QuickFixCmdPost    l* nested botright lwindow
+	autocmd QuickFixCmdPost [^l]* silent! nested lwindow
+	autocmd QuickFixCmdPost    l* silent! nested lwindow
 augroup end
 
 nnoremap <leader>cm :make<cr><cr>
@@ -958,7 +947,6 @@ function! s:RunShellCommand(cmdline)
 	call setline(1, a:cmdline . '  |  ' . expanded_cmdline)
 	call setline(2,substitute(getline(1),'.','-','g'))
 	execute '$read !'. expanded_cmdline
-" 	setlocal nomodifiable
 endfunction
 
 """        Scrollbar
@@ -1012,177 +1000,6 @@ endfunction
 
 " map <ScrollWheelUp> <C-Y>
 " map <ScrollWheelDown> <C-E>
-
-""    Headers
-"""        42Header
-
-let s:asciiart = [
-			\"               /          ",
-			\"     .::    .:/ .      .::",
-			\"  +:+:+   +:    +:  +:+:+ ",
-			\"   +:+   +:    +:    +:+  ",
-			\"  #+#   #+    #+    #+#   ",
-			\" #+#   ##    ##    #+#    ",
-			\"###    #+. /#+    ###.fr  ",
-			\"          /               ",
-			\"         /                ",
-			\"           LE - /         "
-			\]
-
-" let s:asciiart = [
-" 			\":.:      .: .:  .:      .:",
-" 			\" :+:   :+: +:+ +:+:   :+:+",
-" 			\"  +:+ +:+  +:+ +:+:+ +:+:+",
-" 			\"    #+#    #+# #+# #+# #+#",
-" 			\"     +     #+# #+#  +  #+#",
-" 			\""
-" 			\]
-
-" :.:     :.: :.: :.:     :.:
-"  :+:   :+:  +:+ +:+:   :+:+
-"   +:+ +:+   +:+ +:+:+ +:+:+
-"    +#+#+    #+# #+# #+# #+#
-"     #+#     #+# #+# #+# #+#
-"      +      #+# #+#  +  #+#
-
-" let s:asciiart = [
-" 			\"        :::      ::::::::",
-" 			\"      :+:      :+:    :+:",
-" 			\"    +:+ +:+         +:+  ",
-" 			\"  +#+  +:+       +#+     ",
-" 			\"+#+#+#+#+#+   +#+        ",
-" 			\"     #+#    #+#          ",
-" 			\"    ###   ########.fr    "
-" 			\]
-
-let s:start		= '/*'
-let s:end		= '*/'
-let s:fill		= '*'
-let s:length	= 80
-let s:margin	= 5
-
-let s:types		= {
-			\'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
-			\['/*', '*/', '*'],
-			\'\.htm$\|\.html$\|\.xml$':
-			\['<!--', '-->', '*'],
-			\'\.js$':
-			\['//', '//', '*'],
-			\'\.tex$':
-			\['%', '%', '*'],
-			\'\.ml$\|\.mli$\|\.mll$\|\.mly$':
-			\['(*', '*)', '*'],
-			\'\.vim$\|\vimrc$':
-			\['"', '"', '*'],
-			\'\.el$\|\emacs$':
-			\[';', ';', '*'],
-			\'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
-			\['!', '!', '/']
-			\}
-
-function! s:filetype()
-	let l:f = s:filename()
-	let s:start	= '#'
-	let s:end	= '#'
-	let s:fill	= '*'
-	for type in keys(s:types)
-		if l:f =~ type
-			let s:start	= s:types[type][0]
-			let s:end	= s:types[type][1]
-			let s:fill	= s:types[type][2]
-		endif
-	endfor
-endfunction
-
-function! s:ascii(n)
-	return s:asciiart[a:n - 3]
-endfunction
-
-function! s:textline(left, right)
-	let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
-	return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
-endfunction
-
-function! s:line(n)
-	if a:n == 1 || a:n == 12 " top and bottom line
-		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
-		" 	elseif a:n == 2 || a:n == 10 " blank line
-		" 		return s:textline('', '')
-	elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
-		return s:textline('', s:ascii(a:n))
-	elseif a:n == 4 " filename
-		return s:textline(s:filename(), s:ascii(a:n))
-	elseif a:n == 6 " author
-		return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
-	elseif a:n == 8 " created
-		return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
-	elseif a:n == 9 " updated
-		return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
-	endif
-endfunction
-
-function! s:user()
-	let l:user = $USER
-	if strlen(l:user) == 0
-		let l:user = "marvin"
-	endif
-	return l:user
-endfunction
-
-function! s:mail()
-	let l:mail = $MAIL
-	if strlen(l:mail) == 0
-		let l:mail = "marvin@student.le-101.fr"
-	endif
-	return l:mail
-endfunction
-
-function! s:filename()
-	let l:filename = expand("%:t")
-	if strlen(l:filename) == 0
-		let l:filename = "< new >"
-	endif
-	return l:filename
-endfunction
-
-function! s:date()
-	return strftime("%Y/%m/%d %H:%M:%S")
-endfunction
-
-function! s:insert()
-	let l:line = 12
-	" empty line after header
-	call append(0, "")
-	" loop over lines
-	while l:line > 0
-		call append(0, s:line(l:line))
-		let l:line = l:line - 1
-	endwhile
-endfunction
-
-function! s:update()
-	call s:filetype()
-	if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
-		if &mod
-			call setline(9, s:line(9))
-		endif
-		call setline(4, s:line(4))
-		return 0
-	endif
-	return 1
-endfunction
-
-function! Stdheader()
-	if s:update()
-		call s:insert()
-	endif
-endfunction
-
-" Bind command and shortcut
-command! Header101 call Stdheader()
-" nnoremap <leader>h1 :Header101<cr>
-nnoremap <silent> <leader>h1 :call Stdheader()<cr>
-" au BufWritePre * call s:update ()
 
 ""    Operators
 """        Start / End of line
@@ -1552,10 +1369,6 @@ nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
 nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
 nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
 nnoremap <leader>eco :CocConfig<cr>
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-
 
 " " rename file
 " nnoremap <leader>mv :!mv % %:h:p/
@@ -1787,7 +1600,7 @@ augroup MarkdownMaps
 	" au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
-""    Auto Header
+""    Headers
 """        Basic headers
 augroup headers
 	au!
@@ -1818,6 +1631,176 @@ function! InsertCHHeader()
 	let fname = substitute(fname, "\\.", "_", "g")
 	%s/HEADERNAME/\=fname/g
 endfunction
+
+"""        42Header
+
+let s:asciiart = [
+			\"               /          ",
+			\"     .::    .:/ .      .::",
+			\"  +:+:+   +:    +:  +:+:+ ",
+			\"   +:+   +:    +:    +:+  ",
+			\"  #+#   #+    #+    #+#   ",
+			\" #+#   ##    ##    #+#    ",
+			\"###    #+. /#+    ###.fr  ",
+			\"          /               ",
+			\"         /                ",
+			\"           LE - /         "
+			\]
+
+" let s:asciiart = [
+" 			\":.:      .: .:  .:      .:",
+" 			\" :+:   :+: +:+ +:+:   :+:+",
+" 			\"  +:+ +:+  +:+ +:+:+ +:+:+",
+" 			\"    #+#    #+# #+# #+# #+#",
+" 			\"     +     #+# #+#  +  #+#",
+" 			\""
+" 			\]
+
+" :.:     :.: :.: :.:     :.:
+"  :+:   :+:  +:+ +:+:   :+:+
+"   +:+ +:+   +:+ +:+:+ +:+:+
+"    +#+#+    #+# #+# #+# #+#
+"     #+#     #+# #+# #+# #+#
+"      +      #+# #+#  +  #+#
+
+" let s:asciiart = [
+" 			\"        :::      ::::::::",
+" 			\"      :+:      :+:    :+:",
+" 			\"    +:+ +:+         +:+  ",
+" 			\"  +#+  +:+       +#+     ",
+" 			\"+#+#+#+#+#+   +#+        ",
+" 			\"     #+#    #+#          ",
+" 			\"    ###   ########.fr    "
+" 			\]
+
+let s:start		= '/*'
+let s:end		= '*/'
+let s:fill		= '*'
+let s:length	= 80
+let s:margin	= 5
+
+let s:types		= {
+			\'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
+			\['/*', '*/', '*'],
+			\'\.htm$\|\.html$\|\.xml$':
+			\['<!--', '-->', '*'],
+			\'\.js$':
+			\['//', '//', '*'],
+			\'\.tex$':
+			\['%', '%', '*'],
+			\'\.ml$\|\.mli$\|\.mll$\|\.mly$':
+			\['(*', '*)', '*'],
+			\'\.vim$\|\vimrc$':
+			\['"', '"', '*'],
+			\'\.el$\|\emacs$':
+			\[';', ';', '*'],
+			\'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
+			\['!', '!', '/']
+			\}
+
+function! s:filetype()
+	let l:f = s:filename()
+	let s:start	= '#'
+	let s:end	= '#'
+	let s:fill	= '*'
+	for type in keys(s:types)
+		if l:f =~ type
+			let s:start	= s:types[type][0]
+			let s:end	= s:types[type][1]
+			let s:fill	= s:types[type][2]
+		endif
+	endfor
+endfunction
+
+function! s:ascii(n)
+	return s:asciiart[a:n - 3]
+endfunction
+
+function! s:textline(left, right)
+	let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
+	return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
+endfunction
+
+function! s:line(n)
+	if a:n == 1 || a:n == 12 " top and bottom line
+		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
+		" 	elseif a:n == 2 || a:n == 10 " blank line
+		" 		return s:textline('', '')
+	elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
+		return s:textline('', s:ascii(a:n))
+	elseif a:n == 4 " filename
+		return s:textline(s:filename(), s:ascii(a:n))
+	elseif a:n == 6 " author
+		return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
+	elseif a:n == 8 " created
+		return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
+	elseif a:n == 9 " updated
+		return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
+	endif
+endfunction
+
+function! s:user()
+	let l:user = $USER
+	if strlen(l:user) == 0
+		let l:user = "marvin"
+	endif
+	return l:user
+endfunction
+
+function! s:mail()
+	let l:mail = $MAIL
+	if strlen(l:mail) == 0
+		let l:mail = "marvin@student.le-101.fr"
+	endif
+	return l:mail
+endfunction
+
+function! s:filename()
+	let l:filename = expand("%:t")
+	if strlen(l:filename) == 0
+		let l:filename = "< new >"
+	endif
+	return l:filename
+endfunction
+
+function! s:date()
+	return strftime("%Y/%m/%d %H:%M:%S")
+endfunction
+
+function! s:insert()
+	let l:line = 12
+	" empty line after header
+	call append(0, "")
+	" loop over lines
+	while l:line > 0
+		call append(0, s:line(l:line))
+		let l:line = l:line - 1
+	endwhile
+endfunction
+
+function! s:update()
+	call s:filetype()
+	if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
+		if &mod
+			call setline(9, s:line(9))
+		endif
+		call setline(4, s:line(4))
+		return 0
+	endif
+	return 1
+endfunction
+
+function! Stdheader()
+	if s:update()
+		call s:insert()
+	endif
+endfunction
+
+" Bind command and shortcut
+command! Header101 call Stdheader()
+" nnoremap <leader>h1 :Header101<cr>
+nnoremap <silent> <leader>h1 :call Stdheader()<cr>
+" au BufWritePre * call s:update ()
 
 ""    Dotfiles settings
 """        Filetype
@@ -1871,7 +1854,6 @@ function! VimFold()
 	let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
 	return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
 endfunction
-set modelineexpr
 
 """        Vimrc modeline
 " vim:tw=0
