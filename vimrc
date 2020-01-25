@@ -661,43 +661,49 @@ set noshowmode " do not show mode in status line
 " let g:lightline.colorscheme = 'wombat'
 
 let g:lightline.mode_map = {
-			\	'n': ' N ',
-			\	'i': ' I ',
-			\	'R': ' R ',
-			\	'v': ' V ',
-			\	'V': 'V-L',
-			\	"\<c-v>": 'V-B',
-			\	'c': ' C ',
-			\	's': ' S ',
-			\	'S': 'S-L',
-			\	"\<c-s>": 'S-B',
-			\	't': ' T ' }
+	\ 'n': ' N ',
+	\ 'i': ' I ',
+	\ 'R': ' R ',
+	\ 'v': ' V ',
+	\ 'V': 'V-L',
+	\ "\<c-v>": 'V-B',
+	\ 'c': ' C ',
+	\ 's': ' S ',
+	\ 'S': 'S-L',
+	\ "\<c-s>": 'S-B',
+	\ 't': ' T ' }
 
 let g:lightline.active = {
-			\	'left': [ [ 'mode', 'paste' ],
-			\			[ 'readonly', 'gitbranch' ],
-			\			[ 'relativepath', 'modified' ] ],
-		    \	'right': [ [ 'lineinfo' ],
-			\			[ 'percent' ],
-		    \			[ 'filetype' ] ] }
+	\ 'left': [ [ 'mode', 'paste' ],
+	\ 		[ 'readonly', 'gitbranch' ],
+	\ 		[ 'relativepath', 'modified' ] ],
+	\ 'right': [ [ 'lineinfo' ],
+	\ 		[ 'percent' ],
+	\ 		[ 'filetype' ] ] }
 
 let g:lightline.inactive = {
-			\	'left': [ [ 'readonly', 'gitbranch' ],
-			\			[ 'relativepath', 'modified' ] ],
-		    \	'right': [ [ 'lineinfo' ],
-			\			[ 'percent' ],
-		    \			[ 'filetype' ] ] }
+	\ 'left': [ [ 'readonly', 'gitbranch' ],
+	\ 		[ 'relativepath', 'modified' ] ],
+	\ 'right': [ [ 'lineinfo' ],
+	\ 		[ 'percent' ],
+	\ 		[ 'filetype' ] ] }
 
-" git branch from fugitive
 let g:lightline.component_function = {
-			\	'format': 'LightlineFileformat',
-			\	'modified': 'LightlineModified',
-			\	'fugitive': 'LightlineFugitive',
-			\	'readonly': 'LightlineReadonly',
-			\	'gitbranch': 'fugitive#head',
-			\   'cocstatus': 'coc#status',
-			\   'currentfunction': 'CocCurrentFunction',
-			\	'filename': 'FilenameForLightline' }
+	\ 'fileformat': 'LightlineFileformat',
+	\ 'filetype': 'LightlineFiletype',
+	\ 'modified': 'LightlineModified',
+	\ 'readonly': 'LightlineReadonly',
+	\ 'gitbranch': 'LightlineFugitive',
+	\ 'currentfunction': 'CocCurrentFunction',
+	\ 'filename': 'FilenameForLightline' }
+
+	" \ 'relativepath': '%f%<',
+let g:lightline.component = {
+	\ 'percent': '%3p%%%<',
+	\ 'lineinfo': '%3l:%-2v%<' }
+
+let g:lightline.component_expand = {
+	\ 'cocstatus': 'coc#status' }
 
 " let g:lightline.separator = { 'left': '', 'right': '' }
 " let g:lightline.subseparator = { 'left': '', 'right': '' }
@@ -714,23 +720,23 @@ endfunction
 
 function! LightlineFilename()
 	return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-				\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-				\  &ft == 'unite' ? unite#get_status_string() :
-				\  &ft == 'vimshell' ? vimshell#get_status_string() :
-				\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-				\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+			\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+			\  &ft == 'unite' ? unite#get_status_string() :
+			\  &ft == 'vimshell' ? vimshell#get_status_string() :
+			\ '' != expand('%:t') ? expand('%:t') : '[-]') .
+			\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
 
-function! LightlineFileformat()
-	return winwidth(0) > 70 ? &fileformat : ''
+function! LightlineFiletype()
+	return winwidth(0) > 40 ? (&filetype !=# '' ? &filetype : '-') : ''
 endfunction
 
 function! LightlineFugitive()
 	if exists('*fugitive#head')
 		let branch = fugitive#head()
-		return branch !=# '' ? ''.branch : ''
+		return branch !=# '' ? ''.branch : ''
 	endif
-	return ''
+return ''
 endfunction
 
 """        Gitgutter
