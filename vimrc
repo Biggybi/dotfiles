@@ -161,9 +161,9 @@ augroup CursorShape
 	au!
 	au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' |
 	au InsertEnter,InsertChange *
-		\ if v:insertmode == 'i' |
+		\ if v:insertmode ==# 'i' |
 		\   silent execute '!echo -ne "\e[6 q"' |
-		\ elseif v:insertmode == 'r' |
+		\ elseif v:insertmode ==# 'r' |
 		\   silent execute '!echo -ne "\e[4 q"' |
 		\ endif
 	au VimLeave * silent execute '!echo -ne "\e[ q"' |
