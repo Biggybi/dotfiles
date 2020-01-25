@@ -451,25 +451,18 @@ augroup end
 
 augroup HelpManSplit
 	au!
-	au FileType man au! BufEnter <buffer>
-		\ | silent! wincmd H | silent! 79 wincmd|
+		" \ | wincmd H | silent! 79 wincmd|
+	au FileType man,help
 		\ | setlocal noswapfile nobackup nobuflisted
 		\ | setlocal nolinebreak wrap showbreak=
 		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
 	au FileType man
-		\ | silent! wincmd H | silent! 79 wincmd|
-		\ | setlocal noswapfile nobackup nobuflisted
-		\ | setlocal nolinebreak wrap showbreak=
-		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
-
-	au FileType help au! BufEnter <buffer>
-		\ | silent! wincmd H | silent! 79 wincmd|
-		\ | setlocal noswapfile nobackup nobuflisted
-		\ | setlocal nolinebreak nowrap showbreak=
-		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
-
-	au FileType help,man au! BufLeave <buffer> silent!
-		\ | if (&columns < 88) | 0 wincmd| | endif
+		\ | silent! wincmd H | 80 wincmd|
+	au FileType man,help au! BufRead,BufEnter <buffer>
+		\ | wincmd H | 80 wincmd|
+	au FileType help,man au! BufLeave <silent> <buffer>
+		\ | if (&columns < 100) | wincmd| | endif
+	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
 augroup end
 
 "css width
