@@ -777,18 +777,23 @@ let g:fzf_colors =
 	\ 'header':  ['fg', 'Comment'] }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
+function! s:build_location_list(lines)
+	call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
+	lopen
+	cc
 endfunction
 
+" An action can be a reference to a function that processes selected lines
 let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+	\ 'ctrl-q': function('s:build_location_list'),
+	\ 'ctrl-t': 'tab split',
+	\ 'ctrl-x': 'split',
+	\ 'ctrl-v': 'vsplit',
+	\ 'ctrl-i': 'insert_match'}
+
+function! s:insert_match(lines)
+	<c-r>=echo('a:lines')<cr>
+endfunction
 
 nnoremap <leader>ff :FZF $HOME<cr>
 nnoremap <leader><c-f> :FZF .<cr>
@@ -799,6 +804,7 @@ nnoremap <leader>fw :FzfWindows<cr>
 nnoremap <leader>ft :FzfTags<cr>
 nnoremap <leader>f<c-t> :FzfBTags<cr>
 nnoremap <leader>fc :FzfCommit<cr>
+nnoremap <leader>f<c-c> :FzfBCommit<cr>
 nnoremap <leader>fg :FzfGFiles?<cr>
 nnoremap <leader>f<c-g> :FzfGFiles<cr>
 nnoremap <leader>fl :FzfLines<cr>
@@ -809,13 +815,20 @@ nnoremap <leader>fh :FzfHistory<cr>
 nnoremap <leader>fm :FzfHelptags<cr>
 nnoremap <leader>fs <esc>:FzfSnippets<cr>
 inoremap <c-f> <c-o>:Snippets<cr>
-" nnoremap <leader>f :FZF<c-r>=fnamemodify(getcwd(), ':p')<cr><cr>
 
 command! -bang -complete=dir -nargs=* LS
 \ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
 command! -bang -nargs=? -complete=dir Files
 	\ call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat {}']}, <bang>0)
+
+" call fzf#run({'source': 'git ls-files', 'sink': 'e', 'right': '40%'})
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 """        UltiSnips
 inoremap <c-p> <nop>
