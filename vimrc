@@ -1182,6 +1182,9 @@ nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
 nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
 nnoremap <leader>XX :%s/\s\+$//<cr>:redraw<cr>
 
+" toggle guides
+nnoremap <silent> <leader>xg :set list!<cr>
+
 " % as <c-g>
 nnoremap <c-g> %
 vnoremap <c-g> %
