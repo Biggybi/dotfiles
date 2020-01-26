@@ -27,10 +27,11 @@ execute pathogen#infect()
 
 """        General settings
 
-filetype plugin on								" use filetype plugin
-filetype indent on								" use indent plugin
-packadd! matchit
 runtime! ftplugin/man.vim
+packadd! matchit
+filetype plugin on								" use filetype plugin
+filetype on
+filetype indent on								" use indent plugin
 set keywordprg=:Man
 
 let $BASH_ENV = "$HOME/dotfiles/bash_aliases"	" use aliases in vim
@@ -843,23 +844,6 @@ augroup AutoLocationWindow
 	autocmd QuickFixCmdPost    l* nested lwindow
 augroup end
 
-nnoremap <leader>cm :make<cr><cr>
-nnoremap <leader>cr :make re<cr><cr>
-nnoremap <leader>ce :make ex<cr><cr>
-nnoremap <leader>ct :make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cT :make ex TESTFF=
-nnoremap <leader>cv :make ex TEST=<cr><cr>
-nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
-
-nnoremap <leader>csm :Shell make<cr>
-nnoremap <leader>csr :Shell make re<cr>
-nnoremap <leader>cse :Shell make ex<cr><cr>
-nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cs<c-t> :Shell make ex TEST=test/%<cr><cr>
-nnoremap <leader>csT :Shell make ex TESTFF=
-nnoremap <leader>csv :Shell make ex TEST=<cr><cr>
-nnoremap <leader>csm :Shell make<cr><cr>
-
 " nnoremap <leader>cc :ll<cr>
 " nnoremap <leader>cn :lnext<cr>
 " nnoremap <leader>cp :lprevious<cr>
@@ -1099,7 +1083,7 @@ nnoremap Q <nul>
 inoremap <c-z> <c-[><c-z>
 
 " <c-s> save and enter normal mode
-nnoremap <c-s> :w<cr>
+nnoremap <c-s> :update<cr>
 inoremap <c-s> <c-o>:stopinsert<cr>:w<cr><esc>
 
 " :W! save files as root
@@ -1402,6 +1386,25 @@ nnoremap g<c-g> gg=G<c-o><c-o>
 " Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
 			\ ":lclose<cr>" : ":lopen<cr><c-w>p"
+
+" Make
+nnoremap <leader>cm :make<cr><cr>
+nnoremap <leader>cr :make re<cr><cr>
+nnoremap <leader>ce :make ex<cr><cr>
+nnoremap <leader>ct :make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cT :make ex TESTFF=
+nnoremap <leader>cv :make ex TEST=<cr><cr>
+nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
+
+" Make in spit
+nnoremap <leader>csm :Shell make<cr>
+nnoremap <leader>csr :Shell make re<cr>
+nnoremap <leader>cse :Shell make ex<cr><cr>
+nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cs<c-t> :Shell make ex TEST=test/%<cr><cr>
+nnoremap <leader>csT :Shell make ex TESTFF=
+nnoremap <leader>csv :Shell make ex TEST=<cr><cr>
+nnoremap <leader>csm :Shell make<cr><cr>
 
 """        bash
 augroup Shmaps
