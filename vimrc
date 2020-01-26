@@ -1161,6 +1161,18 @@ nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : pwd"<cr>
 " toggle cursor always in middle with <leader>zz
 nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
 
+" show file name
+nnoremap <leader>fp :echo expand('%')<cr>
+
+" show file path/name and copy it to unnamed register
+nnoremap <leader>fP :let @"=expand('%')<cr>:echo expand('%')<cr>
+
+" show file name and copy it to unnamed register
+nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
+
+" new file here
+nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
+
 " open file under cursor in vertical split
 nnoremap g<c-f> :vertical wincmd f<cr>
 
