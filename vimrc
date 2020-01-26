@@ -839,8 +839,8 @@ endfunction
 " Auto location list on make
 augroup AutoLocationWindow
 	au!
-	autocmd QuickFixCmdPost [^l]* silent! nested lwindow
-	autocmd QuickFixCmdPost    l* silent! nested lwindow
+	autocmd QuickFixCmdPost [^l]* nested lwindow
+	autocmd QuickFixCmdPost    l* nested lwindow
 augroup end
 
 nnoremap <leader>cm :make<cr><cr>
