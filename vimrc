@@ -704,19 +704,16 @@ let g:lightline.component_function = {
 	\ 'modified': 'LightlineModified',
 	\ 'readonly': 'LightlineReadonly',
 	\ 'gitbranch': 'LightlineFugitive',
-	\ 'currentfunction': 'CocCurrentFunction',
-	\ 'filename': 'FilenameForLightline' }
+	\ 'currentfunction': 'CocCurrentFunction' }
 
-	" \ 'relativepath': '%f%<',
 let g:lightline.component = {
 	\ 'percent': '%3p%%%<',
-	\ 'lineinfo': '%3l:%-2v%<' }
+	\ 'relativepath': '%<%F',
+	\ 'lineinfo': '%3l-%-2v%<' }
 
 let g:lightline.component_expand = {
 	\ 'cocstatus': 'coc#status' }
 
-" let g:lightline.separator = { 'left': '', 'right': '' }
-" let g:lightline.subseparator = { 'left': '', 'right': '' }
 let g:lightline.separator = { 'left': '', 'right': '' }
 let g:lightline.subseparator = { 'left': '', 'right': '|' }
 
