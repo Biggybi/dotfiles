@@ -1303,6 +1303,10 @@ vnoremap <c-@> zf
 " recursively open even partial folds
 nnoremap zo zczO
 
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
 """        Command
 cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
