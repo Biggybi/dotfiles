@@ -362,22 +362,31 @@ endfunction
 augroup ReOpenFileWhereLeft
 	au!
 	au BufReadPost *
-		\ if line("'\"") > 0 && line("'\"") <= line("$") |
-		\   exe "normal! g`\"" |
-		\ endif
+		\ if line("'\"") > 0 && line("'\"") <= line("$")
+		\   | exe "normal! g`\""
+		\ | endif
 augroup end
 
 " automatily save and restore files views (folding state and more)
 augroup ReViews
 	au!
-	au BufWinLeave * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | mkview | endif
-	au BufWinEnter * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | loadview | endif
+	au BufWinLeave *
+		\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+		\   | mkview
+		\ | endif
+	au BufWinEnter *
+		\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+		\   | loadview
+		\ | endif
 augroup end
 
 " auto change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
 	au!
-	au BufEnter * silent! cd %:p:h | silent! Gcd
+	au BufEnter *
+		\ if (!empty(bufname("%")))
+		\   | silent! cd %:p:h | silent! Gcd
+		\ | endif
 augroup end
 
 " filetype recognition
