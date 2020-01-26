@@ -1335,13 +1335,17 @@ vnoremap <leader>y "+y
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
-nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:w<cr>:redraw<cr>:echo "all fresh"<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>:echo "vimrc sourced"<cr>
+nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:echo "all fresh"<cr>
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
 nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
+augroup VimrcSource
+	au!
+	au SourcePost * call lightline#init()
+augroup end
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
