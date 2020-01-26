@@ -1077,6 +1077,18 @@ onoremap aN* :<c-u>normal! F*vF*<cr>
 " space as leader, prompt '\' in command line window :)
 map <space> <leader>
 
+" switch last 2 buffers
+nnoremap <leader><space> <c-^>
+onoremap <leader><space> <c-^>
+vnoremap <leader><space> <c-^>
+
+" last buffer in vertical split
+nnoremap <c-w><space><space> :vertical split #<cr>
+onoremap <c-w><space><space> :vertical split #<cr>
+vnoremap <c-w><space><space> :vertical split #<cr>
+
+nnoremap <leader><c-@> :echo "kewl"<cr>
+
 " enter command mode with ;
 nnoremap ; :
 nnoremap : ;
