@@ -316,8 +316,6 @@ if exists('+colorcolumn')
  	au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
 endif
 
-set mat=2 " how many tenths of a second to blink
-
 " " Highlight 'f' searchers
 " function! HighlightFSearches(cmd)
 "   " Get extra character for the command.
@@ -345,31 +343,8 @@ set mat=2 " how many tenths of a second to blink
 " vnoremap <expr> F HighlightFSearches('F')
 " vnoremap F<bs> <nop>
 
-""    Folding
-
-set foldmethod=syntax " fold based on indent
-set foldnestmax=10 " deepest fold is 10 levels
-set nofoldenable " don't fold by default
-set foldlevel=1
-
-" automatily save and restore files views (folding state and more)
-augroup ReViews
-	au!
-	au BufWinLeave * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | mkview | endif
-	au BufWinEnter * if expand("%") != "" && &filetype != 'help' && &filetype != 'man' | loadview | endif
-augroup end
-
-" inoremap <leader><space> <c-o>za
-nnoremap <leader><space> za
-onoremap <leader><space> <c-c>za
-vnoremap <leader><space> zf
-
-" recursively open even partial folds
-nnoremap zo zczO
-
 ""    File automation
 
-set autoread "not working until cmd like :e
 " detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
     let g:CheckUpdateStarted=1
@@ -459,43 +434,8 @@ augroup HelpManSplit
 	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
 augroup end
 
-"css width
-" au BufEnter *.css silent! if (&filetype == 'css') | 40 wincmd| | endif
-
-augroup HelpManMaps
-	au! HelpManMaps
-	au FileType help,man nnoremap <buffer> <silent> q :bw<cr>
-augroup end
-
-" Open man page in vim split, defaults to K
-runtime! ftplugin/man.vim
-set keywordprg=:Man
-let $PAGER=''
-
 ""    Searching
 nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
-
-" set path+=**			" recursive path from current path
-" set incsearch
-set wildchar=<tab>
-set wildmenu wildmode=longest:full,full
-" set wildmode=full
-" set wildmode=longest:full:list,full
-
-
-set ignorecase			" case insensitive searching
-set smartcase			" case-sensitive if expresson contains a capital letter
-set hlsearch			" highlight all searches
-set incsearch			" set incremental search, like modern browsers
-set nolazyredraw		" don't redraw while executing macros
-
-set switchbuf=useopen	" open buffers in their window if exist (:sb 'file')
-
-" ignore some files from wildcard expansion
-" set wildignore+=**/.git/**,**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
-set wildignore+=**/__pycache__/**,**/venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp
-
-set magic " Set magic on, for regex
 
 " use unix regex in searches
 nnoremap / /\v
