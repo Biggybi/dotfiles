@@ -762,6 +762,7 @@ nnoremap <leader>f/ :FzfHistory/<cr>
 nnoremap <leader>fh :FzfHistory<cr>
 nnoremap <leader>fm :FzfHelptags<cr>
 nnoremap <leader>fs <esc>:FzfSnippets<cr>
+nnoremap <leader>fr <esc>:Rg<cr>
 inoremap <c-f> <c-o>:Snippets<cr>
 
 command! -bang -complete=dir -nargs=* LS
@@ -771,6 +772,14 @@ command! -bang -nargs=? -complete=dir Files
 	\ call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat {}']}, <bang>0)
 
 " call fzf#run({'source': 'git ls-files', 'sink': 'e', 'right': '40%'})
+
+" Uset ripgrep for Rg
+command! -bang -nargs=* Rg
+\ call fzf#vim#grep(
+\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+\   <bang>0 ? fzf#vim#with_preview('up:60%')
+\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+\   <bang>0)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
