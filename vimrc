@@ -779,8 +779,6 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 """        UltiSnips
-inoremap <c-p> <nop>
-inoremap <c-n> <nop>
 " let g:UltiSnips#ExpandSnippetOrJump = "<c-n>"
 let g:UltiSnipsExpandTrigger = "<c-x>"
 " let g:UltiSnipsListSnippets = "<c-p>"
@@ -1430,8 +1428,9 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 
 	" le and execute current
-	au FileType c nnoremap <buffer> <leader>cc :Shell gcc -Wall -Wextra % && ./a.out
-	au FileType c nnoremap <buffer> <leader>cm :Shell gcc -Wall -Wextra % main.c && ./a.out
+	au FileType c nnoremap <buffer> <leader>cc :gcc -Wall -Wextra % && ./a.out
+	au FileType c nnoremap <buffer> <leader>scc :Shell gcc -Wall -Wextra % && ./a.out
+	au FileType c nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out
 
 	" close brackets
 	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
@@ -1447,7 +1446,7 @@ augroup Cmaps
 	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 	au FileType c nnoremap <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
 
-	" t all text in function
+	" select all text in function
 	au FileType c nnoremap <leader>vf j[[V%o
 augroup end
 
