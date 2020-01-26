@@ -1114,6 +1114,45 @@ inoremap <c-s> <c-o>:stopinsert<cr>:w<cr><esc>
 " :W! save files as root
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
+"""        Movement
+" up down on visual lines
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+xnoremap <silent> j gj
+xnoremap <silent> k gk
+
+nnoremap H ^
+nnoremap L $
+nnoremap <c-h> B
+nnoremap <c-l> E
+nnoremap <c-k> {
+nnoremap <c-j> }
+nnoremap <c-q> <silent>:redraw<cr>
+
+"go to next / previous buffer
+nnoremap <leader>] :bn<cr>
+nnoremap <leader>[ :bp<cr>
+
+vnoremap H ^
+vnoremap L g_
+vnoremap <c-h> B
+vnoremap <c-l> E
+vnoremap <c-k> {
+vnoremap <c-j> }
+
+" move between windows with ctrl
+" nnoremap <c-h> :wincmd h<cr>
+" nnoremap <c-j> :wincmd j<cr>
+" nnoremap <c-k> :wincmd k<cr>
+" nnoremap <c-l> :wincmd l<cr>
+" imap <c-w> <c-o><c-w>
+
+" open buffer with partial search
+" nnoremap <leader>b :buffer<space>
+" nnoremap <leader><c-b> :vertical sbuffer<space>
+" nnoremap <leader>B :sbuffer<space>
+" nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
+
 """        Files
 
 " cd shell to vim current working directory
