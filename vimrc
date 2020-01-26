@@ -292,6 +292,36 @@ augroup TrailSpace
 	au BufWinLeave * call clearmatches()
 augroup end
 
+" augroup IndentLine
+" 	au!
+" 	au BufWinEnter * match IndentLine /^\s\+/
+" 	" au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
+" 	au InsertLeave * match IndentLine /^\s\+/
+" 	au BufWinLeave * call clearmatches()
+" augroup end
+
+" function! ToggleIndentGuides()
+" if exists('b:indent_guides')
+" 	call matchdelete(b:indent_guides)
+	" unlet b:indent_guides
+" else
+	" let pos = range(1, &l:textwidth, &l:shiftwidth)
+	" call map(pos, '"\\%" . v:val . "v"')
+	" let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
+	" let pat = substitute('%', '\zs\t\s\s\s', '|', 'g')
+	" let pat = substitute('/^\t+', '\t', '   |', 'g')
+	" let pat = substitute('%', '\t', '   |', 'g')
+	" let pos = range(10)
+	" call map(pos, '"\\%" . v:val . "v"')
+	" let pat = "\%(\_^\s*\)\@<=\%(' . join(pos, '   \|') . '\)\s"
+	" let pat = '^\t*'
+	" let pat = normal! :%s/^\t*/\=substitute(submatch(0), ".", "   |", "g"))
+	" echo pat
+	" let b:indent_guides = matchadd('CursorLine', pat)
+" endif
+
+" endfunction
+
 " focus current window : cursorline and relative numbers
 augroup WinFocus
 	au!
@@ -431,59 +461,6 @@ augroup HelpManSplit
 	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
 augroup end
 
-""    Searching
-nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
-
-" use unix regex in searches
-nnoremap / /\v
-vnoremap / /\v
-nnoremap <leader>/ /
-vnoremap <leader>/ /
-
-" keep cursor in middle of screen when searching / folding
-" nnoremap n nzz
-" nnoremap N Nzz
-" nnoremap * *zz
-" nnoremap # #zz
-" nnoremap g* g*zz
-" nnoremap g# g#zz
-nnoremap zM zMzz
-" " nnoremap za zazz
-" nnoremap zA zAzz
-" nnoremap <leader>za zMzvzz
-
-"do not move cursor with match
-nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
-" vnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
-nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
-
-"Clear search highlight
-nnoremap <silent> - :nohlsearch<cr>
-
-" For local sed replace
-nnoremap gr :s/<c-r>///g<left><left>
-vnoremap gr :s/<c-r>///g<left><left>
-nnoremap gR :%s/<c-r>///g<left><left>
-
-" search visual selection
-" function! s:VSetSearch()
-" 	let temp = @@
-" 	norm! gvy
-" 	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-" 	let @@ = temp
-" endfunction
-
-" vnoremap * :<c-u>cal <SID>VSetSearch()<cr>//<cr><c-o>
-" vnoremap # :<c-u>cal <SID>VSetSearch()<cr>??<cr><c-o>
-vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-""    Autocompletion
-
-" inoremap <c-x>f <c-x><c-f>
-" inoremap <c-x>] <c-x><c-]>
-" inoremap <c-x>l <c-x><c-l>
-
-
 ""    Plugins settings
 """        Netrw
 
@@ -554,13 +531,38 @@ let g:netrw_sort_sequence = '[\/]$,*'					" sort folders on top
 " open netrw if vim starts without file
 let g:netrw_startup = 0
 let g:netrw_startup_no_file = 1
-augroup NetrwStartup
-	au!
-	au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-  au VimEnter * if g:netrw_startup == '1' | e . | endif
-augroup end
+" augroup NetrwStartup
+" 	au!
+" 	au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
+"   au VimEnter * if g:netrw_startup == '1' | e . | endif
+" augroup end
 
+"""        NERDTree
+" let g:NERDTreeIndicatorMapCustom = {
+" \ "Modified"  : "✹",
+" \ "Staged"    : "✚",
+" \ "Untracked" : "✭",
+" \ "Renamed"   : "➜",
+" \ "Unmerged"  : "═",
+" \ "Deleted"   : "✖",
+" \ "Dirty"     : "✗",
+" \ "Clean"     : "✔︎",
+" \ 'Ignored'   : '☒',
+" \ "Unknown"   : "?"
+" \ }
 
+let g:NERDTreeIndicatorMapCustom = {
+\ "Modified"  : "M",
+\ "Staged"    : "+",
+\ "Untracked" : "?",
+\ "Renamed"   : "R",
+\ "Unmerged"  : "=",
+\ "Deleted"   : "-",
+\ "Dirty"     : "x",
+\ "Clean"     : "~",
+\ 'Ignored'   : 'I',
+\ "Unknown"   : "?"
+\ }
 """        Fugitive
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
@@ -692,6 +694,7 @@ endif
 set updatetime=100						" need for Coc + gitgutter
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
+let g:gitgutter_max_signs = 1000
 let g:gitgutter_sign_added = '▎'
 let g:gitgutter_sign_modified = '▎'
 let g:gitgutter_sign_removed = '▎'
@@ -1141,6 +1144,35 @@ vnoremap <c-j> }
 " nnoremap <leader>B :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
+"""        Searching
+nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
+
+" use unix regex in searches
+nnoremap / /\v
+vnoremap / /\v
+nnoremap <leader>/ /
+vnoremap <leader>/ /
+
+nnoremap zM zMzz
+" " nnoremap za zazz
+" nnoremap zA zAzz
+" nnoremap <leader>za zMzvzz
+
+"do not move cursor with first match
+nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
+nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
+
+"Clear search highlight
+nnoremap <silent> - :nohlsearch<cr>
+
+" For local sed replace
+nnoremap gr :s/<c-r>///g<left><left>
+vnoremap gr :s/<c-r>///g<left><left>
+nnoremap gR :%s/<c-r>///g<left><left>
+
+" search visual selection
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 """        Files
 
 " cd shell to vim current working directory
@@ -1227,21 +1259,23 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-au CursorHold * silent call CocActionAsync('highlight')
+augroup CocHiglightSymbol
+	au CursorHold * silent call CocActionAsync('highlight')
+augroup end
 
 augroup mygroup
 	au!
 	" Setup formatexpr specified filetype(s).
-	au FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
 	" Update signature help on jump placeholder
 	au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" set nobackup
-" set nowritebackup
-set shortmess+=c
+augroup CocLightLineUpdate
+	au!
+	au User CocStatusChange,CocDiagnosticChange call lightline#update()
+augroup end
 
-au User CocStatusChange,CocDiagnosticChange call lightline#update()
 function! StatusDiagnostic() abort
 	let info = get(b:, 'coc_diagnostic_info', {})
 	if empty(info) | return '' | endif
