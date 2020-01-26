@@ -1220,12 +1220,13 @@ nnoremap <leader>wc :call WC()<cr>
 """        Popup Menu Completion
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : ""
 inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : ""
-inoremap <silent><expr> <c-@> pumvisible() ? "\<c-y>" : coc#refresh()
+" inoremap <silent><expr> <c-@> pumvisible() ? "\<c-y>" : coc#refresh()
+inoremap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " nnoremap <silent><expr> <c-@> coc#refresh()
 " inoremap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
-			" \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" 			\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 """        Coc
 " function text object mappings
