@@ -409,7 +409,7 @@ augroup FileTypeAutoSelect
 augroup end
 
 " refresh filetype upon writing
-" au BufWritePost * filetype detect
+au BufWritePost * filetype detect
 
 " auto chose tag from .git folder
 " set path for code
