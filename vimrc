@@ -1270,48 +1270,15 @@ let g:markdown_fenced_languages = ['css', 'js=javascript']
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-"""        Movement
-" up down on visual lines
-nnoremap <silent> j gj
-nnoremap <silent> k gk
-xnoremap <silent> j gj
-xnoremap <silent> k gk
+"""        Folding
 
-nnoremap H ^
-nnoremap L g_
-nnoremap <c-h> B
-nnoremap <c-l> E
-nnoremap <c-k> {
-nnoremap <c-j> }
-nnoremap <c-q> <silent>:redraw<cr>
+" inoremap <leader><space> <c-o>za
+nnoremap <c-@> za
+onoremap <c-@> <c-c>za
+vnoremap <c-@> zf
 
-"go to next / previous buffer
-nnoremap <leader>] :bn<cr>
-nnoremap <leader>[ :bp<cr>
-
-vnoremap H ^
-vnoremap L g_
-vnoremap <c-h> B
-vnoremap <c-l> E
-vnoremap <c-k> {
-vnoremap <c-j> }
-
-" move between windows with ctrl
-" nnoremap <c-h> :wincmd h<cr>
-" nnoremap <c-j> :wincmd j<cr>
-" nnoremap <c-k> :wincmd k<cr>
-" nnoremap <c-l> :wincmd l<cr>
-" imap <c-w> <c-o><c-w>
-
-" open buffer with partial search
-" nnoremap <leader>b :buffer<space>
-" nnoremap <leader><c-b> :vertical sbuffer<space>
-" nnoremap <leader>B :sbuffer<space>
-" nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
-
-"navigate through git commits
-" nnoremap ]g :!git checkout HEAD~1<cr>
-" nnoremap [g :!git checkout HEAD^1<cr>
+" recursively open even partial folds
+nnoremap zo zczO
 
 """        Command
 cnoremap <c-a> <Home>
