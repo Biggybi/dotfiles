@@ -205,33 +205,32 @@ augroup end
 """        DarkLightSwitch
 " switch between light and dark theme (UI + ligtline)
 function! DarkLightSwitch()
-	if g:DarkLightSwitch == 'dark'
+	if g:DarkLightSwitch ==# 'dark'
 		set background=dark
 		colorscheme	base16-onedark
 		let g:lightline = { 'colorscheme': 'wombat' }
 		let g:DarkLightSwitch = 'light'
-	elseif g:DarkLightSwitch == 'light'
-		" set background=light
+	elseif g:DarkLightSwitch ==# 'light'
+		set background=light
 		colorscheme	base16-one-light
 		let g:lightline = { 'colorscheme': 'wombat_light' }
 		let g:DarkLightSwitch = 'dark'
 	endif
 	if exists("g:DarkLightOn")
-		" call lightline#enable()
-		" call lightline#init()
+		call lightline#enable()
 	endif
-	let g:DarkLightOn = '0'
+	let g:DarkLightOn = 1
 endfunction
 
 " open vim with different color based on time of day
-let g:DarkLightMod = '1'
+let g:DarkLightMod = 1
 " 0 : auto
 " 1 : force dark
 " 2 : force light
 if ! exists("g:DarkLightMod")
-	let g:DarkLightMod = '0'
+	let g:DarkLightMod = 0
 endif
-if g:DarkLightMod == '0'
+if g:DarkLightMod == 0
 	if ! exists("g:DarkLightOn")
 	let hour = strftime("%H")
 	if 9 < hour && hour < 15
@@ -241,17 +240,15 @@ if g:DarkLightMod == '0'
 	endif
 	call DarkLightSwitch()
 endif
-elseif g:DarkLightMod == '1'
+elseif g:DarkLightMod == 1
 	let g:DarkLightSwitch = 'dark'
 	call DarkLightSwitch()
-elseif g:DarkLightMod == '2'
+elseif g:DarkLightMod == 2
 	let g:DarkLightSwitch = 'light'
 	call DarkLightSwitch()
 endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-nnoremap <silent> <leader>s<c-C> :syntax sync fromstart<cr>
-" nnoremap <leader>sv :source $MYVIMRC<cr>:call lightline#enable()<cr>:echo "vimrc sourced"<cr>
 
 ""    Window behaviour
 
@@ -298,18 +295,12 @@ nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
 
 ""    Highlights / Match
-"""        Global
-" highlight overlength ctermbg=203 ctermfg=white guibg=#592928
-" match overlength /\%81v.\+/
-
 " show traling whitespaces
-
-" match TrailWhite /\s\+$/
-augroup TrailWhite
+augroup TrailSpace
 	au!
-	au BufWinEnter * match TrailWhite /\s\+$/
-	au InsertEnter * match TrailWhite /\s\+\%#\@<!$/
-	au InsertLeave * match TrailWhite /\s\+$/
+	au BufWinEnter * match TrailSpace /\s\+$/
+	au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
+	au InsertLeave * match TrailSpace /\s\+$/
 	au BufWinLeave * call clearmatches()
 augroup end
 
