@@ -270,6 +270,7 @@ alias gb='git branch '
 alias gba='git branch -a'
 alias gbr='git branch -r'
 alias gitls='git ls-tree --full-tree -r --name-only HEAD'
+alias gown='sudo chown -R "${USER:-$(id -un)}" .'
 
 alias gcc='clang '
 alias gccf='gcc -Wall -Wextra '
