@@ -285,15 +285,6 @@ alias cdapp='cd /usr/share/applications/'
 
 alias ydl='youtube-dl'
 
-# alias vzf='find $HOM_VID/* -type f -print0 | sed s/*\//g;s/^/"/;s/$/" | fzf -d/ -n3.. --height=10 | xargs -r -0 vlc"'
-vzf() {
-	cd $HOM_VID
-	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Videos\///' | fzf --height=10 | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc 
-}
-mzf() {
-	cd $HOM_MUS
-	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --height=10 | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc 
-}
 alias r='fc -s'
 
 ##alias sedtrim="sed -n '1h;1!ALIAS_42_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
@@ -337,10 +328,8 @@ ef() {
 
 # fd - cd to selected directory
 fd() {
-	local dir
 	dir=$(find -L ${1:-~} -path '*/\.*' -prune \
-		-o -type d -print 2> /dev/null | fzf --height=10 --preview="ls -la --color=always {}" +m) &&
-		cd "$dir"
+		-o -type d -print 2> /dev/null | fzf --height=10 --preview="ls -p --color=always {}") && cd "$dir"
 }
 
 fzv() {
