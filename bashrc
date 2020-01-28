@@ -255,3 +255,5 @@ fi
 
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
