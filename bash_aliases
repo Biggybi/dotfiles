@@ -97,7 +97,7 @@ alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
 
-pluginstall() {
+vimpluginstall() {
 	cd $HOME/dotfiles/vim/bundle/
 	git clone $1
 }
@@ -121,7 +121,7 @@ alias vn='vim $HOME/dotfiles/inputrc'
 alias vh='vim $HOME/.bash_history'
 alias vfs='sudo vim /etc/fstab'
 alias vapt='sudo vim /etc/apt/sources.list'
-alias vg='sh .git/vimgit'
+alias vg='vim $(./.git/vimgit)'
 
 alias vbashrc='vim $HOME/dotfiles/bashrc'
 alias valias='vim $HOME/dotfiles/bash_aliases'
@@ -130,7 +130,6 @@ alias vinputrc='vim $HOME/dotfiles/inputrc'
 alias vfstab='sudo vim /etc/fstab'
 alias vapt='sudo vim /etc/apt/sources.list'
 alias vmgit='sh .git/vimgit'
-alias vg='sh .git/vimgit'
 
 alias sbash='. $HOME/.bashrc'
 alias smacbash='. $HOME/.bash_profile'
@@ -341,15 +340,24 @@ ef() {
 fd() {
 	local dir
 	dir=$(find -L ${1:-~} -path '*/\.*' -prune \
-		-o -type d -print 2> /dev/null | fzf +m) &&
+		-o -type d -print 2> /dev/null | fzf --height=10 --preview="ls -la --color=always {}" +m) &&
 		cd "$dir"
+}
+
+fzv() {
+	cd $HOM_VID
+	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Videos\///' | fzf --height=10 --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
+}
+
+fzm() {
+	cd $HOM_MUS
+	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --height=10 --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
 }
 
 get_hidden_mail_adress() {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
 }
 
-alias ex='return && echo end'
 # alias fav='. fav'
 # vim: filetype=sh
 
