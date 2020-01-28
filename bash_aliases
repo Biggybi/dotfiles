@@ -342,6 +342,27 @@ fzm() {
 	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --height=10 --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
 }
 
+fzf_semi_interactive_cd() {
+	if [[ "$#" != 0 ]]; then
+		builtin cd "$@";
+		return
+	fi
+	while true
+	do
+		local lsd=$(echo ".." && ls -p | grep '/$' | sed 's;/$;;')
+		local dir="$(printf '%s\n' "${lsd[@]}" |
+			fzf --reverse --preview '
+					__cd_nxt="$(echo {})";
+					__cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+					echo $__cd_path;
+					echo;
+					ls -p --color=always "${__cd_path}";
+					')"
+		[[ ${#dir} != 0 ]] || return 0
+		builtin cd "$dir" &> /dev/null
+	done
+}
+
 get_hidden_mail_adress() {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
 }
