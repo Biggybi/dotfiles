@@ -703,6 +703,9 @@ endif
 set updatetime=100						" need for Coc + gitgutter
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
+nmap ghp <Plug>GitGutterPreviewHunk
+nmap ghs <Plug>GitGutterStageHunk
+nmap ghu <Plug>GitGutterUndoHunk
 let g:gitgutter_max_signs = 1000
 let g:gitgutter_sign_added = '▎'
 let g:gitgutter_sign_modified = '▎'
