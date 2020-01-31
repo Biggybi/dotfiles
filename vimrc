@@ -1860,16 +1860,16 @@ augroup dotfiles_sh
 augroup end
 
 augroup suffixes
-    au!
-    let associations = [
-                \["javascript", ".js,.javascript,.es,.esx,.json"],
-                \["python", ".py,.pyw"],
-                \["c", ".c,.h"],
-                \["cpp", ".c,.h"]
-                \]
-    for ft in associations
-        execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
-    endfor
+	au!
+	let associations = [
+		\["javascript", ".js,.javascript,.es,.esx,.json"],
+		\["python", ".py,.pyw"],
+		\["c", ".c,.h"],
+		\["cpp", ".c,.h"]
+		\]
+	for ft in associations
+		execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+	endfor
 augroup end
 
 """        Vimrc mappings
