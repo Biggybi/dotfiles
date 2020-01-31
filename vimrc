@@ -62,6 +62,12 @@ set modelineexpr								" flexible modeline set
 
 """        User Interface settings
 
+" Title
+set title										" window title (file)
+auto BufEnter *
+	\ let &titlestring =
+	\ hostname() . "  -  " . expand("%")
+
 set mouse=a										" it's a secret
 
 " Mappings chill
