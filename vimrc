@@ -39,7 +39,6 @@ let $PAGER=''									" vim as pager
 
 syntax on
 set nocompatible								" not compatible with vi
-set title										" window title (file)
 set encoding=utf8								" character encoding
 set ttyfast										" faster redrawing
 set nolazyredraw								" no redraw executing macros
@@ -178,7 +177,7 @@ if (has("termguicolors"))
 endif
 
 ""    Look / Theme
-"""        gnome adaptive cursor shape
+"""        Gnome adaptive cursor shape
 augroup CursorShape
 	au!
 	au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' |
@@ -1203,8 +1202,8 @@ nnoremap <leader>XX :%s/\s\+$//<cr>:redraw<cr>
 nnoremap <silent> <leader>xg :set list!<cr>
 
 " % as <c-g>
-nnoremap <c-g> %
-vnoremap <c-g> %
+nmap <c-g> %
+vmap <c-g> %
 
 " Word count
 function! WC()
