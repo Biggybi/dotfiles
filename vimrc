@@ -792,6 +792,8 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 """        UltiSnips
+" inoremap <c-p> <nop>
+" inoremap <c-n> <nop>
 " let g:UltiSnips#ExpandSnippetOrJump = "<c-n>"
 let g:UltiSnipsExpandTrigger = "<c-x>"
 " let g:UltiSnipsListSnippets = "<c-p>"
@@ -1213,8 +1215,15 @@ nnoremap <leader>wc :call WC()<cr>
 
 
 """        Popup Menu Completion
-inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : ""
-inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : ""
+inoremap <c-p> <nop>
+inoremap <c-n> <nop>
+
+" inoremap <expr> <c-p> pumvisible() ? UltiSnips#JumpBackwards() : UltiSnips#JumpBackwards()
+" inoremap <expr> <c-n> pumvisible() ? UltiSnips#JumpForwards() : UltiSnips#JumpForwards()
+
+inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
+
 " inoremap <silent><expr> <c-@> pumvisible() ? "\<c-y>" : coc#refresh()
 inoremap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
