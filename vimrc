@@ -453,21 +453,18 @@ augroup end
 " set tags=tags;./git/
 " set tags=./tags;
 
+let g:ft_man_open_mode = 'vert'
+
 augroup HelpManSplit
-	au!
-		" \ | wincmd H | silent! 79 wincmd|
-	au FileType man,help
-		\ | setlocal noswapfile nobackup nobuflisted
-		\ | setlocal nolinebreak wrap showbreak=
-		\ | setlocal norelativenumber nonumber colorcolumn=0 signcolumn=no
-	au FileType man
-		\ | silent! wincmd H | 80 wincmd|
-	au FileType man,help au! BufRead,BufEnter <buffer>
-		\ | wincmd H | 80 wincmd|
-	au FileType help,man au! BufLeave <silent> <buffer>
-		\ | if (&columns < 100) | wincmd| | endif
+	au FileType help,man wincmd H
+	au FileType help,man setlocal showbreak=
+	au FileType help au! BufRead,BufEnter <buffer>
+		\ | wincmd H | silent! 82 wincmd|
+	au FileType help au! BufLeave,WinLeave <buffer>
+		\ | if (&columns < 100) | 0 wincmd| | endif
+		" \ | 0 wincmd|
 	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
-augroup end
+	au FileType man nnoremap <buffer> <silent> = :80 wincmd|
 
 ""    Plugins settings
 """        Netrw
