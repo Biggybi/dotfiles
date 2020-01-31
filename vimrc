@@ -28,7 +28,9 @@ execute pathogen#infect()
 """        General settings
 
 runtime! ftplugin/man.vim
-packadd! matchit
+if ! has("nvim")
+	packadd! matchit
+endif
 filetype plugin on								" use filetype plugin
 filetype on
 filetype indent on								" use indent plugin
@@ -248,7 +250,9 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 ""    Window behaviour
 
 augroup myterm | au!
-	au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
+	if ! has("nvim")
+		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
+	endif
 augroup end
 
 let g:term_buf = 0
@@ -1376,8 +1380,10 @@ nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 augroup VimrcSource
 	au!
-	au SourcePost * call lightline#init()
-augroup end
+	if ! has("nvim")
+		au SourcePost * call lightline#init()
+	augroup end
+endif
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
