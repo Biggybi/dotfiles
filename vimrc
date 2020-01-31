@@ -1263,7 +1263,7 @@ function! s:show_documentation()
 	endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
+" Highlight symbol under cursor on CursorHold (K)
 augroup CocHiglightSymbol
 	au CursorHold * silent call CocActionAsync('highlight')
 augroup end
