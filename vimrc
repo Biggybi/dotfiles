@@ -392,24 +392,26 @@ augroup ReOpenFileWhereLeft
 augroup end
 
 " automatily save and restore files views (folding state and more)
-augroup ReViews
-	au!
-	au BufWinLeave *
-		\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-		\   | mkview
-		\ | endif
-	au BufWinEnter *
-		\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-		\   | loadview
-		\ | endif
-augroup end
+if ! has("nvim")
+	augroup ReViews
+		au!
+		au BufWinLeave *
+					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+					\   | mkview
+					\ | endif
+		au BufWinEnter *
+					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+					\   | silent! loadview
+					\ | endif
+	augroup end
+endif
 
 " auto change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
 	au!
 	au BufEnter *
 		\ if (!empty(bufname("%")))
-		\   | silent! cd %:p:h | silent! Gcd
+		\   | silent! cd %:p:h | silent! Glcd
 		\ | endif
 augroup end
 
