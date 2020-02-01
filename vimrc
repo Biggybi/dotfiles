@@ -657,7 +657,7 @@ let g:lightline.component_function = {
 let g:lightline.component = {
 	\ 'percent': '%3p%%%<',
 	\ 'relativepath': '%<%F',
-	\ 'lineinfo': '%3l-%-2v%<' }
+	\ 'lineinfo': '%4l-%-3v%<' }
 
 let g:lightline.component_expand = {
 	\ 'cocstatus': 'coc#status' }
