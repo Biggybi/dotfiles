@@ -1540,6 +1540,9 @@ augroup end
 """        PHP/HTML/CSS
 augroup Webmaps
 	au! Webmaps
+	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<strong><c-o>P</strong><esc>T<
+	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
+
 	au FileType css nnoremap <buffer> <c-w>u :40 wincmd\|<cr>
 	au FileType css inoremap <buffer> {<cr>  {<cr>}<esc>O
 	au FileType php,html inoremap <buffer> ,php <?php<cr>?><esc>O
