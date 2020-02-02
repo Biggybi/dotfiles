@@ -1112,7 +1112,7 @@ inoremap <c-z> <c-[><c-z>
 " <c-s> save and enter normal mode
 nnoremap <c-s> :update<cr>
 vnoremap <c-s> :update<cr>gv
-inoremap <c-s> <esc>:update<cr>l<esc>
+inoremap <c-s> <esc>:update<cr>
 
 " :W! save files as root
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
