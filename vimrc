@@ -169,6 +169,7 @@ let &scrolloff=winheight(win_getid())/10 + 1	" min vertical cursor offset
 set foldmethod=syntax							" fold based on indent
 set foldnestmax=10								" deepest fold is 10 levels
 set nofoldenable								" don't fold by default
+set foldlevel=100								" no nest on first fold (fix)
 " set foldlevel=1
 
 " Colors
