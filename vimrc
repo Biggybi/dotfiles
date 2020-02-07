@@ -249,7 +249,7 @@ endif
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
 ""    Window behaviour
-
+"""        Terminal
 augroup myterm | au!
 	if ! has("nvim")
 		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
@@ -292,6 +292,69 @@ nnoremap <c-w><c-n> :vertical new<cr>
 nnoremap <c-w>n :vertical new<cr>
 nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
+
+"""        Quickfix
+
+augroup QuickFixWindowSet
+	au!
+	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0
+
+	" vimscript is a joke
+	au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+	au FileType qf call AdjustWindowHeight(1, 5)
+augroup end
+
+" Quickfix window height auto adjust if too big
+function! AdjustWindowHeight(minheight, maxheight)
+	let l = 1
+	let n_lines = 0
+	let w_width = winwidth(0)
+	while l <= line('$')
+		" number to float for division
+		let l_len = strlen(getline(l)) + 0.0
+		let line_width = l_len/w_width
+		let n_lines += float2nr(ceil(line_width))
+		let l += 1
+	endw
+	exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
+" Auto location list on make
+augroup AutoLocationWindow
+	au!
+	autocmd QuickFixCmdPost [^l]* nested lwindow
+	autocmd QuickFixCmdPost    l* nested lwindow
+augroup end
+
+" nnoremap <leader>cc :ll<cr>
+" nnoremap <leader>cn :lnext<cr>
+" nnoremap <leader>cp :lprevious<cr>
+
+" nnoremap ]<c-q> :cc<cr>
+" nnoremap [q :cprev<cr>
+" nnoremap ]q :cnext<cr>
+" nnoremap [Q :cfirst<cr>
+" nnoremap ]Q :clast<cr>
+
+" nnoremap [<c-w> :ll<cr>
+" nnoremap [w :lprev<cr>
+" nnoremap ]w :lnext<cr>
+" nnoremap [W :lfirst<cr>
+" nnoremap ]W :llast<cr>
+
+"""        Help/Man
+let g:ft_man_open_mode = 'vert'
+
+augroup HelpManSplit
+	au FileType help,man wincmd H
+	au FileType help,man setlocal showbreak=
+	au FileType help au! BufRead,BufEnter <buffer>
+		\ | wincmd H | silent! 82 wincmd|
+	au FileType help au! BufLeave,WinLeave <buffer>
+		\ | if (&columns < 100) | 0 wincmd| | endif
+		" \ | 0 wincmd|
+	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
+	au FileType man nnoremap <buffer> <silent> = :80 wincmd|
 
 ""    Highlights / Match
 " show traling whitespaces
@@ -401,13 +464,13 @@ if ! has("nvim")
 	augroup ReViews
 		au!
 		au BufWinLeave *
-					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-					\   | mkview
-					\ | endif
+		   \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+		   \   | mkview
+		   \ | endif
 		au BufWinEnter *
-					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-					\   | silent! loadview
-					\ | endif
+		   \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+		   \   | silent! loadview
+		   \ | endif
 	augroup end
 endif
 
@@ -457,19 +520,6 @@ augroup end
 " au BufWritePost *.cpp silent! !ctags -R &
 " set tags=tags;./git/
 " set tags=./tags;
-
-let g:ft_man_open_mode = 'vert'
-
-augroup HelpManSplit
-	au FileType help,man wincmd H
-	au FileType help,man setlocal showbreak=
-	au FileType help au! BufRead,BufEnter <buffer>
-		\ | wincmd H | silent! 82 wincmd|
-	au FileType help au! BufLeave,WinLeave <buffer>
-		\ | if (&columns < 100) | 0 wincmd| | endif
-		" \ | 0 wincmd|
-	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
-	au FileType man nnoremap <buffer> <silent> = :80 wincmd|
 
 ""    Plugins settings
 """        Netrw
@@ -547,32 +597,6 @@ let g:netrw_startup_no_file = 1
 "   au VimEnter * if g:netrw_startup == '1' | e . | endif
 " augroup end
 
-"""        NERDTree
-" let g:NERDTreeIndicatorMapCustom = {
-" \ "Modified"  : "✹",
-" \ "Staged"    : "✚",
-" \ "Untracked" : "✭",
-" \ "Renamed"   : "➜",
-" \ "Unmerged"  : "═",
-" \ "Deleted"   : "✖",
-" \ "Dirty"     : "✗",
-" \ "Clean"     : "✔︎",
-" \ 'Ignored'   : '☒',
-" \ "Unknown"   : "?"
-" \ }
-
-let g:NERDTreeIndicatorMapCustom = {
-\ "Modified"  : "M",
-\ "Staged"    : "+",
-\ "Untracked" : "?",
-\ "Renamed"   : "R",
-\ "Unmerged"  : "=",
-\ "Deleted"   : "-",
-\ "Dirty"     : "x",
-\ "Clean"     : "~",
-\ 'Ignored'   : 'I',
-\ "Unknown"   : "?"
-\ }
 """        Fugitive
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
@@ -815,11 +839,6 @@ let g:UltiSnipsExpandTrigger = "<c-x>"
 let g:UltiSnipsJumpForwardTrigger = "<c-n>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 
-"""        Searchhi
-" let g:searchhi_clear_all_aus = 'InsertEnter'
-" let g:searchhi_update_all_aus = 'InsertLeave'
-" let g:searchhi_open_folds = 0
-
 """        Latex Live Preview
 
 " au FileType tex,plaintex let g:tex_fold_enabled=1
@@ -838,55 +857,6 @@ let g:vim_run_command_map = {
   \'python': 'python',
   \'markdown': 'markdown',
   \}
-
-""    Quickfix
-
-augroup QuickFixWindowSet
-	au!
-	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0
-
-	" vimscript is a joke
-	au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
-	au FileType qf call AdjustWindowHeight(1, 5)
-augroup end
-
-" Quickfix window height auto adjust if too big
-function! AdjustWindowHeight(minheight, maxheight)
-	let l = 1
-	let n_lines = 0
-	let w_width = winwidth(0)
-	while l <= line('$')
-		" number to float for division
-		let l_len = strlen(getline(l)) + 0.0
-		let line_width = l_len/w_width
-		let n_lines += float2nr(ceil(line_width))
-		let l += 1
-	endw
-	exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
-
-" Auto location list on make
-augroup AutoLocationWindow
-	au!
-	autocmd QuickFixCmdPost [^l]* nested lwindow
-	autocmd QuickFixCmdPost    l* nested lwindow
-augroup end
-
-" nnoremap <leader>cc :ll<cr>
-" nnoremap <leader>cn :lnext<cr>
-" nnoremap <leader>cp :lprevious<cr>
-
-" nnoremap ]<c-q> :cc<cr>
-" nnoremap [q :cprev<cr>
-" nnoremap ]q :cnext<cr>
-" nnoremap [Q :cfirst<cr>
-" nnoremap ]Q :clast<cr>
-
-" nnoremap [<c-w> :ll<cr>
-" nnoremap [w :lprev<cr>
-" nnoremap ]w :lnext<cr>
-" nnoremap [W :lfirst<cr>
-" nnoremap ]W :llast<cr>
 
 ""    Mini plugins
 """        Shell output split
@@ -908,33 +878,6 @@ function! s:RunShellCommand(cmdline)
 	execute '$read !'. expanded_cmdline
 endfunction
 
-"""        Scrollbar
-" shows a horizontal scroll line, incompatible with lightline
-" func! STL()
-"   let stl = '%f [%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}%M%R%H%W] %y [%l/%L,%v] [%p%%]'
-"   let barWidth = &columns - 65 " <-- wild guess
-"   let barWidth = barWidth < 3 ? 3 : barWidth
-
-"   if line('$') > 1
-" 	let progress = (line('.')-1) * (barWidth-1) / (line('$')-1)
-"   else
-" 	let progress = barWidth/2
-"   endif
-"   " line + vcol + %
-"   let pad = strlen(line('$'))-strlen(line('.')) + 3 - strlen(virtcol('.')) + 3 - strlen(line('.')*100/line('$'))
-"   let bar = repeat(' ',pad).' [%1*%'.barWidth.'.'.barWidth.'('
-" 		\.repeat('-',progress )
-" 		\.'%2*0%1*'
-" 		\.repeat('-',barWidth - progress - 1).'%0*%)%<]'
-
-"   return stl.bar
-" endfun
-
-" hi def link User1 DiffAdd
-" hi def link User2 DiffDelete
-" set stl=%!STL()
-
-"""        Smooth scroll
 " function SmoothScroll(up)
 "     if a:up
 "         let scrollaction=""
