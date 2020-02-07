@@ -24,6 +24,9 @@
 		"typescriptreact",
 		"javascriptreact"
 	],
+	"eslint.options" : {
+		"configFile": "/home/tris/dotfiles/js_eslintrc.json"
+	},
 	"list.insertMappings": {
 		"<C-r>": "do:refresh",
 		"<C-f>": "feedkeys:\\<C-f>",
