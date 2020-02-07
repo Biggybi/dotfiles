@@ -5,7 +5,7 @@
 " By: tris <tristan.kapous@protonmail.com>       |_   _|| '__|\ \/ /          "
 "                                                  | |  | |    '  '           "
 " Created: 2019/06/23 05:39:33 by tris             |_|  |_|   /_/\_\          "
-" Updated: 2019/08/06 19:27:58 by tris                                        "
+" Updated: 2020/02/06 19:27:58 by tris                                        "
 "                                                                             "
 " *************************************************************************** "
 
@@ -1754,7 +1754,7 @@ endfunction
 function! s:user()
 	let l:user = $USER
 	if strlen(l:user) == 0
-		let l:user = "marvin"
+		let l:user = "trx"
 	endif
 	return l:user
 endfunction
@@ -1762,7 +1762,7 @@ endfunction
 function! s:mail()
 	let l:mail = $MAIL
 	if strlen(l:mail) == 0
-		let l:mail = "marvin@student.le-101.fr"
+		let l:mail = "tristan.kapous@protonmail.com"
 	endif
 	return l:mail
 endfunction
