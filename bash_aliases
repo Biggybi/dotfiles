@@ -4,6 +4,9 @@ ALIAS_42_LFT=$HOME/42/libft
 shopt -s expand_aliases
 
 alias s='sudo'
+alias c='clear'
+
+alias vimnude='vim -u NONE'
 
 ## color
 alias ls='ls -h --group-directories-first --color=auto'
@@ -14,28 +17,35 @@ then
 	alias ls='ls -h'
 fi
 
-# clear
-alias c='clear'
+## Git
 
-#caps2escape
-alias c2e='caps2esc'
-alias cc='c2e 2&> /dev/null ; clear'
-
-## 42 piscine
-newday() {
-	if [ $1 != '.' ] | [ $# == 1 ]
-	then
-		mkdir d"$1"
-		cd d"$1"
-	fi
-	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10
-}
-## vim nude
-alias vimnude='vim -u NONE'
-alias viday='vim $(find . -name "*.c")'
-alias gccfcday='gccf -c $(find ex* -name "*.c")'
-alias gccmday='gccf main.c $(find . -name "*.c")'
-alias vp='vi src/*.c inc/*.h Makefile'
+alias g='git'
+alias gd='git diff'
+alias g='git'
+alias gurl='git config --get remote.origin.url'
+alias gg='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
+alias gitroot='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
+alias gdiff='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
+alias gits='git status '
+alias ga='git add '
+alias gau='git add -u '
+alias gam='git commit -am '
+alias gcl='git clone '
+alias grm='git rm --cached '
+alias grmf='git rm -f '
+alias gps='git push '
+alias gpl='git pull '
+alias gcm='git commit -m '
+alias gita='git add '
+alias gco='git checkout '
+alias gcb='git checkout -b '
+alias graph='git log --all --decorate --oneline --graph'
+alias gch='git log | grep -B 4 "$*" | head -n 1 | cut -d\  -f 2'
+alias gb='git branch '
+alias gba='git branch -a'
+alias gbr='git branch -r'
+alias gitls='git ls-tree --full-tree -r --name-only HEAD'
+alias gown='sudo chown -R "${USER:-$(id -un)}" .'
 
 ## grep
 alias grep='grep --color=auto'
@@ -171,6 +181,22 @@ alias hx='eval $(history | sed "s/^ *[0-9]* *//" | fzf)'
 alias ag='alias | grep'
 alias pg='ps -aux | head -n -3 | grep'
 
+## 42 piscine
+
+newday() {
+	if [ $1 != '.' ] | [ $# == 1 ]
+	then
+		mkdir d"$1"
+		cd d"$1"
+	fi
+	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10
+}
+
+alias gccfcday='gccf -c $(find ex* -name "*.c")'
+alias gccmday='gccf main.c $(find . -name "*.c")'
+alias vp='vi src/*.c inc/*.h Makefile'
+
+alias viday='vim $(find . -name "*.c")'
 alias seer='tail -n -1 */*'
 alias executer='for i in */*; do echo "$i"; sh "$i"; echo ; done ;'
 alias emperess='for i in */*; do echo "==> $i <=="; cat "$i"; echo "= ex =" ; sh "$i"; echo ; done ;'
@@ -242,34 +268,6 @@ alias todoscript='vim $ALIAS_42_HOME/bin/.todo'
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
 
-alias g='git'
-alias gd='git diff'
-
-alias g='git'
-alias gurl='git config --get remote.origin.url'
-alias gg='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
-alias gitroot='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
-alias gdiff='git diff-files -z --diff-filter=M --name-only --relative | xargs -0 git add'
-alias gits='git status '
-alias ga='git add '
-alias gau='git add -u '
-alias gam='git commit -am '
-alias gcl='git clone '
-alias grm='git rm --cached '
-alias grmf='git rm -f '
-alias gps='git push '
-alias gpl='git pull '
-alias gcm='git commit -m '
-alias gita='git add '
-alias gco='git checkout '
-alias gcb='git checkout -b '
-alias graph='git log --all --decorate --oneline --graph'
-alias gch='git log | grep -B 4 "$*" | head -n 1 | cut -d\  -f 2'
-alias gb='git branch '
-alias gba='git branch -a'
-alias gbr='git branch -r'
-alias gitls='git ls-tree --full-tree -r --name-only HEAD'
-alias gown='sudo chown -R "${USER:-$(id -un)}" .'
 
 alias gcc='clang '
 alias gccf='gcc -Wall -Wextra '
@@ -284,7 +282,6 @@ alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 ### config : app icons
 alias cdapp='cd /usr/share/applications/'
 
-alias ydl='youtube-dl'
 
 alias r='fc -s'
 
@@ -305,9 +302,41 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 ## alias se='$EDITOR $(find ~/bin/* -type f | fzf)';
 ## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
 ##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-alias ebin='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
-alias elft='$EDITOR $ALIAS_42_LFT/src/$(find $ALIAS_42_LFT/src -type f -exec basename {} \; | fzf --height=10)'
+alias fbin='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
+alias flft='$EDITOR $ALIAS_42_LFT/src/$(find $ALIAS_42_LFT/src -type f -exec basename {} \; | fzf --height=10 --preview="cat $ALIAS_42_LFT/src/{}")'
 # alias ev='$EDITOR $(fzf --height=10)'
+
+get_hidden_mail_adress() {
+	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
+}
+
+# alias fav='. fav'
+# vim: filetype=sh
+
+# firefox
+alias ffn='firefox -new-window '
+alias fyt='firefox -new-window youtube.co'
+
+# youtube dl
+alias ydl='youtube-dl'
+
+# terminal web apps
+alias meteo="curl wttr.in"
+alias pubip="pubip"
+alias pubcity="pubip city"
+alias pubcountry="pubcountry"
+
+tinyurl() {
+	curl -s http://tinyurl.com/api/create.php\?url\=$1
+}
+
+#caps2escape
+alias c2e='caps2esc'
+alias cc='c2e 2&> /dev/null ; clear'
+
+change_shell() {
+	chsh -s $(which $1)
+}
 
 ## FZF functions
 
@@ -364,16 +393,3 @@ fzf_semi_interactive_cd() {
 	done
 }
 
-get_hidden_mail_adress() {
-	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
-}
-
-# alias fav='. fav'
-# vim: filetype=sh
-
-# firefox
-alias ffn='firefox -new-window '
-alias fyt='firefox -new-window youtube.co'
-change_shell() {
-	chsh -s $(which $1)
-}

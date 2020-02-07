@@ -19,6 +19,10 @@ if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
 
+# if [ -f ~/dotfiles/vim/bundle/fzf/shell/key-bindings.bash ]; then
+# 	. ~/dotfiles/vim/bundle/fzf/shell/key-bindings.bash
+# fi
+
 # vi mode
 set -o vi
 
@@ -35,6 +39,7 @@ export HOM_MUS="$HOME/Music"
 export HOM_42="$HOME/42"
 export GOPATH="$HOME/go"
 export LFT="$HOM_42/libft/"
+export DATAPATH="/media/data/"
 
 # caps2escape
 # if [[ -f $DOT/programs/caps2esc ]]
@@ -79,15 +84,15 @@ if [ -f /usr/share/bash-completion/completions/git ]; then
 fi
 
 # history
-stty -ixon												# no term flow (C-q)
-shopt -s cmdhist										# command one-liner
-shopt -s histappend										# append to history
-shopt -s histverify										# expand '!'
-HISTSIZE= HISTFILESIZE= #								# infinite history
-HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear"		# ignored commands
-HISTCONTROL=ignoreboth									# duplicate + whitespace
-# HISTCONTROL=ignorespace								# whitespace
-# HISTCONTROL=ignoredups								# duplicates
+stty -ixon											# no term flow (C-q)
+shopt -s cmdhist									# command one-liner
+shopt -s histappend									# append to history
+shopt -s histverify									# expand '!'
+HISTSIZE= HISTFILESIZE= #							# infinite history
+HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear"	# ignored commands
+HISTCONTROL=ignoreboth								# duplicate + whitespace
+# HISTCONTROL=ignorespace							# whitespace
+# HISTCONTROL=ignoredups							# duplicates
 
 # man with vim
 van() {
@@ -115,72 +120,72 @@ van() {
 # }
 
 # fzf defaults
-export FZF_DEFAULT_OPTS='--height 10 -m'
+export FZF_DEFAULT_OPTS="--height 10 --preview 'bat --style=numbers --color=always {} | head -500'"
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# fzf history on C-r
-bind '"\C-r": "\C-x1\e^\er"';
-bind -x '"\C-x1": __fzf_history';
+# # fzf history on C-r
+# bind '"\C-r": "\C-x1\e^\er"';
+# bind -x '"\C-x1": __fzf_history';
 
+# # __fzf_history ()
+# # {
+# # 	__ehc $(history | fzf --color="light" --tac --tiebreak=index --height=10 | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+# # }
+
+# # __ehc()
+# # {
+# # 	if
+# # 		[[ -n $1 ]]
+# # 	then
+# # 		bind '"\er": redraw-current-line'
+# # 		bind '"\e^": magic-space'
+# # 		READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+# # 		READLINE_POINT=$(( READLINE_POINT + ${#1} ))
+# # 	else
+# # 		bind '"\er":'
+# # 		bind '"\e^":'
+# # 	fi
+# # }
+
+# # Another CTRL-R script to insert the selected command from history into the command line/region
 # __fzf_history ()
 # {
-# 	__ehc $(history | fzf --color="light" --tac --tiebreak=index --height=10 | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+# 	builtin history -a;
+# 	builtin history -c;
+# 	builtin history -r;
+# 	builtin typeset \
+# 		READLINE_LINE_NEW="$(
+# 			HISTTIMEFORMAT= builtin history |
+# 			command fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
+# 			command sed '
+# 				/^ *[0-9]/ {
+# 					s/ *\([0-9]*\) .*/!\1/;
+# 					b end;
+# 				};
+# 				d;
+# 				: end
+# 			'
+# 		)";
+
+# 		if
+# 				[[ -n $READLINE_LINE_NEW ]]
+# 		then
+# 				builtin bind '"\er": redraw-current-line'
+# 				builtin bind '"\e^": magic-space'
+# 				READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${READLINE_LINE_NEW}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+# 				READLINE_POINT=$(( READLINE_POINT + ${#READLINE_LINE_NEW} ))
+# 		else
+# 				builtin bind '"\er":'
+# 				builtin bind '"\e^":'
+# 		fi
 # }
 
-# __ehc()
-# {
-# 	if
-# 		[[ -n $1 ]]
-# 	then
-# 		bind '"\er": redraw-current-line'
-# 		bind '"\e^": magic-space'
-# 		READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
-# 		READLINE_POINT=$(( READLINE_POINT + ${#1} ))
-# 	else
-# 		bind '"\er":'
-# 		bind '"\e^":'
-# 	fi
-# }
-
-# Another CTRL-R script to insert the selected command from history into the command line/region
-__fzf_history ()
-{
-	builtin history -a;
-	builtin history -c;
-	builtin history -r;
-	builtin typeset \
-		READLINE_LINE_NEW="$(
-			HISTTIMEFORMAT= builtin history |
-			command fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
-			command sed '
-				/^ *[0-9]/ {
-					s/ *\([0-9]*\) .*/!\1/;
-					b end;
-				};
-				d;
-				: end
-			'
-		)";
-
-		if
-				[[ -n $READLINE_LINE_NEW ]]
-		then
-				builtin bind '"\er": redraw-current-line'
-				builtin bind '"\e^": magic-space'
-				READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${READLINE_LINE_NEW}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
-				READLINE_POINT=$(( READLINE_POINT + ${#READLINE_LINE_NEW} ))
-		else
-				builtin bind '"\er":'
-				builtin bind '"\e^":'
-		fi
-}
-
-if [[ "$OSTYPE" != "darwin"* ]]
-then
-	builtin set -o histexpand
-	builtin bind '"\C-x": __fzf_history'
-	builtin bind '"\C-r": "\C-x1\e^\er"'
-fi
+# if [[ "$OSTYPE" != "darwin"* ]]
+# then
+# 	builtin set -o histexpand
+# 	builtin bind '"\C-x": __fzf_history'
+# 	builtin bind '"\C-r": "\C-x1\e^\er"'
+# fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -256,4 +261,4 @@ fi
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f $DOT/fzf.bash ] && source $DOT/fzf.bash
