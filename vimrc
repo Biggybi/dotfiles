@@ -65,9 +65,12 @@ set modelineexpr								" flexible modeline set
 
 " Title
 set title										" window title (file)
-auto BufEnter *
-	\ let &titlestring =
-	\ hostname() . "  -  " . expand("%")
+augroup WinTitle
+	au!
+	au BufEnter *
+		\ let &titlestring =
+		\ hostname() . "  -  " . expand("%")
+augroup end
 
 set mouse=a										" it's a secret
 
@@ -503,7 +506,10 @@ augroup FileTypeAutoSelect
 augroup end
 
 " refresh filetype upon writing
-au BufWritePost * filetype detect
+augroup FileTypeRefresh
+	au!
+	au BufWritePost * filetype detect
+augroup end
 
 " auto chose tag from .git folder
 " set path for code
