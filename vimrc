@@ -1392,6 +1392,9 @@ nnoremap <leader>csm :Shell make<cr><cr>
 augroup Shmaps
 	au! Shmaps
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
+
+	" alias to function
+	au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
 augroup end
 
 """        C
