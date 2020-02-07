@@ -667,9 +667,10 @@ let g:lightline.active = {
 let g:lightline.inactive = {
 	\ 'left': [ [ 'readonly', 'gitbranch' ],
 	\ 		[ 'relativepath', 'modified' ] ],
-	\ 'right': [ [ 'lineinfo' ],
-	\ 		[ 'percent' ],
-	\ 		[ 'filetype' ] ] }
+	\ 'right': [] }
+	" \ 'right': [ [ 'lineinfo' ],
+	" \ 		[ 'percent' ],
+	" \ 		[ 'filetype' ] ] }
 
 let g:lightline.component_function = {
 	\ 'fileformat': 'LightlineFileformat',
