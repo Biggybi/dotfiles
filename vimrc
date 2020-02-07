@@ -1179,6 +1179,13 @@ endfunction
 nnoremap <leader>wc :call WC()<cr>
 " nnoremap <leader>w :w !detex \| wc -w<cr>
 
+"""        Tags
+
+" show matching tags
+nnoremap g<c-]> g]
+
+" jump if only one match
+nnoremap g] g<c-]>
 
 """        Popup Menu Completion
 inoremap <c-p> <nop>
