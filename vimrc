@@ -1416,7 +1416,7 @@ augroup Cmaps
 
 	" le and execute current
 	au FileType c nnoremap <buffer> <leader>cc :gcc -Wall -Wextra % && ./a.out
-	au FileType c nnoremap <buffer> <leader>scc :Shell gcc -Wall -Wextra % && ./a.out
+	au FileType c nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out
 	au FileType c nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out
 
 	" close brackets
