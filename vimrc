@@ -1417,14 +1417,15 @@ augroup Cmaps
 	au FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType c inoremap <buffer> ,ret return (0);<esc>^
-	au FileType c inoremap <buffer> ,imin -2147483648
-	au FileType c inoremap <buffer> ,imax 2147483647
+	au FileType c,h inoremap <buffer> ,imin -2147483648
+	au FileType c,h inoremap <buffer> ,imax 2147483647
 	au FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
 	au FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
 	au FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
-	au FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>#include <string.h><cr>
+	au FileType c,h inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>#include <string.h><cr>
 
-	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+	au FileType c,h nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+	" if to ternary operator
 	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 
 	" le and execute current
