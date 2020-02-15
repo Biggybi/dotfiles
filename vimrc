@@ -1372,6 +1372,9 @@ nnoremap <leader>eco :CocConfig<cr>
 " " rename file
 " nnoremap <leader>mv :!mv % %:h:p/
 
+"""        Fun
+inoremap ,fox The quick brown fox jumps over the lazy dog
+
 ""    Code Mappings
 """        General
 
