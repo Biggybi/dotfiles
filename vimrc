@@ -349,6 +349,7 @@ augroup end
 let g:ft_man_open_mode = 'vert'
 
 augroup HelpManSplit
+	au!
 	au FileType help,man wincmd H
 	au FileType help,man setlocal showbreak=
 	au FileType help au! BufRead,BufEnter <buffer>
@@ -358,6 +359,7 @@ augroup HelpManSplit
 		" \ | 0 wincmd|
 	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
 	au FileType man nnoremap <buffer> <silent> = :80 wincmd|
+augroup end
 
 ""    Highlights / Match
 " show traling whitespaces
@@ -1241,7 +1243,7 @@ augroup CocHiglightSymbol
 	au CursorHold * silent call CocActionAsync('highlight')
 augroup end
 
-augroup mygroup
+augroup CocFormatAndK
 	au!
 	" Setup formatexpr specified filetype(s).
 	au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
@@ -1351,8 +1353,8 @@ augroup VimrcSource
 	au!
 	if ! has("nvim")
 		au SourcePost * call lightline#init()
-	augroup end
-endif
+	endif
+augroup end
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
@@ -1632,7 +1634,7 @@ augroup end
 
 ""    Headers
 """        Basic headers
-augroup headers
+augroup Headers
 	au!
 	au BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
 	au BufNewFile *.html 0r $HOME/.vim/skel/html_header
@@ -1834,7 +1836,7 @@ nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 
 ""    Dotfiles settings
 """        Filetype
-augroup dotfiles_sh
+augroup DotfilesFiletypeSh
 	au!
 	au BufEnter bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
 augroup end
