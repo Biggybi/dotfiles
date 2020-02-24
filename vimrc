@@ -30,6 +30,7 @@ execute pathogen#infect()
 runtime! ftplugin/man.vim
 if ! has("nvim")
 	packadd! matchit
+	packadd! termdebug
 endif
 filetype plugin on								" use filetype plugin
 filetype on
