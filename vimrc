@@ -1175,11 +1175,24 @@ nnoremap <silent> <leader>xg :set list!<cr>
 nmap <c-g> %
 vmap <c-g> %
 
+" Count line in function
+function! FunctionLineCount()
+	let l:currentline = line(".")
+	normal j[[
+	let l:topline = line(".")
+	normal %
+	let l:bottomline = line(".")
+	exe "normal".l:currentline."gg"
+	echo "function lines :" l:bottomline - l:topline - 1
+endfunction
+
 " Word count
-function! WC()
+function! WordCount()
     echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
 endfunction
-nnoremap <leader>wc :call WC()<cr>
+
+nnoremap <leader>wcf :call FunctionLineCount()<cr>
+nnoremap <leader>wcc :call WordCount()<cr>
 " nnoremap <leader>w :w !detex \| wc -w<cr>
 
 """        Tags
