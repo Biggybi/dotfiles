@@ -511,7 +511,10 @@ augroup end
 " refresh filetype upon writing
 augroup FileTypeRefresh
 	au!
-	au BufWritePost * filetype detect
+	" only if no ft
+	if &ft ==# ''
+		au BufWrite * filetype detect
+	endif
 augroup end
 
 " auto chose tag from .git folder
@@ -1855,7 +1858,7 @@ nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 """        Filetype
 augroup DotfilesFiletypeSh
 	au!
-	au BufEnter bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
+	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
 augroup end
 
 augroup suffixes
