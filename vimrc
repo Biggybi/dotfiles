@@ -1033,6 +1033,9 @@ onoremap aN* :<c-u>normal! F*vF*<cr>
 " space as leader, prompt '\' in command line window :)
 map <space> <leader>
 
+" closing easy
+nnoremap <leader>q :quit<cr>
+
 " switch last 2 buffers
 nnoremap <leader><space> <c-^>
 onoremap <leader><space> <c-^>
