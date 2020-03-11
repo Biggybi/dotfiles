@@ -185,6 +185,7 @@ endif
 
 ""    Look / Theme
 """        Gnome adaptive cursor shape
+
 augroup CursorShape
 	au!
 	au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' |
@@ -254,11 +255,6 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
 ""    Window behaviour
 """        Terminal
-augroup myterm | au!
-	if ! has("nvim")
-		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
-	endif
-augroup end
 
 let g:term_buf = 0
 let g:term_win = 0
@@ -362,8 +358,22 @@ augroup HelpManSplit
 	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
 
+"""        Scrolling
+" Do not scroll past the end of file (last line locked at bottom of window)
+
+function! NoScrollAtEOF()
+  let curpos = getpos('.')
+  let lnum = get(curpos, 1, -1)
+  let len = line('$')
+  if lnum + winheight(0) >= len 
+	normal! zb
+  endif
+endfunction
+
+nnoremap <c-f> <c-f>:call NoScrollAtEOF()<cr>
+
 ""    Highlights / Match
-" show traling whitespaces
+"""        show traling whitespaces
 augroup TrailSpace
 	au!
 	au BufWinEnter * match TrailSpace /\s\+$/
@@ -402,18 +412,19 @@ augroup end
 
 " endfunction
 
-" focus current window : cursorline and relative numbers
+"""        focus current window : cursorline and relative numbers
 augroup WinFocus
 	au!
 	au VimEnter,WinEnter,BufNew,WinNew * setlocal nocursorline "relativenumber number
 	au WinLeave * setlocal nocursorline "norelativenumber number
 augroup end
 
-" color column 81 for code
+"""        color column 81 for code
 if exists('+colorcolumn')
  	au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
 endif
 
+"""        highlight searches
 " " Highlight 'f' searchers
 " function! HighlightFSearches(cmd)
 "   " Get extra character for the command.
@@ -442,8 +453,7 @@ endif
 " vnoremap F<bs> <nop>
 
 ""    File automation
-
-" detect when a file is changed
+"""        detect when a file is changed
 if ! exists("g:CheckUpdateStarted")
     let g:CheckUpdateStarted=1
     call timer_start(1,'CheckUpdate')
@@ -456,7 +466,7 @@ endfunction
 " autosave file upon modification
 " au TextChanged,TextChangedI <buffer> silent write
 
-" open file where it was closed
+"""        open file where it was closed
 augroup ReOpenFileWhereLeft
 	au!
 	au BufReadPost *
@@ -465,7 +475,7 @@ augroup ReOpenFileWhereLeft
 		\ | endif
 augroup end
 
-" automatily save and restore files views (folding state and more)
+"""        automatily save and restore files views (folding state and more)
 if ! has("nvim")
 	augroup ReViews
 		au!
@@ -480,7 +490,7 @@ if ! has("nvim")
 	augroup end
 endif
 
-" auto change dir to git repo OR file directory
+"""        auto change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
 	au!
 	au BufEnter *
@@ -489,7 +499,7 @@ augroup CdGitRootOrFileDir
 		\ | endif
 augroup end
 
-" filetype recognition
+"""        filetype recognition
 augroup FileTypeAutoSelect
 	au!
 	au FileType c setlocal ofu=ccomplete#CompleteCpp
@@ -508,7 +518,7 @@ augroup FileTypeAutoSelect
 	" au BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 augroup end
 
-" refresh filetype upon writing
+"""        refresh filetype upon writing
 augroup FileTypeRefresh
 	au!
 	" only if no ft
@@ -517,7 +527,7 @@ augroup FileTypeRefresh
 	endif
 augroup end
 
-" auto chose tag from .git folder
+"""        auto chose tag from .git folder
 " set path for code
 augroup CodePathTags
 	au!
@@ -819,7 +829,7 @@ nnoremap <leader>fh :FzfHistory<cr>
 nnoremap <leader>fm :FzfHelptags<cr>
 nnoremap <leader>fs <esc>:FzfSnippets<cr>
 nnoremap <leader>fr <esc>:Rg<cr>
-inoremap <c-f> <c-o>:Snippets<cr>
+inoremap <c-f> <c-o>:FzfSnippets<cr>
 
 command! -bang -complete=dir -nargs=* LS
 \ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
@@ -1881,7 +1891,7 @@ augroup end
 """        Vimrc mappings
 augroup VimrcMaps
 	au! VimrcMaps
-	au FileType vim silent nnoremap <buffer> zm :setlocal foldlevel=0<cr>100<c-y>
+	au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>100<c-y>
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
 	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
