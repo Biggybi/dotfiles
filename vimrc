@@ -453,18 +453,12 @@ endif
 " vnoremap F<bs> <nop>
 
 ""    File automation
-"""        detect when a file is changed
-if ! exists("g:CheckUpdateStarted")
-    let g:CheckUpdateStarted=1
-    call timer_start(1,'CheckUpdate')
-endif
-function! CheckUpdate(timer)
-    silent! checktime
-    call timer_start(1000,'CheckUpdate')
-endfunction
-
-" autosave file upon modification
-" au TextChanged,TextChangedI <buffer> silent write
+"""        Save and load
+" Save when focus lost, load when focus gained
+augroup AutoSaveAndLoadWithFocus
+	au FocusGained,BufEnter * :silent! !
+	au FocusLost,WinLeave * :silent! w
+augroup end
 
 """        open file where it was closed
 augroup ReOpenFileWhereLeft
@@ -774,11 +768,13 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1						" [Buffers] to existing window
-let g:fzf_layout = { 'down' : '10 reverse' }
-let g:fzf_colors =
-	\ { 'fg':      ['fg', 'Normal'],
+let g:fzf_layout = { 'window': '10split' }
+" let g:fzf_layout = { 'down' : '15 reverse' }
+" let g:fzf_layout = { 'left' : '~30%' }
+let g:fzf_colors = {
+	\ 'fg':      ['fg', 'Normal'],
 	\ 'bg':      ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Comment'],
+	\ 'hl':      ['fg', 'Include'],
 	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
 	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
 	\ 'hl+':     ['fg', 'Statement'],
@@ -789,12 +785,25 @@ let g:fzf_colors =
 	\ 'marker':  ['fg', 'Keyword'],
 	\ 'spinner': ['fg', 'Label'],
 	\ 'header':  ['fg', 'Comment'] }
+	" \ 'hl':      ['fg', 'Comment'],
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+augroup FzfHideStatusLine
+	au! FileType fzf
+	au FileType fzf set noshowmode noruler | call lightline#disable()
+				\| autocmd BufLeave <buffer> set showmode ruler  | call lightline#enable()
+augroup end
 
 function! s:build_location_list(lines)
 	call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
 	lopen
-	cc
+	lclose
+endfunction
+
+function! s:build_quickfix_list(lines)
+	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+	copen
+	cclose
 endfunction
 
 " An action can be a reference to a function that processes selected lines
