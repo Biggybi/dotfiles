@@ -351,15 +351,15 @@ let g:ft_man_open_mode = 'vert'
 
 augroup HelpManSplit
 	au!
-	au FileType help,man wincmd H
+	au FileType man wincmd H
+	au FileType man setlocal tabstop=8
 	au FileType help,man setlocal showbreak=
-	au FileType help au! BufRead,BufEnter <buffer>
-		\ | wincmd H | silent! 82 wincmd|
-	au FileType help au! BufLeave,WinLeave <buffer>
+	au FileType help au! BufRead,BufEnter <buffer> silent!
+		\ | wincmd H | 82 wincmd|
+	au FileType help au! BufLeave,WinLeave <buffer> silent!
 		\ | if (&columns < 100) | 0 wincmd| | endif
-		" \ | 0 wincmd|
 	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
-	au FileType man nnoremap <buffer> <silent> = :80 wincmd|
+	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
 
 ""    Highlights / Match
@@ -1475,6 +1475,10 @@ augroup Cmaps
 
 	" select all text in function
 	au FileType c nnoremap <leader>vf j[[V%o
+
+	" valgrind
+	au FileType c nnoremap <leader>cv :!valgrind ./test.out >2 /dev/null<cr><cr>
+	au FileType c nnoremap <leader>csv :Shell valgrind ./test.out >2 /dev/null<cr><cr>
 augroup end
 
 " nnoremap viB [[%v%jok$
