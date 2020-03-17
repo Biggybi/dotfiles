@@ -1,0 +1,2 @@
+#!/bin/bash
+firefox -new-window https://www.qwant.com/?q="$@"
