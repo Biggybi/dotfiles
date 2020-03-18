@@ -187,9 +187,10 @@ endif
 
 ""    Look / Theme
 """        Gnome adaptive cursor shape
+
 augroup CursorShape
 	au!
-	au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' |
+	au InsertLeave * silent execute '!echo -ne "\e[2 q"' |
 	au InsertEnter,InsertChange *
 		\ if v:insertmode ==# 'i' |
 		\   silent execute '!echo -ne "\e[6 q"' |
@@ -353,19 +354,33 @@ let g:ft_man_open_mode = 'vert'
 
 augroup HelpManSplit
 	au!
-	au FileType help,man wincmd H
+	au FileType man wincmd H
+	au FileType man setlocal tabstop=8
 	au FileType help,man setlocal showbreak=
-	au FileType help au! BufRead,BufEnter <buffer>
-		\ | wincmd H | silent! 82 wincmd|
-	au FileType help au! BufLeave,WinLeave <buffer>
+	au FileType help au! BufRead,BufEnter <buffer> silent!
+		\ | wincmd H | 82 wincmd|
+	au FileType help au! BufLeave,WinLeave <buffer> silent!
 		\ | if (&columns < 100) | 0 wincmd| | endif
-		" \ | 0 wincmd|
 	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
-	au FileType man nnoremap <buffer> <silent> = :80 wincmd|
+	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
 
+"""        Scrolling
+" Do not scroll past the end of file (last line locked at bottom of window)
+
+function! NoScrollAtEOF()
+  let curpos = getpos('.')
+  let lnum = get(curpos, 1, -1)
+  let len = line('$')
+  if lnum + winheight(0) >= len 
+	normal! zb
+  endif
+endfunction
+
+nnoremap <c-f> <c-f>:call NoScrollAtEOF()<cr>
+
 ""    Highlights / Match
-" show traling whitespaces
+"""        show traling whitespaces
 augroup TrailSpace
 	au!
 	au BufWinEnter * match TrailSpace /\s\+$/
@@ -404,18 +419,19 @@ augroup end
 
 " endfunction
 
-" focus current window : cursorline and relative numbers
+"""        focus current window : cursorline and relative numbers
 augroup WinFocus
 	au!
 	au VimEnter,WinEnter,BufNew,WinNew * setlocal nocursorline "relativenumber number
 	au WinLeave * setlocal nocursorline "norelativenumber number
 augroup end
 
-" color column 81 for code
+"""        color column 81 for code
 if exists('+colorcolumn')
  	au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
 endif
 
+"""        highlight searches
 " " Highlight 'f' searchers
 " function! HighlightFSearches(cmd)
 "   " Get extra character for the command.
@@ -444,21 +460,14 @@ endif
 " vnoremap F<bs> <nop>
 
 ""    File automation
+"""        Save and load
+" Save when focus lost, load when focus gained
+augroup AutoSaveAndLoadWithFocus
+	au FocusGained,BufEnter * :silent! !
+	au FocusLost,WinLeave * :silent! w
+augroup end
 
-" detect when a file is changed
-if ! exists("g:CheckUpdateStarted")
-    let g:CheckUpdateStarted=1
-    call timer_start(1,'CheckUpdate')
-endif
-function! CheckUpdate(timer)
-    silent! checktime
-    call timer_start(1000,'CheckUpdate')
-endfunction
-
-" autosave file upon modification
-" au TextChanged,TextChangedI <buffer> silent write
-
-" open file where it was closed
+"""        open file where it was closed
 augroup ReOpenFileWhereLeft
 	au!
 	au BufReadPost *
@@ -467,7 +476,7 @@ augroup ReOpenFileWhereLeft
 		\ | endif
 augroup end
 
-" automatily save and restore files views (folding state and more)
+"""        automatily save and restore files views (folding state and more)
 if ! has("nvim")
 	augroup ReViews
 		au!
@@ -482,7 +491,7 @@ if ! has("nvim")
 	augroup end
 endif
 
-" auto change dir to git repo OR file directory
+"""        auto change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
 	au!
 	au BufEnter *
@@ -491,7 +500,7 @@ augroup CdGitRootOrFileDir
 		\ | endif
 augroup end
 
-" filetype recognition
+"""        filetype recognition
 augroup FileTypeAutoSelect
 	au!
 	au FileType c setlocal ofu=ccomplete#CompleteCpp
@@ -510,13 +519,16 @@ augroup FileTypeAutoSelect
 	" au BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 augroup end
 
-" refresh filetype upon writing
+"""        refresh filetype upon writing
 augroup FileTypeRefresh
 	au!
-	au BufWritePost * filetype detect
+	" only if no ft
+	if &ft ==# ''
+		au BufWrite * filetype detect
+	endif
 augroup end
 
-" auto chose tag from .git folder
+"""        auto chose tag from .git folder
 " set path for code
 augroup CodePathTags
 	au!
@@ -763,11 +775,13 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1						" [Buffers] to existing window
-let g:fzf_layout = { 'down' : '10 reverse' }
-let g:fzf_colors =
-	\ { 'fg':      ['fg', 'Normal'],
+let g:fzf_layout = { 'window': '10split' }
+" let g:fzf_layout = { 'down' : '15 reverse' }
+" let g:fzf_layout = { 'left' : '~30%' }
+let g:fzf_colors = {
+	\ 'fg':      ['fg', 'Normal'],
 	\ 'bg':      ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Comment'],
+	\ 'hl':      ['fg', 'Include'],
 	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
 	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
 	\ 'hl+':     ['fg', 'Statement'],
@@ -778,12 +792,25 @@ let g:fzf_colors =
 	\ 'marker':  ['fg', 'Keyword'],
 	\ 'spinner': ['fg', 'Label'],
 	\ 'header':  ['fg', 'Comment'] }
+	" \ 'hl':      ['fg', 'Comment'],
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+augroup FzfHideStatusLine
+	au! FileType fzf
+	au FileType fzf set noshowmode noruler | call lightline#disable()
+				\| autocmd BufLeave <buffer> set showmode ruler  | call lightline#enable()
+augroup end
 
 function! s:build_location_list(lines)
 	call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
 	lopen
-	cc
+	lclose
+endfunction
+
+function! s:build_quickfix_list(lines)
+	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+	copen
+	cclose
 endfunction
 
 " An action can be a reference to a function that processes selected lines
@@ -818,7 +845,7 @@ nnoremap <leader>fh :FzfHistory<cr>
 nnoremap <leader>fm :FzfHelptags<cr>
 nnoremap <leader>fs <esc>:FzfSnippets<cr>
 nnoremap <leader>fr <esc>:Rg<cr>
-inoremap <c-f> <c-o>:Snippets<cr>
+inoremap <c-f> <c-o>:FzfSnippets<cr>
 
 command! -bang -complete=dir -nargs=* LS
 \ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
@@ -1034,6 +1061,9 @@ onoremap aN* :<c-u>normal! F*vF*<cr>
 """        Modes
 " space as leader, prompt '\' in command line window :)
 map <space> <leader>
+
+" closing easy
+nnoremap <leader>q :quit<cr>
 
 " switch last 2 buffers
 nnoremap <leader><space> <c-^>
@@ -1471,6 +1501,10 @@ augroup Cmaps
 
 	" select all text in function
 	au FileType c nnoremap <leader>vf j[[V%o
+
+	" valgrind
+	au FileType c nnoremap <leader>cv :!valgrind ./test.out >2 /dev/null<cr><cr>
+	au FileType c nnoremap <leader>csv :Shell valgrind ./test.out >2 /dev/null<cr><cr>
 augroup end
 
 " nnoremap viB [[%v%jok$
@@ -1854,7 +1888,7 @@ nnoremap <silent> <leader>h1 :call Stdheader()<cr>
 """        Filetype
 augroup DotfilesFiletypeSh
 	au!
-	au BufEnter bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
+	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
 augroup end
 
 augroup suffixes
@@ -1873,7 +1907,7 @@ augroup end
 """        Vimrc mappings
 augroup VimrcMaps
 	au! VimrcMaps
-	au FileType vim silent nnoremap <buffer> zm :setlocal foldlevel=0<cr>100<c-y>
+	au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>100<c-y>
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
 	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
