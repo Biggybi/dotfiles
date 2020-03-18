@@ -1365,7 +1365,7 @@ nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 augroup VimrcSource
 	au!
-	if ! has("nvim")
+	if ! has("nvim") && has("SourcePost")
 		au SourcePost * call lightline#init()
 	endif
 augroup end
