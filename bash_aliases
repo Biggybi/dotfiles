@@ -202,6 +202,8 @@ alias executer='for i in */*; do echo "$i"; sh "$i"; echo ; done ;'
 alias emperess='for i in */*; do echo "==> $i <=="; cat "$i"; echo "= ex =" ; sh "$i"; echo ; done ;'
 alias cemperess='for i in */*\.c; do echo "==> $i <=="; cat "$i"; echo "= ex =" ; gcc "$i" -o "${i::-2}"; gcc "${i::-2}"; echo ; done ;'
 
+## apache server
+alias www='cd /var/www/tristankapous'
 alias viit='vim $(fc -ln -1)'
 alias lsit='ls $(fc -ln -1)'
 alias catit='cat $(fc -ln -1)'
