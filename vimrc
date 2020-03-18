@@ -257,7 +257,7 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 ""    Window behaviour
 """        Terminal
 augroup myterm | au!
-	if ! has("nvim")
+	if ! has("terminal")
 		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
 	endif
 augroup end
