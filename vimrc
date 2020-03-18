@@ -60,7 +60,9 @@ set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
 set autoread									" detect file changes
-set modelineexpr								" flexible modeline set
+if has('modelineexpr')
+	set modelineexpr							" flexible modeline set
+endif
 
 """        User Interface settings
 
