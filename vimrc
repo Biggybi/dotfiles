@@ -385,7 +385,7 @@ augroup HelpManSplit
 	au!
 	au FileType man wincmd H
 	au FileType man setlocal tabstop=8
-	au FileType help,man setlocal showbreak=
+	au FileType help,man setlocal showbreak= nonumber
 	au FileType help au! BufRead,BufEnter <buffer> silent!
 		\ | wincmd H | 82 wincmd|
 	au FileType help au! BufLeave,WinLeave <buffer> silent!
