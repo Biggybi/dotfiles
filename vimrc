@@ -147,6 +147,7 @@ set splitright									" default split right
 " set list
 
 " guides smartisation
+set fillchars+=vert:▏
 set listchars=tab:\▎\ ,trail:-					" only tab / trailing ws
 set spellcapcheck=								" ignore leading cap in word
 set formatoptions+=j							" join comments smartly
