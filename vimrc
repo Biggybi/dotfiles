@@ -64,15 +64,47 @@ set modelineexpr								" flexible modeline set
 
 """        User Interface settings
 
+function! GetGitRepoName(file) abort
+	let l:path=fnamemodify(a:file, ':p')
+	while l:path != '' && l:path != '/'
+		let l:path=fnamemodify(l:path, ':h')
+		let l:candidate=l:path . '/.git'
+		let l:folder=substitute(l:path, '/.*/', '', '')
+		if isdirectory(l:path . '/.git')
+			return l:folder
+		endif
+	endwhile
+	return ''
+endfunction
+
+function! MyWindowTitle() abort
+	let l:hostname = hostname() . "    ▏  "
+	" let l:file = expand('%')
+	let l:file = substitute(expand('%'), '/.*/', '', '')
+
+	" let gitrepo = ""
+	" if FugitiveHead()
+	" 	gitrepo = expand('%:p:h') . " - "
+	" endif
+
+	let gitrepo = GetGitRepoName('%') . "   〉  "
+	" let &titlestring = hostname . gitrepo . file
+	return(hostname . gitrepo . file)
+endfunction
+
 " Title
 set title										" window title (file)
+" augroup WinTitle
+" 	au!
+" 	au BufEnter *
+" 		\ let &titlestring =
+" 		\ hostname() . "  -  " . FugitiveHead() . "  -  " . expand("%")
+" augroup end
+
 augroup WinTitle
 	au!
-	au BufEnter *
-		\ let &titlestring =
-		\ hostname() . "  -  " . expand("%")
+	au BufRead,BufEnter * let &titlestring = MyWindowTitle()
 augroup end
-
 set mouse=a										" it's a secret
 
 " Mappings chill
