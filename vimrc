@@ -103,7 +103,6 @@ set showcmd										" show command
 set wildmenu									" show matches to commands
 set wildchar=<tab>								" complete w/ tab
 set wildmode=longest,full
-set showmode									" show mode
 set completeopt+=longest						" complete matching string
 set completeopt+=menuone						" pmenu on single match too
 
@@ -654,7 +653,11 @@ augroup end
 " let g:syntastic_html_checkers=['tidy']
 
 """        Lightline
-set noshowmode " do not show mode in status line
+if exists("g:lightline")
+	set noshowmode " do not show mode in status line
+else
+	set showmode
+endif
 " Show full path of filename
 
 " let g:lightline.colorscheme = 'wombat'
@@ -1089,9 +1092,15 @@ nnoremap Q <nul>
 inoremap <c-z> <c-[><c-z>
 
 " <c-s> save and enter normal mode
-nnoremap <c-s> :update<cr>
-vnoremap <c-s> :update<cr>gv
-inoremap <c-s> <esc>:update<cr>
+function! VerboseUpdate()
+		update
+		echo(expand('%').' update')
+endfunction
+
+nnoremap <c-s> :call VerboseUpdate()<cr>
+vnoremap <c-s> :call VerboseUpdate()<cr>
+
+inoremap <c-s> <esc>:call VerboseUpdate()<cr>
 
 " :W! save files as root
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
