@@ -64,7 +64,9 @@ set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
 set autoread									" detect file changes
-set modelineexpr								" flexible modeline set
+if has('modelineexpr')
+	set modelineexpr							" flexible modeline set
+endif
 
 """        User Interface settings
 
@@ -291,6 +293,11 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
 ""    Window behaviour
 """        Terminal
+augroup myterm | au!
+	if ! has("terminal")
+		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
+	endif
+augroup end
 
 let g:term_buf = 0
 let g:term_win = 0
@@ -1423,7 +1430,7 @@ nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 augroup VimrcSource
 	au!
-	if ! has("nvim")
+	if ! has("nvim") && has("SourcePost")
 		au SourcePost * call lightline#init()
 	endif
 augroup end
