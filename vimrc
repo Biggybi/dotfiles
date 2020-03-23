@@ -1375,7 +1375,7 @@ cnoremap <c-b> <Left>
 cnoremap <c-f> <Right>
 cnoremap <c-l> <S-Right>
 cnoremap <c-h> <S-Left>
-cnoremap <c-x> <Del>
+cnoremap <c-x> <c-h>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
