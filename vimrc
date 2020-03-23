@@ -1114,7 +1114,7 @@ nnoremap <leader>; :!
 " jk to enter normal mode
 inoremap jk <esc>
 cnoremap jk <esc>
-nnoremap gI `.gi<esc>
+nnoremap gI `.gi<esc>zz
 
 " no more default ex mode
 nnoremap Q <nul>
