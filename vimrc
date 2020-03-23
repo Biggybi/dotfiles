@@ -1456,6 +1456,8 @@ nnoremap <leader>eco :CocConfig<cr>
 """        Fun
 inoremap ,fox The quick brown fox jumps over the lazy dog
 
+" Show git log history
+nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr>
 ""    Code Mappings
 """        General
 
