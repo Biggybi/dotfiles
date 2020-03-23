@@ -1124,13 +1124,12 @@ inoremap <c-z> <c-[><c-z>
 
 " <c-s> save and enter normal mode
 function! VerboseUpdate()
-		update
-		echo(expand('%').' update')
+	update
+	echo(':update '.expand('%:p'))
 endfunction
 
 nnoremap <c-s> :call VerboseUpdate()<cr>
 vnoremap <c-s> :call VerboseUpdate()<cr>
-
 inoremap <c-s> <esc>:call VerboseUpdate()<cr>
 
 " :W! save files as root
