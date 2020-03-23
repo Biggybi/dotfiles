@@ -1455,6 +1455,10 @@ nnoremap <leader>eco :CocConfig<cr>
 
 """        Fun
 inoremap ,fox The quick brown fox jumps over the lazy dog
+inoremap ,abc abcdefghijklmnopqrstuvwxyz
+inoremap ,ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
+inoremap ,09 0123456789
+"""        Git
 
 " Show git log history
 nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr>
