@@ -13,9 +13,9 @@ set colored-completion-prefix on
 set editing-mode vi
 
 set keymap vi-insert
-"jk": vi-movement-mode
+# "jk": vi-movement-mode
 "\C-w": backward-kill-word
-"\C-l": forward-word
+"\C-l": vi-end-word
 "\C-h": backward-word
 "\C-b": backward-char
 "\C-f": forward-char
