@@ -41,6 +41,15 @@ filetype on
 filetype indent on								" use indent plugin
 set keywordprg=:Man
 
+" cnoremap Man Shell vert term man
+" command! -nargs=+ Man
+" 	\ vnew |
+" 	\ setlocal nonu nornu |
+" 	\ set filetype=man |
+" 	\ exe 'terminal '. <args> |
+" 	" \ term ++curwin man <args> |
+" 	\ set filetype=man
+
 let $BASH_ENV = "$HOME/dotfiles/bash_aliases"	" use aliases in vim
 let $PAGER=''									" vim as pager
 
@@ -64,9 +73,7 @@ set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
 set autoread									" detect file changes
-if has('modelineexpr')
-	set modelineexpr							" flexible modeline set
-endif
+set modelineexpr								" flexible modeline set
 
 """        User Interface settings
 
@@ -185,7 +192,7 @@ set splitright									" default split right
 " set list
 
 " guides smartisation
-set fillchars+=vert:▏
+set fillchars+=vert:▎
 set listchars=tab:\▎\ ,trail:-					" only tab / trailing ws
 set spellcapcheck=								" ignore leading cap in word
 set formatoptions+=j							" join comments smartly
@@ -245,6 +252,7 @@ augroup end
 
 """        DarkLightSwitch
 " switch between light and dark theme (UI + ligtline)
+
 function! DarkLightSwitch()
 	if g:DarkLightSwitch ==# 'dark'
 		set background=dark
@@ -257,30 +265,52 @@ function! DarkLightSwitch()
 		let g:lightline = { 'colorscheme': 'wombat_light' }
 		let g:DarkLightSwitch = 'dark'
 	endif
+	" :call lightline#init()
+	" :call lightline#colorscheme()
+	" :call lightline#update()
 	if exists("g:DarkLightOn")
-		call lightline#enable()
+		call lightline#init()
+		call lightline#colorscheme()
+		call lightline#update()
 	endif
 	let g:DarkLightOn = 1
 endfunction
 
+" augroup LightlineColorscheme
+" 	autocmd!
+" 	autocmd ColorScheme * call s:lightline_update()
+" augroup END
+
+" function! s:lightline_update()
+" 	if !exists('g:loaded_lightline')
+" 		return
+" 	endif
+" 	call lightline#init()
+" 	call lightline#colorscheme()
+" 	call lightline#update()
+" endfunction
+
+let g:DarkLightMod = 0
+
+" 0: auto
+" 1: force dark
+" 2: force light
+
 " open vim with different color based on time of day
-let g:DarkLightMod = 1
-" 0 : auto
-" 1 : force dark
-" 2 : force light
+
 if ! exists("g:DarkLightMod")
 	let g:DarkLightMod = 0
 endif
 if g:DarkLightMod == 0
 	if ! exists("g:DarkLightOn")
-	let hour = strftime("%H")
-	if 9 < hour && hour < 15
-		let g:DarkLightSwitch = 'light'
-	else
-		let g:DarkLightSwitch = 'dark'
+		let hour = strftime("%H")
+		if 8 <= hour && hour <= 17
+			let g:DarkLightSwitch = 'light'
+		else
+			let g:DarkLightSwitch = 'dark'
+		endif
+		call DarkLightSwitch()
 	endif
-	call DarkLightSwitch()
-endif
 elseif g:DarkLightMod == 1
 	let g:DarkLightSwitch = 'dark'
 	call DarkLightSwitch()
@@ -291,61 +321,87 @@ endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
+call lightline#init()
+" call lightline#colorscheme()
+" call lightline#update()
+
 ""    Window behaviour
 """        Terminal
-augroup myterm | au!
-	if ! has("terminal")
-		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
-	endif
-augroup end
 
-let g:term_buf = 0
-let g:term_win = 0
-function! Term_toggle(height)
-	if win_gotoid(g:term_win)
-		let g:term_win = 0
-		hide
-	else
-		try
-			exec "buffer " . g:term_buf
-		catch
-			vertical terminal
-			"             let g:term_buf = bufnr("")
-		endtry
-		startinsert!
-		let g:term_win = win_getid()
-	endif
+" augroup myterm | au!
+" 	if ! has("TerminalOpen") && ! has("nvim")
+" 		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
+" 	endif
+" augroup end
+
+" augroup myterm | au!
+" 	if ! has("nvim")
+" 		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
+" 	endif
+" augroup end
+
+" let g:term_buf = 0
+" let g:term_win = 0
+" function! Term_toggle(height)
+" 	if win_gotoid(g:term_win)
+" 		let g:term_win = 0
+" 		hide
+" 	else
+" 		try
+" 			exec "buffer " . g:term_buf
+" 		catch
+" 			vertical terminal
+" 			"             let g:term_buf = bufnr("")
+" 		endtry
+" 		startinsert!
+" 		let g:term_win = win_getid()
+" 	endif
+" endfunction
+
+" Show terminal (like c-z), exit on any character
+function! ShowTerm()
+	silent !read -sN 1
+redraw!
 endfunction
+nnoremap [= :call ShowTerm()<cr>
 
 nnoremap <leader>T :call Term_toggle(10)<cr>
 tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
+tnoremap <c-n> <c-\><c-n>
+tnoremap <c-w>: <c-\><c-n>:
+tnoremap <c-w>; <c-\><c-n>:
 " tnoremap <a-h> <c-\><c-n><c-w>h
 " tnoremap <a-j> <c-\><c-n><c-w>j
 " tnoremap <a-k> <c-\><c-n><c-w>k
 " tnoremap <a-l> <c-\><c-n><c-w>l
-
-" resize windows quicker
-nnoremap <leader>= :exe "resize +10"<cr>
-nnoremap <leader>- :exe "resize -10"<cr>
-nnoremap <leader>> :exe "vertical resize +10"<CR>:echo "width -"<cr>
-nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
-
-" new file in vertical split instead of horizontal
-nnoremap <c-w><c-n> :vertical new<cr>
-nnoremap <c-w>n :vertical new<cr>
-nnoremap <c-w><c-f> :vertical wincmd f<cr>
 
 
 """        Quickfix
 
 augroup QuickFixWindowSet
 	au!
-	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0
+	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber
 
 	" vimscript is a joke
 	au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
-	au FileType qf call AdjustWindowHeight(1, 5)
+	" auto adjust height if not a vertical split (hopefuly)
+	au Filetype qf nnoremap <buffer> j <c-n>
+	au Filetype qf nnoremap <buffer> k <c-p>
+	au FileType qf
+				\ if winheight('quickfix') + 3 < &lines |
+				\ call AdjustWindowHeight(1, 5) |
+				\ endif
+	au QuickfixCmdPost make call QfMakeConv()
 augroup end
+
+" Change encoding of error file for quickfix
+function QfMakeConv()
+	let qflist = getqflist()
+	for i in qflist
+		let i.text = iconv(i.text, "cp936", "utf-8")
+	endfor
+	call setqflist(qflist)
+endfunction
 
 " Quickfix window height auto adjust if too big
 function! AdjustWindowHeight(minheight, maxheight)
@@ -363,11 +419,11 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 
 " Auto location list on make
-augroup AutoLocationWindow
-	au!
-	autocmd QuickFixCmdPost [^l]* nested lwindow
-	autocmd QuickFixCmdPost    l* nested lwindow
-augroup end
+" augroup AutoLocationWindow
+" 	au!
+" 	autocmd QuickFixCmdPost [^l]* nested lwindow
+" 	autocmd QuickFixCmdPost    l* nested lwindow
+" augroup end
 
 " nnoremap <leader>cc :ll<cr>
 " nnoremap <leader>cn :lnext<cr>
@@ -397,7 +453,7 @@ augroup HelpManSplit
 		\ | wincmd H | 82 wincmd|
 	au FileType help au! BufLeave,WinLeave <buffer> silent!
 		\ | if (&columns < 100) | 0 wincmd| | endif
-	au FileType man,help nnoremap <buffer> <silent> q :bw<cr>
+	au FileType man,help nnoremap <buffer> <silent> q :bw!<cr>
 	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
 
@@ -463,9 +519,12 @@ augroup WinFocus
 augroup end
 
 """        color column 81 for code
-if exists('+colorcolumn')
- 	au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
-endif
+augroup ColorColumn
+	au!
+	if exists('+colorcolumn')
+		au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
+	endif
+augroup end
 
 """        highlight searches
 " " Highlight 'f' searchers
@@ -499,11 +558,12 @@ endif
 """        Save and load
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
-	au FocusGained,BufEnter * :silent! !
+	au FocusGained,BufEnter * :silent! load!
 	au FocusLost,WinLeave * :silent! w
 augroup end
 
-"""        open file where it was closed
+"""        Last cursor position
+" Open file where it was last closed
 augroup ReOpenFileWhereLeft
 	au!
 	au BufReadPost *
@@ -512,7 +572,8 @@ augroup ReOpenFileWhereLeft
 		\ | endif
 augroup end
 
-"""        automatily save and restore files views (folding state and more)
+"""        Files views
+" save folding state and more
 if ! has("nvim")
 	augroup ReViews
 		au!
@@ -527,7 +588,8 @@ if ! has("nvim")
 	augroup end
 endif
 
-"""        auto change dir to git repo OR file directory
+"""        Working directory
+" change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
 	au!
 	au BufEnter *
@@ -536,7 +598,27 @@ augroup CdGitRootOrFileDir
 		\ | endif
 augroup end
 
-"""        filetype recognition
+"git log --all --decorate --oneline --graph
+
+
+"""        Tags and paths
+" Get tags file from git repo
+" Set path for code projects
+augroup CodePathTags
+	au!
+	au BufEnter * silent! set tags+=.git/tags
+	au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
+	\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
+augroup end
+" set path+=**			" recursive path from current path
+
+" autoreload tags file on save
+" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
+" au BufWritePost *.cpp silent! !ctags -R &
+" set tags=tags;./git/
+" set tags=./tags;
+
+"""        Filetype recognition
 augroup FileTypeAutoSelect
 	au!
 	au FileType c setlocal ofu=ccomplete#CompleteCpp
@@ -555,30 +637,14 @@ augroup FileTypeAutoSelect
 	" au BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 augroup end
 
-"""        refresh filetype upon writing
+"""        Filetype refresh
+"  refresh filetype upon writing if no filetype already set
 augroup FileTypeRefresh
 	au!
-	" only if no ft
 	if &ft ==# ''
 		au BufWrite * filetype detect
 	endif
 augroup end
-
-"""        auto chose tag from .git folder
-" set path for code
-augroup CodePathTags
-	au!
-	au BufEnter * silent! set tags+=.git/tags
-	au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
-	\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
-augroup end
-" set path+=**			" recursive path from current path
-
-" autoreload tags file on save
-" au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
-" au BufWritePost *.cpp silent! !ctags -R &
-" set tags=tags;./git/
-" set tags=./tags;
 
 ""    Plugins settings
 """        Netrw
@@ -656,6 +722,10 @@ let g:netrw_startup_no_file = 1
 "   au VimEnter * if g:netrw_startup == '1' | e . | endif
 " augroup end
 
+"""        Termdebug
+" let g:termdebug_wide = 163
+let g:termdebug_wide = 40
+
 """        Fugitive
 
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
@@ -665,6 +735,12 @@ augroup FugitiveSet
 	" au FileType gitcommit start
 	au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
 augroup end
+
+" augroup FugitiveReload
+" 	au!
+" 	au FileType fugitive au! Bufenter index
+" 		\ | if &filetype ==# 'fugitive' | :e | endif
+" augroup end
 
 """        Syntastic
 " let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
@@ -722,18 +798,15 @@ let g:lightline.mode_map = {
 let g:lightline.active = {
 	\ 'left': [ [ 'mode', 'paste' ],
 	\ 		[ 'readonly', 'gitbranch' ],
-	\ 		[ 'relativepath', 'modified' ] ],
+	\ 		[ 'modified', 'relativepath' ] ],
 	\ 'right': [ [ 'lineinfo' ],
 	\ 		[ 'percent' ],
 	\ 		[ 'filetype' ] ] }
 
 let g:lightline.inactive = {
 	\ 'left': [ [ 'readonly', 'gitbranch' ],
-	\ 		[ 'relativepath', 'modified' ] ],
+	\ 		[ 'modified', 'relativepath' ] ],
 	\ 'right': [] }
-	" \ 'right': [ [ 'lineinfo' ],
-	" \ 		[ 'percent' ],
-	" \ 		[ 'filetype' ] ] }
 
 let g:lightline.component_function = {
 	\ 'fileformat': 'LightlineFileformat',
@@ -755,7 +828,7 @@ let g:lightline.separator = { 'left': '', 'right': '' }
 let g:lightline.subseparator = { 'left': '', 'right': '|' }
 
 function! LightlineModified()
-	return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+	return &ft =~ 'help\|vimfiler' ? ' ' : &modified ? '+' : &modifiable ? ' ' : '-'
 endfunction
 
 function! LightlineReadonly()
@@ -814,8 +887,8 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 """        FZF
 
 let g:fzf_command_prefix = 'Fzf'
-let g:fzf_buffers_jump = 1						" [Buffers] to existing window
-let g:fzf_layout = { 'window': '10split' }
+let g:fzf_buffers_jump = 1						" [Buffers] to existing split
+" let g:fzf_layout = { 'window': '13 sp' }
 " let g:fzf_layout = { 'down' : '15 reverse' }
 " let g:fzf_layout = { 'left' : '~30%' }
 let g:fzf_colors = {
@@ -838,28 +911,28 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 augroup FzfHideStatusLine
 	au! FileType fzf
 	au FileType fzf set noshowmode noruler | call lightline#disable()
-				\| autocmd BufLeave <buffer> set showmode ruler  | call lightline#enable()
+				\| autocmd BufLeave <buffer> set ruler  | call lightline#enable()
 augroup end
 
 function! s:build_location_list(lines)
 	call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
 	lopen
-	lclose
 endfunction
 
 function! s:build_quickfix_list(lines)
 	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
 	copen
-	cclose
 endfunction
 
 " An action can be a reference to a function that processes selected lines
 let g:fzf_action = {
-	\ 'ctrl-q': function('s:build_location_list'),
+	\ 'ctrl-l': function('s:build_quickfix_list'),
+	\ 'ctrl-r': function('s:build_location_list'),
 	\ 'ctrl-t': 'tab split',
 	\ 'ctrl-x': 'split',
-	\ 'ctrl-v': 'vsplit',
-	\ 'ctrl-i': 'insert_match'}
+	\ 'ctrl-v': 'vsplit'}
+	" \ 'ctrl-o': '<S-tab>',
+	" \ 'ctrl-i': 'insert_match'}
 
 function! s:insert_match(lines)
 	<c-r>=echo('a:lines')<cr>
@@ -888,10 +961,26 @@ nnoremap <leader>fr <esc>:Rg<cr>
 inoremap <c-f> <c-o>:FzfSnippets<cr>
 
 command! -bang -complete=dir -nargs=* LS
-\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
+	\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
+
+" function! FzfColorSelect()
+" 	if &background ==# "light"
+" 		return "--theme=OneHalfLight"
+" 	else
+" 		return "--theme=OneHalfDark"
+" 	endif
+" endfunction
+
+function! FzfFilesAutoColor()
+	if &background ==# "light"
+		:call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat --theme=OneHalfLight {}']}, <bang>0)
+	else
+		:call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat --theme=OneHalfDark {}']}, <bang>0)
+	endif
+endfunction
 
 command! -bang -nargs=? -complete=dir Files
-	\ call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat {}']}, <bang>0)
+	\ :call FzfFilesAutoColor()
 
 " call fzf#run({'source': 'git ls-files', 'sink': 'e', 'right': '40%'})
 
@@ -908,15 +997,6 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-
-"""        UltiSnips
-" inoremap <c-p> <nop>
-" inoremap <c-n> <nop>
-" let g:UltiSnips#ExpandSnippetOrJump = "<c-n>"
-let g:UltiSnipsExpandTrigger = "<c-x>"
-" let g:UltiSnipsListSnippets = "<c-p>"
-let g:UltiSnipsJumpForwardTrigger = "<c-n>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 
 """        Latex Live Preview
 
@@ -971,8 +1051,8 @@ endfunction
 
 ""    Operators
 """        Start / End of line
-onoremap ah :<c-u>normal! ^<cr>
-onoremap ih :<c-u>normal! h^<cr>
+onoremap ah :<c-u>normal! v^<cr>
+onoremap ih :<c-u>normal! hv^<cr>
 
 onoremap al :<c-u>normal! v$<cr>
 onoremap il :<c-u>normal! lv$<cr>
@@ -1014,45 +1094,51 @@ onoremap a@ :<c-u>normal! F@vf@<cr>
 onoremap i* :<c-u>normal! T*vt*<cr>
 onoremap a* :<c-u>normal! F*vf*<cr>
 
+onoremap i> :<c-u>normal! T<vt><cr>
+onoremap a> :<c-u>normal! F<vf><cr>
+onoremap i< :<c-u>normal! T<vt><cr>
+onoremap a< :<c-u>normal! F<vf><cr>
+
 " onoremap i| :<c-u>normal! T|vt|<cr>
 " onoremap a| :<c-u>normal! F|vf|<cr>
 
 """        Next Surroundings
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap in) :<c-u>normal! f(vi(<cr>
-onoremap an( :<c-u>normal! f(va(<cr>
-onoremap an) :<c-u>normal! f(va(<cr>
-onoremap iN( :<c-u>normal! F(vi(<cr>
-onoremap iN) :<c-u>normal! F(vi(<cr>
-onoremap aN( :<c-u>normal! F(va(<cr>
-onoremap aN) :<c-u>normal! F(va(<cr>
+onoremap in( :<c-u>normal! f(lvt)<cr>
+onoremap in) :<c-u>normal! ()f(lvt)<cr>
+onoremap an( :<c-u>normal! f(vf)<cr>
+onoremap an) :<c-u>normal! f(vf)<cr>
+onoremap iN( :<c-u>normal! F)vT(oh<cr>
+onoremap iN) :<c-u>normal! F)vT(oh<cr>
+onoremap aN( :<c-u>normal! F(vf)<cr>
+onoremap aN) :<c-u>normal! F)vF(<cr>
 
-onoremap in{ :<c-u>normal! f{vi{<cr>
-onoremap in} :<c-u>normal! f{vi{<cr>
-onoremap an{ :<c-u>normal! f{va{<cr>
-onoremap an} :<c-u>normal! f{va{<cr>
-onoremap iN{ :<c-u>normal! F{vi{<cr>
-onoremap iN} :<c-u>normal! F{vi{<cr>
-onoremap aN{ :<c-u>normal! F{va{<cr>
-onoremap aN} :<c-u>normal! F{va{<cr>
+onoremap in{ :<c-u>normal! f{lvt}<cr>
+onoremap in} :<c-u>normal! f{lvt}<cr>
+onoremap an{ :<c-u>normal! f{vf}<cr>
+onoremap an} :<c-u>normal! f{vf}<cr>
+onoremap iN{ :<c-u>normal! F}vT{oh<cr>
+onoremap iN} :<c-u>normal! F}vT{oh<cr>
+onoremap aN{ :<c-u>normal! F}vF{<cr>
+onoremap aN} :<c-u>normal! F}vF{<cr>
 
-onoremap in[ :<c-u>normal! f[vi[<cr>
-onoremap in] :<c-u>normal! f[vi[<cr>
-onoremap an[ :<c-u>normal! f[va[<cr>
-onoremap an] :<c-u>normal! f[va[<cr>
-onoremap iN[ :<c-u>normal! F[vi[<cr>
-onoremap iN] :<c-u>normal! F[vi[<cr>
-onoremap aN[ :<c-u>normal! F[va[<cr>
-onoremap aN] :<c-u>normal! F[va[<cr>
+onoremap in[ :<c-u>normal! f[lvt]<cr>
+onoremap in] :<c-u>normal! f[lvt]<cr>
+onoremap an[ :<c-u>normal! f[vf]<cr>
+onoremap an] :<c-u>normal! f[vf]<cr>
+onoremap iN[ :<c-u>normal! F]vT[oh<cr>
+onoremap iN] :<c-u>normal! F]vT[oh<cr>
+onoremap aN[ :<c-u>normal! F]vF[<cr>
+onoremap aN] :<c-u>normal! F]vF[<cr>
 
-onoremap in< :<c-u>normal! f<vi<<cr>
-onoremap in> :<c-u>normal! f<vi<<cr>
-onoremap an< :<c-u>normal! f<va<<cr>
-onoremap an> :<c-u>normal! f<va<<cr>
-onoremap iN< :<c-u>normal! F<vi<<cr>
-onoremap iN> :<c-u>normal! F<vi<<cr>
-onoremap aN< :<c-u>normal! F<va<<cr>
-onoremap aN> :<c-u>normal! F<va<<cr>
+onoremap in< :<c-u>normal! f<lvt><cr>
+onoremap in> :<c-u>normal! f<lvt><cr>
+onoremap an< :<c-u>normal! f<vf><cr>
+onoremap an> :<c-u>normal! f<vf><cr>
+onoremap iN< :<c-u>normal! F>vT<oh<cr>
+onoremap iN> :<c-u>normal! F>vT<oh<cr>
+
+onoremap aN< :<c-u>normal! F>vF<<cr>
+onoremap aN> :<c-u>normal! F>vF<<cr>
 
 onoremap in" :<c-u>normal! f"vi"<cr>
 onoremap an" :<c-u>normal! f"va"<cr>
@@ -1112,8 +1198,8 @@ vnoremap : ;
 nnoremap <leader>; :!
 
 " jk to enter normal mode
-inoremap jk <esc>
-cnoremap jk <esc>
+" inoremap jk <esc>
+" cnoremap jk <esc>
 nnoremap gI `.gi<esc>zz
 
 " no more default ex mode
@@ -1174,6 +1260,12 @@ vnoremap <c-j> }
 " nnoremap <leader>B :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
+" resize windows quicker
+nnoremap <leader>= :exe "resize +10"<cr>
+nnoremap <leader>- :exe "resize -10"<cr>
+nnoremap <leader>> :exe "vertical resize +10"<CR>:echo "width -"<cr>
+nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
+
 """        Searching
 nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
 
@@ -1226,12 +1318,6 @@ nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
 " open file under cursor in vertical split
 nnoremap g<c-f> :vertical wincmd f<cr>
 
-" trim current line
-nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
-"trim file
-nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
-nnoremap <leader>XX :%s/\s\+$//<cr>:redraw<cr>
-
 " toggle guides
 nnoremap <silent> <leader>xg :set list!<cr>
 
@@ -1259,6 +1345,11 @@ nnoremap <leader>wcf :call FunctionLineCount()<cr>
 nnoremap <leader>wcc :call WordCount()<cr>
 " nnoremap <leader>w :w !detex \| wc -w<cr>
 
+" new file in vertical split instead of horizontal
+" nnoremap <c-w><c-n> :vertical new<cr>
+" nnoremap <c-w>n :vertical new<cr>
+nnoremap <c-w><c-f> :vertical wincmd f<cr>
+
 """        Tags
 
 " show matching tags
@@ -1268,17 +1359,32 @@ nnoremap g<c-]> g]
 nnoremap g] g<c-]>
 
 """        Popup Menu Completion
-inoremap <c-p> <nop>
-inoremap <c-n> <nop>
+" inoremap <c-j> <nop>
+" inoremap <c-k> <nop>
+"""        UltiSnips
+
+" let g:UltiSnips#ExpandSnippetOrJump = "<c-n>"
+" let g:UltiSnipsExpandTrigger = "<c-x>"
+" let g:UltiSnipsListSnippets = "<c-p>"
+" let g:UltiSnipsJumpForwardTrigger = "<c-n>"
+" let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+
 
 " inoremap <expr> <c-p> pumvisible() ? UltiSnips#JumpBackwards() : UltiSnips#JumpBackwards()
 " inoremap <expr> <c-n> pumvisible() ? UltiSnips#JumpForwards() : UltiSnips#JumpForwards()
 
-inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
-inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
 
 " inoremap <silent><expr> <c-@> pumvisible() ? "\<c-y>" : coc#refresh()
-inoremap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
+" inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
+" inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
+let g:coc_snippet_next = '<c-n>'
+let g:coc_snippet_prev = '<c-p>'
+" inoremap <c-n> <nop>
+" inoremap <c-p> <nop>
+imap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
+imap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
+imap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
+smap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " nnoremap <silent><expr> <c-@> coc#refresh()
 " inoremap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
@@ -1428,12 +1534,13 @@ nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:echo "all fre
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
 nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
-augroup VimrcSource
-	au!
-	if ! has("nvim") && has("SourcePost")
-		au SourcePost * call lightline#init()
-	endif
-augroup end
+" augroup VimrcSource
+" 	au!
+" 	if ! has("nvim") && has("SourcePost")
+" 		au SourcePost * call lightline#init()
+" 		au SourcePost * call lightline#update()
+" 	endif
+" augroup end
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
@@ -1472,24 +1579,54 @@ nnoremap g<c-g> gg=G<c-o><c-o>
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
 			\ ":lclose<cr>" : ":lopen<cr><c-w>p"
 
+" trim current line
+nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
+"trim file
+nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
+nnoremap <leader>XX :%s/\s\+$//<cr>:redraw<cr>
+
 " Make
 nnoremap <leader>cm :make<cr><cr>
 nnoremap <leader>cr :make re<cr><cr>
 nnoremap <leader>ce :make ex<cr><cr>
 nnoremap <leader>ct :make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cT :make ex TESTFF=
-nnoremap <leader>cv :make ex TEST=<cr><cr>
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
+function! LocListPannel(pfx)
+	" if a:pfx == 'l' && len(getloclist(0)) == 0
+	" 	echohl ErrorMsg
+	" 	echo "Location List is Empty."
+	" 	return
+	" endif
+	let winnr = winnr()
+	exec(a:pfx.'open')
+	wincmd L
+	if winnr() != winnr
+		wincmd p
+	endif
+endfunction
+
 " Make in spit
-nnoremap <leader>csm :Shell make<cr>
-nnoremap <leader>csr :Shell make re<cr>
+nnoremap <leader>csm :lmake!<cr>:call LocListPannel('l')<cr>
+
+nnoremap <leader>csr :lmake! re<cr>:call LocListPannel('l')<cr>
 nnoremap <leader>cse :Shell make ex<cr><cr>
 nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cs<c-t> :Shell make ex TEST=test/%<cr><cr>
 nnoremap <leader>csT :Shell make ex TESTFF=
-nnoremap <leader>csv :Shell make ex TEST=<cr><cr>
-nnoremap <leader>csm :Shell make<cr><cr>
+" nnoremap <leader>csv :Shell make ex TEST=<cr><cr>
+" nnoremap <leader>csm :make<cr><cr>:lopen<cr>:wincmd L<cr>
+
+" nnoremap <leader>csm :lmake<cr>:lopen<cr>:wincmd L<cr>
+" nnoremap <leader>csr :lmake re<cr>:lopen<cr>:wincmd L<cr>
+" nnoremap <leader>cse :lmake ex<cr><cr>:lopen<cr>:wincmd L<cr>
+" nnoremap <leader>cst :lmake ex TESTFF=test/test*<cr><cr>:lopen<cr>:wincmd L<cr>
+" nnoremap <leader>cs<c-t> :lmake ex TEST=test/%<cr><cr>:lopen<cr>:wincmd L<cr>
+" nnoremap <leader>csT :lmake ex TESTFF=:lopen<cr>:wincmd L<cr>
+" " nnoremap <leader>csv :make ex TEST=<cr><cr>:lopen<cr>:wincmd L<cr>
+" nnoremap <leader>csm :lmake<cr><cr>:lopen<cr>:wincmd L<cr>
+
 
 """        bash
 augroup Shmaps
@@ -1517,6 +1654,7 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 	" if to ternary operator
 	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
+	au FileType c nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;else<cr><esc>
 
 	" le and execute current
 	au FileType c nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
@@ -1542,8 +1680,8 @@ augroup Cmaps
 	au FileType c nnoremap <leader>vf j[[V%o
 
 	" valgrind
-	au FileType c nnoremap <leader>cv :!valgrind ./test.out >2 /dev/null<cr><cr>
-	au FileType c nnoremap <leader>csv :Shell valgrind ./test.out >2 /dev/null<cr><cr>
+	au FileType c nnoremap <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
+	au FileType c nnoremap <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
 augroup end
 
 " nnoremap viB [[%v%jok$
