@@ -1017,7 +1017,7 @@ let g:vim_run_command_map = {
   \'markdown': 'markdown',
   \}
 
-""        Vinwiki
+""    Vinwiki
 
 augroup VinWikiSettings
 	au!
