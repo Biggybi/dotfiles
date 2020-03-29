@@ -461,12 +461,12 @@ augroup end
 " Do not scroll past the end of file (last line locked at bottom of window)
 
 function! NoScrollAtEOF()
-  let curpos = getpos('.')
-  let lnum = get(curpos, 1, -1)
-  let len = line('$')
-  if lnum + winheight(0) >= len 
-	normal! zb
-  endif
+	let curpos = getpos('.')
+	let lnum = get(curpos, 1, -1)
+	let len = line('$')
+	if lnum + winheight(0) >= len 
+		normal! zb
+	endif
 endfunction
 
 nnoremap <c-f> <c-f>:call NoScrollAtEOF()<cr>
@@ -597,8 +597,6 @@ augroup CdGitRootOrFileDir
 		\   | silent! cd %:p:h | silent! Glcd
 		\ | endif
 augroup end
-
-"git log --all --decorate --oneline --graph
 
 
 """        Tags and paths
@@ -1017,7 +1015,7 @@ let g:vim_run_command_map = {
   \'markdown': 'markdown',
   \}
 
-""    Vinwiki
+"""        Vinwiki
 
 augroup VinWikiSettings
 	au!
