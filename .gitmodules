@@ -73,6 +73,6 @@
 [submodule "fonts/monaco.ttf"]
 	path = fonts/monaco.ttf
 	url = git@github.com:todylu/monaco.ttf.git
-[submodule "programs/vim"]
-	path = programs/vim
-	url = git@github.com:vim/vim.git
+[submodule "vim/bundle/vim-tmux-focus-events"]
+	path = vim/bundle/vim-tmux-focus-events
+	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git

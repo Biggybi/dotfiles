@@ -1017,6 +1017,14 @@ let g:vim_run_command_map = {
   \'markdown': 'markdown',
   \}
 
+""        Vinwiki
+
+augroup VinWikiSettings
+	au!
+	au FileType vimwiki au! BufRead,BufEnter * set showbreak= nobreakindent linebreak nonu norelativenumber
+	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>VimwikiToggleListItem
+augroup end
+
 ""    Mini plugins
 """        Shell output split
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
