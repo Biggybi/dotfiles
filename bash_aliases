@@ -1,3 +1,16 @@
+# **************************************************************************** #
+#                                                           LE - /             #
+#                                                               /              #
+#    bash_aliases                                     .::    .:/ .      .::    #
+#                                                  +:+:+   +:    +:  +:+:+     #
+#    By: tris <tristan.kapous@protonmail.com>       +:+   +:    +:    +:+      #
+#                                                  #+#   #+    #+    #+#       #
+#    Created: 2020/02/25 19:49:29 by tris         #+#   ##    ##    #+#        #
+#    Updated: 2020/02/25 19:49:29 by tris        ###    #+. /#+    ###.fr      #
+#                                                          /                   #
+#                                                         /                    #
+# **************************************************************************** #
+
 ALIAS_42_HOME=$HOME/42
 ALIAS_42_LFT=$HOME/42/libft
 
@@ -172,7 +185,7 @@ open() {
 }
 alias o=open
 
-alias fzf='fzf --color="dark" --tabstop=4'
+# alias fzf='fzf --color="dark" --tabstop=4'
 # alias fd='fd ~'
 alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
 alias lcmdcp='echo "$(fc -ln -1)" | tr '\''\n'\'' '\'' '\'' | cip'
