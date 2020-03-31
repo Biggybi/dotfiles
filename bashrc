@@ -88,7 +88,7 @@ stty -ixon											# no term flow (C-q)
 shopt -s cmdhist									# command one-liner
 shopt -s histappend									# append to history
 shopt -s histverify									# expand '!'
-HISTSIZE= HISTFILESIZE= #							# infinite history
+HISTSIZE= HISTFILESIZE=#							# infinite history
 HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear"	# ignored commands
 HISTCONTROL=ignoreboth								# duplicate + whitespace
 # HISTCONTROL=ignorespace							# whitespace
@@ -120,8 +120,10 @@ van() {
 # }
 
 # fzf defaults
-export FZF_DEFAULT_OPTS="--height 10 --preview 'bat --style=numbers --color=always {} | head -500'"
-export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_DEFAULT_OPTS="--height 40% --bind 'ctrl-u:preview-up,ctrl-d:preview-down' --preview 'bat --style=numbers --color=always {} | head -500'"
+# export FZF_DEFAULT_OPTS="--height 10"
+# export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # # fzf history on C-r
 # bind '"\C-r": "\C-x1\e^\er"';
