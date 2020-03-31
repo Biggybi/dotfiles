@@ -146,7 +146,7 @@ alias smacbash='. $HOME/.bash_profile'
 alias scolor='eval "$(dircolors $HOME/.dircolors)"'
 alias salias='. $HOME/.bash_aliases'
 alias sinputrc='bind -f ~/.inputrc'
-alias sall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
+alias stmux='tmux source-file $HOME/.tmux.conf'
 
 alias sb='. $HOME/.bashrc'
 alias sm='. $HOME/.bash_profile'
@@ -154,6 +154,7 @@ alias sc='eval "$(dircolors $HOME/.dircolors)"'
 alias sa='. $HOME/.bash_aliases'
 alias si='bind -f ~/.inputrc'
 alias sall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
+alias st='tmux source-file $HOME/.tmux.conf'
 
 alias dot='cd $HOME/dotfiles'
 alias dots='git -C $HOME/dotfiles status'
@@ -221,9 +222,6 @@ alias fg5='fg 5'
 
 ### Maintainance
 alias apti='sudo apt install'
-aptif() {
-	sudo apt install -y $(grep -o ^[^#][[:alnum:]]* "$1")
-}
 
 alias aptrm='sudo apt autoremove'
 alias aptu='sudo apt update && notify-send "Update done"'
@@ -259,7 +257,7 @@ alias cdlft='cd $ALIAS_42_LFT'
 alias lftmk='make -C $ALIAS_42_HOME/'
 alias lftln='ln -s $ALIAS_42_LFT/ .'
 alias lftls='ls $ALIAS_42_LFT/src/*.c | cut -d/ -f7'
-alias lftcp='cp -ru $ALIAS_42_HOME/libft.a $ALIAS_42_LFT/inc/libft.h .'
+alias lftcp='cp -ru $ALIAS_42_HOME/libft.a $ALIAS_42_LFT/includes/libft.h .'
 alias lftcl='git clone git@github.com:Biggybi/libft'
 alias lftccp='cp -rf $ALIAS_42_LFT/ .'
 alias cdgnl='cd $ALIAS_42_HOME/GNL'
@@ -316,8 +314,8 @@ get_hidden_mail_adress() {
 # vim: filetype=sh
 
 # firefox
-alias ffn='firefox -new-window '
-alias fyt='firefox -new-window youtube.co'
+alias foxn='firefox -new-window '
+alias foxyt='firefox -new-window youtube.com'
 
 # youtube dl
 alias ydl='youtube-dl'
@@ -345,7 +343,10 @@ change_shell() {
 ef() {
 	# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	cd "$1"
-	P=$(fzf --height=10)
+	# P=$(fzf --height=40% --preview="bat {}")
+	P=$(fzf --height=60% --preview="bat --style=numbers --color=always {} | head -500")
+
+	# P=$(fzf)
 	[ "$P" != "" ] && $EDITOR $P
 }
 # alias f='ef $HOME'
@@ -359,6 +360,11 @@ ef() {
 # }
 
 # fd - cd to selected directory
+
+fo() {
+	fzf | open -
+}
+
 fd() {
 	dir=$(find -L ${1:-~} -path '*/\.*' -prune \
 		-o -type d -print 2> /dev/null | fzf --height=10 --preview="ls -p --color=always {}") && cd "$dir"
@@ -366,12 +372,12 @@ fd() {
 
 fzv() {
 	cd $HOM_VID
-	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Videos\///' | fzf --height=10 --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
+	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Videos\///' | fzf --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
 }
 
 fzm() {
 	cd $HOM_MUS
-	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --height=10 --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
+	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
 }
 
 fzf_semi_interactive_cd() {
@@ -395,3 +401,7 @@ fzf_semi_interactive_cd() {
 	done
 }
 
+# install from file with software list
+aptif() {
+	sudo apt install -y $(grep -o ^[^#][[:alnum:]]* "$1")
+}
