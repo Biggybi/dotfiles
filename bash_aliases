@@ -195,7 +195,7 @@ newday() {
 
 alias gccfcday='gccf -c $(find ex* -name "*.c")'
 alias gccmday='gccf main.c $(find . -name "*.c")'
-alias vp='vi src/*.c inc/*.h Makefile'
+alias vp='vi src/*.c inc*/*.h Makefile'
 
 alias viday='vim $(find . -name "*.c")'
 alias seer='tail -n -1 */*'
