@@ -396,7 +396,7 @@ augroup QuickFixWindowSet
 augroup end
 
 " Change encoding of error file for quickfix
-function QfMakeConv()
+function! QfMakeConv()
 	let qflist = getqflist()
 	for i in qflist
 		let i.text = iconv(i.text, "cp936", "utf-8")
