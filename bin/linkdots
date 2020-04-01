@@ -41,6 +41,7 @@ then
 		.bashrc
 		.bash_aliases
 		.inputrc
+		.tmux.conf
 		bin
 		.git_template
 		.fonts
