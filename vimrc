@@ -210,6 +210,7 @@ set showbreak=\ \ ¬								" ... showing a character
 set backspace=indent,eol,start					" backspace over lines
 set whichwrap+=<,>,h,l,[,]						" break cursor free
 set virtualedit=block							" visual selection broken free
+set nostartofline								" vertical moves in same column
 set sidescrolloff=5								" min horizontal cursor offset
 let &scrolloff=winheight(win_getid())/10 + 1	" min vertical cursor offset
 " set iskeyword+=,								" considered part of <cword>
