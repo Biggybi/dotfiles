@@ -79,3 +79,6 @@
 [submodule "vim-swap"]
 	path = vim/bundle/vim-swap
 	url = git@github.com:machakann/vim-swap.git
+[submodule "vim/bundle/vimwiki"]
+	path = vim/bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki
