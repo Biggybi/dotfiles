@@ -1901,18 +1901,18 @@ endfunction
 
 """        42Header
 
-let s:asciiart = [
-			\"               /          ",
-			\"     .::    .:/ .      .::",
-			\"  +:+:+   +:    +:  +:+:+ ",
-			\"   +:+   +:    +:    +:+  ",
-			\"  #+#   #+    #+    #+#   ",
-			\" #+#   ##    ##    #+#    ",
-			\"###    #+. /#+    ###.fr  ",
-			\"          /               ",
-			\"         /                ",
-			\"           LE - /         "
-			\]
+" let s:asciiart = [
+" 			\"               /          ",
+" 			\"     .::    .:/ .      .::",
+" 			\"  +:+:+   +:    +:  +:+:+ ",
+" 			\"   +:+   +:    +:    +:+  ",
+" 			\"  #+#   #+    #+    #+#   ",
+" 			\" #+#   ##    ##    #+#    ",
+" 			\"###    #+. /#+    ###.fr  ",
+" 			\"          /               ",
+" 			\"         /                ",
+" 			\"           LE - /         "
+" 			\]
 
 " let s:asciiart = [
 " 			\":.:      .: .:  .:      .:",
@@ -1930,15 +1930,15 @@ let s:asciiart = [
 "     #+#     #+# #+# #+# #+#
 "      +      #+# #+#  +  #+#
 
-" let s:asciiart = [
-" 			\"        :::      ::::::::",
-" 			\"      :+:      :+:    :+:",
-" 			\"    +:+ +:+         +:+  ",
-" 			\"  +#+  +:+       +#+     ",
-" 			\"+#+#+#+#+#+   +#+        ",
-" 			\"     #+#    #+#          ",
-" 			\"    ###   ########.fr    "
-" 			\]
+let s:asciiart = [
+			\"        :::      ::::::::",
+			\"      :+:      :+:    :+:",
+			\"    +:+ +:+         +:+  ",
+			\"  +#+  +:+       +#+     ",
+			\"+#+#+#+#+#+   +#+        ",
+			\"     #+#    #+#          ",
+			\"    ###   ########lyon.fr"
+			\]
 
 let s:start		= '/*'
 let s:end		= '*/'
@@ -1989,10 +1989,10 @@ function! s:textline(left, right)
 endfunction
 
 function! s:line(n)
-	if a:n == 1 || a:n == 12 " top and bottom line
+	if a:n == 1 || a:n == 11 " top and bottom line
 		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
-		" 	elseif a:n == 2 || a:n == 10 " blank line
-		" 		return s:textline('', '')
+			elseif a:n == 2 || a:n == 10 " blank line
+				return s:textline('', '')
 	elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
 		return s:textline('', s:ascii(a:n))
 	elseif a:n == 4 " filename
@@ -2035,7 +2035,7 @@ function! s:date()
 endfunction
 
 function! s:insert()
-	let l:line = 12
+	let l:line = 11
 	" empty line after header
 	call append(0, "")
 	" loop over lines
