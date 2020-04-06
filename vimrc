@@ -559,7 +559,7 @@ augroup end
 """        Save and load
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
-	au FocusGained,BufEnter * :silent! load!
+	au FocusGained,BufEnter * :silent! !
 	au FocusLost,WinLeave * :silent! w
 augroup end
 
