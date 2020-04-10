@@ -465,7 +465,7 @@ function! NoScrollAtEOF()
 	let curpos = getpos('.')
 	let lnum = get(curpos, 1, -1)
 	let len = line('$')
-	if lnum + winheight(0) >= len 
+	if lnum + winheight(0) >= len
 		normal! zb
 	endif
 endfunction
