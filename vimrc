@@ -1663,7 +1663,7 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 	" if to ternary operator
 	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
-	au FileType c nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;else<cr><esc>
+	au FileType c nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
 	au FileType c nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
 	" le and execute current
