@@ -1312,7 +1312,7 @@ nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
 nnoremap <leader>fp :echo expand('%')<cr>
 
 " show file path/name and copy it to unnamed register
-nnoremap <leader>fP :let @"=expand('%')<cr>:echo expand('%')<cr>
+nnoremap <leader>fP :let @"=expand('%:p')<cr>:echo expand('%:p')<cr>
 
 " show file name and copy it to unnamed register
 nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
