@@ -1422,7 +1422,7 @@ nmap <leader>cf  <Plug>(coc-fix-current)
 nmap <leader>rn <Plug>(coc-rename)
 
 " show doc on K
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
 	if (index(['vim','help'], &filetype) >= 0)
