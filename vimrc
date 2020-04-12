@@ -70,7 +70,6 @@ augroup WinTitle
 	au!
 	au BufRead,BufEnter * let &titlestring = MyWindowTitle()
 augroup end
-set mouse=a                     " it's a secret
 
 function! GetGitRepoName(file) abort
 	let l:path=fnamemodify(a:file, ':p')
@@ -98,6 +97,7 @@ set title                       " window title (file)
 set notimeout                   " no timeout on maps
 set ttimeout                    " timeout on keycodes
 set ttimeoutlen=10              " of 10 ms
+set mouse=a                     " it's a secret
 
 " search
 set magic                       " set magic on, for regex
