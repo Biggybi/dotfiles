@@ -256,38 +256,16 @@ function! DarkLightSwitch()
 	if g:DarkLightSwitch ==# 'dark'
 		set background=dark
 		colorscheme	base16-onedark
-		let g:lightline = { 'colorscheme': 'wombat' }
 		let g:DarkLightSwitch = 'light'
 	elseif g:DarkLightSwitch ==# 'light'
 		set background=light
 		colorscheme	base16-one-light
-		let g:lightline = { 'colorscheme': 'wombat_light' }
 		let g:DarkLightSwitch = 'dark'
 	endif
-	" :call lightline#init()
-	" :call lightline#colorscheme()
-	" :call lightline#update()
 	if exists("g:DarkLightOn")
-		call lightline#init()
-		call lightline#colorscheme()
-		call lightline#update()
 	endif
 	let g:DarkLightOn = 1
 endfunction
-
-" augroup LightlineColorscheme
-" 	autocmd!
-" 	autocmd ColorScheme * call s:lightline_update()
-" augroup END
-
-" function! s:lightline_update()
-" 	if !exists('g:loaded_lightline')
-" 		return
-" 	endif
-" 	call lightline#init()
-" 	call lightline#colorscheme()
-" 	call lightline#update()
-" endfunction
 
 let g:DarkLightMod = 0
 
@@ -319,10 +297,6 @@ elseif g:DarkLightMod == 2
 endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-
-call lightline#init()
-" call lightline#colorscheme()
-" call lightline#update()
 
 ""    Window behaviour
 """        Terminal
@@ -769,88 +743,41 @@ augroup end
 
 " let g:syntastic_html_checkers=['tidy']
 
-"""        Lightline
-if exists("g:lightline")
-	set noshowmode " do not show mode in status line
-else
-	set showmode
-endif
-" Show full path of filename
 
-" let g:lightline.colorscheme = 'wombat'
+"""        Airline
+let g:airline_mode_map = {
+	\ '__'     : '-',
+	\ 'c'      : 'C',
+	\ 'i'      : 'I',
+	\ 'ic'     : 'I',
+	\ 'ix'     : 'I',
+	\ 'n'      : 'N',
+	\ 'multi'  : 'M',
+	\ 'ni'     : 'N',
+	\ 'no'     : 'N',
+	\ 'R'      : 'R',
+	\ 'Rv'     : 'R',
+	\ 's'      : 'S',
+	\ 'S'      : 'S',
+	\ ''     : 'S',
+	\ 't'      : 'T',
+	\ 'v'      : 'V',
+	\ 'V'      : 'V',
+	\ ''     : 'V',
+	\ }
 
-let g:lightline.mode_map = {
-	\ 'n': ' N ',
-	\ 'i': ' I ',
-	\ 'R': ' R ',
-	\ 'v': ' V ',
-	\ 'V': 'V-L',
-	\ "\<c-v>": 'V-B',
-	\ 'c': ' C ',
-	\ 's': ' S ',
-	\ 'S': 'S-L',
-	\ "\<c-s>": 'S-B',
-	\ 't': ' T ' }
+" if !exists('g:airline_symbols')
+" 	let g:airline_symbols = {}
+" endif
+let g:airline_symbols_ascii = 1
+let g:airline#extensions#wordcount#filetypes = ['']
+let g:airline_section_y = ''
+let g:airline_section_z = '%4{line(".")}:%-3{virtcol(".")} %-4{LinePercent()}'
+let g:airline#extensions#hunks#enabled = 0
+" let g:airline_section_z = '%{LinePercent}'
 
-let g:lightline.active = {
-	\ 'left': [ [ 'mode', 'paste' ],
-	\ 		[ 'readonly', 'gitbranch' ],
-	\ 		[ 'modified', 'relativepath' ] ],
-	\ 'right': [ [ 'lineinfo' ],
-	\ 		[ 'percent' ],
-	\ 		[ 'filetype' ] ] }
-
-let g:lightline.inactive = {
-	\ 'left': [ [ 'readonly', 'gitbranch' ],
-	\ 		[ 'modified', 'relativepath' ] ],
-	\ 'right': [] }
-
-let g:lightline.component_function = {
-	\ 'fileformat': 'LightlineFileformat',
-	\ 'filetype': 'LightlineFiletype',
-	\ 'modified': 'LightlineModified',
-	\ 'readonly': 'LightlineReadonly',
-	\ 'gitbranch': 'LightlineFugitive',
-	\ 'currentfunction': 'CocCurrentFunction' }
-
-let g:lightline.component = {
-	\ 'percent': '%3p%%%<',
-	\ 'relativepath': '%<%F',
-	\ 'lineinfo': '%4l-%-3v%<' }
-
-let g:lightline.component_expand = {
-	\ 'cocstatus': 'coc#status' }
-
-let g:lightline.separator = { 'left': '', 'right': '' }
-let g:lightline.subseparator = { 'left': '', 'right': '|' }
-
-function! LightlineModified()
-	return &ft =~ 'help\|vimfiler' ? ' ' : &modified ? '+' : &modifiable ? ' ' : '-'
-endfunction
-
-function! LightlineReadonly()
-	return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
-endfunction
-
-function! LightlineFilename()
-	return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-			\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-			\  &ft == 'unite' ? unite#get_status_string() :
-			\  &ft == 'vimshell' ? vimshell#get_status_string() :
-			\ '' != expand('%:t') ? expand('%:t') : '[-]') .
-			\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
-
-function! LightlineFiletype()
-	return winwidth(0) > 40 ? (&filetype !=# '' ? &filetype : '-') : ''
-endfunction
-
-function! LightlineFugitive()
-	if exists('*fugitive#head')
-		let branch = fugitive#head()
-		return branch !=# '' ? ''.branch : ''
-	endif
-return ''
+function! LinePercent()
+	return line('.') * 100 / line('$') . '%'
 endfunction
 
 """        Gitgutter
@@ -907,8 +834,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 augroup FzfHideStatusLine
 	au! FileType fzf
-	au FileType fzf set noshowmode noruler | call lightline#disable()
-				\| autocmd BufLeave <buffer> set ruler  | call lightline#enable()
+	au FileType fzf set noshowmode noruler
+				\| autocmd BufLeave <buffer> set ruler
 augroup end
 
 function! s:build_location_list(lines)
@@ -1441,11 +1368,6 @@ augroup CocFormatAndK
 	au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-augroup CocLightLineUpdate
-	au!
-	au User CocStatusChange,CocDiagnosticChange call lightline#update()
-augroup end
-
 function! StatusDiagnostic() abort
 	let info = get(b:, 'coc_diagnostic_info', {})
 	if empty(info) | return '' | endif
@@ -1538,14 +1460,6 @@ nnoremap <leader>ss :source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:echo "all fre
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
 nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
-
-" augroup VimrcSource
-" 	au!
-" 	if ! has("nvim") && has("SourcePost")
-" 		au SourcePost * call lightline#init()
-" 		au SourcePost * call lightline#update()
-" 	endif
-" augroup end
 
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
