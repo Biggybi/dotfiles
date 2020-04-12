@@ -32,19 +32,19 @@ if ! has("nvim")
 	packadd! matchit
 	packadd! termdebug
 endif
-filetype plugin on								" use filetype plugin
+filetype plugin on                   " use filetype plugin
 filetype on
-filetype indent on								" use indent plugin
+filetype indent on                   " use indent plugin
 set keywordprg=:Man
 
-let $BASH_ENV = "$HOME/dotfiles/bash_aliases"	" use aliases in vim
-let $PAGER=''									" vim as pager
+let $BASH_ENV = "$DOT/bash_aliases"  " use aliases in vim
+let $PAGER=''                        " vim as pager
 
 syntax on
-set nocompatible								" not compatible with vi
-set encoding=utf8								" character encoding
-set ttyfast										" faster redrawing
-set nolazyredraw								" no redraw executing macros
+set nocompatible                     " not compatible with vi
+set encoding=utf8                    " character encoding
+set ttyfast                          " faster redrawing
+set nolazyredraw                     " no redraw executing macros
 
 " restore undo history
 if exists('+undofile')
@@ -52,16 +52,25 @@ if exists('+undofile')
 endif
 
 " Backup files dir
-set history=10000								" long history
+set history=10000                    " long history
 set hidden
-set backupskip=/tmp/*,/private/tmp/*			" vim can edit crontab
+set backupskip=/tmp/*,/private/tmp/* " vim can edit crontab
 set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 
-set autoread									" detect file changes
-set modelineexpr								" flexible modeline set
+set autoread                         " detect file changes
+set modelineexpr                     " flexible modeline set
+
 """        User Interface settings
+
+" Title
+
+augroup WinTitle
+	au!
+	au BufRead,BufEnter * let &titlestring = MyWindowTitle()
+augroup end
+set mouse=a                     " it's a secret
 
 function! GetGitRepoName(file) abort
 	let l:path=fnamemodify(a:file, ':p')
@@ -78,46 +87,25 @@ endfunction
 
 function! MyWindowTitle() abort
 	let l:hostname = hostname() . "    ‚ñè  "
-	" let l:file = expand('%')
 	let l:file = substitute(expand('%'), '/.*/', '', '')
-
-	" let gitrepo = ""
-	" if FugitiveHead()
-	" 	gitrepo = expand('%:p:h') . " - "
-	" endif
-
 	let gitrepo = GetGitRepoName('%') . "   „Äâ  "
-	" let &titlestring = hostname . gitrepo . file
 	return(hostname . gitrepo . file)
 endfunction
 
-" Title
-set title										" window title (file)
-" augroup WinTitle
-" 	au!
-" 	au BufEnter *
-" 		\ let &titlestring =
-" 		\ hostname() . "  -  " . FugitiveHead() . "  -  " . expand("%")
-" augroup end
-
-augroup WinTitle
-	au!
-	au BufRead,BufEnter * let &titlestring = MyWindowTitle()
-augroup end
-set mouse=a										" it's a secret
+set title                       " window title (file)
 
 " Mappings chill
-set notimeout									" no timeout on maps
-set ttimeout									" timeout on keycodes
-set ttimeoutlen=10								" of 10 ms
+set notimeout                   " no timeout on maps
+set ttimeout                    " timeout on keycodes
+set ttimeoutlen=10              " of 10 ms
 
 " search
-set magic										" set magic on, for regex
-set ignorecase									" case insensitive search
-set smartcase									" case-sens if cap
-set hlsearch									" highlight all searches
-set incsearch									" highlight match while typing
-" set path+=**									" recursive path from current path
+set magic                       " set magic on, for regex
+set ignorecase                  " case insensitive search
+set smartcase                   " case-sens if cap
+set hlsearch                    " highlight all searches
+set incsearch                   " highlight match while typing
+" set path+=**                  " recursive path from current path
 " ignore some files from wildcard expansion
 set wildignore+=**/__pycache__/**
 set wildignore+=**/venv/**
@@ -129,92 +117,92 @@ set wildignore+=*.pyc
 set wildignore+=*.swp
 
 " Command line window
-set cmdheight=2									" Command-line height
-set showcmd										" show command
-set wildmenu									" show matches to commands
-set wildchar=<tab>								" complete w/ tab
+set cmdheight=2                 " Command-line height
+set showcmd                     " show command
+set wildmenu                    " show matches to commands
+set wildchar=<tab>              " complete w/ tab
 set wildmode=longest,full
-set completeopt+=longest						" complete matching string
-set completeopt+=menuone						" pmenu on single match too
+set completeopt+=longest        " complete matching string
+set completeopt+=menuone        " pmenu on single match too
 
 " status line
-set laststatus=2								" always show satus line
-set ruler										" show cursor line / column
-" set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P	" show buffer number
+set laststatus=2                " always show satus line
+set ruler                       " show cursor line / column
+" set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P  " show buffer number
 
 " Shortmess : 'hit enter' prompt custzomization
-set shortmess+=A								" Always edit if swap exists
-set shortmess+=f								" Abbrev file count
-set shortmess+=i								" Abbrev line without end
-set shortmess+=l								" Abbrev line and word count
-set shortmess+=m								" Abbrev modified
-set shortmess+=n								" Abbrev new file
-set shortmess+=r								" Abbrev read only
-set shortmess+=w								" Abbrev writter
-set shortmess+=x								" Abbrev dos and mac format
-set shortmess+=W								" No message when writing
-set shortmess+=F								" As if silent autocomands
+set shortmess+=A                " Always edit if swap exists
+set shortmess+=f                " Abbrev file count
+set shortmess+=i                " Abbrev line without end
+set shortmess+=l                " Abbrev line and word count
+set shortmess+=m                " Abbrev modified
+set shortmess+=n                " Abbrev new file
+set shortmess+=r                " Abbrev read only
+set shortmess+=w                " Abbrev writter
+set shortmess+=x                " Abbrev dos and mac format
+set shortmess+=W                " No message when writing
+set shortmess+=F                " As if silent autocomands
 set shortmess+=c
 
 " Bell
-set visualbell									" do not ring the bell
-set noerrorbells								" no bell for error messages
-set t_vb=										" no bell at all
+set visualbell                  " do not ring the bell
+set noerrorbells                " no bell for error messages
+set t_vb=                       " no bell at all
 
 " tabulation control
-set noexpandtab									" tabs ftw
-set smarttab									" tab width start of line
-set tabstop=4									" visible width of tabs
-set softtabstop=4								" tabs 4 characters wide
-set shiftwidth=4								" indents 4 characters wide
-set autoindent									" automatically indent new line
-set smartindent									" ...in a sane way
-set shiftround									" indent congru shiftwidth
+set noexpandtab                 " tabs ftw
+set smarttab                    " tab width start of line
+set tabstop=4                   " visible width of tabs
+set softtabstop=4               " tabs 4 characters wide
+set shiftwidth=4                " indents 4 characters wide
+set autoindent                  " automatically indent new line
+set smartindent                 " ...in a sane way
+set shiftround                  " indent congru shiftwidth
 
 " splits
-set switchbuf=useopen							" open buffer window if exists
-set splitbelow									" default split below
-set splitright									" default split right
+set switchbuf=useopen           " open buffer window if exists
+set splitbelow                  " default split below
+set splitright                  " default split right
 " set list
 
 " guides smartisation
 set fillchars+=vert:‚ñé
-set listchars=tab:\‚ñé\ ,trail:-					" only tab / trailing ws
-set spellcapcheck=								" ignore leading cap in word
-set formatoptions+=j							" join comments smartly
-set nojoinspaces								" and spaces too
-set suffixesadd=.tex,.latex,.java,.c,.h,.js		" match file w/ ext
+set listchars=tab:\‚ñé\ ,trail:-          " only tab / trailing ws
+set spellcapcheck=              " ignore leading cap in word
+set formatoptions+=j            " join comments smartly
+set nojoinspaces                " and spaces too
+set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
 
 " Main window
-set number										" show number column
-set relativenumber								" relative to current line
-set wrap										" no horizontal scroll
-set breakindent									" with indent
-set showbreak=\ \ ¬¨								" ... showing a character
+set number                      " show number column
+set relativenumber              " relative to current line
+set wrap                        " no horizontal scroll
+set breakindent                 " with indent
+set showbreak=\ \ ¬¨            " ... showing a character
 
 " Moves boundaries
-set backspace=indent,eol,start					" backspace over lines
-set whichwrap+=<,>,h,l,[,]						" break cursor free
-set virtualedit=block							" visual selection broken free
-set nostartofline								" vertical moves in same column
-set sidescrolloff=5								" min horizontal cursor offset
-let &scrolloff=winheight(win_getid())/10 + 1	" min vertical cursor offset
-" set iskeyword+=,								" considered part of <cword>
+set backspace=indent,eol,start  " backspace over lines
+set whichwrap+=<,>,h,l,[,]      " break cursor free
+set virtualedit=block           " visual selection broken free
+set nostartofline               " vertical moves in same column
+set sidescrolloff=5             " min horizontal cursor offset
+let &scrolloff=winheight(win_getid())/10 + 1  " min vertical cursor offset
+" set iskeyword+=,              " considered part of <cword>
 
 " Folding
-set foldmethod=syntax							" fold based on indent
-set foldnestmax=10								" deepest fold is 10 levels
-set nofoldenable								" don't fold by default
-set foldlevel=100								" no nest on first fold (fix)
+set foldmethod=syntax           " fold based on indent
+set foldnestmax=10              " deepest fold is 10 levels
+set nofoldenable                " don't fold by default
+set foldlevel=100               " no nest on first fold (fix)
 " set foldlevel=1
 
 " Colors
-let base16colorspace=256						" access 256 colorspace
-set t_Co=256									" say terminal supports 256
+let base16colorspace=256        " access 256 colorspace
+set t_Co=256                    " say terminal supports 256
 if has("termguicolors")
-	set termguicolors								" 24 bits colors
-	set t_8b=[48;2;%lu;%lu;%lum					" for tmux
-	set t_8f=[38;2;%lu;%lu;%lum					" for tmux
+	set termguicolors             " 24 bits colors
+	set t_8b=[48;2;%lu;%lu;%lum " for tmux
+	set t_8f=[38;2;%lu;%lu;%lum " for tmux
 endif
 
 ""    Look / Theme
@@ -314,7 +302,7 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 " 			exec "buffer " . g:term_buf
 " 		catch
 " 			vertical terminal
-" 			"             let g:term_buf = bufnr("")
+"       "             let g:term_buf = bufnr("")
 " 		endtry
 " 		startinsert!
 " 		let g:term_win = win_getid()
@@ -447,7 +435,7 @@ augroup end
 " augroup IndentLine
 " 	au!
 " 	au BufWinEnter * match IndentLine /^\s\+/
-" 	" au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
+"   " au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
 " 	au InsertLeave * match IndentLine /^\s\+/
 " 	au BufWinLeave * call clearmatches()
 " augroup end
@@ -571,7 +559,7 @@ augroup CodePathTags
 	au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
 				\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
 augroup end
-" set path+=**			" recursive path from current path
+" set path+=**                  " recursive path from current path
 
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
@@ -672,7 +660,7 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
 let g:netrw_winsize = -25
-let g:netrw_sort_sequence = '[\/]$,*'					" sort folders on top
+let g:netrw_sort_sequence = '[\/]$,*'  " sort folders on top
 
 " open netrw if vim starts without file
 let g:netrw_startup = 0
@@ -771,12 +759,12 @@ function! LinePercent()
 endfunction
 
 """        Gitgutter
-if exists('&signcolumn')  " Vim 7.4.2201
+if exists('&signcolumn')        " Vim 7.4.2201
 	set signcolumn=yes
 else
 	let g:gitgutter_sign_column_always = 1
 endif
-set updatetime=100						" need for Coc + gitgutter
+set updatetime=100              " need for Coc + gitgutter
 
 let g:gitgutter_max_signs = 1000
 let g:gitgutter_sign_added = '‚ñé'
@@ -801,7 +789,7 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 """        FZF
 
 let g:fzf_command_prefix = 'Fzf'
-let g:fzf_buffers_jump = 1						" [Buffers] to existing split
+let g:fzf_buffers_jump = 1      " [Buffers] to existing split
 " let g:fzf_layout = { 'window': '13 sp' }
 " let g:fzf_layout = { 'down' : '15 reverse' }
 " let g:fzf_layout = { 'left' : '~30%' }
@@ -918,9 +906,9 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 augroup TexSet
 	au!
 	au FileType tex setlocal updatetime=1000
-	" let g:livepreview_previewer = 'zathura'
-	" let g:livepreview_cursorhold_recompile = 0
-	" let g:livepreview_engine = 'your_engine' . ' [options]'
+  " let g:livepreview_previewer = 'zathura'
+  " let g:livepreview_cursorhold_recompile = 0
+  " let g:livepreview_engine = 'your_engine' . ' [options]'
 augroup end
 
 """        Vim-run
@@ -1359,9 +1347,9 @@ augroup end
 
 augroup CocFormatAndK
 	au!
-	" Setup formatexpr specified filetype(s).
+  " Setup formatexpr specified filetype(s).
 	au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
-	" Update signature help on jump placeholder
+  " Update signature help on jump placeholder
 	au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
@@ -1510,11 +1498,11 @@ nnoremap <leader>cT :make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
 function! LocListPannel(pfx)
-	" if a:pfx == 'l' && len(getloclist(0)) == 0
-	" 	echohl ErrorMsg
-	" 	echo "Location List is Empty."
-	" 	return
-	" endif
+  " if a:pfx == 'l' && len(getloclist(0)) == 0
+  " 	echohl ErrorMsg
+  " 	echo "Location List is Empty."
+  " 	return
+  " endif
 	let winnr = winnr()
 	exec(a:pfx.'open')
 	wincmd L
@@ -1549,7 +1537,7 @@ augroup Shmaps
 	au! Shmaps
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
 
-	" alias to function
+  " alias to function
 	au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
 augroup end
 
@@ -1568,35 +1556,35 @@ augroup Cmaps
 	au FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>#include <string.h><cr>#include <bsd/string.h><cr>
 
 	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
-	" if to ternary operator
+  " if to ternary operator
 	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 	au FileType c nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
 	au FileType c nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
-	" le and execute current
+  " le and execute current
 	au FileType c nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
 	au FileType c nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out
 	au FileType c nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
 	au FileType c nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
-	" close brackets
+  " close brackets
 	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
 
-	" brackets around paragraph
+  " brackets around paragraph
 	au FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
 	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
-	"  name of current c function (needs '()')
+  "  name of current c function (needs '()')
 	au FileType c nnoremap <silent> g<c-d> j[[h^t(b
 
-	" semicolon/coma EOL
+  " semicolon/coma EOL
 	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 	au FileType c nnoremap <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
 
-	" select all text in function
+  " select all text in function
 	au FileType c nnoremap <leader>vf j[[V%o
 
-	" valgrind
+  " valgrind
 	au FileType c nnoremap <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
 	au FileType c nnoremap <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
 augroup end
@@ -1721,14 +1709,14 @@ augroup end
 """        LATEX
 augroup LatexSmith
 	au! LatexSmith
-	" Navigating with guides
+  " Navigating with guides
 	au FileType plaintex,tex silent inoremap <buffer> ,, <esc>/<++><cr>"_4s
 	au FileType plaintex,tex silent vnoremap <buffer> ,, <esc>/<++><cr>"_4s
 	au FileType plaintex,tex silent map <buffer> ,, <esc>/<++><cr>"_4s
 
 	au FileType plaintex,tex silent nnoremap <buffer> <leader>ll :LLPStartPreview
 
-	" Latex snippets
+  " Latex snippets
 	au FileType plaintex,tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><esc>6kf}i
 	au FileType plaintex,tex inoremap <buffer> ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><esc>3kA
 	au FileType plaintex,tex inoremap <buffer> ,exe \begin{exe}<Enter>\ex<space><Enter>\end{exe}<Enter><Enter><++><esc>3kA
@@ -1773,7 +1761,7 @@ augroup MarkdownMaps
 	au!
 	au FileType markdown nnoremap <buffer> <leader>cr :Run<cr>
 	au FileType markdown nnoremap <buffer> <leader>ca :AutoRun<cr>
-	" au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
+  " au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
 ""    Headers
@@ -1792,13 +1780,13 @@ endif
 
 function! InsertCHHeader()
 	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
-	" Save cpoptions
+  " Save cpoptions
 	let cpoptions = &cpoptions
-	" Remove the 'a' option - prevents the name of the
-	" alternate file being overwritten with a :read command
+  " Remove the 'a' option - prevents the name of the
+  " alternate file being overwritten with a :read command
 	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
 	exe "read " . path_to_skeletons
-	" Restore cpoptions
+  " Restore cpoptions
 	exe "set cpoptions=" . cpoptions
 	1, 1 delete _
 
@@ -1945,9 +1933,9 @@ endfunction
 
 function! s:insert()
 	let l:line = 11
-	" empty line after header
+  " empty line after header
 	call append(0, "")
-	" loop over lines
+  " loop over lines
 	while l:line > 0
 		call append(0, s:line(l:line))
 		let l:line = l:line - 1
@@ -1966,16 +1954,17 @@ function! s:update()
 	return 1
 endfunction
 
-function! Stdheader()
+function! Header101()
 	if s:update()
 		call s:insert()
 	endif
 endfunction
 
 " Bind command and shortcut
-command! Header101 call Stdheader()
+command! Header101 call Header101()
 " nnoremap <leader>h1 :Header101<cr>
-nnoremap <silent> <leader>h1 :call Stdheader()<cr>
+nnoremap <silent> <leader>h1 :Header101<cr>
+nnoremap <silent> <leader>h2 ggOÄ˝a h1Ä˝a/createdww"hyfygg/createdww"_dfy"HÄ˝a"hP 14ddÄ˝a
 " au BufWritePre * call s:update ()
 
 ""    Dotfiles settings
@@ -1984,7 +1973,6 @@ augroup DotfilesFiletypeSh
 	au!
 	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
 augroup end
-
 augroup suffixes
 	au!
 	let associations = [
@@ -2017,7 +2005,7 @@ function! VimFold()
 		let windowwidth = 79
 	endif
 	let foldedlinecount = v:foldend - v:foldstart
-	" expand tabs into spaces
+  " expand tabs into spaces
 	let onetab = strpart('          ', 0, &tabstop)
 	let line = substitute(line, '\t', onetab, 'g')
 	let longbreak=" "
@@ -2031,6 +2019,6 @@ function! VimFold()
 endfunction
 
 """        Vimrc modeline
-" vim:tw=0:ts=2:sts=2:shiftwidth=4
+" vim:tw=0:ts=2:sts=2:shiftwidth=2
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
