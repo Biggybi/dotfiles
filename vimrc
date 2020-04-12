@@ -2033,6 +2033,6 @@ function! VimFold()
 endfunction
 
 """        Vimrc modeline
-" vim:tw=0
+" vim:tw=0:ts=2:sts=2:shiftwidth=4
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
