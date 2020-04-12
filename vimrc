@@ -57,7 +57,7 @@ set nolazyredraw								" no redraw executing macros
 
 " restore undo history
 if exists('+undofile')
-  set undofile
+	set undofile
 endif
 
 " Backup files dir
@@ -70,7 +70,6 @@ set undodir=$HOME/.vim/undo//
 
 set autoread									" detect file changes
 set modelineexpr								" flexible modeline set
-
 """        User Interface settings
 
 function! GetGitRepoName(file) abort
@@ -234,11 +233,11 @@ augroup CursorShape
 	au!
 	au InsertLeave * silent execute '!echo -ne "\e[2 q"' |
 	au InsertEnter,InsertChange *
-		\ if v:insertmode ==# 'i' |
-		\   silent execute '!echo -ne "\e[6 q"' |
-		\ elseif v:insertmode ==# 'r' |
-		\   silent execute '!echo -ne "\e[4 q"' |
-		\ endif
+				\ if v:insertmode ==# 'i' |
+				\   silent execute '!echo -ne "\e[6 q"' |
+				\ elseif v:insertmode ==# 'r' |
+				\   silent execute '!echo -ne "\e[4 q"' |
+				\ endif
 	au VimLeave * silent execute '!echo -ne "\e[ q"' |
 augroup end
 
@@ -334,7 +333,7 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 " Show terminal (like c-z), exit on any character
 function! ShowTerm()
 	silent !read -sN 1
-redraw!
+	redraw!
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
@@ -423,9 +422,9 @@ augroup HelpManSplit
 	au FileType man setlocal tabstop=8
 	au FileType help,man setlocal showbreak= nonumber signcolumn=no
 	au FileType help au! BufRead,BufEnter <buffer> silent!
-		\ | wincmd H | 82 wincmd|
+				\ | wincmd H | 82 wincmd|
 	au FileType help au! BufLeave,WinLeave <buffer> silent!
-		\ | if &columns < 100 | 0 wincmd| | endif
+				\ | if &columns < 100 | 0 wincmd| | endif
 	au FileType man,help nnoremap <buffer> <silent> q :bw!<cr>
 	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
@@ -465,21 +464,21 @@ augroup end
 " function! ToggleIndentGuides()
 " if exists('b:indent_guides')
 " 	call matchdelete(b:indent_guides)
-	" unlet b:indent_guides
+" unlet b:indent_guides
 " else
-	" let pos = range(1, &l:textwidth, &l:shiftwidth)
-	" call map(pos, '"\\%" . v:val . "v"')
-	" let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
-	" let pat = substitute('%', '\zs\t\s\s\s', '|', 'g')
-	" let pat = substitute('/^\t+', '\t', '   |', 'g')
-	" let pat = substitute('%', '\t', '   |', 'g')
-	" let pos = range(10)
-	" call map(pos, '"\\%" . v:val . "v"')
-	" let pat = "\%(\_^\s*\)\@<=\%(' . join(pos, '   \|') . '\)\s"
-	" let pat = '^\t*'
-	" let pat = normal! :%s/^\t*/\=substitute(submatch(0), ".", "   |", "g"))
-	" echo pat
-	" let b:indent_guides = matchadd('CursorLine', pat)
+" let pos = range(1, &l:textwidth, &l:shiftwidth)
+" call map(pos, '"\\%" . v:val . "v"')
+" let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
+" let pat = substitute('%', '\zs\t\s\s\s', '|', 'g')
+" let pat = substitute('/^\t+', '\t', '   |', 'g')
+" let pat = substitute('%', '\t', '   |', 'g')
+" let pos = range(10)
+" call map(pos, '"\\%" . v:val . "v"')
+" let pat = "\%(\_^\s*\)\@<=\%(' . join(pos, '   \|') . '\)\s"
+" let pat = '^\t*'
+" let pat = normal! :%s/^\t*/\=substitute(submatch(0), ".", "   |", "g"))
+" echo pat
+" let b:indent_guides = matchadd('CursorLine', pat)
 " endif
 
 " endfunction
@@ -540,9 +539,9 @@ augroup end
 augroup ReOpenFileWhereLeft
 	au!
 	au BufReadPost *
-		\ if line("'\"") > 0 && line("'\"") <= line("$")
-		\   | exe "normal! g`\""
-		\ | endif
+				\ if line("'\"") > 0 && line("'\"") <= line("$")
+				\   | exe "normal! g`\""
+				\ | endif
 augroup end
 
 """        Files views
@@ -551,13 +550,13 @@ if ! has("nvim")
 	augroup ReViews
 		au!
 		au BufWinLeave *
-		   \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-		   \   | mkview
-		   \ | endif
+					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+					\   | mkview
+					\ | endif
 		au BufWinEnter *
-		   \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-		   \   | silent! loadview
-		   \ | endif
+					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+					\   | silent! loadview
+					\ | endif
 	augroup end
 endif
 
@@ -566,9 +565,9 @@ endif
 augroup CdGitRootOrFileDir
 	au!
 	au BufEnter *
-		\ if !empty(bufname("%"))
-		\   | silent! cd %:p:h | silent! Glcd
-		\ | endif
+				\ if !empty(bufname("%"))
+				\   | silent! cd %:p:h | silent! Glcd
+				\ | endif
 augroup end
 
 
@@ -579,7 +578,7 @@ augroup CodePathTags
 	au!
 	au BufEnter * silent! set tags+=.git/tags
 	au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
-	\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
+				\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
 augroup end
 " set path+=**			" recursive path from current path
 
@@ -746,25 +745,25 @@ augroup end
 
 """        Airline
 let g:airline_mode_map = {
-	\ '__'     : '-',
-	\ 'c'      : 'C',
-	\ 'i'      : 'I',
-	\ 'ic'     : 'I',
-	\ 'ix'     : 'I',
-	\ 'n'      : 'N',
-	\ 'multi'  : 'M',
-	\ 'ni'     : 'N',
-	\ 'no'     : 'N',
-	\ 'R'      : 'R',
-	\ 'Rv'     : 'R',
-	\ 's'      : 'S',
-	\ 'S'      : 'S',
-	\ ''     : 'S',
-	\ 't'      : 'T',
-	\ 'v'      : 'V',
-	\ 'V'      : 'V',
-	\ ''     : 'V',
-	\ }
+			\ '__'     : '-',
+			\ 'c'      : 'C',
+			\ 'i'      : 'I',
+			\ 'ic'     : 'I',
+			\ 'ix'     : 'I',
+			\ 'n'      : 'N',
+			\ 'multi'  : 'M',
+			\ 'ni'     : 'N',
+			\ 'no'     : 'N',
+			\ 'R'      : 'R',
+			\ 'Rv'     : 'R',
+			\ 's'      : 'S',
+			\ 'S'      : 'S',
+			\ ''     : 'S',
+			\ 't'      : 'T',
+			\ 'v'      : 'V',
+			\ 'V'      : 'V',
+			\ ''     : 'V',
+			\ }
 
 " if !exists('g:airline_symbols')
 " 	let g:airline_symbols = {}
@@ -816,20 +815,20 @@ let g:fzf_buffers_jump = 1						" [Buffers] to existing split
 " let g:fzf_layout = { 'down' : '15 reverse' }
 " let g:fzf_layout = { 'left' : '~30%' }
 let g:fzf_colors = {
-	\ 'fg':      ['fg', 'Normal'],
-	\ 'bg':      ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Include'],
-	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-	\ 'hl+':     ['fg', 'Statement'],
-	\ 'info':    ['fg', 'PreProc'],
-	\ 'border':  ['fg', 'Ignore'],
-	\ 'prompt':  ['fg', 'Conditional'],
-	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker':  ['fg', 'Keyword'],
-	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment'] }
-	" \ 'hl':      ['fg', 'Comment'],
+			\ 'fg':      ['fg', 'Normal'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'Include'],
+			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':     ['fg', 'Statement'],
+			\ 'info':    ['fg', 'PreProc'],
+			\ 'border':  ['fg', 'Ignore'],
+			\ 'prompt':  ['fg', 'Conditional'],
+			\ 'pointer': ['fg', 'Exception'],
+			\ 'marker':  ['fg', 'Keyword'],
+			\ 'spinner': ['fg', 'Label'],
+			\ 'header':  ['fg', 'Comment'] }
+" \ 'hl':      ['fg', 'Comment'],
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 augroup FzfHideStatusLine
@@ -850,13 +849,13 @@ endfunction
 
 " An action can be a reference to a function that processes selected lines
 let g:fzf_action = {
-	\ 'ctrl-l': function('s:build_quickfix_list'),
-	\ 'ctrl-r': function('s:build_location_list'),
-	\ 'ctrl-t': 'tab split',
-	\ 'ctrl-x': 'split',
-	\ 'ctrl-v': 'vsplit'}
-	" \ 'ctrl-o': '<S-tab>',
-	" \ 'ctrl-i': 'insert_match'}
+			\ 'ctrl-l': function('s:build_quickfix_list'),
+			\ 'ctrl-r': function('s:build_location_list'),
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-x': 'split',
+			\ 'ctrl-v': 'vsplit'}
+" \ 'ctrl-o': '<S-tab>',
+" \ 'ctrl-i': 'insert_match'}
 
 function! s:insert_match(lines)
 	<c-r>=echo('a:lines')<cr>
@@ -885,7 +884,7 @@ nnoremap <leader>fr <esc>:Rg<cr>
 inoremap <c-f> <c-o>:FzfSnippets<cr>
 
 command! -bang -complete=dir -nargs=* LS
-	\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
+			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
 " function! FzfColorSelect()
 " 	if &background ==# "light"
@@ -904,17 +903,17 @@ function! FzfFilesAutoColor()
 endfunction
 
 command! -bang -nargs=? -complete=dir Files
-	\ :call FzfFilesAutoColor()
+			\ :call FzfFilesAutoColor()
 
 " call fzf#run({'source': 'git ls-files', 'sink': 'e', 'right': '40%'})
 
 " Uset ripgrep for Rg
 command! -bang -nargs=* Rg
-\ call fzf#vim#grep(
-\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-\   <bang>0 ? fzf#vim#with_preview('up:60%')
-\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-\   <bang>0)
+			\ call fzf#vim#grep(
+			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+			\   <bang>0 ? fzf#vim#with_preview('up:60%')
+			\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+			\   <bang>0)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -935,11 +934,11 @@ augroup end
 
 """        Vim-run
 let g:vim_run_command_map = {
-  \'javascript': 'node',
-  \'php': 'php',
-  \'python': 'python',
-  \'markdown': 'markdown',
-  \}
+			\'javascript': 'node',
+			\'php': 'php',
+			\'python': 'python',
+			\'markdown': 'markdown',
+			\}
 
 """        Vimwiki
 
@@ -1270,7 +1269,7 @@ endfunction
 
 " Word count
 function! WordCount()
-    echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+	echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
 endfunction
 
 nnoremap <leader>wcf :call FunctionLineCount()<cr>
@@ -1902,8 +1901,8 @@ endfunction
 function! s:line(n)
 	if a:n == 1 || a:n == 11 " top and bottom line
 		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
-			elseif a:n == 2 || a:n == 10 " blank line
-				return s:textline('', '')
+	elseif a:n == 2 || a:n == 10 " blank line
+		return s:textline('', '')
 	elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
 		return s:textline('', s:ascii(a:n))
 	elseif a:n == 4 " filename
@@ -1990,11 +1989,11 @@ augroup end
 augroup suffixes
 	au!
 	let associations = [
-		\["javascript", ".js,.javascript,.es,.esx,.json"],
-		\["python", ".py,.pyw"],
-		\["c", ".c,.h"],
-		\["cpp", ".c,.h"]
-		\]
+				\["javascript", ".js,.javascript,.es,.esx,.json"],
+				\["python", ".py,.pyw"],
+				\["c", ".c,.h"],
+				\["cpp", ".c,.h"]
+				\]
 	for ft in associations
 		execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
 	endfor
