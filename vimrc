@@ -37,15 +37,6 @@ filetype on
 filetype indent on								" use indent plugin
 set keywordprg=:Man
 
-" cnoremap Man Shell vert term man
-" command! -nargs=+ Man
-" 	\ vnew |
-" 	\ setlocal nonu nornu |
-" 	\ set filetype=man |
-" 	\ exe 'terminal '. <args> |
-" 	" \ term ++curwin man <args> |
-" 	\ set filetype=man
-
 let $BASH_ENV = "$HOME/dotfiles/bash_aliases"	" use aliases in vim
 let $PAGER=''									" vim as pager
 
