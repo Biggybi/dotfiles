@@ -1332,7 +1332,6 @@ omap af <Plug>(coc-funcobj-a)
 
 " pmenu mappings
 nmap <silent> <leader>gf <Plug>(coc-definition)
-nmap <silent> <leader>g<c-f> :vert <Plug>(coc-definition)
 nmap <silent> <leader>gd <Plug>(coc-declaration)
 nmap <silent> <leader>gt <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
