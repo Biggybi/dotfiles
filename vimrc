@@ -425,7 +425,7 @@ augroup HelpManSplit
 	au FileType help au! BufRead,BufEnter <buffer> silent!
 		\ | wincmd H | 82 wincmd|
 	au FileType help au! BufLeave,WinLeave <buffer> silent!
-		\ | if (&columns < 100) | 0 wincmd| | endif
+		\ | if &columns < 100 | 0 wincmd| | endif
 	au FileType man,help nnoremap <buffer> <silent> q :bw!<cr>
 	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
@@ -566,7 +566,7 @@ endif
 augroup CdGitRootOrFileDir
 	au!
 	au BufEnter *
-		\ if (!empty(bufname("%")))
+		\ if !empty(bufname("%"))
 		\   | silent! cd %:p:h | silent! Glcd
 		\ | endif
 augroup end
@@ -644,7 +644,7 @@ endfunction
 " 	if g:NetrwIsOpen
 " 		let i = bufnr("$")
 " 		while (i >= 1)
-" 			if (getbufvar(i, "&filetype") == "netrw")
+" 			if getbufvar(i, "&filetype") == "netrw"
 " 				silent exe "bwipeout " . i
 " 			endif
 " 			let i-=1
@@ -660,7 +660,7 @@ endfunction
 " let i = bufnr("$")
 " let wasOpen = 0
 " while (i >= 1)
-" 	if (getbufvar(i, "&filetype") == "netrw")
+" 	if getbufvar(i, "&filetype") == "netrw"
 " 		silent exe "bwipeout " . i
 " 		let wasOpen = 1
 " 	endif
@@ -1347,7 +1347,7 @@ nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
+	if index(['vim','help'], &filetype) >= 0
 		execute 'h '.expand('<cword>')
 	else
 		call CocAction('doHover')
