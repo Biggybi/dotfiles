@@ -125,7 +125,7 @@ set magic										" set magic on, for regex
 set ignorecase									" case insensitive search
 set smartcase									" case-sens if cap
 set hlsearch									" highlight all searches
-set incsearch									" highlight match while type
+set incsearch									" highlight match while typing
 " set path+=**									" recursive path from current path
 " ignore some files from wildcard expansion
 set wildignore+=**/__pycache__/**
