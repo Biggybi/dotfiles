@@ -42,7 +42,8 @@ let $PAGER=''                        " vim as pager
 
 syntax on
 set nocompatible                     " not compatible with vi
-set encoding=utf8                    " character encoding
+set encoding=utf-8                   " character encoding
+scriptencoding utf8
 set ttyfast                          " faster redrawing
 set nolazyredraw                     " no redraw executing macros
 
