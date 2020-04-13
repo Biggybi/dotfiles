@@ -33,7 +33,6 @@ fi
 
 alias g='git'
 alias gd='git diff'
-alias g='git'
 alias gurl='git config --get remote.origin.url'
 alias gg='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
 alias gitroot='cd $(git rev-parse --show-toplevel)' #go to the root of a git repo
