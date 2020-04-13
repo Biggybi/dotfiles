@@ -1561,7 +1561,7 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
 	au FileType c nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
-  " le and execute current
+	" compile and execute current
 	au FileType c nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
 	au FileType c nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out
 	au FileType c nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
