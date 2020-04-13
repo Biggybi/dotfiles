@@ -906,9 +906,9 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 augroup TexSet
 	au!
 	au FileType tex setlocal updatetime=1000
-  " let g:livepreview_previewer = 'zathura'
-  " let g:livepreview_cursorhold_recompile = 0
-  " let g:livepreview_engine = 'your_engine' . ' [options]'
+	" let g:livepreview_previewer = 'zathura'
+	" let g:livepreview_cursorhold_recompile = 0
+	" let g:livepreview_engine = 'your_engine' . ' [options]'
 augroup end
 
 """        Vim-run
@@ -1347,9 +1347,9 @@ augroup end
 
 augroup CocFormatAndK
 	au!
-  " Setup formatexpr specified filetype(s).
+	" Setup formatexpr specified filetype(s).
 	au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
+	" Update signature help on jump placeholder
 	au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
@@ -1498,11 +1498,11 @@ nnoremap <leader>cT :make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
 function! LocListPannel(pfx)
-  " if a:pfx == 'l' && len(getloclist(0)) == 0
-  " 	echohl ErrorMsg
-  " 	echo "Location List is Empty."
-  " 	return
-  " endif
+	" if a:pfx == 'l' && len(getloclist(0)) == 0
+	" 	echohl ErrorMsg
+	" 	echo "Location List is Empty."
+	" 	return
+	" endif
 	let winnr = winnr()
 	exec(a:pfx.'open')
 	wincmd L
@@ -1537,7 +1537,7 @@ augroup Shmaps
 	au! Shmaps
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
 
-  " alias to function
+	" alias to function
 	au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
 augroup end
 
@@ -1556,7 +1556,7 @@ augroup Cmaps
 	au FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>#include <string.h><cr>#include <bsd/string.h><cr>
 
 	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
-  " if to ternary operator
+	" if to ternary operator
 	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 	au FileType c nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
 	au FileType c nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
@@ -1567,24 +1567,24 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
 	au FileType c nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
-  " close brackets
+	" close brackets
 	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
 
-  " brackets around paragraph
+	" brackets around paragraph
 	au FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
 	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
-  "  name of current c function (needs '()')
+	"  name of current c function (needs '()')
 	au FileType c nnoremap <silent> g<c-d> j[[h^t(b
 
-  " semicolon/coma EOL
+	" semicolon/coma EOL
 	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
 	au FileType c nnoremap <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
 
-  " select all text in function
+	" select all text in function
 	au FileType c nnoremap <leader>vf j[[V%o
 
-  " valgrind
+	" valgrind
 	au FileType c nnoremap <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
 	au FileType c nnoremap <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
 augroup end
@@ -1709,14 +1709,14 @@ augroup end
 """        LATEX
 augroup LatexSmith
 	au! LatexSmith
-  " Navigating with guides
+	" Navigating with guides
 	au FileType plaintex,tex silent inoremap <buffer> ,, <esc>/<++><cr>"_4s
 	au FileType plaintex,tex silent vnoremap <buffer> ,, <esc>/<++><cr>"_4s
 	au FileType plaintex,tex silent map <buffer> ,, <esc>/<++><cr>"_4s
 
 	au FileType plaintex,tex silent nnoremap <buffer> <leader>ll :LLPStartPreview
 
-  " Latex snippets
+	" Latex snippets
 	au FileType plaintex,tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><esc>6kf}i
 	au FileType plaintex,tex inoremap <buffer> ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><esc>3kA
 	au FileType plaintex,tex inoremap <buffer> ,exe \begin{exe}<Enter>\ex<space><Enter>\end{exe}<Enter><Enter><++><esc>3kA
@@ -1761,7 +1761,7 @@ augroup MarkdownMaps
 	au!
 	au FileType markdown nnoremap <buffer> <leader>cr :Run<cr>
 	au FileType markdown nnoremap <buffer> <leader>ca :AutoRun<cr>
-  " au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
+	" au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
 ""    Headers
@@ -1780,13 +1780,13 @@ endif
 
 function! InsertCHHeader()
 	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
-  " Save cpoptions
+	" Save cpoptions
 	let cpoptions = &cpoptions
-  " Remove the 'a' option - prevents the name of the
-  " alternate file being overwritten with a :read command
+	" Remove the 'a' option - prevents the name of the
+	" alternate file being overwritten with a :read command
 	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
 	exe "read " . path_to_skeletons
-  " Restore cpoptions
+	" Restore cpoptions
 	exe "set cpoptions=" . cpoptions
 	1, 1 delete _
 
@@ -1933,9 +1933,9 @@ endfunction
 
 function! s:insert()
 	let l:line = 11
-  " empty line after header
+	" empty line after header
 	call append(0, "")
-  " loop over lines
+	" loop over lines
 	while l:line > 0
 		call append(0, s:line(l:line))
 		let l:line = l:line - 1
@@ -2005,14 +2005,14 @@ function! VimFold()
 		let windowwidth = 79
 	endif
 	let foldedlinecount = v:foldend - v:foldstart
-  " expand tabs into spaces
+	" expand tabs into spaces
 	let onetab = strpart('          ', 0, &tabstop)
 	let line = substitute(line, '\t', onetab, 'g')
 	let longbreak=" "
 	let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
 	if len(line) > windowwidth - 15
 		let line=line[0:windowwidth - 15]
-		let longbreak="¬"
+		let longbreak="Â¬"
 	endif
 	let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
 	return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
