@@ -1576,7 +1576,7 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 	"  name of current c function (needs '()')
-	au FileType c nnoremap <silent> g<c-d> j[[h^t(b
+	au FileType c nnoremap <silent> g<c-d> ][[[h^t(b
 
 	" semicolon/coma EOL
 	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
