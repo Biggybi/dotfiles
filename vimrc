@@ -1095,7 +1095,9 @@ vnoremap / /\v
 nnoremap <leader>/ /
 vnoremap <leader>/ /
 
-nnoremap zM zMzz
+nnoremap zM zMzb
+nnoremap <silent> zm :set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
+nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
 " " nnoremap za zazz
 " nnoremap zA zAzz
 " nnoremap <leader>za zMzvzz
