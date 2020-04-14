@@ -1451,6 +1451,8 @@ nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 " edit dotfiles
 nnoremap <leader>ev :e $DOT/vimrc<cr>
 nnoremap <leader>e<c-v> :vertical split $DOT/vimrc<cr>
+nnoremap <leader>et :e $DOT/tmux.conf<cr>
+nnoremap <leader>e<c-t> :vertical split $DOT/tmux.conf<cr>
 nnoremap <leader>eb :e $DOT/bashrc<cr>
 nnoremap <leader>e<c-b> :vertical split $DOT/bashrc<cr>
 nnoremap <leader>ea :e $DOT/bash_aliases<cr>
