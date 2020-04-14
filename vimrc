@@ -619,42 +619,7 @@ function! ToggleNetrw()
 		let t:expl_buf_num = bufnr("%")
 	endif
 endfunction
-" let g:NetrwIsOpen=0
-
-" function! ToggleNetrw()
-" 	if g:NetrwIsOpen
-" 		let i = bufnr("$")
-" 		while (i >= 1)
-" 			if getbufvar(i, "&filetype") == "netrw"
-" 				silent exe "bwipeout " . i
-" 			endif
-" 			let i-=1
-" 		endwhile
-" 		let g:NetrwIsOpen=0
-" 	else
-" 		let g:NetrwIsOpen=1
-" 		silent Lexplore
-" 	endif
-" endfunction
-
-" function! ToggleNetrw()
-" let i = bufnr("$")
-" let wasOpen = 0
-" while (i >= 1)
-" 	if getbufvar(i, "&filetype") == "netrw"
-" 		silent exe "bwipeout " . i
-" 		let wasOpen = 1
-" 	endif
-" 	let i-=1
-" endwhile
-" if !wasOpen
-" silent Lexplore
-" endif
-" endfunction
-
-" Add your own mapping. For example:
 nnoremap <silent> <leader>t :call ToggleNetrw()<cr>
-" nnoremap <silent> <leader>t :call ToggleVExplorer()<cr>
 
 " Netrw customization
 let g:netrw_keepdir= 0
@@ -929,38 +894,6 @@ augroup VinWikiSettings
 	au FileType vimwiki au! BufRead,BufEnter * setlocal showbreak= nobreakindent linebreak nonu norelativenumber
 	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>VimwikiToggleListItem
 augroup end
-
-""    Mini plugins
-"""        Shell output split
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
-	exe 'vert terminal '. a:cmdline
-endfunction
-
-" function SmoothScroll(up)
-"     if a:up
-"         let scrollaction=""
-"     else
-"         let scrollaction=""
-"     endif
-"     exec "normal " . scrollaction
-"     redraw
-"     let counter=1
-"     while counter<&scroll
-"         let counter+=1
-"         sleep 10m
-"         redraw
-"         exec "normal " . scrollaction
-"     endwhile
-" endfunction
-
-" nnoremap <C-U> :call SmoothScroll(1)<Enter>
-" nnoremap <C-D> :call SmoothScroll(0)<Enter>
-" inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
-" inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
-
-" map <ScrollWheelUp> <C-Y>
-" map <ScrollWheelDown> <C-E>
 
 ""    Operators
 """        Start / End of line
