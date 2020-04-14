@@ -1868,7 +1868,6 @@ endfunction
 command! Header101 call Header101()
 " nnoremap <leader>h1 :Header101<cr>
 nnoremap <silent> <leader>h1 :Header101<cr>
-nnoremap <silent> <leader>h2 ggO€ýa h1€ýa/createdww"hyfygg/createdww"_dfy"H€ýa"hP 14dd€ýa
 " au BufWritePre * call s:update ()
 
 ""    Dotfiles settings
