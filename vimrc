@@ -1579,18 +1579,18 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 	"  name of current c function (needs '()')
-	au FileType c nnoremap <silent> g<c-d> ][[[h^t(b
+	au FileType c nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
 	" semicolon/coma EOL
-	au FileType c nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
-	au FileType c nnoremap <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
+	au FileType c nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
+	au FileType c nnoremap <buffer> <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
 
 	" select all text in function
-	au FileType c nnoremap <leader>vf j[[V%o
+	au FileType c nnoremap <buffer> <leader>vf j[[V%o
 
 	" valgrind
-	au FileType c nnoremap <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
-	au FileType c nnoremap <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
+	au FileType c nnoremap <buffer> <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
+	au FileType c nnoremap <buffer> <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
 augroup end
 
 " nnoremap viB [[%v%jok$
