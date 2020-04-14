@@ -1978,6 +1978,7 @@ augroup DotfilesFiletypeSh
 	au!
 	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setlocal filetype sh
 augroup end
+
 augroup suffixes
 	au!
 	let associations = [
@@ -2000,6 +2001,7 @@ augroup VimrcMaps
 	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,'''<space> """<space><space><space><space><space><space><space><space>
 augroup end
+
 """        Vimrc folding
 function! VimFold()
 	let line = getline(v:foldstart)
