@@ -87,7 +87,7 @@ function! GetGitRepoName(file) abort
 endfunction
 
 function! MyWindowTitle() abort
-	let l:hostname = hostname() . "    ▏  "
+	let l:hostname = hostname() . "   ▏ "
 	let l:file = substitute(expand('%'), '/.*/', '', '')
 	let gitrepo = GetGitRepoName('%') . "   〉  "
 	return(hostname . gitrepo . file)
