@@ -411,6 +411,12 @@ augroup HelpManSplit
 	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
 
+"""        Shell output split
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+	exe 'vert terminal '. a:cmdline
+endfunction
+
 """        Scrolling
 " Do not scroll past the end of file (last line locked at bottom of window)
 
