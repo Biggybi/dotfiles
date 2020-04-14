@@ -474,7 +474,7 @@ augroup end
 augroup ColorColumn
 	au!
 	if exists('+colorcolumn')
-		au FileType c,cpp,css,java,python,ruby,bash,sh set colorcolumn=81
+		au FileType c,cpp,css,java,python,ruby,bash,sh setlocal colorcolumn=81
 	endif
 augroup end
 
@@ -924,7 +924,7 @@ let g:vim_run_command_map = {
 
 augroup VinWikiSettings
 	au!
-	au FileType vimwiki au! BufRead,BufEnter * set showbreak= nobreakindent linebreak nonu norelativenumber
+	au FileType vimwiki au! BufRead,BufEnter * setlocal showbreak= nobreakindent linebreak nonu norelativenumber
 	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>VimwikiToggleListItem
 augroup end
 
@@ -1972,7 +1972,7 @@ nnoremap <silent> <leader>h2 ggO€ýa h1€ýa/createdww"hyfygg/createdww"_dfy"H
 """        Filetype
 augroup DotfilesFiletypeSh
 	au!
-	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setfiletype sh
+	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setlocal filetype sh
 augroup end
 augroup suffixes
 	au!
