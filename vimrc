@@ -279,38 +279,8 @@ endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
-""    Window behaviour
+""    Extra windows
 """        Terminal
-
-" augroup myterm | au!
-" 	if ! has("TerminalOpen") && ! has("nvim")
-" 		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
-" 	endif
-" augroup end
-
-" augroup myterm | au!
-" 	if ! has("nvim")
-" 		au TerminalOpen * if &buftype ==# 'terminal' | wincmd L | vert resize 55 | endif
-" 	endif
-" augroup end
-
-" let g:term_buf = 0
-" let g:term_win = 0
-" function! Term_toggle(height)
-" 	if win_gotoid(g:term_win)
-" 		let g:term_win = 0
-" 		hide
-" 	else
-" 		try
-" 			exec "buffer " . g:term_buf
-" 		catch
-" 			vertical terminal
-"       "             let g:term_buf = bufnr("")
-" 		endtry
-" 		startinsert!
-" 		let g:term_win = win_getid()
-" 	endif
-" endfunction
 
 " Show terminal (like c-z), exit on any character
 function! ShowTerm()
@@ -319,16 +289,9 @@ function! ShowTerm()
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-nnoremap <leader>T :call Term_toggle(10)<cr>
-tnoremap <c-t> <c-\><c-n>:call Term_toggle(10)<cr>
 tnoremap <c-n> <c-\><c-n>
 tnoremap <c-w>: <c-\><c-n>:
 tnoremap <c-w>; <c-\><c-n>:
-" tnoremap <a-h> <c-\><c-n><c-w>h
-" tnoremap <a-j> <c-\><c-n><c-w>j
-" tnoremap <a-k> <c-\><c-n><c-w>k
-" tnoremap <a-l> <c-\><c-n><c-w>l
-
 
 """        Quickfix
 
@@ -428,7 +391,6 @@ function! NoScrollAtEOF()
 		normal! zb
 	endif
 endfunction
-
 nnoremap <c-f> <c-f>:call NoScrollAtEOF()<cr>
 
 ""    Highlights / Match
