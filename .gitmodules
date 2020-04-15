@@ -85,3 +85,6 @@
 [submodule "vim/bundle/goyo"]
 	path = vim/bundle/goyo
 	url = https://github.com/junegunn/goyo.vim
+[submodule "vim/bundle/fzf.vim"]
+	path = vim/bundle/fzf.vim
+	url = git@github.com:junegunn/fzf.vim.git
