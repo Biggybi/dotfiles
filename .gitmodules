@@ -41,10 +41,6 @@
 [submodule "vim/bundle/vim-eunuch"]
 	path = vim/bundle/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch
-[submodule "vim/bundle/vimroom"]
-	path = vim/bundle/vimroom
-	url = https://github.com/mikewest/vimroom
-	ignore = dirty
 [submodule "vim/bundle/vim-snipmate"]
 	path = vim/bundle/vim-snipmate
 	url = https://github.com/garbas/vim-snipmate
@@ -52,30 +48,15 @@
 	path = vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets
 	ignore = dirty
-[submodule "vim/bundle/vim-speeddating"]
-	path = vim/bundle/vim-speeddating
-	url = https://github.com/tpope/vim-speeddating
-[submodule "vim/bundle/vim-surround"]
-	path = vim/bundle/vim-surround
-	url = https://github.com/tpope/vim-surround
 [submodule "vim/bundle/vim-unimpaired"]
 	path = vim/bundle/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
 [submodule "vim/bundle/vim-repeat"]
 	path = vim/bundle/vim-repeat
 	url = git@github.com:tpope/vim-repeat.git
-[submodule "vim/bundle/vim-tmux-focus-events"]
-	path = vim/bundle/vim-tmux-focus-events
-	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git
 [submodule "vim-swap"]
 	path = vim/bundle/vim-swap
 	url = git@github.com:machakann/vim-swap.git
-[submodule "vim/bundle/vimwiki"]
-	path = vim/bundle/vimwiki
-	url = https://github.com/vimwiki/vimwiki
-[submodule "vim/bundle/goyo"]
-	path = vim/bundle/goyo
-	url = https://github.com/junegunn/goyo.vim
 [submodule "vim/bundle/fzf.vim"]
 	path = vim/bundle/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
@@ -103,3 +84,21 @@
 [submodule "vim/bundle/vim-airline"]
 	path = vim/bundle/vim-airline
 	url = git@github.com:vim-airline/vim-airline.git
+[submodule "vim/bundle/--name"]
+	path = vim/bundle/--name
+	url = git@github.com:tpope/vim-speeddating.git
+[submodule "vim/bundle/vim-surround"]
+	path = vim/bundle/vim-surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule "vim/bundle/vim-speeddating"]
+	path = vim/bundle/vim-speeddating
+	url = git@github.com:tpope/vim-speeddating.git
+[submodule "vim/bundle/goyo.vim"]
+	path = vim/bundle/goyo.vim
+	url = git@github.com:junegunn/goyo.vim.git
+[submodule "vim/bundle/vim-tmux-focus-events"]
+	path = vim/bundle/vim-tmux-focus-events
+	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git
+[submodule "vim/bundle/vimwiki"]
+	path = vim/bundle/vimwiki
+	url = git@github.com:vimwiki/vimwiki.git
