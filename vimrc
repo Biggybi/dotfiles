@@ -857,7 +857,7 @@ let g:vim_run_command_map = {
 
 augroup VinWikiSettings
 	au!
-	au FileType vimwiki au! BufRead,BufEnter * setlocal showbreak= nobreakindent linebreak nonu norelativenumber
+	au FileType vimwiki setlocal showbreak= nobreakindent linebreak nonu norelativenumber
 	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>VimwikiToggleListItem
 augroup end
 let g:vimwiki_list = [{'path': '~/vimwiki/',
