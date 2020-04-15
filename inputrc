@@ -32,10 +32,11 @@ set keymap vi-insert
 "\C-x\C-r": re-read-init-file
 
 set keymap vi-command
-"\C-q": backward-delete-char
+"\C-x": backward-delete-char
 "\C-a": beginning-of-line
 "\C-e": end-of-line
-"\C-l": forward-word
+"\C-l": vi-end-word
 "\C-h": backward-word
 "\C-j": next-history
 "\C-k": previous-history
+"\C-q": clear-screen

@@ -2,7 +2,7 @@
 #   ______  _____  ______  ______ __   __ ______  _____   #
 #   |_____]   |   |  ____ |  ____   \_/   |_____]   |	  #
 #   |_____] __|__ |_____| |_____|    |    |_____] __|__   #
-#												  bashrc  #
+#                                                 bashrc  #
 ###########################################################
 
 # ..~/.bashrc: executed by bash(1) for non-login shells.
@@ -98,7 +98,7 @@ HISTCONTROL=ignoreboth								# duplicate + whitespace
 van() {
 	if man "$1" > /dev/null 2>&1
 	then
-		vim -c "set ft=man" <(man $@);
+		vim -c "set ft=man nonu nornu | lcd" <(man $@);
 	elif [ $# == 1 ]
 	then
 		echo "I don't have a man to $@"

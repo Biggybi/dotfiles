@@ -21,12 +21,29 @@ alias c='clear'
 alias vimnude='vim -u NONE'
 
 ## color
-alias ls='ls -h --group-directories-first --color=auto'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
+
+## ls
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	alias ls='ls -h'
+fi
+
+if [[ !$(type exa) ]]
+then
+	alias ls='exa'
+	alias l='ls -F'
+	alias ll='ls -l'
+	alias la='ls -la'
+else
+	## ls
+	alias ls='ls -h --group-directories-first --color=auto'
+	alias ll='ls -trhalF'
+	alias la='ls -lA'
+	alias l='ls -CF'
+	alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
+
 fi
 
 ## Git
@@ -62,12 +79,6 @@ alias gown='sudo chown -R "${USER:-$(id -un)}" .'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-
-## ls
-alias ll='ls -trhalF'
-alias la='ls -lA'
-alias l='ls -CF'
-alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 
 alias le='less'
 alias ccat='highlight --out-format=ansi'
@@ -129,7 +140,8 @@ alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
 alias eb='$EDITOR $HOME/dotfiles/bashrc'
 alias ea='$EDITOR $HOME/dotfiles/bash_aliases'
 alias ev='$EDITOR $HOME/dotfiles/vimrc'
-alias ei='$EDITOR $HOME/dotfiles/inputrc'
+alias ep='$EDITOR $HOME/dotfiles/inputrc'
+alias et='vim $HOME/dotfiles/tmux.conf'
 alias eh='$EDITOR $HOME/.bash_history'
 alias efs='sudo $EDITOR /etc/fstab'
 alias eapt='sudo $EDITOR /etc/apt/sources.list'
@@ -138,7 +150,7 @@ alias eg='sh .git/vimgit'
 alias vb='vim $HOME/dotfiles/bashrc'
 alias va='vim $HOME/dotfiles/bash_aliases'
 alias vv='vim $HOME/dotfiles/vimrc'
-alias vn='vim $HOME/dotfiles/inputrc'
+alias vp='vim $HOME/dotfiles/inputrc'
 alias vt='vim $HOME/dotfiles/tmux.conf'
 alias vh='vim $HOME/.bash_history'
 alias vfs='sudo vim /etc/fstab'
@@ -284,6 +296,7 @@ alias tmpclean='rm -r /tmp/TMP'
 
 alias gcc='clang '
 alias gccf='gcc -Wall -Wextra '
+alias p='python3.7'
 alias phpserv='php -S localhost:4000'
 alias bc='bc -q'
 alias asciid="man ascii | grep Tables -A15 | cut -c 25- | sed 's/^ /    /;s/$^//;1,2d;5d'"

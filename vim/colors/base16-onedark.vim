@@ -234,6 +234,8 @@ call <sid>hi("StatusLineNC",  s:gui05, s:gui01, s:cterm01, s:cterm02, "none", ""
 " call <sid>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none", "")
 " call <sid>hi("VertSplit",     s:gui03, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit",     s:gui01, s:gui00, s:cterm02, s:cterm02, "none", "")
+call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("AirlineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")

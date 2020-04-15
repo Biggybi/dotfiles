@@ -436,12 +436,12 @@ augroup end
 
 " endfunction
 
-"""        focus current window : cursorline and relative numbers
-augroup WinFocus
-	au!
-	au VimEnter,WinEnter,BufNew,WinNew * setlocal nocursorline "relativenumber number
-	au WinLeave * setlocal nocursorline "norelativenumber number
-augroup end
+"""        focus current window
+" augroup WinFocus
+" 	au!
+" 	au VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
+" 	au WinLeave * setlocal nocursorline "norelativenumber number
+" augroup end
 
 """        color column 81 for code
 augroup ColorColumn
