@@ -30,7 +30,7 @@ then
 	alias ls='ls -h'
 fi
 
-if [[ !$(type exa) ]]
+if [[ -x "$(command -v exa)" ]]
 then
 	alias ls='exa'
 	alias l='ls -F'
