@@ -208,6 +208,9 @@ if has("termguicolors")
 	set t_8f=[38;2;%lu;%lu;%lum " for tmux
 endif
 
+" False cursorline to have CursorLineNr working
+set cursorline
+
 ""    Look / Theme
 """        Gnome adaptive cursor shape
 
