@@ -82,3 +82,6 @@
 [submodule "vim/bundle/vimwiki"]
 	path = vim/bundle/vimwiki
 	url = https://github.com/vimwiki/vimwiki
+[submodule "vim/bundle/goyo"]
+	path = vim/bundle/goyo
+	url = https://github.com/junegunn/goyo.vim
