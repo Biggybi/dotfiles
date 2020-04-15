@@ -860,6 +860,8 @@ augroup VinWikiSettings
 	au FileType vimwiki au! BufRead,BufEnter * setlocal showbreak= nobreakindent linebreak nonu norelativenumber
 	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>VimwikiToggleListItem
 augroup end
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+			\ 'syntax': 'markdown', 'ext': '.md'}]
 
 ""    Operators
 """        Start / End of line
