@@ -231,7 +231,7 @@ call <sid>hi("AirlineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "no
 call <sid>hi("AirlineActiveGit",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
-call <sid>hi("CursorLine",    "", "", "", "", "none", "")
+call <sid>hi("CursorLine",    "", s:gui00, "", "", "none", "")
 call <sid>hi("CursorLineNr",  s:gui05, s:gui01, s:cterm04, s:cterm01, "none", "")
 call <sid>hi("QuickFixLine",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
