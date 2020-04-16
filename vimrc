@@ -237,7 +237,7 @@ augroup end
 """        DarkLightSwitch
 " switch between light and dark theme (UI + ligtline)
 
-function! DarkLightSwitch()
+function! DarkLightSwitch() abort
 	if g:DarkLightSwitch ==# 'dark'
 		set background=dark
 		colorscheme	base16-onedark
@@ -287,7 +287,7 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 """        Terminal
 
 " Show terminal (like c-z), exit on any character
-function! ShowTerm()
+function! ShowTerm() abort
 	silent !read -sN 1
 	redraw!
 endfunction
@@ -316,7 +316,7 @@ augroup QuickFixWindowSet
 augroup end
 
 " Change encoding of error file for quickfix
-function! QfMakeConv()
+function! QfMakeConv() abort
 	let qflist = getqflist()
 	for i in qflist
 		let i.text = iconv(i.text, "cp936", "utf-8")
@@ -387,7 +387,7 @@ endfunction
 """        Scrolling
 " Do not scroll past the end of file (last line locked at bottom of window)
 
-function! NoScrollAtEOF()
+function! NoScrollAtEOF() abort
 	let curpos = getpos('.')
 	let lnum = get(curpos, 1, -1)
 	let len = line('$')
@@ -415,7 +415,7 @@ augroup end
 " 	au BufWinLeave * call clearmatches()
 " augroup end
 
-" function! ToggleIndentGuides()
+" function! ToggleIndentGuides() abort
 " if exists('b:indent_guides')
 " 	call matchdelete(b:indent_guides)
 " unlet b:indent_guides
@@ -574,7 +574,7 @@ augroup end
 """        Netrw
 
 " Toggle Vexplore with <leader>t
-function! ToggleNetrw()
+function! ToggleNetrw() abort
 	if exists("t:expl_buf_num")
 		let expl_win_num = bufwinnr(t:expl_buf_num)
 		let cur_win_num = winnr()
@@ -694,7 +694,7 @@ let g:airline_section_z = '%4{line(".")}:%-3{virtcol(".")} %-4{LinePercent()}'
 let g:airline#extensions#hunks#enabled = 0
 " let g:airline_section_z = '%{LinePercent}'
 
-function! LinePercent()
+function! LinePercent() abort
 	return line('.') * 100 / line('$') . '%'
 endfunction
 
@@ -803,7 +803,7 @@ inoremap <c-f> <c-o>:FzfSnippets<cr>
 command! -bang -complete=dir -nargs=* LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
 
-" function! FzfColorSelect()
+" function! FzfColorSelect() abort
 " 	if &background ==# "light"
 " 		return "--theme=OneHalfLight"
 " 	else
@@ -811,7 +811,7 @@ command! -bang -complete=dir -nargs=* LS
 " 	endif
 " endfunction
 
-function! FzfFilesAutoColor()
+function! FzfFilesAutoColor() abort
 	if &background ==# "light"
 		:call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat --theme=OneHalfLight {}']}, <bang>0)
 	else
@@ -1035,7 +1035,7 @@ nnoremap Q <nul>
 inoremap <c-z> <c-[><c-z>
 
 " <c-s> save and enter normal mode
-function! VerboseUpdate()
+function! VerboseUpdate() abort
 	update
 	echo(':update '.expand('%:p'))
 endfunction
@@ -1154,7 +1154,7 @@ nmap <c-g> %
 vmap <c-g> %
 
 " Count line in function
-function! FunctionLineCount()
+function! FunctionLineCount() abort
 	let l:currentline = line(".")
 	normal j[[
 	let l:topline = line(".")
@@ -1165,7 +1165,7 @@ function! FunctionLineCount()
 endfunction
 
 " Word count
-function! WordCount()
+function! WordCount() abort
 	echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
 endfunction
 
@@ -1242,7 +1242,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " show doc on K
 nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
+function! s:show_documentation() abort
 	if index(['vim','help'], &filetype) >= 0
 		execute 'h '.expand('<cword>')
 	else
@@ -1690,7 +1690,7 @@ if !exists("autocommands_loaded")
 	au BufNewFile *.h call InsertCHHeader()
 endif
 
-function! InsertCHHeader()
+function! InsertCHHeader() abort
 	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
 	" Save cpoptions
 	let cpoptions = &cpoptions
@@ -1774,7 +1774,7 @@ let s:types		= {
 			\['!', '!', '/']
 			\}
 
-function! s:filetype()
+function! s:filetype() abort
 	let l:f = s:filename()
 	let s:start	= '#'
 	let s:end	= '#'
@@ -1815,7 +1815,7 @@ function! s:line(n)
 	endif
 endfunction
 
-function! s:user()
+function! s:user() abort
 	let l:user = $USER
 	if strlen(l:user) == 0
 		let l:user = "trx"
@@ -1823,7 +1823,7 @@ function! s:user()
 	return l:user
 endfunction
 
-function! s:mail()
+function! s:mail() abort
 	let l:mail = $MAIL
 	if strlen(l:mail) == 0
 		let l:mail = "tristan.kapous@protonmail.com"
@@ -1831,7 +1831,7 @@ function! s:mail()
 	return l:mail
 endfunction
 
-function! s:filename()
+function! s:filename() abort
 	let l:filename = expand("%:t")
 	if strlen(l:filename) == 0
 		let l:filename = "< new >"
@@ -1839,11 +1839,11 @@ function! s:filename()
 	return l:filename
 endfunction
 
-function! s:date()
+function! s:date() abort
 	return strftime("%Y/%m/%d %H:%M:%S")
 endfunction
 
-function! s:insert()
+function! s:insert() abort
 	let l:line = 11
 	" empty line after header
 	call append(0, "")
@@ -1854,7 +1854,7 @@ function! s:insert()
 	endwhile
 endfunction
 
-function! s:update()
+function! s:update() abort
 	call s:filetype()
 	if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
 		if &mod
@@ -1866,7 +1866,7 @@ function! s:update()
 	return 1
 endfunction
 
-function! Header101()
+function! Header101() abort
 	if s:update()
 		call s:insert()
 	endif
@@ -1909,7 +1909,7 @@ augroup VimrcMaps
 augroup end
 
 """        Vimrc folding
-function! VimFold()
+function! VimFold() abort
 	let line = getline(v:foldstart)
 
 	let nucolwidth = &fdc + &number * &numberwidth
