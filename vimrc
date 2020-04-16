@@ -177,6 +177,7 @@ set nojoinspaces                " and spaces too
 set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
 
 " Main window
+set display=lastline
 set number                      " show number column
 set relativenumber              " relative to current line
 set wrap                        " no horizontal scroll
