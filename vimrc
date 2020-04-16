@@ -170,14 +170,14 @@ set splitright                  " default split right
 
 " guides smartisation
 set fillchars+=vert:▎
-set listchars=tab:\▎\ ,trail:-          " only tab / trailing ws
+set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
 set spellcapcheck=              " ignore leading cap in word
 set formatoptions+=j            " join comments smartly
 set nojoinspaces                " and spaces too
 set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
 
 " Main window
-set display=lastline
+set display=lastline            " show lastline even if too long
 set number                      " show number column
 set relativenumber              " relative to current line
 set wrap                        " no horizontal scroll
