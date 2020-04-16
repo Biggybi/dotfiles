@@ -859,11 +859,12 @@ let g:vim_run_command_map = {
 
 """        Vimwiki
 
-augroup VinWikiSettings
+augroup VimWikiSettings
 	au!
-	au FileType vimwiki setlocal showbreak= nobreakindent linebreak nonu norelativenumber
-	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>VimwikiToggleListItem
+	au FileType vimwiki setlocal nonu nornu showbreak=NONE nobreakindent linebreak
+	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>(VimwikiToggleListItem)
 augroup end
+
 let g:vimwiki_list = [{'path': '~/vimwiki/',
 			\ 'syntax': 'markdown', 'ext': '.md'}]
 
