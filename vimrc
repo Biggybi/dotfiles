@@ -565,9 +565,7 @@ augroup end
 "  refresh filetype upon writing if no filetype already set
 augroup FileTypeRefresh
 	au!
-	if &ft ==# ''
-		au BufWrite * filetype detect
-	endif
+		au BufWrite * if &ft ==# '' | filetype detect | endif
 augroup end
 
 ""    Plugins settings
