@@ -380,7 +380,7 @@ augroup end
 
 """        Shell output split
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
+function! s:RunShellCommand(cmdline) abort
 	exe 'vert terminal '. a:cmdline
 endfunction
 
