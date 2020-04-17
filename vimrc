@@ -95,6 +95,10 @@ endfunction
 
 set title                       " window title (file)
 
+" Session restore
+set sessionoptions-=options
+set viewoptions-=options
+
 " Mappings chill
 set notimeout                   " no timeout on maps
 set ttimeout                    " timeout on keycodes
