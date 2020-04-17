@@ -67,32 +67,6 @@ set modelineexpr                     " flexible modeline set
 """        User Interface settings
 
 " Title
-
-augroup WinTitle
-	au!
-	au BufRead,BufEnter * let &titlestring = MyWindowTitle()
-augroup end
-
-function! GetGitRepoName(file) abort
-	let l:path=fnamemodify(a:file, ':p')
-	while l:path != '' && l:path != '/'
-		let l:path=fnamemodify(l:path, ':h')
-		let l:candidate=l:path . '/.git'
-		let l:folder=substitute(l:path, '/.*/', '', '')
-		if isdirectory(l:path . '/.git')
-			return l:folder
-		endif
-	endwhile
-	return ''
-endfunction
-
-function! MyWindowTitle() abort
-	let l:hostname = hostname() . "   ▏ "
-	let l:file = substitute(expand('%'), '/.*/', '', '')
-	let gitrepo = GetGitRepoName('%') . "   〉  "
-	return(hostname . gitrepo . file)
-endfunction
-
 set title                       " window title (file)
 
 " Session restore
@@ -181,12 +155,12 @@ set nojoinspaces                " and spaces too
 set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
 
 " Main window
-set display=lastline            " show lastline even if too long
+set display=+=lastline          " show lastline even if too long
 set number                      " show number column
 set relativenumber              " relative to current line
 set wrap                        " no horizontal scroll
 set breakindent                 " with indent
-set showbreak=\ \ ¬            " ... showing a character
+set showbreak=\ \ ¬             " ... showing a character
 
 " Moves boundaries
 set backspace=indent,eol,start  " backspace over lines
@@ -286,6 +260,33 @@ elseif g:DarkLightMod == 2
 endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
+
+"""        Title
+
+augroup WinTitle
+	au!
+	au BufRead,BufEnter * let &titlestring = MyWindowTitle()
+augroup end
+
+function! GetGitRepoName(file) abort
+	let l:path=fnamemodify(a:file, ':p')
+	while l:path != '' && l:path != '/'
+		let l:path=fnamemodify(l:path, ':h')
+		let l:candidate=l:path . '/.git'
+		let l:folder=substitute(l:path, '/.*/', '', '')
+		if isdirectory(l:path . '/.git')
+			return l:folder
+		endif
+	endwhile
+	return ''
+endfunction
+
+function! MyWindowTitle() abort
+	let l:hostname = hostname() . "   ▏ "
+	let l:file = substitute(expand('%'), '/.*/', '', '')
+	let gitrepo = GetGitRepoName('%') . "   〉  "
+	return(hostname . gitrepo . file)
+endfunction
 
 ""    Extra windows
 """        Terminal
