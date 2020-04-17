@@ -379,8 +379,6 @@ augroup HelpManSplit
 				\ | wincmd H | 82 wincmd|
 	au FileType help au! BufLeave,WinLeave <buffer> silent!
 				\ | if &columns < 100 | 0 wincmd| | endif
-	au FileType man,help nnoremap <buffer> <silent> q :bw!<cr>
-	au FileType man nnoremap <buffer> <silent> == :80 wincmd<bar><cr>
 augroup end
 
 """        Shell output split
