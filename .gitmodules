@@ -105,3 +105,9 @@
 [submodule "vim/bundle/fzf"]
 	path = vim/bundle/fzf
 	url = git@github.com:junegunn/fzf.git
+[submodule "vim/bundle/vim-oblique"]
+	path = vim/bundle/vim-oblique
+	url = git@github.com:junegunn/vim-oblique.git
+[submodule "vim/bundle/vim-pseudocl"]
+	path = vim/bundle/vim-pseudocl
+	url = git@github.com:junegunn/vim-pseudocl.git
