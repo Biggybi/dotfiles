@@ -1925,7 +1925,7 @@ function! VimFold() abort
 	let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
 	if len(line) > windowwidth - 15
 		let line=line[0:windowwidth - 15]
-		let longbreak="Â¬"
+		let longbreak="¬"
 	endif
 	let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
 	return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
