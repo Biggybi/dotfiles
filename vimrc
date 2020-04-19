@@ -1242,7 +1242,7 @@ nmap <leader>cf  <Plug>(coc-fix-current)
 " rename word
 nmap <leader>rn <Plug>(coc-rename)
 
-" show doc on K
+" show doc with Coc
 nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
 
 function! s:show_documentation() abort
