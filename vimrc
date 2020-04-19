@@ -1031,6 +1031,9 @@ nnoremap gI `.gi<esc>zz
 " no more default ex mode
 nnoremap Q <nul>
 
+" repeat last macro
+nnoremap - @@
+
 " <c-z> in insert mode
 inoremap <c-z> <c-[><c-z>
 
