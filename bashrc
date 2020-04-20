@@ -235,6 +235,17 @@ color_ps1()
 }
 # color_ps1
 
+mkcd()
+{
+	if [ ! $1 ]
+	then
+		echo "usage: mkcd dir"
+		return
+	fi
+	mkdir -p -- $1
+	cd -P -- $1
+}
+
 # Title if xterm
 case "$TERM" in
 	xterm*|rxvt*)
