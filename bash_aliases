@@ -426,8 +426,3 @@ fzf_semi_interactive_cd() {
 		builtin cd "$dir" &> /dev/null
 	done
 }
-
-# install from file with software list
-aptif() {
-	sudo apt install -y $(grep -o ^[^#][[:alnum:]]* "$1")
-}

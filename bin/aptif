@@ -1,0 +1,3 @@
+#!/bin/bash
+# install from file with software list
+sudo apt install -y $(grep -o ^[^#][[:alnum:]]* "$1")
