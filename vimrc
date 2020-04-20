@@ -525,7 +525,6 @@ augroup CdGitRootOrFileDir
 				\ | endif
 augroup end
 
-
 """        Tags and paths
 " Get tags file from git repo
 " Set path for code projects
@@ -629,37 +628,6 @@ augroup end
 " 	au FileType fugitive au! Bufenter index
 " 		\ | if &filetype ==# 'fugitive' | :e | endif
 " augroup end
-
-"""        Syntastic
-" let g:syntastic_c_config_file = ['$HOME/dotfiles/.vim/c_errors_file']
-" let g:syntastic_c_include_dirs = ["inc", "incs", "includes", "headers"]
-" let g:syntastic_c_compiler_options = "-Wall -Wextra"
-" let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
-
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" set statusline+=%H*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 1
-
-" let g:syntastic_c_remove_include_errors = 1
-" let g:syntastic_enable_c_checker = 1
-" let g:syntastic_c_check_header = 1
-" let g:syntastic_c_checkers = ['make', 'gcc', 'clangcheck']
-" let g:syntastic_tex_checkers = ['lacheck']
-" let g:ycm_use_clangd = 1
-
-" let g:syntastic_python_checkers=['flake8']
-" let g:syntastic_python_flake8_args = '--ignore="E501"' " ignore long lines
-
-" let g:syntastic_json_checkers=['jsonlint']
-
-" let g:syntastic_html_checkers=['tidy']
-
 
 """        Airline
 let g:airline_mode_map = {
@@ -1388,12 +1356,6 @@ inoremap ,09 0123456789
 
 " Show git log history
 nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr>
-"""        Netrw
-" map x key to collapse parent folder
-augroup NetrwMaps
-	au!
-	" autocmd filetype netrw nmap <buffer> _ c
-augroup end
 
 ""    Code Mappings
 """        General
