@@ -1099,10 +1099,10 @@ nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
 nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
 
 " use unix regex in searches
-nnoremap / /\v
-vnoremap / /\v
-nnoremap <leader>/ /
-vnoremap <leader>/ /
+" nnoremap / /\v
+" vnoremap / /\v
+nnoremap <leader>/ /\v
+vnoremap <leader>/ /\v
 
 nnoremap zM zMzb
 nnoremap <silent> zm :set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
