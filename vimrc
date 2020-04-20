@@ -1116,7 +1116,7 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 "Clear search highlight
-nnoremap <silent> - :nohlsearch<cr>
+nnoremap <silent> <leader>sh :nohlsearch<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
@@ -1150,7 +1150,7 @@ nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap g<c-f> :vertical wincmd f<cr>
 
 " toggle guides
-nnoremap <silent> <leader>xg :set list!<cr>
+nnoremap <silent> <leader>sg :set list!<cr>
 
 " % as <c-g>
 nmap <c-g> %
