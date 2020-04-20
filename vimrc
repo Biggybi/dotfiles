@@ -551,7 +551,7 @@ augroup FileTypeAutoSelect
 	au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 	au FileType php setlocal ofu=phpcomplete#CompletePHP
 	au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
-	au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+	au BufNewFile,BufFilePre,BufRead *.md,markdown,vimwiki set filetype=markdown
 	au BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
 	au BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
 	au BufNewFile,BufFilePre,BufRead *.php set filetype=php
