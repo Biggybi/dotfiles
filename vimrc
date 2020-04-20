@@ -1388,6 +1388,13 @@ inoremap ,09 0123456789
 
 " Show git log history
 nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr>
+"""        Netrw
+" map x key to collapse parent folder
+augroup NetrwMaps
+	au!
+	" autocmd filetype netrw nmap <buffer> _ c
+augroup end
+
 ""    Code Mappings
 """        General
 
