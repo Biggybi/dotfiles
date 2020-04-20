@@ -23,6 +23,7 @@ let HOM_42="$HOME/42"
 let GOPATH="$HOME/go"
 
 """        Pathogen
+
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
@@ -203,16 +204,9 @@ augroup CursorShape
 	au VimLeave * silent execute '!echo -ne "\e[ q"' |
 augroup end
 
-" set number relativenumber
-" augroup NumToggle
-" 	au!
-" 	au VimEnter,WinEnter,BufWinEnter * set number relativenumber
-" 	au WinLeave * set nonumber norelativenumber
-" augroup END
-
 """        DarkLightSwitch
-" switch between light and dark theme (UI + ligtline)
 
+" switch between light and dark theme (UI + ligtline)
 function! DarkLightSwitch() abort
 	if g:DarkLightSwitch ==# 'dark'
 		set background=dark
@@ -366,6 +360,7 @@ endfunction
 " nnoremap ]W :llast<cr>
 
 """        Help/Man
+
 let g:ft_man_open_mode = 'vert'
 
 augroup HelpManSplit
@@ -380,14 +375,15 @@ augroup HelpManSplit
 augroup end
 
 """        Shell output split
+
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline) abort
 	exe 'vert terminal '. a:cmdline
 endfunction
 
 """        Scrolling
-" Do not scroll past the end of file (last line locked at bottom of window)
 
+" Do not scroll past the end of file (last line locked at bottom of window)
 function! NoScrollAtEOF() abort
 	let curpos = getpos('.')
 	let lnum = get(curpos, 1, -1)
@@ -400,6 +396,7 @@ nnoremap <c-f> <c-f>:call NoScrollAtEOF()<cr>
 
 ""    Highlights / Match
 """        show traling whitespaces
+
 augroup TrailSpace
 	au!
 	au BufWinEnter * match TrailSpace /\s\+$/
@@ -408,44 +405,8 @@ augroup TrailSpace
 	au BufWinLeave * call clearmatches()
 augroup end
 
-" augroup IndentLine
-" 	au!
-" 	au BufWinEnter * match IndentLine /^\s\+/
-"   " au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
-" 	au InsertLeave * match IndentLine /^\s\+/
-" 	au BufWinLeave * call clearmatches()
-" augroup end
-
-" function! ToggleIndentGuides() abort
-" if exists('b:indent_guides')
-" 	call matchdelete(b:indent_guides)
-" unlet b:indent_guides
-" else
-" let pos = range(1, &l:textwidth, &l:shiftwidth)
-" call map(pos, '"\\%" . v:val . "v"')
-" let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
-" let pat = substitute('%', '\zs\t\s\s\s', '|', 'g')
-" let pat = substitute('/^\t+', '\t', '   |', 'g')
-" let pat = substitute('%', '\t', '   |', 'g')
-" let pos = range(10)
-" call map(pos, '"\\%" . v:val . "v"')
-" let pat = "\%(\_^\s*\)\@<=\%(' . join(pos, '   \|') . '\)\s"
-" let pat = '^\t*'
-" let pat = normal! :%s/^\t*/\=substitute(submatch(0), ".", "   |", "g"))
-" echo pat
-" let b:indent_guides = matchadd('CursorLine', pat)
-" endif
-
-" endfunction
-
-"""        focus current window
-" augroup WinFocus
-" 	au!
-" 	au VimEnter,WinEnter,BufNew,WinNew * setlocal cursorline "relativenumber number
-" 	au WinLeave * setlocal nocursorline "norelativenumber number
-" augroup end
-
 """        color column 81 for code
+
 augroup ColorColumn
 	au!
 	if exists('+colorcolumn')
@@ -453,36 +414,9 @@ augroup ColorColumn
 	endif
 augroup end
 
-"""        highlight searches
-" " Highlight 'f' searchers
-" function! HighlightFSearches(cmd)
-"   " Get extra character for the command.
-"   let char = nr2char(getchar())
-"   if char ==# ''
-"     " Skip special keys: arrows, backspace...
-"     return ''
-"   endif
-"   " Highlight 'char' on the current line.
-"   let match_str = 'match IncSearch "\%' . line('.') . 'l' . char . '"'
-"   execute match_str
-"   " Finally, execute the original command with char appended to it
-"   return a:cmd.char
-" endfunction
-
-" " highlight searches using 'f'
-" nnoremap <expr> f HighlightFSearches('f')
-" nnoremap f<bs> <nop>
-" vnoremap <expr> f HighlightFSearches('f')
-" vnoremap f<bs> <nop>
-
-" " highlight searches using 'F'
-" nnoremap <expr> F HighlightFSearches('F')
-" nnoremap F<bs> <nop>
-" vnoremap <expr> F HighlightFSearches('F')
-" vnoremap F<bs> <nop>
-
 ""    File automation
 """        Save and load
+
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
 	au FocusGained,BufEnter * :silent! !
@@ -490,6 +424,7 @@ augroup AutoSaveAndLoadWithFocus
 augroup end
 
 """        Last cursor position
+
 " Open file where it was last closed
 augroup ReOpenFileWhereLeft
 	au!
@@ -500,6 +435,7 @@ augroup ReOpenFileWhereLeft
 augroup end
 
 """        Files views
+
 " save folding state and more
 if ! has("nvim")
 	augroup ReViews
@@ -516,6 +452,7 @@ if ! has("nvim")
 endif
 
 """        Working directory
+
 " change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
 	au!
@@ -526,6 +463,7 @@ augroup CdGitRootOrFileDir
 augroup end
 
 """        Tags and paths
+
 " Get tags file from git repo
 " Set path for code projects
 augroup CodePathTags
@@ -534,7 +472,6 @@ augroup CodePathTags
 	au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
 				\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
 augroup end
-" set path+=**                  " recursive path from current path
 
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
@@ -543,6 +480,7 @@ augroup end
 " set tags=./tags;
 
 """        Filetype recognition
+
 augroup FileTypeAutoSelect
 	au!
 	au FileType c setlocal ofu=ccomplete#CompleteCpp
@@ -562,6 +500,7 @@ augroup FileTypeAutoSelect
 augroup end
 
 """        Filetype refresh
+
 "  refresh filetype upon writing if no filetype already set
 augroup FileTypeRefresh
 	au!
@@ -966,6 +905,7 @@ onoremap aN# :<c-u>normal! F*vF*<cr>
 
 ""    Mappings
 """        Modes
+
 " space as leader, prompt '\' in command line window :)
 map <space> <leader>
 
@@ -1016,6 +956,7 @@ inoremap <c-s> <esc>:call VerboseUpdate()<cr>
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
 """        Movement
+
 " up down on visual lines
 nnoremap <silent> j gj
 nnoremap <silent> k gk
@@ -1154,9 +1095,6 @@ nnoremap g<c-]> g]
 " jump if only one match
 nnoremap g] g<c-]>
 
-"""        Popup Menu Completion
-" inoremap <c-j> <nop>
-" inoremap <c-k> <nop>
 """        UltiSnips
 
 " let g:UltiSnips#ExpandSnippetOrJump = "<c-n>"
@@ -1188,6 +1126,7 @@ smap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 " 			\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 """        Coc
+
 " function text object mappings
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -1263,6 +1202,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 """        Command
+
 cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 cnoremap <c-k> <Up>
@@ -1303,16 +1243,12 @@ nnoremap <leader>op o<esc>"+]p==
 nnoremap <leader>oP O<esc>"+]p==
 nnoremap <leader>Op O<esc>"+]p==
 nnoremap <leader>OP O<esc>"+]p==
+
 " copy to clipboard
 nnoremap <leader>y "+y
 nnoremap <leader>yl "+y$
 nnoremap <leader>yh "+y^
 vnoremap <leader>y "+y
-
-" helpers for dealing with other people's code
-" nmap \t :set ts=4 sts=4 sw=4 noet<cr>
-" nmap \s :set ts=4 sts=4 sw=4 et<cr>
-
 
 """        Dotfiles
 
@@ -1349,6 +1285,7 @@ inoremap ,fox The quick brown fox jumps over the lazy dog
 inoremap ,abc abcdefghijklmnopqrstuvwxyz
 inoremap ,ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
 inoremap ,09 0123456789
+
 """        Git
 
 " Show git log history
@@ -1414,6 +1351,7 @@ nnoremap <leader>csT :Shell make ex TESTFF=
 
 
 """        bash
+
 augroup Shmaps
 	au! Shmaps
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
@@ -1423,6 +1361,7 @@ augroup Shmaps
 augroup end
 
 """        C
+
 augroup Cmaps
 	au! Cmaps
 	au FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
@@ -1493,6 +1432,7 @@ augroup end
 " noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
 """        JavaScript
+
 augroup JSmaps
 	au! JSmaps
 	au FileType javascript nnoremap <buffer> <leader>cr :Run<cr>
@@ -1511,6 +1451,7 @@ augroup JSmaps
 augroup end
 
 """        Json
+
 augroup Jsonmaps
 	au! Jsonmaps
 	au FileType json nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
@@ -1519,6 +1460,7 @@ augroup Jsonmaps
 augroup end
 
 """        PHP/HTML/CSS
+
 augroup Webmaps
 	au! Webmaps
 	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<strong><c-o>P</strong><esc>T<
@@ -1588,6 +1530,7 @@ augroup Webmaps
 augroup end
 
 """        LATEX
+
 augroup LatexSmith
 	au! LatexSmith
 	" Navigating with guides
@@ -1638,6 +1581,7 @@ augroup LatexSmith
 augroup end
 
 """        Markdown
+
 augroup MarkdownMaps
 	au!
 	au FileType markdown nnoremap <buffer> <leader>cr :Run<cr>
@@ -1647,6 +1591,7 @@ augroup end
 
 ""    Headers
 """        Basic headers
+
 augroup Headers
 	au!
 	au BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
@@ -1654,6 +1599,7 @@ augroup Headers
 augroup end
 
 """        Auto protect c header
+
 if !exists("autocommands_loaded")
 	let autocommands_loaded = 1
 	au BufNewFile *.h call InsertCHHeader()
@@ -1849,6 +1795,7 @@ nnoremap <silent> <leader>h1 :Header101<cr>
 
 ""    Dotfiles settings
 """        Filetype
+
 augroup DotfilesFiletypeSh
 	au!
 	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setlocal filetype sh
@@ -1868,6 +1815,7 @@ augroup suffixes
 augroup end
 
 """        Vimrc mappings
+
 augroup VimrcMaps
 	au! VimrcMaps
 	au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>100<c-y>
@@ -1878,6 +1826,7 @@ augroup VimrcMaps
 augroup end
 
 """        Vimrc folding
+
 function! VimFold() abort
 	let line = getline(v:foldstart)
 
@@ -1901,6 +1850,7 @@ function! VimFold() abort
 endfunction
 
 """        Vimrc modeline
+
 " vim:tw=0:ts=2:sts=2:shiftwidth=2
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
