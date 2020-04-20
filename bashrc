@@ -11,8 +11,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+	*i*) ;;
+	*) return;;
 esac
 
 if [ -f ~/.bash_aliases ]; then
@@ -95,7 +95,8 @@ HISTCONTROL=ignoreboth								# duplicate + whitespace
 # HISTCONTROL=ignoredups							# duplicates
 
 # man with vim
-van() {
+van ()
+{
 	if man "$1" > /dev/null 2>&1
 	then
 		vim -c "set ft=man nonu nornu | lcd" <(man $@);
@@ -208,12 +209,14 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-git_branch() {
+git_branch()
+{
 	git symbolic-ref --short HEAD 2> /dev/null
 }
 
 # Prompt PS1
-color_ps1() {
+color_ps1()
+{
 	local START="\[\e[01;92m\]╭─"
 	local USER="\[\e[01;93;100m\]  \u"
 	local SEP="\[\e[01;37;100m\]  ⃒"
