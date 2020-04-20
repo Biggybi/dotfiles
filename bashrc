@@ -30,6 +30,7 @@ set -o vi
 export PATH=$PATH:~/bin:/usr/lib:~/.npm-global/bin:/home/tris/go/bin:/home/linuxbrew/.linuxbrew/bin
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export BROWSER=firefox
 export DOT="$HOME/dotfiles"
 export HOM_VID="$HOME/Videos"
 export HOM_PIC="$HOME/Pictures"
