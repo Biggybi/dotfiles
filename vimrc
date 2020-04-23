@@ -1060,9 +1060,9 @@ vmap <c-g> %
 " Count line in function
 function! FunctionLineCount() abort
 	let l:currentline = line(".")
-	normal j[[
+	normal! j[[
 	let l:topline = line(".")
-	normal %
+	normal! %
 	let l:bottomline = line(".")
 	exe "normal".l:currentline."gg"
 	echo "function lines :" l:bottomline - l:topline - 1
