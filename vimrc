@@ -88,6 +88,8 @@ set hlsearch                    " highlight all searches
 set incsearch                   " highlight match while typing
 " set path+=**                  " recursive path from current path
 " ignore some files from wildcard expansion
+set nrformats-=octal            " <c-a>/<c-x> do not use octals
+
 set wildignore+=**/__pycache__/**
 set wildignore+=**/venv/**
 set wildignore+=**/node_modules/**
