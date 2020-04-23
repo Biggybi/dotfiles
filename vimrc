@@ -584,18 +584,8 @@ let g:airline_mode_map = {
 			\ ''     : 'V',
 			\ }
 
-let g:airline#extensions#default#section_truncate_width = {
-			\ 'b': 79,
-			\ 'x': 25,
-			\ 'y': 0,
-			\ 'z': 0,
-			\ 'warning': 80,
-			\ 'error': 80,
-			\ }
+let g:airline#extensions#default#section_truncate_width = {}
 
-" if !exists('g:airline_symbols')
-" 	let g:airline_symbols = {}
-" endif
 let g:airline_symbols_ascii = 1
 let g:airline#extensions#wordcount#filetypes = ['']
 let g:airline_section_y = ''
