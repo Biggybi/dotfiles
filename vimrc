@@ -156,7 +156,7 @@ set nojoinspaces                " and spaces too
 set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
 
 " Main window
-set display+=lastline          " show lastline even if too long
+set display+=lastline           " show lastline even if too long
 set number                      " show number column
 set relativenumber              " relative to current line
 set wrap                        " no horizontal scroll
@@ -504,7 +504,7 @@ augroup end
 "  refresh filetype upon writing if no filetype already set
 augroup FileTypeRefresh
 	au!
-		au BufWrite * if &ft ==# '' | filetype detect | endif
+	au BufWrite * if &ft ==# '' | filetype detect | endif
 augroup end
 
 ""    Plugins settings
