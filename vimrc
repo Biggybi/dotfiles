@@ -562,12 +562,6 @@ augroup FugitiveSet
 	au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
 augroup end
 
-" augroup FugitiveReload
-" 	au!
-" 	au FileType fugitive au! Bufenter index
-" 		\ | if &filetype ==# 'fugitive' | :e | endif
-" augroup end
-
 """        Airline
 let g:airline_mode_map = {
 			\ '__'     : '-',
