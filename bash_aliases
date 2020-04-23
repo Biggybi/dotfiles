@@ -191,6 +191,8 @@ alias please='sudo $(fc -ln -1)'
 alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
+#tmux
+alias tn='tmux new-session -s '
 # alias o='xdg-open '
 open() {
 	xdg-open $1 &
