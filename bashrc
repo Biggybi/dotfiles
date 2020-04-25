@@ -122,7 +122,14 @@ van ()
 # }
 
 # fzf defaults
-export FZF_DEFAULT_OPTS="-m --color='light' --height 40% --bind 'ctrl-u:preview-up,ctrl-d:preview-down,ctrl-o:toggle+up,ctrl-space:toggle-preview' --preview 'bat --style=numbers --color=always {} | head -500' --preview-window=:hidden"
+export FZF_DEFAULT_OPTS="-m"
+export FZF_DEFAULT_OPTS+=" --color='light'"
+export FZF_DEFAULT_OPTS+=" --height 40%"
+export FZF_DEFAULT_OPTS+=" --bind 'ctrl-u:preview-up,ctrl-d:preview-down,ctrl-o:toggle+up,ctrl-space:toggle-preview'"
+# export FZF_DEFAULT_OPTS+=" --preview 'bat --style=numbers --color=always {} | head -500'"
+export FZF_DEFAULT_OPTS+=" --preview 'head -500 {}'"
+export FZF_DEFAULT_OPTS+=" --preview-window=:hidden"
+
 # export FZF_DEFAULT_OPTS="--height 10"
 # export FZF_DEFAULT_COMMAND='fdfind --type f'
 export FZF_DEFAULT_COMMAND='rg --files'
