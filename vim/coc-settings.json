@@ -25,7 +25,7 @@
 		"javascriptreact"
 	],
 	"eslint.options" : {
-		"configFile": "/home/tris/dotfiles/js_eslintrc.json"
+		"configFile": "/home/biggybi/dotfiles/langserver/js_eslintrc/js_eslintrc.json"
 	},
 	"list.insertMappings": {
 		"<C-r>": "do:refresh",
