@@ -3,7 +3,7 @@
 # home
 # sets media folders as simlinks to folders in DATA
 
-DATA=/media/data
+DATA=/data
 FOLDERS=(Downloads
 	Books
 	Documents
