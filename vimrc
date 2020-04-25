@@ -1817,7 +1817,7 @@ nnoremap <silent> <leader>h1 :Header101<cr>
 
 augroup DotfilesFiletypeSh
 	au!
-	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc setlocal filetype sh
+	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc set filetype=sh
 augroup end
 
 augroup suffixes
