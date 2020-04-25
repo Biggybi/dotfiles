@@ -192,20 +192,6 @@ endif
 set cursorline
 
 ""    Look / Theme
-"""        Gnome adaptive cursor shape
-
-augroup CursorShape
-	au!
-	au InsertLeave * silent execute '!echo -ne "\e[2 q"' |
-	au InsertEnter,InsertChange *
-				\ if v:insertmode ==# 'i' |
-				\   silent execute '!echo -ne "\e[6 q"' |
-				\ elseif v:insertmode ==# 'r' |
-				\   silent execute '!echo -ne "\e[4 q"' |
-				\ endif
-	au VimLeave * silent execute '!echo -ne "\e[ q"' |
-augroup end
-
 """        DarkLightSwitch
 
 " switch between light and dark theme (UI + ligtline)
