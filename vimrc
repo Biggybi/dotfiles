@@ -1214,9 +1214,15 @@ let g:markdown_fenced_languages = ['css', 'js=javascript']
 """        Folding
 
 " inoremap <leader><space> <c-o>za
-nnoremap <c-@> za
-onoremap <c-@> <c-c>za
-vnoremap <c-@> zf
+if ! has("nvim")
+	nnoremap <c-@> za
+	onoremap <c-@> <c-c>za
+	vnoremap <c-@> zf
+elseif ! has("nvim")
+	nnoremap <c-space> za
+	onoremap <c-space> <c-c>za
+	vnoremap <c-space> zf
+endif
 
 " recursively open even partial folds
 nnoremap zo zczO
