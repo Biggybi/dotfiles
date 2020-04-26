@@ -210,26 +210,28 @@ function! DarkLightSwitch() abort
 	let g:DarkLightOn = 1
 endfunction
 
-let g:DarkLightMod = 0
-
-" 0: auto
+let g:DarkLightMod = 3
+" 0: auto, sensible to sourcing
 " 1: force dark
 " 2: force light
+" 3: auto, keep current when sourcing
 
 " open vim with different color based on time of day
 
 if ! exists("g:DarkLightMod")
-	let g:DarkLightMod = 0
+	let hour = strftime("%H")
+	if 8 <= hour && hour <= 17
+		let g:DarkLightMod = 2
+	else
+		let g:DarkLightMod = 1
+	endif
 endif
 if g:DarkLightMod == 0
-	if ! exists("g:DarkLightOn")
-		let hour = strftime("%H")
-		if 8 <= hour && hour <= 17
-			let g:DarkLightSwitch = 'light'
-		else
-			let g:DarkLightSwitch = 'dark'
-		endif
-		call DarkLightSwitch()
+	let hour = strftime("%H")
+	if 8 <= hour && hour <= 17
+		let g:DarkLightSwitch = 'light'
+	else
+		let g:DarkLightSwitch = 'dark'
 	endif
 elseif g:DarkLightMod == 1
 	let g:DarkLightSwitch = 'dark'
@@ -237,6 +239,12 @@ elseif g:DarkLightMod == 1
 elseif g:DarkLightMod == 2
 	let g:DarkLightSwitch = 'light'
 	call DarkLightSwitch()
+elseif g:DarkLightMod == 3
+	if ! exists("g:DarkLightOn")
+		let g:DarkLightSwitch = 'light'
+		call DarkLightSwitch()
+		let g:DarkLightMod = -1
+	endif
 endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
