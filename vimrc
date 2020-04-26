@@ -1111,36 +1111,6 @@ nnoremap g<c-]> g]
 " jump if only one match
 nnoremap g] g<c-]>
 
-"""        UltiSnips
-
-" let g:UltiSnips#ExpandSnippetOrJump = "<c-n>"
-" let g:UltiSnipsExpandTrigger = "<c-x>"
-" let g:UltiSnipsListSnippets = "<c-p>"
-" let g:UltiSnipsJumpForwardTrigger = "<c-n>"
-" let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-
-
-" inoremap <expr> <c-p> pumvisible() ? UltiSnips#JumpBackwards() : UltiSnips#JumpBackwards()
-" inoremap <expr> <c-n> pumvisible() ? UltiSnips#JumpForwards() : UltiSnips#JumpForwards()
-
-
-" inoremap <silent><expr> <c-@> pumvisible() ? "\<c-y>" : coc#refresh()
-" inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
-" inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
-let g:coc_snippet_next = '<c-n>'
-let g:coc_snippet_prev = '<c-p>'
-" inoremap <c-n> <nop>
-" inoremap <c-p> <nop>
-imap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
-imap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
-imap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
-smap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" nnoremap <silent><expr> <c-@> coc#refresh()
-" inoremap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
-" 			\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 """        Coc
 
 " fix error when using tabs in middle of line
