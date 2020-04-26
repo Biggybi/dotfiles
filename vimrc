@@ -1129,6 +1129,7 @@ inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
 let g:coc_snippet_next = '<c-f>'
 let g:coc_snippet_prev = '<c-b>'
 
+" use tab as in VSCode
 " inoremap <silent><expr> <TAB>
 " 			\ pumvisible() ? coc#_select_confirm() :
 " 			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
