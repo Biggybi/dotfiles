@@ -233,6 +233,7 @@ if g:DarkLightMod == 0
 	else
 		let g:DarkLightSwitch = 'dark'
 	endif
+	call DarkLightSwitch()
 elseif g:DarkLightMod == 1
 	let g:DarkLightSwitch = 'dark'
 	call DarkLightSwitch()
