@@ -1407,7 +1407,7 @@ augroup Cmaps
 	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
 
 	" brackets around paragraph
-	au FileType c nnoremap <buffer> <leader>{} {S{<esc>}S}<c-c>=%<c-o><c-o>=iB
+	au FileType c nnoremap <buffer> <leader>{} m`{S{<esc>}S}<c-c>=%``=iB
 	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 	"  name of current c function (needs '()')
