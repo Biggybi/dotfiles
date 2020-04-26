@@ -925,16 +925,6 @@ map <space> <leader>
 " closing easy
 nnoremap <leader>q :quit<cr>
 
-" switch last 2 buffers
-nnoremap <leader><space> <c-^>
-onoremap <leader><space> <c-^>
-vnoremap <leader><space> <c-^>
-
-" last buffer in vertical split
-nnoremap <c-w><space><space> :vertical split #<cr>
-onoremap <c-w><space><space> :vertical split #<cr>
-vnoremap <c-w><space><space> :vertical split #<cr>
-
 nnoremap <leader><c-@> :echo "kewl"<cr>
 
 " enter command mode with ;
@@ -994,6 +984,16 @@ vnoremap <c-h> B
 vnoremap <c-l> E
 vnoremap <c-k> {
 vnoremap <c-j> }
+
+" switch last 2 buffers
+nnoremap <leader><space> <c-^>
+onoremap <leader><space> <c-^>
+vnoremap <leader><space> <c-^>
+
+" last buffer in vertical split
+nnoremap <c-w><space><space> :vertical split #<cr>
+onoremap <c-w><space><space> :vertical split #<cr>
+vnoremap <c-w><space><space> :vertical split #<cr>
 
 " move between windows with ctrl
 " nnoremap <c-h> :wincmd h<cr>
