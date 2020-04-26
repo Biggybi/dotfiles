@@ -1143,6 +1143,9 @@ smap <silent><expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 
 """        Coc
 
+" fix error when using tabs in middle of line
+inoremap <c-i> <c-v><c-i>
+
 if ! has("nvim")
 	inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 elseif has("nvim")
