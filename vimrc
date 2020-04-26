@@ -922,8 +922,8 @@ onoremap aN# :<c-u>normal! F*vF*<cr>
 " space as leader, prompt '\' in command line window :)
 map <space> <leader>
 
-" <C-c> is escape in insert mode
-inoremap <C-c> <esc>l
+" <C-c> as escape in insert mode
+inoremap <C-c> <esc>
 
 " closing easy
 nnoremap <leader>q :quit<cr>
