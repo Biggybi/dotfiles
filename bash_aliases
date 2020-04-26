@@ -369,12 +369,8 @@ change_shell() {
 ## FZF functions
 
 ef() {
-	# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	cd "$1"
-	# P=$(fzf --height=40% --preview="bat {}")
-	P=$(fzf --height=60% --preview="bat --style=numbers --color=always {} | head -500")
-
-	# P=$(fzf)
+	P=$(fzf --height=60%)
 	[ "$P" != "" ] && $EDITOR $P
 }
 # alias f='ef $HOME'
