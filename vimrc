@@ -1229,7 +1229,7 @@ if ! has("nvim")
 	nnoremap <c-@> za
 	onoremap <c-@> <c-c>za
 	vnoremap <c-@> zf
-elseif ! has("nvim")
+elseif has("nvim")
 	nnoremap <c-space> za
 	onoremap <c-space> <c-c>za
 	vnoremap <c-space> zf
