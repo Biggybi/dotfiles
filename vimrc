@@ -1311,7 +1311,7 @@ nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr
 """        General
 
 " indent all file easy
-nnoremap g<c-g> gg=G<c-o><c-o>
+nnoremap g<c-g> m`gg=G``
 
 " Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
