@@ -1277,8 +1277,8 @@ nnoremap <leader>eb :e $DOT/bashrc<cr>
 nnoremap <leader>e<c-b> :vertical split $DOT/bashrc<cr>
 nnoremap <leader>ea :e $DOT/bash_aliases<cr>
 nnoremap <leader>e<c-a> :vertical split $DOT/bash_aliases<cr>
-nnoremap <leader>ep :e $DOT/inputrc<cr>
-nnoremap <leader>e<c-p> :vertical split $DOT/inputrc<cr>
+nnoremap <leader>en :e $DOT/inputrc<cr>
+nnoremap <leader>e<c-n> :vertical split $DOT/inputrc<cr>
 nnoremap <leader>ep $DOT/bash_profile<cr>
 nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
 nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
