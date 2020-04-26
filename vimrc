@@ -431,7 +431,7 @@ augroup end
 augroup ColorColumn
 	au!
 	if exists('+colorcolumn')
-		au FileType c,cpp,css,java,python,ruby,bash,sh setlocal colorcolumn=81
+		au FileType c,cpp,css,java,python,ruby,bash,sh,js,html,javascript setlocal colorcolumn=81
 	endif
 augroup end
 
