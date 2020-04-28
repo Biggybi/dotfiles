@@ -18,7 +18,7 @@ DOTFILES=(vim
 	bin
 	git_template
 	fonts
-	zhsrc)
+	zshrc
 
 # links to create localy for Linux
 LINK=(.vim
@@ -29,7 +29,7 @@ LINK=(.vim
 	bin
 	.git_template
 	.fonts
-	.zshrc)
+	.zshrc
 
 # links to create localy for Mac
 if [[ "$OSTYPE" == "darwin"* ]]
