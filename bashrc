@@ -95,32 +95,6 @@ HISTCONTROL=ignoreboth								# duplicate + whitespace
 # HISTCONTROL=ignorespace							# whitespace
 # HISTCONTROL=ignoredups							# duplicates
 
-# man with vim
-van ()
-{
-	if man "$1" > /dev/null 2>&1
-	then
-		vim -c "set ft=man nonu nornu | lcd" <(man $@);
-	elif [ $# == 1 ]
-	then
-		echo "I don't have a man to $@"
-	fi
-}
-
-# van() {
-# 	echo $#
-# 	echo $1
-# 	if [ man "$1" > /dev/null 2>&1 ]
-# 	then
-# 		vim -c "set ft=man" <(man $@);
-# 	elif [ $# -gt 0 ]
-# 	then
-# 		echo "I don't have a man to $@"
-# 	else
-# 		echo "Chose a van page"
-# 	fi
-# }
-
 # fzf defaults
 export FZF_DEFAULT_OPTS="-m"
 FZF_DEFAULT_OPTS+=" --color='light'"
