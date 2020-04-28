@@ -1827,7 +1827,7 @@ augroup end
 
 augroup VimrcMaps
 	au! VimrcMaps
-	au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>100<c-y>
+	au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>zm100<c-y>
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
 	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
