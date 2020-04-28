@@ -59,7 +59,7 @@ then
 	git submodule init
 	git submodule update
 else
-	echo "Plugins already installed"
+	echo "Vim plugins not installed: use \`linkdots -g\`"
 fi
 
 i=0
