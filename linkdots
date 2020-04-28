@@ -82,7 +82,7 @@ for f in "${DOTFILES[@]}"
 do
 	l="${LINK[i]}"
 	echo "$i $l"
-	cmp -s "$SRC/$f" "$DST/$l"
+	# cmp -s "$SRC/$f" "$DST/$l" 2> /dev/null
 	if [ $? -eq 1 ] && [ -n "$l" ] && [ -e "$DST/$l" ]
 	then
 		echo "go backup"
