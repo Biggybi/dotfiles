@@ -123,17 +123,14 @@ van ()
 
 # fzf defaults
 export FZF_DEFAULT_OPTS="-m"
-export FZF_DEFAULT_OPTS+=" --color='light'"
-export FZF_DEFAULT_OPTS+=" --height 40%"
-export FZF_DEFAULT_OPTS+=" --bind 'ctrl-u:preview-up,ctrl-d:preview-down,ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview'"
-# export FZF_DEFAULT_OPTS+=" --preview 'bat --style=numbers --color=always {} | head -500'"
-export FZF_DEFAULT_OPTS+=" --preview 'head -500 {}'"
-export FZF_DEFAULT_OPTS+=" --preview-window=:hidden"
-
-# export FZF_DEFAULT_OPTS="--height 10"
-# export FZF_DEFAULT_COMMAND='fdfind --type f'
-export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+FZF_DEFAULT_OPTS+=" --color='light'"
+FZF_DEFAULT_OPTS+=" --height 40%"
+FZF_DEFAULT_OPTS+=" --bind 'ctrl-u:preview-up,ctrl-d:preview-down,ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview'"
+#FZF_DEFAULT_OPTS+=" --preview 'bat --style=numbers --color=always {} | head -500'"
+FZF_DEFAULT_OPTS+=" --preview 'head -500 {}'"
+FZF_DEFAULT_OPTS+=" --preview-window=:hidden"
+FZF_DEFAULT_COMMAND='rg --files'
+FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # # fzf history on C-r
 # bind '"\C-r": "\C-x1\e^\er"';
 # bind -x '"\C-x1": __fzf_history';
