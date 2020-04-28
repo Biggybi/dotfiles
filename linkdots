@@ -10,7 +10,7 @@ BACKUP=$HOME/dotfiles/dots_back
 cd $SRC
 
 # git files to link
-DOTS=(vim
+DOTFILES=(vim
 	vimrc
 	bashrc
 	bash_aliases
@@ -76,7 +76,7 @@ i=0
 # mv "$DST/$l" "$BACKUP/$l"
 
 i=0
-for f in "${DOTS[@]}"
+for f in "${DOTFILES[@]}"
 do
 	l="${LINK[i]}"
 	echo "$i $l"
