@@ -735,7 +735,7 @@ nnoremap <leader>fh :FzfHistory<cr>
 nnoremap <leader>fm :FzfHelptags<cr>
 nnoremap <leader>fs <esc>:FzfSnippets<cr>
 nnoremap <leader>fr <esc>:Rg<cr>
-inoremap <c-f> <c-o>:FzfSnippets<cr>
+inoremap <c-x><c-s> <c-o>:FzfSnippets<cr>
 
 command! -bang -complete=dir -nargs=* LS
 			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
