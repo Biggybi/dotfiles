@@ -808,6 +808,10 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 " no vimwiki filetype outside wiki folder
 let g:vimwiki_global_ext = 0
 
+"""        Coc
+
+let coc_config_home = '$DOT/vim/coc-settings.json'
+
 ""    Operators
 """        Start / End of line
 onoremap ah :<c-u>normal! v^<cr>
