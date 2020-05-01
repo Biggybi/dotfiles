@@ -163,7 +163,7 @@ set number                      " show number column
 set relativenumber              " relative to current line
 set wrap                        " no horizontal scroll
 set breakindent                 " with indent
-set showbreak=\ \¬              " ... showing a character
+set showbreak=¬                 " ... showing a character
 
 " Moves boundaries
 set backspace=indent,eol,start  " backspace over lines
