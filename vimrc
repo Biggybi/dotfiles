@@ -126,7 +126,8 @@ set shortmess+=w                " Abbrev writter
 set shortmess+=x                " Abbrev dos and mac format
 set shortmess+=W                " No message when writing
 set shortmess+=F                " As if silent autocomands
-set shortmess+=c
+set shortmess+=c                " No ins completion message
+set shortmess+=s                " No "search hit BOTTOM" message
 
 " Bell
 set visualbell                  " do not ring the bell
