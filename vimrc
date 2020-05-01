@@ -1000,7 +1000,7 @@ nnoremap <c-h> B
 nnoremap <c-l> E
 nnoremap <c-k> {
 nnoremap <c-j> }
-nnoremap <c-q> <silent>:redraw<cr>
+nnoremap <c-q> :redraw<cr>
 
 "go to next / previous buffer
 nnoremap <leader>] :bn<cr>
