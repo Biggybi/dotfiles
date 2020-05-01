@@ -218,13 +218,15 @@ let g:DarkLightMod = 3
 
 " open vim with different color based on time of day
 
-if g:DarkLightMod == 0
+if g:DarkLightMod == 0 || g:DarkLightMod == 3
 	let hour = strftime("%H")
 	if 8 <= hour && hour <= 17
 		let g:DarkLightSwitch = 'light'
 	else
 		let g:DarkLightSwitch = 'dark'
 	endif
+endif
+if g:DarkLightMod == 0
 	call DarkLightSwitch()
 elseif g:DarkLightMod == 1
 	let g:DarkLightSwitch = 'dark'
@@ -234,7 +236,6 @@ elseif g:DarkLightMod == 2
 	call DarkLightSwitch()
 elseif g:DarkLightMod == 3
 	if ! exists("g:DarkLightOn")
-		let g:DarkLightSwitch = 'dark'
 		call DarkLightSwitch()
 		let g:DarkLightMod = -1
 	endif
