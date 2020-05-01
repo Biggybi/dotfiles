@@ -1043,11 +1043,9 @@ nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
 """        Searching
 nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
 
-" use unix regex in searches
-" nnoremap / /\v
-" vnoremap / /\v
-nnoremap <leader>/ /\v
-vnoremap <leader>/ /\v
+nnoremap / :call clearmatches()<cr>/
+nnoremap <leader>/ :call clearmatches()<cr>/\v
+vnoremap <leader>/ :call clearmatches()<cr>/\v
 
 nnoremap zM zMzb
 nnoremap <silent> zm :set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
@@ -1056,9 +1054,16 @@ nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid()
 " nnoremap zA zAzz
 " nnoremap <leader>za zMzvzz
 
+" search with different highlight
+nnoremap <silent> n n:call HLCurrent()<cr>
+nnoremap <silent> N N:call HLCurrent()<cr>
+
 "do not move cursor with first match
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
+
+" search visual selection
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "Clear search highlight
 nnoremap <silent> <leader>sh :nohlsearch<cr>
@@ -1067,9 +1072,6 @@ nnoremap <silent> <leader>sh :nohlsearch<cr>
 nnoremap gr :s/<c-r>///g<left><left>
 vnoremap gr :s/<c-r>///g<left><left>
 nnoremap gR :%s/<c-r>///g<left><left>
-
-" search visual selection
-vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 """        Files
 
