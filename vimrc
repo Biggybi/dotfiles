@@ -431,21 +431,17 @@ augroup end
 
 """        highlight current search and first/last search differently
 
-function! HLCurrent(fb) abort
+function! HLCurrent() abort
 	if exists("currmatch")
 		call matchdelete(currmatch)
 	endif
-	" match case insensitive, only on cursor
-	let patt = '\c\%#'.@/
-	if a:fb == 'f'
-		" if forward search
-		let prevmatch = search(@/, 'bWn')
-	elseif a:fb == 'b'
-		" if backward search
-		let prevmatch = search(@/, 'Wn')
-	endif
-	if prevmatch == 0
-		" if on first or last match
+	" only on cursor
+	let patt = '\%#'.@/
+	" check prev and next match
+	let prevmatch = search(@/, 'bWn')
+	let nextmatch = search(@/, 'Wn')
+	" if on first or last match
+	if prevmatch == 0 || nextmatch == 0
 		let currmatch = matchadd('EdgeSearch', patt, 101)
 	else
 		let currmatch = matchadd('IncSearch', patt, 101)
