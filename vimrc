@@ -422,6 +422,10 @@ function! NoScrollAtEOF() abort
 endfunction
 nnoremap <c-f> <c-f>:call NoScrollAtEOF()<cr>
 
+"""        Mail
+
+autocmd FileType mail setlocal nolinebreak tw=0
+
 ""    Highlights / Match
 """        show traling whitespaces
 
