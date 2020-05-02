@@ -449,7 +449,7 @@ function! HLCurrent() abort
 		call matchdelete(currmatch)
 	endif
 	" only on cursor
-	let patt = '\%#'.@/
+	let patt = '\c\%#'.@/
 	" check prev and next match
 	let prevmatch = search(@/, 'bWn')
 	let nextmatch = search(@/, 'Wn')
