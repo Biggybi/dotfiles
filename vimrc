@@ -305,9 +305,22 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-tnoremap <c-n> <c-\><c-n>
-tnoremap <c-w>: <c-\><c-n>:
-tnoremap <c-w>; <c-\><c-n>:
+let s:term_buf_nr = -1
+function! s:ToggleTerminal() abort
+		if s:term_buf_nr == -1
+				execute "botright terminal"
+				let s:term_buf_nr = bufnr("$")
+		else
+				try
+						execute "bdelete! " . s:term_buf_nr
+				catch
+						let s:term_buf_nr = -1
+						call <SID>ToggleTerminal()
+						return
+				endtry
+				let s:term_buf_nr = -1
+		endif
+endfunction
 
 """        Quickfix
 
@@ -1041,6 +1054,7 @@ nnoremap <leader>> :exe "vertical resize +10"<CR>:echo "width -"<cr>
 nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
 
 """        Searching
+
 nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
 
 nnoremap / :call clearmatches()<cr>/
@@ -1319,6 +1333,15 @@ nnoremap <leader>eco :CocConfig<cr>
 
 " " rename file
 " nnoremap <leader>mv :!mv % %:h:p/
+
+"""        Terminal
+
+nnoremap <silent> <Leader>T :call <SID>ToggleTerminal()<CR>
+tnoremap <silent> <Leader>T <C-w>N:call <SID>ToggleTerminal()<CR>
+
+tnoremap <c-n> <c-\><c-n>
+tnoremap <c-w>: <c-\><c-n>:
+tnoremap <c-w>; <c-\><c-n>:
 
 """        Fun
 inoremap ,fox The quick brown fox jumps over the lazy dog
