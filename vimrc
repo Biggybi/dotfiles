@@ -1368,6 +1368,10 @@ nnoremap g<c-g> m`gg=G``
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
 			\ ":lclose<cr>" : ":lopen<cr><c-w>p"
 
+" Toggle quickfix list (awesome)
+nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
+			\ ":cclose<cr>" : ":copen<cr><c-w>p"
+
 " trim current line
 nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
 "trim file
