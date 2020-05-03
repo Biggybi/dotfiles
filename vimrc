@@ -1464,9 +1464,9 @@ augroup Cmaps
 	"  name of current c function (needs '()')
 	au FileType c nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
-	" semicolon/coma EOL
-	au FileType c nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
-	au FileType c nnoremap <buffer> <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
+	" semicolon/coma EOL toggle
+	au FileType c nnoremap <expr> <leader>; getline('.') =~ ';$' ? "mZ$x\<esc>`Z" : "mZA;\<esc>`Z"
+	au FileType c nnoremap <expr> <leader>, getline('.') =~ ',$' ? "mZ$x\<esc>`Z" : "mZA,\<esc>`Z"
 
 	" select all text in function
 	au FileType c nnoremap <buffer> <leader>vf j[[V%o
