@@ -1118,8 +1118,8 @@ nnoremap g<c-f> :vertical wincmd f<cr>
 nnoremap <silent> <leader>sg :set list!<cr>
 
 " % as <c-g>
-nmap <c-g> %
-vmap <c-g> %
+nnoremap <c-g> %
+vnoremap <c-g> %
 
 " Count line in function
 function! FunctionLineCount() abort
