@@ -23,7 +23,8 @@ let g:base16_gui00 = "282c34"
 " let s:gui01        = "353b45"
 let s:gui01        = "383838"
 let g:base16_gui01 = "353b45"
-let s:gui02        = "3e4451"
+" let s:gui02        = "3e4451"
+let s:gui02        = "454545"
 let g:base16_gui02 = "3e4451"
 " let s:gui03        = "545862"
 let s:gui03        = "6C6C6C"
@@ -237,10 +238,11 @@ call <sid>hi("StatusLineNC",  s:gui05, s:gui01, s:cterm01, s:cterm02, "none", ""
 call <sid>hi("VertSplit",     s:gui01, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("AirlineActiveLeft",     s:gui05, s:gui02, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")
-call <sid>hi("CursorLineNr",  s:gui05, s:gui02, s:cterm04, s:cterm01, "bold", "")
+call <sid>hi("CursorLineNr",  s:gui05, s:gui01, s:cterm04, s:cterm01, "bold", "")
 call <sid>hi("QuickFixLine",  "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("PMenuSel",      s:gui01, s:gui05, s:cterm01, s:cterm05, "", "")

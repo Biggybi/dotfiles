@@ -35,13 +35,15 @@ let s:gui07        = "090a0b"
 let g:base16_gui07 = "090a0b"
 let s:gui08        = "ca1243"
 let g:base16_gui08 = "ca1243"
-let s:gui09        = "d75f00"
+let s:gui09        = "ff8522"
+" let s:gui09        = "d75f00"
 let g:base16_gui09 = "d75f00"
 let s:gui0A        = "c18401"
 let g:base16_gui0A = "c18401"
 let s:gui0B        = "50a14f"
 let g:base16_gui0B = "50a14f"
-let s:gui0C        = "0184bc"
+" let s:gui0C        = "0184bc"
+let s:gui0C        = "56b6c2"
 let g:base16_gui0C = "0184bc"
 let s:gui0D        = "4078f2"
 let g:base16_gui0D = "4078f2"
@@ -229,6 +231,7 @@ call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none", ""
 call <sid>hi("VertSplit",     s:gui01, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("AirlineActiveLeft",     s:gui05, s:gui03, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineActiveGit",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
