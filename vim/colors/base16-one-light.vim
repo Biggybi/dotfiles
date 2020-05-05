@@ -35,8 +35,9 @@ let s:gui07        = "090a0b"
 let g:base16_gui07 = "090a0b"
 let s:gui08        = "ca1243"
 let g:base16_gui08 = "ca1243"
-let s:gui09        = "ff8522"
 " let s:gui09        = "d75f00"
+" let s:gui09        = "ff8522"
+let s:gui09        = "ff9000"
 let g:base16_gui09 = "d75f00"
 let s:gui0A        = "c18401"
 let g:base16_gui0A = "c18401"
@@ -194,8 +195,8 @@ call <sid>hi("Exception",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("FoldColumn",    s:gui0C, s:gui01, s:cterm0C, s:cterm01, "", "")
 " call <sid>hi("Folded",        s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
 call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
-call <sid>hi("IncSearch",     s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("EdgeSearch",     s:gui00, s:gui0B, s:cterm04, s:cterm0C, "none", "")
+call <sid>hi("IncSearch",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("EdgeSearch",     s:gui00, s:gui09, s:cterm04, s:cterm0C, "none", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
 call <sid>hi("Macro",         s:gui08, "", s:cterm08, "", "", "")
 " call <sid>hi("MatchParen",    "", s:gui03, "", s:cterm03,  "", "")
@@ -203,7 +204,8 @@ call <sid>hi("MatchParen",    s:gui04, s:gui01, "", s:cterm06,  "", "")
 call <sid>hi("ModeMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("MoreMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("Question",      s:gui0D, "", s:cterm0D, "", "", "")
-call <sid>hi("Search",        s:gui00, s:gui09, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("Search",        s:gui00, s:gui0C, s:cterm01, s:cterm0A,  "", "")
+" call <sid>hi("Search",        s:gui00, s:gui09, s:cterm01, s:cterm0A,  "", "")
 " call <sid>hi("Search",        s:gui01, s:gui0B, s:cterm01, s:cterm0A,  "", "")
 call <sid>hi("Substitute",    s:gui01, s:gui0B, s:cterm01, s:cterm0A, "none", "")
 call <sid>hi("SpecialKey",    s:gui03, "", s:cterm03, "", "", "")
@@ -214,7 +216,8 @@ call <sid>hi("Visual",        "", s:gui01, "", s:cterm02, "", "")
 call <sid>hi("VisualNOS",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("WarningMsg",    s:gui08, "", s:cterm08, "", "", "")
 " call <sid>hi("WildMenu",      s:gui08, s:gui0A, s:cterm08, "", "", "")
-call <sid>hi("WildMenu",      s:gui08, s:gui01, s:cterm00, "", "", "")
+" call <sid>hi("WildMenu",      s:gui08, s:gui01, s:cterm00, "", "", "")
+call <sid>hi("WildMenu",      s:gui01, s:gui04, s:cterm00, "", "", "")
 call <sid>hi("Title",         s:gui0D, "", s:cterm0D, "", "none", "")
 call <sid>hi("Conceal",       s:gui0D, s:gui00, s:cterm0D, s:cterm00, "", "")
 call <sid>hi("Cursor",        s:gui00, s:gui05, s:cterm00, s:cterm05, "", "")
@@ -232,7 +235,9 @@ call <sid>hi("VertSplit",     s:gui01, s:gui00, s:cterm02, s:cterm02, "none", ""
 call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineActiveLeft",     s:gui05, s:gui03, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("AirlineActiveGit",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
+" call <sid>hi("AirlineActiveGit",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("AirlineNormal",     s:gui01, s:gui0C, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("AirlineInsert",     s:gui00, s:gui0D, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", "", "none", "")

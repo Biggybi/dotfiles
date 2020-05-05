@@ -87,7 +87,8 @@ else
 					\ }
 
 		" let s:N1 = airline#themes#get_highlight2(['DiffText', 'bg'], ['DiffText', 'fg'], 'bold')
-		let s:N1 = airline#themes#get_highlight2(['DiffText', 'bg'], ['IncSearch', 'bg'], 'bold')
+		" let s:N1 = airline#themes#get_highlight2(['DiffText', 'bg'], ['AirlineNormal', 'bg'], 'bold')
+		let s:N1 = airline#themes#get_highlight('AirlineNormal')
 		" let s:N2 = airline#themes#get_highlight2(['Visual', 'fg'], ['Visual', 'bg'])
 		let s:N2 = airline#themes#get_highlight('AirlineActiveLeft')
 		let s:N3 = airline#themes#get_highlight('AirlineActiveMid')
