@@ -446,8 +446,9 @@ augroup ColorColumn
 	endif
 augroup end
 
-"""        highlight current search and first/last search differently
+"""        search cycle colors
 
+" highlight current search and first/last search differently
 function! HLCurrent() abort
 	if exists("currmatch")
 		call matchdelete(currmatch)
