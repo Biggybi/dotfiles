@@ -41,6 +41,9 @@
 [submodule "vim/bundle/vim-snipmate"]
 	path = vim/bundle/vim-snipmate
 	url = https://github.com/garbas/vim-snipmate
+[submodule "vim/bundle/ultisnips"]
+	path = vim/bundle/ultisnips
+	url = https://github.com/sirver/ultisnips
 [submodule "vim/bundle/vim-snippets"]
 	path = vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets
@@ -99,12 +102,6 @@
 [submodule "vim/bundle/vimwiki"]
 	path = vim/bundle/vimwiki
 	url = git@github.com:vimwiki/vimwiki.git
-[submodule "vim/bundle/ultisnips"]
-	path = vim/bundle/ultisnips
-	url = https://github.com/sirver/ultisnips
-[submodule "vim/bundle/vim-snippets"]
-	path = vim/bundle/ultisnips
-	url = git@github.com:honza/vim-snippets.git
 [submodule "vim/bundle/fzf"]
 	path = vim/bundle/fzf
 	url = git@github.com:junegunn/fzf.git
@@ -114,3 +111,6 @@
 [submodule "vim/bundle/vim-pseudocl"]
 	path = vim/bundle/vim-pseudocl
 	url = git@github.com:junegunn/vim-pseudocl.git
+[submodule "vim/bundle/vim-rhubarb"]
+	path = vim/bundle/vim-rhubarb
+	url = git@github.com:tpope/vim-rhubarb.git
