@@ -1660,6 +1660,135 @@ augroup MarkdownMaps
 	" au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
+""    Operators
+"""        Start / End of line
+onoremap ah :<c-u>normal! v^<cr>
+onoremap ih :<c-u>normal! hv^<cr>
+
+onoremap al :<c-u>normal! v$<cr>
+onoremap il :<c-u>normal! lv$<cr>
+
+"""        Surroundings
+onoremap i. :<c-u>normal! T.vt.<cr>
+onoremap a. :<c-u>normal! F.vf.<cr>
+
+onoremap i, :<c-u>normal, T,vt,<cr>
+onoremap a, :<c-u>normal, F,vf,<cr>
+
+onoremap i: :<c-u>normal! T:vt:<cr>
+onoremap a: :<c-u>normal! F:vf:<cr>
+
+onoremap i; :<c-u>normal! T;vt;<cr>
+onoremap a; :<c-u>normal! F;vf;<cr>
+
+onoremap i? :<c-u>normal! T?vt?<cr>
+onoremap a? :<c-u>normal! F?vf?<cr>
+
+onoremap i! :<c-u>normal! T!vt!<cr>
+onoremap a! :<c-u>normal! F!vf!<cr>
+
+onoremap i- :<c-u>normal! T-vt-<cr>
+onoremap a- :<c-u>normal! F-vf-<cr>
+
+onoremap i_ :<c-u>normal! T_vt_<cr>
+onoremap a_ :<c-u>normal! F_vf_<cr>
+
+onoremap i/ :<c-u>normal! T/vt/<cr>
+onoremap a/ :<c-u>normal! F/vf/<cr>
+
+onoremap i\ :<c-u>normal! T\vt\<cr>
+onoremap a\ :<c-u>normal! F\vf\<cr>
+
+onoremap i@ :<c-u>normal! T@vt@<cr>
+onoremap a@ :<c-u>normal! F@vf@<cr>
+
+onoremap i* :<c-u>normal! T*vt*<cr>
+onoremap a* :<c-u>normal! F*vf*<cr>
+
+onoremap i# :<c-u>normal! T*vt*<cr>
+onoremap a# :<c-u>normal! F*vf*<cr>
+
+onoremap i> :<c-u>normal! T<vt><cr>
+onoremap a> :<c-u>normal! F<vf><cr>
+onoremap i< :<c-u>normal! T<vt><cr>
+onoremap a< :<c-u>normal! F<vf><cr>
+
+" onoremap i| :<c-u>normal! T|vt|<cr>
+" onoremap a| :<c-u>normal! F|vf|<cr>
+
+"""        Next Surroundings
+onoremap in( :<c-u>normal! f(lvt)<cr>
+onoremap in) :<c-u>normal! ()f(lvt)<cr>
+onoremap an( :<c-u>normal! f(vf)<cr>
+onoremap an) :<c-u>normal! f(vf)<cr>
+onoremap iN( :<c-u>normal! F)vT(oh<cr>
+onoremap iN) :<c-u>normal! F)vT(oh<cr>
+onoremap aN( :<c-u>normal! F(vf)<cr>
+onoremap aN) :<c-u>normal! F)vF(<cr>
+
+onoremap in{ :<c-u>normal! f{lvt}<cr>
+onoremap in} :<c-u>normal! f{lvt}<cr>
+onoremap an{ :<c-u>normal! f{vf}<cr>
+onoremap an} :<c-u>normal! f{vf}<cr>
+onoremap iN{ :<c-u>normal! F}vT{oh<cr>
+onoremap iN} :<c-u>normal! F}vT{oh<cr>
+onoremap aN{ :<c-u>normal! F}vF{<cr>
+onoremap aN} :<c-u>normal! F}vF{<cr>
+
+onoremap in[ :<c-u>normal! f[lvt]<cr>
+onoremap in] :<c-u>normal! f[lvt]<cr>
+onoremap an[ :<c-u>normal! f[vf]<cr>
+onoremap an] :<c-u>normal! f[vf]<cr>
+onoremap iN[ :<c-u>normal! F]vT[oh<cr>
+onoremap iN] :<c-u>normal! F]vT[oh<cr>
+onoremap aN[ :<c-u>normal! F]vF[<cr>
+onoremap aN] :<c-u>normal! F]vF[<cr>
+
+onoremap in< :<c-u>normal! f<lvt><cr>
+onoremap in> :<c-u>normal! f<lvt><cr>
+onoremap an< :<c-u>normal! f<vf><cr>
+onoremap an> :<c-u>normal! f<vf><cr>
+onoremap iN< :<c-u>normal! F>vT<oh<cr>
+onoremap iN> :<c-u>normal! F>vT<oh<cr>
+
+onoremap aN< :<c-u>normal! F>vF<<cr>
+onoremap aN> :<c-u>normal! F>vF<<cr>
+
+onoremap in" :<c-u>normal! f"vi"<cr>
+onoremap an" :<c-u>normal! f"va"<cr>
+onoremap iN" :<c-u>normal! F"vi"<cr>
+onoremap aN" :<c-u>normal! F"va"<cr>
+
+onoremap in' :<c-u>normal! f'vi'<cr>
+onoremap an' :<c-u>normal! f'va'<cr>
+onoremap iN' :<c-u>normal! F'vi'<cr>
+onoremap aN' :<c-u>normal! F'va'<cr>
+
+onoremap in. :<c-u>normal! f.lvt.<cr>
+onoremap an. :<c-u>normal! f.vf.<cr>
+onoremap iN. :<c-u>normal! F.hvT.<cr>
+onoremap aN. :<c-u>normal! F.vF.<cr>
+
+onoremap in- :<c-u>normal! f-lvt-<cr>
+onoremap an- :<c-u>normal! f-vf-<cr>
+onoremap iN- :<c-u>normal! F-hvT-<cr>
+onoremap aN- :<c-u>normal! F-vF-<cr>
+
+onoremap in, :<c-u>normal, f,lvt,<cr>
+onoremap an, :<c-u>normal, f,vf,<cr>
+onoremap iN, :<c-u>normal, F,hvT,<cr>
+onoremap aN, :<c-u>normal, F,vF,<cr>
+
+onoremap in* :<c-u>normal! f*lvt*<cr>
+onoremap an* :<c-u>normal! f*vf*<cr>
+onoremap iN* :<c-u>normal! F*hvT*<cr>
+onoremap aN* :<c-u>normal! F*vF*<cr>
+
+onoremap in# :<c-u>normal! f*lvt*<cr>
+onoremap an# :<c-u>normal! f*vf*<cr>
+onoremap iN# :<c-u>normal! F*hvT*<cr>
+onoremap aN# :<c-u>normal! F*vF*<cr>
+
 ""    Headers
 """        Basic headers
 
