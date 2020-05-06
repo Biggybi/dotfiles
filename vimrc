@@ -397,9 +397,9 @@ augroup HelpManSplit
 	au FileType man setlocal tabstop=8
 	au FileType help,man setlocal showbreak= nonumber signcolumn=no
 	au FileType help au! BufRead,BufEnter <buffer> silent!
-				\ | wincmd H | 82 wincmd|
+				\ | :silent! wincmd H | :silent! 82 wincmd|
 	au FileType help au! BufLeave,WinLeave <buffer> silent!
-				\ | if &columns < 100 | 0 wincmd| | endif
+				\ | if &columns < 100 | :silent! 0 wincmd| | endif
 augroup end
 
 """        Shell output split
