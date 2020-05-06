@@ -1055,8 +1055,8 @@ vnoremap <c-w><space><space> :vertical split #<cr>
 " resize windows quicker
 nnoremap <leader>= :exe "resize +10"<cr>
 nnoremap <leader>- :exe "resize -10"<cr>
-nnoremap <leader>> :exe "vertical resize +10"<CR>:echo "width -"<cr>
-nnoremap <leader>< :exe "vertical resize -10"<CR>:echo "width +"<cr>
+nnoremap <leader>> :exe "vertical resize +10"<CR>
+nnoremap <leader>< :exe "vertical resize -10"<CR>
 
 """        Searching
 
