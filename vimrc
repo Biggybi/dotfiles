@@ -326,7 +326,7 @@ endfunction
 
 augroup QuickFixWindowSet
 	au!
-	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber
+	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber showbreak=
 
 	" vimscript is a joke
 	au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
