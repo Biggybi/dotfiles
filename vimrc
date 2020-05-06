@@ -1344,8 +1344,6 @@ nnoremap <silent> <Leader>T :call <SID>ToggleTerminal()<CR>
 tnoremap <silent> <Leader>T <C-w>N:call <SID>ToggleTerminal()<CR>
 
 tnoremap <c-n> <c-\><c-n>
-tnoremap <c-w>: <c-\><c-n>:
-tnoremap <c-w>; <c-\><c-n>:
 
 """        Fun
 inoremap ,fox The quick brown fox jumps over the lazy dog
