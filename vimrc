@@ -680,9 +680,8 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1      " [Buffers] to existing split
-" let g:fzf_layout = { 'window': '13 sp' }
-" let g:fzf_layout = { 'down' : '15 reverse' }
-" let g:fzf_layout = { 'left' : '~30%' }
+let g:fzf_layout = { 'down' : '~40%' }
+
 let g:fzf_colors = {
 			\ 'fg':      ['fg', 'Normal'],
 			\ 'bg':      ['bg', 'Normal'],
