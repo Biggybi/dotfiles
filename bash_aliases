@@ -18,7 +18,8 @@ shopt -s expand_aliases
 alias s='sudo'
 alias c='clear'
 
-alias vimnude='vim -u NONE'
+#vi debug: no vimrc/gvimrc, nocompatible
+alias vimnude='vim -u NONE -U NONE -N'
 
 ## color
 alias dir='dir --color=auto'
