@@ -185,8 +185,6 @@ let base16colorspace=256        " access 256 colorspace
 set t_Co=256                    " say terminal supports 256
 if has("termguicolors")
 	set termguicolors             " 24 bits colors
-	set t_8b=[48;2;%lu;%lu;%lum " for tmux
-	set t_8f=[38;2;%lu;%lu;%lum " for tmux
 endif
 
 " False cursorline to have CursorLineNr working
