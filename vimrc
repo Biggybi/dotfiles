@@ -1709,6 +1709,9 @@ onoremap a* :<c-u>normal! F*vf*<cr>
 onoremap i# :<c-u>normal! T*vt*<cr>
 onoremap a# :<c-u>normal! F*vf*<cr>
 
+onoremap i$ :<c-u>normal! T*vt*<cr>
+onoremap a$ :<c-u>normal! F*vf*<cr>
+
 onoremap i> :<c-u>normal! T<vt><cr>
 onoremap a> :<c-u>normal! F<vf><cr>
 onoremap i< :<c-u>normal! T<vt><cr>
@@ -1789,6 +1792,11 @@ onoremap in# :<c-u>normal! f#lvt#<cr>
 onoremap an# :<c-u>normal! f#vf#<cr>
 onoremap iN# :<c-u>normal! F#hvT#<cr>
 onoremap aN# :<c-u>normal! F#vF#<cr>
+
+onoremap in$ :<c-u>normal! f$lvt$<cr>
+onoremap an$ :<c-u>normal! f$vf$<cr>
+onoremap iN$ :<c-u>normal! F$hvT$<cr>
+onoremap aN$ :<c-u>normal! F$vF$<cr>
 
 ""    Headers
 """        Basic headers
