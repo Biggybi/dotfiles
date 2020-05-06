@@ -415,7 +415,10 @@ nnoremap <c-f> <c-f>:call NoScrollAtEOF()<cr>
 
 """        Mail
 
-autocmd FileType mail setlocal nolinebreak tw=0
+augroup MailSettings
+	au!
+	autocmd FileType mail setlocal nolinebreak tw=0
+augroup end
 
 ""    Highlights / Match
 """        show traling whitespaces
