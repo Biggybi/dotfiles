@@ -14,13 +14,6 @@
 """        Environement
 
 let DOT="$HOME/dotfiles"
-let HOM_VID="$HOME/Videos"
-let HOM_PIC="$HOME/Pictures"
-let HOM_GAM="$HOME/Games"
-let HOM_DOC="$HOME/Documents"
-let HOM_MUS="$HOME/Music"
-let HOM_42="$HOME/42"
-let GOPATH="$HOME/go"
 
 """        Pathogen
 
