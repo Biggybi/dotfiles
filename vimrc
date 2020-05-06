@@ -1332,7 +1332,8 @@ nnoremap <leader>ep $DOT/bash_profile<cr>
 nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
 nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
 nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
-nnoremap <leader>eco :CocConfig<cr>
+nnoremap <leader>eo :CocConfig<cr>
+nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
 
 " " rename file
 " nnoremap <leader>mv :!mv % %:h:p/
