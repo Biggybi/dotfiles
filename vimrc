@@ -11,10 +11,6 @@
 " **************************************************************************** "
 
 ""    Settings
-"""        Environement
-
-let DOT="$HOME/dotfiles"
-
 """        Pathogen
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
