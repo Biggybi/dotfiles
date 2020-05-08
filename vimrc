@@ -731,9 +731,9 @@ function! s:insert_match(lines)
 	<c-r>=echo('a:lines')<cr>
 endfunction
 
-nnoremap <leader>ff :FZF $HOME<cr>
-nnoremap <leader><c-f> :FZF .<cr>
-nnoremap <leader>F :FZF /<cr>
+nnoremap <leader>ff :FzfFiles $HOME<cr>
+nnoremap <leader><c-f> :FzfFiles .<cr>
+nnoremap <leader>F :FzfFiles /<cr>
 nnoremap <leader>fb :FzfBuffers<cr>
 nnoremap <leader>b :FzfBuffers<cr>
 nnoremap <leader>fw :FzfWindows<cr>
