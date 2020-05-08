@@ -36,7 +36,9 @@ let $BASH_ENV = "$DOT/bash_aliases"  " use aliases in vim
 let $PAGER=''                        " vim as pager
 
 syntax on
-set nocompatible                     " not compatible with vi
+if &compatible                       " condition avoid pile-up
+	set nocompatible                   " not compatible with vi
+endif
 set encoding=utf-8                   " character encoding
 scriptencoding utf8
 set ttyfast                          " faster redrawing
