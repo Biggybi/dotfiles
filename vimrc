@@ -464,6 +464,7 @@ endfunction
 
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
+	au!
 	au FocusGained,BufEnter * :silent! !
 	au FocusLost,WinLeave * :silent! w
 augroup end
@@ -705,12 +706,12 @@ augroup FzfHideStatusLine
 				\| autocmd BufLeave <buffer> set ruler
 augroup end
 
-function! s:build_location_list(lines)
+function! s:build_location_list(lines) abort
 	call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
 	lopen
 endfunction
 
-function! s:build_quickfix_list(lines)
+function! s:build_quickfix_list(lines) abort
 	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
 	copen
 endfunction
@@ -723,11 +724,11 @@ let g:fzf_action = {
 			\ 'ctrl-x': 'split',
 			\ 'ctrl-v': 'vsplit'}
 " \ 'ctrl-o': '<S-tab>',
-" \ 'ctrl-i': 'insert_match'}
+" \ 'ctrl-i': 'insert_match',
 
-function! s:insert_match(lines)
-	<c-r>=echo('a:lines')<cr>
-endfunction
+" function! s:insert_match(lines) abort
+" 	<c-r>=echo('a:lines')<cr>
+" endfunction
 
 nnoremap <leader>ff :FzfFiles $HOME<cr>
 nnoremap <leader><c-f> :FzfFiles .<cr>
@@ -1082,6 +1083,7 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold (K)
 augroup CocHiglightSymbol
+	au!
 	au CursorHold * silent call CocActionAsync('highlight')
 augroup end
 
@@ -1256,7 +1258,7 @@ nnoremap <leader>ct :make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cT :make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
-function! LocListPannel(pfx)
+function! LocListPannel(pfx) abort
 	" if a:pfx == 'l' && len(getloclist(0)) == 0
 	" 	echohl ErrorMsg
 	" 	echo "Location List is Empty."
@@ -1781,7 +1783,7 @@ function! s:filetype() abort
 	endfor
 endfunction
 
-function! s:ascii(n)
+function! s:ascii(n) abort
 	return s:asciiart[a:n - 3]
 endfunction
 
@@ -1790,7 +1792,7 @@ function! s:textline(left, right)
 	return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
 endfunction
 
-function! s:line(n)
+function! s:line(n) abort
 	if a:n == 1 || a:n == 11 " top and bottom line
 		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
 	elseif a:n == 2 || a:n == 10 " blank line
