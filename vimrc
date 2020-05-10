@@ -502,7 +502,7 @@ endif
 " change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
 	au!
-	au BufEnter *
+	au BufEnter,BufRead *
 				\ if !empty(bufname("%"))
 				\   | silent! cd %:p:h | silent! Glcd
 				\ | endif
