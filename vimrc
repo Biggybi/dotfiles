@@ -883,8 +883,8 @@ xnoremap <silent> k gk
 
 nnoremap H ^
 nnoremap L $
-nnoremap <c-h> B
-nnoremap <c-l> E
+nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' ? "w" : "E"
+nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' ? "gE" : "B"
 nnoremap <c-k> {
 nnoremap <c-j> }
 nnoremap <c-q> :redraw<cr>
