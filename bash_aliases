@@ -98,6 +98,10 @@ alias v="vim"
 alias vi='vim'
 alias sv="sudo vim"
 
+## mutt
+alias mutt="neomutt"
+alias m="neomutt"
+
 ### ssh
 alias sshhome='ssh biggybi@192.168.1.28'
 alias sshpi='ssh pi@192.168.1.102 -p 42'
