@@ -1113,17 +1113,6 @@ let g:markdown_fenced_languages = ['css', 'js=javascript']
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Coc Explorer
-
-nnoremap <leader>t :CocCommand explorer<cr>
-
-augroup CloseifOnlyCocEx
-	au!
-	autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') |
-				\ q |
-				\ endif
-augroup end
-
 """        Folding
 
 " inoremap <leader><space> <c-o>za
