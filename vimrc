@@ -23,12 +23,13 @@ if ! has("nvim")
 	packadd! matchit
 	packadd! termdebug
 endif
+
 filetype plugin on                   " use filetype plugin
 filetype on
 filetype indent on                   " use indent plugin
 set keywordprg=:Man
 
-let $BASH_ENV = "$DOT/bash_aliases"  " use aliases in vim
+let $BASH_ENV = "$HOME/dotfiles/bash_aliases"  " use aliases in vim
 let $PAGER=''                        " vim as pager
 
 syntax on
@@ -1192,20 +1193,20 @@ nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
 nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 " edit dotfiles
-nnoremap <leader>ev :e $DOT/vimrc<cr>
-nnoremap <leader>e<c-v> :vertical split $DOT/vimrc<cr>
-nnoremap <leader>et :e $DOT/tmux.conf<cr>
-nnoremap <leader>e<c-t> :vertical split $DOT/tmux.conf<cr>
-nnoremap <leader>eb :e $DOT/bashrc<cr>
-nnoremap <leader>e<c-b> :vertical split $DOT/bashrc<cr>
-nnoremap <leader>ea :e $DOT/bash_aliases<cr>
-nnoremap <leader>e<c-a> :vertical split $DOT/bash_aliases<cr>
-nnoremap <leader>en :e $DOT/inputrc<cr>
-nnoremap <leader>e<c-n> :vertical split $DOT/inputrc<cr>
-nnoremap <leader>ep $DOT/bash_profile<cr>
-nnoremap <leader>e<c-p> :vertical split $DOT/bash_profile<cr>
-nnoremap <leader>ec1 :e $DOT/vim/colors/base16-onedark.vim<cr>
-nnoremap <leader>ec2 :e $DOT/vim/colors/base16-one-light.vim<cr>
+nnoremap <leader>ev :e $HOME/dotfiles/vimrc<cr>
+nnoremap <leader>e<c-v> :vertical split $HOME/dotfiles/vimrc<cr>
+nnoremap <leader>et :e $HOME/dotfiles/tmux.conf<cr>
+nnoremap <leader>e<c-t> :vertical split $HOME/dotfiles/tmux.conf<cr>
+nnoremap <leader>eb :e $HOME/dotfiles/bashrc<cr>
+nnoremap <leader>e<c-b> :vertical split $HOME/dotfiles/bashrc<cr>
+nnoremap <leader>ea :e $HOME/dotfiles/bash_aliases<cr>
+nnoremap <leader>e<c-a> :vertical split $HOME/dotfiles/bash_aliases<cr>
+nnoremap <leader>en :e $HOME/dotfiles/inputrc<cr>
+nnoremap <leader>e<c-n> :vertical split $HOME/dotfiles/inputrc<cr>
+nnoremap <leader>ep $HOME/dotfiles/bash_profile<cr>
+nnoremap <leader>e<c-p> :vertical split $HOME/dotfiles/bash_profile<cr>
+nnoremap <leader>ec1 :e $HOME/dotfiles/vim/colors/base16-onedark.vim<cr>
+nnoremap <leader>ec2 :e $HOME/dotfiles/vim/colors/base16-one-light.vim<cr>
 nnoremap <leader>eo :CocConfig<cr>
 nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
 
