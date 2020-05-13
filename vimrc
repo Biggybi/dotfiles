@@ -997,8 +997,6 @@ nnoremap <leader>< :exe "vertical resize -10"<CR>
 
 """        Searching
 
-nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
-
 nnoremap / :call clearmatches()<cr>/
 nnoremap <leader>/ :call clearmatches()<cr>/\v
 vnoremap <leader>/ :call clearmatches()<cr>/\v
