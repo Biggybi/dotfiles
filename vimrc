@@ -137,7 +137,7 @@ set smartindent                 " ...in a sane way
 set shiftround                  " indent congru shiftwidth
 
 " splits
-set switchbuf=useopen           " open buffer window if exists
+set switchbuf=usetab            " open buffer window if exists
 set splitbelow                  " default split below
 set splitright                  " default split right
 " set list
