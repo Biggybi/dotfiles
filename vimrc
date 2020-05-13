@@ -1093,7 +1093,9 @@ nnoremap g] g<c-]>
 """        Coc
 
 " fix error when using tabs in middle of line
-inoremap <c-i> <c-v><c-i>
+if v:version < 802
+	inoremap <c-i> <c-v><c-i>
+endif
 
 if ! has("nvim")
 	inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
