@@ -419,6 +419,33 @@ augroup MailSettings
 	autocmd FileType mail setlocal nolinebreak tw=0
 augroup end
 
+"""        Search cycling windows
+
+function! CycleWindowsSearch(direction) abort
+	let forward = a:direction
+	if ! v:searchforward
+		let forward = forward ? '0' : '1'
+	endif
+	let searchflags = forward ? 'W' : 'Wb'
+	let winmove = forward ? 'w' : 'W'
+	let curmove = forward ? '1' : '$'
+
+	let firstwin=winnr()
+	if ! search(@/, searchflags)
+		execute('wincmd ' . winmove)
+		let savepos = getcurpos()
+		call cursor(curmove, curmove)
+		while ! search(@/, searchflags) && firstwin != winnr()
+			call setpos('.', savepos)
+			execute('wincmd ' . winmove)
+			call cursor(curmove, curmove)
+		endwhile
+	endif
+endfunction
+
+" nnoremap <silent> n :call CycleWindowsSearch('1')<cr>
+" nnoremap <silent> N :call CycleWindowsSearch('0')<cr>
+
 ""    Highlights / Match
 """        show traling whitespaces
 
