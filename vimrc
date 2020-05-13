@@ -750,30 +750,6 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1      " [Buffers] to existing split
-let g:fzf_layout = { 'down' : '~40%' }
-
-let g:fzf_colors = {
-			\ 'fg':      ['fg', 'Normal'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Include'],
-			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':     ['fg', 'Statement'],
-			\ 'info':    ['fg', 'PreProc'],
-			\ 'border':  ['fg', 'Ignore'],
-			\ 'prompt':  ['fg', 'Conditional'],
-			\ 'pointer': ['fg', 'Exception'],
-			\ 'marker':  ['fg', 'Keyword'],
-			\ 'spinner': ['fg', 'Label'],
-			\ 'header':  ['fg', 'Comment'] }
-" \ 'hl':      ['fg', 'Comment'],
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-augroup FzfHideStatusLine
-	au! FileType fzf
-	au FileType fzf set noshowmode noruler
-				\| autocmd BufLeave <buffer> set ruler
-augroup end
 
 function! s:build_location_list(lines) abort
 	call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
@@ -821,43 +797,64 @@ nnoremap <leader>fs <esc>:FzfSnippets<cr>
 nnoremap <leader>fr <esc>:Rg<cr>
 inoremap <c-x><c-s> <c-o>:FzfSnippets<cr>
 
-command! -bang -complete=dir -nargs=* LS
-			\ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" function! FzfColorSelect() abort
-" 	if &background ==# "light"
-" 		return "--theme=OneHalfLight"
-" 	else
-" 		return "--theme=OneHalfDark"
-" 	endif
-" endfunction
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
 
-function! FzfFilesAutoColor() abort
-	if &background ==# "light"
-		:call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat --theme=OneHalfLight {}']}, <bang>0)
-	else
-		:call fzf#vim#files(<q-args>, {'options': ['--preview', 'bat --theme=OneHalfDark {}']}, <bang>0)
-	endif
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline --bind "ctrl-o:toggle+up,ctrl-space:toggle-preview"'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+"-g '!{node_modules,.git}'
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+	\ 'bg':      ['bg', 'Normal'],
+	\ 'gutter':  ['bg', 'Normal'],
+	\ 'hl':      ['fg', 'Comment'],
+	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	\ 'bg+':     ['bg', 'Visual', 'CursorColumn'],
+	\ 'hl+':     ['fg', 'Statement'],
+	\ 'info':    ['fg', 'PreProc'],
+	\ 'border':  ['fg', 'vertsplit'],
+	\ 'prompt':  ['fg', 'Conditional'],
+	\ 'pointer': ['fg', 'Exception'],
+	\ 'marker':  ['fg', 'Keyword'],
+	\ 'spinner': ['fg', 'Label'],
+	\ 'header':  ['fg', 'Comment'] }
+	" \ 'border':  ['fg', 'Conditional'],
+
+"Get Files
+command! -bang -nargs=? -complete=dir Files
+		\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+" Get text in files with Rg
+command! -bang -nargs=* Rg
+	\ call fzf#vim#grep(
+	\   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
+	\   fzf#vim#with_preview(), <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen) abort
+	let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+	let initial_command = printf(command_fmt, shellescape(a:query))
+	let reload_command = printf(command_fmt, '{q}')
+	let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+	call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -bang -nargs=? -complete=dir Files
-			\ :call FzfFilesAutoColor()
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-" call fzf#run({'source': 'git ls-files', 'sink': 'e', 'right': '40%'})
-
-" Uset ripgrep for Rg
-command! -bang -nargs=* Rg
-			\ call fzf#vim#grep(
-			\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-			\   <bang>0 ? fzf#vim#with_preview('up:60%')
-			\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-			\   <bang>0)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+" Git grep
+command! -bang -nargs=* GGrep
+	\ call fzf#vim#grep(
+	\   'git grep --line-number '.shellescape(<q-args>), 0,
+	\   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 """        Latex Live Preview
 
