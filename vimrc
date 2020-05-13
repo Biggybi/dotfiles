@@ -668,6 +668,7 @@ augroup NetrwStartup
 augroup end
 
 """        Termdebug
+
 " let g:termdebug_wide = 163
 let g:termdebug_wide = 40
 
