@@ -41,30 +41,41 @@ scriptencoding utf8
 set ttyfast                          " faster redrawing
 set nolazyredraw                     " no redraw executing macros
 
+"""        Restore
+
+" Session restore
+set sessionoptions-=options
+set viewoptions=cursor,folds    "only these settins
 " restore undo history
 if exists('+undofile')
 	set undofile
 endif
 
-" Backup files dir
-set history=10000                    " long history
+set history=10000               " long history
 set hidden
-set backupskip=/tmp/*,/private/tmp/* " vim can edit crontab
-set backupdir=$HOME/.vim/backup//
-set directory=$HOME/.vim/swap//
-set undodir=$HOME/.vim/undo//
 
-set autoread                         " detect file changes
-set modelineexpr                     " flexible modeline set
+if exists('$SUDO_USER')         " don't create root-owned files
+	set noswapfile
+	set nobackup
+	set nowritebackup
+	set noundofile
+	set viminfo=
+else
+	set backupdir=$HOME/.vim/tmp/backup//
+	set directory=$HOME/.vim/tmp/swap//
+	set undodir=$HOME/.vim/tmp/undo//
+	set viewdir=$HOME/.vim/tmp/view//
+	set viminfo+=n$HOME/.vim/tmp/viminfo
+endif
+
+set autoread                    " auto load file changes
+" set autowrite                   " auto save file changes
+set modelineexpr                " flexible modeline set
 
 """        User Interface settings
 
 " Title
 set title                       " window title (file)
-
-" Session restore
-set sessionoptions-=options
-set viewoptions-=options
 
 " Mappings chill
 set notimeout                   " no timeout on maps
