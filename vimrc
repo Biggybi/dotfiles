@@ -649,12 +649,12 @@ let g:netrw_sort_sequence = '[\/]$,*'  " sort folders on top
 
 " open netrw if vim starts without file
 let g:netrw_startup = 0
-let g:netrw_startup_no_file = 1
-" augroup NetrwStartup
-" 	au!
-" 	au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-"   au VimEnter * if g:netrw_startup == '1' | e . | endif
-" augroup end
+let g:netrw_startup_no_file = 0
+augroup NetrwStartup
+	au!
+	au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
+  au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
+augroup end
 
 """        Termdebug
 " let g:termdebug_wide = 163
