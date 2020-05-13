@@ -394,9 +394,15 @@ augroup end
 
 """        Shell output split
 
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+command! -complete=shellcmd -nargs=+ Shell2 call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline) abort
-	exe 'vert terminal '. a:cmdline
+	if has("nvim")
+		exe 'vs | :terminal '. a:cmdline
+	else
+		exe 'vert terminal '. a:cmdline
+	endif
+endfunction
+
 """        Job split output
 
 command! -complete=shellcmd -nargs=+ Shell call s:TmpShellOutput(<q-args>)
