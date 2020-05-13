@@ -664,10 +664,11 @@ let g:netrw_startup_no_file = 0
 augroup NetrwStartup
 	au!
 	au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-  au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
+	au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
 augroup end
 
 """        Termdebug
+
 " let g:termdebug_wide = 163
 let g:termdebug_wide = 40
 
