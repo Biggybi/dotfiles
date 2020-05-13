@@ -705,24 +705,20 @@ let g:airline_mode_map = {
 			\ }
 
 let g:airline#extensions#default#section_truncate_width = {}
+let g:airline#extensions#default#layout = [
+			\ [ 'a', 'b', 'c' ],
+			\ [ 'x', 'z', 'error', 'warning' ]
+			\ ]
+
+call airline#parts#define_minwidth('branch', 20)
 
 let g:airline_symbols_ascii = 1
-let g:airline#extensions#wordcount#filetypes = ['']
-let g:airline_section_y = ''
 let g:airline_section_z = '%4{line(".")}:%-3{virtcol(".")} %-4{LinePercent()}'
 let g:airline#extensions#hunks#enabled = 0
-" let g:airline_section_z = '%{LinePercent}'
 
 function! LinePercent() abort
 	return line('.') * 100 / line('$') . '%'
 endfunction
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#alt_sep = 0
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
 
 """        Gitgutter
 if exists('&signcolumn')        " Vim 7.4.2201
