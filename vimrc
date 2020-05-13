@@ -1105,6 +1105,7 @@ endif
 
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
+hi link CocHilightText Visual
 
 " inoremap <expr> <c-n> pumvisible() ? "\<C-p>" : coc#refresh()
 let g:coc_snippet_next = '<c-f>'
