@@ -32,8 +32,6 @@ set mark-symlinked-directories on
 
 set keymap vi-insert
 "\C-w": shell-backward-kill-word
-# "\C-l": vi-end-word
-# "\C-h": backward-word
 "\C-b": backward-char
 "\C-f": forward-char
 "\C-a": beginning-of-line
@@ -46,12 +44,10 @@ set keymap vi-insert
 "\C-g": " | grep "
 "\C-p": 'cd !$ \015'
 "\C-x\C-e": edit-and-execute-command
-# "\C-g e\C-f": 'cd !$ \015 && ls\015'
+"\C-x\C-r": re-read-init-file
 # "\C-g\C-f": 'cd $(dirname $(readlink -f !$)) \015 && ls\015'
-# "\C-x\C-r": re-read-init-file
 
 set keymap vi-command
-# "\C-x": backward-delete-char
 "\C-x\C-e": edit-and-execute-command
 "\C-a": beginning-of-line
 "\C-e": end-of-line
