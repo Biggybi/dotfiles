@@ -6,9 +6,19 @@ set show-mode-in-prompt on
 set vi-ins-mode-string "\1\e[01;92m\2╰─ 〉\1\e[0m\2"
 set vi-cmd-mode-string "\1\e[01;33m\2╰─〈 \1\e[0m\2"
 set bell-style none
+
+# color based on filetype
 set colored-stats on
+# common prefix colored
 set colored-completion-prefix on
-# set completion-display-width 1
+# ignore case
+set completion-ignore-case on
+# show possible match on first tab
+set show-all-if-ambiguous on
+# show many item
+set completion-query-items 5000
+# no "more-like" pager
+set page-completions off
 
 set editing-mode vi
 
