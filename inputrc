@@ -5,6 +5,10 @@ set show-mode-in-prompt on
 # 〱ꤶꪜꫳꭗ𐩃
 set vi-ins-mode-string "\1\e[01;92m\2╰─ 〉\1\e[0m\2"
 set vi-cmd-mode-string "\1\e[01;33m\2╰─〈 \1\e[0m\2"
+
+# paste as string (preserve indent)
+set enable-bracketed-paste on
+# no bell
 set bell-style none
 
 # color based on filetype
