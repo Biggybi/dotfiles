@@ -31,28 +31,32 @@ set mark-symlinked-directories on
 # set completion-display-width 1     # one column for completion
 
 set keymap vi-insert
-# "jk": vi-movement-mode
-"\C-w": backward-kill-word
-"\C-l": vi-end-word
-"\C-h": backward-word
+"\C-w": shell-backward-kill-word
+# "\C-l": vi-end-word
+# "\C-h": backward-word
 "\C-b": backward-char
 "\C-f": forward-char
 "\C-a": beginning-of-line
 "\C-e": end-of-line
-"\C-q": clear-screen
+"\C-l": clear-screen
 "\C-o": menu-complete-backward
 "\C-j": next-history
 "\C-k": previous-history
+"\C-s": operate-and-get-next
 "\C-g": " | grep "
-"\C-g\C-f": 'cd !$ \015'
-# "\C-g\C-f": 'cd !$ \015 && ls\015'
+"\C-p": 'cd !$ \015'
+"\C-x\C-e": edit-and-execute-command
+# "\C-g e\C-f": 'cd !$ \015 && ls\015'
 # "\C-g\C-f": 'cd $(dirname $(readlink -f !$)) \015 && ls\015'
-"\C-x\C-r": re-read-init-file
+# "\C-x\C-r": re-read-init-file
 
 set keymap vi-command
-"\C-x": backward-delete-char
+# "\C-x": backward-delete-char
+"\C-x\C-e": edit-and-execute-command
 "\C-a": beginning-of-line
 "\C-e": end-of-line
+"H": beginning-of-line
+"L": end-of-line
 "\C-l": vi-end-word
 "\C-h": backward-word
 "\C-j": next-history
