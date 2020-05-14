@@ -22,7 +22,13 @@ set completion-query-items 5000
 # no "more-like" pager
 set page-completions off
 
-set editing-mode vi
+# hide ^C etc
+set echo-control-characters off
+# add '/' to directories...
+set mark-directories on
+# ...and to symlinks
+set mark-symlinked-directories on
+# set completion-display-width 1     # one column for completion
 
 set keymap vi-insert
 # "jk": vi-movement-mode
