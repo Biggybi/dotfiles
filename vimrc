@@ -780,27 +780,27 @@ let g:fzf_action = {
 " 	<c-r>=echo('a:lines')<cr>
 " endfunction
 
-nnoremap <leader>ff :FzfFiles $HOME<cr>
-nnoremap <leader><c-f> :FzfFiles .<cr>
-nnoremap <leader>F :FzfFiles /<cr>
-nnoremap <leader>fb :FzfBuffers<cr>
-nnoremap <leader>b :FzfBuffers<cr>
-nnoremap <leader>fw :FzfWindows<cr>
-nnoremap <leader>ft :FzfTags<cr>
-nnoremap <leader>f<c-t> :FzfBTags<cr>
-nnoremap <leader>fc :FzfCommit<cr>
-nnoremap <leader>f<c-c> :FzfBCommit<cr>
-nnoremap <leader>fg :FzfGFiles?<cr>
-nnoremap <leader>f<c-g> :FzfGFiles<cr>
-nnoremap <leader>fl :FzfLines<cr>
-nnoremap <leader>f<c-l> :FzfBLines<cr>
-nnoremap <leader>f; :FzfHistory:<cr>
-nnoremap <leader>f/ :FzfHistory/<cr>
-nnoremap <leader>fh :FzfHistory<cr>
-nnoremap <leader>fm :FzfHelptags<cr>
-nnoremap <leader>fs <esc>:FzfSnippets<cr>
-nnoremap <leader>fr <esc>:Rg<cr>
-inoremap <c-x><c-s> <c-o>:FzfSnippets<cr>
+nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
+nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
+nnoremap <silent> <leader>F :FzfFiles .<cr>
+nnoremap <silent> <leader>fb :FzfBuffers<cr>
+nnoremap <silent> <leader>b :FzfBuffers<cr>
+nnoremap <silent> <leader>fw :FzfWindows<cr>
+nnoremap <silent> <leader>ft :FzfTags<cr>
+nnoremap <silent> <leader>f<c-t> :FzfBTags<cr>
+nnoremap <silent> <leader>fc :FzfCommit<cr>
+nnoremap <silent> <leader>f<c-c> :FzfBCommit<cr>
+nnoremap <silent> <leader>fg :FzfGFiles?<cr>
+nnoremap <silent> <leader>f<c-g> :FzfGFiles<cr>
+nnoremap <silent> <leader>fl :FzfLines<cr>
+nnoremap <silent> <leader>f<c-l> :FzfBLines<cr>
+nnoremap <silent> <leader>f; :FzfHistory:<cr>
+nnoremap <silent> <leader>f/ :FzfHistory/<cr>
+nnoremap <silent> <leader>fh :FzfHistory<cr>
+nnoremap <silent> <leader>fm :FzfHelptags<cr>
+nnoremap <silent> <leader>fs <esc>:FzfSnippets<cr>
+nnoremap <silent> <leader>fr <esc>:Rg<cr>
+inoremap <silent> <c-x><c-s> <c-o>:FzfSnippets<cr>
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
