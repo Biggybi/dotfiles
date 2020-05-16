@@ -946,6 +946,9 @@ cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 inoremap <c-f> <c-g>U<right>
 inoremap <c-b> <c-g>U<left>
 
+" insert mode delete
+inoremap <c-l> <c-o>x
+
 " up down on visual lines
 nnoremap <silent> j gj
 nnoremap <silent> k gk
