@@ -1398,8 +1398,10 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
 	au FileType c nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
-	" close brackets
-	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
+	" auto close brackets
+	au FileType c inoremap <buffer> { {}<c-g>U<left>
+	au FileType c inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+	au FileType c inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
 	" brackets around paragraph
 	au FileType c nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
