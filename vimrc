@@ -65,7 +65,11 @@ else
 	set directory=$HOME/.vim/tmp/swap//
 	set undodir=$HOME/.vim/tmp/undo//
 	set viewdir=$HOME/.vim/tmp/view//
-	set viminfo+=n$HOME/.vim/tmp/viminfo
+	if has("nvim")
+		set viminfo+=n$HOME/.vim/tmp/nviminfo
+	else
+		set viminfo+=n$HOME/.vim/tmp/viminfo
+	endif
 endif
 
 set autoread                    " auto load file changes
