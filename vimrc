@@ -942,6 +942,10 @@ cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
 """        Movement
 
+" insert mode left / right
+inoremap <c-f> <c-g>U<right>
+inoremap <c-b> <c-g>U<left>
+
 " up down on visual lines
 nnoremap <silent> j gj
 nnoremap <silent> k gk
