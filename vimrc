@@ -924,8 +924,9 @@ nnoremap Q <nul>
 " repeat last macro
 nnoremap - @@
 
-" <c-z> in insert mode
+" <c-z> in insert and command mode
 inoremap <c-z> <c-[><c-z>
+cnoremap <c-z> <c-[><c-z>
 
 " <c-s> save and enter normal mode
 function! VerboseUpdate() abort
