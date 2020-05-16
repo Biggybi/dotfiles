@@ -1375,7 +1375,13 @@ augroup Shmaps
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
 
 	" alias to function
+
+	" auto close brackets
 	au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
+	au FileType sh inoremap <buffer> { {}<c-g>U<left>
+	au FileType sh inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+	au FileType sh inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+
 augroup end
 
 """        C
@@ -1459,7 +1465,6 @@ augroup JSmaps
 	au FileType javascript nnoremap <buffer> <leader>ca :AutoRun<cr>
 	au FileType javascript nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
 	au FileType javascript nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
-	au FileType javascript inoremap <buffer> {<cr>  {<cr>}<esc>O
 	au FileType javascript nnoremap <buffer> <leader>cc :Shell node %<cr>
 	au FileType javascript nnoremap <buffer> <leader>ls :!live-server %<cr>
 	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
@@ -1468,6 +1473,12 @@ augroup JSmaps
 	au FileType javascript inoremap <buffer> ,cl console.log();<esc>F)i
 	au FileType javascript nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
 	au FileType javascript vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
+
+	" auto close brackets
+	au FileType javascript inoremap <buffer> { {}<c-g>U<left>
+	au FileType javascript inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+	au FileType javascript inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+
 augroup end
 
 """        Json
@@ -1476,7 +1487,12 @@ augroup Jsonmaps
 	au!
 	au FileType json nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
 	au FileType json nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
-	au FileType json inoremap <buffer> {<cr>  {<cr>}<esc>O
+
+	" auto close brackets
+	au FileType json inoremap <buffer> { {}<c-g>U<left>
+	au FileType json inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+	au FileType json inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+
 augroup end
 
 """        PHP/HTML/CSS
@@ -1487,7 +1503,12 @@ augroup Webmaps
 	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
 
 	au FileType css nnoremap <buffer> <c-w>u :40 wincmd\|<cr>
-	au FileType css inoremap <buffer> {<cr>  {<cr>}<esc>O
+
+	" auto close brackets
+	au FileType css inoremap <buffer> { {}<c-g>U<left>
+	au FileType css inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+	au FileType css inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+
 	au FileType php,html inoremap <buffer> ,php <?php<cr>?><esc>O
 	au FileType php,html inoremap <buffer> ,bo <body></body><esc>F<i
 	au FileType php,html inoremap <buffer> ,h1 <h1></h1><esc>F<i
