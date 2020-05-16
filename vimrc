@@ -1252,8 +1252,8 @@ vnoremap <leader>y "+y
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv m`:source $MYVIMRC<cr>:doautocmd BufRead<cr>:echo "vimrc sourced"<cr>``zz
-nnoremap <leader>ss m`:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>``zz
+nnoremap <leader>sv mZ:source $MYVIMRC<cr>:doautocmd BufRead<cr>:echo "vimrc sourced"<cr>Z`zz
+nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>Z`zz
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
@@ -1302,7 +1302,7 @@ nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr
 """        General
 
 " indent all file easy
-nnoremap g<c-g> m`gg=G``
+nnoremap g<c-g> mZgg=GZ`
 
 " Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
@@ -1364,7 +1364,7 @@ nnoremap <leader>csT :Shell make ex TESTFF=
 """        bash
 
 augroup Shmaps
-	au! Shmaps
+	au!
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
 
 	" alias to function
@@ -1374,7 +1374,7 @@ augroup end
 """        C
 
 augroup Cmaps
-	au! Cmaps
+	au!
 	au FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
 	au FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 	au FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
@@ -1402,15 +1402,15 @@ augroup Cmaps
 	au FileType c inoremap <buffer> {<cr>  {<cr>}<esc>O
 
 	" brackets around paragraph
-	au FileType c nnoremap <buffer> <leader>{} m`{S{<esc>}S}<c-c>=%``=iB
+	au FileType c nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
 	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 	"  name of current c function (needs '()')
 	au FileType c nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
 	" semicolon/coma EOL toggle
-	au FileType c nnoremap <expr> <leader>; getline('.') =~ ';$' ? "mZ$x\<esc>`Z" : "mZA;\<esc>`Z"
-	au FileType c nnoremap <expr> <leader>, getline('.') =~ ',$' ? "mZ$x\<esc>`Z" : "mZA,\<esc>`Z"
+	au FileType c nnoremap <buffer> <expr> <leader>; getline('.') =~ ';$' ? "mZ$x\<esc>`Z" : "mZA;\<esc>`Z"
+	au FileType c nnoremap <buffer> <expr> <leader>, getline('.') =~ ',$' ? "mZ$x\<esc>`Z" : "mZA,\<esc>`Z"
 
 	" select all text in function
 	au FileType c nnoremap <buffer> <leader>vf j[[V%o
@@ -1445,11 +1445,11 @@ augroup end
 """        JavaScript
 
 augroup JSmaps
-	au! JSmaps
+	au!
 	au FileType javascript nnoremap <buffer> <leader>cr :Run<cr>
 	au FileType javascript nnoremap <buffer> <leader>ca :AutoRun<cr>
-	au FileType javascript nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
-	au FileType javascript nnoremap <buffer> <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
+	au FileType javascript nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
+	au FileType javascript nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
 	au FileType javascript inoremap <buffer> {<cr>  {<cr>}<esc>O
 	au FileType javascript nnoremap <buffer> <leader>cc :Shell node %<cr>
 	au FileType javascript nnoremap <buffer> <leader>ls :!live-server %<cr>
@@ -1464,16 +1464,16 @@ augroup end
 """        Json
 
 augroup Jsonmaps
-	au! Jsonmaps
-	au FileType json nnoremap <buffer> <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
-	au FileType json nnoremap <buffer> <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
+	au!
+	au FileType json nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
+	au FileType json nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
 	au FileType json inoremap <buffer> {<cr>  {<cr>}<esc>O
 augroup end
 
 """        PHP/HTML/CSS
 
 augroup Webmaps
-	au! Webmaps
+	au!
 	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<strong><c-o>P</strong><esc>T<
 	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
 
@@ -1536,14 +1536,14 @@ augroup Webmaps
 				\ luptatum zzril delenit augue duis dolore te feugait nulla
 				\ facilisi.
 
-	au FileType php,html nnoremap <leader>; i<c-o>m`<c-o>A;<esc>``<esc>
-	au FileType php,html nnoremap <leader>, i<c-o>m`<c-o>A,<esc>``<esc>
+	au FileType php,html nnoremap <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
+	au FileType php,html nnoremap <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
 augroup end
 
 """        LATEX
 
 augroup LatexSmith
-	au! LatexSmith
+	au!
 	" Navigating with guides
 	au FileType plaintex,tex silent inoremap <buffer> ,, <esc>/<++><cr>"_4s
 	au FileType plaintex,tex silent vnoremap <buffer> ,, <esc>/<++><cr>"_4s
@@ -1966,7 +1966,7 @@ augroup end
 """        Vimrc mappings
 
 augroup VimrcMaps
-	au! VimrcMaps
+	au!
 	au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>zm100<c-y>
 	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
 	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
