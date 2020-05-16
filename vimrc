@@ -1375,9 +1375,9 @@ augroup Shmaps
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
 
 	" alias to function
+	au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
 
 	" auto close brackets
-	au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
 	au FileType sh inoremap <buffer> { {}<c-g>U<left>
 	au FileType sh inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
 	au FileType sh inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
