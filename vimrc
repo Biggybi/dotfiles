@@ -1462,6 +1462,65 @@ augroup end
 
 " noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
+"""        Java
+
+augroup JavaMaps
+	au!
+	au FileType java,groovy inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<space>{<cr>}<esc>Oreturn(0);<esc>O
+	au FileType java,groovy inoremap <buffer> ,if if ()<space>{<cr>}<esc>2<c-g>U<down>3==f)i
+	au FileType java,groovy inoremap <buffer> ,wh while ()<space>{<cr>}<esc>2<c-g>U<up>3==f)i
+	au FileType java,groovy inoremap <buffer> ,imin -2147483648
+	au FileType java,groovy inoremap <buffer> ,imax 2147483647
+
+	au FileType java,groovy nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+	" if to ternary operator
+	au FileType java,groovy nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
+	au FileType java,groovy nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
+	au FileType java,groovy nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
+
+	" auto close brackets
+	au FileType java,groovy inoremap <buffer> { {}<c-g>U<left>
+	au FileType java,groovy inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+	au FileType java,groovy inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+
+	" brackets auround paragraph
+	au FileType java,groovy nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
+	au FileType java,groovy nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
+
+	"  name of current function (needs '()')
+	au FileType java,groovy nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
+
+	" semicolon/coma EOL toggle
+	au FileType java,groovy nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x\<esc>`Z" : "mZA;\<esc>`Z"
+" nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' ? "gE" : "B"
+	au FileType java,groovy nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == '$' ? "mZ$x\<esc>`Z" : "mZA,\<esc>`Z"
+
+	" select allext in function
+	au FileType java,groovy nnoremap <buffer> <leader>vf j[[V%o
+augroup end
+
+" nnoremap viB [[%v%jok$
+" nnoremap vaB [[%v%
+" " nnoremap vib [{%v%jok$
+" nnoremap vab [{%v%
+
+" " Commenting blocks of code.
+" au FileType c,cpp,java,scala let b:com_size = '3' | let b:com = '// '
+" au FileType sh,ruby,python   let b:com_size = '2' | let b:com = '# '
+" au FileType conf,fstab       let b:com_size = '2' | let b:com = '# '
+" au FileType tex              let b:com_size = '2' | let b:com = '% '
+" au FileType mail             let b:com_size = '2' | let b:com = '> '
+" au FileType vim              let b:com_size = '2' | let b:com = '" '
+" au FileType readline         let b:com_size = '2' | let b:com = '# '
+
+" nnoremap <silent> <leader>'' m'V:norm i<c-r>=expand(b:com)<cr><cr>`'<right><right>
+" vnoremap <silent> <leader>'' m':norm i<c-r>=expand(b:com)<cr><cr>`'
+
+" nnoremap <silent> <leader>"" m'V:norm <c-r>=expand(b:com_size)<cr>x<cr>`'<left><left>
+" vnoremap <silent> <leader>"" m':norm <c-r>=expand(b:com_size)<cr>x<cr>`'
+
+" noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+
 """        JavaScript
 
 augroup JSmaps
