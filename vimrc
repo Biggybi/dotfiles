@@ -631,6 +631,22 @@ augroup FileTypeRefresh
 	au BufWrite * if &ft ==# '' | filetype detect | endif
 augroup end
 
+"""        File extensions
+
+" set suffixes to try when matching a file name
+augroup SuffixesTry
+	au!
+	let associations = [
+				\["javascript", ".js,.javascript,.es,.esx,.json"],
+				\["python", ".py,.pyw"],
+				\["c", ".c,.h"],
+				\["cpp", ".c,.h"]
+				\]
+	for ft in associations
+		execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+	endfor
+augroup end
+
 ""    Plugins settings
 """        Netrw
 
@@ -2043,19 +2059,6 @@ augroup DotfilesSettings
 	au!
 	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc
 				\ set filetype=sh colorcolumn=0
-augroup end
-
-augroup suffixes
-	au!
-	let associations = [
-				\["javascript", ".js,.javascript,.es,.esx,.json"],
-				\["python", ".py,.pyw"],
-				\["c", ".c,.h"],
-				\["cpp", ".c,.h"]
-				\]
-	for ft in associations
-		execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
-	endfor
 augroup end
 
 """        Vimrc mappings
