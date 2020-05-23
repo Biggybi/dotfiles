@@ -631,11 +631,10 @@ augroup FileTypeRefresh
 	au BufWrite * if &ft ==# '' | filetype detect | endif
 augroup end
 
-"""        File extensions
+"""        File suffixes
 
 " set suffixes to try when matching a file name
-augroup SuffixesTry
-	au!
+function! SetSuffixes() abort
 	let associations = [
 				\["javascript", ".js,.javascript,.es,.esx,.json"],
 				\["python", ".py,.pyw"],
@@ -645,6 +644,11 @@ augroup SuffixesTry
 	for ft in associations
 		execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
 	endfor
+endfunction
+
+augroup SuffixesTry
+	au!
+	au FileType javascript,c,cpp,python call SetSuffixes()
 augroup end
 
 ""    Plugins settings
