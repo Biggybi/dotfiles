@@ -412,10 +412,16 @@ augroup end
 
 command! -complete=shellcmd -nargs=+ Shell2 call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline) abort
+	let winnr = win_getid()
 	if has("nvim")
 		exe 'vs | :terminal '. a:cmdline
 	else
 		exe 'vert terminal '. a:cmdline
+	endif
+	wincmd L
+	60 wincmd |
+	if win_getid() != winnr
+		call win_gotoid(winnr)
 	endif
 endfunction
 
@@ -438,14 +444,14 @@ function! s:TmpShellOutput(cmdline) abort
 		let logjob = job_start(["/bin/bash", "-c", a:cmdline],
 					\ {'out_io': 'buffer', 'err_io': 'buffer', 'out_name': 'tmplog', 'err_name': 'tmplog', 'out_msg': ''})
 	endif
-	let winnr = winnr()
+	let winnr = win_getid()
 	vert sbuffer tmplog
 	setlocal wrap
 	" nnoremap <buffer> <c-c> :call job_stop('logjob')<cr>
 	wincmd L
-	40 wincmd |
-	if winnr() != winnr
-		wincmd p
+	60 wincmd |
+	if win_getid() != winnr
+		call win_gotoid(winnr)
 	endif
 endfunction
 
