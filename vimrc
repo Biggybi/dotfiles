@@ -1291,8 +1291,8 @@ vnoremap <leader>y "+y
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv mZ:source $MYVIMRC<cr>:doautocmd BufRead<cr>:echo "vimrc sourced"<cr>`Zzz
-nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>Z`zz
+nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent! doautocmd BufRead<cr>:echo "vimrc sourced"<cr>`Zzz
+nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`Zzz
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
@@ -1341,7 +1341,7 @@ nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr
 """        General
 
 " indent all file easy
-nnoremap g<c-g> mZgg=GZ`
+nnoremap g<c-g> mZgg=G`Z
 
 " Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
@@ -1456,8 +1456,8 @@ augroup Cmaps
 	au FileType c nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
 	" semicolon/coma EOL toggle
-	au FileType c nnoremap <buffer> <expr> <leader>; getline('.') =~ ';$' ? "mZ$x\<esc>`Z" : "mZA;\<esc>`Z"
-	au FileType c nnoremap <buffer> <expr> <leader>, getline('.') =~ ',$' ? "mZ$x\<esc>`Z" : "mZA,\<esc>`Z"
+	au FileType c nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
+	au FileType c nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
 
 	" select all text in function
 	au FileType c nnoremap <buffer> <leader>vf j[[V%o
@@ -1554,8 +1554,8 @@ augroup JSmaps
 	au!
 	au FileType javascript nnoremap <buffer> <leader>cr :Run<cr>
 	au FileType javascript nnoremap <buffer> <leader>ca :AutoRun<cr>
-	au FileType javascript nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
-	au FileType javascript nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
+	au FileType javascript nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
+	au FileType javascript nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
 	au FileType javascript nnoremap <buffer> <leader>cc :Shell node %<cr>
 	au FileType javascript nnoremap <buffer> <leader>ls :!live-server %<cr>
 	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
@@ -1576,8 +1576,8 @@ augroup end
 
 augroup Jsonmaps
 	au!
-	au FileType json nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
-	au FileType json nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
+	au FileType json nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
+	au FileType json nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
 
 	" auto close brackets
 	au FileType json inoremap <buffer> { {}<c-g>U<left>
@@ -1657,8 +1657,8 @@ augroup Webmaps
 				\ luptatum zzril delenit augue duis dolore te feugait nulla
 				\ facilisi.
 
-	au FileType php,html nnoremap <leader>; i<c-o>mZ<c-o>A;<esc>Z`<esc>
-	au FileType php,html nnoremap <leader>, i<c-o>mZ<c-o>A,<esc>Z`<esc>
+	au FileType php,html nnoremap <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
+	au FileType php,html nnoremap <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
 augroup end
 
 """        LATEX
