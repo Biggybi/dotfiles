@@ -278,9 +278,11 @@ endfunction
 
 """        Cursor
 
-let &t_SI = "\<Esc>]12;gray\x7"       " insert mode color
-let &t_EI = "\<Esc>]12;gray\x7"       " non insert mode color
-silent !echo -ne "\033]12;gray\007"
+if &term =~ "xterm\\|rxvt"
+	let &t_SI = "\<Esc>]14;gray\x7"       " insert mode
+	let &t_EI = "\<Esc>]12;gray\x7"       " non insert mode
+	" silent !echo -ne "\033]12;gray\007"
+endif
 
 " reset cursor when vim exits
 " autocmd VimLeave * silent !echo -ne "\033]112;gray\007"
