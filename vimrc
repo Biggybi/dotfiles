@@ -420,10 +420,33 @@ function! s:RunShellCommand(cmdline) abort
 	else
 		exe 'vert terminal '. a:cmdline
 	endif
-	wincmd L
-	60 wincmd |
-	if win_getid() != winnr
-		call win_gotoid(winnr)
+	file scratch_terminal_output
+	let term_window = win_getid()
+	let term_buf_nr = buffer_number()
+	10 wincmd _
+	if win_getid() != current_window
+		call win_gotoid(current_window)
+	endif
+endfunction
+
+function! MoveScrathTerm(direction) abort
+	if bufexists('scratch_terminal_output')
+		let current_window = win_getid()
+		sbuffer scratch_terminal_output
+		if a:direction == 'L'
+			wincmd L
+		elseif a:direction == 'H'
+			wincmd H
+		elseif a:direction == 'J'
+			wincmd J
+			10 wincmd _
+		elseif a:direction == 'K'
+			wincmd K
+			10 wincmd _
+		elseif a:direction == 'Q'
+			:bw
+		endif
+		call win_gotoid(current_window)
 	endif
 endfunction
 
