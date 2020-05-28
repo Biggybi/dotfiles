@@ -114,3 +114,6 @@
 [submodule "vim/bundle/vim-highlightedyank"]
 	path = vim/bundle/vim-highlightedyank
 	url = git@github.com:machakann/vim-highlightedyank.git
+[submodule "vim/bundle/vim-anzu"]
+	path = vim/bundle/vim-anzu
+	url = git@github.com:osyo-manga/vim-anzu.git

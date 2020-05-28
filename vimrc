@@ -776,13 +776,15 @@ let g:airline_mode_map = {
 let g:airline#extensions#default#section_truncate_width = {}
 let g:airline#extensions#default#layout = [
 			\ [ 'a', 'b', 'c' ],
-			\ [ 'x', 'z', 'error', 'warning' ]
+			\ [ 'x', 'y', 'z', 'error', 'warning' ]
 			\ ]
 
 call airline#parts#define_minwidth('branch', 20)
 
 let g:airline_symbols_ascii = 1
 let g:airline_section_z = '%4{line(".")}:%-3{virtcol(".")} %-4{LinePercent()}'
+let g:airline_section_y = '%{&filetype}'
+let g:airline_section_x = ''
 let g:airline#extensions#hunks#enabled = 0
 
 function! LinePercent() abort
@@ -963,6 +965,10 @@ let g:vimwiki_global_ext = 0
 
 let g:airline#extensions#coc#enabled = 0
 
+"""        Anzu
+
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
 ""    Mappings
 """        Modes
 
@@ -1097,7 +1103,7 @@ nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "Clear search highlight
-nnoremap <silent> <leader>sh :nohlsearch<cr>
+nnoremap <silent> <leader>sh :nohlsearch<cr>:call anzu#clear_search_status()<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
