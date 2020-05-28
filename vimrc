@@ -412,13 +412,18 @@ augroup end
 
 """        Shell output split
 
-command! -complete=shellcmd -nargs=+ Shell2 call s:RunShellCommand(<q-args>)
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline) abort
-	let winnr = win_getid()
+	if bufexists('scratch_terminal_output')
+		bw! scratch_terminal_output
+	endif
+	let current_window = win_getid()
+	wincmd v
+	wincmd J
 	if has("nvim")
-		exe 'vs | :terminal '. a:cmdline
+		exe 'terminal '. a:cmdline
 	else
-		exe 'vert terminal '. a:cmdline
+		exe 'terminal ++curwin '. a:cmdline
 	endif
 	file scratch_terminal_output
 	let term_window = win_getid()
@@ -452,7 +457,7 @@ endfunction
 
 """        Job split output
 
-command! -complete=shellcmd -nargs=+ Shell call s:TmpShellOutput(<q-args>)
+command! -complete=shellcmd -nargs=+ Shell2 call s:TmpShellOutput(<q-args>)
 function! s:TmpShellOutput(cmdline) abort
 	if bufexists('tmplog')
 		call deletebufline('tmplog', 1, '$')
