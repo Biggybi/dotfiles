@@ -502,7 +502,14 @@ nnoremap <c-f> <c-f> <silent> :call NoScrollAtEOF()<cr>
 
 augroup MailSettings
 	au!
-	autocmd FileType mail setlocal nolinebreak tw=0
+	autocmd FileType mail setlocal linebreak tw=0
+augroup end
+
+"""        Markdown
+
+augroup MarkdownSettings
+	au!
+	au FileType markdown setlocal linebreak
 augroup end
 
 """        Search cycling windows
