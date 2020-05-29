@@ -114,6 +114,8 @@ set wildchar=<tab>              " complete w/ tab
 set wildmode=longest,full
 set completeopt+=longest        " complete matching string
 set completeopt+=menuone        " pmenu on single match too
+set fileignorecase              " ignore case using filename
+set wildignorecase              " ignore case completing filenames
 
 " status line
 set laststatus=2                " always show satus line
