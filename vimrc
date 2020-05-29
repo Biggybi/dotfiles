@@ -1015,7 +1015,7 @@ nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' ? "w" : "E"
 nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' ? "gE" : "B"
 nnoremap <c-k> {
 nnoremap <c-j> }
-nnoremap <c-q> :redraw<cr>
+nnoremap <c-q> :redraw!<cr>
 
 "go to next / previous buffer
 nnoremap <leader>] :bn<cr>
