@@ -821,12 +821,6 @@ let g:fzf_action = {
 			\ 'ctrl-t': 'tab split',
 			\ 'ctrl-x': 'split',
 			\ 'ctrl-v': 'vsplit'}
-" \ 'ctrl-o': '<S-tab>',
-" \ 'ctrl-i': 'insert_match',
-
-" function! s:insert_match(lines) abort
-" 	<c-r>=echo('a:lines')<cr>
-" endfunction
 
 nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
 nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
