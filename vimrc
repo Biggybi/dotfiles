@@ -1541,9 +1541,8 @@ augroup JavaMaps
 	au FileType java,groovy nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
 	" semicolon/coma EOL toggle
-	au FileType java,groovy nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x\<esc>`Z" : "mZA;\<esc>`Z"
-" nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' ? "gE" : "B"
-	au FileType java,groovy nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == '$' ? "mZ$x\<esc>`Z" : "mZA,\<esc>`Z"
+	au FileType java,groovy nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
+	au FileType java,groovy nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
 
 	" select allext in function
 	au FileType java,groovy nnoremap <buffer> <leader>vf j[[V%o
