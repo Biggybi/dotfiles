@@ -1357,7 +1357,9 @@ inoremap ,09 0123456789
 """        Git
 
 " Show git log history
-nnoremap <leader>gl :vert terminal git log --all --decorate --oneline --graph<cr>
+nnoremap <leader>gl :vert terminal git --no-pager log --all --decorate --oneline --graph<cr>:setlocal filename=""<cr>
+" Show git log in location list
+nnoremap <leader>g<c-l> :Gllog! <bar> wincmd b <bar> wincmd L<cr>
 
 ""    Code Mappings
 """        General
