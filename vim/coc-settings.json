@@ -12,6 +12,11 @@
 			"filetypes": ["sh"],
 			"ignoredRootPaths": ["~"]
 		},
+		"groovy": {
+			"command": "java",
+			"args" : ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
+			"filetypes": ["groovy"]
+		},
 		"efm": {
 			"command": "efm-langserver",
 			"args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"],
