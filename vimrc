@@ -2084,6 +2084,23 @@ command! Header101 call Header101()
 nnoremap <silent> <leader>h1 :Header101<cr>
 " au BufWritePre * call s:update ()
 
+"""        Signature
+
+function! MailSignature() abort
+	let firstname = "Tristan"
+	let surname = "Kapous"
+	let email = "<tris@tristankapous.com>"
+	let prefix = "--"
+
+	let signature_undated = prefix . " " . firstname . " " . surname . " " . email
+	if getline('$') =~ '^.*'.signature_undated
+		:$d
+	endif
+
+	let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
+	call append('$', signature)
+endfunction
+
 ""    Dotfiles settings
 """        Filetype
 
