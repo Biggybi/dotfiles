@@ -1517,9 +1517,8 @@ augroup end
 
 augroup JavaMaps
 	au!
-	au FileType java,groovy inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<space>{<cr>}<esc>Oreturn(0);<esc>O
-	au FileType java,groovy inoremap <buffer> ,if if ()<space>{<cr>}<esc>2<c-g>U<down>3==f)i
-	au FileType java,groovy inoremap <buffer> ,wh while ()<space>{<cr>}<esc>2<c-g>U<up>3==f)i
+	au FileType java,groovy inoremap <buffer> ,if if ()<cr>{<cr>}<c-o>2<up><c-o>f)
+	au FileType java,groovy inoremap <buffer> ,wh while ()<cr>{<cr>}<c-o>2<up><c-o>f)
 	au FileType java,groovy inoremap <buffer> ,imin -2147483648
 	au FileType java,groovy inoremap <buffer> ,imax 2147483647
 
