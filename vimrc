@@ -1598,8 +1598,8 @@ augroup end
 
 augroup Jsonmaps
 	au!
-	au FileType json nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
-	au FileType json nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
+	au FileType json nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
+	au FileType json nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
 
 	" auto close brackets
 	au FileType json inoremap <buffer> { {}<c-g>U<left>
