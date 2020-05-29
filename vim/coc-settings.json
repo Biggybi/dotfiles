@@ -50,6 +50,11 @@
 	],
 	"eslint.options" : {
 		"configFile": "/home/biggybi/dotfiles/langserver/js_eslintrc/js_eslintrc.json"
+		"env": {
+			"browser": true,
+			"node": true
+		}
+	},
 	"markdownlint.config":
 	{
 		"default": true,
