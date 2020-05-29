@@ -2101,6 +2101,26 @@ function! MailSignature() abort
 	call append('$', signature)
 endfunction
 
+function! DebianLogSignature() abort
+	let firstname = "Tristan"
+	let surname = "Kapous"
+	let email = "<tris@tristankapous.com>"
+	let prefix = "--"
+
+	let signature_undated = prefix . " " . firstname . " " . surname . " " . email
+	let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
+	if getline('.') =~ '^.*'.signature_undated
+		call setline('.', signature)
+	else
+		call append('.', signature)
+	endif
+endfunction
+
+" augroup SignOnSave
+" 	au!
+" 	au BufWritePre * call SignatureTime() | normal <c-o><c-o>
+" augroup end
+
 ""    Dotfiles settings
 """        Filetype
 
