@@ -1092,7 +1092,7 @@ nnoremap gR :%s/<c-r>///g<left><left>
 """        Files
 
 " cd shell to vim current working directory
-nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : pwd"<cr>
+nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
 
 " toggle cursor always in middle with <leader>zz
 nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
