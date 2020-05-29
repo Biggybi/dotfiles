@@ -61,6 +61,7 @@
 		"<C-x>": "call:MyFunc",
 		"<C-v>": "eval:@@"
 	},
+	"java.home": "/usr/lib/jvm/java-1.14.0-openjdk-amd64",
 	"suggest.noselect": true,
 	"coc.preferences.useQuickfixForLocations": true,
 	"suggest.echodocSupport": true,
