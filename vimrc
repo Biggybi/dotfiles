@@ -984,7 +984,7 @@ cnoremap <c-z> <c-[><c-z>
 " <c-s> save and enter normal mode
 function! VerboseUpdate() abort
 	update
-	echo(':update '.expand('%:p'))
+	echo(':update '.expand('%'))
 endfunction
 
 nnoremap <c-s> :call VerboseUpdate()<cr>
