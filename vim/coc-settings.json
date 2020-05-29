@@ -21,6 +21,25 @@
 			"command": "efm-langserver",
 			"args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"],
 			"filetypes": ["vim", "eruby", "markdown"]
+		},
+		"haskell": {
+			"command": "hie-wrapper",
+			"args": ["--lsp"],
+			"rootPatterns": [
+				"*.cabal",
+				"stack.yaml",
+				"cabal.project",
+				"package.yaml"
+			],
+			"filetypes": [
+				"hs",
+				"lhs",
+				"haskell"
+			],
+			"initializationOptions": {
+				"languageServerHaskell": {
+				}
+			}
 		}
 	},
 	"eslint.filetypes": [
