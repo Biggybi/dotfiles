@@ -75,6 +75,17 @@
 		"<C-x>": "call:MyFunc",
 		"<C-v>": "eval:@@"
 	},
+	"explorer.sources": [
+		{
+			"name": "buffer",
+			"expand": true
+		},
+		{
+			"name": "file",
+			"expand": true
+		}
+	],
+	"explorer.previewAction.onHover": false,
 	"java.home": "/usr/lib/jvm/java-1.14.0-openjdk-amd64",
 	"suggest.noselect": true,
 	"coc.preferences.useQuickfixForLocations": true,
