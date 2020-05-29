@@ -279,28 +279,10 @@ endfunction
 """        Cursor
 
 if &term =~ "xterm\\|rxvt"
-	let &t_SI = "\<Esc>]14;gray\x7"       " insert mode
-	let &t_EI = "\<Esc>]12;gray\x7"       " non insert mode
-	" silent !echo -ne "\033]12;gray\007"
+	let &t_SI = "\e[5 q"       " insert mode
+	let &t_EI = "\e[2 q"       " normal mode
+	let &t_SR = "\e[4 q"       " replace mode
 endif
-
-" reset cursor when vim exits
-" autocmd VimLeave * silent !echo -ne "\033]112;gray\007"
-" use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
-" or \003]12\007 for other terminals
-
-" Gnome adaptive cursor shape
-augroup CursorShape
-	au!
-	au InsertLeave * silent execute '!echo -ne "\e[2 q"' |
-	au InsertEnter,InsertChange *
-				\ if v:insertmode ==# 'i' |
-				\   silent execute '!echo -ne "\e[6 q"' |
-				\ elseif v:insertmode ==# 'r' |
-				\   silent execute '!echo -ne "\e[4 q"' |
-				\ endif
-	au VimLeave * silent execute '!echo -ne "\e[ q"' |
-augroup end
 
 ""    Extra windows
 """        Terminal
@@ -974,9 +956,6 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 " space as leader, prompt '\' in command line window :)
 map <space> <leader>
-
-" <C-c> as escape in insert mode
-inoremap <C-c> <esc>
 
 " closing easy
 nnoremap <leader>q :quit<cr>
