@@ -645,6 +645,8 @@ augroup FileTypeAutoSelect
 	au BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
 	au BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
 	au BufNewFile,BufFilePre,BufRead *.json set filetype=json
+	au BufNewFile,BufFilePre,BufRead *.groovy,gradle set filetype=groovy
+	au BufNewFile,BufFilePre,BufRead *.java set filetype=java
 	" au BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 augroup end
 
