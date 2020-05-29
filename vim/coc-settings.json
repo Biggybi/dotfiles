@@ -50,6 +50,15 @@
 	],
 	"eslint.options" : {
 		"configFile": "/home/biggybi/dotfiles/langserver/js_eslintrc/js_eslintrc.json"
+	"markdownlint.config":
+	{
+		"default": true,
+		"line_length": false,
+		"blanks-around-headings": false,
+		"blanks-around-lists": false,
+		"first-line-h1": false,
+		"no-empty-links": false,
+		"no-multiple-blanks": false
 	},
 	"list.insertMappings": {
 		"<C-r>": "do:refresh",
