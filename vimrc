@@ -1137,6 +1137,7 @@ function! FunctionLineCount() abort
 	let l:bottomline = line(".")
 	exe "normal".l:currentline."gg"
 	echo "function lines :" l:bottomline - l:topline - 1
+	silent! normal! zz
 endfunction
 
 " Word count
