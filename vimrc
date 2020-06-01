@@ -630,16 +630,22 @@ augroup end
 " set tags=tags;./git/
 " set tags=./tags;
 
-"""        Filetype recognition
+"""        Completion by filetype
 
-augroup FileTypeAutoSelect
+augroup AutoOmniComplete
 	au!
 	au FileType c setlocal ofu=ccomplete#CompleteCpp
 	au FileType css setlocal ofu=csscomplete#CompleteCSS
 	au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 	au FileType php setlocal ofu=phpcomplete#CompletePHP
 	au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
-	au BufNewFile,BufFilePre,BufRead *.md,markdown,vimwiki set filetype=markdown
+augroup end
+
+"""        Filetype recognition
+
+augroup AutoFileTypeRecognition
+	au!
+	au BufNewFile,BufFilePre,BufRead *.md,markdown set filetype=markdown
 	au BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
 	au BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
 	au BufNewFile,BufFilePre,BufRead *.php set filetype=php
