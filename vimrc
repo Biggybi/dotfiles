@@ -170,7 +170,6 @@ set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
 " Main window
 set display+=lastline           " show lastline even if too long
 set number                      " show number column
-set relativenumber              " relative to current line
 set wrap                        " no horizontal scroll
 set breakindent                 " with indent
 set showbreak=¬                 " ... showing a character
