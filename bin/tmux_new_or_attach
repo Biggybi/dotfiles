@@ -1,0 +1,3 @@
+#!/bin/bash
+
+tmux new-session -s $1 || tmux a -t $1
