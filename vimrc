@@ -934,7 +934,6 @@ let g:vim_run_command_map = {
 augroup VimWikiSettings
 	au!
 	au FileType vimwiki setlocal nonu nornu showbreak= nobreakindent linebreak
-	au FileType vimwiki setlocal ft=markdown
 	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>(VimwikiToggleListItem)
 augroup end
 
