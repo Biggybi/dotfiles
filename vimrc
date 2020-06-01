@@ -1424,8 +1424,11 @@ nnoremap <leader>csT :Shell make ex TESTFF=
 
 """        bash
 
+inoremap <expr> ! (&filetype == '' <bar><bar> &filetype == 'sh') && col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
+
 augroup Shmaps
 	au!
+	au FileType sh inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
 	au FileType sh inoremap <buffer> ,#! #!/bin/bash
 
 	" alias to function
