@@ -1433,6 +1433,8 @@ nnoremap <leader>csT :Shell make ex TESTFF=
 " " nnoremap <leader>csv :make ex TEST=<cr><cr>:lopen<cr>:wincmd L<cr>
 " nnoremap <leader>csm :lmake<cr><cr>:lopen<cr>:wincmd L<cr>
 
+nnoremap <silent> g{ viBo^<esc>
+nnoremap <silent> g} viB^<esc>
 
 """        bash
 
