@@ -1119,7 +1119,7 @@ nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
 nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
 
 " open file under cursor on the far-left hand side
-nnoremap g<c-f> :Lexplore <cfile><cr>
+nnoremap <c-w><c-d> :Lexplore <cfile><cr>
 
 " toggle guides
 nnoremap <silent> <leader>sg :set list!<cr>
