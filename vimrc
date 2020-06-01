@@ -300,7 +300,7 @@ let s:term_buf_nr = -1
 function! s:ToggleTerminal() abort
 		if s:term_buf_nr == -1
 				execute "botright terminal"
-				resize 9
+				resize 6
 				let s:term_buf_nr = bufnr("$")
 		else
 				try
