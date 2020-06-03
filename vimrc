@@ -1117,6 +1117,7 @@ nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
 
 " new file here
 nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
+nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
 
 " open file under cursor on the far-left hand side
 nnoremap <c-w><c-d> :Lexplore <cfile><cr>
