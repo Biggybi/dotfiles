@@ -1,40 +1,58 @@
+# vi mode
+set editing-mode vi
 set show-mode-in-prompt on
-# set vi-ins-mode-string "\1\e[1;90m\2╰+ >\1\e[0m\2"
-# set vi-cmd-mode-string "\1\e[1;91m\2╰─ >\1\e[0m\2"
-# set vi-ins-mode-string "\1\e[01;92m\2╰＋>\1\e[0m\2"
-# 〱ꤶꪜꫳꭗ𐩃
 set vi-ins-mode-string "\1\e[01;92m\2╰─ 〉\1\e[0m\2"
 set vi-cmd-mode-string "\1\e[01;33m\2╰─〈 \1\e[0m\2"
-set bell-style none
-set colored-stats on
-set colored-completion-prefix on
-# set completion-display-width 1
 
-set editing-mode vi
+# paste as string (preserve indent)
+set enable-bracketed-paste on
+# no bell
+set bell-style none
+
+# color based on filetype
+set colored-stats on
+# common prefix colored
+set colored-completion-prefix on
+# ignore case
+set completion-ignore-case on
+# show possible match on first tab
+set show-all-if-ambiguous on
+# show many item
+set completion-query-items 5000
+# no "more-like" pager
+set page-completions off
+
+# hide ^C etc
+set echo-control-characters off
+# add '/' to directories...
+set mark-directories on
+# ...and to symlinks
+set mark-symlinked-directories on
+# set completion-display-width 1     # one column for completion
 
 set keymap vi-insert
-# "jk": vi-movement-mode
-"\C-w": backward-kill-word
-"\C-l": vi-end-word
-"\C-h": backward-word
+"\C-w": shell-backward-kill-word
 "\C-b": backward-char
 "\C-f": forward-char
 "\C-a": beginning-of-line
 "\C-e": end-of-line
-"\C-q": clear-screen
+"\C-l": clear-screen
 "\C-o": menu-complete-backward
 "\C-j": next-history
 "\C-k": previous-history
+"\C-s": operate-and-get-next
 "\C-g": " | grep "
-"\C-g\C-f": 'cd !$ \015'
-# "\C-g\C-f": 'cd !$ \015 && ls\015'
-# "\C-g\C-f": 'cd $(dirname $(readlink -f !$)) \015 && ls\015'
+"\C-p": 'cd !$ \015'
+"\C-x\C-e": edit-and-execute-command
 "\C-x\C-r": re-read-init-file
+# "\C-g\C-f": 'cd $(dirname $(readlink -f !$)) \015 && ls\015'
 
 set keymap vi-command
-"\C-x": backward-delete-char
+"\C-x\C-e": edit-and-execute-command
 "\C-a": beginning-of-line
 "\C-e": end-of-line
+"H": beginning-of-line
+"L": end-of-line
 "\C-l": vi-end-word
 "\C-h": backward-word
 "\C-j": next-history

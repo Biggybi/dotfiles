@@ -3,9 +3,14 @@ let s:is_vim = !has('nvim')
 let s:is_win = has("win32") || has("win64")
 let s:clients = {}
 
-let s:logfile = tempname()
-if s:is_vim && get(g:, 'node_client_debug', 0)
-  call ch_logfile(s:logfile, 'w')
+if get(g:, 'node_client_debug', 0)
+  let $NODE_CLIENT_LOG_LEVEL = 'debug'
+  if exists('$NODE_CLIENT_LOG_FILE')
+    let s:logfile = resolve($NODE_CLIENT_LOG_FILE)
+  else
+    let s:logfile = tempname()
+    let $NODE_CLIENT_LOG_FILE = s:logfile
+  endif
 endif
 
 " create a client
@@ -32,8 +37,6 @@ endfunction
 function! s:start() dict
   if self.running | return | endif
   if s:is_vim
-    let $VIM_NODE_RPC = 1
-    let $COC_NVIM = 1
     let options = {
           \ 'in_mode': 'json',
           \ 'out_mode': 'json',
@@ -43,6 +46,17 @@ function! s:start() dict
           \}
     if has("patch-8.1.350")
       let options['noblock'] = 1
+    endif
+    if has("patch-8.0.0902")
+      let options['env'] = {
+        \ 'VIM_NODE_RPC': '1',
+        \ 'COC_NVIM': '1',
+        \ 'COC_CHANNEL_TIMEOUT': get(g:, 'coc_channel_timeout', 30),
+        \ }
+    else
+      let $VIM_NODE_RPC = 1
+      let $COC_NVIM = 1
+      let $COC_CHANNEL_TIMEOUT = get(g:, 'coc_channel_timeout', 30)
     endif
     let job = job_start(self.command, options)
     let status = job_status(job)
@@ -58,6 +72,9 @@ function! s:start() dict
           \ 'rpc': 1,
           \ 'on_stderr': {channel, msgs -> s:on_stderr(self.name, msgs)},
           \ 'on_exit': {channel, code -> s:on_exit(self.name, code)},
+          \ 'env': {
+          \   'COC_CHANNEL_TIMEOUT': get(g:, 'coc_channel_timeout', 30)
+          \  }
           \})
     if chan_id <= 0
       echohl Error | echom 'Failed to start '.self.name.' service' | echohl None
@@ -91,7 +108,11 @@ function! s:on_exit(name, code) abort
   endif
 endfunction
 
-function! s:get_channel(client)
+function! coc#client#get_client(name) abort
+  return get(s:clients, a:name, v:null)
+endfunction
+
+function! coc#client#get_channel(client)
   if s:is_vim
     return a:client['channel']
   endif
@@ -99,13 +120,13 @@ function! s:get_channel(client)
 endfunction
 
 function! s:request(method, args) dict
-  let channel = s:get_channel(self)
+  let channel = coc#client#get_channel(self)
   if empty(channel) | return '' | endif
   try
     if s:is_vim
-      let res = ch_evalexpr(channel, [a:method, a:args], {'timeout': 30000})
+      let res = ch_evalexpr(channel, [a:method, a:args], {'timeout': 60 * 1000})
       if type(res) == 1 && res ==# ''
-        throw 'timeout after 30s'
+        throw 'request '.a:method. ' '.string(a:args).' timeout after 60s'
       endif
       let [l:errmsg, res] =  res
       if !empty(l:errmsg)
@@ -113,8 +134,9 @@ function! s:request(method, args) dict
       else
         return res
       endif
+    else
+      return call('rpcrequest', [channel, a:method] + a:args)
     endif
-    return call('rpcrequest', [channel, a:method] + a:args)
   catch /.*/
     if v:exception =~# 'E475'
       if get(g:, 'coc_vim_leaving', 0) | return | endif
@@ -131,8 +153,10 @@ function! s:request(method, args) dict
 endfunction
 
 function! s:notify(method, args) dict
-  let channel = s:get_channel(self)
-  if empty(channel) | return '' | endif
+  let channel = coc#client#get_channel(self)
+  if empty(channel)
+    return ''
+  endif
   try
     if s:is_vim
       call ch_sendraw(channel, json_encode([0, [a:method, a:args]])."\n")
@@ -141,7 +165,9 @@ function! s:notify(method, args) dict
     endif
   catch /.*/
     if v:exception =~# 'E475'
-      if get(g:, 'coc_vim_leaving', 0) | return | endif
+      if get(g:, 'coc_vim_leaving', 0)
+        return
+      endif
       echohl Error | echom '['.self.name.'] server connection lost' | echohl None
       let name = self.name
       call s:on_exit(name, 0)
@@ -155,7 +181,7 @@ function! s:notify(method, args) dict
 endfunction
 
 function! s:request_async(method, args, cb) dict
-  let channel = s:get_channel(self)
+  let channel = coc#client#get_channel(self)
   if empty(channel) | return '' | endif
   if type(a:cb) != 2
     echohl Error | echom '['.self['name'].'] Callback should be function' | echohl None
@@ -263,5 +289,9 @@ function! coc#client#restart_all()
 endfunction
 
 function! coc#client#open_log()
+  if !get(g:, 'node_client_debug', 0)
+    echohl Error | echon '[coc.nvim] use let g:node_client_debug = 1 in your vimrc to enabled debug mode.' | echohl None
+    return
+  endif
   execute 'vs '.s:logfile
 endfunction

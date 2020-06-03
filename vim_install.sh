@@ -13,23 +13,36 @@
 
 #!/bin/bash
 
-INSTALLDIR=/usr/local/share/vim/vim82
-VIMSOURCE=$HOME/dotfiles/programs/vim
-PYTHONCONF=/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu
+sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev \
+	libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
+	python3-dev ruby-dev lua5.1 liblua5.1-dev libperl-dev git
+
+VIMSOURCE=/tmp/vim_install
+
 [ -d $VIMSOURCE ] || git clone https://github.com/vim/vim.git $VIMSOURCE
+cd $VIMSOURCE/src
+make distclean
 cd $VIMSOURCE
 
 ./configure \
-	--with-features=huge \
 	--enable-multibyte \
-	--enable-rubyinterp=yes \
-	--enable-python3interp=yes \
-	--with-python3-config-dir=/usr/lib/python3.5/config \
-	--enable-perlinterp=yes \
+	--enable-perlinterp=dynamic \
+	--enable-rubyinterp=dynamic \
+	--with-ruby-command=/usr/bin/ruby \
+	--enable-python3interp \
+	--with-python3-config-dir=/usr/bin/python3 \
+	--enable-luainterp \
+	--with-luajit \
 	--enable-cscope \
-	--enable-gui \
+	--enable-gui=auto \
+	--with-features=huge \
+	--enable-gtk-2-check \
+	--enable-gnome-check \
 	--with-x \
-	--prefix=/usr/local
+	--enable-fontset \
+	--enable-largefile \
+	--disable-netbeans \
+	--enable-fail-if-missing
 
-make VIMRUNTIMEDIR=$INSTALLDIR
+make
 sudo make install

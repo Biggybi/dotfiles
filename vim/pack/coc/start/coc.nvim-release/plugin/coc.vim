@@ -13,6 +13,14 @@ if get(g:, 'coc_start_at_startup', 1) && !s:is_gvim
   call coc#rpc#start_server()
 endif
 
+function! CocTagFunc(pattern, flags, info) abort
+  if a:flags !=# 'c'
+    " use standard tag search
+    return v:null
+  endif
+  return coc#rpc#request('getTagList', [])
+endfunction
+
 function! CocAction(...) abort
   return coc#rpc#request('CocAction', a:000)
 endfunction
@@ -27,6 +35,10 @@ endfunction
 
 function! CocRequest(...) abort
   return coc#rpc#request('sendRequest', a:000)
+endfunction
+
+function! CocNotify(...) abort
+  return coc#rpc#request('sendNotification', a:000)
 endfunction
 
 function! CocRegistNotification(id, method, cb) abort
@@ -88,33 +100,13 @@ endfunction
 
 function! s:OpenConfig()
   let home = coc#util#get_config_home()
+  if home =~# '^\~'
+    let home = substitute(home, '\~', $HOME,'')
+  endif
   if !isdirectory(home)
     call mkdir(home, 'p')
   endif
   execute 'edit '.home.'/coc-settings.json'
-endfunction
-
-function! s:OpenLocalConfig()
-  let currentDir = getcwd()
-  let fsRootDir = fnamemodify($HOME, ":p:h:h:h")
-
-  if currentDir == $HOME
-    echom "Can't resolve local config from current working directory."
-    return
-  endif
-
-  while isdirectory(currentDir) && !(currentDir ==# $HOME) && !(currentDir ==# fsRootDir)
-    if isdirectory(currentDir.'/.vim')
-      execute 'edit '.currentDir.'/.vim/coc-settings.json'
-      return
-    endif
-    let currentDir = fnamemodify(currentDir, ':p:h:h')
-  endwhile
-
-  if coc#util#prompt_confirm("No local config detected, would you like to create .vim/coc-settings.json?")
-    call mkdir('.vim', 'p')
-    execute 'edit .vim/coc-settings.json'
-  endif
 endfunction
 
 function! s:AddAnsiGroups() abort
@@ -137,8 +129,12 @@ function! s:AddAnsiGroups() abort
       let backgroundColor = color_map[key]
       exe 'hi default CocList'.foreground.background.' guifg='.foregroundColor.' guibg='.backgroundColor
     endfor
-    exe 'hi default CocListFg'.foreground. ' guifg='.foregroundColor
-    exe 'hi default CocListBg'.foreground. ' guibg='.foregroundColor
+    try
+      exe 'hi default CocListFg'.foreground. ' guifg='.foregroundColor. ' ctermfg='.foreground
+      exe 'hi default CocListBg'.foreground. ' guibg='.foregroundColor. ' ctermbg='.foreground
+    catch /.*/
+      " ignore invalid color
+    endtry
   endfor
 endfunction
 
@@ -161,12 +157,16 @@ function! s:Disable() abort
 endfunction
 
 function! s:Autocmd(...) abort
-  if !get(g:,'coc_workspace_initialized', 0) | return | endif
+  if !get(g:,'coc_workspace_initialized', 0)
+    return
+  endif
   call coc#rpc#notify('CocAutocmd', a:000)
 endfunction
 
 function! s:SyncAutocmd(...)
-  if !get(g:,'coc_workspace_initialized', 0) | return | endif
+  if !get(g:,'coc_workspace_initialized', 0)
+    return
+  endif
   if get(g:, 'coc_service_initialized', 0)
     call coc#rpc#request('CocAutocmd', a:000)
   else
@@ -236,7 +236,7 @@ function! s:Enable()
     autocmd FocusGained         * if mode() !~# '^c' | call s:Autocmd('FocusGained') | endif
     autocmd VimResized          * call s:Autocmd('VimResized', &columns, &lines)
     autocmd VimLeavePre         * let g:coc_vim_leaving = 1
-    autocmd VimLeave            * call coc#rpc#stop()
+    autocmd VimLeave            * call s:SyncAutocmd('VimLeave')
     autocmd BufReadCmd,FileReadCmd,SourceCmd list://* call coc#list#setup(expand('<amatch>'))
     autocmd BufWriteCmd __coc_refactor__* :call coc#rpc#notify('saveRefactor', [+expand('<abuf>')])
   augroup end
@@ -265,7 +265,9 @@ if has('nvim')
 else
   hi default link CocFloating Pmenu
 endif
-
+if has('nvim-0.5.0')
+  hi default CocCursorTransparent gui=strikethrough blend=100
+endif
 
 hi default link CocHoverRange     Search
 hi default link CocCursorRange    Search
@@ -326,7 +328,7 @@ command! -nargs=0 CocNext         :call coc#rpc#notify('listNext', [])
 command! -nargs=0 CocDisable      :call s:Disable()
 command! -nargs=0 CocEnable       :call s:Enable()
 command! -nargs=0 CocConfig       :call s:OpenConfig()
-command! -nargs=0 CocLocalConfig  :call s:OpenLocalConfig()
+command! -nargs=0 CocLocalConfig  :call coc#rpc#notify('openLocalConfig', [])
 command! -nargs=0 CocRestart      :call coc#rpc#restart()
 command! -nargs=0 CocStart        :call coc#rpc#start_server()
 command! -nargs=0 CocRebuild      :call coc#util#rebuild()
@@ -359,11 +361,11 @@ nnoremap <Plug>(coc-diagnostic-next)       :<C-u>call       CocActionAsync('diag
 nnoremap <Plug>(coc-diagnostic-prev)       :<C-u>call       CocActionAsync('diagnosticPrevious')<CR>
 nnoremap <Plug>(coc-diagnostic-next-error) :<C-u>call       CocActionAsync('diagnosticNext',     'error')<CR>
 nnoremap <Plug>(coc-diagnostic-prev-error) :<C-u>call       CocActionAsync('diagnosticPrevious', 'error')<CR>
-nnoremap <Plug>(coc-definition)            :<C-u>call       CocAction('jumpDefinition')<CR>
-nnoremap <Plug>(coc-declaration)           :<C-u>call       CocAction('jumpDeclaration')<CR>
-nnoremap <Plug>(coc-implementation)        :<C-u>call       CocAction('jumpImplementation')<CR>
-nnoremap <Plug>(coc-type-definition)       :<C-u>call       CocAction('jumpTypeDefinition')<CR>
-nnoremap <Plug>(coc-references)            :<C-u>call       CocAction('jumpReferences')<CR>
+nnoremap <Plug>(coc-definition)            :<C-u>call       CocActionAsync('jumpDefinition')<CR>
+nnoremap <Plug>(coc-declaration)           :<C-u>call       CocActionAsync('jumpDeclaration')<CR>
+nnoremap <Plug>(coc-implementation)        :<C-u>call       CocActionAsync('jumpImplementation')<CR>
+nnoremap <Plug>(coc-type-definition)       :<C-u>call       CocActionAsync('jumpTypeDefinition')<CR>
+nnoremap <Plug>(coc-references)            :<C-u>call       CocActionAsync('jumpReferences')<CR>
 nnoremap <Plug>(coc-openlink)              :<C-u>call       CocActionAsync('openLink')<CR>
 nnoremap <Plug>(coc-fix-current)           :<C-u>call       CocActionAsync('doQuickfix')<CR>
 nnoremap <Plug>(coc-float-hide)            :<C-u>call       coc#util#float_hide()<CR>

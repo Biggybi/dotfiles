@@ -12,10 +12,34 @@
 			"filetypes": ["sh"],
 			"ignoredRootPaths": ["~"]
 		},
+		"groovy": {
+			"command": "java",
+			"args" : ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
+			"filetypes": ["groovy"]
+		},
 		"efm": {
 			"command": "efm-langserver",
 			"args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"],
 			"filetypes": ["vim", "eruby", "markdown"]
+		},
+		"haskell": {
+			"command": "hie-wrapper",
+			"args": ["--lsp"],
+			"rootPatterns": [
+				"*.cabal",
+				"stack.yaml",
+				"cabal.project",
+				"package.yaml"
+			],
+			"filetypes": [
+				"hs",
+				"lhs",
+				"haskell"
+			],
+			"initializationOptions": {
+				"languageServerHaskell": {
+				}
+			}
 		}
 	},
 	"eslint.filetypes": [
@@ -25,7 +49,20 @@
 		"javascriptreact"
 	],
 	"eslint.options" : {
-		"configFile": "/home/biggybi/dotfiles/langserver/js_eslintrc/js_eslintrc.json"
+		"env": {
+			"browser": true,
+			"node": true
+		}
+	},
+	"markdownlint.config":
+	{
+		"default": true,
+		"line_length": false,
+		"blanks-around-headings": false,
+		"blanks-around-lists": false,
+		"first-line-h1": false,
+		"no-empty-links": false,
+		"no-multiple-blanks": false
 	},
 	"list.insertMappings": {
 		"<C-r>": "do:refresh",
@@ -37,6 +74,18 @@
 		"<C-x>": "call:MyFunc",
 		"<C-v>": "eval:@@"
 	},
+	"explorer.sources": [
+		{
+			"name": "buffer",
+			"expand": true
+		},
+		{
+			"name": "file",
+			"expand": true
+		}
+	],
+	"explorer.previewAction.onHover": false,
+	"java.home": "/usr/lib/jvm/java-1.14.0-openjdk-amd64",
 	"suggest.noselect": true,
 	"coc.preferences.useQuickfixForLocations": true,
 	"suggest.echodocSupport": true,

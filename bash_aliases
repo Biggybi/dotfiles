@@ -18,7 +18,8 @@ shopt -s expand_aliases
 alias s='sudo'
 alias c='clear'
 
-alias vimnude='vim -u NONE'
+#vi debug: no vimrc/gvimrc, nocompatible
+alias vimnude='vim -u NONE -U NONE -N'
 
 ## color
 alias dir='dir --color=auto'
@@ -97,6 +98,10 @@ alias v="vim"
 alias vi='vim'
 alias sv="sudo vim"
 
+## mutt
+alias mutt="neomutt"
+alias m="neomutt"
+
 ### ssh
 alias sshhome='ssh biggybi@192.168.1.28'
 alias sshpi='ssh pi@192.168.1.102 -p 42'
@@ -138,9 +143,10 @@ alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
 alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
 
 alias eb='$EDITOR $HOME/dotfiles/bashrc'
+alias ep='$EDITOR $HOME/dotfiles/bash_profile'
 alias ea='$EDITOR $HOME/dotfiles/bash_aliases'
 alias ev='$EDITOR $HOME/dotfiles/vimrc'
-alias ep='$EDITOR $HOME/dotfiles/inputrc'
+alias en='$EDITOR $HOME/dotfiles/inputrc'
 alias et='vim $HOME/dotfiles/tmux.conf'
 alias eh='$EDITOR $HOME/.bash_history'
 alias efs='sudo $EDITOR /etc/fstab'
@@ -148,9 +154,10 @@ alias eapt='sudo $EDITOR /etc/apt/sources.list'
 alias eg='sh .git/vimgit'
 
 alias vb='vim $HOME/dotfiles/bashrc'
+alias vp='vim $HOME/dotfiles/bash_profile'
 alias va='vim $HOME/dotfiles/bash_aliases'
 alias vv='vim $HOME/dotfiles/vimrc'
-alias vp='vim $HOME/dotfiles/inputrc'
+alias vn='vim $HOME/dotfiles/inputrc'
 alias vt='vim $HOME/dotfiles/tmux.conf'
 alias vh='vim $HOME/.bash_history'
 alias vfs='sudo vim /etc/fstab'
@@ -174,10 +181,10 @@ alias sinputrc='bind -f ~/.inputrc'
 alias stmux='tmux source-file $HOME/.tmux.conf'
 
 alias sb='. $HOME/.bashrc'
-alias sm='. $HOME/.bash_profile'
+alias sp='. $HOME/.bash_profile'
 alias sc='eval "$(dircolors $HOME/.dircolors)"'
 alias sa='. $HOME/.bash_aliases'
-alias si='bind -f ~/.inputrc'
+alias sn='bind -f ~/.inputrc'
 alias sall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
 alias st='tmux source-file $HOME/.tmux.conf'
 
@@ -369,12 +376,8 @@ change_shell() {
 ## FZF functions
 
 ef() {
-	# 	P=$(ps | sed -n "/fzf/p" | sed "s/.pts.*//g;s/\ //")
 	cd "$1"
-	# P=$(fzf --height=40% --preview="bat {}")
-	P=$(fzf --height=60% --preview="bat --style=numbers --color=always {} | head -500")
-
-	# P=$(fzf)
+	P=$(fzf --height=60%)
 	[ "$P" != "" ] && $EDITOR $P
 }
 # alias f='ef $HOME'

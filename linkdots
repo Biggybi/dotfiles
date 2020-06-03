@@ -10,7 +10,7 @@ BACKUP=$HOME/dotfiles/dots_back
 cd $SRC
 
 # git files to link
-DOTS=(vim
+DOTFILES=(vim
 	vimrc
 	bashrc
 	bash_aliases
@@ -18,7 +18,8 @@ DOTS=(vim
 	bin
 	git_template
 	fonts
-	zhsrc)
+	zshrc
+	neomuttrc)
 
 # links to create localy for Linux
 LINK=(.vim
@@ -29,7 +30,8 @@ LINK=(.vim
 	bin
 	.git_template
 	.fonts
-	.zshrc)
+	.zshrc
+	.config/neomutt/neomuttrc)
 
 # links to create localy for Mac
 if [[ "$OSTYPE" == "darwin"* ]]
@@ -59,7 +61,7 @@ then
 	git submodule init
 	git submodule update
 else
-	echo "Plugins already installed"
+	echo "Vim plugins not installed: use \`linkdots -g\`"
 fi
 
 i=0
@@ -76,11 +78,11 @@ i=0
 # mv "$DST/$l" "$BACKUP/$l"
 
 i=0
-for f in "${DOTS[@]}"
+for f in "${DOTFILES[@]}"
 do
 	l="${LINK[i]}"
 	echo "$i $l"
-	cmp -s "$SRC/$f" "$DST/$l"
+	# cmp -s "$SRC/$f" "$DST/$l" 2> /dev/null
 	if [ $? -eq 1 ] && [ -n "$l" ] && [ -e "$DST/$l" ]
 	then
 		echo "go backup"
