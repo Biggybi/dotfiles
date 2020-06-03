@@ -1817,8 +1817,8 @@ nnoremap <silent> <leader>h1 :Header101<cr>
 
 augroup DotfilesSettings
 	au!
-	au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc
-				\ set filetype=sh colorcolumn=0
+	au BufEnter,BufWritePost {,.}bash_aliases,{,.}bashrc,{,.}inputrc
+				\ setlocal filetype=sh colorcolumn=0
 augroup end
 
 augroup suffixes
