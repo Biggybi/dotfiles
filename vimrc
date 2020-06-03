@@ -741,6 +741,20 @@ augroup FugitiveSet
 	au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
 augroup end
 
+function! FugitiveBlameToggle() abort
+	let current_window = win_getid()
+	wincmd h
+	if &ft ==? "fugitiveblame"
+		wincmd q
+	else
+		call win_gotoid(current_window)
+		:Gblame
+	endif
+	call win_gotoid(current_window)
+endfunction
+
+nnoremap <leader>gb :call FugitiveBlameToggle()<cr>
+
 """        Airline
 
 let g:airline_mode_map = {
