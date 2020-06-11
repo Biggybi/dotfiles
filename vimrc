@@ -1547,6 +1547,8 @@ augroup end
 
 augroup JavaMaps
 	au!
+	au FileType java,groovy nnoremap <buffer> <leader>cg :Shell gradle run<cr>
+
 	au FileType java,groovy inoremap <buffer> ,if if ()<cr>{<cr>}<c-o>2<up><c-o>f)
 	au FileType java,groovy inoremap <buffer> ,wh while ()<cr>{<cr>}<c-o>2<up><c-o>f)
 	au FileType java,groovy inoremap <buffer> ,imin -2147483648
