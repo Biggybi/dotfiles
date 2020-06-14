@@ -708,13 +708,13 @@ function! AutoProjectLoad() abort
 		let currfileID = bufnr("%")
 	endif
 	if filereadable(".git/vim/project_files")
-		exe "vs" filelist
+		exe "e" filelist
 		" open first WORD
 		g/\v^.*[^ ]/ :argadd <cWORD>
 		let filelistID = bufnr()
 	endif
 	if currfileID != -1
-		close
+		wincmd p
 	else
 		bw 1
 	endif
@@ -725,7 +725,7 @@ endfunction
 
 augroup AutoProjectLoadOnStart
 	au!
-	au VimEnter * ++nested call AutoProjectLoad()
+	autocmd VimEnter * ++nested call AutoProjectLoad()
 augroup end
 
 nnoremap <leader>ej :e .git/vim/project_files<cr>
