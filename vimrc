@@ -697,6 +697,18 @@ augroup LargeFilesFast
 					\ | let b:airline_whitespace_checks = ['']
 					\ | au! anzu | endif
 augroup end
+
+"""        Auto Load Project Files
+
+function! AutoProjectLoad() abort
+	let filelist = ".git/vim/project_files"
+	if filereadable(filelist)
+		e filelist
+		g/\v^.* / :argadd <cWORD>
+		bw filelist
+	endif
+endfunction
+
 ""    Plugins settings
 """        Netrw
 
@@ -885,7 +897,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_tags_command = 'ctags -R'
 " Border color
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
+" let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
+" let g:fzf_layout = {'heigh': '40%'}
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline --bind "ctrl-o:toggle+up,ctrl-space:toggle-preview"'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
