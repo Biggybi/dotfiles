@@ -1338,7 +1338,7 @@ vnoremap <leader>y "+y
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent! doautocmd BufRead<cr>:echo "vimrc sourced"<cr>`Zzz
+nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent! doautocmd BufRead<cr>:echo "vimrc sourced"<cr>`Zzz:nohlsearch<cr>
 nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`Zzz
 
 " source colors
