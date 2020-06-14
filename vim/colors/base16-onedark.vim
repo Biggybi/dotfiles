@@ -250,7 +250,7 @@ call <sid>hi("AirlineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none"
 call <sid>hi("AirlineVisual", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("AirlineReplace", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
-call <sid>hi("CursorColumn",  "", s:gui00, "", s:cterm01, "none", "")
+call <sid>hi("CursorColumn",  "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")
 call <sid>hi("CursorLineNr",  s:gui05, s:gui02, s:cterm04, s:cterm01, "bold", "")
 call <sid>hi("QuickFixLine",  "", s:gui02, "", s:cterm01, "none", "")
