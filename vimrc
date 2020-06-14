@@ -685,6 +685,18 @@ augroup SuffixesTry
 	au FileType javascript,c,cpp,python call SetSuffixes()
 augroup end
 
+"""        Large Files
+
+" large file = 10MB
+let g:LargeFile = 1024 * 1024 * 10
+augroup LargeFilesFast
+	au!
+	au BufReadPre *
+				\ let f=expand("<afile>")
+				\ | if getfsize(f) > g:LargeFile
+					\ | let b:airline_whitespace_checks = ['']
+					\ | au! anzu | endif
+augroup end
 ""    Plugins settings
 """        Netrw
 
@@ -966,13 +978,6 @@ let g:airline#extensions#coc#enabled = 0
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 let g:anzu_airline_section = "x"
 let g:anzu_status_format = "[%i/%l]"
-
-" large file = 10MB
-let g:LargeFile = 1024 * 1024 * 10
-augroup AnzuNoBigFile
-	au!
-	au BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | au! anzu | endif
-augroup end
 
 ""    Mappings
 """        Modes
