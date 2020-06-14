@@ -47,6 +47,9 @@ else
 
 fi
 
+## cp is rsync
+alias cp='rsync -vh --archive --progress --whole-file'
+
 ## Git
 
 alias g='git'
