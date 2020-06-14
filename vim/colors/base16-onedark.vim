@@ -243,7 +243,7 @@ call <sid>hi("AirlineActiveLeft",     s:gui06, s:gui02, s:cterm07, s:cterm02, "n
 " call <sid>hi("AirlineActiveGit",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineNormal",     s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("AirlineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("AirlineVisual", s:gui00, s:gui0A, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("AirlineVisual", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("AirlineReplace", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
