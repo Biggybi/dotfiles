@@ -714,12 +714,10 @@ function! AutoProjectLoad() abort
 		let filelistID = bufnr()
 	endif
 	if currfileID != -1
+		exe "bw" filelist
 		wincmd p
 	else
 		bw 1
-	endif
-	if filelistID != -1
-		exe "bw" filelist
 	endif
 endfunction
 
