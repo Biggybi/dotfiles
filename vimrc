@@ -1192,7 +1192,7 @@ function! FunctionLineCount() abort
   let l:topline = line(".")
   normal! %
   let l:bottomline = line(".")
-  exe "normal".l:currentline."gg"
+  exe "normal!".l:currentline."gg"
   echo "function lines :" l:bottomline - l:topline - 1
   silent! normal! zz
 endfunction
@@ -1322,7 +1322,7 @@ elseif has("nvim")
 endif
 
 " close every fold except current
-nnoremap <leader>zc :normal mzzMzv`z<CR>
+nnoremap <leader>zc :normal! mzzMzv`z<CR>
 
 " recursively open even partial folds
 nnoremap zo zczO
@@ -1832,8 +1832,8 @@ onoremap il :<c-u>normal! lv$<cr>
 onoremap i. :<c-u>normal! T.vt.<cr>
 onoremap a. :<c-u>normal! F.vf.<cr>
 
-onoremap i, :<c-u>normal, T,vt,<cr>
-onoremap a, :<c-u>normal, F,vf,<cr>
+onoremap i, :<c-u>normal! T,vt,<cr>
+onoremap a, :<c-u>normal! F,vf,<cr>
 
 onoremap i: :<c-u>normal! T:vt:<cr>
 onoremap a: :<c-u>normal! F:vf:<cr>
@@ -1937,10 +1937,10 @@ onoremap an- :<c-u>normal! f-vf-<cr>
 onoremap iN- :<c-u>normal! F-hvT-<cr>
 onoremap aN- :<c-u>normal! F-vF-<cr>
 
-onoremap in, :<c-u>normal, f,lvt,<cr>
-onoremap an, :<c-u>normal, f,vf,<cr>
-onoremap iN, :<c-u>normal, F,hvT,<cr>
-onoremap aN, :<c-u>normal, F,vF,<cr>
+onoremap in, :<c-u>normal! f,lvt,<cr>
+onoremap an, :<c-u>normal! f,vf,<cr>
+onoremap iN, :<c-u>normal! F,hvT,<cr>
+onoremap aN, :<c-u>normal! F,vF,<cr>
 
 onoremap in* :<c-u>normal! f*lvt*<cr>
 onoremap an* :<c-u>normal! f*vf*<cr>
@@ -2195,7 +2195,7 @@ endfunction
 
 " augroup SignOnSave
 "   au!
-"   au BufWritePre * call SignatureTime() | normal <c-o><c-o>
+"   au BufWritePre * call SignatureTime() | normal! <c-o><c-o>
 " augroup end
 
 ""    Dotfiles settings
