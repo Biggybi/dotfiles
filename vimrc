@@ -198,6 +198,9 @@ endif
 " False cursorline to have CursorLineNr working
 set cursorline
 
+" Tabline
+set tabpagemax=30
+
 ""    Look / Theme
 """        DarkLightSwitch
 
@@ -713,8 +716,7 @@ function! AutoProjectLoad(clear) abort
     if a:clear == 1
       silent! tabonly
     endif
-    g/\v^.*[^\s]/ $tabnew <cWORD>|tabfirst
-    g/\v^.*[^\s]/ :argadd <cWORD>
+    g/\v^.*[^\s]/ argadd <cWORD>|$tabnew <cWORD>|tabfirst
     let filelistID = bufnr()
   endif
   if currfileID != -1
