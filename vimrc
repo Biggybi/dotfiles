@@ -1814,6 +1814,14 @@ augroup MarkdownMaps
   " au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
+""    FileType settings
+
+augroup VimSettings
+  au!
+  au FileType vim set tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
+augroup END
+
+au FileType vim set tabstop=2 expandtab " vim:tw=0:ts=2:sts=2:shiftwidth=2
 ""    Operators
 """        Start / End of line
 onoremap ah :<c-u>normal! v^<cr>
