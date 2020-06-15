@@ -706,24 +706,23 @@ augroup end
 function! AutoProjectLoad(clear) abort
   let filelist = ".git/vim/project_files"
   let filelistID = -1
-  let currfileID = -1
-  if bufname("%") != ""
-    let currfileID = bufnr("%")
+  let from_file = ""
+  if bufname("%") != "" && a:clear == 0
+    let from_file = bufname("%")
+    return
   endif
   if filereadable(".git/vim/project_files")
     exe "e" filelist
     " open first WORD
-    if a:clear == 1
-      silent! tabonly
-    endif
-    g/\v^.*[^\s]/ argadd <cWORD>|$tabnew <cWORD>|tabfirst
+    silent! tabonly
+    g/\v^.*[^\s]/ argadd <cWORD> | $tabnew <cWORD> | tabfirst
     let filelistID = bufnr()
-  endif
-  if currfileID != -1
-    exe "bw" filelist
+    if from_file == ""
+      if file_readable(".git/vim/project_files")
+        exe "bw" filelist
+      endif
+    endif
     wincmd p
-  else
-    bw 1
   endif
 endfunction
 
