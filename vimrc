@@ -700,7 +700,7 @@ augroup end
 
 """        Auto Load Project Files
 
-function! AutoProjectLoad() abort
+function! AutoProjectLoad(clear) abort
   let filelist = ".git/vim/project_files"
   let filelistID = -1
   let currfileID = -1
@@ -710,7 +710,11 @@ function! AutoProjectLoad() abort
   if filereadable(".git/vim/project_files")
     exe "e" filelist
     " open first WORD
-    g/\v^.*[^ ]/ :argadd <cWORD>
+    if a:clear == 1
+      silent! tabonly
+    endif
+    g/\v^.*[^\s]/ $tabnew <cWORD>|tabfirst
+    g/\v^.*[^\s]/ :argadd <cWORD>
     let filelistID = bufnr()
   endif
   if currfileID != -1
@@ -723,11 +727,11 @@ endfunction
 
 augroup AutoProjectLoadOnStart
   au!
-  autocmd VimEnter * ++nested call AutoProjectLoad()
+  autocmd VimEnter * ++nested call AutoProjectLoad('0')
 augroup end
 
 nnoremap <leader>ej :e .git/vim/project_files<cr>
-nnoremap <leader>sj :call AutoProjectLoad()<cr>
+nnoremap <leader>sj :call AutoProjectLoad('1')<cr>
 
 ""    Plugins settings
 """        Netrw
