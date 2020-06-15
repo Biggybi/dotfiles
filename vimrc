@@ -703,27 +703,20 @@ augroup end
 
 """        Auto Load Project Files
 
-function! AutoProjectLoad(clear) abort
+function! AutoProjectLoad(is_mapping) abort
   let filelist = ".git/vim/project_files"
-  let filelistID = -1
-  let from_file = ""
-  if bufname("%") != "" && a:clear == 0
-    let from_file = bufname("%")
+  if ! filereadable(filelist)
     return
   endif
-  if filereadable(".git/vim/project_files")
-    exe "e" filelist
-    " open first WORD
-    silent! tabonly
-    g/\v^.*[^\s]/ argadd <cWORD> | $tabnew <cWORD> | tabfirst
-    let filelistID = bufnr()
-    if from_file == ""
-      if file_readable(".git/vim/project_files")
-        exe "bw" filelist
-      endif
-    endif
-    wincmd p
+  if bufname("%") != "" && a:is_mapping == 0
+    return
   endif
+  exe "e" filelist
+  silent! tabonly
+  " open first WORD
+  g/\v^.*[^\s]/ argadd <cWORD> | $tabnew <cWORD> | tabfirst
+  exe "bw" filelist
+  wincmd p
 endfunction
 
 augroup AutoProjectLoadOnStart
