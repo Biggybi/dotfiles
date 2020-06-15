@@ -1319,6 +1319,9 @@ elseif has("nvim")
 	vnoremap <c-space> zf
 endif
 
+" close every fold except current
+nnoremap <leader>zc :normal mzzMzv`z<CR>
+
 " recursively open even partial folds
 nnoremap zo zczO
 
