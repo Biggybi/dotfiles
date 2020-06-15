@@ -1097,12 +1097,8 @@ nnoremap <c-w><space><space> :vertical split #<cr>
 onoremap <c-w><space><space> :vertical split #<cr>
 vnoremap <c-w><space><space> :vertical split #<cr>
 
-" move between windows with ctrl
-" nnoremap <c-h> :wincmd h<cr>
-" nnoremap <c-j> :wincmd j<cr>
-" nnoremap <c-k> :wincmd k<cr>
-" nnoremap <c-l> :wincmd l<cr>
-" imap <c-w> <c-o><c-w>
+nnoremap <leader>l gt
+nnoremap <leader>h gT
 
 " open buffer with partial search
 " nnoremap <leader>b :buffer<space>
