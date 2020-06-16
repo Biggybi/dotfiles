@@ -733,6 +733,11 @@ nnoremap yoj :call AutoProjectLoad('1')<cr>
 
 nnoremap <silent> yoe :Lexplore<cr>
 
+augroup AutoDeleteNetrwHiddenBuffers
+  au!
+  au FileType netrw setlocal bufhidden=wipe
+augroup end
+
 " Netrw customization
 let g:netrw_keepdir= 0
 let g:netrw_banner = 0
