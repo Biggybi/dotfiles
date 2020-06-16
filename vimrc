@@ -20,8 +20,8 @@ execute pathogen#infect()
 
 runtime! ftplugin/man.vim
 if ! has("nvim")
-	packadd! matchit
-	packadd! termdebug
+  packadd! matchit
+  packadd! termdebug
 endif
 
 filetype plugin on                   " use filetype plugin
@@ -34,7 +34,7 @@ let $PAGER=''                        " vim as pager
 
 syntax on
 if &compatible                       " condition avoid pile-up
-	set nocompatible                   " not compatible with vi
+  set nocompatible                   " not compatible with vi
 endif
 set encoding=utf-8                   " character encoding
 scriptencoding utf8
@@ -48,28 +48,28 @@ set sessionoptions-=options
 set viewoptions=cursor,folds    "only these settins
 " restore undo history
 if exists('+undofile')
-	set undofile
+  set undofile
 endif
 
 set history=10000               " long history
 set hidden
 
 if exists('$SUDO_USER')         " don't create root-owned files
-	set noswapfile
-	set nobackup
-	set nowritebackup
-	set noundofile
-	set viminfo=
+  set noswapfile
+  set nobackup
+  set nowritebackup
+  set noundofile
+  set viminfo=
 else
-	set backupdir=$HOME/.vim/tmp/backup//
-	set directory=$HOME/.vim/tmp/swap//
-	set undodir=$HOME/.vim/tmp/undo//
-	set viewdir=$HOME/.vim/tmp/view//
-	if has("nvim")
-		set viminfo+=n$HOME/.vim/tmp/nviminfo
-	else
-		set viminfo+=n$HOME/.vim/tmp/viminfo
-	endif
+  set backupdir=$HOME/.vim/tmp/backup//
+  set directory=$HOME/.vim/tmp/swap//
+  set undodir=$HOME/.vim/tmp/undo//
+  set viewdir=$HOME/.vim/tmp/view//
+  if has("nvim")
+    set viminfo+=n$HOME/.vim/tmp/nviminfo
+  else
+    set viminfo+=n$HOME/.vim/tmp/viminfo
+  endif
 endif
 
 set autoread                    " auto load file changes
@@ -192,29 +192,32 @@ set nofoldenable                " don't fold by default
 let base16colorspace=256        " access 256 colorspace
 set t_Co=256                    " say terminal supports 256
 if has("termguicolors")
-	set termguicolors             " 24 bits colors
+  set termguicolors             " 24 bits colors
 endif
 
 " False cursorline to have CursorLineNr working
 set cursorline
+
+" Tabline
+set tabpagemax=30
 
 ""    Look / Theme
 """        DarkLightSwitch
 
 " switch between light and dark theme (UI + ligtline)
 function! DarkLightSwitch() abort
-	if g:DarkLightSwitch ==# 'dark'
-		set background=dark
-		colorscheme	base16-onedark
-		let g:DarkLightSwitch = 'light'
-	elseif g:DarkLightSwitch ==# 'light'
-		set background=light
-		colorscheme	base16-one-light
-		let g:DarkLightSwitch = 'dark'
-	endif
-	if exists("g:DarkLightOn")
-	endif
-	let g:DarkLightOn = 1
+  if g:DarkLightSwitch ==# 'dark'
+    set background=dark
+    colorscheme  base16-onedark
+    let g:DarkLightSwitch = 'light'
+  elseif g:DarkLightSwitch ==# 'light'
+    set background=light
+    colorscheme  base16-one-light
+    let g:DarkLightSwitch = 'dark'
+  endif
+  if exists("g:DarkLightOn")
+  endif
+  let g:DarkLightOn = 1
 endfunction
 
 let g:DarkLightMod = 3
@@ -226,26 +229,26 @@ let g:DarkLightMod = 3
 " open vim with different color based on time of day
 
 if g:DarkLightMod == 0 || g:DarkLightMod == 3
-	let hour = strftime("%H")
-	if 8 <= hour && hour <= 17
-		let g:DarkLightSwitch = 'light'
-	else
-		let g:DarkLightSwitch = 'dark'
-	endif
+  let hour = strftime("%H")
+  if 8 <= hour && hour <= 17
+    let g:DarkLightSwitch = 'light'
+  else
+    let g:DarkLightSwitch = 'dark'
+  endif
 endif
 if g:DarkLightMod == 0
-	call DarkLightSwitch()
+  call DarkLightSwitch()
 elseif g:DarkLightMod == 1
-	let g:DarkLightSwitch = 'dark'
-	call DarkLightSwitch()
+  let g:DarkLightSwitch = 'dark'
+  call DarkLightSwitch()
 elseif g:DarkLightMod == 2
-	let g:DarkLightSwitch = 'light'
-	call DarkLightSwitch()
+  let g:DarkLightSwitch = 'light'
+  call DarkLightSwitch()
 elseif g:DarkLightMod == 3
-	if ! exists("g:DarkLightOn")
-		call DarkLightSwitch()
-		let g:DarkLightMod = -1
-	endif
+  if ! exists("g:DarkLightOn")
+    call DarkLightSwitch()
+    let g:DarkLightMod = -1
+  endif
 endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
@@ -253,36 +256,36 @@ nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 """        Title
 
 augroup WinTitle
-	au!
-	au BufRead,BufEnter * let &titlestring = MyWindowTitle()
+  au!
+  au BufRead,BufEnter * let &titlestring = MyWindowTitle()
 augroup end
 
 function! GetGitRepoName(file) abort
-	let l:path=fnamemodify(a:file, ':p')
-	while l:path != '' && l:path != '/'
-		let l:path=fnamemodify(l:path, ':h')
-		let l:candidate=l:path . '/.git'
-		let l:folder=substitute(l:path, '/.*/', '', '')
-		if isdirectory(l:path . '/.git')
-			return l:folder
-		endif
-	endwhile
-	return ''
+  let l:path=fnamemodify(a:file, ':p')
+  while l:path != '' && l:path != '/'
+    let l:path=fnamemodify(l:path, ':h')
+    let l:candidate=l:path . '/.git'
+    let l:folder=substitute(l:path, '/.*/', '', '')
+    if isdirectory(l:path . '/.git')
+      return l:folder
+    endif
+  endwhile
+  return ''
 endfunction
 
 function! MyWindowTitle() abort
-	let l:hostname = hostname() . "   ▏ "
-	let l:file = substitute(expand('%'), '/.*/', '', '')
-	let gitrepo = GetGitRepoName('%') . "   〉  "
-	return(hostname . gitrepo . file)
+  let l:hostname = hostname() . "   ▏ "
+  let l:file = substitute(expand('%'), '/.*/', '', '')
+  let gitrepo = GetGitRepoName('%') . "   〉  "
+  return(hostname . gitrepo . file)
 endfunction
 
 """        Cursor
 
 if &term =~ "xterm\\|rxvt"
-	let &t_SI = "\e[5 q"       " insert mode
-	let &t_EI = "\e[2 q"       " normal mode
-	let &t_SR = "\e[4 q"       " replace mode
+  let &t_SI = "\e[5 q"       " insert mode
+  let &t_EI = "\e[2 q"       " normal mode
+  let &t_SR = "\e[4 q"       " replace mode
 endif
 
 ""    Extra windows
@@ -290,76 +293,76 @@ endif
 
 " Show terminal (like c-z), exit on any character
 function! ShowTerm() abort
-	silent !read -sN 1
-	redraw!
+  silent !read -sN 1
+  redraw!
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
 let s:term_buf_nr = -1
 function! s:ToggleTerminal() abort
-		if s:term_buf_nr == -1
-				execute "botright terminal"
-				resize 6
-				let s:term_buf_nr = bufnr("$")
-		else
-				try
-						execute "bdelete! " . s:term_buf_nr
-				catch
-						let s:term_buf_nr = -1
-						call <SID>ToggleTerminal()
-						return
-				endtry
-				let s:term_buf_nr = -1
-		endif
+    if s:term_buf_nr == -1
+        execute "botright terminal"
+        resize 6
+        let s:term_buf_nr = bufnr("$")
+    else
+        try
+            execute "bdelete! " . s:term_buf_nr
+        catch
+            let s:term_buf_nr = -1
+            call <SID>ToggleTerminal()
+            return
+        endtry
+        let s:term_buf_nr = -1
+    endif
 endfunction
 
 """        Quickfix
 
 augroup QuickFixWindowSet
-	au!
-	au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber showbreak=
+  au!
+  au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber showbreak=
 
-	" vimscript is a joke
-	au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
-	" auto adjust height if not a vertical split (hopefuly)
-	au Filetype qf nnoremap <buffer> j <c-n>
-	au Filetype qf nnoremap <buffer> k <c-p>
-	au FileType qf
-				\ if winheight('quickfix') + 3 < &lines |
-				\ call AdjustWindowHeight(1, 5) |
-				\ endif
-	au QuickfixCmdPost make call QfMakeConv()
+  " vimscript is a joke
+  au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+  " auto adjust height if not a vertical split (hopefuly)
+  au Filetype qf nnoremap <buffer> j <c-n>
+  au Filetype qf nnoremap <buffer> k <c-p>
+  au FileType qf
+        \ if winheight('quickfix') + 3 < &lines |
+        \ call AdjustWindowHeight(1, 5) |
+        \ endif
+  au QuickfixCmdPost make call QfMakeConv()
 augroup end
 
 " Change encoding of error file for quickfix
 function! QfMakeConv() abort
-	let qflist = getqflist()
-	for i in qflist
-		let i.text = iconv(i.text, "cp936", "utf-8")
-	endfor
-	call setqflist(qflist)
+  let qflist = getqflist()
+  for i in qflist
+    let i.text = iconv(i.text, "cp936", "utf-8")
+  endfor
+  call setqflist(qflist)
 endfunction
 
 " Quickfix window height auto adjust if too big
 function! AdjustWindowHeight(minheight, maxheight)
-	let l = 1
-	let n_lines = 0
-	let w_width = winwidth(0)
-	while l <= line('$')
-		" number to float for division
-		let l_len = strlen(getline(l)) + 0.0
-		let line_width = l_len/w_width
-		let n_lines += float2nr(ceil(line_width))
-		let l += 1
-	endw
-	exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+  let l = 1
+  let n_lines = 0
+  let w_width = winwidth(0)
+  while l <= line('$')
+    " number to float for division
+    let l_len = strlen(getline(l)) + 0.0
+    let line_width = l_len/w_width
+    let n_lines += float2nr(ceil(line_width))
+    let l += 1
+  endw
+  exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
 " Auto location list on make
 " augroup AutoLocationWindow
-" 	au!
-" 	autocmd QuickFixCmdPost [^l]* nested lwindow
-" 	autocmd QuickFixCmdPost    l* nested lwindow
+"   au!
+"   autocmd QuickFixCmdPost [^l]* nested lwindow
+"   autocmd QuickFixCmdPost    l* nested lwindow
 " augroup end
 
 " nnoremap <leader>cc :ll<cr>
@@ -383,140 +386,140 @@ endfunction
 let g:ft_man_open_mode = 'vert'
 
 augroup HelpManSplit
-	au!
-	au FileType man wincmd H
-	au FileType man setlocal tabstop=8
-	au FileType help,man setlocal showbreak= nonumber signcolumn=no
-	au FileType help au! BufRead,BufEnter <buffer> silent!
-				\ | :silent! wincmd H | :silent! 82 wincmd|
-	au FileType help au! BufLeave,WinLeave <buffer> silent!
-				\ | if &columns < 100 | :silent! 0 wincmd| | endif
+  au!
+  au FileType man wincmd H
+  au FileType man setlocal tabstop=8
+  au FileType help,man setlocal showbreak= nonumber signcolumn=no
+  au FileType help au! BufRead,BufEnter <buffer> silent!
+        \ | :silent! wincmd H | :silent! 82 wincmd|
+  au FileType help au! BufLeave,WinLeave <buffer> silent!
+        \ | if &columns < 100 | :silent! 0 wincmd| | endif
 augroup end
 
 """        Shell output split
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline) abort
-	if bufexists('scratch_terminal_output')
-		bw! scratch_terminal_output
-	endif
-	let current_window = win_getid()
-	wincmd v
-	wincmd J
-	if has("nvim")
-		exe 'terminal '. a:cmdline
-	else
-		exe 'terminal ++curwin '. a:cmdline
-	endif
-	file scratch_terminal_output
-	let term_window = win_getid()
-	let term_buf_nr = buffer_number()
-	10 wincmd _
-	if win_getid() != current_window
-		call win_gotoid(current_window)
-	endif
+  if bufexists('scratch_terminal_output')
+    bw! scratch_terminal_output
+  endif
+  let current_window = win_getid()
+  wincmd v
+  wincmd J
+  if has("nvim")
+    exe 'terminal '. a:cmdline
+  else
+    exe 'terminal ++curwin '. a:cmdline
+  endif
+  file scratch_terminal_output
+  let term_window = win_getid()
+  let term_buf_nr = buffer_number()
+  10 wincmd _
+  if win_getid() != current_window
+    call win_gotoid(current_window)
+  endif
 endfunction
 
 function! MoveScrathTerm(direction) abort
-	if bufexists('scratch_terminal_output')
-		let current_window = win_getid()
-		sbuffer scratch_terminal_output
-		if a:direction == 'L'
-			wincmd L
-		elseif a:direction == 'H'
-			wincmd H
-		elseif a:direction == 'J'
-			wincmd J
-			10 wincmd _
-		elseif a:direction == 'K'
-			wincmd K
-			10 wincmd _
-		elseif a:direction == 'Q'
-			:bw
-		endif
-		call win_gotoid(current_window)
-	endif
+  if bufexists('scratch_terminal_output')
+    let current_window = win_getid()
+    sbuffer scratch_terminal_output
+    if a:direction == 'L'
+      wincmd L
+    elseif a:direction == 'H'
+      wincmd H
+    elseif a:direction == 'J'
+      wincmd J
+      10 wincmd _
+    elseif a:direction == 'K'
+      wincmd K
+      10 wincmd _
+    elseif a:direction == 'Q'
+      :bw
+    endif
+    call win_gotoid(current_window)
+  endif
 endfunction
 
 """        Job split output
 
 command! -complete=shellcmd -nargs=+ Shell2 call s:TmpShellOutput(<q-args>)
 function! s:TmpShellOutput(cmdline) abort
-	if bufexists('tmplog')
-		call deletebufline('tmplog', 1, '$')
-	else
-		call bufadd('tmplog')
-		call setbufvar('tmplog', "buftype", "nofile")
-		call setbufvar('tmplog', "filetype", "")
-	endif
-	" let logjob = job_start(execute("!bash " . a:cmdline),
-	if has("nvim")
-		let logjob = jobstart(["/bin/bash", "-c", a:cmdline],
-					\ {'out_io': 'buffer', 'out_name': 'tmplog', 'out_msg': ''})
-	else
-		let logjob = job_start(["/bin/bash", "-c", a:cmdline],
-					\ {'out_io': 'buffer', 'err_io': 'buffer', 'out_name': 'tmplog', 'err_name': 'tmplog', 'out_msg': ''})
-	endif
-	let winnr = win_getid()
-	vert sbuffer tmplog
-	setlocal wrap
-	" nnoremap <buffer> <c-c> :call job_stop('logjob')<cr>
-	wincmd L
-	60 wincmd |
-	if win_getid() != winnr
-		call win_gotoid(winnr)
-	endif
+  if bufexists('tmplog')
+    call deletebufline('tmplog', 1, '$')
+  else
+    call bufadd('tmplog')
+    call setbufvar('tmplog', "buftype", "nofile")
+    call setbufvar('tmplog', "filetype", "")
+  endif
+  " let logjob = job_start(execute("!bash " . a:cmdline),
+  if has("nvim")
+    let logjob = jobstart(["/bin/bash", "-c", a:cmdline],
+          \ {'out_io': 'buffer', 'out_name': 'tmplog', 'out_msg': ''})
+  else
+    let logjob = job_start(["/bin/bash", "-c", a:cmdline],
+          \ {'out_io': 'buffer', 'err_io': 'buffer', 'out_name': 'tmplog', 'err_name': 'tmplog', 'out_msg': ''})
+  endif
+  let winnr = win_getid()
+  vert sbuffer tmplog
+  setlocal wrap
+  " nnoremap <buffer> <c-c> :call job_stop('logjob')<cr>
+  wincmd L
+  60 wincmd |
+  if win_getid() != winnr
+    call win_gotoid(winnr)
+  endif
 endfunction
 
 """        Scrolling
 
 " Do not scroll past the end of file (last line locked at bottom of window)
 function! NoScrollAtEOF() abort
-	let curpos = getpos('.')
-	let lnum = get(curpos, 1, -1)
-	let len = line('$')
-	if lnum + winheight(0) >= len
-		normal! zb
-	endif
+  let curpos = getpos('.')
+  let lnum = get(curpos, 1, -1)
+  let len = line('$')
+  if lnum + winheight(0) >= len
+    normal! zb
+  endif
 endfunction
 nnoremap <c-f> <c-f> <silent> :call NoScrollAtEOF()<cr>
 
 """        Mail
 
 augroup MailSettings
-	au!
-	autocmd FileType mail setlocal linebreak tw=0
+  au!
+  autocmd FileType mail setlocal linebreak tw=0
 augroup end
 
 """        Markdown
 
 augroup MarkdownSettings
-	au!
-	au FileType markdown setlocal linebreak
+  au!
+  au FileType markdown setlocal linebreak
 augroup end
 
 """        Search cycling windows
 
 function! CycleWindowsSearch(direction) abort
-	let forward = a:direction
-	if ! v:searchforward
-		let forward = forward ? '0' : '1'
-	endif
-	let searchflags = forward ? 'W' : 'Wb'
-	let winmove = forward ? 'w' : 'W'
-	let curmove = forward ? '1' : '$'
+  let forward = a:direction
+  if ! v:searchforward
+    let forward = forward ? '0' : '1'
+  endif
+  let searchflags = forward ? 'W' : 'Wb'
+  let winmove = forward ? 'w' : 'W'
+  let curmove = forward ? '1' : '$'
 
-	let firstwin=winnr()
-	if ! search(@/, searchflags)
-		execute('wincmd ' . winmove)
-		let savepos = getcurpos()
-		call cursor(curmove, curmove)
-		while ! search(@/, searchflags) && firstwin != winnr()
-			call setpos('.', savepos)
-			execute('wincmd ' . winmove)
-			call cursor(curmove, curmove)
-		endwhile
-	endif
+  let firstwin=winnr()
+  if ! search(@/, searchflags)
+    execute('wincmd ' . winmove)
+    let savepos = getcurpos()
+    call cursor(curmove, curmove)
+    while ! search(@/, searchflags) && firstwin != winnr()
+      call setpos('.', savepos)
+      execute('wincmd ' . winmove)
+      call cursor(curmove, curmove)
+    endwhile
+  endif
 endfunction
 
 " nnoremap <silent> n :call CycleWindowsSearch('1')<cr>
@@ -526,41 +529,41 @@ endfunction
 """        show traling whitespaces
 
 augroup TrailSpace
-	au!
-	au BufWinEnter * match TrailSpace /\s\+$/
-	au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
-	au InsertLeave * match TrailSpace /\s\+$/
-	au BufWinLeave * call clearmatches()
+  au!
+  au BufWinEnter * match TrailSpace /\s\+$/
+  au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
+  au InsertLeave * match TrailSpace /\s\+$/
+  au BufWinLeave * call clearmatches()
 augroup end
 
 """        color column 81 for code
 
 augroup ColorColumn
-	au!
-	if exists('+colorcolumn')
-		au FileType c,cpp,css,java,python,ruby,bash,sh,js,html,javascript setlocal colorcolumn=81
-	endif
+  au!
+  if exists('+colorcolumn')
+    au FileType c,cpp,css,java,python,ruby,bash,sh,js,html,javascript setlocal colorcolumn=81
+  endif
 augroup end
 
 """        search cycle colors
 
 " highlight current search and first/last search differently
 function! HLCurrent() abort
-	if exists("currmatch")
-		call matchdelete(currmatch)
-	endif
-	" only on cursor
-	let patt = '\c\%#'.@/
-	" check prev and next match
-	let prevmatch = search(@/, 'bWn')
-	let nextmatch = search(@/, 'Wn')
-	" if on first or last match
-	if prevmatch == 0 || nextmatch == 0
-		let currmatch = matchadd('EdgeSearch', patt, 101)
-	else
-		let currmatch = matchadd('IncSearch', patt, 101)
-	endif
-	redraw
+  if exists("currmatch")
+    call matchdelete(currmatch)
+  endif
+  " only on cursor
+  let patt = '\c\%#'.@/
+  " check prev and next match
+  let prevmatch = search(@/, 'bWn')
+  let nextmatch = search(@/, 'Wn')
+  " if on first or last match
+  if prevmatch == 0 || nextmatch == 0
+    let currmatch = matchadd('EdgeSearch', patt, 101)
+  else
+    let currmatch = matchadd('IncSearch', patt, 101)
+  endif
+  redraw
 endfunction
 
 ""    File automation
@@ -568,48 +571,48 @@ endfunction
 
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
-	au!
-	au FocusGained,BufEnter * :silent! !
-	au FocusLost,WinLeave * :silent! w
+  au!
+  au FocusGained,BufEnter * :silent! !
+  au FocusLost,WinLeave * :silent! w
 augroup end
 
 """        Last cursor position
 
 " Open file where it was last closed
 augroup ReOpenFileWhereLeft
-	au!
-	au BufReadPost *
-				\ if line("'\"") > 0 && line("'\"") <= line("$")
-				\   | exe "normal! g`\""
-				\ | endif
+  au!
+  au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$")
+        \   | exe "normal! g`\""
+        \ | endif
 augroup end
 
 """        Files views
 
 " save folding state and more
 if ! has("nvim")
-	augroup ReViews
-		au!
-		au BufWinLeave *
-					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-					\   | mkview
-					\ | endif
-		au BufWinEnter *
-					\ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-					\   | silent! loadview
-					\ | endif
-	augroup end
+  augroup ReViews
+    au!
+    au BufWinLeave *
+          \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+          \   | mkview
+          \ | endif
+    au BufWinEnter *
+          \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
+          \   | silent! loadview
+          \ | endif
+  augroup end
 endif
 
 """        Working directory
 
 " change dir to git repo OR file directory
 augroup CdGitRootOrFileDir
-	au!
-	au BufEnter,BufRead *
-				\ if !empty(bufname("%"))
-				\   | silent! cd %:p:h | silent! Glcd
-				\ | endif
+  au!
+  au BufEnter,BufRead *
+        \ if !empty(bufname("%"))
+        \   | silent! cd %:p:h | silent! Glcd
+        \ | endif
 augroup end
 
 """        Tags and paths
@@ -617,10 +620,10 @@ augroup end
 " Get tags file from git repo
 " Set path for code projects
 augroup CodePathTags
-	au!
-	au BufEnter * silent! set tags+=.git/tags
-	au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
-				\ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
+  au!
+  au BufEnter * silent! set tags+=.git/tags
+  au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
+        \ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
 augroup end
 
 " autoreload tags file on save
@@ -632,79 +635,126 @@ augroup end
 """        Completion by filetype
 
 augroup AutoOmniComplete
-	au!
-	au FileType c setlocal ofu=ccomplete#CompleteCpp
-	au FileType css setlocal ofu=csscomplete#CompleteCSS
-	au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-	au FileType php setlocal ofu=phpcomplete#CompletePHP
-	au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
+  au!
+  au FileType c setlocal ofu=ccomplete#CompleteCpp
+  au FileType css setlocal ofu=csscomplete#CompleteCSS
+  au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
+  au FileType php setlocal ofu=phpcomplete#CompletePHP
+  au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
 augroup end
 
 """        Filetype recognition
 
 augroup AutoFileTypeRecognition
-	au!
-	au BufNewFile,BufFilePre,BufRead *.md,markdown set filetype=markdown
-	au BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
-	au BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
-	au BufNewFile,BufFilePre,BufRead *.php set filetype=php
-	au BufNewFile,BufFilePre,BufRead *.css set filetype=css
-	au BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
-	au BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
-	au BufNewFile,BufFilePre,BufRead *.json set filetype=json
-	au BufNewFile,BufFilePre,BufRead *.groovy,gradle set filetype=groovy
-	au BufNewFile,BufFilePre,BufRead *.java set filetype=java
-	" au BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
+  au!
+  au BufNewFile,BufFilePre,BufRead *.md,markdown set filetype=markdown
+  au BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
+  au BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
+  au BufNewFile,BufFilePre,BufRead *.php set filetype=php
+  au BufNewFile,BufFilePre,BufRead *.css set filetype=css
+  au BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
+  au BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
+  au BufNewFile,BufFilePre,BufRead *.json set filetype=json
+  au BufNewFile,BufFilePre,BufRead *.groovy,gradle set filetype=groovy
+  au BufNewFile,BufFilePre,BufRead *.java set filetype=java
+  " au BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
 augroup end
 
 """        Filetype refresh
 
 "  refresh filetype upon writing if no filetype already set
 augroup FileTypeRefresh
-	au!
-	au BufWrite * if &ft ==# '' | filetype detect | endif
+  au!
+  au BufWrite * if &ft ==# '' | filetype detect | endif
 augroup end
 
 """        File suffixes
 
 " set suffixes to try when matching a file name
 function! SetSuffixes() abort
-	let associations = [
-				\["javascript", ".js,.javascript,.es,.esx,.json"],
-				\["python", ".py,.pyw"],
-				\["c", ".c,.h"],
-				\["cpp", ".c,.h"]
-				\]
-	for ft in associations
-		execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
-	endfor
+  let associations = [
+        \["javascript", ".js,.javascript,.es,.esx,.json"],
+        \["python", ".py,.pyw"],
+        \["c", ".c,.h"],
+        \["cpp", ".c,.h"]
+        \]
+  for ft in associations
+    execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+  endfor
 endfunction
 
 augroup SuffixesTry
-	au!
-	au FileType javascript,c,cpp,python call SetSuffixes()
+  au!
+  au FileType javascript,c,cpp,python call SetSuffixes()
 augroup end
+
+"""        Large Files
+
+" large file = 10MB
+let g:LargeFile = 1024 * 1024 * 10
+augroup LargeFilesFast
+  au!
+  au BufReadPre *
+        \ let f=expand("<afile>")
+        \ | if getfsize(f) > g:LargeFile
+          \ | let b:airline_whitespace_checks = ['']
+          \ | au! anzu | endif
+augroup end
+
+"""        Auto Load Project Files
+
+function! AutoProjectLoad(clear) abort
+  let filelist = ".git/vim/project_files"
+  let filelistID = -1
+  let currfileID = -1
+  if bufname("%") != ""
+    let currfileID = bufnr("%")
+  endif
+  if filereadable(".git/vim/project_files")
+    exe "e" filelist
+    " open first WORD
+    if a:clear == 1
+      silent! tabonly
+    endif
+    g/\v^.*[^\s]/ argadd <cWORD>|$tabnew <cWORD>|tabfirst
+    let filelistID = bufnr()
+  endif
+  if currfileID != -1
+    exe "bw" filelist
+    wincmd p
+  else
+    bw 1
+  endif
+endfunction
+
+augroup AutoProjectLoadOnStart
+  au!
+  autocmd VimEnter * ++nested call AutoProjectLoad('0')
+augroup end
+
+nnoremap <leader>ej :e .git/vim/project_files<cr>
+nnoremap <leader>sj :call AutoProjectLoad('1')<cr>
 
 ""    Plugins settings
 """        Netrw
 
 " Toggle Vexplore with <leader>t
 function! ToggleNetrw() abort
-	if exists("t:expl_buf_num")
-		let expl_win_num = bufwinnr(t:expl_buf_num)
-		let cur_win_num = winnr()
-		if expl_win_num != -1
-			while expl_win_num != cur_win_num
-				exec "wincmd w"
-				let cur_win_num = winnr()
-			endwhile
-			exec "bwipeout"
-		endif
-		unlet t:expl_buf_num
-	else
-		silent Lexplore
-		let t:expl_buf_num = bufnr("%")
-	endif
+  if exists("t:expl_buf_num")
+    let expl_win_num = bufwinnr(t:expl_buf_num)
+    let cur_win_num = winnr()
+    if expl_win_num != -1
+      while expl_win_num != cur_win_num
+        exec "wincmd w"
+        let cur_win_num = winnr()
+      endwhile
+      exec "bwipeout"
+    endif
+    unlet t:expl_buf_num
+  else
+    silent Lexplore
+    let t:expl_buf_num = bufnr("%")
+  endif
 endfunction
 nnoremap <silent> <leader>t :call ToggleNetrw()<cr>
 
@@ -721,9 +771,9 @@ let g:netrw_sort_sequence = '[\/]$,*'  " sort folders on top
 let g:netrw_startup = 0
 let g:netrw_startup_no_file = 0
 augroup NetrwStartup
-	au!
-	au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-	au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
+  au!
+  au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
+  au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
 augroup end
 
 """        Termdebug
@@ -736,21 +786,21 @@ let g:termdebug_wide = 40
 nnoremap <silent> <leader>gg :vertical Gstatus<cr>
 set diffopt+=vertical " vertical split for diff
 augroup FugitiveSet
-	au!
-	" au FileType gitcommit start
-	au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
+  au!
+  " au FileType gitcommit start
+  au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
 augroup end
 
 function! FugitiveBlameToggle() abort
-	let current_window = win_getid()
-	wincmd h
-	if &ft ==? "fugitiveblame"
-		wincmd q
-	else
-		call win_gotoid(current_window)
-		:Gblame
-	endif
-	call win_gotoid(current_window)
+  let current_window = win_getid()
+  wincmd h
+  if &ft ==? "fugitiveblame"
+    wincmd q
+  else
+    call win_gotoid(current_window)
+    :Gblame
+  endif
+  call win_gotoid(current_window)
 endfunction
 
 nnoremap <leader>gb :call FugitiveBlameToggle()<cr>
@@ -758,31 +808,31 @@ nnoremap <leader>gb :call FugitiveBlameToggle()<cr>
 """        Airline
 
 let g:airline_mode_map = {
-			\ '__'     : '-',
-			\ 'c'      : 'C',
-			\ 'i'      : 'I',
-			\ 'ic'     : 'I',
-			\ 'ix'     : 'I',
-			\ 'n'      : 'N',
-			\ 'multi'  : 'M',
-			\ 'ni'     : 'N',
-			\ 'no'     : 'N',
-			\ 'R'      : 'R',
-			\ 'Rv'     : 'R',
-			\ 's'      : 'S',
-			\ 'S'      : 'S',
-			\ ''     : 'S',
-			\ 't'      : 'T',
-			\ 'v'      : 'V',
-			\ 'V'      : 'V',
-			\ ''     : 'V',
-			\ }
+      \ '__'     : '-',
+      \ 'c'      : 'C',
+      \ 'i'      : 'I',
+      \ 'ic'     : 'I',
+      \ 'ix'     : 'I',
+      \ 'n'      : 'N',
+      \ 'multi'  : 'M',
+      \ 'ni'     : 'N',
+      \ 'no'     : 'N',
+      \ 'R'      : 'R',
+      \ 'Rv'     : 'R',
+      \ 's'      : 'S',
+      \ 'S'      : 'S',
+      \ ''     : 'S',
+      \ 't'      : 'T',
+      \ 'v'      : 'V',
+      \ 'V'      : 'V',
+      \ ''     : 'V',
+      \ }
 
 let g:airline#extensions#default#section_truncate_width = {}
 let g:airline#extensions#default#layout = [
-			\ [ 'a', 'b', 'c' ],
-			\ [ 'x', 'y', 'z', 'error', 'warning' ]
-			\ ]
+      \ [ 'a', 'b', 'c' ],
+      \ [ 'x', 'y', 'z', 'error', 'warning' ]
+      \ ]
 
 call airline#parts#define_minwidth('branch', 20)
 
@@ -793,14 +843,14 @@ let g:airline_section_x = ''
 let g:airline#extensions#hunks#enabled = 0
 
 function! LinePercent() abort
-	return line('.') * 100 / line('$') . '%'
+  return line('.') * 100 / line('$') . '%'
 endfunction
 
 """        Gitgutter
 if exists('&signcolumn')        " Vim 7.4.2201
-	set signcolumn=yes
+  set signcolumn=yes
 else
-	let g:gitgutter_sign_column_always = 1
+  let g:gitgutter_sign_column_always = 1
 endif
 set updatetime=100              " need for Coc + gitgutter
 
@@ -826,22 +876,22 @@ let g:fzf_command_prefix = 'Fzf'
 let g:fzf_buffers_jump = 1      " [Buffers] to existing split
 
 function! s:build_location_list(lines) abort
-	call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
-	lopen
+  call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
+  lopen
 endfunction
 
 function! s:build_quickfix_list(lines) abort
-	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-	copen
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
 endfunction
 
 " An action can be a reference to a function that processes selected lines
 let g:fzf_action = {
-			\ 'ctrl-l': function('s:build_quickfix_list'),
-			\ 'ctrl-r': function('s:build_location_list'),
-			\ 'ctrl-t': 'tab split',
-			\ 'ctrl-x': 'split',
-			\ 'ctrl-v': 'vsplit'}
+      \ 'ctrl-l': function('s:build_quickfix_list'),
+      \ 'ctrl-r': function('s:build_location_list'),
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit'}
 
 nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
 nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
@@ -873,7 +923,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_tags_command = 'ctags -R'
 " Border color
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
+" let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
+" let g:fzf_layout = {'heigh': '40%'}
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline --bind "ctrl-o:toggle+up,ctrl-space:toggle-preview"'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
@@ -882,77 +933,77 @@ let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
-	\ 'bg':      ['bg', 'Normal'],
-	\ 'gutter':  ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Comment'],
-	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+':     ['bg', 'Visual', 'CursorColumn'],
-	\ 'hl+':     ['fg', 'Statement'],
-	\ 'info':    ['fg', 'PreProc'],
-	\ 'border':  ['fg', 'vertsplit'],
-	\ 'prompt':  ['fg', 'Conditional'],
-	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker':  ['fg', 'Keyword'],
-	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment'] }
-	" \ 'border':  ['fg', 'Conditional'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'gutter':  ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'Visual', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'vertsplit'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+  " \ 'border':  ['fg', 'Conditional'],
 
 "Get Files
 command! -bang -nargs=? -complete=dir Files
-		\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
 " Get text in files with Rg
 command! -bang -nargs=* Rg
-	\ call fzf#vim#grep(
-	\   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
-	\   fzf#vim#with_preview(), <bang>0)
+  \ call fzf#vim#grep(
+  \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 " Ripgrep advanced
 function! RipgrepFzf(query, fullscreen) abort
-	let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-	let initial_command = printf(command_fmt, shellescape(a:query))
-	let reload_command = printf(command_fmt, '{q}')
-	let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-	call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " Git grep
 command! -bang -nargs=* GGrep
-	\ call fzf#vim#grep(
-	\   'git grep --line-number '.shellescape(<q-args>), 0,
-	\   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 """        Latex Live Preview
 
 " au FileType tex,plaintex let g:tex_fold_enabled=1
 augroup TexSet
-	au!
-	au FileType tex setlocal updatetime=1000
-	" let g:livepreview_previewer = 'zathura'
-	" let g:livepreview_cursorhold_recompile = 0
-	" let g:livepreview_engine = 'your_engine' . ' [options]'
+  au!
+  au FileType tex setlocal updatetime=1000
+  " let g:livepreview_previewer = 'zathura'
+  " let g:livepreview_cursorhold_recompile = 0
+  " let g:livepreview_engine = 'your_engine' . ' [options]'
 augroup end
 
 """        Vim-run
 let g:vim_run_command_map = {
-			\'javascript': 'node',
-			\'php': 'php',
-			\'python': 'python',
-			\'markdown': 'markdown',
-			\}
+      \'javascript': 'node',
+      \'php': 'php',
+      \'python': 'python',
+      \'markdown': 'markdown',
+      \}
 
 """        Vimwiki
 
 augroup VimWikiSettings
-	au!
-	au FileType vimwiki setlocal nonu nornu showbreak= nobreakindent linebreak
-	au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>(VimwikiToggleListItem)
+  au!
+  au FileType vimwiki setlocal nonu nornu showbreak= nobreakindent linebreak
+  au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>(VimwikiToggleListItem)
 augroup end
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
-			\ 'syntax': 'markdown', 'ext': '.md'}]
+      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " no vimwiki filetype outside wiki folder
 let g:vimwiki_global_ext = 0
@@ -964,15 +1015,8 @@ let g:airline#extensions#coc#enabled = 0
 """        Anzu
 
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
-let g:anzu_airline_section = "x"
+let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
-
-" large file = 10MB
-let g:LargeFile = 1024 * 1024 * 10
-augroup AnzuNoBigFile
-	au!
-	au BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | au! anzu | endif
-augroup end
 
 ""    Mappings
 """        Modes
@@ -1006,8 +1050,8 @@ cnoremap <c-z> <c-[><c-z>
 
 " <c-s> save and enter normal mode
 function! VerboseUpdate() abort
-	update
-	echo(':update '.expand('%'))
+  update
+  echo(':update '.expand('%'))
 endfunction
 
 nnoremap <c-s> :call VerboseUpdate()<cr>
@@ -1145,19 +1189,19 @@ vnoremap <c-g> %
 
 " Count line in function
 function! FunctionLineCount() abort
-	let l:currentline = line(".")
-	normal! j[[
-	let l:topline = line(".")
-	normal! %
-	let l:bottomline = line(".")
-	exe "normal".l:currentline."gg"
-	echo "function lines :" l:bottomline - l:topline - 1
-	silent! normal! zz
+  let l:currentline = line(".")
+  normal! j[[
+  let l:topline = line(".")
+  normal! %
+  let l:bottomline = line(".")
+  exe "normal!".l:currentline."gg"
+  echo "function lines :" l:bottomline - l:topline - 1
+  silent! normal! zz
 endfunction
 
 " Word count
 function! WordCount() abort
-	echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+  echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
 endfunction
 
 nnoremap <leader>wcf :call FunctionLineCount()<cr>
@@ -1181,13 +1225,13 @@ nnoremap g] g<c-]>
 
 " fix error when using tabs in middle of line
 if v:version < 802
-	inoremap <c-i> <c-v><c-i>
+  inoremap <c-i> <c-v><c-i>
 endif
 
 if ! has("nvim")
-	inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
+  inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 elseif has("nvim")
-	inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
+  inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
 endif
 
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
@@ -1200,10 +1244,10 @@ let g:coc_snippet_prev = '<c-b>'
 
 " use tab as in VSCode
 " inoremap <silent><expr> <TAB>
-" 			\ pumvisible() ? coc#_select_confirm() :
-" 			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-" 			\ <SID>check_back_space() ? "\<TAB>" :
-" 			\ coc#refresh()
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
 
 " function text object mappings
 xmap if <Plug>(coc-funcobj-i)
@@ -1228,38 +1272,38 @@ nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
 
 function! s:show_documentation() abort
-	if index(['vim','help'], &filetype) >= 0
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
+  if index(['vim','help'], &filetype) >= 0
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
 endfunction
 
 " Highlight symbol under cursor on CursorHold (K)
 augroup CocHiglightSymbol
-	au!
-	au CursorHold * silent call CocActionAsync('highlight')
+  au!
+  au CursorHold * silent call CocActionAsync('highlight')
 augroup end
 
 augroup CocFormatAndK
-	au!
-	" Setup formatexpr specified filetype(s).
-	au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
-	" Update signature help on jump placeholder
-	au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  au!
+  " Setup formatexpr specified filetype(s).
+  au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 function! StatusDiagnostic() abort
-	let info = get(b:, 'coc_diagnostic_info', {})
-	if empty(info) | return '' | endif
-	let msgs = []
-	if get(info, 'error', 0)
-		call add(msgs, 'E' . info['error'])
-	endif
-	if get(info, 'warning', 0)
-		call add(msgs, 'W' . info['warning'])
-	endif
-	return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
 let g:markdown_fenced_languages = ['css', 'js=javascript']
@@ -1270,14 +1314,17 @@ let g:markdown_fenced_languages = ['css', 'js=javascript']
 
 " inoremap <leader><space> <c-o>za
 if ! has("nvim")
-	nnoremap <c-@> za
-	onoremap <c-@> <c-c>za
-	vnoremap <c-@> zf
+  nnoremap <c-@> za
+  onoremap <c-@> <c-c>za
+  vnoremap <c-@> zf
 elseif has("nvim")
-	nnoremap <c-space> za
-	onoremap <c-space> <c-c>za
-	vnoremap <c-space> zf
+  nnoremap <c-space> za
+  onoremap <c-space> <c-c>za
+  vnoremap <c-space> zf
 endif
+
+" close every fold except current
+nnoremap <leader>zc :normal! mzzMzv`z<CR>
 
 " recursively open even partial folds
 nnoremap zo zczO
@@ -1338,7 +1385,7 @@ vnoremap <leader>y "+y
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent! doautocmd BufRead<cr>:echo "vimrc sourced"<cr>`Zzz
+nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent doautocmd BufRead<cr>:nohlsearch<cr>:echo "vimrc sourced"<cr>`Zzz
 nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`Zzz
 
 " source colors
@@ -1394,11 +1441,11 @@ nnoremap g<c-g> mZgg=G`Z
 
 " Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
-			\ ":lclose<cr>" : ":lopen<cr><c-w>p"
+      \ ":lclose<cr>" : ":lopen<cr><c-w>p"
 
 " Toggle quickfix list (awesome)
 nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
-			\ ":cclose<cr>" : ":copen<cr><c-w>p"
+      \ ":cclose<cr>" : ":copen<cr><c-w>p"
 
 " trim current line
 nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
@@ -1415,17 +1462,17 @@ nnoremap <leader>cT :make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
 function! LocListPannel(pfx) abort
-	" if a:pfx == 'l' && len(getloclist(0)) == 0
-	" 	echohl ErrorMsg
-	" 	echo "Location List is Empty."
-	" 	return
-	" endif
-	let winnr = winnr()
-	exec(a:pfx.'open')
-	wincmd L
-	if winnr() != winnr
-		wincmd p
-	endif
+  " if a:pfx == 'l' && len(getloclist(0)) == 0
+  "   echohl ErrorMsg
+  "   echo "Location List is Empty."
+  "   return
+  " endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  wincmd L
+  if winnr() != winnr
+    wincmd p
+  endif
 endfunction
 
 " Make in spit
@@ -1456,69 +1503,69 @@ nnoremap <silent> g} viB^<esc>
 inoremap <expr> ! (&filetype == '' <bar><bar> &filetype == 'sh') && col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
 
 augroup Shmaps
-	au!
-	au FileType sh inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
-	au FileType sh inoremap <buffer> ,#! #!/bin/bash
+  au!
+  au FileType sh inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
+  au FileType sh inoremap <buffer> ,#! #!/bin/bash
 
-	" alias to function
-	au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
+  " alias to function
+  au FileType sh nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>
 
-	" auto close brackets
-	au FileType sh inoremap <buffer> { {}<c-g>U<left>
-	au FileType sh inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-	au FileType sh inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+  " auto close brackets
+  au FileType sh inoremap <buffer> { {}<c-g>U<left>
+  au FileType sh inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+  au FileType sh inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
 augroup end
 
 """        C
 
 augroup Cmaps
-	au!
-	au FileType c inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
-	au FileType c inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
-	au FileType c inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
-	au FileType c inoremap <buffer> ,ret return (0);<esc>^
-	au FileType c inoremap <buffer> ,imin -2147483648
-	au FileType c inoremap <buffer> ,imax 2147483647
-	au FileType c inoremap <buffer> ,endl ft_putendl("");<left><left><left>
-	au FileType c inoremap <buffer> ,str ft_putstr("");<left><left><left>
-	au FileType c inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
-	au FileType c inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>#include <string.h><cr>#include <bsd/string.h><cr>
+  au!
+  au FileType c,cpp inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
+  au FileType c,cpp inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+  au FileType c,cpp inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+  au FileType c,cpp inoremap <buffer> ,ret return (0);<esc>^
+  au FileType c,cpp inoremap <buffer> ,imin -2147483648
+  au FileType c,cpp inoremap <buffer> ,imax 2147483647
+  au FileType c,cpp inoremap <buffer> ,endl ft_putendl("");<left><left><left>
+  au FileType c,cpp inoremap <buffer> ,str ft_putstr("");<left><left><left>
+  au FileType c,cpp inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
+  au FileType c,cpp inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>#include <string.h><cr>#include <bsd/string.h><cr>
 
-	au FileType c nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
-	" if to ternary operator
-	au FileType c nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
-	au FileType c nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
-	au FileType c nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
+  au FileType c,cpp nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+  " if to ternary operator
+  au FileType c,cpp nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
+  au FileType c,cpp nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
+  au FileType c,cpp nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
-	" compile and execute current
-	au FileType c nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
-	au FileType c nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out
-	au FileType c nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
-	au FileType c nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
+  " compile and execute current
+  au FileType c,cpp nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
+  au FileType c,cpp nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out
+  au FileType c,cpp nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
+  au FileType c,cpp nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
-	" auto close brackets
-	au FileType c inoremap <buffer> { {}<c-g>U<left>
-	au FileType c inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-	au FileType c inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+  " auto close brackets
+  au FileType c,cpp inoremap <buffer> { {}<c-g>U<left>
+  au FileType c,cpp inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+  au FileType c,cpp inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
-	" brackets around paragraph
-	au FileType c nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
-	au FileType c nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
+  " brackets around paragraph
+  au FileType c,cpp nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
+  au FileType c,cpp nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
-	"  name of current c function (needs '()')
-	au FileType c nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
+  "  name of current c,cpp function (needs '()')
+  au FileType c,cpp nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
-	" semicolon/coma EOL toggle
-	au FileType c nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
-	au FileType c nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
+  " semicolon/coma EOL toggle
+  au FileType c,cpp nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
+  au FileType c,cpp nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
 
-	" select all text in function
-	au FileType c nnoremap <buffer> <leader>vf j[[V%o
+  " select all text in function
+  au FileType c,cpp nnoremap <buffer> <leader>vf j[[V%o
 
-	" valgrind
-	au FileType c nnoremap <buffer> <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
-	au FileType c nnoremap <buffer> <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
+  " valgrind
+  au FileType c,cpp nnoremap <buffer> <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
+  au FileType c,cpp nnoremap <buffer> <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
 augroup end
 
 " nnoremap viB [[%v%jok$
@@ -1546,36 +1593,38 @@ augroup end
 """        Java
 
 augroup JavaMaps
-	au!
-	au FileType java,groovy inoremap <buffer> ,if if ()<cr>{<cr>}<c-o>2<up><c-o>f)
-	au FileType java,groovy inoremap <buffer> ,wh while ()<cr>{<cr>}<c-o>2<up><c-o>f)
-	au FileType java,groovy inoremap <buffer> ,imin -2147483648
-	au FileType java,groovy inoremap <buffer> ,imax 2147483647
+  au!
+  au FileType java,groovy nnoremap <buffer> <leader>cg :Shell gradle run<cr>
 
-	au FileType java,groovy nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
-	" if to ternary operator
-	au FileType java,groovy nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
-	au FileType java,groovy nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
-	au FileType java,groovy nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
+  au FileType java,groovy inoremap <buffer> ,if if ()<cr>{<cr>}<c-o>2<up><c-o>f)
+  au FileType java,groovy inoremap <buffer> ,wh while ()<cr>{<cr>}<c-o>2<up><c-o>f)
+  au FileType java,groovy inoremap <buffer> ,imin -2147483648
+  au FileType java,groovy inoremap <buffer> ,imax 2147483647
 
-	" auto close brackets
-	au FileType java,groovy inoremap <buffer> { {}<c-g>U<left>
-	au FileType java,groovy inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-	au FileType java,groovy inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+  au FileType java,groovy nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
+  " if to ternary operator
+  au FileType java,groovy nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
+  au FileType java,groovy nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
+  au FileType java,groovy nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
-	" brackets auround paragraph
-	au FileType java,groovy nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
-	au FileType java,groovy nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
+  " auto close brackets
+  au FileType java,groovy inoremap <buffer> { {}<c-g>U<left>
+  au FileType java,groovy inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+  au FileType java,groovy inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
-	"  name of current function (needs '()')
-	au FileType java,groovy nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
+  " brackets auround paragraph
+  au FileType java,groovy nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
+  au FileType java,groovy nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
-	" semicolon/coma EOL toggle
-	au FileType java,groovy nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
-	au FileType java,groovy nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
+  "  name of current function (needs '()')
+  au FileType java,groovy nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
-	" select allext in function
-	au FileType java,groovy nnoremap <buffer> <leader>vf j[[V%o
+  " semicolon/coma EOL toggle
+  au FileType java,groovy nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
+  au FileType java,groovy nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
+
+  " select allext in function
+  au FileType java,groovy nnoremap <buffer> <leader>vf j[[V%o
 augroup end
 
 " nnoremap viB [[%v%jok$
@@ -1603,174 +1652,174 @@ augroup end
 """        JavaScript
 
 augroup JSmaps
-	au!
-	au FileType javascript nnoremap <buffer> <leader>cr :Run<cr>
-	au FileType javascript nnoremap <buffer> <leader>ca :AutoRun<cr>
-	au FileType javascript nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
-	au FileType javascript nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
-	au FileType javascript nnoremap <buffer> <leader>cc :Shell node %<cr>
-	au FileType javascript nnoremap <buffer> <leader>ls :!live-server %<cr>
-	au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
-	au FileType javascript inoremap <buffer> ,fo for ()<cr>{<cr>}<esc>2k3==f)i
-	au FileType javascript inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
-	au FileType javascript inoremap <buffer> ,cl console.log();<esc>F)i
-	au FileType javascript nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
-	au FileType javascript vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
+  au!
+  au FileType javascript nnoremap <buffer> <leader>cr :Run<cr>
+  au FileType javascript nnoremap <buffer> <leader>ca :AutoRun<cr>
+  au FileType javascript nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
+  au FileType javascript nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
+  au FileType javascript nnoremap <buffer> <leader>cc :Shell node %<cr>
+  au FileType javascript nnoremap <buffer> <leader>ls :!live-server %<cr>
+  au FileType javascript inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
+  au FileType javascript inoremap <buffer> ,fo for ()<cr>{<cr>}<esc>2k3==f)i
+  au FileType javascript inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
+  au FileType javascript inoremap <buffer> ,cl console.log();<esc>F)i
+  au FileType javascript nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
+  au FileType javascript vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
 
-	" auto close brackets
-	au FileType javascript inoremap <buffer> { {}<c-g>U<left>
-	au FileType javascript inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-	au FileType javascript inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+  " auto close brackets
+  au FileType javascript inoremap <buffer> { {}<c-g>U<left>
+  au FileType javascript inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+  au FileType javascript inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
 augroup end
 
 """        Json
 
 augroup Jsonmaps
-	au!
-	au FileType json nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
-	au FileType json nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
+  au!
+  au FileType json nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
+  au FileType json nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
 
-	" auto close brackets
-	au FileType json inoremap <buffer> { {}<c-g>U<left>
-	au FileType json inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-	au FileType json inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+  " auto close brackets
+  au FileType json inoremap <buffer> { {}<c-g>U<left>
+  au FileType json inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+  au FileType json inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
 augroup end
 
 """        PHP/HTML/CSS
 
 augroup Webmaps
-	au!
-	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<strong><c-o>P</strong><esc>T<
-	au FileType php,html,json nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
+  au!
+  au FileType php,html,json nnoremap <buffer> <leader>xst ciw<strong><c-o>P</strong><esc>T<
+  au FileType php,html,json nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
 
-	au FileType css nnoremap <buffer> <c-w>u :40 wincmd\|<cr>
+  au FileType css nnoremap <buffer> <c-w>u :40 wincmd\|<cr>
 
-	" auto close brackets
-	au FileType css inoremap <buffer> { {}<c-g>U<left>
-	au FileType css inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-	au FileType css inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+  " auto close brackets
+  au FileType css inoremap <buffer> { {}<c-g>U<left>
+  au FileType css inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+  au FileType css inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
-	au FileType php,html inoremap <buffer> ,php <?php<cr>?><esc>O
-	au FileType php,html inoremap <buffer> ,bo <body></body><esc>F<i
-	au FileType php,html inoremap <buffer> ,h1 <h1></h1><esc>F<i
-	au FileType php,html inoremap <buffer> ,h2 <h2></h2><esc>F<i
-	au FileType php,html inoremap <buffer> ,h3 <h3></h3><esc>F<i
-	au FileType php,html inoremap <buffer> ,h4 <h4></h4><esc>F<i
-	au FileType php,html inoremap <buffer> ,h5 <h5></h5><esc>F<i
-	au FileType php,html inoremap <buffer> ,h6 <h6></h6><esc>F<i
-	au FileType php,html inoremap <buffer> ,pp <p></p><esc>F<i
-	au FileType php,html inoremap <buffer> ,br <br/>
-	au FileType php,html inoremap <buffer> ,aa <a href="" alt=""></a><esc>F<i
-	au FileType php,html inoremap <buffer> ,img <img src="" alt=""></img><esc>F<i
-	au FileType php,html inoremap <buffer> ,uu <u></u><esc>F<i
-	au FileType php,html inoremap <buffer> ,ii <i></i><esc>F<i
-	au FileType php,html inoremap <buffer> ,bb <b></b><esc>F<i
-	au FileType php,html inoremap <buffer> ,sk <strike></strike><esc>F<i
-	au FileType php,html inoremap <buffer> ,sup <sup></sup><esc>F<i
-	au FileType php,html inoremap <buffer> ,sub <sub></sub><esc>F<i
-	au FileType php,html inoremap <buffer> ,sm <small></small><esc>F<i
-	au FileType php,html inoremap <buffer> ,tt <tt></tt><esc>F<i
-	au FileType php,html inoremap <buffer> ,pre <pre></pre><esc>F<i
-	au FileType php,html inoremap <buffer> ,bq <blockquote></blockquote><esc>F<i
-	au FileType php,html inoremap <buffer> ,st <strong></strong><esc>F<i
-	au FileType php,html inoremap <buffer> ,em <em></em><esc>F<i
-	au FileType php,html inoremap <buffer> ,ol <ol></ol><esc>F<i
-	au FileType php,html inoremap <buffer> ,dd <dd></dd><esc>F<i
-	au FileType php,html inoremap <buffer> ,dt <dt></dt><esc>F<i
-	au FileType php,html inoremap <buffer> ,dl <dl></dl><esc>F<i
-	au FileType php,html inoremap <buffer> ,ul <ul></ul><esc>F<i
-	au FileType php,html inoremap <buffer> ,li <li></li><esc>F<i
-	au FileType php,html inoremap <buffer> ,hr <hr></hr><esc>F<i
-	au FileType php,html inoremap <buffer> ,di <div></div><esc>F<i
-	au FileType php,html inoremap <buffer> ,sp <span></span><esc>F<i
-	au FileType php,html inoremap <buffer> ,se <select></select><esc>F<i
-	au FileType php,html inoremap <buffer> ,op <optionlect></optionlect><esc>F<i
-	au FileType php,html inoremap <buffer> ,tx <textarealect></textarealect><esc>F<i
+  au FileType php,html inoremap <buffer> ,php <?php<cr>?><esc>O
+  au FileType php,html inoremap <buffer> ,bo <body></body><esc>F<i
+  au FileType php,html inoremap <buffer> ,h1 <h1></h1><esc>F<i
+  au FileType php,html inoremap <buffer> ,h2 <h2></h2><esc>F<i
+  au FileType php,html inoremap <buffer> ,h3 <h3></h3><esc>F<i
+  au FileType php,html inoremap <buffer> ,h4 <h4></h4><esc>F<i
+  au FileType php,html inoremap <buffer> ,h5 <h5></h5><esc>F<i
+  au FileType php,html inoremap <buffer> ,h6 <h6></h6><esc>F<i
+  au FileType php,html inoremap <buffer> ,pp <p></p><esc>F<i
+  au FileType php,html inoremap <buffer> ,br <br/>
+  au FileType php,html inoremap <buffer> ,aa <a href="" alt=""></a><esc>F<i
+  au FileType php,html inoremap <buffer> ,img <img src="" alt=""></img><esc>F<i
+  au FileType php,html inoremap <buffer> ,uu <u></u><esc>F<i
+  au FileType php,html inoremap <buffer> ,ii <i></i><esc>F<i
+  au FileType php,html inoremap <buffer> ,bb <b></b><esc>F<i
+  au FileType php,html inoremap <buffer> ,sk <strike></strike><esc>F<i
+  au FileType php,html inoremap <buffer> ,sup <sup></sup><esc>F<i
+  au FileType php,html inoremap <buffer> ,sub <sub></sub><esc>F<i
+  au FileType php,html inoremap <buffer> ,sm <small></small><esc>F<i
+  au FileType php,html inoremap <buffer> ,tt <tt></tt><esc>F<i
+  au FileType php,html inoremap <buffer> ,pre <pre></pre><esc>F<i
+  au FileType php,html inoremap <buffer> ,bq <blockquote></blockquote><esc>F<i
+  au FileType php,html inoremap <buffer> ,st <strong></strong><esc>F<i
+  au FileType php,html inoremap <buffer> ,em <em></em><esc>F<i
+  au FileType php,html inoremap <buffer> ,ol <ol></ol><esc>F<i
+  au FileType php,html inoremap <buffer> ,dd <dd></dd><esc>F<i
+  au FileType php,html inoremap <buffer> ,dt <dt></dt><esc>F<i
+  au FileType php,html inoremap <buffer> ,dl <dl></dl><esc>F<i
+  au FileType php,html inoremap <buffer> ,ul <ul></ul><esc>F<i
+  au FileType php,html inoremap <buffer> ,li <li></li><esc>F<i
+  au FileType php,html inoremap <buffer> ,hr <hr></hr><esc>F<i
+  au FileType php,html inoremap <buffer> ,di <div></div><esc>F<i
+  au FileType php,html inoremap <buffer> ,sp <span></span><esc>F<i
+  au FileType php,html inoremap <buffer> ,se <select></select><esc>F<i
+  au FileType php,html inoremap <buffer> ,op <optionlect></optionlect><esc>F<i
+  au FileType php,html inoremap <buffer> ,tx <textarealect></textarealect><esc>F<i
 
-	au FileType php,html inoremap <buffer> ,fo <form action="" method=""><return><input type="text" name=""><return></form>
-	au FileType php,html inoremap <buffer> ,fg <form action="" method="get"><return><input type="text" name=""><return></form>
-	au FileType php,html inoremap <buffer> ,fp <form action="" method="post"><return><input type="text" name=""><return></form>
-	au FileType php,html inoremap <buffer> ,in <input type="" name="" value=""></input><esc>F<i
+  au FileType php,html inoremap <buffer> ,fo <form action="" method=""><return><input type="text" name=""><return></form>
+  au FileType php,html inoremap <buffer> ,fg <form action="" method="get"><return><input type="text" name=""><return></form>
+  au FileType php,html inoremap <buffer> ,fp <form action="" method="post"><return><input type="text" name=""><return></form>
+  au FileType php,html inoremap <buffer> ,in <input type="" name="" value=""></input><esc>F<i
 
-	au FileType php,html inoremap <buffer> ,ec echo "";<esc>hi
-	au FileType php,html inoremap <buffer> ,ge $_GET[""]<esc>hi
-	au FileType php,html inoremap <buffer> ,po $_POST[""]<esc>hi
-	au FileType php,html inoremap <buffer> ,lorem Lorem ipsum dolor sit amet,
-				\ consectetuer adipiscing elit, sed diam nonummy nibh
-				\ euismod tincidunt ut laoreet dolore magna aliquam erat
-				\ volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-				\ tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-				\ commodo consequat. Duis autem vel eum iriure dolor in
-				\ hendrerit in vulputate velit esse molestie consequat, vel
-				\ illum dolore eu feugiat nulla facilisis at vero eros et
-				\ accumsan et iusto odio dignissim qui blandit praesent
-				\ luptatum zzril delenit augue duis dolore te feugait nulla
-				\ facilisi.
+  au FileType php,html inoremap <buffer> ,ec echo "";<esc>hi
+  au FileType php,html inoremap <buffer> ,ge $_GET[""]<esc>hi
+  au FileType php,html inoremap <buffer> ,po $_POST[""]<esc>hi
+  au FileType php,html inoremap <buffer> ,lorem Lorem ipsum dolor sit amet,
+        \ consectetuer adipiscing elit, sed diam nonummy nibh
+        \ euismod tincidunt ut laoreet dolore magna aliquam erat
+        \ volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+        \ tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
+        \ commodo consequat. Duis autem vel eum iriure dolor in
+        \ hendrerit in vulputate velit esse molestie consequat, vel
+        \ illum dolore eu feugiat nulla facilisis at vero eros et
+        \ accumsan et iusto odio dignissim qui blandit praesent
+        \ luptatum zzril delenit augue duis dolore te feugait nulla
+        \ facilisi.
 
-	au FileType php,html nnoremap <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
-	au FileType php,html nnoremap <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
+  au FileType php,html nnoremap <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
+  au FileType php,html nnoremap <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
 augroup end
 
 """        LATEX
 
 augroup LatexSmith
-	au!
-	" Navigating with guides
-	au FileType plaintex,tex silent inoremap <buffer> ,, <esc>/<++><cr>"_4s
-	au FileType plaintex,tex silent vnoremap <buffer> ,, <esc>/<++><cr>"_4s
-	au FileType plaintex,tex silent map <buffer> ,, <esc>/<++><cr>"_4s
+  au!
+  " Navigating with guides
+  au FileType plaintex,tex silent inoremap <buffer> ,, <esc>/<++><cr>"_4s
+  au FileType plaintex,tex silent vnoremap <buffer> ,, <esc>/<++><cr>"_4s
+  au FileType plaintex,tex silent map <buffer> ,, <esc>/<++><cr>"_4s
 
-	au FileType plaintex,tex silent nnoremap <buffer> <leader>ll :LLPStartPreview
+  au FileType plaintex,tex silent nnoremap <buffer> <leader>ll :LLPStartPreview
 
-	" Latex snippets
-	au FileType plaintex,tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><esc>6kf}i
-	au FileType plaintex,tex inoremap <buffer> ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><esc>3kA
-	au FileType plaintex,tex inoremap <buffer> ,exe \begin{exe}<Enter>\ex<space><Enter>\end{exe}<Enter><Enter><++><esc>3kA
-	au FileType plaintex,tex inoremap <buffer> ,em \emph{}<++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,bf \textbf{}<++><esc>T{i
-	au FileType plaintex,tex vnoremap <buffer> , <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
-	au FileType plaintex,tex inoremap <buffer> ,it \textit{}<++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,ct \textcite{}<++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,cp \parencite{}<++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,glos {\gll<space><++><space>\\<Enter><++><space>\\<Enter>\trans{``<++>''}}<esc>2k2bcw
-	au FileType plaintex,tex inoremap <buffer> ,x \begin{xlist}<Enter>\ex<space><Enter>\end{xlist}<esc>kA<space>
-	au FileType plaintex,tex inoremap <buffer> ,ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><esc>3kA\item<space>
-	au FileType plaintex,tex inoremap <buffer> ,ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><esc>3kA\item<space>
-	au FileType plaintex,tex inoremap <buffer> ,li <Enter>\item<space>
-	au FileType plaintex,tex inoremap <buffer> ,dc <Enter>\documentclass<space>
-	au FileType plaintex,tex inoremap <buffer> ,doc <Enter>\documentation<space>
-	au FileType plaintex,tex inoremap <buffer> ,ref \ref{}<space><++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><esc>4kA{}<esc>i
-	au FileType plaintex,tex inoremap <buffer> ,ot \begin{tableau}<Enter>\inp{<++>}<tab>\const{<++>}<tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><esc>5kA{}<esc>i
-	au FileType plaintex,tex inoremap <buffer> ,can \cand{}<tab><++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,con \const{}<tab><++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,v \vio{}<tab><++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,a \href{}{<++>}<space><++><esc>2T{i
-	au FileType plaintex,tex inoremap <buffer> ,sc \textsc{}<space><++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,chap \chapter{}<Enter><Enter><++><esc>2kf}i
-	au FileType plaintex,tex inoremap <buffer> ,sec \section{}<Enter><Enter><++><esc>2kf}i
-	au FileType plaintex,tex inoremap <buffer> ,ssec \subsection{}<Enter><Enter><++><esc>2kf}i
-	au FileType plaintex,tex inoremap <buffer> ,sssec \subsubsection{}<Enter><Enter><++><esc>2kf}i
-	au FileType plaintex,tex inoremap <buffer> ,st <esc>F{i*<esc>f}i
-	au FileType plaintex,tex inoremap <buffer> ,beg \begin{}<Enter><++><Enter>\end{}<Enter><Enter><++><esc>4k0f{a
-	au FileType plaintex,tex inoremap <buffer> ,up <esc>/usepackage<Enter>o\usepackage{}<esc>i
-	au FileType plaintex,tex nnoremap <buffer> ,up /usepackage<Enter>o\usepackage{}<esc>i
-	au FileType plaintex,tex inoremap <buffer> ,tt \texttt{}<space><++><esc>T{i
-	au FileType plaintex,tex inoremap <buffer> ,bt {\blindtext}
-	au FileType plaintex,tex inoremap <buffer> ,nu $\varnothing$
-	au FileType plaintex,tex inoremap <buffer> ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<esc>5kA
-	au FileType plaintex,tex inoremap <buffer> ,rn (\ref{})<++><esc>F}i
+  " Latex snippets
+  au FileType plaintex,tex inoremap <buffer> ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><esc>6kf}i
+  au FileType plaintex,tex inoremap <buffer> ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><esc>3kA
+  au FileType plaintex,tex inoremap <buffer> ,exe \begin{exe}<Enter>\ex<space><Enter>\end{exe}<Enter><Enter><++><esc>3kA
+  au FileType plaintex,tex inoremap <buffer> ,em \emph{}<++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,bf \textbf{}<++><esc>T{i
+  au FileType plaintex,tex vnoremap <buffer> , <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
+  au FileType plaintex,tex inoremap <buffer> ,it \textit{}<++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,ct \textcite{}<++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,cp \parencite{}<++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,glos {\gll<space><++><space>\\<Enter><++><space>\\<Enter>\trans{``<++>''}}<esc>2k2bcw
+  au FileType plaintex,tex inoremap <buffer> ,x \begin{xlist}<Enter>\ex<space><Enter>\end{xlist}<esc>kA<space>
+  au FileType plaintex,tex inoremap <buffer> ,ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><esc>3kA\item<space>
+  au FileType plaintex,tex inoremap <buffer> ,ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><esc>3kA\item<space>
+  au FileType plaintex,tex inoremap <buffer> ,li <Enter>\item<space>
+  au FileType plaintex,tex inoremap <buffer> ,dc <Enter>\documentclass<space>
+  au FileType plaintex,tex inoremap <buffer> ,doc <Enter>\documentation<space>
+  au FileType plaintex,tex inoremap <buffer> ,ref \ref{}<space><++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><esc>4kA{}<esc>i
+  au FileType plaintex,tex inoremap <buffer> ,ot \begin{tableau}<Enter>\inp{<++>}<tab>\const{<++>}<tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><esc>5kA{}<esc>i
+  au FileType plaintex,tex inoremap <buffer> ,can \cand{}<tab><++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,con \const{}<tab><++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,v \vio{}<tab><++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,a \href{}{<++>}<space><++><esc>2T{i
+  au FileType plaintex,tex inoremap <buffer> ,sc \textsc{}<space><++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,chap \chapter{}<Enter><Enter><++><esc>2kf}i
+  au FileType plaintex,tex inoremap <buffer> ,sec \section{}<Enter><Enter><++><esc>2kf}i
+  au FileType plaintex,tex inoremap <buffer> ,ssec \subsection{}<Enter><Enter><++><esc>2kf}i
+  au FileType plaintex,tex inoremap <buffer> ,sssec \subsubsection{}<Enter><Enter><++><esc>2kf}i
+  au FileType plaintex,tex inoremap <buffer> ,st <esc>F{i*<esc>f}i
+  au FileType plaintex,tex inoremap <buffer> ,beg \begin{}<Enter><++><Enter>\end{}<Enter><Enter><++><esc>4k0f{a
+  au FileType plaintex,tex inoremap <buffer> ,up <esc>/usepackage<Enter>o\usepackage{}<esc>i
+  au FileType plaintex,tex nnoremap <buffer> ,up /usepackage<Enter>o\usepackage{}<esc>i
+  au FileType plaintex,tex inoremap <buffer> ,tt \texttt{}<space><++><esc>T{i
+  au FileType plaintex,tex inoremap <buffer> ,bt {\blindtext}
+  au FileType plaintex,tex inoremap <buffer> ,nu $\varnothing$
+  au FileType plaintex,tex inoremap <buffer> ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<esc>5kA
+  au FileType plaintex,tex inoremap <buffer> ,rn (\ref{})<++><esc>F}i
 augroup end
 
 """        Markdown
 
 augroup MarkdownMaps
-	au!
-	au FileType markdown nnoremap <buffer> <leader>cr :Run<cr>
-	au FileType markdown nnoremap <buffer> <leader>ca :AutoRun<cr>
-	" au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
+  au!
+  au FileType markdown nnoremap <buffer> <leader>cr :Run<cr>
+  au FileType markdown nnoremap <buffer> <leader>ca :AutoRun<cr>
+  " au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
 ""    Operators
@@ -1785,8 +1834,8 @@ onoremap il :<c-u>normal! lv$<cr>
 onoremap i. :<c-u>normal! T.vt.<cr>
 onoremap a. :<c-u>normal! F.vf.<cr>
 
-onoremap i, :<c-u>normal, T,vt,<cr>
-onoremap a, :<c-u>normal, F,vf,<cr>
+onoremap i, :<c-u>normal! T,vt,<cr>
+onoremap a, :<c-u>normal! F,vf,<cr>
 
 onoremap i: :<c-u>normal! T:vt:<cr>
 onoremap a: :<c-u>normal! F:vf:<cr>
@@ -1890,10 +1939,10 @@ onoremap an- :<c-u>normal! f-vf-<cr>
 onoremap iN- :<c-u>normal! F-hvT-<cr>
 onoremap aN- :<c-u>normal! F-vF-<cr>
 
-onoremap in, :<c-u>normal, f,lvt,<cr>
-onoremap an, :<c-u>normal, f,vf,<cr>
-onoremap iN, :<c-u>normal, F,hvT,<cr>
-onoremap aN, :<c-u>normal, F,vF,<cr>
+onoremap in, :<c-u>normal! f,lvt,<cr>
+onoremap an, :<c-u>normal! f,vf,<cr>
+onoremap iN, :<c-u>normal! F,hvT,<cr>
+onoremap aN, :<c-u>normal! F,vF,<cr>
 
 onoremap in* :<c-u>normal! f*lvt*<cr>
 onoremap an* :<c-u>normal! f*vf*<cr>
@@ -1914,59 +1963,59 @@ onoremap aN$ :<c-u>normal! F$vF$<cr>
 """        Basic headers
 
 augroup Headers
-	au!
-	au BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
-	au BufNewFile *.html 0r $HOME/.vim/skel/html_header
+  au!
+  au BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
+  au BufNewFile *.html 0r $HOME/.vim/skel/html_header
 augroup end
 
 """        Auto protect c header
 
 if !exists("autocommands_loaded")
-	let autocommands_loaded = 1
-	au BufNewFile *.h call InsertCHHeader()
+  let autocommands_loaded = 1
+  au BufNewFile *.h call InsertCHHeader()
 endif
 
 function! InsertCHHeader() abort
-	let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
-	" Save cpoptions
-	let cpoptions = &cpoptions
-	" Remove the 'a' option - prevents the name of the
-	" alternate file being overwritten with a :read command
-	exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-	exe "read " . path_to_skeletons
-	" Restore cpoptions
-	exe "set cpoptions=" . cpoptions
-	1, 1 delete _
+  let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
+  " Save cpoptions
+  let cpoptions = &cpoptions
+  " Remove the 'a' option - prevents the name of the
+  " alternate file being overwritten with a :read command
+  exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+  exe "read " . path_to_skeletons
+  " Restore cpoptions
+  exe "set cpoptions=" . cpoptions
+  1, 1 delete _
 
-	let fname = expand("%:t")
-	let fname = toupper(fname)
-	let fname = substitute(fname, "\\.", "_", "g")
-	%s/HEADERNAME/\=fname/g
+  let fname = expand("%:t")
+  let fname = toupper(fname)
+  let fname = substitute(fname, "\\.", "_", "g")
+  %s/HEADERNAME/\=fname/g
 endfunction
 
 """        42Header
 
 " let s:asciiart = [
-" 			\"               /          ",
-" 			\"     .::    .:/ .      .::",
-" 			\"  +:+:+   +:    +:  +:+:+ ",
-" 			\"   +:+   +:    +:    +:+  ",
-" 			\"  #+#   #+    #+    #+#   ",
-" 			\" #+#   ##    ##    #+#    ",
-" 			\"###    #+. /#+    ###.fr  ",
-" 			\"          /               ",
-" 			\"         /                ",
-" 			\"           LE - /         "
-" 			\]
+"       \"               /          ",
+"       \"     .::    .:/ .      .::",
+"       \"  +:+:+   +:    +:  +:+:+ ",
+"       \"   +:+   +:    +:    +:+  ",
+"       \"  #+#   #+    #+    #+#   ",
+"       \" #+#   ##    ##    #+#    ",
+"       \"###    #+. /#+    ###.fr  ",
+"       \"          /               ",
+"       \"         /                ",
+"       \"           LE - /         "
+"       \]
 
 " let s:asciiart = [
-" 			\":.:      .: .:  .:      .:",
-" 			\" :+:   :+: +:+ +:+:   :+:+",
-" 			\"  +:+ +:+  +:+ +:+:+ +:+:+",
-" 			\"    #+#    #+# #+# #+# #+#",
-" 			\"     +     #+# #+#  +  #+#",
-" 			\""
-" 			\]
+"       \":.:      .: .:  .:      .:",
+"       \" :+:   :+: +:+ +:+:   :+:+",
+"       \"  +:+ +:+  +:+ +:+:+ +:+:+",
+"       \"    #+#    #+# #+# #+# #+#",
+"       \"     +     #+# #+#  +  #+#",
+"       \""
+"       \]
 
 " :.:     :.: :.: :.:     :.:
 "  :+:   :+:  +:+ +:+:   :+:+
@@ -1976,136 +2025,136 @@ endfunction
 "      +      #+# #+#  +  #+#
 
 let s:asciiart = [
-			\"        :::      ::::::::",
-			\"      :+:      :+:    :+:",
-			\"    +:+ +:+         +:+  ",
-			\"  +#+  +:+       +#+     ",
-			\"+#+#+#+#+#+   +#+        ",
-			\"     #+#    #+#          ",
-			\"    ###   ########lyon.fr"
-			\]
+      \"        :::      ::::::::",
+      \"      :+:      :+:    :+:",
+      \"    +:+ +:+         +:+  ",
+      \"  +#+  +:+       +#+     ",
+      \"+#+#+#+#+#+   +#+        ",
+      \"     #+#    #+#          ",
+      \"    ###   ########lyon.fr"
+      \]
 
-let s:start		= '/*'
-let s:end		= '*/'
-let s:fill		= '*'
-let s:length	= 80
-let s:margin	= 5
+let s:start    = '/*'
+let s:end    = '*/'
+let s:fill    = '*'
+let s:length  = 80
+let s:margin  = 5
 
-let s:types		= {
-			\'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
-			\['/*', '*/', '*'],
-			\'\.htm$\|\.html$\|\.xml$':
-			\['<!--', '-->', '*'],
-			\'\.js$':
-			\['//', '//', '*'],
-			\'\.tex$':
-			\['%', '%', '*'],
-			\'\.ml$\|\.mli$\|\.mll$\|\.mly$':
-			\['(*', '*)', '*'],
-			\'\.vim$\|\vimrc$':
-			\['"', '"', '*'],
-			\'\.el$\|\emacs$':
-			\[';', ';', '*'],
-			\'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
-			\['!', '!', '/']
-			\}
+let s:types    = {
+      \'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
+      \['/*', '*/', '*'],
+      \'\.htm$\|\.html$\|\.xml$':
+      \['<!--', '-->', '*'],
+      \'\.js$':
+      \['//', '//', '*'],
+      \'\.tex$':
+      \['%', '%', '*'],
+      \'\.ml$\|\.mli$\|\.mll$\|\.mly$':
+      \['(*', '*)', '*'],
+      \'\.vim$\|\vimrc$':
+      \['"', '"', '*'],
+      \'\.el$\|\emacs$':
+      \[';', ';', '*'],
+      \'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
+      \['!', '!', '/']
+      \}
 
 function! s:filetype() abort
-	let l:f = s:filename()
-	let s:start	= '#'
-	let s:end	= '#'
-	let s:fill	= '*'
-	for type in keys(s:types)
-		if l:f =~ type
-			let s:start	= s:types[type][0]
-			let s:end	= s:types[type][1]
-			let s:fill	= s:types[type][2]
-		endif
-	endfor
+  let l:f = s:filename()
+  let s:start  = '#'
+  let s:end  = '#'
+  let s:fill  = '*'
+  for type in keys(s:types)
+    if l:f =~ type
+      let s:start  = s:types[type][0]
+      let s:end  = s:types[type][1]
+      let s:fill  = s:types[type][2]
+    endif
+  endfor
 endfunction
 
 function! s:ascii(n) abort
-	return s:asciiart[a:n - 3]
+  return s:asciiart[a:n - 3]
 endfunction
 
 function! s:textline(left, right)
-	let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
-	return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
+  let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
+  return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
 endfunction
 
 function! s:line(n) abort
-	if a:n == 1 || a:n == 11 " top and bottom line
-		return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
-	elseif a:n == 2 || a:n == 10 " blank line
-		return s:textline('', '')
-	elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
-		return s:textline('', s:ascii(a:n))
-	elseif a:n == 4 " filename
-		return s:textline(s:filename(), s:ascii(a:n))
-	elseif a:n == 6 " author
-		return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
-	elseif a:n == 8 " created
-		return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
-	elseif a:n == 9 " updated
-		return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
-	endif
+  if a:n == 1 || a:n == 11 " top and bottom line
+    return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
+  elseif a:n == 2 || a:n == 10 " blank line
+    return s:textline('', '')
+  elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
+    return s:textline('', s:ascii(a:n))
+  elseif a:n == 4 " filename
+    return s:textline(s:filename(), s:ascii(a:n))
+  elseif a:n == 6 " author
+    return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
+  elseif a:n == 8 " created
+    return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
+  elseif a:n == 9 " updated
+    return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
+  endif
 endfunction
 
 function! s:user() abort
-	let l:user = $USER
-	if strlen(l:user) == 0
-		let l:user = "trx"
-	endif
-	return l:user
+  let l:user = $USER
+  if strlen(l:user) == 0
+    let l:user = "trx"
+  endif
+  return l:user
 endfunction
 
 function! s:mail() abort
-	let l:mail = $MAIL
-	if strlen(l:mail) == 0
-		let l:mail = "tristan.kapous@protonmail.com"
-	endif
-	return l:mail
+  let l:mail = $MAIL
+  if strlen(l:mail) == 0
+    let l:mail = "tristan.kapous@protonmail.com"
+  endif
+  return l:mail
 endfunction
 
 function! s:filename() abort
-	let l:filename = expand("%:t")
-	if strlen(l:filename) == 0
-		let l:filename = "< new >"
-	endif
-	return l:filename
+  let l:filename = expand("%:t")
+  if strlen(l:filename) == 0
+    let l:filename = "< new >"
+  endif
+  return l:filename
 endfunction
 
 function! s:date() abort
-	return strftime("%Y/%m/%d %H:%M:%S")
+  return strftime("%Y/%m/%d %H:%M:%S")
 endfunction
 
 function! s:insert() abort
-	let l:line = 11
-	" empty line after header
-	call append(0, "")
-	" loop over lines
-	while l:line > 0
-		call append(0, s:line(l:line))
-		let l:line = l:line - 1
-	endwhile
+  let l:line = 11
+  " empty line after header
+  call append(0, "")
+  " loop over lines
+  while l:line > 0
+    call append(0, s:line(l:line))
+    let l:line = l:line - 1
+  endwhile
 endfunction
 
 function! s:update() abort
-	call s:filetype()
-	if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
-		if &mod
-			call setline(9, s:line(9))
-		endif
-		call setline(4, s:line(4))
-		return 0
-	endif
-	return 1
+  call s:filetype()
+  if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
+    if &mod
+      call setline(9, s:line(9))
+    endif
+    call setline(4, s:line(4))
+    return 0
+  endif
+  return 1
 endfunction
 
 function! Header101() abort
-	if s:update()
-		call s:insert()
-	endif
+  if s:update()
+    call s:insert()
+  endif
 endfunction
 
 " Bind command and shortcut
@@ -2117,38 +2166,38 @@ nnoremap <silent> <leader>h1 :Header101<cr>
 """        Signature
 
 function! MailSignature() abort
-	let firstname = "Tristan"
-	let surname = "Kapous"
-	let email = "<tris@tristankapous.com>"
-	let prefix = "--"
+  let firstname = "Tristan"
+  let surname = "Kapous"
+  let email = "<tris@tristankapous.com>"
+  let prefix = "--"
 
-	let signature_undated = prefix . " " . firstname . " " . surname . " " . email
-	if getline('$') =~ '^.*'.signature_undated
-		:$d
-	endif
+  let signature_undated = prefix . " " . firstname . " " . surname . " " . email
+  if getline('$') =~ '^.*'.signature_undated
+    :$d
+  endif
 
-	let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
-	call append('$', signature)
+  let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
+  call append('$', signature)
 endfunction
 
 function! DebianLogSignature() abort
-	let firstname = "Tristan"
-	let surname = "Kapous"
-	let email = "<tris@tristankapous.com>"
-	let prefix = "--"
+  let firstname = "Tristan"
+  let surname = "Kapous"
+  let email = "<tris@tristankapous.com>"
+  let prefix = "--"
 
-	let signature_undated = prefix . " " . firstname . " " . surname . " " . email
-	let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
-	if getline('.') =~ '^.*'.signature_undated
-		call setline('.', signature)
-	else
-		call append('.', signature)
-	endif
+  let signature_undated = prefix . " " . firstname . " " . surname . " " . email
+  let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
+  if getline('.') =~ '^.*'.signature_undated
+    call setline('.', signature)
+  else
+    call append('.', signature)
+  endif
 endfunction
 
 " augroup SignOnSave
-" 	au!
-" 	au BufWritePre * call SignatureTime() | normal <c-o><c-o>
+"   au!
+"   au BufWritePre * call SignatureTime() | normal! <c-o><c-o>
 " augroup end
 
 ""    Dotfiles settings
@@ -2163,40 +2212,41 @@ augroup end
 """        Vimrc mappings
 
 augroup VimrcMaps
-	au!
-	au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>zm100<c-y>
-	au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
-	au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
-	au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
-	au FileType vim inoremap <buffer> ,'''<space> """<space><space><space><space><space><space><space><space>
+  au!
+  au FileType vim silent nnoremap <buffer> zM :setlocal foldlevel=0<cr>zm100<c-y>
+  au FileType vim inoremap <buffer> ,""<space> ""<space><space><space><space>
+  au FileType vim inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
+  au FileType vim inoremap <buffer> ,''<space> ""<space><space><space><space>
+  au FileType vim inoremap <buffer> ,'''<space> """<space><space><space><space><space><space><space><space>
 augroup end
 
 """        Vimrc folding
 
 function! VimFold() abort
-	let line = getline(v:foldstart)
+  let line = getline(v:foldstart)
 
-	let nucolwidth = &fdc + &number * &numberwidth
-	let windowwidth = winwidth(0) - nucolwidth - 4
-	if windowwidth > 79
-		let windowwidth = 79
-	endif
-	let foldedlinecount = v:foldend - v:foldstart
-	" expand tabs into spaces
-	let onetab = strpart('          ', 0, &tabstop)
-	let line = substitute(line, '\t', onetab, 'g')
-	let longbreak=" "
-	let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
-	if len(line) > windowwidth - 15
-		let line=line[0:windowwidth - 15]
-		let longbreak="¬"
-	endif
-	let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-	return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
+  let nucolwidth = &fdc + &number * &numberwidth
+  let windowwidth = winwidth(0) - nucolwidth - 4
+  if windowwidth > 79
+    let windowwidth = 79
+  endif
+  let foldedlinecount = v:foldend - v:foldstart
+  " expand tabs into spaces
+  let onetab = strpart('          ', 0, &tabstop)
+  let line = substitute(line, '\t', onetab, 'g')
+  let longbreak=" "
+  let line = strpart(line, 0, windowwidth - 2 - len(foldedlinecount))
+  if len(line) > windowwidth - 15
+    let line=line[0:windowwidth - 15]
+    let longbreak="¬"
+  endif
+  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+  return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
 endfunction
 
 """        Vimrc modeline
 
-" vim:tw=0:ts=4:sts=4:shiftwidth=4
+" vim:expandtab
+" vim:tw=0:ts=2:sts=2:shiftwidth=2
 " vim:foldmethod=expr:foldtext=VimFold()
 " vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
