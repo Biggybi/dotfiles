@@ -1069,10 +1069,13 @@ nnoremap <silent> k gk
 xnoremap <silent> j gj
 xnoremap <silent> k gk
 
+nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
+vnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
+nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "gE" : "B"
+vnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "gE" : "B"
+
 nnoremap H ^
 nnoremap L $
-nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
-nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "gE" : "B"
 nnoremap <c-k> {
 nnoremap <c-j> }
 nnoremap <c-q> :redraw!<cr>
@@ -1083,8 +1086,6 @@ nnoremap <leader>[ :bp<cr>
 
 vnoremap H ^
 vnoremap L g_
-vnoremap <c-h> B
-vnoremap <c-l> E
 vnoremap <c-k> {
 vnoremap <c-j> }
 
