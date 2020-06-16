@@ -2200,9 +2200,9 @@ endfunction
 """        Filetype
 
 augroup DotfilesSettings
-  au!
-  au BufEnter,BufWritePost bash_aliases,bashrc,inputrc,.bash_aliases,.bashrc,.inputrc
-        \ set filetype=sh colorcolumn=0
+	au!
+	au BufEnter,BufWritePost {,.}bash_aliases,{,.}bashrc,{,.}inputrc
+				\ setlocal filetype=sh colorcolumn=0
 augroup end
 
 """        Vimrc mappings
