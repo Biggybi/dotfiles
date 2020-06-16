@@ -49,6 +49,8 @@ export DATAPATH="/media/data/"
 # 	caps2esc
 # fi
 
+# PS0='\[\ePtmux;\e\e[2 q\e\\\]'
+
 # Vim as pager
 # export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 #     vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
