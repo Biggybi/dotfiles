@@ -726,7 +726,7 @@ augroup AutoProjectLoadOnStart
 augroup end
 
 nnoremap <leader>ej :e .git/vim/project_files<cr>
-nnoremap <leader>sj :call AutoProjectLoad('1')<cr>
+nnoremap yoj :call AutoProjectLoad('1')<cr>
 
 ""    Plugins settings
 """        Netrw
@@ -1138,7 +1138,7 @@ nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "Clear search highlight
-nnoremap <silent> <leader>sh :nohlsearch<cr>:call anzu#clear_search_status()<cr>
+nnoremap <silent> yoz :call anzu#clear_search_status()<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
@@ -1168,9 +1168,6 @@ nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
 
 " open file under cursor on the far-left hand side
 nnoremap <c-w><c-d> :Lexplore <cfile><cr>
-
-" toggle guides
-nnoremap <silent> <leader>sg :set list!<cr>
 
 " % as <c-g>
 nnoremap <c-g> %
@@ -1258,7 +1255,7 @@ nmap <leader>cf  <Plug>(coc-fix-current)
 nmap <leader>rn <Plug>(coc-rename)
 
 " show doc with Coc
-nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation() abort
   if index(['vim','help'], &filetype) >= 0
