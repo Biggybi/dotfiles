@@ -8,10 +8,11 @@ case $- in
       *) return;;
 esac
 
-if [[ "$OSTYPE" == "darwin"* ]]
-	hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
-	source $HOME/.brewconfig.zsh
-fi
+# Mac OS <CAPS LOCK> -> <CTRL>
+# if [[ "$OSTYPE" == "darwin"* ]]
+# 	hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
+# 	source $HOME/.brewconfig.zsh
+# fi
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
