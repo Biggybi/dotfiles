@@ -712,9 +712,10 @@ function! AutoProjectLoad(is_mapping) abort
     return
   endif
   exe "e" filelist
-  silent! tabonly
-  " open first WORD
-  g/\v^.*[^\s]/ argadd <cWORD> | $tabnew <cWORD> | tabfirst
+  " silent! tabonly
+  " " open first WORD of each line
+  " g/\v^.*[^\s]/ if filereadable(expand('<cWORD>')) | argadd <cWORD> | $tabnew <cWORD> | tabfirst | endif
+  g/\v^[^#].*[^\s]/ if filereadable(expand(expand('<cWORD>'))) | argadd <cWORD> | endif
   exe "bw" filelist
   wincmd p
 endfunction
