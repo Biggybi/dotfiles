@@ -356,7 +356,6 @@ get_hidden_mail_adress() {
 }
 
 # alias fav='. fav'
-# vim: filetype=sh
 
 # firefox
 alias foxn='firefox -new-window '
