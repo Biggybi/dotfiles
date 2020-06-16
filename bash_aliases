@@ -204,7 +204,8 @@ alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
 #tmux
-alias tn='tmux new-session -s '
+alias tn='tmux_new_or_attach'
+alias ta='tmux attach'
 # alias o='xdg-open '
 open() {
 	xdg-open $1 &
