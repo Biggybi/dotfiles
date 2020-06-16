@@ -365,10 +365,13 @@ alias foxyt='firefox -new-window youtube.com'
 alias ydl='youtube-dl'
 
 # terminal web apps
-alias meteo="curl wttr.in"
 alias pubip="pubip"
 alias pubcity="pubip city"
 alias pubcountry="pubcountry"
+
+meteo() {
+	curl wttr.in/$1
+}
 
 tinyurl() {
 	curl -s http://tinyurl.com/api/create.php\?url\=$1
