@@ -134,10 +134,13 @@ alias chp='terminal_profile_switch'
 
 alias xdotool='windowsize $(xdotool getactivewindow) 100% 100%'
 
+# Gnome
+
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
-alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
+alias gnome-build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
+alias gnome-theme-login='sudo update-alternatives --config gdm3-theme.gresource'
 
 vimpluginstall() {
 	cd $HOME/dotfiles/vim/bundle/
