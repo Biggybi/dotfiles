@@ -95,8 +95,13 @@ shopt -s histverify									# expand '!'
 HISTSIZE= HISTFILESIZE=#							# infinite history
 HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear"	# ignored commands
 HISTCONTROL=ignoreboth								# duplicate + whitespace
+HISTCONTROL+=:erasedups								# delete dupse (cross-session)
 # HISTCONTROL=ignorespace							# whitespace
 # HISTCONTROL=ignoredups							# duplicates
+
+# Cross-session history:  After each command, append to the history file and reread it
+PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+# PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # fzf defaults
 export FZF_DEFAULT_OPTS="-m"
