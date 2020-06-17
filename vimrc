@@ -749,7 +749,7 @@ nnoremap yoj :call AutoProjectLoad('1')<cr>
 ""    Plugins settings
 """        Netrw
 
-nnoremap <silent> yoe :Lexplore<cr>
+nnoremap <silent> yoe :20Lexplore<cr>
 
 augroup AutoDeleteNetrwHiddenBuffers
   au!
