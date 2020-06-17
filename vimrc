@@ -525,6 +525,24 @@ endfunction
 " nnoremap <silent> n :call CycleWindowsSearch('1')<cr>
 " nnoremap <silent> N :call CycleWindowsSearch('0')<cr>
 
+"""        History
+
+" Auto remove some commands from history
+let g:commands_to_delete_from_history = ['Delete', 'bw', 'bd']
+
+function! DeleteCommandsFromHistory()
+  let lastHistoryEntry = histget('cmd', -1)
+  let lastCommand = split(lastHistoryEntry, '\s\+')[0]
+  if (index(g:commands_to_delete_from_history, lastCommand) >= 0)
+    call histdel('cmd', -1)
+  endif
+endfunction
+
+augroup history_deletion
+  autocmd!
+  autocmd CmdlineLeave * call DeleteCommandsFromHistory()
+augroup END
+
 ""    Highlights / Match
 """        show traling whitespaces
 
