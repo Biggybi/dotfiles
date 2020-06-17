@@ -72,6 +72,11 @@ else
   endif
 endif
 
+if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
+if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
+if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
+if !isdirectory(&viewdir) | call mkdir(&viewdir, "p") | endif
+
 set autoread                    " auto load file changes
 " set autowrite                   " auto save file changes
 set modelineexpr                " flexible modeline set
