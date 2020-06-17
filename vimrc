@@ -251,7 +251,7 @@ elseif g:DarkLightMod == 3
   endif
 endif
 " nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
+nnoremap <silent> yob :call DarkLightSwitch()<cr>
 
 """        Title
 
@@ -1000,7 +1000,6 @@ let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
 
 ""    Mappings
-
 """        Toggles
 
 nnoremap you :UndotreeToggle<cr>
@@ -1398,8 +1397,7 @@ nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
 
 """        Terminal
 
-nnoremap <silent> <Leader>T :call <SID>ToggleTerminal()<CR>
-tnoremap <silent> <Leader>T <C-w>N:call <SID>ToggleTerminal()<CR>
+nnoremap <silent> yot :call <SID>ToggleTerminal()<CR>
 
 tnoremap <c-n> <c-\><c-n>
 
