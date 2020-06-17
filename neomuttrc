@@ -10,13 +10,25 @@ set trash = "+Trash"
 set postponed = "+Drafts"
 mailboxes =INBOX =Sent =Trash =Drafts =Junk =Other =Family =Work
 
-set sidebar_visible = yes
-
-source ~/dotfiles/mutt/dracula.muttrc
-
 set mailcap_path =   "~/.config/neomutt/mailcap"
+set sidebar_visible = yes
+set pager_index_lines = 10
 auto_view =          "yes"
 alternative_order =  "no"
+
+set date_format = "%m%d %I:%M"
+set index_format = "%4C %Z %[%b %d %R] %-15.15L (%?l?%4l&%4c?) %s"
+set sort = 'reverse-date'
+
+set include = yes # Include quoted copy of message in reply.
+
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+# bind index,pager \CP sidebar-page-up
+# bind index,pager \CU sidebar-page-down
+
+source ~/dotfiles/mutt/dracula.muttrc
 
 # Default color definitions
 # color normal     white         default
