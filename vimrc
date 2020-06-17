@@ -1322,7 +1322,7 @@ cnoremap <c-e> <End>
 cnoremap <c-k> <Up>
 cnoremap <c-j> <Down>
 cnoremap <c-b> <Left>
-cnoremap <c-f> <Right>
+" cnoremap <c-f> <Right>
 cnoremap <c-l> <S-Right>
 cnoremap <c-h> <S-Left>
 cnoremap <c-x> <c-h>
