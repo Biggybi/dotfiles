@@ -878,6 +878,7 @@ nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
 nnoremap <silent> <leader>F :FzfFiles .<cr>
 nnoremap <silent> <leader>fb :FzfBuffers<cr>
 nnoremap <silent> <leader>b :FzfBuffers<cr>
+nnoremap <silent> <leader>j :FzfBuffers<cr>
 nnoremap <silent> <leader>fw :FzfWindows<cr>
 nnoremap <silent> <leader>ft :FzfTags<cr>
 nnoremap <silent> <leader>f<c-t> :FzfBTags<cr>
