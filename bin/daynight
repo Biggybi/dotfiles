@@ -10,12 +10,14 @@ P="/home/tris/Pictures/Wallpaper/"
 NIGHT="$Pdark/"
 DAY="$Pdark/"
 
+BASHRC_PATH=$HOME"/dotfiles/bashrc"
+
 if [ "$1" == "day" ] || [ "$1" == "d" ]
 then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-light"
 	gsettings set org.gnome.Terminal.ProfilesList default 'b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
 	cp ~/dotfiles/gnome_setup/epiphany/light-stylesheet.css ~/.local/share/epiphany/user-stylesheet.css
-	sed -i '/FZF_DEFAULT_OPTS/s/dark/light/' $HOME/.bashrc
+	sed -i '/FZF_DEFAULT_OPTS/s/dark/light/' "$BASHRC_PATH"
 	exit
 fi
 
@@ -24,7 +26,7 @@ then
 	gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
 	gsettings set org.gnome.Terminal.ProfilesList default 'd6e82f36-5ad3-4d36-b063-32516f903667'
 	cp ~/dotfiles/gnome_setup/epiphany/dark-stylesheet.css ~/.local/share/epiphany/user-stylesheet.css
-	sed -i '/FZF_DEFAULT_OPTS/s/light/dark/' $HOME/.bashrc
+	sed -i '/FZF_DEFAULT_OPTS/s/light/dark/' "$BASHRC_PATH"
 	exit
 fi
 
@@ -55,17 +57,15 @@ do
 
 	if [[ $MOMENT == day ]]
 	then
-		#gsettings set org.gnome.desktop.wm.preferences theme "Materia-light"
 		gsettings set org.gnome.desktop.interface gtk-theme "Materia-light"
-		gsettings set org.gnome.shell.extensions.user-theme name "Materia-light"
 		cp ~/dotfiles/gnome_setup/epiphany/light-stylesheet.css ~/.local/share/epiphany/user-stylesheet.css
 		gsettings set org.gnome.Terminal.ProfilesList default 'b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
+    sed -i '/FZF_DEFAULT_OPTS/s/dark/light/' "$BASHRC_PATH"
 	else
-		#gsettings set org.gnome.desktop.wm.preferences theme "Materia-dark"
 		gsettings set org.gnome.desktop.interface gtk-theme "Materia-dark"
-		gsettings set org.gnome.shell.extensions.user-theme name "Materia-dark"
 		cp ~/dotfiles/gnome_setup/epiphany/dark-stylesheet.css ~/.local/share/epiphany/user-stylesheet.css
 		gsettings set org.gnome.Terminal.ProfilesList default 'd6e82f36-5ad3-4d36-b063-32516f903667'
+    sed -i '/FZF_DEFAULT_OPTS/s/light/dark/' "$BASHRC_PATH"
 	fi
 
 	if [[ $F != $F2 ]]
