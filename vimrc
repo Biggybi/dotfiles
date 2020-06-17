@@ -1000,6 +1000,14 @@ let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
 
 ""    Mappings
+
+"""        Toggles
+
+nnoremap you :UndotreeToggle<cr>
+nnoremap [ou :UndotreeShow<cr>
+nnoremap ]ou :UndotreeHide<cr>
+nnoremap yo<c-u> :UndotreeFocus<cr>
+
 """        Modes
 
 " space as leader, prompt '\' in command line window :)
