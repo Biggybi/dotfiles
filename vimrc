@@ -867,8 +867,8 @@ endfunction
 
 " An action can be a reference to a function that processes selected lines
 let g:fzf_action = {
-      \ 'ctrl-l': function('s:build_quickfix_list'),
-      \ 'ctrl-r': function('s:build_location_list'),
+      \ 'ctrl-q': function('s:build_quickfix_list'),
+      \ 'ctrl-l': function('s:build_location_list'),
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'}
