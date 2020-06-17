@@ -1126,7 +1126,7 @@ nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "Clear search highlight
-nnoremap <silent> yoz :call anzu#clear_search_status()<cr>
+nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:set hlsearch!<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
