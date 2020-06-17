@@ -102,3 +102,7 @@
 [submodule "vim/bundle/vim-anzu"]
 	path = vim/bundle/vim-anzu
 	url = git@github.com:osyo-manga/vim-anzu.git
+	ignore = dirty
+[submodule "vim/bundle/undotree"]
+	path = vim/bundle/undotree
+	url = git@github.com:mbbill/undotree.git
