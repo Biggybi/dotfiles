@@ -1146,6 +1146,7 @@ nnoremap <silent> yob :call DarkLightSwitch()<cr>
 nnoremap <silent> yoe :20Lexplore<cr>
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
+nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
 nnoremap yoj :call AutoProjectLoad('1')<cr>
 
 """        Movement
