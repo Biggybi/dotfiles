@@ -632,6 +632,40 @@ function! HLCurrent() abort
   redraw
 endfunction
 
+"""        Pending command mode
+
+let g:hl_group_save = "CursorLineNr"
+let g:save_fg = synIDattr(hlID(g:hl_group_save), "fg#")
+let g:save_bg = synIDattr(hlID(g:hl_group_save), "bg#")
+let g:cmd_change_fg = "#383a42"
+let g:cmd_change_bg = "#e06c75"
+let g:ins_change_fg = "#383a42"
+let g:ins_change_bg = "#98c379"
+
+call timer_start(10, 'PendingCommandMode', #{repeat: -1})
+function! PendingCommandMode(_) abort
+  if mode() != 'n'
+    return
+  endif
+  if state() =~# '\C[mo]'
+    exe "hi" g:hl_group_save "guifg=".g:cmd_change_fg "guibg=".g:cmd_change_bg
+  else
+    exe "hi" g:hl_group_save "guifg=" . g:save_fg "guibg=" . g:save_bg
+  endif
+endfunction
+
+augroup SaveGroupColors
+  au!
+  au ColorScheme *
+        \ let g:save_fg = synIDattr(hlID(g:hl_group_save), "fg#")
+        \ | let g:save_bg = synIDattr(hlID(g:hl_group_save), "bg#")
+augroup end
+
+augroup PendingHLGroup
+  au InsertEnter * exe "hi" g:hl_group_save "guifg=".g:ins_change_fg "guibg=".g:ins_change_bg
+  au InsertLeave * exe "hi" g:hl_group_save "guifg=" . g:save_fg "guibg=" . g:save_bg
+augroup end
+
 ""    File automation
 """        Save and load
 
