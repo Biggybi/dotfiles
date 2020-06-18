@@ -303,8 +303,13 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-function! PutTermPanel(position, size) abort
-  term
+function! PutTermPanel(buf, position, size) abort
+  " new term if no buffer
+  if a:buf == 0
+    term
+  else
+    execute "sp" bufname(a:buf)
+  endif
 
   " default position if wrong argument
   if stridx("hjklHJKL", a:position) == -1
@@ -325,7 +330,6 @@ function! PutTermPanel(position, size) abort
 
   " vertical split resize
   if stridx("hlHL", a:position) >= 0
-    echo "coucou"
     if ! a:size > 0
       execute a:size."wincmd|"
     else
@@ -334,11 +338,9 @@ function! PutTermPanel(position, size) abort
   endif
 endfunction
 
-function! s:ToggleTerminal() abort
+function! s:ToggleTerminal(position, size) abort
   let tpbl=[]
   let closed = 0
-  let position = 'J'
-  let size = 6
   let tpbl = tabpagebuflist()
 
   " hide visible terminals
@@ -355,13 +357,14 @@ function! s:ToggleTerminal() abort
   " open first hidden terminal
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
-      call PutTermPanel(position, size)
+    echo "found"
+      call PutTermPanel(buf, a:position, a:size)
     endif
     return
   endfor
 
   " open new terminal
-  call PutTermPanel(position, size)
+  call PutTermPanel(0, a:position, a:size)
 endfunction
 
 """        Quickfix
