@@ -1208,6 +1208,41 @@ nnoremap <leader>- :exe "resize -10"<cr>
 nnoremap <leader>> :exe "vertical resize +10"<CR>
 nnoremap <leader>< :exe "vertical resize -10"<CR>
 
+"""        Alt Movement
+
+" Allow <alt> key mappings
+let c='a'
+while c <= 'z'
+  let d=toupper(c)
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  exec "set <A-".d.">=\e".d
+  exec "imap \e".d." <A-".d.">"
+  let c = nr2char(1+char2nr(c))
+endw
+
+" execute "set <M-j>=^[j"
+inoremap <M-j> <down>
+inoremap <M-k> <up>
+inoremap <M-h> <left>
+inoremap <M-l> <right>
+
+cnoremap <M-j> <down>
+cnoremap <M-k> <up>
+cnoremap <M-h> <left>
+cnoremap <M-l> <right>
+
+" execute "set <M-j>=^[j"
+nnoremap <M-K> :exe "resize +1"<cr>
+nnoremap <M-J> :exe "resize -1"<cr>
+nnoremap <M-L> :exe "vertical resize +1"<CR>
+nnoremap <M-H> :exe "vertical resize -1"<CR>
+
+nnoremap <M-k> :wincmd k<cr>
+nnoremap <M-j> :wincmd j<cr>
+nnoremap <M-l> :wincmd l<cr>
+nnoremap <M-h> :wincmd h<cr>
+
 """        Searching
 
 nnoremap / :call clearmatches()<cr>/
