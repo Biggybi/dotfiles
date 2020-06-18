@@ -328,7 +328,7 @@ function! PutTermPanel(buf, side, size) abort
     if ! a:size > 0
       vertical resize 6
     else
-      execute "resize" a:size
+      execute "vertical resize" a:size
     endif
   endif
 endfunction
@@ -351,8 +351,8 @@ function! s:ToggleTerminal(side, size) abort
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
       call PutTermPanel(buf, a:side, a:size)
+      return
     endif
-    return
   endfor
   " open new terminal
   call PutTermPanel(0, a:side, a:size)
