@@ -1152,10 +1152,10 @@ nnoremap <silent> yoe :20Lexplore<cr>
 " Toggle of hlsearch + Anzu
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 
-" Toggle terminal - right
+" Toggle terminal - bottom
 nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
 
-" Toggle terminal - bottom
+" Toggle terminal - right
 nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
 
 " Toggle keep cursor in middle of screen
@@ -1209,9 +1209,6 @@ nnoremap <c-w><space><space> :vertical split #<cr>
 onoremap <c-w><space><space> :vertical split #<cr>
 vnoremap <c-w><space><space> :vertical split #<cr>
 
-nnoremap <leader>l gt
-nnoremap <leader>h gT
-
 " open buffer with partial search
 " nnoremap <leader>b :buffer<space>
 " nnoremap <leader><c-b> :vertical sbuffer<space>
@@ -1223,6 +1220,10 @@ nnoremap <leader>= :exe "resize +10"<cr>
 nnoremap <leader>- :exe "resize -10"<cr>
 nnoremap <leader>> :exe "vertical resize +10"<CR>
 nnoremap <leader>< :exe "vertical resize -10"<CR>
+
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
 
 """        Alt Movement
 
@@ -1438,7 +1439,7 @@ let g:markdown_fenced_languages = ['css', 'js=javascript']
 
 """        Folding
 
-" inoremap <leader><space> <c-o>za
+" Open / close fold with <c-space>
 if ! has("nvim")
   nnoremap <c-@> za
   onoremap <c-@> <c-c>za
@@ -1454,10 +1455,6 @@ nnoremap <leader>zc :normal! mzzMzv`z<CR>
 
 " recursively open even partial folds
 nnoremap zo zczO
-
-" visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
 
 """        Command
 
