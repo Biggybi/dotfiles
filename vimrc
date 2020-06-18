@@ -1061,7 +1061,6 @@ let g:airline#extensions#coc#enabled = 0
 
 """        Anzu
 
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
 
