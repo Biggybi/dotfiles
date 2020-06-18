@@ -1462,7 +1462,7 @@ nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
 
 """        Terminal
 
-nnoremap <silent> yot :call <SID>ToggleTerminal()<CR>
+nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
 
 tnoremap <c-n> <c-\><c-n>
 
