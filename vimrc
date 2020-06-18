@@ -303,9 +303,42 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
+function! PutTermPanel(position, size) abort
+  term
+
+  " default position if wrong argument
+  if stridx("hjklHJKL", a:position) == -1
+    execute "wincmd" J
+  else
+    execute "wincmd" a:position
+  endif
+
+  " horizontal split resize
+  if stridx("jkJK", a:position) >= 0
+    if ! a:size > 0
+      resize 6
+    else
+      execute "resize" a:size
+    endif
+    return
+  endif
+
+  " vertical split resize
+  if stridx("hlHL", a:position) >= 0
+    echo "coucou"
+    if ! a:size > 0
+      execute a:size."wincmd|"
+    else
+      execute "30 wincmd|"
+    endif
+  endif
+endfunction
+
 function! s:ToggleTerminal() abort
   let tpbl=[]
   let closed = 0
+  let position = 'J'
+  let size = 6
   " call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
   let tpbl = tabpagebuflist()
   for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
@@ -319,16 +352,11 @@ function! s:ToggleTerminal() abort
   endif
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
-      execute "6sp" bufname(buf)
-      wincmd J
-      resize 6
-      return
+      call PutTermPanel(position, size)
     endif
+    return
   endfor
-  term
-    echom "create new"
-  wincmd J
-  resize 6
+  call PutTermPanel(position, size)
 endfunction
 
 """        Quickfix
