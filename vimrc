@@ -1137,16 +1137,31 @@ cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
 """        Toggles
 
+" Toggle / close / open Undotree
 nnoremap you :UndotreeToggle<cr>
 nnoremap [ou :UndotreeShow<cr>
 nnoremap ]ou :UndotreeHide<cr>
 nnoremap yo<c-u> :UndotreeFocus<cr>
 
+" Switch dark / light theme[
 nnoremap <silent> yob :call DarkLightSwitch()<cr>
+
+" Netrw toggle - left
 nnoremap <silent> yoe :20Lexplore<cr>
+
+" Toggle of hlsearch + Anzu
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
+
+" Toggle terminal - right
 nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
+
+" Toggle terminal - bottom
 nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
+
+" Toggle keep cursor in middle of screen
+nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
+
+" Load project files buffers
 nnoremap yoj :call AutoProjectLoad('1')<cr>
 
 """        Movement
@@ -1277,9 +1292,6 @@ nnoremap gR :%s/<c-r>///g<left><left>
 
 " cd shell to vim current working directory
 nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
-
-" toggle cursor always in middle with <leader>zz
-nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
 
 " show file name
 nnoremap <leader>fp :echo expand('%')<cr>
