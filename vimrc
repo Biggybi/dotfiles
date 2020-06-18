@@ -255,8 +255,6 @@ elseif g:DarkLightMod == 3
     let g:DarkLightMod = -1
   endif
 endif
-" nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-nnoremap <silent> yob :call DarkLightSwitch()<cr>
 
 """        Title
 
@@ -826,12 +824,9 @@ augroup AutoProjectLoadOnStart
 augroup end
 
 nnoremap <leader>ej :e .git/vim/project_files<cr>
-nnoremap yoj :call AutoProjectLoad('1')<cr>
 
 ""    Plugins settings
 """        Netrw
-
-nnoremap <silent> yoe :20Lexplore<cr>
 
 augroup AutoDeleteNetrwHiddenBuffers
   au!
@@ -1106,6 +1101,12 @@ nnoremap [ou :UndotreeShow<cr>
 nnoremap ]ou :UndotreeHide<cr>
 nnoremap yo<c-u> :UndotreeFocus<cr>
 
+nnoremap <silent> yob :call DarkLightSwitch()<cr>
+nnoremap <silent> yoe :20Lexplore<cr>
+nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
+nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
+nnoremap yoj :call AutoProjectLoad('1')<cr>
+
 """        Modes
 
 " space as leader, prompt '\' in command line window :)
@@ -1231,9 +1232,6 @@ nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 " search visual selection
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-"Clear search highlight
-nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
@@ -1488,8 +1486,6 @@ nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
 " nnoremap <leader>mv :!mv % %:h:p/
 
 """        Terminal
-
-nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
 
 tnoremap <c-n> <c-\><c-n>
 
