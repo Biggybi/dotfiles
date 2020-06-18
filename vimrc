@@ -577,6 +577,9 @@ let g:commands_to_delete_from_history = ['Delete', 'bw', 'bd']
 
 function! DeleteCommandsFromHistory()
   let lastHistoryEntry = histget('cmd', -1)
+  if lastHistoryEntry == ""
+    return
+  endif
   let lastCommand = split(lastHistoryEntry, '\s\+')[0]
   if (index(g:commands_to_delete_from_history, lastCommand) >= 0)
     call histdel('cmd', -1)
