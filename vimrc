@@ -310,7 +310,7 @@ function! PutTermPanel(buf, position, size) abort
   endif
   " default position if wrong argument
   if stridx("hjklHJKL", a:position) == -1
-    execute "wincmd" J
+    execute "wincmd" "J"
   else
     execute "wincmd" a:position
   endif
@@ -326,9 +326,9 @@ function! PutTermPanel(buf, position, size) abort
   " vertical split resize
   if stridx("hlHL", a:position) >= 0
     if ! a:size > 0
-      execute a:size."wincmd|"
+      vertical resize 6
     else
-      execute "30 wincmd|"
+      execute "resize" a:size
     endif
   endif
 endfunction
