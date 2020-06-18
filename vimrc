@@ -339,8 +339,9 @@ function! s:ToggleTerminal() abort
   let closed = 0
   let position = 'J'
   let size = 6
-  " call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
   let tpbl = tabpagebuflist()
+
+  " hide visible terminals
   for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
       silent execute bufwinnr(buf) . "hide"
@@ -350,12 +351,16 @@ function! s:ToggleTerminal() abort
   if closed > 0
     return
   endif
+
+  " open first hidden terminal
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
       call PutTermPanel(position, size)
     endif
     return
   endfor
+
+  " open new terminal
   call PutTermPanel(position, size)
 endfunction
 
