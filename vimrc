@@ -350,7 +350,6 @@ function! s:ToggleTerminal(position, size) abort
   " open first hidden terminal
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
-    echo "found"
       call PutTermPanel(buf, a:position, a:size)
     endif
     return
