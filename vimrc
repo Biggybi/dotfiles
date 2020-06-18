@@ -1148,6 +1148,19 @@ inoremap <c-s> <esc>:call VerboseUpdate()<cr>
 " :W! save files as root
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
+"""        Toggles
+
+nnoremap you :UndotreeToggle<cr>
+nnoremap [ou :UndotreeShow<cr>
+nnoremap ]ou :UndotreeHide<cr>
+nnoremap yo<c-u> :UndotreeFocus<cr>
+
+nnoremap <silent> yob :call DarkLightSwitch()<cr>
+nnoremap <silent> yoe :20Lexplore<cr>
+nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
+nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
+nnoremap yoj :call AutoProjectLoad('1')<cr>
+
 """        Movement
 
 " insert mode left / right
