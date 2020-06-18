@@ -1522,6 +1522,7 @@ nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
 """        Terminal
 
 tnoremap <c-n> <c-\><c-n>
+tnoremap <c-w>; <c-w>:
 
 """        Fun
 inoremap ,fox The quick brown fox jumps over the lazy dog
