@@ -640,7 +640,7 @@ let g:cmd_change_bg = "#e06c75"
 let g:ins_change_fg = "#383a42"
 let g:ins_change_bg = "#98c379"
 
-call timer_start(10, 'PendingCommandMode', #{repeat: -1})
+call timer_start(30, 'PendingCommandMode', #{repeat: -1})
 function! PendingCommandMode(_) abort
   if mode() != 'n'
     return
