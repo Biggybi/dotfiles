@@ -1093,19 +1093,6 @@ let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
 
 ""    Mappings
-"""        Toggles
-
-nnoremap you :UndotreeToggle<cr>
-nnoremap [ou :UndotreeShow<cr>
-nnoremap ]ou :UndotreeHide<cr>
-nnoremap yo<c-u> :UndotreeFocus<cr>
-
-nnoremap <silent> yob :call DarkLightSwitch()<cr>
-nnoremap <silent> yoe :20Lexplore<cr>
-nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
-nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
-nnoremap yoj :call AutoProjectLoad('1')<cr>
-
 """        Modes
 
 " space as leader, prompt '\' in command line window :)
@@ -1246,15 +1233,15 @@ cnoremap <M-h> <left>
 cnoremap <M-l> <right>
 
 " execute "set <M-j>=^[j"
-nnoremap <M-K> :exe "resize +1"<cr>
-nnoremap <M-J> :exe "resize -1"<cr>
-nnoremap <M-L> :exe "vertical resize +1"<CR>
-nnoremap <M-H> :exe "vertical resize -1"<CR>
+nnoremap <silent> <M-K> :exe "resize +1"<cr>
+nnoremap <silent> <M-J> :exe "resize -1"<cr>
+nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
+nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
 
-nnoremap <M-k> :wincmd k<cr>
-nnoremap <M-j> :wincmd j<cr>
-nnoremap <M-l> :wincmd l<cr>
-nnoremap <M-h> :wincmd h<cr>
+nnoremap <silent> <M-k> :wincmd k<cr>
+nnoremap <silent> <M-j> :wincmd j<cr>
+nnoremap <silent> <M-l> :wincmd l<cr>
+nnoremap <silent> <M-h> :wincmd h<cr>
 
 """        Searching
 
