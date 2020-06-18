@@ -303,22 +303,32 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-let s:term_buf_nr = -1
 function! s:ToggleTerminal() abort
-    if s:term_buf_nr == -1
-        execute "botright terminal"
-        resize 6
-        let s:term_buf_nr = bufnr("$")
-    else
-        try
-            execute "bdelete! " . s:term_buf_nr
-        catch
-            let s:term_buf_nr = -1
-            call <SID>ToggleTerminal()
-            return
-        endtry
-        let s:term_buf_nr = -1
+  let tpbl=[]
+  let closed = 0
+  " call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+  let tpbl = tabpagebuflist()
+  for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
+    if getbufvar(buf, '&buftype') ==? 'terminal'
+      silent execute bufwinnr(buf) . "hide"
+      let closed += 1
     endif
+  endfor
+  if closed > 0
+    return
+  endif
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
+    if getbufvar(buf, '&buftype') ==? 'terminal'
+      execute "6sp" bufname(buf)
+      wincmd J
+      resize 6
+      return
+    endif
+  endfor
+  term
+    echom "create new"
+  wincmd J
+  resize 6
 endfunction
 
 """        Quickfix
