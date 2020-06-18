@@ -1405,13 +1405,6 @@ xnoremap <leader>d "_d
 " nnoremap P mp]P==`p
 " nnoremap p mp]p==`p
 
-nnoremap cl c$
-nnoremap dl d$
-nnoremap yl y$
-nnoremap ch c^
-nnoremap dh d^
-nnoremap yh y^
-
 " System clipboard interraction
 " paste from clipboard ...
 nnoremap <leader>p mp"+]p==`p
@@ -1878,11 +1871,9 @@ augroup END
 au FileType vim set tabstop=2 expandtab " vim:tw=0:ts=2:sts=2:shiftwidth=2
 ""    Operators
 """        Start / End of line
-onoremap ah :<c-u>normal! v^<cr>
-onoremap ih :<c-u>normal! hv^<cr>
-
-onoremap al :<c-u>normal! v$<cr>
-onoremap il :<c-u>normal! lv$<cr>
+onoremap h :<c-u>normal! ^<cr>
+onoremap l :<c-u>normal! v$h<cr>
+onoremap il :<c-u>normal! $v_<cr>
 
 """        Surroundings
 onoremap i. :<c-u>normal! T.vt.<cr>
