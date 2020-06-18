@@ -301,21 +301,21 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-function! PutTermPanel(buf, position, size) abort
+function! PutTermPanel(buf, side, size) abort
   " new term if no buffer
   if a:buf == 0
     term
   else
     execute "sp" bufname(a:buf)
   endif
-  " default position if wrong argument
-  if stridx("hjklHJKL", a:position) == -1
+  " default side if wrong argument
+  if stridx("hjklHJKL", a:side) == -1
     execute "wincmd" "J"
   else
-    execute "wincmd" a:position
+    execute "wincmd" a:side
   endif
   " horizontal split resize
-  if stridx("jkJK", a:position) >= 0
+  if stridx("jkJK", a:side) >= 0
     if ! a:size > 0
       resize 6
     else
@@ -324,7 +324,7 @@ function! PutTermPanel(buf, position, size) abort
     return
   endif
   " vertical split resize
-  if stridx("hlHL", a:position) >= 0
+  if stridx("hlHL", a:side) >= 0
     if ! a:size > 0
       vertical resize 6
     else
@@ -333,7 +333,7 @@ function! PutTermPanel(buf, position, size) abort
   endif
 endfunction
 
-function! s:ToggleTerminal(position, size) abort
+function! s:ToggleTerminal(side, size) abort
   let tpbl=[]
   let closed = 0
   let tpbl = tabpagebuflist()
@@ -350,12 +350,12 @@ function! s:ToggleTerminal(position, size) abort
   " open first hidden terminal
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
-      call PutTermPanel(buf, a:position, a:size)
+      call PutTermPanel(buf, a:side, a:size)
     endif
     return
   endfor
   " open new terminal
-  call PutTermPanel(0, a:position, a:size)
+  call PutTermPanel(0, a:side, a:size)
 endfunction
 
 """        Quickfix
