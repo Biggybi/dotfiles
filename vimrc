@@ -310,14 +310,12 @@ function! PutTermPanel(buf, position, size) abort
   else
     execute "sp" bufname(a:buf)
   endif
-
   " default position if wrong argument
   if stridx("hjklHJKL", a:position) == -1
     execute "wincmd" J
   else
     execute "wincmd" a:position
   endif
-
   " horizontal split resize
   if stridx("jkJK", a:position) >= 0
     if ! a:size > 0
@@ -327,7 +325,6 @@ function! PutTermPanel(buf, position, size) abort
     endif
     return
   endif
-
   " vertical split resize
   if stridx("hlHL", a:position) >= 0
     if ! a:size > 0
@@ -342,7 +339,6 @@ function! s:ToggleTerminal(position, size) abort
   let tpbl=[]
   let closed = 0
   let tpbl = tabpagebuflist()
-
   " hide visible terminals
   for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
@@ -353,7 +349,6 @@ function! s:ToggleTerminal(position, size) abort
   if closed > 0
     return
   endif
-
   " open first hidden terminal
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
@@ -362,7 +357,6 @@ function! s:ToggleTerminal(position, size) abort
     endif
     return
   endfor
-
   " open new terminal
   call PutTermPanel(0, a:position, a:size)
 endfunction
