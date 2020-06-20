@@ -1383,6 +1383,10 @@ nnoremap <silent> <M-h> :wincmd h<cr>
 
 """        Searching
 
+" n and N not reversed in reverse-search
+nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
+
 nnoremap / :call clearmatches()<cr>/
 nnoremap <leader>/ :call clearmatches()<cr>/\v
 vnoremap <leader>/ :call clearmatches()<cr>/\v
