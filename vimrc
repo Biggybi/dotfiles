@@ -168,9 +168,14 @@ set splitright                  " default split right
 set fillchars+=vert:▎
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
 set spellcapcheck=              " ignore leading cap in word
-set formatoptions+=j            " join comments smartly
 set nojoinspaces                " and spaces too
 set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
+augroup NoAutoComment
+  au!
+  au FileType *
+        \ setlocal formatoptions+=j    " join comments smartly
+        \ setlocal formatoptions-=cro  " no auto comment line
+augroup end
 
 " Main window
 set display+=lastline           " show lastline even if too long
