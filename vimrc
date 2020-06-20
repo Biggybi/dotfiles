@@ -217,7 +217,7 @@ function! DarkLightSwitch() abort
     let g:DarkLightSwitch = 'light'
   elseif g:DarkLightSwitch ==# 'light'
     set background=light
-    colorscheme  base16-one-light
+    colorscheme  base16-one-lightdim
     let g:DarkLightSwitch = 'dark'
   endif
   if exists("g:DarkLightOn")
