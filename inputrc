@@ -31,6 +31,10 @@ set mark-symlinked-directories on
 # set completion-display-width 1     # one column for completion
 
 set keymap vi-insert
+"\M-h": backward-char
+"\M-l": forward-char
+"\M-j": next-history
+"\M-k": previous-history
 "\C-w": shell-backward-kill-word
 "\C-b": backward-char
 "\C-f": forward-char
