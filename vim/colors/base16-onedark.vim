@@ -252,7 +252,7 @@ call <sid>hi("AirlineReplace", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")
-call <sid>hi("CursorLineNr",  s:gui05, s:gui02, s:cterm04, s:cterm01, "bold", "")
+call <sid>hi("CursorLineNr",  s:gui05, s:gui02, s:cterm04, s:cterm01, "none", "")
 call <sid>hi("QuickFixLine",  "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("PMenuSel",      s:gui01, s:gui05, s:cterm01, s:cterm05, "", "")
