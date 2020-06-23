@@ -118,20 +118,6 @@ else
 		let g:airline#themes#base16#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
 		let g:airline#themes#base16#palette.visual_modified = g:airline#themes#base16#palette.normal_modified
 
-		" Use VertSplit's bg and default fg (reversed) for inactive statusline.
-		let s:VS = airline#themes#get_highlight('VertSplit2')
-		" if s:improved_contrast
-		"   let s:IA = [ s:VS[1], 'NONE', s:VS[2], s:cterm_lightlight_gray, 'reverse']
-		" else
-		"   let s:IA = [ s:VS[1], 'NONE', s:VS[2], 'NONE', 'reverse']
-		" endif
-		let s:IA = [ s:VS[3], s:VS[1], s:VS[2], s:cterm_lightlight_gray, '']
-		let g:airline#themes#base16#palette.inactive =
-					\ airline#themes#generate_color_map(s:IA, s:IA, s:IA, s:IA, s:IA, s:IA)
-		let s:IM = [ s:VS[1], 'NONE', s:VS[2], 'NONE', 'reverse']
-		let g:airline#themes#base16#palette.inactive_modified =
-					\ airline#themes#generate_color_map(s:IM, s:IM, s:IM, s:IM, s:IM, s:IM)
-
 		" Warnings
 		let s:WI = airline#themes#get_highlight2(['WarningMsg', 'bg'], ['WarningMsg', 'fg'], 'bold')
 		let g:airline#themes#base16#palette.normal.airline_warning = [

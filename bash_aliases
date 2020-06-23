@@ -114,6 +114,7 @@ alias sshlab='ssh tris@192.168.1.101 -p 42'
 
 ### various defaults
 alias dconf-editor='dcond-editor --I-understand-that-changing-options-can-break-applications'
+alias tree='tree --dirsfirst'
 
 ### history
 alias histon='set -o history'
@@ -134,10 +135,13 @@ alias chp='terminal_profile_switch'
 
 alias xdotool='windowsize $(xdotool getactivewindow) 100% 100%'
 
+# Gnome
+
 alias gnomere="dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'"
 alias gnomek='DISPLAY=:0 gnome-shell -r'
-alias gnome_build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
+alias gnome-build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
+alias gnome-theme-login='sudo update-alternatives --config gdm3-theme.gresource'
 
 vimpluginstall() {
 	cd $HOME/dotfiles/vim/bundle/
@@ -152,7 +156,7 @@ alias ep='$EDITOR $HOME/dotfiles/bash_profile'
 alias ea='$EDITOR $HOME/dotfiles/bash_aliases'
 alias ev='$EDITOR $HOME/dotfiles/vimrc'
 alias en='$EDITOR $HOME/dotfiles/inputrc'
-alias et='vim $HOME/dotfiles/tmux.conf'
+alias et='$EDITOR $HOME/dotfiles/tmux.conf'
 alias eh='$EDITOR $HOME/.bash_history'
 alias efs='sudo $EDITOR /etc/fstab'
 alias eapt='sudo $EDITOR /etc/apt/sources.list'
@@ -204,7 +208,8 @@ alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
 #tmux
-alias tn='tmux new-session -s '
+alias tn='tmux_new_or_attach'
+alias ta='tmux attach'
 # alias o='xdg-open '
 open() {
 	xdg-open $1 &
@@ -351,7 +356,6 @@ get_hidden_mail_adress() {
 }
 
 # alias fav='. fav'
-# vim: filetype=sh
 
 # firefox
 alias foxn='firefox -new-window '
@@ -361,13 +365,20 @@ alias foxyt='firefox -new-window youtube.com'
 alias ydl='youtube-dl'
 
 # terminal web apps
-alias meteo="curl wttr.in"
 alias pubip="pubip"
 alias pubcity="pubip city"
 alias pubcountry="pubcountry"
 
+meteo() {
+	curl wttr.in/$1
+}
+
 tinyurl() {
 	curl -s http://tinyurl.com/api/create.php\?url\=$1
+}
+
+cheat() {
+	curl cheat.sh/$1
 }
 
 #caps2escape

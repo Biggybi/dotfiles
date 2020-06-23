@@ -72,6 +72,11 @@ else
   endif
 endif
 
+if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
+if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
+if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
+if !isdirectory(&viewdir) | call mkdir(&viewdir, "p") | endif
+
 set autoread                    " auto load file changes
 " set autowrite                   " auto save file changes
 set modelineexpr                " flexible modeline set
@@ -163,9 +168,14 @@ set splitright                  " default split right
 set fillchars+=vert:▎
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
 set spellcapcheck=              " ignore leading cap in word
-set formatoptions+=j            " join comments smartly
 set nojoinspaces                " and spaces too
 set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
+augroup NoAutoComment
+  au!
+  au FileType *
+        \ setlocal formatoptions+=j    " join comments smartly
+        \ setlocal formatoptions-=cro  " no auto comment line
+augroup end
 
 " Main window
 set display+=lastline           " show lastline even if too long
@@ -212,7 +222,7 @@ function! DarkLightSwitch() abort
     let g:DarkLightSwitch = 'light'
   elseif g:DarkLightSwitch ==# 'light'
     set background=light
-    colorscheme  base16-one-light
+    colorscheme  base16-one-lightdim
     let g:DarkLightSwitch = 'dark'
   endif
   if exists("g:DarkLightOn")
@@ -250,8 +260,6 @@ elseif g:DarkLightMod == 3
     let g:DarkLightMod = -1
   endif
 endif
-" nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
-nnoremap <silent> <leader>sc :call DarkLightSwitch()<cr>
 
 """        Title
 
@@ -298,22 +306,61 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-let s:term_buf_nr = -1
-function! s:ToggleTerminal() abort
-    if s:term_buf_nr == -1
-        execute "botright terminal"
-        resize 6
-        let s:term_buf_nr = bufnr("$")
+function! PutTermPanel(buf, side, size) abort
+  " new term if no buffer
+  if a:buf == 0
+    term
+  else
+    execute "sp" bufname(a:buf)
+  endif
+  " default side if wrong argument
+  if stridx("hjklHJKL", a:side) == -1
+    execute "wincmd" "J"
+  else
+    execute "wincmd" a:side
+  endif
+  " horizontal split resize
+  if stridx("jkJK", a:side) >= 0
+    if ! a:size > 0
+      resize 6
     else
-        try
-            execute "bdelete! " . s:term_buf_nr
-        catch
-            let s:term_buf_nr = -1
-            call <SID>ToggleTerminal()
-            return
-        endtry
-        let s:term_buf_nr = -1
+      execute "resize" a:size
     endif
+    return
+  endif
+  " vertical split resize
+  if stridx("hlHL", a:side) >= 0
+    if ! a:size > 0
+      vertical resize 6
+    else
+      execute "vertical resize" a:size
+    endif
+  endif
+endfunction
+
+function! s:ToggleTerminal(side, size) abort
+  let tpbl=[]
+  let closed = 0
+  let tpbl = tabpagebuflist()
+  " hide visible terminals
+  for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
+    if getbufvar(buf, '&buftype') ==? 'terminal'
+      silent execute bufwinnr(buf) . "hide"
+      let closed += 1
+    endif
+  endfor
+  if closed > 0
+    return
+  endif
+  " open first hidden terminal
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
+    if getbufvar(buf, '&buftype') ==? 'terminal'
+      call PutTermPanel(buf, a:side, a:size)
+      return
+    endif
+  endfor
+  " open new terminal
+  call PutTermPanel(0, a:side, a:size)
 endfunction
 
 """        Quickfix
@@ -525,6 +572,27 @@ endfunction
 " nnoremap <silent> n :call CycleWindowsSearch('1')<cr>
 " nnoremap <silent> N :call CycleWindowsSearch('0')<cr>
 
+"""        History
+
+" Auto remove some commands from history
+let g:commands_to_delete_from_history = ['Delete', 'bw', 'bd']
+
+function! DeleteCommandsFromHistory()
+  let lastHistoryEntry = histget('cmd', -1)
+  if lastHistoryEntry == ""
+    return
+  endif
+  let lastCommand = split(lastHistoryEntry, '\s\+')[0]
+  if (index(g:commands_to_delete_from_history, lastCommand) >= 0)
+    call histdel('cmd', -1)
+  endif
+endfunction
+
+augroup history_deletion
+  autocmd!
+  autocmd CmdlineLeave * call DeleteCommandsFromHistory()
+augroup END
+
 ""    Highlights / Match
 """        show traling whitespaces
 
@@ -565,6 +633,40 @@ function! HLCurrent() abort
   endif
   redraw
 endfunction
+
+"""        Pending command mode
+
+let g:hl_group_save = "CursorLineNr"
+let g:save_fg = synIDattr(hlID(g:hl_group_save), "fg#")
+let g:save_bg = synIDattr(hlID(g:hl_group_save), "bg#")
+let g:cmd_change_fg = "#383a42"
+let g:cmd_change_bg = "#e06c75"
+let g:ins_change_fg = "#383a42"
+let g:ins_change_bg = "#98c379"
+
+call timer_start(30, 'PendingCommandMode', #{repeat: -1})
+function! PendingCommandMode(_) abort
+  if mode() != 'n'
+    return
+  endif
+  if state() =~# '\C[mo]'
+    exe "hi" g:hl_group_save "guifg=".g:cmd_change_fg "guibg=".g:cmd_change_bg
+  else
+    exe "hi" g:hl_group_save "guifg=" . g:save_fg "guibg=" . g:save_bg
+  endif
+endfunction
+
+augroup SaveGroupColors
+  au!
+  au ColorScheme *
+        \ let g:save_fg = synIDattr(hlID(g:hl_group_save), "fg#")
+        \ | let g:save_bg = synIDattr(hlID(g:hl_group_save), "bg#")
+augroup end
+
+augroup PendingHLGroup
+  au InsertEnter * exe "hi" g:hl_group_save "guifg=".g:ins_change_fg "guibg=".g:ins_change_bg
+  au InsertLeave * exe "hi" g:hl_group_save "guifg=" . g:save_fg "guibg=" . g:save_bg
+augroup end
 
 ""    File automation
 """        Save and load
@@ -703,28 +805,21 @@ augroup end
 
 """        Auto Load Project Files
 
-function! AutoProjectLoad(clear) abort
+function! AutoProjectLoad(is_mapping) abort
   let filelist = ".git/vim/project_files"
-  let filelistID = -1
-  let currfileID = -1
-  if bufname("%") != ""
-    let currfileID = bufnr("%")
+  if ! filereadable(filelist)
+    return
   endif
-  if filereadable(".git/vim/project_files")
-    exe "e" filelist
-    " open first WORD
-    if a:clear == 1
-      silent! tabonly
-    endif
-    g/\v^.*[^\s]/ argadd <cWORD>|$tabnew <cWORD>|tabfirst
-    let filelistID = bufnr()
+  if bufname("%") != "" && a:is_mapping == 0
+    return
   endif
-  if currfileID != -1
-    exe "bw" filelist
-    wincmd p
-  else
-    bw 1
-  endif
+  exe "e" filelist
+  " silent! tabonly
+  " " open first WORD of each line
+  " g/\v^.*[^\s]/ if filereadable(expand('<cWORD>')) | argadd <cWORD> | $tabnew <cWORD> | tabfirst | endif
+  g/\v^[^#].*[^\s]/ if filereadable(expand(expand('<cWORD>'))) | argadd <cWORD> | endif
+  exe "bw" filelist
+  wincmd p
 endfunction
 
 augroup AutoProjectLoadOnStart
@@ -733,30 +828,14 @@ augroup AutoProjectLoadOnStart
 augroup end
 
 nnoremap <leader>ej :e .git/vim/project_files<cr>
-nnoremap <leader>sj :call AutoProjectLoad('1')<cr>
 
 ""    Plugins settings
 """        Netrw
 
-" Toggle Vexplore with <leader>t
-function! ToggleNetrw() abort
-  if exists("t:expl_buf_num")
-    let expl_win_num = bufwinnr(t:expl_buf_num)
-    let cur_win_num = winnr()
-    if expl_win_num != -1
-      while expl_win_num != cur_win_num
-        exec "wincmd w"
-        let cur_win_num = winnr()
-      endwhile
-      exec "bwipeout"
-    endif
-    unlet t:expl_buf_num
-  else
-    silent Lexplore
-    let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
-nnoremap <silent> <leader>t :call ToggleNetrw()<cr>
+augroup AutoDeleteNetrwHiddenBuffers
+  au!
+  au FileType netrw setlocal bufhidden=wipe
+augroup end
 
 " Netrw customization
 let g:netrw_keepdir= 0
@@ -764,7 +843,7 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
-let g:netrw_winsize = -25
+let g:netrw_winsize = 20
 let g:netrw_sort_sequence = '[\/]$,*'  " sort folders on top
 
 " open netrw if vim starts without file
@@ -887,8 +966,8 @@ endfunction
 
 " An action can be a reference to a function that processes selected lines
 let g:fzf_action = {
-      \ 'ctrl-l': function('s:build_quickfix_list'),
-      \ 'ctrl-r': function('s:build_location_list'),
+      \ 'ctrl-q': function('s:build_quickfix_list'),
+      \ 'ctrl-l': function('s:build_location_list'),
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'}
@@ -898,6 +977,7 @@ nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
 nnoremap <silent> <leader>F :FzfFiles .<cr>
 nnoremap <silent> <leader>fb :FzfBuffers<cr>
 nnoremap <silent> <leader>b :FzfBuffers<cr>
+nnoremap <silent> <leader>j :FzfBuffers<cr>
 nnoremap <silent> <leader>fw :FzfWindows<cr>
 nnoremap <silent> <leader>ft :FzfTags<cr>
 nnoremap <silent> <leader>f<c-t> :FzfBTags<cr>
@@ -926,7 +1006,7 @@ let g:fzf_tags_command = 'ctags -R'
 " let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
 " let g:fzf_layout = {'heigh': '40%'}
 
-let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline --bind "ctrl-o:toggle+up,ctrl-space:toggle-preview"'
+let $FZF_DEFAULT_OPTS = '--info=inline --bind "ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview,ctrl-u:preview-up,ctrl-d:preview-down"'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 "-g '!{node_modules,.git}'
 
@@ -1014,11 +1094,165 @@ let g:airline#extensions#coc#enabled = 0
 
 """        Anzu
 
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
 
-""    Mappings
+""    General Mappings
+"""        Toggles
+
+" Toggle / close / open Undotree
+nnoremap you :UndotreeToggle<cr>
+nnoremap [ou :UndotreeShow<cr>
+nnoremap ]ou :UndotreeHide<cr>
+nnoremap yo<c-u> :UndotreeFocus<cr>
+
+" Switch dark / light theme[
+nnoremap <silent> yob :call DarkLightSwitch()<cr>
+
+" Netrw toggle - left
+nnoremap <silent> yoe :20Lexplore<cr>
+
+" Toggle of hlsearch + Anzu
+nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
+
+" Toggle terminal - bottom
+nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
+
+" Toggle terminal - right
+nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
+
+" Toggle keep cursor in middle of screen
+nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
+
+" Load project files buffers
+nnoremap yoj :call AutoProjectLoad('1')<cr>
+
+"""        Copy / Paste / Delete
+
+" delete without saving to register
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+" xnoremap <leader>p "_dP
+
+" paste with indentation
+" nnoremap P mp]P==`p
+" nnoremap p mp]p==`p
+
+" System clipboard interraction
+" paste from clipboard ...
+nnoremap <leader>p mp"+]p==`p
+nnoremap <leader>P mp"+]P==`p
+" ... on new line ...
+nnoremap <leader>op o<esc>"+]p==
+" ... above
+nnoremap <leader>oP O<esc>"+]p==
+nnoremap <leader>Op O<esc>"+]p==
+nnoremap <leader>OP O<esc>"+]p==
+
+" copy to clipboard
+nnoremap <leader>y "+y
+nnoremap <leader>yl "+y$
+nnoremap <leader>yh "+y^
+vnoremap <leader>y "+y
+
+"""        Files Informations
+
+" cd shell to vim current working directory
+nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
+
+" show file name
+nnoremap <leader>fp :echo expand('%')<cr>
+
+" show file path/name and copy it to unnamed register
+nnoremap <leader>fP :let @"=expand('%:p')<cr>:echo expand('%:p')<cr>
+
+" show file name and copy it to unnamed register
+nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
+
+" new file here
+nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
+nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
+
+" Word count
+function! WordCount() abort
+  echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+endfunction
+
+nnoremap <leader>wcc :call WordCount()<cr>
+" nnoremap <leader>w :w !detex \| wc -w<cr>
+
+" new file in vertical split instead of horizontal
+nnoremap <c-w><c-n> :vertical new<cr>
+
+" open file under cursor in vertical split instead of horizontal
+nnoremap <c-w><c-f> :vertical wincmd f<cr>
+
+" open file under cursor in a netrw pannel on the left
+nnoremap <c-w><c-d> :Lexplore <cfile><cr>
+
+"""        Folding
+
+" Open / close fold with <c-space>
+if ! has("nvim")
+  nnoremap <c-@> za
+  onoremap <c-@> <c-c>za
+  vnoremap <c-@> zf
+elseif has("nvim")
+  nnoremap <c-space> za
+  onoremap <c-space> <c-c>za
+  vnoremap <c-space> zf
+endif
+
+" close every fold except current
+nnoremap <leader>zc :normal! mzzMzv`z<CR>
+
+" recursively open even partial folds
+nnoremap zo zczO
+
+"""        Dotfiles
+
+" source vimrc
+nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent doautocmd BufRead<cr>:nohlsearch<cr>:echo "vimrc sourced"<cr>`Zzz
+nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`Zzz
+
+" source colors
+nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
+nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
+
+" edit dotfiles
+nnoremap <leader>ev :e $HOME/dotfiles/vimrc<cr>
+nnoremap <leader>e<c-v> :vertical split $HOME/dotfiles/vimrc<cr>
+nnoremap <leader>et :e $HOME/dotfiles/tmux.conf<cr>
+nnoremap <leader>e<c-t> :vertical split $HOME/dotfiles/tmux.conf<cr>
+nnoremap <leader>eb :e $HOME/dotfiles/bashrc<cr>
+nnoremap <leader>e<c-b> :vertical split $HOME/dotfiles/bashrc<cr>
+nnoremap <leader>ea :e $HOME/dotfiles/bash_aliases<cr>
+nnoremap <leader>e<c-a> :vertical split $HOME/dotfiles/bash_aliases<cr>
+nnoremap <leader>en :e $HOME/dotfiles/inputrc<cr>
+nnoremap <leader>e<c-n> :vertical split $HOME/dotfiles/inputrc<cr>
+nnoremap <leader>ep $HOME/dotfiles/bash_profile<cr>
+nnoremap <leader>e<c-p> :vertical split $HOME/dotfiles/bash_profile<cr>
+nnoremap <leader>ec1 :e $HOME/dotfiles/vim/colors/base16-onedark.vim<cr>
+nnoremap <leader>ec2 :e $HOME/dotfiles/vim/colors/base16-one-light.vim<cr>
+nnoremap <leader>eo :CocConfig<cr>
+nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
+
+" " rename file
+" nnoremap <leader>mv :!mv % %:h:p/
+
+"""        Git
+
+" Show git log history
+nnoremap <leader>gl :vert terminal git --no-pager log --all --decorate --oneline --graph<cr>:setlocal filename=""<cr>
+" Show git log in location list
+nnoremap ghl :Gllog! <bar> wincmd b <bar> wincmd L<cr>
+
+"""        Terminal
+
+tnoremap <c-n> <c-\><c-n>
+tnoremap <c-w>; <c-w>:
+
+""    Move Mappings
 """        Modes
 
 " space as leader, prompt '\' in command line window :)
@@ -1063,10 +1297,6 @@ cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
 """        Movement
 
-" insert mode left / right
-inoremap <c-f> <c-g>U<right>
-inoremap <c-b> <c-g>U<left>
-
 " insert mode delete
 inoremap <c-l> <c-o>x
 
@@ -1076,24 +1306,24 @@ nnoremap <silent> k gk
 xnoremap <silent> j gj
 xnoremap <silent> k gk
 
+nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
+vnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
+nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "gE" : "B"
+vnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "gE" : "B"
+
 nnoremap H ^
 nnoremap L $
-nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' ? "w" : "E"
-nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' ? "gE" : "B"
 nnoremap <c-k> {
 nnoremap <c-j> }
-nnoremap <c-q> :redraw!<cr>
+
+vnoremap H ^
+vnoremap L g_
+vnoremap <c-k> {
+vnoremap <c-j> }
 
 "go to next / previous buffer
 nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
-
-vnoremap H ^
-vnoremap L g_
-vnoremap <c-h> B
-vnoremap <c-l> E
-vnoremap <c-k> {
-vnoremap <c-j> }
 
 " switch last 2 buffers
 nnoremap <leader><space> <c-^>
@@ -1105,12 +1335,9 @@ nnoremap <c-w><space><space> :vertical split #<cr>
 onoremap <c-w><space><space> :vertical split #<cr>
 vnoremap <c-w><space><space> :vertical split #<cr>
 
-" move between windows with ctrl
-" nnoremap <c-h> :wincmd h<cr>
-" nnoremap <c-j> :wincmd j<cr>
-" nnoremap <c-k> :wincmd k<cr>
-" nnoremap <c-l> :wincmd l<cr>
-" imap <c-w> <c-o><c-w>
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
 
 " open buffer with partial search
 " nnoremap <leader>b :buffer<space>
@@ -1118,13 +1345,52 @@ vnoremap <c-w><space><space> :vertical split #<cr>
 " nnoremap <leader>B :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
+"""        Alt Movement
+
+" Allow <alt> key mappings
+let c='a'
+while c <= 'z'
+  let d=toupper(c)
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  exec "set <A-".d.">=\e".d
+  exec "imap \e".d." <A-".d.">"
+  let c = nr2char(1+char2nr(c))
+endw
+
+" execute "set <M-j>=^[j"
+inoremap <M-j> <down>
+inoremap <M-k> <up>
+inoremap <M-h> <left>
+inoremap <M-l> <right>
+
+cnoremap <M-j> <down>
+cnoremap <M-k> <up>
+cnoremap <M-h> <left>
+cnoremap <M-l> <right>
+
 " resize windows quicker
 nnoremap <leader>= :exe "resize +10"<cr>
 nnoremap <leader>- :exe "resize -10"<cr>
 nnoremap <leader>> :exe "vertical resize +10"<CR>
 nnoremap <leader>< :exe "vertical resize -10"<CR>
 
+" execute "set <M-j>=^[j"
+nnoremap <silent> <M-K> :exe "resize +1"<cr>
+nnoremap <silent> <M-J> :exe "resize -1"<cr>
+nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
+nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
+
+nnoremap <silent> <M-k> :wincmd k<cr>
+nnoremap <silent> <M-j> :wincmd j<cr>
+nnoremap <silent> <M-l> :wincmd l<cr>
+nnoremap <silent> <M-h> :wincmd h<cr>
+
 """        Searching
+
+" n and N not reversed in reverse-search
+nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
 
 nnoremap / :call clearmatches()<cr>/
 nnoremap <leader>/ :call clearmatches()<cr>/\v
@@ -1148,70 +1414,24 @@ nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 " search visual selection
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
-"Clear search highlight
-nnoremap <silent> <leader>sh :nohlsearch<cr>:call anzu#clear_search_status()<cr>
-
 " For local sed replace
 nnoremap gr :s/<c-r>///g<left><left>
 vnoremap gr :s/<c-r>///g<left><left>
 nnoremap gR :%s/<c-r>///g<left><left>
 
-"""        Files
+"""        Command Line
 
-" cd shell to vim current working directory
-nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
-
-" toggle cursor always in middle with <leader>zz
-nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
-
-" show file name
-nnoremap <leader>fp :echo expand('%')<cr>
-
-" show file path/name and copy it to unnamed register
-nnoremap <leader>fP :let @"=expand('%:p')<cr>:echo expand('%:p')<cr>
-
-" show file name and copy it to unnamed register
-nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
-
-" new file here
-nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
-nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
-
-" open file under cursor on the far-left hand side
-nnoremap <c-w><c-d> :Lexplore <cfile><cr>
-
-" toggle guides
-nnoremap <silent> <leader>sg :set list!<cr>
-
-" % as <c-g>
-nnoremap <c-g> %
-vnoremap <c-g> %
-
-" Count line in function
-function! FunctionLineCount() abort
-  let l:currentline = line(".")
-  normal! j[[
-  let l:topline = line(".")
-  normal! %
-  let l:bottomline = line(".")
-  exe "normal!".l:currentline."gg"
-  echo "function lines :" l:bottomline - l:topline - 1
-  silent! normal! zz
-endfunction
-
-" Word count
-function! WordCount() abort
-  echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
-endfunction
-
-nnoremap <leader>wcf :call FunctionLineCount()<cr>
-nnoremap <leader>wcc :call WordCount()<cr>
-" nnoremap <leader>w :w !detex \| wc -w<cr>
-
-" new file in vertical split instead of horizontal
-" nnoremap <c-w><c-n> :vertical new<cr>
-" nnoremap <c-w>n :vertical new<cr>
-nnoremap <c-w><c-f> :vertical wincmd f<cr>
+cnoremap <c-a> <Home>
+cnoremap <c-e> <End>
+cnoremap <c-k> <Up>
+cnoremap <c-j> <Down>
+cnoremap <c-b> <Left>
+" cnoremap <c-f> <Right>
+cnoremap <c-l> <S-Right>
+cnoremap <c-h> <S-Left>
+cnoremap <c-x> <c-h>
+cnoremap <c-o> <s-tab>
+cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
 """        Tags
 
@@ -1220,218 +1440,6 @@ nnoremap g<c-]> g]
 
 " jump if only one match
 nnoremap g] g<c-]>
-
-"""        Coc
-
-" fix error when using tabs in middle of line
-if v:version < 802
-  inoremap <c-i> <c-v><c-i>
-endif
-
-if ! has("nvim")
-  inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
-elseif has("nvim")
-  inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
-endif
-
-inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
-inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
-hi link CocHilightText Visual
-
-" inoremap <expr> <c-n> pumvisible() ? "\<C-p>" : coc#refresh()
-let g:coc_snippet_next = '<c-f>'
-let g:coc_snippet_prev = '<c-b>'
-
-" use tab as in VSCode
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? coc#_select_confirm() :
-"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-
-" function text object mappings
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" pmenu mappings
-nmap <silent> <leader>gf <Plug>(coc-definition)
-nmap <silent> <leader>gd <Plug>(coc-declaration)
-nmap <silent> <leader>gt <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
-nmap <silent> [w <Plug>(coc-diagnostic-prev)
-nmap <silent> ]w <Plug>(coc-diagnostic-next)
-nmap <leader>cf  <Plug>(coc-fix-current)
-
-" rename word
-nmap <leader>rn <Plug>(coc-rename)
-
-" show doc with Coc
-nnoremap <silent> <leader>k :call <SID>show_documentation()<CR>
-
-function! s:show_documentation() abort
-  if index(['vim','help'], &filetype) >= 0
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold (K)
-augroup CocHiglightSymbol
-  au!
-  au CursorHold * silent call CocActionAsync('highlight')
-augroup end
-
-augroup CocFormatAndK
-  au!
-  " Setup formatexpr specified filetype(s).
-  au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-function! StatusDiagnostic() abort
-  let info = get(b:, 'coc_diagnostic_info', {})
-  if empty(info) | return '' | endif
-  let msgs = []
-  if get(info, 'error', 0)
-    call add(msgs, 'E' . info['error'])
-  endif
-  if get(info, 'warning', 0)
-    call add(msgs, 'W' . info['warning'])
-  endif
-  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
-endfunction
-
-let g:markdown_fenced_languages = ['css', 'js=javascript']
-
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-"""        Folding
-
-" inoremap <leader><space> <c-o>za
-if ! has("nvim")
-  nnoremap <c-@> za
-  onoremap <c-@> <c-c>za
-  vnoremap <c-@> zf
-elseif has("nvim")
-  nnoremap <c-space> za
-  onoremap <c-space> <c-c>za
-  vnoremap <c-space> zf
-endif
-
-" close every fold except current
-nnoremap <leader>zc :normal! mzzMzv`z<CR>
-
-" recursively open even partial folds
-nnoremap zo zczO
-
-" visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
-
-"""        Command
-
-cnoremap <c-a> <Home>
-cnoremap <c-e> <End>
-cnoremap <c-k> <Up>
-cnoremap <c-j> <Down>
-cnoremap <c-b> <Left>
-cnoremap <c-f> <Right>
-cnoremap <c-l> <S-Right>
-cnoremap <c-h> <S-Left>
-cnoremap <c-x> <c-h>
-cnoremap <c-o> <s-tab>
-cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
-
-"""        Clipboard
-
-" delete without saving to register
-nnoremap <leader>d "_d
-xnoremap <leader>d "_d
-" xnoremap <leader>p "_dP
-
-" paste with indentation
-" nnoremap P mp]P==`p
-" nnoremap p mp]p==`p
-
-nnoremap cl c$
-nnoremap dl d$
-nnoremap yl y$
-nnoremap ch c^
-nnoremap dh d^
-nnoremap yh y^
-
-" System clipboard interraction
-" paste from clipboard ...
-nnoremap <leader>p mp"+]p==`p
-nnoremap <leader>P mp"+]P==`p
-" ... on new line ...
-nnoremap <leader>op o<esc>"+]p==
-" ... above
-nnoremap <leader>oP O<esc>"+]p==
-nnoremap <leader>Op O<esc>"+]p==
-nnoremap <leader>OP O<esc>"+]p==
-
-" copy to clipboard
-nnoremap <leader>y "+y
-nnoremap <leader>yl "+y$
-nnoremap <leader>yh "+y^
-vnoremap <leader>y "+y
-
-"""        Dotfiles
-
-" source vimrc
-nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent doautocmd BufRead<cr>:nohlsearch<cr>:echo "vimrc sourced"<cr>`Zzz
-nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`Zzz
-
-" source colors
-nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
-nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
-
-" edit dotfiles
-nnoremap <leader>ev :e $HOME/dotfiles/vimrc<cr>
-nnoremap <leader>e<c-v> :vertical split $HOME/dotfiles/vimrc<cr>
-nnoremap <leader>et :e $HOME/dotfiles/tmux.conf<cr>
-nnoremap <leader>e<c-t> :vertical split $HOME/dotfiles/tmux.conf<cr>
-nnoremap <leader>eb :e $HOME/dotfiles/bashrc<cr>
-nnoremap <leader>e<c-b> :vertical split $HOME/dotfiles/bashrc<cr>
-nnoremap <leader>ea :e $HOME/dotfiles/bash_aliases<cr>
-nnoremap <leader>e<c-a> :vertical split $HOME/dotfiles/bash_aliases<cr>
-nnoremap <leader>en :e $HOME/dotfiles/inputrc<cr>
-nnoremap <leader>e<c-n> :vertical split $HOME/dotfiles/inputrc<cr>
-nnoremap <leader>ep $HOME/dotfiles/bash_profile<cr>
-nnoremap <leader>e<c-p> :vertical split $HOME/dotfiles/bash_profile<cr>
-nnoremap <leader>ec1 :e $HOME/dotfiles/vim/colors/base16-onedark.vim<cr>
-nnoremap <leader>ec2 :e $HOME/dotfiles/vim/colors/base16-one-light.vim<cr>
-nnoremap <leader>eo :CocConfig<cr>
-nnoremap <leader>e<c-o> :vs <bar> CocConfig<cr>
-
-" " rename file
-" nnoremap <leader>mv :!mv % %:h:p/
-
-"""        Terminal
-
-nnoremap <silent> <Leader>T :call <SID>ToggleTerminal()<CR>
-tnoremap <silent> <Leader>T <C-w>N:call <SID>ToggleTerminal()<CR>
-
-tnoremap <c-n> <c-\><c-n>
-
-"""        Fun
-inoremap ,fox The quick brown fox jumps over the lazy dog
-inoremap ,abc abcdefghijklmnopqrstuvwxyz
-inoremap ,ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
-inoremap ,09 0123456789
-
-"""        Git
-
-" Show git log history
-nnoremap <leader>gl :vert terminal git --no-pager log --all --decorate --oneline --graph<cr>:setlocal filename=""<cr>
-" Show git log in location list
-nnoremap <leader>g<c-l> :Gllog! <bar> wincmd b <bar> wincmd L<cr>
 
 ""    Code Mappings
 """        General
@@ -1495,8 +1503,108 @@ nnoremap <leader>csT :Shell make ex TESTFF=
 " " nnoremap <leader>csv :make ex TEST=<cr><cr>:lopen<cr>:wincmd L<cr>
 " nnoremap <leader>csm :lmake<cr><cr>:lopen<cr>:wincmd L<cr>
 
-nnoremap <silent> g{ viBo^<esc>
-nnoremap <silent> g} viB^<esc>
+" Count line in function
+function! FunctionLineCount() abort
+  let l:currentline = line(".")
+  normal! j[[
+  let l:topline = line(".")
+  normal! %
+  let l:bottomline = line(".")
+  exe "normal!".l:currentline."gg"
+  echo "function lines :" l:bottomline - l:topline - 1
+  silent! normal! zz
+endfunction
+
+nnoremap <leader>wcf :call FunctionLineCount()<cr>
+
+"""        Coc
+
+" fix error when using tabs in middle of line
+if v:version < 802
+  inoremap <c-i> <c-v><c-i>
+endif
+
+if ! has("nvim")
+  inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
+elseif has("nvim")
+  inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
+endif
+
+inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
+hi link CocHilightText Visual
+
+" inoremap <expr> <c-n> pumvisible() ? "\<C-p>" : coc#refresh()
+let g:coc_snippet_next = '<c-f>'
+let g:coc_snippet_prev = '<c-b>'
+
+" use tab as in VSCode
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+
+" function text object mappings
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" pmenu mappings
+nmap <silent> <leader>gf <Plug>(coc-definition)
+nmap <silent> <leader>gd <Plug>(coc-declaration)
+nmap <silent> <leader>gt <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
+nmap <silent> [w <Plug>(coc-diagnostic-prev)
+nmap <silent> ]w <Plug>(coc-diagnostic-next)
+nmap <leader>cf  <Plug>(coc-fix-current)
+
+" rename word
+nmap <leader>rn <Plug>(coc-rename)
+
+" show doc with Coc
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation() abort
+  if index(['vim','help'], &filetype) >= 0
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold (K)
+augroup CocHiglightSymbol
+  au!
+  au CursorHold * silent call CocActionAsync('highlight')
+augroup end
+
+augroup CocFormatAndK
+  au!
+  " Setup formatexpr specified filetype(s).
+  au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+endfunction
+
+let g:markdown_fenced_languages = ['css', 'js=javascript']
+
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 """        bash
 
@@ -1822,13 +1930,26 @@ augroup MarkdownMaps
   " au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
 augroup end
 
+"""        Fun
+
+inoremap ,fox The quick brown fox jumps over the lazy dog
+inoremap ,abc abcdefghijklmnopqrstuvwxyz
+inoremap ,ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
+inoremap ,09 0123456789
+
+""    FileType settings
+
+augroup VimSettings
+  au!
+  au FileType vim set tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
+augroup END
+
+au FileType vim set tabstop=2 expandtab " vim:tw=0:ts=2:sts=2:shiftwidth=2
 ""    Operators
 """        Start / End of line
-onoremap ah :<c-u>normal! v^<cr>
-onoremap ih :<c-u>normal! hv^<cr>
-
-onoremap al :<c-u>normal! v$<cr>
-onoremap il :<c-u>normal! lv$<cr>
+onoremap h :<c-u>normal! ^<cr>
+onoremap l :<c-u>normal! v$h<cr>
+onoremap il :<c-u>normal! $v_<cr>
 
 """        Surroundings
 onoremap i. :<c-u>normal! T.vt.<cr>
@@ -2204,9 +2325,9 @@ endfunction
 """        Filetype
 
 augroup DotfilesSettings
-	au!
-	au BufEnter,BufWritePost {,.}bash_aliases,{,.}bashrc,{,.}inputrc
-				\ setlocal filetype=sh colorcolumn=0
+  au!
+  au BufEnter,BufWritePost {,.}bash_aliases,{,.}bashrc,{,.}inputrc,{,.}bash_profile
+        \ setlocal filetype=sh colorcolumn=0
 augroup end
 
 """        Vimrc mappings

@@ -4,4 +4,4 @@ if [ $# -ne 1 ]
 then
 	echo "usage : psg [pattern]"
 fi
-ps aux | grep $1
+ps aux | grep $1 | grep -v "grep "$1 | grep -v "psg "$1

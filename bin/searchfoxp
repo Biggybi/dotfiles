@@ -1,0 +1,3 @@
+#!/bin/bash
+SEARCH="https://duckduckgo.com/?q="
+firefox -private-window "$SEARCH$@"

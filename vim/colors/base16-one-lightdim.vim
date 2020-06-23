@@ -2,7 +2,7 @@
 
 " base16-vim (https://github.com/chriskempson/base16-vim)
 " by Chris Kempson (http://chriskempson.com)
-" OneDark scheme by Lalit Magant (http://github.com/tilal6991)
+" One Light scheme by Daniel Pfeifer (http://github.com/purpleKarrot)
 
 " This enables the coresponding base16-shell script to run so that
 " :colorscheme works in terminals supported by base16-shell scripts
@@ -10,49 +10,49 @@
 "   let g:base16_shell_path=base16-builder/output/shell/
 if !has("gui_running")
   if exists("g:base16_shell_path")
-    execute "silent !/bin/sh ".g:base16_shell_path."/base16-onedark.sh"
+    execute "silent !/bin/sh ".g:base16_shell_path."/base16-one-light.sh"
   endif
 endif
 
 " GUI color definitions
-" let s:gui00        = "282c34"
-let s:gui00        = "2C2C2C"
-" let s:gui00        = "2E3436"
-" let s:gui00        = "303030"
-let g:base16_gui00 = "282c34"
-" let s:gui01        = "353b45"
-let s:gui01        = "383838"
-let g:base16_gui01 = "353b45"
-" let s:gui02        = "3e4451"
-let s:gui02        = "454545"
-let g:base16_gui02 = "3e4451"
-" let s:gui03        = "545862"
-let s:gui03        = "6C6C6C"
-let g:base16_gui03 = "545862"
-let s:gui04        = "565c64"
-let g:base16_gui04 = "565c64"
-let s:gui05        = "abb2bf"
-let g:base16_gui05 = "abb2bf"
-let s:gui06        = "b6bdca"
-let g:base16_gui06 = "b6bdca"
-let s:gui07        = "c8ccd4"
-let g:base16_gui07 = "c8ccd4"
-let s:gui08        = "e06c75"
-let g:base16_gui08 = "e06c75"
-let s:gui09        = "d19a66"
-let g:base16_gui09 = "d19a66"
-let s:gui0A        = "e5c07b"
-let g:base16_gui0A = "e5c07b"
-let s:gui0B        = "98c379"
-let g:base16_gui0B = "98c379"
+" let s:gui00        = "fafafa"
+let s:gui00        = "E0E0E0"
+let g:base16_gui00 = "fafafa"
+" let s:gui01        = "f0f0f1"
+let s:gui01        = "C3C3C3"
+let g:base16_gui01 = "f0f0f1"
+let s:gui02        = "e5e5e6"
+let g:base16_gui02 = "e5e5e6"
+let s:gui03        = "a0a1a7"
+let g:base16_gui03 = "a0a1a7"
+let s:gui04        = "696c77"
+let g:base16_gui04 = "696c77"
+let s:gui05        = "383a42"
+let g:base16_gui05 = "383a42"
+let s:gui06        = "202227"
+let g:base16_gui06 = "202227"
+let s:gui07        = "090a0b"
+let g:base16_gui07 = "090a0b"
+let s:gui08        = "ca1243"
+let g:base16_gui08 = "ca1243"
+" let s:gui09        = "d75f00"
+" let s:gui09        = "ff8522"
+" let s:gui09        = "ff9000"
+let s:gui09        = "f88f22"
+let g:base16_gui09 = "d75f00"
+let s:gui0A        = "c18401"
+let g:base16_gui0A = "c18401"
+let s:gui0B        = "50a14f"
+let g:base16_gui0B = "50a14f"
+" let s:gui0C        = "0184bc"
 let s:gui0C        = "56b6c2"
-let g:base16_gui0C = "56b6c2"
-let s:gui0D        = "61afef"
-let g:base16_gui0D = "61afef"
-let s:gui0E        = "c678dd"
-let g:base16_gui0E = "c678dd"
-let s:gui0F        = "be5046"
-let g:base16_gui0F = "be5046"
+let g:base16_gui0C = "0184bc"
+let s:gui0D        = "4078f2"
+let g:base16_gui0D = "4078f2"
+let s:gui0E        = "a626a4"
+let g:base16_gui0E = "a626a4"
+let s:gui0F        = "986801"
+let g:base16_gui0F = "986801"
 
 " Terminal color definitions
 let s:cterm00        = "00"
@@ -105,22 +105,22 @@ endif
 
 " Neovim terminal colours
 if has("nvim")
-  let g:terminal_color_0 =  "#282c34"
-  let g:terminal_color_1 =  "#e06c75"
-  let g:terminal_color_2 =  "#98c379"
-  let g:terminal_color_3 =  "#e5c07b"
-  let g:terminal_color_4 =  "#61afef"
-  let g:terminal_color_5 =  "#c678dd"
-  let g:terminal_color_6 =  "#56b6c2"
-  let g:terminal_color_7 =  "#abb2bf"
-  let g:terminal_color_8 =  "#545862"
-  let g:terminal_color_9 =  "#e06c75"
-  let g:terminal_color_10 = "#98c379"
-  let g:terminal_color_11 = "#e5c07b"
-  let g:terminal_color_12 = "#61afef"
-  let g:terminal_color_13 = "#c678dd"
-  let g:terminal_color_14 = "#56b6c2"
-  let g:terminal_color_15 = "#c8ccd4"
+  let g:terminal_color_0 =  "#fafafa"
+  let g:terminal_color_1 =  "#ca1243"
+  let g:terminal_color_2 =  "#50a14f"
+  let g:terminal_color_3 =  "#c18401"
+  let g:terminal_color_4 =  "#4078f2"
+  let g:terminal_color_5 =  "#a626a4"
+  let g:terminal_color_6 =  "#0184bc"
+  let g:terminal_color_7 =  "#383a42"
+  let g:terminal_color_8 =  "#a0a1a7"
+  let g:terminal_color_9 =  "#ca1243"
+  let g:terminal_color_10 = "#50a14f"
+  let g:terminal_color_11 = "#c18401"
+  let g:terminal_color_12 = "#4078f2"
+  let g:terminal_color_13 = "#a626a4"
+  let g:terminal_color_14 = "#0184bc"
+  let g:terminal_color_15 = "#090a0b"
   let g:terminal_color_background = g:terminal_color_0
   let g:terminal_color_foreground = g:terminal_color_5
   if &background == "light"
@@ -129,29 +129,29 @@ if has("nvim")
   endif
 elseif has("terminal")
   let g:terminal_ansi_colors = [
-        \ "#282c34",
-        \ "#e06c75",
-        \ "#98c379",
-        \ "#e5c07b",
-        \ "#61afef",
-        \ "#c678dd",
-        \ "#56b6c2",
-        \ "#abb2bf",
-        \ "#545862",
-        \ "#e06c75",
-        \ "#98c379",
-        \ "#e5c07b",
-        \ "#61afef",
-        \ "#c678dd",
-        \ "#56b6c2",
-        \ "#c8ccd4",
+        \ "#fafafa",
+        \ "#ca1243",
+        \ "#50a14f",
+        \ "#c18401",
+        \ "#4078f2",
+        \ "#a626a4",
+        \ "#0184bc",
+        \ "#383a42",
+        \ "#a0a1a7",
+        \ "#ca1243",
+        \ "#50a14f",
+        \ "#c18401",
+        \ "#4078f2",
+        \ "#a626a4",
+        \ "#0184bc",
+        \ "#090a0b",
         \ ]
 endif
 
 " Theme setup
 hi clear
 syntax reset
-let g:colors_name = "base16-onedark"
+let g:colors_name = "base16-one-light"
 
 " Highlighting function
 " Optional variables are attributes and guisp
@@ -187,73 +187,66 @@ endfun
 " Vim editor colors
 call <sid>hi("Normal",        s:gui05, s:gui00, s:cterm05, s:cterm00, "", "")
 call <sid>hi("Bold",          "", "", "", "", "bold", "")
-" call <sid>hi("Debug",         s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("Debug",         s:gui08, s:gui08, "", "", "", "")
-call <sid>hi("DebugPC",       "", s:gui01, s:cterm08, "", "", "")
-call <sid>hi("DebugBreakpoint", s:gui08, "", s:cterm08, "", "", "")
+call <sid>hi("Debug",         s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("Directory",     s:gui0D, "", s:cterm0D, "", "", "")
 call <sid>hi("Error",         s:gui07, s:gui08, s:cterm00, s:cterm08, "", "")
 call <sid>hi("ErrorMsg",      s:gui08, s:gui00, s:cterm08, s:cterm00, "", "")
-call <sid>hi("TrailSpace",    s:gui0C, s:gui02, s:cterm08, s:cterm02, "strikethrough", "")
+call <sid>hi("TrailSpace",    s:gui0C, s:gui01, s:cterm08, s:cterm02, "strikethrough", "")
 call <sid>hi("Exception",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("FoldColumn",    s:gui0C, s:gui01, s:cterm0C, s:cterm01, "", "")
 " call <sid>hi("Folded",        s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
 call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
-" call <sid>hi("IncSearch",     s:gui02, s:gui0A, s:cterm00, s:cterm0A, "none", "")
-" call <sid>hi("IncSearch",     s:gui0C, s:gui02, s:cterm04, s:cterm0C, "none", "")
-" call <sid>hi("EdgeSearch",     s:gui08, s:gui02, s:cterm04, s:cterm0C, "none", "")
-" call <sid>hi("Search",        s:gui0E, s:gui02, s:cterm01, s:cterm0A,  "", "")
-call <sid>hi("IncSearch",     s:gui0E, s:gui02, s:cterm04, s:cterm0C, "none", "")
-call <sid>hi("EdgeSearch",     s:gui08, s:gui02, s:cterm04, s:cterm0C, "none", "")
-call <sid>hi("Search",        s:gui0D, s:gui02, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("IncSearch",     s:gui0E, s:gui01, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("EdgeSearch",     s:gui08, s:gui01, s:cterm04, s:cterm0C, "none", "")
+call <sid>hi("Search",        s:gui0D, s:gui01, s:cterm01, s:cterm0A,  "", "")
+" call <sid>hi("IncSearch",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
+" call <sid>hi("EdgeSearch",     s:gui00, s:gui09, s:cterm04, s:cterm0C, "none", "")
+" call <sid>hi("Search",        s:gui00, s:gui0C, s:cterm01, s:cterm0A,  "", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
 call <sid>hi("Macro",         s:gui08, "", s:cterm08, "", "", "")
 " call <sid>hi("MatchParen",    "", s:gui03, "", s:cterm03,  "", "")
-" call <sid>hi("MatchParen",    s:gui01, s:gui0B, "", s:cterm03,  "", "")
-call <sid>hi("MatchParen",    s:gui00, s:gui04, "", s:cterm03,  "", "")
+call <sid>hi("MatchParen",    s:gui04, s:gui01, "", s:cterm06,  "", "")
 call <sid>hi("ModeMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("MoreMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("Question",      s:gui0D, "", s:cterm0D, "", "", "")
-call <sid>hi("Substitute",    s:gui01, s:gui0A, s:cterm01, s:cterm0A, "none", "")
+call <sid>hi("Substitute",    s:gui01, s:gui0B, s:cterm01, s:cterm0A, "none", "")
 call <sid>hi("SpecialKey",    s:gui03, "", s:cterm03, "", "", "")
 call <sid>hi("TooLong",       s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("Underlined",    s:gui08, "", s:cterm08, "", "", "")
-" call <sid>hi("Comment",      s:gui01, "", s:cterm01, "", "", "")
-call <sid>hi("Visual",        "", s:gui02, "", s:cterm01, "", "")
+" call <sid>hi("Visual",        "", s:gui02, "", s:cterm02, "", "")
+call <sid>hi("Visual",        "", s:gui01, "", s:cterm02, "", "")
 call <sid>hi("VisualNOS",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("WarningMsg",    s:gui08, "", s:cterm08, "", "", "")
 " call <sid>hi("WildMenu",      s:gui08, s:gui0A, s:cterm08, "", "", "")
-" call <sid>hi("WildMenu",      s:gui08, s:gui01, s:cterm08, "", "", "")
-call <sid>hi("WildMenu",      s:gui00, s:gui03, s:cterm08, "", "", "")
+" call <sid>hi("WildMenu",      s:gui08, s:gui01, s:cterm00, "", "", "")
+call <sid>hi("WildMenu",      s:gui01, s:gui04, s:cterm00, "", "", "")
 call <sid>hi("Title",         s:gui0D, "", s:cterm0D, "", "none", "")
 call <sid>hi("Conceal",       s:gui0D, s:gui00, s:cterm0D, s:cterm00, "", "")
 call <sid>hi("Cursor",        s:gui00, s:gui05, s:cterm00, s:cterm05, "", "")
 call <sid>hi("NonText",       s:gui03, "", s:cterm03, "", "", "")
 " call <sid>hi("LineNr",        s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
-call <sid>hi("LineNr",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
-call <sid>hi("SignColumn",    s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
+call <sid>hi("LineNr",        s:gui03, s:gui00, s:cterm00, s:cterm01, "", "")
+" call <sid>hi("SignColumn",    s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
+call <sid>hi("SignColumn",    s:gui03, s:gui00, s:cterm03, s:cterm00, "", "")
 " call <sid>hi("StatusLine",    s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
 call <sid>hi("StatusLine",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
-" call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
-call <sid>hi("StatusLineNC",  s:gui05, s:gui01, s:cterm01, s:cterm02, "none", "")
-call <sid>hi("StatusLineTerm",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
-call <sid>hi("StatusLineNC",  s:gui05, s:gui01, s:cterm01, s:cterm02, "none", "")
+call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
 " call <sid>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none", "")
-" call <sid>hi("VertSplit",     s:gui03, s:gui00, s:cterm02, s:cterm02, "none", "")
+" call <sid>hi("VertSplit",     s:gui04, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit",     s:gui01, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("AirlineActiveLeft",     s:gui06, s:gui02, s:cterm07, s:cterm02, "none", "")
-" call <sid>hi("AirlineActiveGit",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("AirlineActiveLeft",     s:gui05, s:gui03, s:cterm07, s:cterm02, "none", "")
+" call <sid>hi("AirlineActiveGit",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("AirlineNormal",     s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("AirlineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("AirlineVisual", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("AirlineReplace", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("AirlineVisual", s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("AirlineReplace", s:gui00, s:gui09, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
-call <sid>hi("CursorColumn",  "", s:gui02, "", s:cterm01, "none", "")
-call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")
-call <sid>hi("CursorLineNr",  s:gui05, s:gui02, s:cterm04, s:cterm01, "none", "")
-call <sid>hi("QuickFixLine",  "", s:gui02, "", s:cterm01, "none", "")
+call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
+call <sid>hi("CursorLine",    "", s:gui00, "", "", "none", "")
+call <sid>hi("CursorLineNr",  s:gui05, s:gui01, s:cterm04, s:cterm01, "none", "")
+call <sid>hi("QuickFixLine",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("PMenuSel",      s:gui01, s:gui05, s:cterm01, s:cterm05, "", "")
 call <sid>hi("TabLine",       s:gui05, s:gui01, s:cterm03, s:cterm01, "none", "")
@@ -263,7 +256,8 @@ call <sid>hi("TabLineSel",    s:gui05, s:gui00, s:cterm0B, s:cterm01, "none", ""
 " Standard syntax highlighting
 call <sid>hi("Boolean",      s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Character",    s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("Comment",      s:gui03, "", s:cterm03, "", "italic", "")
+" call <sid>hi("Comment",      s:gui03, "", s:cterm03, "", "italic", "")
+call <sid>hi("Comment",      s:gui03, s:gui00, s:cterm05, s:cterm03, "italic", "")
 call <sid>hi("Conditional",  s:gui0E, "", s:cterm0E, "", "", "")
 call <sid>hi("Constant",     s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Define",       s:gui0E, "", s:cterm0E, "", "none", "")
@@ -336,10 +330,6 @@ call <sid>hi("gitcommitDiscardedFile",  s:gui08, "", s:cterm08, "", "bold", "")
 call <sid>hi("gitcommitSelectedFile",   s:gui0B, "", s:cterm0B, "", "bold", "")
 
 " GitGutter highlighting
-" call <sid>hi("GitGutterAdd",     s:gui0B, s:gui01, s:cterm0B, s:cterm01, "", "")
-" call <sid>hi("GitGutterChange",  s:gui0D, s:gui01, s:cterm0D, s:cterm01, "", "")
-" call <sid>hi("GitGutterDelete",  s:gui08, s:gui01, s:cterm08, s:cterm01, "", "")
-" call <sid>hi("GitGutterChangeDelete",  s:gui0E, s:gui01, s:cterm0E, s:cterm01, "", "")
 call <sid>hi("GitGutterAdd",     s:gui0B, s:gui00, s:cterm0B, s:cterm01, "", "")
 call <sid>hi("GitGutterChange",  s:gui0D, s:gui00, s:cterm0D, s:cterm01, "", "")
 call <sid>hi("GitGutterDelete",  s:gui08, s:gui00, s:cterm08, s:cterm01, "", "")
@@ -423,9 +413,6 @@ call <sid>hi("sassMixinName",  s:gui0D, "", s:cterm0D, "", "", "")
 call <sid>hi("SignifySignAdd",     s:gui0B, s:gui01, s:cterm0B, s:cterm01, "", "")
 call <sid>hi("SignifySignChange",  s:gui0D, s:gui01, s:cterm0D, s:cterm01, "", "")
 call <sid>hi("SignifySignDelete",  s:gui08, s:gui01, s:cterm08, s:cterm01, "", "")
-" call <sid>hi("SignifySignAdd",     s:gui0B, s:gui00, s:cterm0B, s:cterm00, "", "")
-" call <sid>hi("SignifySignChange",  s:gui0D, s:gui00, s:cterm0D, s:cterm00, "", "")
-" call <sid>hi("SignifySignDelete",  s:gui08, s:gui00, s:cterm08, s:cterm00, "", "")
 
 " Spelling highlighting
 call <sid>hi("SpellBad",     "", "", "", "", "undercurl", s:gui08)

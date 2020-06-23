@@ -1,0 +1,4 @@
+#!/bin/bash
+SEARCH="https://duckduckgo.com/?q="
+# firefox -new-window https://www.qwant.com/?q="$@"
+firefox -new-window "$SEARCH$@"
