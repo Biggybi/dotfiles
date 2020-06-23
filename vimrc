@@ -1370,6 +1370,11 @@ nnoremap <silent> <M-j> :wincmd j<cr>
 nnoremap <silent> <M-l> :wincmd l<cr>
 nnoremap <silent> <M-h> :wincmd h<cr>
 
+tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
+tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
+tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
+tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
+
 """        Searching
 
 " n and N not reversed in reverse-search
