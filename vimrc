@@ -214,52 +214,36 @@ set tabpagemax=30
 ""    Look / Theme
 """        DarkLightSwitch
 
-" switch between light and dark theme (UI + ligtline)
-function! DarkLightSwitch() abort
-  if g:DarkLightSwitch ==# 'dark'
-    set background=dark
-    colorscheme  base16-onedark
-    let g:DarkLightSwitch = 'light'
-  elseif g:DarkLightSwitch ==# 'light'
-    set background=light
-    colorscheme  base16-one-lightdim
-    let g:DarkLightSwitch = 'dark'
-  endif
-  if exists("g:DarkLightOn")
-  endif
-  let g:DarkLightOn = 1
-endfunction
+let g:theme_list = ['base16-one-light', 'base16-one-lightdim', 'base16-onedark']
+let g:theme_force_load_start = 'base16-one-lightdim'
+let g:daytime = [7, 19]
 
-let g:DarkLightMod = 3
-" 0: auto, sensible to sourcing
-" 1: force dark
-" 2: force light
-" 3: auto, keep current when sourcing
-
-" open vim with different color based on time of day
-
-if g:DarkLightMod == 0 || g:DarkLightMod == 3
-  let hour = strftime("%H")
-  if 8 <= hour && hour <= 17
-    let g:DarkLightSwitch = 'light'
+let g:theme_force_load_start = get(g:, 'theme_force_load_start', '0')
+if g:theme_force_load_start != '0'
+  if index(g:theme_list, g:theme_force_load_start) >= 0
+    exe "colorscheme" g:theme_force_load_start
   else
-    let g:DarkLightSwitch = 'dark'
+    echom "Auto theme not found:" g:theme_force_load_start . ". Using default:" g:theme_list[0]. "."
+    exe "colorscheme" g:theme_list[0]
+  endif
+else
+  let hour = strftime("%H")
+  if daytime[0] <= hour && hour <= daytime[1]
+    exe "colorscheme" g:theme_list[1]
+  else
+    exe "colorscheme" g:theme_list[2]
   endif
 endif
-if g:DarkLightMod == 0
-  call DarkLightSwitch()
-elseif g:DarkLightMod == 1
-  let g:DarkLightSwitch = 'dark'
-  call DarkLightSwitch()
-elseif g:DarkLightMod == 2
-  let g:DarkLightSwitch = 'light'
-  call DarkLightSwitch()
-elseif g:DarkLightMod == 3
-  if ! exists("g:DarkLightOn")
-    call DarkLightSwitch()
-    let g:DarkLightMod = -1
+
+function! DarkLightSwitch() abort
+  let curr_index = index(g:theme_list, g:colors_name)
+  if curr_index >= len(g:theme_list) - 1 || curr_index < 0
+    exe "colorscheme" g:theme_list[0]
+    return
   endif
-endif
+  let curr_index += 1
+  exe "colorscheme" g:theme_list[curr_index]
+endfunction
 
 """        Title
 
