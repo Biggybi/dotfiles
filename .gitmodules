@@ -110,3 +110,6 @@
 [submodule "langserver/groovy-language-server"]
 	path = langserver/groovy-language-server
 	url = git@github.com:prominic/groovy-language-server.git
+[submodule "vim/bundle/vim-airline-themes-fork"]
+	path = vim/bundle/vim-airline-themes-fork
+	url = git@github.com:Biggybi/vim-airline-themes.git
