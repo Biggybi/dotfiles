@@ -62,6 +62,7 @@
 		"blanks-around-lists": false,
 		"first-line-h1": false,
 		"no-empty-links": false,
+		"no-duplicate-header": false,
 		"no-multiple-blanks": false
 	},
 	"list.insertMappings": {
