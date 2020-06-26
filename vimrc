@@ -1377,6 +1377,9 @@ tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
 
 """        Searching
 
+" Pair cycle
+nnoremap <c-g> %
+
 " n and N not reversed in reverse-search
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
