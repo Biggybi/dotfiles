@@ -226,6 +226,7 @@ if g:theme_force_load_start != '0'
     echom "Auto theme not found:" g:theme_force_load_start . ". Using default:" g:theme_list[0]. "."
     exe "colorscheme" g:theme_list[0]
   endif
+  unlet g:theme_force_load_start
 else
   let hour = strftime("%H")
   if daytime[0] <= hour && hour <= daytime[1]
