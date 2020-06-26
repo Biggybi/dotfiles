@@ -215,29 +215,39 @@ set tabpagemax=30
 """        DarkLightSwitch
 
 let g:theme_list = ['base16-one-light', 'base16-one-lightdim', 'base16-onedark']
-let g:theme_force_load_start = 'base16-one-lightdim'
+" let g:theme_force_load_start = 'base16-one-lightdim'
 let g:daytime = [7, 19]
+let g:theme_force_load_start = get(g:, 'theme_force_load_start')
+let g:theme_source_sensitive = 0
 
-let g:theme_force_load_start = get(g:, 'theme_force_load_start', '0')
-if g:theme_force_load_start != '0'
-  if index(g:theme_list, g:theme_force_load_start) >= 0
-    exe "colorscheme" g:theme_force_load_start
+function! SelectColorScheme() abort
+  if g:theme_force_load_start != 0
+    if index(g:theme_list, g:theme_force_load_start) >= 0
+      exe "colorscheme" g:theme_force_load_start
+    else
+      echom "Auto theme not found:" g:theme_force_load_start . ". Using default:" g:theme_list[0]. "."
+      exe "colorscheme" g:theme_list[0]
+    endif
+    unlet g:theme_force_load_start
   else
-    echom "Auto theme not found:" g:theme_force_load_start . ". Using default:" g:theme_list[0]. "."
-    exe "colorscheme" g:theme_list[0]
+    let hour = strftime("%H")
+    if g:daytime[0] <= hour && hour <= g:daytime[1]
+      exe "colorscheme" g:theme_list[1]
+    else
+      exe "colorscheme" g:theme_list[2]
+    endif
   endif
-  unlet g:theme_force_load_start
-else
-  let hour = strftime("%H")
-  if daytime[0] <= hour && hour <= daytime[1]
-    exe "colorscheme" g:theme_list[1]
-  else
-    exe "colorscheme" g:theme_list[2]
-  endif
+endfunction
+if ! exists("g:theme_change")
+  call SelectColorScheme()
+endif
+if g:theme_source_sensitive == 1
+  call SelectColorScheme()
 endif
 
 function! DarkLightSwitch() abort
   let curr_index = index(g:theme_list, g:colors_name)
+  let g:theme_change = 1
   if curr_index >= len(g:theme_list) - 1 || curr_index < 0
     exe "colorscheme" g:theme_list[0]
     return
