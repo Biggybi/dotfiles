@@ -45,7 +45,7 @@ set nolazyredraw                     " no redraw executing macros
 
 " Session restore
 set sessionoptions-=options
-set viewoptions=cursor,folds    "only these settins
+set viewoptions=folds    "only these settins
 " restore undo history
 if exists('+undofile')
   set undofile
@@ -679,14 +679,14 @@ augroup end
 augroup ReOpenFileWhereLeft
   au!
   au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$")
+        \ if line("'\"") > 0 && line("'\"") <= line("$") && &ft !~# 'gitcommit'
         \   | exe "normal! g`\""
         \ | endif
 augroup end
 
 """        Files views
 
-" save folding state and more
+" save folding state (and more based on 'viewoptions')
 if ! has("nvim")
   augroup ReViews
     au!
