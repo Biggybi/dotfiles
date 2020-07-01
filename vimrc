@@ -1270,6 +1270,9 @@ nnoremap gI `.gi<esc>zz
 " no more default ex mode
 nnoremap Q <nul>
 
+" redraw
+nnoremap <c-q> redraw!
+
 " repeat last macro
 nnoremap - @@
 
