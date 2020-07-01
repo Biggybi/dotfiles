@@ -2297,13 +2297,11 @@ function! MailSignature() abort
   let surname = "Kapous"
   let email = "<tris@tristankapous.com>"
   let prefix = "--"
-
   let signature_undated = prefix . " " . firstname . " " . surname . " " . email
   if getline('$') =~ '^.*'.signature_undated
     :$d
   endif
-
-  let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
+  let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S')
   call append('$', signature)
 endfunction
 
