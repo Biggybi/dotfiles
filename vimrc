@@ -66,9 +66,9 @@ else
   set undodir=$HOME/.vim/tmp/undo//
   set viewdir=$HOME/.vim/tmp/view//
   if has("nvim")
-    set viminfo+=n$HOME/.vim/tmp/nviminfo
+    set viminfo+=n$HOME/.vim/tmp/viminfo/nviminfo
   else
-    set viminfo+=n$HOME/.vim/tmp/viminfo
+    set viminfo+=n$HOME/.vim/tmp/viminfo/viminfo
   endif
 endif
 
