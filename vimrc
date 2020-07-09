@@ -1092,6 +1092,10 @@ let g:airline#extensions#coc#enabled = 0
 let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
 
+"""        Goyo
+
+let g:goyo_width = 81
+
 ""    General Mappings
 """        Toggles
 
