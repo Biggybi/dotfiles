@@ -1951,10 +1951,9 @@ inoremap ,09 0123456789
 
 augroup VimSettings
   au!
-  au FileType vim set tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
+  au FileType vim setlocal tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
 augroup END
 
-au FileType vim set tabstop=2 expandtab " vim:tw=0:ts=2:sts=2:shiftwidth=2
 ""    Operators
 """        Start / End of line
 onoremap h :<c-u>normal! ^<cr>
