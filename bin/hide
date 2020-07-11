@@ -2,33 +2,36 @@
 
 # Hide or unhide file given as argument
 
+let F=0
+
 if [ $1 == '-f' ]
 then
-	if [[ $2 == '.'* ]]
-	then
-		mv $2 ${2:1}
-	else
-		mv $2 "."$2
-	fi
-fi
-if [ $1 == '-f' ]
-then
-	exit 1
+	let F=1
+	shift
 fi
 
-if [[ $1 == '.'* ]]
-then
-	if [ -e ${1:1} ]
+while [[ $1 ]]
+do
+	if ! [ -e ${1} ]
 	then
-		echo "."$1 exists, use -f to override
-	else
-		mv $1 ${1:1}
-	fi
-else
-	if [ -e "."$1 ]
+		echo "no such file: $1"
+	elif [[ $1 == '.'* ]]
 	then
-		echo "."$1 exists, use -f to override
+		if [ $F == 0 ] && [ -e ${1:1} ]
+		then
+			echo $1 exists, use -f to override
+		else
+			mv $1 ${1:1}
+			echo "unhide $1"
+		fi
 	else
-		mv $1 "."$1
+		if [ $F == 0 ] && [ -e "."$1 ]
+		then
+			echo "."$1 exists, use -f to override
+		else
+			mv $1 "."$1
+			echo "hide $1"
+		fi
 	fi
-fi
+	shift
+done
