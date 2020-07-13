@@ -223,7 +223,7 @@ let g:theme_force_load_start = get(g:, 'theme_force_load_start')
 let g:theme_source_sensitive = 0
 
 function! SelectColorScheme() abort
-  if g:theme_force_load_start != 0
+  if g:theme_force_load_start != '0'
     if index(g:theme_list, g:theme_force_load_start) >= 0
       exe "colorscheme" g:theme_force_load_start
     else
