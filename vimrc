@@ -686,7 +686,7 @@ augroup ReOpenFileWhereLeft
   au!
   au BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") && &ft !~# 'gitcommit'
-        \   | exe "normal! g`\""
+        \ |   exe "normal! g`\""
         \ | endif
 augroup end
 
@@ -698,11 +698,11 @@ if ! has("nvim")
     au!
     au BufWinLeave *
           \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-          \   | mkview
+          \ |   mkview
           \ | endif
     au BufWinEnter *
           \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-          \   | silent! loadview
+          \ |   silent! loadview
           \ | endif
   augroup end
 endif
@@ -714,7 +714,7 @@ augroup CdGitRootOrFileDir
   au!
   au BufEnter,BufRead *
         \ if !empty(bufname("%"))
-        \   | silent! cd %:p:h | silent! Glcd
+        \ |   silent! cd %:p:h | silent! Glcd
         \ | endif
 augroup end
 
