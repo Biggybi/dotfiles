@@ -728,8 +728,7 @@ augroup end
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
 " au BufWritePost *.cpp silent! !ctags -R &
-" set tags=tags;./git/
-" set tags=./tags;
+set tags=tags;./git/
 
 """        Completion by filetype
 
