@@ -937,6 +937,12 @@ let g:gitgutter_sign_removed = '▎'
 let g:gitgutter_sign_removed_first_line = '▔'
 let g:gitgutter_sign_modified_removed = '▎'
 
+nmap ghm <Plug>(git-messenger-close)<bar><Plug>(git-messenger)
+if ! has("nvim")
+  let g:git_messenger_close_on_cursor_moved = 'false'
+  let g:git_messenger_into_popup_after_show = 'false'
+endif
+
 nmap ghp <Plug>(GitGutterPreviewHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
