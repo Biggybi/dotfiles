@@ -117,8 +117,6 @@ set showcmd                     " show command
 set wildmenu                    " show matches to commands
 set wildchar=<tab>              " complete w/ tab
 set wildmode=longest,full
-set completeopt+=longest        " complete matching string
-set completeopt+=menuone        " pmenu on single match too
 set fileignorecase              " ignore case using filename
 set wildignorecase              " ignore case completing filenames
 
@@ -142,6 +140,10 @@ set shortmess+=W                " No message when writing
 set shortmess+=F                " As if silent autocomands
 set shortmess+=c                " No ins completion message
 set shortmess+=s                " No "search hit BOTTOM" message
+
+" insert complete menu
+set completeopt+=longest        " complete matching string
+set completeopt+=menuone        " pmenu on single match too
 
 " Bell
 set visualbell                  " do not ring the bell
