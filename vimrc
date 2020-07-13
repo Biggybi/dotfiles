@@ -999,8 +999,11 @@ inoremap <silent> <c-x><c-s> <c-o>:FzfSnippets<cr>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let g:fzf_tags_command = 'ctags -R'
-" Border color
+" big floating window
 " let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
+
+" bottom floating window
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.3,'yoffset':0.9,'xoffset': 0.4, 'highlight': 'normal', 'border': 'sharp' } }
 " let g:fzf_layout = {'heigh': '40%'}
 
 let $FZF_DEFAULT_OPTS = '--info=inline --bind "ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview,ctrl-u:preview-up,ctrl-d:preview-down"'
