@@ -913,16 +913,22 @@ let g:airline#extensions#default#layout = [
 call airline#parts#define_minwidth('branch', 20)
 
 let g:airline_symbols_ascii = 1
+let g:airline_section_b = '%{airline#util#wrap(airline#extensions#branch#get_head(),20)}%{GitStatus()}'
 let g:airline_section_z = '%4{line(".")}:%-3{virtcol(".")} %-4{LinePercent()}'
 let g:airline_section_y = '%{&filetype}'
-let g:airline_section_x = ''
 let g:airline#extensions#hunks#enabled = 0
 
 function! LinePercent() abort
   return line('.') * 100 / line('$') . '%'
 endfunction
 
-"""        Gitgutter
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return [a,m,r] == [0,0,0] ? '' : '[+]'
+  " return join(['[+'.a,'~'.m,'-'.r.']'])
+endfunction
+
+"""        Gitgutter / GitMessenger
 if exists('&signcolumn')        " Vim 7.4.2201
   set signcolumn=yes
 else
