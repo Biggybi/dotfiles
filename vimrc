@@ -1275,7 +1275,7 @@ nnoremap gI `.gi<esc>zz
 nnoremap Q <nul>
 
 " redraw
-nnoremap <c-q> redraw!
+nnoremap <c-q> :redraw!<cr>
 
 " repeat last macro
 nnoremap - @@
