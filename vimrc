@@ -216,7 +216,7 @@ set tabpagemax=30
 ""    Look / Theme
 """        DarkLightSwitch
 
-let g:theme_list = ['base16-one-light', 'base16-one-lightdim', 'base16-onedark']
+let g:theme_list = ['base16-one-light', 'base16-one-lightdim', 'base16-onedark', 'base16-one-lightdim']
 " let g:theme_force_load_start = 'base16-one-lightdim'
 let g:daytime = [7, 19]
 let g:theme_force_load_start = get(g:, 'theme_force_load_start')
@@ -248,14 +248,18 @@ if g:theme_source_sensitive == 1
 endif
 
 function! DarkLightSwitch() abort
-  let curr_index = index(g:theme_list, g:colors_name)
-  let g:theme_change = 1
-  if curr_index >= len(g:theme_list) - 1 || curr_index < 0
-    exe "colorscheme" g:theme_list[0]
-    return
+  if ! exists('g:theme_change')
+    let g:theme_current_index = index(g:theme_list, g:colors_name)
   endif
-  let curr_index += 1
-  exe "colorscheme" g:theme_list[curr_index]
+  if ! exists('g:theme_current_index')
+    let g:theme_current_index = index(g:theme_list, g:colors_name)
+  endif
+  let g:theme_current_index += 1
+  if g:theme_current_index == len(g:theme_list)
+    let g:theme_current_index = 0
+  endif
+  exe "colorscheme" g:theme_list[g:theme_current_index]
+  let g:theme_change = 1
 endfunction
 
 """        Title
