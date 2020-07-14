@@ -1129,7 +1129,7 @@ nnoremap yo<c-u> :UndotreeFocus<cr>
 nnoremap <silent> yob :call DarkLightSwitch()<cr>
 
 " Netrw toggle - left
-nnoremap <silent> yoe :20Lexplore<cr>
+nnoremap <silent> yoe :40Lexplore<cr>
 
 " Toggle of hlsearch + Anzu
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
