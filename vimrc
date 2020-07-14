@@ -1969,6 +1969,7 @@ inoremap ,09 0123456789
 
 ""    FileType settings
 
+"""        Vim
 augroup VimSettings
   au!
   au FileType vim setlocal tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
