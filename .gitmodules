@@ -2,9 +2,9 @@
 	path = gnome_setup/xcape
 	url = https://github.com/alols/xcape.git
 	ignore = dirty
-[submodule "vim/bundle/https:/github.com/junegunn/fzf.vim"]
-	path = vim/bundle/https:/github.com/junegunn/fzf.vim
-	url = git@github.com:metakirby5/codi.vim.git
+; [submodule "vim/bundle/https:/github.com/junegunn/fzf.vim"]
+; 	path = vim/bundle/https:/github.com/junegunn/fzf.vim
+; 	url = git@github.com:metakirby5/codi.vim.git
 [submodule "vim/bundle/codi.vim"]
 	path = vim/bundle/codi.vim
 	url = git@github.com:metakirby5/codi.vim.git
@@ -113,3 +113,6 @@
 [submodule "vim/bundle/vim-airline-themes-fork"]
 	path = vim/bundle/vim-airline-themes-fork
 	url = git@github.com:Biggybi/vim-airline-themes.git
+[submodule "vim/bundle/vim-smoothie"]
+	path = vim/bundle/vim-smoothie
+	url = git@github.com:psliwka/vim-smoothie.git
