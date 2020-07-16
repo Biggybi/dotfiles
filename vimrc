@@ -1396,16 +1396,20 @@ while c <= 'z'
   let c = nr2char(1+char2nr(c))
 endw
 
-" execute "set <M-j>=^[j"
-inoremap <M-j> <down>
-inoremap <M-k> <up>
-inoremap <M-h> <left>
-inoremap <M-l> <right>
+exe "set <F31>=\eh"
+exe "set <F32>=\ej"
+exe "set <F33>=\ek"
+exe "set <F34>=\el"
 
-cnoremap <M-j> <down>
-cnoremap <M-k> <up>
-cnoremap <M-h> <left>
-cnoremap <M-l> <right>
+inoremap <F31> <left>
+inoremap <F32> <down>
+inoremap <F33> <up>
+inoremap <F34> <right>
+
+cnoremap <F31> <down>
+cnoremap <F32> <up>
+cnoremap <F33> <left>
+cnoremap <F34> <right>
 
 " resize windows quicker
 nnoremap <leader>= :exe "resize +10"<cr>
