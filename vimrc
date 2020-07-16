@@ -649,36 +649,37 @@ endfunction
 
 """        Pending command mode
 
-let g:hl_group_save = "CursorLineNr"
-let g:save_fg = synIDattr(hlID(g:hl_group_save), "fg#")
-let g:save_bg = synIDattr(hlID(g:hl_group_save), "bg#")
+let g:mode_marker_group = "CursorLineNr"
 let g:cmd_change_fg = "#383a42"
 let g:cmd_change_bg = "#e06c75"
 let g:ins_change_fg = "#383a42"
 let g:ins_change_bg = "#98c379"
 
-call timer_start(30, 'PendingCommandMode', #{repeat: -1})
-function! PendingCommandMode(_) abort
+call timer_start(10, 'PendingCommandModeHl', #{repeat: -1})
+
+function! PendingCommandModeHl(_) abort
   if mode() != 'n'
     return
   endif
-  if state() =~# '\C[mo]'
-    exe "hi" g:hl_group_save "guifg=".g:cmd_change_fg "guibg=".g:cmd_change_bg
+  if state() =~# '[mo]'
+    exe "hi" g:mode_marker_group "guifg=" . g:cmd_change_fg "guibg=" . g:cmd_change_bg
   else
-    exe "hi" g:hl_group_save "guifg=" . g:save_fg "guibg=" . g:save_bg
+    exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
   endif
 endfunction
 
-augroup SaveGroupColors
+augroup PendingInsertModeHl
   au!
-  au ColorScheme *
-        \ let g:save_fg = synIDattr(hlID(g:hl_group_save), "fg#")
-        \ | let g:save_bg = synIDattr(hlID(g:hl_group_save), "bg#")
+  " au SafeState * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
+  au InsertEnter * exe "hi" g:mode_marker_group "guifg=" . g:ins_change_fg "guibg=" . g:ins_change_bg
+  au InsertLeave * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
 augroup end
 
-augroup PendingHLGroup
-  au InsertEnter * exe "hi" g:hl_group_save "guifg=".g:ins_change_fg "guibg=".g:ins_change_bg
-  au InsertLeave * exe "hi" g:hl_group_save "guifg=" . g:save_fg "guibg=" . g:save_bg
+augroup SavePendingGroupColor
+  au!
+  au ColorScheme,VimEnter *
+        \ let g:save_fg = synIDattr(hlID(g:mode_marker_group), "fg#") |
+        \ let g:save_bg = synIDattr(hlID(g:mode_marker_group), "bg#")
 augroup end
 
 ""    File automation
