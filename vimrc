@@ -541,7 +541,8 @@ function! NoScrollAtEOF() abort
     normal! zb
   endif
 endfunction
-nnoremap <c-f> <c-f> <silent> :call NoScrollAtEOF()<cr>
+" nnoremap <c-f> <c-f> <silent> :call NoScrollAtEOF()<cr>
+nmap <c-f> <Plug>(SmoothieForwards)<bar><silent> :call NoScrollAtEOF()<cr>
 
 """        Mail
 
