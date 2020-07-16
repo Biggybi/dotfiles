@@ -1570,14 +1570,9 @@ nnoremap <leader>csT :Shell make ex TESTFF=
 
 " Count line in function
 function! FunctionLineCount() abort
-  let l:currentline = line(".")
-  normal! j[[
-  let l:topline = line(".")
-  normal! %
-  let l:bottomline = line(".")
-  exe "normal!".l:currentline."gg"
-  echo "function lines :" l:bottomline - l:topline - 1
-  silent! normal! zz
+  let firstline = search('^{', 'bn')
+  let lastline = search('^}', 'n')
+  echo "function lines :" lastline - firstline - 1
 endfunction
 
 nnoremap <leader>wcf :call FunctionLineCount()<cr>
