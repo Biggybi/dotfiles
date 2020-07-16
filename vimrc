@@ -446,8 +446,9 @@ augroup end
 
 """        Shell output split
 
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline) abort
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>, 'J')
+command! -complete=shellcmd -nargs=+ VShell call s:RunShellCommand(<q-args>, 'L')
+function! s:RunShellCommand(cmdline, direction) abort
   if bufexists('scratch_terminal_output')
     bw! scratch_terminal_output
   endif
@@ -462,7 +463,17 @@ function! s:RunShellCommand(cmdline) abort
   file scratch_terminal_output
   let term_window = win_getid()
   let term_buf_nr = buffer_number()
-  10 wincmd _
+  if a:direction == 'L'
+    wincmd L
+  elseif a:direction == 'H'
+    wincmd H
+  elseif a:direction == 'J'
+    wincmd J
+    10 wincmd _
+  elseif a:direction == 'K'
+    wincmd K
+    10 wincmd _
+  endif
   if win_getid() != current_window
     call win_gotoid(current_window)
   endif
@@ -1520,7 +1531,10 @@ nnoremap <leader>csm :lmake!<cr>:call LocListPannel('l')<cr>
 nnoremap <leader>csr :lmake! re<cr>:call LocListPannel('l')<cr>
 nnoremap <leader>cse :Shell make ex<cr><cr>
 nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cs<c-t> :Shell make ex TEST=test/%<cr><cr>
+nnoremap <leader>c<c-s><c-t> :VShell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>c<c-s>t :VShell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cs<c-t> :VShell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cs<c-t> :VShell make ex TEST=test/%<cr><cr>
 nnoremap <leader>csT :Shell make ex TESTFF=
 " nnoremap <leader>csv :Shell make ex TEST=<cr><cr>
 " nnoremap <leader>csm :make<cr><cr>:lopen<cr>:wincmd L<cr>
