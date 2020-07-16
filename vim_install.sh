@@ -30,7 +30,7 @@ cd $VIMSOURCE
 	--enable-rubyinterp=dynamic \
 	--with-ruby-command=/usr/bin/ruby \
 	--enable-python3interp \
-	--with-python3-config-dir=/usr/bin/python3 \
+	--with-python3-config-dir=/usr/lib/python3.8/config-3.8-x86_64-linux-gnu
 	--enable-luainterp \
 	--with-luajit \
 	--enable-cscope \
