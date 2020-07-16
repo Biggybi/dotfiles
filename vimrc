@@ -376,9 +376,9 @@ augroup QuickFixWindowSet
   au Filetype qf nnoremap <buffer> j <c-n>
   au Filetype qf nnoremap <buffer> k <c-p>
   au FileType qf
-        \ if winheight('quickfix') + 3 < &lines |
-        \ call AdjustWindowHeight(1, 5) |
-        \ endif
+        \ if winheight('quickfix') + 3 < &lines
+        \ |   call AdjustWindowHeight(1, 5)
+        \ | endif
   au QuickfixCmdPost make call QfMakeConv()
 augroup end
 
@@ -799,8 +799,9 @@ augroup LargeFilesFast
   au BufReadPre *
         \ let f=expand("<afile>")
         \ | if getfsize(f) > g:LargeFile
-          \ | let b:airline_whitespace_checks = ['']
-          \ | au! anzu | endif
+        \ |   let b:airline_whitespace_checks = ['']
+        \ |   au! anzu
+        \ | endif
 augroup end
 
 """        Auto Load Project Files
