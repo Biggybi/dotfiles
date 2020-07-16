@@ -1189,6 +1189,23 @@ nnoremap <leader>yl "+y$
 nnoremap <leader>yh "+y^
 vnoremap <leader>y "+y
 
+"""        Replace
+
+" Replace last search
+nnoremap gr :s/<c-r>///g<left><left>
+vnoremap gr :s/<c-r>///g<left><left>
+nnoremap gR :%s/<c-r>///g<left><left>
+nnoremap c/ :s///g<left><left>
+vnoremap c/ :s///g<left><left>
+nnoremap C/ :%s///g<left><left>
+
+" Replace word under cursor
+nnoremap c. :s/<c-r><c-w>//g<left><left>
+vnoremap c. :s/<c-r><c-w>//g<left><left>
+nnoremap C. :%s/<c-r><c-w>//g<left><left>
+
+nnoremap C <nop>
+
 """        Files Informations
 
 " cd shell to vim current working directory
@@ -1463,11 +1480,6 @@ nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 " search visual selection
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-" For local sed replace
-nnoremap gr :s/<c-r>///g<left><left>
-vnoremap gr :s/<c-r>///g<left><left>
-nnoremap gR :%s/<c-r>///g<left><left>
 
 """        Command Line
 
