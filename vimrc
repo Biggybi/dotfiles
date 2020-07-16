@@ -1206,6 +1206,7 @@ nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
 " new file here
 nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
+nnoremap <leader><c-n> :vs <c-r>=expand('%:p:h') . '/'<cr>
 
 " Word count
 function! WordCount() abort
