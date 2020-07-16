@@ -2003,7 +2003,6 @@ inoremap ,ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
 inoremap ,09 0123456789
 
 ""    FileType settings
-
 """        Vim
 augroup VimSettings
   au!
