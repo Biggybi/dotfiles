@@ -1036,7 +1036,7 @@ let g:fzf_tags_command = 'ctags -R'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.3,'yoffset':0.9,'xoffset': 0.4, 'highlight': 'normal', 'border': 'sharp' } }
 " let g:fzf_layout = {'heigh': '40%'}
 
-let $FZF_DEFAULT_OPTS = '--info=inline --bind "ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview,ctrl-u:preview-up,ctrl-d:preview-down"'
+let $FZF_DEFAULT_OPTS = '--info=inline -m --preview "head -n 500 {}" --bind "ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview,ctrl-a:toggle-all,ctrl-u:preview-up,ctrl-d:preview-down"'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 "-g '!{node_modules,.git}'
 
