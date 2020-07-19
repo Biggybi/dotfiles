@@ -1452,6 +1452,9 @@ tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
 
 """        Searching
 
+" Ignore diacritics/accents when searching
+cnoremap <CR> <C-\>e getcmdtype() =~ '[?/]' ? substitute(getcmdline(), '\a', '[[=\0=]]', 'g'): getcmdline()<CR><CR>
+
 " Pair cycle
 nnoremap <c-g> %
 
