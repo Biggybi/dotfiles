@@ -655,18 +655,19 @@ let g:cmd_change_bg = "#e06c75"
 let g:ins_change_fg = "#383a42"
 let g:ins_change_bg = "#98c379"
 
-call timer_start(10, 'PendingCommandModeHl', #{repeat: -1})
-
-function! PendingCommandModeHl(_) abort
-  if mode() != 'n'
-    return
-  endif
-  if state() =~# '[mo]'
-    exe "hi" g:mode_marker_group "guifg=" . g:cmd_change_fg "guibg=" . g:cmd_change_bg
-  else
-    exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
-  endif
-endfunction
+if ! has("nvim")
+  call timer_start(10, 'PendingCommandModeHl', {'repeat': -1})
+  function! PendingCommandModeHl(_) abort
+    if mode() != 'n'
+      return
+    endif
+    if state() =~# '[mo]'
+      exe "hi" g:mode_marker_group "guifg=" . g:cmd_change_fg "guibg=" . g:cmd_change_bg
+    else
+      exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
+    endif
+  endfunction
+endif
 
 augroup PendingInsertModeHl
   au!
@@ -1403,25 +1404,34 @@ vnoremap > >gv
 """        Alt Movement
 
 " Allow <alt> key mappings
-let c='a'
-while c <= 'z'
-  let d=toupper(c)
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  exec "set <A-".d.">=\e".d
-  exec "imap \e".d." <A-".d.">"
-  let c = nr2char(1+char2nr(c))
-endw
+if ! has("nvim")
+  let c='a'
+  while c <= 'z'
+    let d=toupper(c)
+    exec "set <M-".c.">=\e".c
+    exec "imap \e".c." <M-".c.">"
+    exec "set <M-".d.">=\e".d
+    exec "imap \e".d." <M-".d.">"
+    let c = nr2char(1+char2nr(c))
+  endw
 
-exe "set <F31>=\eh"
-exe "set <F32>=\ej"
-exe "set <F33>=\ek"
-exe "set <F34>=\el"
+  exe "set <F31>=\eh"
+  exe "set <F32>=\ej"
+  exe "set <F33>=\ek"
+  exe "set <F34>=\el"
 
-inoremap <F31> <left>
-inoremap <F32> <down>
-inoremap <F33> <up>
-inoremap <F34> <right>
+  inoremap <F31> <left>
+  inoremap <F32> <down>
+  inoremap <F33> <up>
+  inoremap <F34> <right>
+
+else
+
+  inoremap <M-h> <left>
+  inoremap <M-j> <down>
+  inoremap <M-k> <up>
+  inoremap <M-l> <right>
+endif
 
 cnoremap <F31> <down>
 cnoremap <F32> <up>
