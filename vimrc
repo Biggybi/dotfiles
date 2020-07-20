@@ -662,9 +662,9 @@ if ! has("nvim")
       return
     endif
     if state() =~# '[mo]'
-      exe "hi" g:mode_marker_group "guifg=" . g:cmd_change_fg "guibg=" . g:cmd_change_bg
+      exe "hi" g:mode_marker_group "guifg= " g:cmd_change_fg "guibg= " g:cmd_change_bg
     else
-      exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
+      exe "hi" g:mode_marker_group "guifg= " g:save_fg "guibg=" g:save_bg
     endif
   endfunction
 endif
