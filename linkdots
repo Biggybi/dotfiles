@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# links files from DOTS to their provided LINK
+# links files from DOTS to their provided LOCFILES
 
 GITURL=https://github.com/Biggybi/dotfiles
 SRC=$HOME/dotfiles
-DST=$HOME
+# DST=$HOME
+DST=/tmp/dot
 BACKUP=$HOME/dotfiles/dots_back
 
 cd $SRC
@@ -22,7 +23,7 @@ DOTFILES=(vim
 	neomuttrc)
 
 # links to create localy for Linux
-LINK=(.vim
+LOCFILES=(.vim
 	.vimrc
 	.bashrc
 	.bash_aliases
@@ -36,7 +37,7 @@ LINK=(.vim
 # links to create localy for Mac
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-	LINK=(vim
+	LOCFILES=(vim
 		.vimrc
 		.bashrc
 		.bash_aliases
@@ -54,14 +55,43 @@ else
 	git clone $GITURL $SRC
 fi
 
-if [ "$1" == "--git" ] || [ "$1" == "-g" ] || [ "$1" == "--plugins" ]
+let PLUGIN=0
+let COPY=0
+
+while [[ $1 == -* ]]
+do
+	echo param = $1
+	if [ "$1" == "--git" ] || [ "$1" == "-g" ] || [ "$1" == "--plugins" ]
+	then
+		PLUGIN=1
+	shift
+	fi
+	if [ "$1" == "--hard" ] || [ "$1" == "--cp" ] || [ "$1" == "-h" ]
+	then
+		COPY=1
+	shift
+	fi
+done
+
+if [ $COPY == 1 ]
 then
-	echo "Cloning plugins"
-	cd "${LINK[0]}"
+	echo "Copy mode"
+else
+	echo "Link mode (use \`-c\` to hard-copy)"
+fi
+
+if [ $PLUGIN == 1 ]
+then
+	echo "Plugin will be downloaded"
+else
+	echo "Plugin won't be downloaded (use \`-g\` to get plugins)"
+fi
+
+if [ $PLUGIN == 1 ]
+then
+	cd "${DST}/${LOCFILES[0]}"
 	git submodule init
 	git submodule update
-else
-	echo "Vim plugins not installed: use \`linkdots -g\`"
 fi
 
 i=0
@@ -80,7 +110,7 @@ i=0
 i=0
 for f in "${DOTFILES[@]}"
 do
-	l="${LINK[i]}"
+	l="${LOCFILES[i]}"
 	echo "$i $l"
 	# cmp -s "$SRC/$f" "$DST/$l" 2> /dev/null
 	if [ $? -eq 1 ] && [ -n "$l" ] && [ -e "$DST/$l" ]
@@ -109,8 +139,15 @@ do
 	fi
 	if [ ! -e "$DST/$l" ]
 	then
-		ln -fs "$SRC/$f" "$DST/$l"
-		echo "link created : $l -> $f "
+		if [ "$COPY" == 0 ]
+		then
+			ln -fs "$SRC/$f" "$DST/$l"
+			echo "link created : $l -> $f "
+		else
+			# rsync -vh --archive --progress --whole-file "$SRC/$f" "$DST/$l"
+			\cp -r "$SRC/$f" "$DST/$l"
+			echo "copied: $l -> $f "
+		fi
 	fi
 	let i=i+1
 done
