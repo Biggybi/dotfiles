@@ -469,10 +469,10 @@ function! s:RunShellCommand(cmdline, direction) abort
     wincmd H
   elseif a:direction == 'J'
     wincmd J
-    10 wincmd _
+    6 wincmd _
   elseif a:direction == 'K'
     wincmd K
-    10 wincmd _
+    6 wincmd _
   endif
   if win_getid() != current_window
     call win_gotoid(current_window)
