@@ -102,6 +102,7 @@ alias e="$EDITOR"
 alias v="vim"
 alias vi='vim'
 alias sv="sudo vim"
+alias nv="nvim"
 
 ## mutt
 alias mutt="neomutt"
