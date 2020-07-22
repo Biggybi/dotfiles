@@ -935,6 +935,7 @@ let g:airline_section_b = '%{airline#util#wrap(airline#extensions#branch#get_hea
 let g:airline_section_z = '%4{line(".")}:%-3{virtcol(".")} %-4{LinePercent()}'
 let g:airline_section_y = '%{&filetype}'
 let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#coc#enabled = 0
 
 function! LinePercent() abort
   return line('.') * 100 / line('$') . '%'
@@ -1118,10 +1119,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 
 " no vimwiki filetype outside wiki folder
 let g:vimwiki_global_ext = 0
-
-"""        Coc
-
-let g:airline#extensions#coc#enabled = 0
 
 """        Anzu
 
