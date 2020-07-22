@@ -1459,9 +1459,6 @@ tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
 
 """        Searching
 
-" Ignore diacritics/accents when searching
-cnoremap <CR> <C-\>e getcmdtype() =~ '[?/]' ? substitute(getcmdline(), '\a', '[[=\0=]]', 'g'): getcmdline()<CR><CR>
-
 " Pair cycle
 nnoremap <c-g> %
 
@@ -1995,6 +1992,8 @@ augroup end
 
 augroup MarkdownMaps
   au!
+  " Ignore diacritics/accents when searching
+  cnoremap <CR> <C-\>e getcmdtype() =~ '[?/]' ? substitute(getcmdline(), '\a', '[[=\0=]]', 'g'): getcmdline()<CR><CR>
   au FileType markdown nnoremap <buffer> <leader>cr :Run<cr>
   au FileType markdown nnoremap <buffer> <leader>ca :AutoRun<cr>
   " au FileType markdown nnoremap <buffer> <leader>br A<br><esc>
