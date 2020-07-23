@@ -297,6 +297,106 @@ if &term =~ "xterm\\|rxvt"
   let &t_SR = "\e[4 q"       " replace mode
 endif
 
+"""        Term Background
+" " Conflict with SetColorScheme:
+" " g:colors_name not found if change theme + restart vim
+" " Auto set terminal background color to Vim's
+" autocmd ColorScheme * call s:matchTerminalBackground()
+" fun! s:matchTerminalBackground()
+"   let l:background = synIDattr(synIDtrans(hlID("Normal")), "bg#")
+"   exec 'silent !echo -e "\e]11;\' . l:background . '\a"'
+" endfun
+
+"""        StatusLine
+
+let g:currentmode={
+      \ '__'     : '- ',
+      \ 'c'      : 'C ',
+      \ 'i'      : 'I ',
+      \ 'ic'     : 'I ',
+      \ 'ix'     : 'I ',
+      \ 'n'      : 'N ',
+      \ 'multi'  : 'M ',
+      \ 'ni'     : 'N ',
+      \ 'no'     : 'N ',
+      \ 'R'      : 'R ',
+      \ 'Rv'     : 'R ',
+      \ 's'      : 'S ',
+      \ 'S'      : 'S ',
+      \ ''     : 'S ',
+      \ 't'      : 'T ',
+      \ 'v'      : 'V ',
+      \ 'V'      : 'V ',
+      \ ''     : 'V ',
+      \}
+
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return [a,m,r] == [0,0,0] ? '' : '[+]'
+  " return join(['[+'.a,'~'.m,'-'.r.']'])
+endfunction
+
+function! GetColor(group_fg, group_bg) abort
+  let group_fg = synIDattr(hlID(a:group_fg), "fg#")
+  let group_bg = synIDattr(hlID(a:group_bg), "bg#")
+  return "guifg=".group_fg . " guibg=".group_bg
+endfunction
+
+function! SetStatusLineColorsInsert() abort
+  exe "hi User1 " . GetColor('AirlineInsert', 'AirlineInsert')
+endfunction
+
+function! SetStatusLineColorsVisual() abort
+  exe "hi User1 " . GetColor('AirlineVisual', 'AirlineVisual')
+endfunction
+
+function! SetStatusLineColorsPending() abort
+  exe "hi User1 " . GetColor('AirlineVisual', 'AirlineVisual')
+endfunction
+
+function! SetStatusLineColorsNormal() abort
+  exe "hi User1 " . GetColor('AirlineNormal', 'AirlineNormal')
+  exe "hi User2 " . GetColor('AirlineActiveLeft', 'AirlineActiveLeft')
+  exe "hi User3 " . GetColor('AirlineNormal', 'normal')
+  exe "hi User4 " . GetColor('AirlineInsert', 'normal')
+  exe "hi User5 " . GetColor('normal', 'normal')
+endfunction
+
+function StatusLineActive() abort
+  setlocal statusline =
+  setlocal statusline +=%1*\ %2{g:currentmode[mode()]}%*   "mode
+  setlocal statusline +=%2*\ %f                           "filename
+  setlocal statusline +=%{&modified?'[+]':''}\ %*         "file modified
+  setlocal statusline +=\ %{FugitiveHead()}               "git branch
+  setlocal statusline +=%{GitStatus()}                    "git modified
+  setlocal statusline +=%=%{anzu#search_status()}         "search results
+  " setlocal statusline +=%{coc#status()}%{get(b:,'coc_current_function','')}
+  setlocal statusline +=%2*%=\ %{&filetype}\ %*           "filetype
+  setlocal statusline +=%1*\ \[%=%5l:                     "current line
+  setlocal statusline +=%4v\]                             "virtual column number
+  setlocal statusline +=/[%L:                             "total lines
+  setlocal statusline +=%2p%%]%*                          "Rownumber/total (%)
+endfunction
+
+function StatusLineInactive() abort
+  setlocal statusline =
+  setlocal statusline +=%f                                "filename
+  setlocal statusline +=%{&modified?'[+]':''}             "file modified
+  setlocal statusline +=%{GitStatus()}                    "git modified
+  setlocal statusline +=%=%{&filetype}\                   "filetype
+endfunction
+
+augroup StatusLineSwitch
+  au!
+  au InsertEnter * call SetStatusLineColorsInsert()
+  " au Visual * call SetStatusLineColorsInsert()
+  au WinEnter,BufWinEnter * call StatusLineActive()
+  au WinLeave * call StatusLineInactive()
+  au VimEnter,ColorScheme,InsertLeave *
+        \ call SetStatusLineColorsNormal() |
+        \ call StatusLineActive()
+augroup end
+
 ""    Extra windows
 """        Terminal
 
@@ -661,10 +761,16 @@ if ! has("nvim")
     if mode() != 'n'
       return
     endif
+    if mode() ==? 'v'
+      call SetStatusLineColorsVisual()
+      return
+    endif
     if state() =~# '[mo]'
       exe "hi" g:mode_marker_group "guifg= " g:cmd_change_fg "guibg= " g:cmd_change_bg
+      call SetStatusLineColorsPending()
     else
       exe "hi" g:mode_marker_group "guifg= " g:save_fg "guibg=" g:save_bg
+      call SetStatusLineColorsNormal()
     endif
   endfunction
 endif
