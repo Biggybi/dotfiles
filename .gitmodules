@@ -116,3 +116,6 @@
 [submodule "vim/bundle/vim-smoothie"]
 	path = vim/bundle/vim-smoothie
 	url = git@github.com:psliwka/vim-smoothie.git
+[submodule "vim/bundle/vim-endwise"]
+	path = vim/bundle/vim-endwise
+	url = git@github.com:tpope/vim-endwise.git
