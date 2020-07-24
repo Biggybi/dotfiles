@@ -351,7 +351,7 @@ function! SetStatusLineColorsVisual() abort
 endfunction
 
 function! SetStatusLineColorsCommand() abort
-  exe "hi User1 " . GetColor('AirlineReplace', 'AirlineReplace')
+  exe "hi User1 " . GetColor('AirlineCmd', 'AirlineCmd')
 endfunction
 
 function! SetStatusLineColorsPending() abort
