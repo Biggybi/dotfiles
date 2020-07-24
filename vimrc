@@ -765,7 +765,7 @@ if ! has("nvim")
       call SetStatusLineColorsVisual()
       return
     endif
-    if state() =~# '[mo]'
+    if state() =~# '[mowS]'
       exe "hi" g:mode_marker_group "guifg= " g:cmd_change_fg "guibg= " g:cmd_change_bg
       call SetStatusLineColorsPending()
     else
