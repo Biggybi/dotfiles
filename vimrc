@@ -350,32 +350,38 @@ function! SetStatusLineColorsVisual() abort
   exe "hi User1 " . GetColor('AirlineVisual', 'AirlineVisual')
 endfunction
 
+function! SetStatusLineColorsCommand() abort
+  exe "hi User1 " . GetColor('AirlineReplace', 'AirlineReplace')
+endfunction
+
 function! SetStatusLineColorsPending() abort
-  exe "hi User1 " . GetColor('AirlineVisual', 'AirlineVisual')
+  exe "hi" g:mode_marker_group "guifg= " g:cmd_change_fg "guibg= " g:cmd_change_bg
+  exe "hi User1 " . GetColor('AirlineReplace', 'AirlineReplace')
 endfunction
 
 function! SetStatusLineColorsNormal() abort
   exe "hi User1 " . GetColor('AirlineNormal', 'AirlineNormal')
   exe "hi User2 " . GetColor('AirlineActiveLeft', 'AirlineActiveLeft')
-  exe "hi User3 " . GetColor('AirlineNormal', 'normal')
+  exe "hi User3 " . GetColor('AirlineVisual', 'AirlineVisual')
   exe "hi User4 " . GetColor('AirlineInsert', 'normal')
   exe "hi User5 " . GetColor('normal', 'normal')
+  exe "hi" g:mode_marker_group "guifg= " g:save_fg "guibg=" g:save_bg
 endfunction
 
 function StatusLineActive() abort
   setlocal statusline =
-  setlocal statusline +=%1*\ %2{g:currentmode[mode()]}%*   "mode
-  setlocal statusline +=%2*\ %f                           "filename
+  setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*   "mode
+  setlocal statusline +=%2*\ %{FugitiveHead()}               "git branch
+  setlocal statusline +=%{GitStatus()}\ %*                    "git modified
+  setlocal statusline +=\ %f                           "filename
   setlocal statusline +=%{&modified?'[+]':''}\ %*         "file modified
-  setlocal statusline +=\ %{FugitiveHead()}               "git branch
-  setlocal statusline +=%{GitStatus()}                    "git modified
   setlocal statusline +=%=%{anzu#search_status()}         "search results
   " setlocal statusline +=%{coc#status()}%{get(b:,'coc_current_function','')}
   setlocal statusline +=%2*%=\ %{&filetype}\ %*           "filetype
   setlocal statusline +=%1*\ \[%=%5l:                     "current line
   setlocal statusline +=%4v\]                             "virtual column number
   setlocal statusline +=/[%L:                             "total lines
-  setlocal statusline +=%2p%%]%*                          "Rownumber/total (%)
+  setlocal statusline +=%2p%%\]%*                          "Rownumber/total (%)
 endfunction
 
 function StatusLineInactive() abort
@@ -389,13 +395,59 @@ endfunction
 augroup StatusLineSwitch
   au!
   au InsertEnter * call SetStatusLineColorsInsert()
+  " au InsertLeave * call SetStatusLineColorsNormal()
   " au Visual * call SetStatusLineColorsInsert()
   au WinEnter,BufWinEnter * call StatusLineActive()
   au WinLeave * call StatusLineInactive()
-  au VimEnter,ColorScheme,InsertLeave *
+  " todo: does not trigger on sourcing
+  au ColorScheme,VimEnter *
+        \ let g:save_fg = synIDattr(hlID(g:mode_marker_group), "fg#") |
+        \ let g:save_bg = synIDattr(hlID(g:mode_marker_group), "bg#")
+  au VimEnter,ColorScheme,InsertLeave,CmdwinLeave *
         \ call SetStatusLineColorsNormal() |
         \ call StatusLineActive()
 augroup end
+
+"""        Pending command mode
+
+let g:mode_marker_group = "CursorLineNr"
+let g:cmd_change_fg = "#383a42"
+let g:cmd_change_bg = "#e06c75"
+let g:ins_change_fg = "#383a42"
+let g:ins_change_bg = "#98c379"
+
+if ! has("nvim")
+  call timer_start(10, 'PendingCommandModeHl', {'repeat': -1})
+  function! PendingCommandModeHl(_) abort
+    if mode() ==? 'i'
+      return
+    elseif mode() ==? 'v' || mode() ==? ''
+      call SetStatusLineColorsVisual()
+    elseif mode() ==? 'r'
+      call SetStatusLineColorsInsert()
+    elseif mode() ==? 'c'
+      call SetStatusLineColorsCommand()
+    elseif state() =~# '[moS]'
+      call SetStatusLineColorsPending()
+    else
+      call SetStatusLineColorsNormal()
+    endif
+  endfunction
+endif
+
+augroup PendingInsertModeHl
+  au!
+  " au SafeState * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
+  au InsertEnter * exe "hi" g:mode_marker_group "guifg=" . g:ins_change_fg "guibg=" . g:ins_change_bg
+  au InsertLeave * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
+augroup end
+
+" augroup SavePendingGroupColor
+"   au!
+"   au ColorScheme,VimEnter *
+"         \ let g:save_fg = synIDattr(hlID(g:mode_marker_group), "fg#") |
+"         \ let g:save_bg = synIDattr(hlID(g:mode_marker_group), "bg#")
+" augroup end
 
 ""    Extra windows
 """        Terminal
@@ -746,48 +798,6 @@ function! HLCurrent() abort
   endif
   redraw
 endfunction
-
-"""        Pending command mode
-
-let g:mode_marker_group = "CursorLineNr"
-let g:cmd_change_fg = "#383a42"
-let g:cmd_change_bg = "#e06c75"
-let g:ins_change_fg = "#383a42"
-let g:ins_change_bg = "#98c379"
-
-if ! has("nvim")
-  call timer_start(10, 'PendingCommandModeHl', {'repeat': -1})
-  function! PendingCommandModeHl(_) abort
-    if mode() != 'n'
-      return
-    endif
-    if mode() ==? 'v'
-      call SetStatusLineColorsVisual()
-      return
-    endif
-    if state() =~# '[mowS]'
-      exe "hi" g:mode_marker_group "guifg= " g:cmd_change_fg "guibg= " g:cmd_change_bg
-      call SetStatusLineColorsPending()
-    else
-      exe "hi" g:mode_marker_group "guifg= " g:save_fg "guibg=" g:save_bg
-      call SetStatusLineColorsNormal()
-    endif
-  endfunction
-endif
-
-augroup PendingInsertModeHl
-  au!
-  " au SafeState * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
-  au InsertEnter * exe "hi" g:mode_marker_group "guifg=" . g:ins_change_fg "guibg=" . g:ins_change_bg
-  au InsertLeave * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
-augroup end
-
-augroup SavePendingGroupColor
-  au!
-  au ColorScheme,VimEnter *
-        \ let g:save_fg = synIDattr(hlID(g:mode_marker_group), "fg#") |
-        \ let g:save_bg = synIDattr(hlID(g:mode_marker_group), "bg#")
-augroup end
 
 ""    File automation
 """        Save and load
