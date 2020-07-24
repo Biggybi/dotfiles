@@ -1528,18 +1528,50 @@ if ! has("nvim")
   inoremap <F33> <up>
   inoremap <F34> <right>
 
+  nnoremap <silent> <F31> :wincmd h<cr>
+  nnoremap <silent> <F32> :wincmd j<cr>
+  nnoremap <silent> <F33> :wincmd k<cr>
+  nnoremap <silent> <F34> :wincmd l<cr>
+
+  tnoremap <silent> <F31> <c-\><c-n>:wincmd k<cr>
+  tnoremap <silent> <F32> <c-\><c-n>:wincmd j<cr>
+  tnoremap <silent> <F33> <c-\><c-n>:wincmd l<cr>
+  tnoremap <silent> <F34> <c-\><c-n>:wincmd h<cr>
+
+  cnoremap <F31> <left>
+  cnoremap <F32> <down>
+  cnoremap <F33> <up>
+  cnoremap <F34> <right>
+
 else
 
   inoremap <M-h> <left>
   inoremap <M-j> <down>
   inoremap <M-k> <up>
   inoremap <M-l> <right>
-endif
 
-cnoremap <F31> <down>
-cnoremap <F32> <up>
-cnoremap <F33> <left>
-cnoremap <F34> <right>
+  " execute "set <M-j>=^[j"
+  nnoremap <silent> <M-K> :exe "resize +1"<cr>
+  nnoremap <silent> <M-J> :exe "resize -1"<cr>
+  nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
+  nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
+
+  nnoremap <silent> <M-k> :wincmd k<cr>
+  nnoremap <silent> <M-j> :wincmd j<cr>
+  nnoremap <silent> <M-l> :wincmd l<cr>
+  nnoremap <silent> <M-h> :wincmd h<cr>
+
+  tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
+  tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
+  tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
+  tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
+
+  cnoremap <M-h> <left>
+  cnoremap <M-j> <down>
+  cnoremap <M-k> <up>
+  cnoremap <M-l> <right>
+
+endif
 
 " resize windows quicker
 nnoremap <leader>= :exe "resize +10"<cr>
@@ -1547,21 +1579,10 @@ nnoremap <leader>- :exe "resize -10"<cr>
 nnoremap <leader>> :exe "vertical resize +10"<CR>
 nnoremap <leader>< :exe "vertical resize -10"<CR>
 
-" execute "set <M-j>=^[j"
 nnoremap <silent> <M-K> :exe "resize +1"<cr>
 nnoremap <silent> <M-J> :exe "resize -1"<cr>
 nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
 nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
-
-nnoremap <silent> <M-k> :wincmd k<cr>
-nnoremap <silent> <M-j> :wincmd j<cr>
-nnoremap <silent> <M-l> :wincmd l<cr>
-nnoremap <silent> <M-h> :wincmd h<cr>
-
-tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
-tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
-tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
-tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
 
 """        Searching
 
