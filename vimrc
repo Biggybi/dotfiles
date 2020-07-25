@@ -1255,8 +1255,15 @@ let g:vimwiki_global_ext = 0
 
 """        Anzu
 
-let g:anzu_airline_section = "c"
 let g:anzu_status_format = "[%i/%l]"
+
+"	" Update each time the cursor moves
+augroup anzu-update-search-status
+  autocmd!
+  autocmd CursorMoved *
+        \ :AnzuUpdateSearchStatus|echo anzu#search_status()
+augroup END
+
 
 """        Goyo
 
@@ -1275,7 +1282,7 @@ nnoremap yo<c-u> :UndotreeFocus<cr>
 nnoremap <silent> yob :call DarkLightSwitch()<cr>
 
 " Netrw toggle - left
-nnoremap <silent> yoe :40Lexplore<cr>
+nnoremap <silent> yoe :40Lexplore<cr>:vertical resize 30<cr>
 
 " Toggle of hlsearch + Anzu
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
