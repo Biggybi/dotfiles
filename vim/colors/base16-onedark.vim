@@ -4,15 +4,15 @@
 " by Chris Kempson (http://chriskempson.com)
 " OneDark scheme by Lalit Magant (http://github.com/tilal6991)
 
-" This enables the coresponding base16-shell script to run so that
-" :colorscheme works in terminals supported by base16-shell scripts
-" User must set this variable in .vimrc
-"   let g:base16_shell_path=base16-builder/output/shell/
-if !has("gui_running")
-  if exists("g:base16_shell_path")
-    execute "silent !/bin/sh ".g:base16_shell_path."/base16-onedark.sh"
-  endif
-endif
+" " This enables the coresponding base16-shell script to run so that
+" " :colorscheme works in terminals supported by base16-shell scripts
+" " User must set this variable in .vimrc
+" "   let g:base16_shell_path=base16-builder/output/shell/
+" if !has("gui_running")
+"   if exists("g:base16_shell_path")
+"     execute "silent !/bin/sh ".g:base16_shell_path."/base16-onedark.sh"
+"   endif
+" endif
 
 " GUI color definitions
 " let s:gui00        = "282c34"
@@ -37,7 +37,8 @@ let s:gui06        = "b6bdca"
 let g:base16_gui06 = "b6bdca"
 let s:gui07        = "c8ccd4"
 let g:base16_gui07 = "c8ccd4"
-let s:gui08        = "e06c75"
+" let s:gui08        = "e06c75"
+let s:gui08        = "ee6f6f"
 let g:base16_gui08 = "e06c75"
 let s:gui09        = "d19a66"
 let g:base16_gui09 = "d19a66"
@@ -235,20 +236,22 @@ call <sid>hi("SignColumn",    s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
 " call <sid>hi("StatusLine",    s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
 call <sid>hi("StatusLine",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
 " call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
-call <sid>hi("StatusLineNC",  s:gui05, s:gui01, s:cterm01, s:cterm02, "none", "")
+call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm01, s:cterm02, "none", "")
 call <sid>hi("StatusLineTerm",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
-call <sid>hi("StatusLineNC",  s:gui05, s:gui01, s:cterm01, s:cterm02, "none", "")
 " call <sid>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none", "")
 " call <sid>hi("VertSplit",     s:gui03, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit",     s:gui01, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("AirlineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("AirlineActiveLeft",     s:gui06, s:gui02, s:cterm07, s:cterm02, "none", "")
-" call <sid>hi("AirlineActiveGit",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("AirlineNormal",     s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("AirlineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("AirlineVisual", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("AirlineReplace", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("StatusLineActiveLeft",     s:gui06, s:gui02, s:cterm07, s:cterm02, "none", "")
+" call <sid>hi("StatusLineActiveGit",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("StatusLineNormal",     s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
+" call <sid>hi("StatusLineVisual", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineVisual", s:gui00, s:gui0E, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineReplace", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLinePending", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineCmd", s:gui00, s:gui0A, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")
@@ -428,7 +431,7 @@ call <sid>hi("SignifySignDelete",  s:gui08, s:gui01, s:cterm08, s:cterm01, "", "
 " call <sid>hi("SignifySignDelete",  s:gui08, s:gui00, s:cterm08, s:cterm00, "", "")
 
 " Spelling highlighting
-call <sid>hi("SpellBad",     "", "", "", "", "undercurl", s:gui08)
+call <sid>hi("SpellBad",     s:gui01, s:gui08, "", "", "undercurl", s:gui08)
 call <sid>hi("SpellLocal",   "", "", "", "", "undercurl", s:gui0C)
 call <sid>hi("SpellCap",     "", "", "", "", "undercurl", s:gui0D)
 call <sid>hi("SpellRare",    "", "", "", "", "undercurl", s:gui0E)
