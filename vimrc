@@ -517,6 +517,12 @@ function! s:ToggleTerminal(side, size) abort
   call PutTermPanel(0, a:side, a:size)
 endfunction
 
+function! s:PopupTerminal() abort
+  let buf = term_start("bash", #{hidden: 1, term_finish: 'close'})
+  let winid = popup_dialog(buf, #{minwidth: 80, minheight: 20, border:[]})
+  return
+endfunction
+
 """        Quickfix
 
 augroup QuickFixWindowSet
@@ -1269,6 +1275,9 @@ nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
 
 " Toggle terminal - right
 nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
+
+" Toggle terminal - right
+nnoremap <silent> yoT :call <SID>PopupTerminal()<CR>
 
 " Toggle keep cursor in middle of screen
 nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
