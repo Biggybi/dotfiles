@@ -1135,7 +1135,7 @@ let g:fzf_action = {
 
 nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
 nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
-nnoremap <silent> <leader>F :FzfFiles .<cr>
+nnoremap <silent> <leader>F :FzfFiles /<cr>
 nnoremap <silent> <leader>fb :FzfBuffers<cr>
 nnoremap <silent> <leader>b :FzfBuffers<cr>
 nnoremap <silent> <leader>j :FzfBuffers<cr>
@@ -1152,8 +1152,9 @@ nnoremap <silent> <leader>f; :FzfHistory:<cr>
 nnoremap <silent> <leader>f/ :FzfHistory/<cr>
 nnoremap <silent> <leader>fh :FzfHistory<cr>
 nnoremap <silent> <leader>fm :FzfHelptags<cr>
-nnoremap <silent> <leader>fs <esc>:FzfSnippets<cr>
-nnoremap <silent> <leader>fr <esc>:Rg<cr>
+nnoremap <silent> <leader>fs :FzfSnippets<cr>
+nnoremap <silent> <leader>fR :Rg<cr>
+nnoremap <silent> <leader>fr :RG<cr>
 inoremap <silent> <c-x><c-s> <c-o>:FzfSnippets<cr>
 
 " Enable per-command history.
