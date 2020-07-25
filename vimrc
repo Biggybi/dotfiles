@@ -944,8 +944,7 @@ augroup LargeFilesFast
   au!
   au BufReadPre *
         \ let f=expand("<afile>")
-        \ | if getfsize(f) > g:LargeFile
-        \ |   let b:airline_whitespace_checks = ['']
+        \ | if getfsize(f) > g:LargeFile || &filetype == 'help'
         \ |   au! anzu
         \ | endif
 augroup end
@@ -1030,54 +1029,6 @@ function! FugitiveBlameToggle() abort
 endfunction
 
 nnoremap <leader>gb :call FugitiveBlameToggle()<cr>
-
-"""        Airline
-
-let g:airline_mode_map = {
-      \ '__'     : '-',
-      \ 'c'      : 'C',
-      \ 'i'      : 'I',
-      \ 'ic'     : 'I',
-      \ 'ix'     : 'I',
-      \ 'n'      : 'N',
-      \ 'multi'  : 'M',
-      \ 'ni'     : 'N',
-      \ 'no'     : 'N',
-      \ 'R'      : 'R',
-      \ 'Rv'     : 'R',
-      \ 's'      : 'S',
-      \ 'S'      : 'S',
-      \ ''     : 'S',
-      \ 't'      : 'T',
-      \ 'v'      : 'V',
-      \ 'V'      : 'V',
-      \ ''     : 'V',
-      \ }
-
-let g:airline#extensions#default#section_truncate_width = {}
-let g:airline#extensions#default#layout = [
-      \ [ 'a', 'b', 'c' ],
-      \ [ 'x', 'y', 'z', 'error', 'warning' ]
-      \ ]
-
-call airline#parts#define_minwidth('branch', 20)
-
-let g:airline_symbols_ascii = 1
-let g:airline_section_b = '%{airline#util#wrap(airline#extensions#branch#get_head(),20)}%{GitStatus()}'
-let g:airline_section_z = '%4{line(".")}:%-3{virtcol(".")} %-4{LinePercent()}'
-let g:airline_section_y = '%{&filetype}'
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#coc#enabled = 0
-
-function! LinePercent() abort
-  return line('.') * 100 / line('$') . '%'
-endfunction
-
-function! GitStatus()
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return [a,m,r] == [0,0,0] ? '' : '[+]'
-  " return join(['[+'.a,'~'.m,'-'.r.']'])
-endfunction
 
 """        Gitgutter / GitMessenger
 if exists('&signcolumn')        " Vim 7.4.2201
@@ -1835,8 +1786,6 @@ endfunction
 
 let g:markdown_fenced_languages = ['css', 'js=javascript']
 
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 """        bash
 
 inoremap <expr> ! (&filetype == '' <bar><bar> &filetype == 'sh') && col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
@@ -1853,7 +1802,6 @@ augroup Shmaps
   au FileType sh inoremap <buffer> { {}<c-g>U<left>
   au FileType sh inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
   au FileType sh inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
-
 augroup end
 
 """        C

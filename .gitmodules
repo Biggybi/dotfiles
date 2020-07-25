@@ -63,13 +63,13 @@
 [submodule "vim/bundle/vim-pathogen"]
 	path = vim/bundle/vim-pathogen
 	url = git@github.com:tpope/vim-pathogen.git
-[submodule "vim/bundle/vim-airline-themes"]
-	path = vim/bundle/vim-airline-themes
-	url = git@github.com:vim-airline/vim-airline-themes.git
-	ignore = dirty
-[submodule "vim/bundle/vim-airline"]
-	path = vim/bundle/vim-airline
-	url = git@github.com:vim-airline/vim-airline.git
+; [submodule "vim/bundle/vim-airline-themes"]
+; 	path = vim/bundle/vim-airline-themes
+; 	url = git@github.com:vim-airline/vim-airline-themes.git
+; 	ignore = dirty
+; [submodule "vim/bundle/vim-airline"]
+; 	path = vim/bundle/vim-airline
+; 	url = git@github.com:vim-airline/vim-airline.git
 [submodule "vim/bundle/--name"]
 	path = vim/bundle/--name
 	url = git@github.com:tpope/vim-speeddating.git
@@ -110,9 +110,9 @@
 [submodule "langserver/groovy-language-server"]
 	path = langserver/groovy-language-server
 	url = git@github.com:prominic/groovy-language-server.git
-[submodule "vim/bundle/vim-airline-themes-fork"]
-	path = vim/bundle/vim-airline-themes-fork
-	url = git@github.com:Biggybi/vim-airline-themes.git
+; [submodule "vim/bundle/vim-airline-themes-fork"]
+; 	path = vim/bundle/vim-airline-themes-fork
+; 	url = git@github.com:Biggybi/vim-airline-themes.git
 [submodule "vim/bundle/vim-smoothie"]
 	path = vim/bundle/vim-smoothie
 	url = git@github.com:psliwka/vim-smoothie.git
