@@ -370,19 +370,19 @@ endfunction
 
 function StatusLineActive() abort
   setlocal statusline =
-  setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*   "mode
-  setlocal statusline +=%2*\ %{FugitiveHead()}               "git branch
-  setlocal statusline +=%r
-  setlocal statusline +=%{GitStatus()}\ %*                    "git modified
-  setlocal statusline +=\ %f                           "filename
-  setlocal statusline +=%{&modified?'[+]':''}\ %*         "file modified
-  setlocal statusline +=%=%{anzu#search_status()}         "search results
-  " setlocal statusline +=%{coc#status()}%{get(b:,'coc_current_function','')}
-  setlocal statusline +=%2*%=\ %{&filetype}\ %*           "filetype
-  setlocal statusline +=%1*\ \[%=%5l:                     "current line
-  setlocal statusline +=%4v\]                             "virtual column number
-  setlocal statusline +=/[%L:                             "total lines
+  setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
+  setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
+  setlocal statusline +=%r%h%w                             "read only, special buffers
+  setlocal statusline +=%{GitStatus()}\ %*                 "git modified
+  setlocal statusline +=\ %f                               "filename
+  setlocal statusline +=%{&modified?'[+]':''}\ %*          "file modified
+  setlocal statusline +=%{anzu#search_status()}            "search results
+  setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
+  setlocal statusline +=%1*\ \[%=%5l:                      "current line
+  setlocal statusline +=%4v\]                              "virtual column number
+  setlocal statusline +=/[%L:                              "total lines
   setlocal statusline +=%2p%%\]%*                          "Rownumber/total (%)
+  setlocal statusline+=%<                                  " cut at end
 endfunction
 
 function StatusLineInactive() abort
