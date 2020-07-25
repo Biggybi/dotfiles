@@ -343,27 +343,27 @@ function! GetColor(group_fg, group_bg) abort
 endfunction
 
 function! SetStatusLineColorsInsert() abort
-  exe "hi User1 " . GetColor('AirlineInsert', 'AirlineInsert')
+  exe "hi User1 " . GetColor('StatusLineInsert', 'StatusLineInsert')
 endfunction
 
 function! SetStatusLineColorsVisual() abort
-  exe "hi User1 " . GetColor('AirlineVisual', 'AirlineVisual')
+  exe "hi User1 " . GetColor('StatusLineVisual', 'StatusLineVisual')
 endfunction
 
 function! SetStatusLineColorsCommand() abort
-  exe "hi User1 " . GetColor('AirlineCmd', 'AirlineCmd')
+  exe "hi User1 " . GetColor('StatusLineCmd', 'StatusLineCmd')
 endfunction
 
 function! SetStatusLineColorsPending() abort
   exe "hi" g:mode_marker_group "guifg= " g:cmd_change_fg "guibg= " g:cmd_change_bg
-  exe "hi User1 " . GetColor('AirlineReplace', 'AirlineReplace')
+  exe "hi User1 " . GetColor('StatusLinePending', 'StatusLinePending')
 endfunction
 
 function! SetStatusLineColorsNormal() abort
-  exe "hi User1 " . GetColor('AirlineNormal', 'AirlineNormal')
-  exe "hi User2 " . GetColor('AirlineActiveLeft', 'AirlineActiveLeft')
-  exe "hi User3 " . GetColor('AirlineVisual', 'AirlineVisual')
-  exe "hi User4 " . GetColor('AirlineInsert', 'normal')
+  exe "hi User1 " . GetColor('StatusLineNormal', 'StatusLineNormal')
+  exe "hi User2 " . GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
+  exe "hi User3 " . GetColor('StatusLineVisual', 'StatusLineVisual')
+  exe "hi User4 " . GetColor('StatusLineInsert', 'normal')
   exe "hi User5 " . GetColor('normal', 'normal')
   exe "hi" g:mode_marker_group "guifg= " g:save_fg "guibg=" g:save_bg
 endfunction
