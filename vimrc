@@ -372,6 +372,7 @@ function StatusLineActive() abort
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*   "mode
   setlocal statusline +=%2*\ %{FugitiveHead()}               "git branch
+  setlocal statusline +=%r
   setlocal statusline +=%{GitStatus()}\ %*                    "git modified
   setlocal statusline +=\ %f                           "filename
   setlocal statusline +=%{&modified?'[+]':''}\ %*         "file modified
