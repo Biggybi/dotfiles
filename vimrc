@@ -418,20 +418,29 @@ let g:ins_change_fg = "#383a42"
 let g:ins_change_bg = "#98c379"
 
 if ! has("nvim")
-  call timer_start(10, 'PendingCommandModeHl', {'repeat': -1})
-  function! PendingCommandModeHl(_) abort
+  call timer_start(10, 'CheckModeAndState', {'repeat': -1})
+  function! CheckModeAndState(_) abort
     if mode() ==? 'i'
       return
-    elseif mode() ==? 'v' || mode() ==? ''
+    endif
+    if mode() ==? 'v' || mode() ==? ''
       call SetStatusLineColorsVisual()
-    elseif mode() ==? 'r'
+      return
+    endif
+    if mode() ==? 'r'
       call SetStatusLineColorsInsert()
-    elseif mode() ==? 'c'
+      return
+    endif
+    if mode() ==? 'c'
       call SetStatusLineColorsCommand()
-    elseif state() =~# '[moS]'
+      return
+    endif
+    if state() =~# '[moS]'
       call SetStatusLineColorsPending()
+      return
     else
       call SetStatusLineColorsNormal()
+      return
     endif
   endfunction
 endif
