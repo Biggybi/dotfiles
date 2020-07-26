@@ -1536,18 +1536,18 @@ if ! has("nvim")
   cnoremap <F33> <up>
   cnoremap <F34> <right>
 
+  " execute "set <M-j>=^[j"
+  nnoremap <silent> <F31> :exe "resize +1"<cr>
+  nnoremap <silent> <F32> :exe "resize -1"<cr>
+  nnoremap <silent> <F33> :exe "vertical resize +1"<CR>
+  nnoremap <silent> <F34> :exe "vertical resize -1"<CR>
+
 else
 
   inoremap <M-h> <left>
   inoremap <M-j> <down>
   inoremap <M-k> <up>
   inoremap <M-l> <right>
-
-  " execute "set <M-j>=^[j"
-  nnoremap <silent> <M-K> :exe "resize +1"<cr>
-  nnoremap <silent> <M-J> :exe "resize -1"<cr>
-  nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
-  nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
 
   nnoremap <silent> <M-k> :wincmd k<cr>
   nnoremap <silent> <M-j> :wincmd j<cr>
@@ -1563,6 +1563,12 @@ else
   cnoremap <M-j> <down>
   cnoremap <M-k> <up>
   cnoremap <M-l> <right>
+
+  " execute "set <M-j>=^[j"
+  nnoremap <silent> <M-K> :exe "resize +1"<cr>
+  nnoremap <silent> <M-J> :exe "resize -1"<cr>
+  nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
+  nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
 
 endif
 
