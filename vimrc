@@ -450,9 +450,7 @@ endif
 
 augroup PendingInsertModeHl
   au!
-  " au SafeState * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
-  au InsertEnter * exe "hi" g:mode_marker_group "guifg=" . g:ins_change_fg "guibg=" . g:ins_change_bg
-  au InsertLeave * exe "hi" g:mode_marker_group "guifg=" . g:save_fg "guibg=" . g:save_bg
+  au InsertEnter * exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
 augroup end
 
 " augroup SavePendingGroupColor
