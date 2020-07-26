@@ -805,6 +805,9 @@ function! HLCurrent() abort
   if exists("currmatch")
     call matchdelete(currmatch)
   endif
+  if exists("*anzu#search_status")
+    :AnzuUpdateSearchStatus
+  endif
   " only on cursor
   let patt = '\c\%#'.@/
   " check prev and next match
