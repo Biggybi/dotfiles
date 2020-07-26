@@ -85,6 +85,7 @@ set modelineexpr                " flexible modeline set
 
 " Title
 set title                       " window title (file)
+set titleold=
 
 " Mappings chill
 set notimeout                   " no timeout on maps
