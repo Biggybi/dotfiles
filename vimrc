@@ -348,10 +348,12 @@ function! SetStatusLineColorsInsert() abort
 endfunction
 
 function! SetStatusLineColorsVisual() abort
+  exe "hi" g:mode_marker_group GetColor('StatusLineVisual', 'StatusLineVisual')
   exe "hi User1 " . GetColor('StatusLineVisual', 'StatusLineVisual')
 endfunction
 
 function! SetStatusLineColorsCommand() abort
+  exe "hi" g:mode_marker_group GetColor('StatusLineCmd', 'StatusLineCmd')
   exe "hi User1 " . GetColor('StatusLineCmd', 'StatusLineCmd')
 endfunction
 
