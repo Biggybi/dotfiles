@@ -331,10 +331,14 @@ let g:currentmode={
       \ ''     : 'V ',
       \}
 
-function! GitStatus()
+function! GitModify() abort
   let [a,m,r] = GitGutterGetHunkSummary()
   return [a,m,r] == [0,0,0] ? '' : '[+]'
-  " return join(['[+'.a,'~'.m,'-'.r.']'])
+endfunction
+
+function! GitStatus() abort
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return join(['  [+'.a,'~'.m,'-'.r.']'])
 endfunction
 
 function! GetColor(group_fg, group_bg) abort
