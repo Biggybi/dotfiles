@@ -1563,10 +1563,6 @@ nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
 " Pair cycle
 nnoremap <c-g> %
 
-" n and N not reversed in reverse-search
-nnoremap <expr> n 'Nn'[v:searchforward]
-nnoremap <expr> N 'nN'[v:searchforward]
-
 nnoremap / :call clearmatches()<cr>/
 nnoremap <leader>/ :call clearmatches()<cr>/\v
 vnoremap <leader>/ :call clearmatches()<cr>/\v
