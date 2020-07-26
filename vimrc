@@ -1187,14 +1187,6 @@ let g:vimwiki_global_ext = 0
 
 let g:anzu_status_format = "[%i/%l]"
 
-"	" Update each time the cursor moves
-augroup anzu-update-search-status
-  autocmd!
-  autocmd CursorMoved *
-        \ :AnzuUpdateSearchStatus|echo anzu#search_status()
-augroup END
-
-
 """        Goyo
 
 let g:goyo_width = 81
