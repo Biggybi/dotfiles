@@ -402,11 +402,8 @@ endfunction
 augroup StatusLineSwitch
   au!
   au InsertEnter * call SetStatusLineColorsInsert()
-  " au InsertLeave * call SetStatusLineColorsNormal()
-  " au Visual * call SetStatusLineColorsInsert()
   au WinEnter,BufWinEnter * call StatusLineActive()
   au WinLeave * call StatusLineInactive()
-  " todo: does not trigger on sourcing
   au ColorScheme,VimEnter *
         \ let g:save_fg = synIDattr(hlID(g:mode_marker_group), "fg#") |
         \ let g:save_bg = synIDattr(hlID(g:mode_marker_group), "bg#")
@@ -1216,7 +1213,7 @@ nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
 nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
 
 " Toggle terminal - right
-nnoremap <silent> yoT :call <SID>PopupTerminal()<CR>
+nnoremap <silent> yot :call <SID>PopupTerminal()<CR>
 
 " Toggle keep cursor in middle of screen
 nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
