@@ -531,7 +531,7 @@ function! s:ToggleTerminal(side, size) abort
 endfunction
 
 function! s:PopupTerminal() abort
-  let buf = term_start("bash", #{hidden: 1, term_finish: 'close'})
+  let buf = term_start("tmux_new_or_attach vim_term", #{hidden: 1, term_finish: 'close'})
   let winid = popup_dialog(buf, #{minwidth: 80, minheight: 20, border:[]})
   return
 endfunction
