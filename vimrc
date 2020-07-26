@@ -404,9 +404,6 @@ augroup StatusLineSwitch
   au InsertEnter * call SetStatusLineColorsInsert()
   au WinEnter,BufWinEnter * call StatusLineActive()
   au WinLeave * call StatusLineInactive()
-  au ColorScheme,VimEnter *
-        \ let g:save_fg = synIDattr(hlID(g:mode_marker_group), "fg#") |
-        \ let g:save_bg = synIDattr(hlID(g:mode_marker_group), "bg#")
   au VimEnter,ColorScheme,InsertLeave,CmdwinLeave *
         \ call SetStatusLineColorsNormal() |
         \ call StatusLineActive()
@@ -452,13 +449,6 @@ augroup PendingInsertModeHl
   au!
   au InsertEnter * exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
 augroup end
-
-" augroup SavePendingGroupColor
-"   au!
-"   au ColorScheme,VimEnter *
-"         \ let g:save_fg = synIDattr(hlID(g:mode_marker_group), "fg#") |
-"         \ let g:save_bg = synIDattr(hlID(g:mode_marker_group), "bg#")
-" augroup end
 
 ""    Extra windows
 """        Terminal
