@@ -344,30 +344,30 @@ function! GetColor(group_fg, group_bg) abort
 endfunction
 
 function! SetStatusLineColorsInsert() abort
-  exe "hi User1 " . GetColor('StatusLineInsert', 'StatusLineInsert')
+  exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
 endfunction
 
 function! SetStatusLineColorsVisual() abort
   exe "hi" g:mode_marker_group GetColor('StatusLineVisual', 'StatusLineVisual')
-  exe "hi User1 " . GetColor('StatusLineVisual', 'StatusLineVisual')
+  exe "hi User1" GetColor('StatusLineVisual', 'StatusLineVisual')
 endfunction
 
 function! SetStatusLineColorsCommand() abort
   exe "hi" g:mode_marker_group GetColor('StatusLineCmd', 'StatusLineCmd')
-  exe "hi User1 " . GetColor('StatusLineCmd', 'StatusLineCmd')
+  exe "hi User1" GetColor('StatusLineCmd', 'StatusLineCmd')
 endfunction
 
 function! SetStatusLineColorsPending() abort
   exe "hi" g:mode_marker_group GetColor('StatusLinePending', 'StatusLinePending')
-  exe "hi User1 " . GetColor('StatusLinePending', 'StatusLinePending')
+  exe "hi User1" GetColor('StatusLinePending', 'StatusLinePending')
 endfunction
 
 function! SetStatusLineColorsNormal() abort
-  exe "hi User1 " . GetColor('StatusLineNormal', 'StatusLineNormal')
-  exe "hi User2 " . GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
-  exe "hi User3 " . GetColor('StatusLineVisual', 'StatusLineVisual')
-  exe "hi User4 " . GetColor('StatusLineInsert', 'normal')
-  exe "hi User5 " . GetColor('normal', 'normal')
+  exe "hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
+  exe "hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
+  exe "hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
+  exe "hi User4" GetColor('StatusLineInsert', 'normal')
+  exe "hi User5" GetColor('normal', 'normal')
   exe "hi" g:mode_marker_group GetColor('StatusLineNormal', 'StatusLineNormal')
 endfunction
 
