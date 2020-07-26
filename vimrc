@@ -125,7 +125,6 @@ set wildignorecase              " ignore case completing filenames
 set laststatus=2                " always show satus line
 set ruler                       " show cursor line / column
 set noshowmode
-" set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P  " show buffer number
 
 " Shortmess : 'hit enter' prompt custzomization
 set shortmess+=A                " Always edit if swap exists
