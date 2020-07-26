@@ -297,7 +297,7 @@ if &term =~ "xterm\\|rxvt"
   let &t_SR = "\e[4 q"       " replace mode
 endif
 
-"""        Term Background
+" "        Term Background
 " " Conflict with SetColorScheme:
 " " g:colors_name not found if change theme + restart vim
 " " Auto set terminal background color to Vim's
