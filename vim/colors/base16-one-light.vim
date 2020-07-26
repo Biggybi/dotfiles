@@ -54,7 +54,8 @@ let g:base16_gui0C = "0184bc"
 let s:gui0D        = "4078f2"
 let g:base16_gui0D = "4078f2"
 " let s:gui0E        = "a626a4"
-let s:gui0E        = "c626a4"
+" let s:gui0E        = "c626a4"
+let s:gui0E        = "a470d4"
 let g:base16_gui0E = "a626a4"
 let s:gui0F        = "986801"
 let g:base16_gui0F = "986801"
@@ -243,10 +244,10 @@ call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "
 call <sid>hi("StatusLineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("StatusLineActiveLeft",     s:gui05, s:gui03, s:cterm07, s:cterm02, "none", "")
 " call <sid>hi("StatusLineActiveGit",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("StatusLineNormal",     s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineNormal",     s:gui00, s:gui0E, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
 " call <sid>hi("StatusLineVisual", s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineVisual", s:gui00, s:gui0E, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineVisual", s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineReplace", s:gui00, s:gui09, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLinePending", s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineCmd", s:gui00, s:gui0A, s:cterm00, s:cterm09, "none", "")
