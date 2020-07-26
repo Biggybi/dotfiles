@@ -1542,7 +1542,6 @@ if ! has("nvim")
   cnoremap <F33> <up>
   cnoremap <F34> <right>
 
-  " execute "set <M-j>=^[j"
   nnoremap <silent> <S-F31> :exe "resize -1"<cr>
   nnoremap <silent> <S-F32> :exe "vertical resize -1"<CR>
   nnoremap <silent> <S-F33> :exe "vertical resize +1"<CR>
@@ -1570,7 +1569,6 @@ else
   cnoremap <M-k> <up>
   cnoremap <M-l> <right>
 
-  " execute "set <M-j>=^[j"
   nnoremap <silent> <M-K> :exe "resize +1"<cr>
   nnoremap <silent> <M-J> :exe "resize -1"<cr>
   nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
