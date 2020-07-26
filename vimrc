@@ -885,34 +885,6 @@ augroup end
 " au BufWritePost *.cpp silent! !ctags -R &
 set tags=tags;./git/
 
-"""        Completion by filetype
-
-augroup AutoOmniComplete
-  au!
-  au FileType c setlocal ofu=ccomplete#CompleteCpp
-  au FileType css setlocal ofu=csscomplete#CompleteCSS
-  au FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-  au FileType php setlocal ofu=phpcomplete#CompletePHP
-  au FileType ruby,eruby setlocal ofu=rubycomplete#Complete
-augroup end
-
-"""        Filetype recognition
-
-augroup AutoFileTypeRecognition
-  au!
-  au BufNewFile,BufFilePre,BufRead *.md,markdown set filetype=markdown
-  au BufNewFile,BufFilePre,BufRead *.sh,bash,zsh set filetype=sh
-  au BufNewFile,BufFilePre,BufRead *.c,h,cpp set filetype=c
-  au BufNewFile,BufFilePre,BufRead *.php set filetype=php
-  au BufNewFile,BufFilePre,BufRead *.css set filetype=css
-  au BufNewFile,BufFilePre,BufRead *.html,htm set filetype=html
-  au BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
-  au BufNewFile,BufFilePre,BufRead *.json set filetype=json
-  au BufNewFile,BufFilePre,BufRead *.groovy,gradle set filetype=groovy
-  au BufNewFile,BufFilePre,BufRead *.java set filetype=java
-  " au BufNewFile,BufNew,BufFilePre,BufRead,BufEnter *.php set filetype=html syntax=phtml
-augroup end
-
 """        Filetype refresh
 
 "  refresh filetype upon writing if no filetype already set
