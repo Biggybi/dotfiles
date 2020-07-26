@@ -369,7 +369,7 @@ function! SetStatusLineColorsNormal() abort
   exe "hi" g:mode_marker_group "guifg= " g:save_fg "guibg=" g:save_bg
 endfunction
 
-function StatusLineActive() abort
+function! StatusLineActive() abort
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
   setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
@@ -386,7 +386,7 @@ function StatusLineActive() abort
   setlocal statusline+=%<                                  " cut at end
 endfunction
 
-function StatusLineInactive() abort
+function! StatusLineInactive() abort
   setlocal statusline =
   setlocal statusline +=%f                                "filename
   setlocal statusline +=%{&modified?'[+]':''}             "file modified
