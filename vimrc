@@ -1501,6 +1501,7 @@ vnoremap > >gv
 
 " Allow <alt> key mappings
 if ! has("nvim")
+
   let c='a'
   while c <= 'z'
     let d=toupper(c)
@@ -1516,6 +1517,11 @@ if ! has("nvim")
   exe "set <F33>=\ek"
   exe "set <F34>=\el"
 
+  exe "set <S-F31>=\eH"
+  exe "set <S-F32>=\eJ"
+  exe "set <S-F33>=\eK"
+  exe "set <S-F34>=\eL"
+
   inoremap <F31> <left>
   inoremap <F32> <down>
   inoremap <F33> <up>
@@ -1526,10 +1532,10 @@ if ! has("nvim")
   nnoremap <silent> <F33> :wincmd k<cr>
   nnoremap <silent> <F34> :wincmd l<cr>
 
-  tnoremap <silent> <F31> <c-\><c-n>:wincmd k<cr>
+  tnoremap <silent> <F31> <c-\><c-n>:wincmd h<cr>
   tnoremap <silent> <F32> <c-\><c-n>:wincmd j<cr>
-  tnoremap <silent> <F33> <c-\><c-n>:wincmd l<cr>
-  tnoremap <silent> <F34> <c-\><c-n>:wincmd h<cr>
+  tnoremap <silent> <F33> <c-\><c-n>:wincmd k<cr>
+  tnoremap <silent> <F34> <c-\><c-n>:wincmd l<cr>
 
   cnoremap <F31> <left>
   cnoremap <F32> <down>
@@ -1537,10 +1543,10 @@ if ! has("nvim")
   cnoremap <F34> <right>
 
   " execute "set <M-j>=^[j"
-  nnoremap <silent> <F31> :exe "resize +1"<cr>
-  nnoremap <silent> <F32> :exe "resize -1"<cr>
-  nnoremap <silent> <F33> :exe "vertical resize +1"<CR>
-  nnoremap <silent> <F34> :exe "vertical resize -1"<CR>
+  nnoremap <silent> <S-F31> :exe "resize -1"<cr>
+  nnoremap <silent> <S-F32> :exe "vertical resize -1"<CR>
+  nnoremap <silent> <S-F33> :exe "vertical resize +1"<CR>
+  nnoremap <silent> <S-F34> :exe "resize +1"<cr>
 
 else
 
