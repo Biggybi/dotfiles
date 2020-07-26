@@ -358,7 +358,7 @@ function! SetStatusLineColorsCommand() abort
 endfunction
 
 function! SetStatusLineColorsPending() abort
-  exe "hi" g:mode_marker_group "guifg= " g:cmd_change_fg "guibg= " g:cmd_change_bg
+  exe "hi" g:mode_marker_group GetColor('StatusLinePending', 'StatusLinePending')
   exe "hi User1 " . GetColor('StatusLinePending', 'StatusLinePending')
 endfunction
 
@@ -368,7 +368,7 @@ function! SetStatusLineColorsNormal() abort
   exe "hi User3 " . GetColor('StatusLineVisual', 'StatusLineVisual')
   exe "hi User4 " . GetColor('StatusLineInsert', 'normal')
   exe "hi User5 " . GetColor('normal', 'normal')
-  exe "hi" g:mode_marker_group "guifg= " g:save_fg "guibg=" g:save_bg
+  exe "hi" g:mode_marker_group GetColor('StatusLineNormal', 'StatusLineNormal')
 endfunction
 
 function! StatusLineActive() abort
