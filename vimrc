@@ -336,6 +336,11 @@ function! GetColor(group_fg, group_bg) abort
   return "guifg=".group_fg . " guibg=".group_bg
 endfunction
 
+function! SetStatusLineColorsReplace() abort
+  exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
+  exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
+endfunction
+
 function! SetStatusLineColorsInsert() abort
   exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
 endfunction
@@ -412,30 +417,30 @@ augroup end
 """        Pending command mode
 
 let g:mode_marker_group = "CursorLineNr"
-let g:cmd_change_fg = "#383a42"
-let g:cmd_change_bg = "#e06c75"
-let g:ins_change_fg = "#383a42"
-let g:ins_change_bg = "#98c379"
 
 if ! has("nvim")
   call timer_start(10, 'CheckModeAndState', {'repeat': -1})
   function! CheckModeAndState(_) abort
-    if mode() ==? 'i'
+    if mode() =~? 'i'
       return
     endif
-    if mode() ==? 'v' || mode() ==? ''
+    if mode() =~? '[s]'
+      call SetStatusLineColorsReplace()
+      return
+    endif
+    if mode() =~# 'R'
+      call SetStatusLineColorsReplace()
+      return
+    endif
+    if mode() =~? '[v]'
       call SetStatusLineColorsVisual()
-      return
-    endif
-    if mode() ==? 'r'
-      call SetStatusLineColorsInsert()
       return
     endif
     if mode() ==? 'c'
       call SetStatusLineColorsCommand()
       return
     endif
-    if state() =~# '[moS]'
+    if state() =~# '[mo]'
       call SetStatusLineColorsPending()
       return
     else
