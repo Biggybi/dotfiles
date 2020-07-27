@@ -342,6 +342,7 @@ function! SetStatusLineColorsReplace() abort
 endfunction
 
 function! SetStatusLineColorsInsert() abort
+  exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
   exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
 endfunction
 
@@ -418,28 +419,28 @@ augroup end
 
 let g:mode_marker_group = "CursorLineNr"
 
-if ! has("nvim")
-  call timer_start(10, 'CheckModeAndState', {'repeat': -1})
-  function! CheckModeAndState(_) abort
-    if mode() =~? 'i'
-      return
-    endif
-    if mode() =~? '[s]'
-      call SetStatusLineColorsReplace()
-      return
-    endif
-    if mode() =~# 'R'
-      call SetStatusLineColorsReplace()
-      return
-    endif
-    if mode() =~? '[v]'
-      call SetStatusLineColorsVisual()
-      return
-    endif
-    if mode() ==? 'c'
-      call SetStatusLineColorsCommand()
-      return
-    endif
+call timer_start(10, 'CheckModeAndState', {'repeat': -1})
+function! CheckModeAndState(_) abort
+  if mode() =~? 'i'
+    return
+  endif
+  if mode() =~? '[s]'
+    call SetStatusLineColorsReplace()
+    return
+  endif
+  if mode() =~# 'R'
+    call SetStatusLineColorsReplace()
+    return
+  endif
+  if mode() =~? '[v]'
+    call SetStatusLineColorsVisual()
+    return
+  endif
+  if mode() ==? 'c'
+    call SetStatusLineColorsCommand()
+    return
+  endif
+  if ! has("nvim")
     if state() =~# '[mo]'
       call SetStatusLineColorsPending()
       return
@@ -447,13 +448,10 @@ if ! has("nvim")
       call SetStatusLineColorsNormal()
       return
     endif
-  endfunction
-endif
-
-augroup PendingInsertModeHl
-  au!
-  au InsertEnter * exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
-augroup end
+  else
+    call SetStatusLineColorsNormal()
+  endif
+endfunction
 
 ""    Extra windows
 """        Terminal
