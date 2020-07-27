@@ -405,7 +405,6 @@ function! StatusLineInactive() abort
   setlocal statusline =
   setlocal statusline +=%f                                "filename
   setlocal statusline +=%{&modified?'[+]':''}             "file modified
-  setlocal statusline +=%{GitStatus()}                    "git modified
   setlocal statusline +=%=%{&filetype}\                   "filetype
 endfunction
 
