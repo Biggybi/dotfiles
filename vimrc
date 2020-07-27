@@ -1223,7 +1223,7 @@ nnoremap <silent> yoe :20Lexplore<cr>
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 
 " Toggle terminal - bottom
-nnoremap <silent> yot :call <SID>ToggleTerminal('J', 6)<CR>
+nnoremap <silent> yoT :call <SID>ToggleTerminal('J', 6)<CR>
 
 " Toggle terminal - right
 nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
@@ -1307,9 +1307,8 @@ function! LineCount() abort
 endfunction
 
 nnoremap <leader>wcc :echo WordCount()<cr>
-" nnoremap <leader>w :w !detex \| wc -w<cr>
-
 nnoremap <leader>wcl :echo LineCount()<cr>
+
 " new file in vertical split instead of horizontal
 nnoremap <c-w><c-n> :vertical new<cr>
 
