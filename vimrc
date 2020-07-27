@@ -297,16 +297,6 @@ if &term =~ "xterm\\|rxvt"
   let &t_SR = "\e[4 q"       " replace mode
 endif
 
-" "        Term Background
-" " Conflict with SetColorScheme:
-" " g:colors_name not found if change theme + restart vim
-" " Auto set terminal background color to Vim's
-" autocmd ColorScheme * call s:matchTerminalBackground()
-" fun! s:matchTerminalBackground()
-"   let l:background = synIDattr(synIDtrans(hlID("Normal")), "bg#")
-"   exec 'silent !echo -e "\e]11;\' . l:background . '\a"'
-" endfun
-
 """        StatusLine
 
 let g:currentmode={
