@@ -11,11 +11,6 @@
 " **************************************************************************** "
 
 ""    Settings
-"""        Pathogen
-
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-
 """        General settings
 
 runtime! ftplugin/man.vim
