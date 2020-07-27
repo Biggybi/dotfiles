@@ -1299,12 +1299,17 @@ nnoremap <leader><c-n> :vs <c-r>=expand('%:p:h') . '/'<cr>
 
 " Word count
 function! WordCount() abort
-  echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+  return system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
 endfunction
 
-nnoremap <leader>wcc :call WordCount()<cr>
+function! LineCount() abort
+  return search('^[^$,\"]', 'wn')
+endfunction
+
+nnoremap <leader>wcc :echo WordCount()<cr>
 " nnoremap <leader>w :w !detex \| wc -w<cr>
 
+nnoremap <leader>wcl :echo LineCount()<cr>
 " new file in vertical split instead of horizontal
 nnoremap <c-w><c-n> :vertical new<cr>
 
