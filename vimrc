@@ -386,10 +386,10 @@ function! StatusLineActive() abort
   setlocal statusline +=%{anzu#search_status()}            "search results
   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
   setlocal statusline +=%1*\ \[%=%5l:                      "current line
-  setlocal statusline +=%{VirtualColumnWithSpace()}\]      "virtual column number
+  setlocal statusline +=%{VirtualColumnWithSpace()}\]      "virtual column
   setlocal statusline +=\ /\ [%L:                          "total lines
-  setlocal statusline +=%2p%%\]\ %*                        "Rownumber/total (%)
-  setlocal statusline+=%<                                  "cut at end
+  setlocal statusline +=%2p%%\]\ %*                        "total (%)
+  setlocal statusline +=%<                                 "cut at end
 endfunction
 
 function! StatusLineInactive() abort
