@@ -564,29 +564,6 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-" Auto location list on make
-" augroup AutoLocationWindow
-"   au!
-"   autocmd QuickFixCmdPost [^l]* nested lwindow
-"   autocmd QuickFixCmdPost    l* nested lwindow
-" augroup end
-
-" nnoremap <leader>cc :ll<cr>
-" nnoremap <leader>cn :lnext<cr>
-" nnoremap <leader>cp :lprevious<cr>
-
-" nnoremap ]<c-q> :cc<cr>
-" nnoremap [q :cprev<cr>
-" nnoremap ]q :cnext<cr>
-" nnoremap [Q :cfirst<cr>
-" nnoremap ]Q :clast<cr>
-
-" nnoremap [<c-w> :ll<cr>
-" nnoremap [w :lprev<cr>
-" nnoremap ]w :lnext<cr>
-" nnoremap [W :lfirst<cr>
-" nnoremap ]W :llast<cr>
-
 """        Help/Man
 
 let g:ft_man_open_mode = 'vert'
