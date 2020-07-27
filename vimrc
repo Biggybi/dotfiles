@@ -806,6 +806,18 @@ endfunction
 ""    File automation
 """        Save and load
 
+function FileBottomWindow() abort
+  let last_line_window = line('w$')
+  if getline(last_line_window + 1) == ""
+    normal! zb
+  endif
+endfunction
+
+augroup FileBottomWindow
+  au!
+  au BufEnter * call FileBottomWindow()
+augroup END
+
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
   au!
