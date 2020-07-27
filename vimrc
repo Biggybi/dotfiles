@@ -366,6 +366,7 @@ endfunction
 
 function! VirtualColumnWithSpace() abort
   let curchar = col('.')
+  let sep = ""
   if curchar < 10
     let sep = "  "
   elseif curchar < 100
