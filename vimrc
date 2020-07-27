@@ -1195,10 +1195,6 @@ nnoremap <leader>d "_d
 xnoremap <leader>d "_d
 " xnoremap <leader>p "_dP
 
-" paste with indentation
-" nnoremap P mp]P==`p
-" nnoremap p mp]p==`p
-
 " System clipboard interraction
 " paste from clipboard ...
 nnoremap <leader>p mp"+]p==`p
