@@ -2352,7 +2352,10 @@ endfunction
 
 function! s:textline(left, right)
   let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
-  return s:start . repeat(' ', s:margin - strlen(s:start)) . l:left . repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right . repeat(' ', s:margin - strlen(s:end)) . s:end
+  return s:start .
+        \ repeat(' ', s:margin - strlen(s:start)) . l:left .
+        \ repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right .
+        \ repeat(' ', s:margin - strlen(s:end)) . s:end
 endfunction
 
 function! s:line(n) abort
