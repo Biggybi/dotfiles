@@ -456,6 +456,13 @@ endfunction
 ""    Extra windows
 """        Terminal
 
+augroup termwinkey_no_timeout
+au!
+au TerminalWinOpen * let b:_twk = &l:twk == '' ? '<c-w>' : &l:twk
+  \ | exe printf('tno <buffer><nowait> %s<c-w> %s<c-w>', b:_twk , b:_twk)
+  \ | unlet! b:_twk
+augroup END
+
 " Show terminal (like c-z), exit on any character
 function! ShowTerm() abort
   silent !read -sN 1
@@ -1572,7 +1579,7 @@ cnoremap <c-j> <Down>
 cnoremap <c-b> <Left>
 " cnoremap <c-f> <Right>
 cnoremap <c-l> <S-Right>
-cnoremap <c-h> <S-Left>
+cnoremap <c-g> <S-Left>
 cnoremap <c-x> <c-h>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
