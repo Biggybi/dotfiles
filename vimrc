@@ -802,9 +802,11 @@ endfunction
 """        Save and load
 
 function FileBottomWindow() abort
-  let last_line_window = line('w$')
-  if getline(last_line_window + 1) == ""
+  if line('w$') == line('$')
+    let save_scroll = &scrolloff
+    let &scrolloff = 0
     normal! zb
+    let scrolloff = save_scroll
   endif
 endfunction
 
