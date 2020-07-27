@@ -1573,7 +1573,7 @@ function! SelectFirstWordBlock(all) abort
   while (a:all == 0 && split(trim(getline(nextline)), '\W\+')[0] ==# firstword)
     let nextline += 1
   endwhile
-  normal V
+  normal! V
   call cursor(nextline - 1, 0)
 endfunction
 
@@ -1586,7 +1586,7 @@ function! SelectFirstWordBlockVisual() abort
     let nextline += 1
   endwhile
   " echo nextline
-  normal V
+  normal! V
   call cursor(nextline - 1, 0)
 endfunction
 
