@@ -2068,27 +2068,6 @@ inoremap ,abc abcdefghijklmnopqrstuvwxyz
 inoremap ,ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
 inoremap ,09 0123456789
 
-""    FileType settings
-"""        Vim
-augroup VimSettings
-  au!
-  au FileType vim setlocal tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
-augroup END
-
-"""        Mail
-
-augroup MailSettings
-  au!
-  autocmd FileType mail setlocal linebreak tw=0
-augroup end
-
-"""        Markdown
-
-augroup MarkdownSettings
-  au!
-  au FileType markdown setlocal linebreak
-augroup end
-
 ""    Operators
 """        Start / End of line
 onoremap h :<c-u>normal! ^<cr>
