@@ -177,7 +177,7 @@ augroup end
 " Main window
 set display+=lastline           " show lastline even if too long
 set number                      " show number column
-set wrap                        " no horizontal scroll
+set nowrap                      " no horizontal scroll
 set breakindent                 " with indent
 set showbreak=¬                 " ... showing a character
 
