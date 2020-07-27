@@ -1651,17 +1651,6 @@ nnoremap <leader>c<c-s>t :VShell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cs<c-t> :VShell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cs<c-t> :VShell make ex TEST=test/%<cr><cr>
 nnoremap <leader>csT :Shell make ex TESTFF=
-" nnoremap <leader>csv :Shell make ex TEST=<cr><cr>
-" nnoremap <leader>csm :make<cr><cr>:lopen<cr>:wincmd L<cr>
-
-" nnoremap <leader>csm :lmake<cr>:lopen<cr>:wincmd L<cr>
-" nnoremap <leader>csr :lmake re<cr>:lopen<cr>:wincmd L<cr>
-" nnoremap <leader>cse :lmake ex<cr><cr>:lopen<cr>:wincmd L<cr>
-" nnoremap <leader>cst :lmake ex TESTFF=test/test*<cr><cr>:lopen<cr>:wincmd L<cr>
-" nnoremap <leader>cs<c-t> :lmake ex TEST=test/%<cr><cr>:lopen<cr>:wincmd L<cr>
-" nnoremap <leader>csT :lmake ex TESTFF=:lopen<cr>:wincmd L<cr>
-" " nnoremap <leader>csv :make ex TEST=<cr><cr>:lopen<cr>:wincmd L<cr>
-" nnoremap <leader>csm :lmake<cr><cr>:lopen<cr>:wincmd L<cr>
 
 " Count line in function
 function! FunctionLineCount() abort
