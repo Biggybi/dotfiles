@@ -1555,6 +1555,40 @@ nnoremap g<c-]> g]
 " jump if only one match
 nnoremap g] g<c-]>
 
+"""        Select lines starting with same world
+
+function! SelectFirstWordBlock(all) abort
+  let curpos = getpos('.')
+  let curline = curpos[1]
+  let nextline = curline + 1
+  let firstword = split(trim(getline('.')), '\W\+')[0]
+  while (a:all == 1 && split(trim(getline(nextline)), '\W\+')[0] =~ firstword)
+    let nextline += 1
+  endwhile
+  while (a:all == 0 && split(trim(getline(nextline)), '\W\+')[0] ==# firstword)
+    let nextline += 1
+  endwhile
+  normal V
+  call cursor(nextline - 1, 0)
+endfunction
+
+function! SelectFirstWordBlockVisual() abort
+  let curpos = getpos('.')
+  let curline = curpos[1]
+  let nextline = curline + 1
+  let firstword = @*
+  while (getline(nextline) =~ firstword)
+    let nextline += 1
+  endwhile
+  " echo nextline
+  normal V
+  call cursor(nextline - 1, 0)
+endfunction
+
+vnoremap <c-p> :call SelectFirstWordBlockVisual()<cr>
+nnoremap <leader>V :silent! call SelectFirstWordBlock('1')<cr>
+nnoremap <leader><c-v> :silent! call SelectFirstWordBlock('0')<cr>
+
 """        Folding
 
 nnoremap zM zMzb
