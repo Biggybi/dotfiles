@@ -211,6 +211,8 @@ alias modx='sudo chmod +x'
 #tmux
 alias tn='tmux_new_or_attach'
 alias ta='tmux attach'
+alias td='tmux detach'
+alias d='tmux detach'
 # alias o='xdg-open '
 open() {
 	xdg-open $1 &

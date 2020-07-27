@@ -92,8 +92,9 @@ stty -ixon											# no term flow (C-q)
 shopt -s cmdhist									# command one-liner
 shopt -s histappend									# append to history
 shopt -s histverify									# expand '!'
+# ignored commands
+HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear:tmux\ detach:td:d"
 HISTSIZE= HISTFILESIZE=#							# infinite history
-HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear"	# ignored commands
 HISTCONTROL=ignoreboth								# duplicate + whitespace
 HISTCONTROL+=:erasedups								# delete dupse (cross-session)
 # HISTCONTROL=ignorespace							# whitespace
