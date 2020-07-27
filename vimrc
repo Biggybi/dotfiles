@@ -1679,7 +1679,7 @@ nnoremap <leader>ct :make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cT :make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
-function! LocListPannel(pfx) abort
+function! LocListPanel(pfx) abort
   " if a:pfx == 'l' && len(getloclist(0)) == 0
   "   echohl ErrorMsg
   "   echo "Location List is Empty."
@@ -1694,9 +1694,9 @@ function! LocListPannel(pfx) abort
 endfunction
 
 " Make in spit
-nnoremap <leader>csm :lmake!<cr>:call LocListPannel('l')<cr>
+nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l')<cr>
 
-nnoremap <leader>csr :lmake! re<cr>:call LocListPannel('l')<cr>
+nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l')<cr>
 nnoremap <leader>cse :Shell make ex<cr><cr>
 nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>c<c-s><c-t> :VShell make ex TESTFF=test/test*<cr><cr>
