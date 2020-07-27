@@ -1729,9 +1729,9 @@ if v:version < 802
   inoremap <c-i> <c-v><c-i>
 endif
 
-if ! has("nvim")
+if has("vim")
   inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
-elseif has("nvim")
+else
   inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
 endif
 
