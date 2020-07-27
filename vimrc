@@ -918,7 +918,7 @@ endfunction
 
 augroup AutoProjectLoadOnStart
   au!
-  autocmd VimEnter * ++nested call AutoProjectLoad('0')
+  au VimEnter * ++nested call AutoProjectLoad('0')
 augroup end
 
 nnoremap <leader>ej :e .git/vim/project_files<cr>
