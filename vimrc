@@ -451,13 +451,6 @@ endfunction
 ""    Extra windows
 """        Terminal
 
-augroup termwinkey_no_timeout
-au!
-au TerminalWinOpen * let b:_twk = &l:twk == '' ? '<c-w>' : &l:twk
-  \ | exe printf('tno <buffer><nowait> %s<c-w> %s<c-w>', b:_twk , b:_twk)
-  \ | unlet! b:_twk
-augroup END
-
 " Show terminal (like c-z), exit on any character
 function! ShowTerm() abort
   silent !read -sN 1
@@ -1729,10 +1722,10 @@ if v:version < 802
   inoremap <c-i> <c-v><c-i>
 endif
 
-if has("vim")
-  inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
-else
+if has("nvim")
   inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
+else
+  inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
 endif
 
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
