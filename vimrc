@@ -385,7 +385,7 @@ function! StatusLineActive() abort
   setlocal statusline +=%{anzu#search_status()}            "search results
   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
   setlocal statusline +=%1*\ \[%=%5l:                      "current line
-  setlocal statusline +=%4v\]                              "virtual column number
+  setlocal statusline +=%3v\]                              "virtual column number
   setlocal statusline +=\ /\ [%L:                              "total lines
   setlocal statusline +=%2p%%\]\ %*                          "Rownumber/total (%)
   setlocal statusline+=%<                                  " cut at end
