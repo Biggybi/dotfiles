@@ -1817,28 +1817,6 @@ augroup Cmaps
   au FileType c,cpp nnoremap <buffer> <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
 augroup end
 
-" nnoremap viB [[%v%jok$
-" nnoremap vaB [[%v%
-" " nnoremap vib [{%v%jok$
-" nnoremap vab [{%v%
-
-" " Commenting blocks of code.
-" au FileType c,cpp,java,scala let b:com_size = '3' | let b:com = '// '
-" au FileType sh,ruby,python   let b:com_size = '2' | let b:com = '# '
-" au FileType conf,fstab       let b:com_size = '2' | let b:com = '# '
-" au FileType tex              let b:com_size = '2' | let b:com = '% '
-" au FileType mail             let b:com_size = '2' | let b:com = '> '
-" au FileType vim              let b:com_size = '2' | let b:com = '" '
-" au FileType readline         let b:com_size = '2' | let b:com = '# '
-
-" nnoremap <silent> <leader>'' m'V:norm i<c-r>=expand(b:com)<cr><cr>`'<right><right>
-" vnoremap <silent> <leader>'' m':norm i<c-r>=expand(b:com)<cr><cr>`'
-
-" nnoremap <silent> <leader>"" m'V:norm <c-r>=expand(b:com_size)<cr>x<cr>`'<left><left>
-" vnoremap <silent> <leader>"" m':norm <c-r>=expand(b:com_size)<cr>x<cr>`'
-
-" noremap <silent> <leader>'p yypk:<c-b> <c-e>s/^\V<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
-
 """        Java
 
 augroup JavaMaps
