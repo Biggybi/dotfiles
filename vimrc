@@ -374,6 +374,16 @@ function! SetStatusLineColorsNormal() abort
   exe "hi" g:mode_marker_group GetColor('StatusLineNormal', 'StatusLineNormal')
 endfunction
 
+function! VirtualColumnWithSpace() abort
+  let curchar = col('.')
+  if curchar < 10
+    let sep = "  "
+  elseif curchar < 100
+    let sep = " "
+  endif
+  return curchar . sep
+endfunction
+
 function! StatusLineActive() abort
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
@@ -385,10 +395,10 @@ function! StatusLineActive() abort
   setlocal statusline +=%{anzu#search_status()}            "search results
   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
   setlocal statusline +=%1*\ \[%=%5l:                      "current line
-  setlocal statusline +=%3v\]                              "virtual column number
-  setlocal statusline +=\ /\ [%L:                              "total lines
-  setlocal statusline +=%2p%%\]\ %*                          "Rownumber/total (%)
-  setlocal statusline+=%<                                  " cut at end
+  setlocal statusline +=%{VirtualColumnWithSpace()}\]      "virtual column number
+  setlocal statusline +=\ /\ [%L:                          "total lines
+  setlocal statusline +=%2p%%\]\ %*                        "Rownumber/total (%)
+  setlocal statusline+=%<                                  "cut at end
 endfunction
 
 function! StatusLineInactive() abort
