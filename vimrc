@@ -794,18 +794,6 @@ endfunction
 ""    File automation
 """        Save and load
 
-function CanvasFitFile() abort
-  let last_line_window = line('w$')
-  if getline(last_line_window + 1) == ""
-    normal! zb
-  endif
-endfunction
-
-augroup CanvasFitFile
-  au!
-  au BufEnter,BufRead * call CanvasFitFile()
-augroup END
-
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
   au!
