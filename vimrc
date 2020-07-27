@@ -436,7 +436,7 @@ function! CheckModeAndState(_) abort
     return
   endif
   if ! has("nvim")
-    if state() =~# '[mo]'
+    if state() =~# '[moS]'
       call SetStatusLineColorsPending()
       return
     else
