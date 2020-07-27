@@ -1522,13 +1522,6 @@ nnoremap / :call clearmatches()<cr>/
 nnoremap <leader>/ :call clearmatches()<cr>/\v
 vnoremap <leader>/ :call clearmatches()<cr>/\v
 
-nnoremap zM zMzb
-nnoremap <silent> zm :set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
-nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
-" " nnoremap za zazz
-" nnoremap zA zAzz
-" nnoremap <leader>za zMzvzz
-
 " search with different highlight
 nnoremap <silent> n n:call HLCurrent()<cr>
 nnoremap <silent> N N:call HLCurrent()<cr>
@@ -1561,6 +1554,15 @@ nnoremap g<c-]> g]
 
 " jump if only one match
 nnoremap g] g<c-]>
+
+"""        Folding
+
+nnoremap zM zMzb
+nnoremap <silent> zm :set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
+nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
+" " nnoremap za zazz
+" nnoremap zA zAzz
+" nnoremap <leader>za zMzvzz
 
 ""    Code Mappings
 """        General
