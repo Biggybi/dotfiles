@@ -818,7 +818,7 @@ augroup end
 " Open file where it was last closed
 augroup ReOpenFileWhereLeft
   au!
-  au BufReadPost *
+  au BufEnter *
         \ if line("'\"") > 0 && line("'\"") <= line("$") && &ft !~# 'gitcommit'
         \ |   exe "normal! g`\""
         \ | endif
