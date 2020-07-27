@@ -212,7 +212,7 @@ set tabpagemax=30
 """        DarkLightSwitch
 
 let g:theme_list = ['base16-one-light', 'base16-one-lightdim', 'base16-onedark', 'base16-one-lightdim']
-" let g:theme_force_load_start = 'base16-one-lightdim'
+let g:theme_force_load_start = 'base16-onedark'
 let g:daytime = [7, 19]
 let g:theme_force_load_start = get(g:, 'theme_force_load_start')
 let g:theme_source_sensitive = 0
@@ -451,13 +451,6 @@ endfunction
 ""    Extra windows
 """        Terminal
 
-augroup termwinkey_no_timeout
-au!
-au TerminalWinOpen * let b:_twk = &l:twk == '' ? '<c-w>' : &l:twk
-  \ | exe printf('tno <buffer><nowait> %s<c-w> %s<c-w>', b:_twk , b:_twk)
-  \ | unlet! b:_twk
-augroup END
-
 " Show terminal (like c-z), exit on any character
 function! ShowTerm() abort
   silent !read -sN 1
@@ -662,7 +655,7 @@ function! s:TmpShellOutput(cmdline) abort
   endif
   let winnr = win_getid()
   vert sbuffer tmplog
-  setlocal wrap
+  " setlocal wrap
   " nnoremap <buffer> <c-c> :call job_stop('logjob')<cr>
   wincmd L
   60 wincmd |
@@ -801,17 +794,17 @@ endfunction
 ""    File automation
 """        Save and load
 
-function FileBottomWindow() abort
-  let last_line_window = line('w$')
-  if getline(last_line_window + 1) == ""
-    normal! zb
-  endif
-endfunction
+" function FileBottomWindow() abort
+"   let last_line_window = line('w$')
+"   if getline(last_line_window + 1) == ""
+"     normal! zb
+"   endif
+" endfunction
 
-augroup FileBottomWindow
-  au!
-  au BufEnter * call FileBottomWindow()
-augroup END
+" augroup FileBottomWindow
+"   au!
+"   au BufEnter * call FileBottomWindow()
+" augroup END
 
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
@@ -1317,11 +1310,9 @@ nnoremap <leader>wcl :echo CountRealLines()<cr>
 
 " new file in vertical split instead of horizontal
 nnoremap <c-w><c-n> :vertical new<cr>
-
 " open file under cursor in vertical split instead of horizontal
 nnoremap <c-w><c-f> :vertical wincmd f<cr>
-
-" open file under cursor in a netrw pannel on the left
+" open file under cursor in a netrw panel on the left
 nnoremap <c-w><c-d> :Lexplore <cfile><cr>
 
 """        Folding
