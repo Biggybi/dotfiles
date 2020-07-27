@@ -685,20 +685,6 @@ endfunction
 " nnoremap <c-f> <c-f> <silent> :call NoScrollAtEOF()<cr>
 nmap <c-f> <Plug>(SmoothieForwards)<bar><silent> :call NoScrollAtEOF()<cr>
 
-"""        Mail
-
-augroup MailSettings
-  au!
-  autocmd FileType mail setlocal linebreak tw=0
-augroup end
-
-"""        Markdown
-
-augroup MarkdownSettings
-  au!
-  au FileType markdown setlocal linebreak
-augroup end
-
 """        Search cycling windows
 
 function! CycleWindowsSearch(direction) abort
@@ -746,6 +732,27 @@ augroup history_deletion
   autocmd!
   autocmd CmdlineLeave * call DeleteCommandsFromHistory()
 augroup END
+
+""    FileType settings
+"""        Vim
+augroup VimSettings
+  au!
+  au FileType vim setlocal tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
+augroup END
+
+"""        Mail
+
+augroup MailSettings
+  au!
+  autocmd FileType mail setlocal linebreak tw=0
+augroup end
+
+"""        Markdown
+
+augroup MarkdownSettings
+  au!
+  au FileType markdown setlocal linebreak
+augroup end
 
 ""    Highlights / Match
 """        show traling whitespaces
@@ -2067,6 +2074,20 @@ augroup VimSettings
   au!
   au FileType vim setlocal tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
 augroup END
+
+"""        Mail
+
+augroup MailSettings
+  au!
+  autocmd FileType mail setlocal linebreak tw=0
+augroup end
+
+"""        Markdown
+
+augroup MarkdownSettings
+  au!
+  au FileType markdown setlocal linebreak
+augroup end
 
 ""    Operators
 """        Start / End of line
