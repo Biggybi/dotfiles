@@ -1302,12 +1302,23 @@ function! WordCount() abort
   return system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
 endfunction
 
-function! LineCount() abort
-  return search('^[^$,\"]', 'wn')
+command! -nargs=1 -complete=command Nomove
+\   try
+\ |     let s:svpos = winsaveview()
+\ |     execute <q-mods> <q-args>
+\ | finally
+\ |     call winrestview(s:svpos)
+\ |     unlet s:svpos
+\ | endtry
+
+function! CountRealLines()
+    let l:count = 0
+    Nomove g/^[^$,\"]/let l:count += 1
+    return l:count
 endfunction
 
 nnoremap <leader>wcc :echo WordCount()<cr>
-nnoremap <leader>wcl :echo LineCount()<cr>
+nnoremap <leader>wcl :echo CountRealLines()<cr>
 
 " new file in vertical split instead of horizontal
 nnoremap <c-w><c-n> :vertical new<cr>
