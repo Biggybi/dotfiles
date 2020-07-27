@@ -1160,6 +1160,26 @@ let g:anzu_status_format = "[%i/%l]"
 
 let g:goyo_width = 81
 
+"""        Iris
+
+let g:iris_name  = "Tristan Kapous"
+let g:iris_mail = "tris@tristankapous.com"
+
+" IMAP (required)
+let g:iris_imap_host  = "ssl0.ovh.net"
+" let g:iris_imap_host = "imaps://tris@tristankapous.com@ssl0.ovh.net"
+let g:iris_imap_port  = 993
+" let g:iris_imap_login = "Your IMAP login" "Default to g:iris_mail
+
+" SMTP (req(uir)ed)
+" let g:iris_smtp_host  = "your.smtp.host" "Default to g:iris_imap_host
+" let g:iris_stmp_host = "smtps://tris@tristankapous.com@ssl0.ovh.net"
+let g:iris_smtp_port  = 465
+" let g:iris_smtp_login = "Your IMAP login" "Default to g:iris_mail
+
+" let g:iris_imap_passwd_filepath = "iris.imap.gpg"
+" let g:iris_smtp_passwd_filepath = "iris.smtp.gpg"
+
 ""    General Mappings
 """        Toggles
 
