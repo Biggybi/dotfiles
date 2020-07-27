@@ -2512,7 +2512,9 @@ function! VimFold() abort
     let longbreak="¬"
   endif
   let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-  return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' . repeat(" .",fillcharcount/2 - 3) . repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
+  return line . longbreak . repeat(" ", fillcharcount%2 + len(foldedlinecount) - 1) . '' .
+        \ repeat(" .",fillcharcount/2 - 3) .
+        \ repeat(" ", 5 - len(foldedlinecount)) . foldedlinecount . '    '
 endfunction
 
 """        Vimrc modeline
