@@ -1227,6 +1227,9 @@ nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
 " Load project files buffers
 nnoremap yoj :call AutoProjectLoad('1')<cr>
 
+" Goyo toggle
+nnoremap yog :Goyo<cr>
+
 """        Copy / Paste / Delete
 
 " delete without saving to register
