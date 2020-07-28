@@ -1237,6 +1237,9 @@ nnoremap yog :Goyo<cr>
 
 """        Copy / Paste / Delete
 
+" select last paste
+nnoremap gp V`]
+
 " delete without saving to register
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
