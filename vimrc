@@ -1200,6 +1200,51 @@ let g:iris_smtp_port  = 465
 " let g:iris_smtp_passwd_filepath = "iris.smtp.gpg"
 
 ""    General Mappings
+"""        Modes
+
+" space as leader, prompt '\' in command line window :)
+map <space> <leader>
+
+" closing easy
+nnoremap <leader>q :quit<cr>
+
+nnoremap <leader><c-@> :echo "kewl"<cr>
+
+" enter command mode with ;
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+nnoremap <leader>; :!
+
+nnoremap gI `.gi<esc>zz
+
+" no more default ex mode
+nnoremap Q <nul>
+
+" redraw
+nnoremap <c-q> :redraw!<cr>
+
+" repeat last macro
+nnoremap - @@
+
+" <c-z> in insert and command mode
+inoremap <c-z> <c-[><c-z>
+cnoremap <c-z> <c-[><c-z>
+
+" <c-s> save and enter normal mode
+function! VerboseUpdate() abort
+  update
+  echo(':update '.expand('%'))
+endfunction
+
+nnoremap <c-s> :call VerboseUpdate()<cr>
+vnoremap <c-s> :call VerboseUpdate()<cr>
+inoremap <c-s> <esc>:call VerboseUpdate()<cr>
+
+" :W! save files as root
+cnoremap <c-r><c-s> %!sudo tee > /dev/null %
+
 """        Toggles
 
 " Toggle / close / open Undotree
@@ -1393,51 +1438,6 @@ tnoremap <c-n> <c-\><c-n>
 tnoremap <c-w>; <c-w>:
 
 ""    Move Mappings
-"""        Modes
-
-" space as leader, prompt '\' in command line window :)
-map <space> <leader>
-
-" closing easy
-nnoremap <leader>q :quit<cr>
-
-nnoremap <leader><c-@> :echo "kewl"<cr>
-
-" enter command mode with ;
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-nnoremap <leader>; :!
-
-nnoremap gI `.gi<esc>zz
-
-" no more default ex mode
-nnoremap Q <nul>
-
-" redraw
-nnoremap <c-q> :redraw!<cr>
-
-" repeat last macro
-nnoremap - @@
-
-" <c-z> in insert and command mode
-inoremap <c-z> <c-[><c-z>
-cnoremap <c-z> <c-[><c-z>
-
-" <c-s> save and enter normal mode
-function! VerboseUpdate() abort
-  update
-  echo(':update '.expand('%'))
-endfunction
-
-nnoremap <c-s> :call VerboseUpdate()<cr>
-vnoremap <c-s> :call VerboseUpdate()<cr>
-inoremap <c-s> <esc>:call VerboseUpdate()<cr>
-
-" :W! save files as root
-cnoremap <c-r><c-s> %!sudo tee > /dev/null %
-
 """        Movement
 
 " insert mode delete
