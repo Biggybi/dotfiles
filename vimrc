@@ -385,8 +385,8 @@ function! StatusLineActive() abort
   setlocal statusline +=\ %f%m\ %*                         "filename[modified]
   setlocal statusline +=%{anzu#search_status()}            "search results
   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
-  setlocal statusline +=%1*\ \[%=%5l:                      "current line
-  setlocal statusline +=%{VirtualColumnWithSpace()}\]      "virtual column
+  setlocal statusline +=%1*\ \[%{SLCurrentLine()}\:        "current line
+  setlocal statusline +=%{SLVirtualColumn()}\]             "virtual column
   setlocal statusline +=\ /\ [%L:                          "total lines
   setlocal statusline +=%2p%%\]\ %*                        "total (%)
   setlocal statusline +=%<                                 "cut at end
