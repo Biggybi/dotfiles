@@ -119,3 +119,6 @@
 [submodule "vim/bundle/vim-endwise"]
 	path = vim/pack/bundle/start/vim-endwise
 	url = git@github.com:tpope/vim-endwise.git
+[submodule "vim/pack/bundle/start/vim-obsession"]
+	path = vim/pack/bundle/start/vim-obsession
+	url = git@github.com:tpope/vim-obsession.git

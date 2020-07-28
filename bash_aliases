@@ -145,7 +145,7 @@ alias gnomexts='cd /usr/share/gnome-shell/extensions'
 alias gnome-theme-login='sudo update-alternatives --config gdm3-theme.gresource'
 
 vimpluginstall() {
-	cd $HOME/dotfiles/vim/bundle/
+	cd $HOME/dotfiles/vim/pack/bundle/start/
 	git clone $1
 }
 
