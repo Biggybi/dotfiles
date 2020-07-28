@@ -1343,8 +1343,8 @@ nnoremap zo zczO
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv mZ:source $MYVIMRC<cr>:silent doautocmd BufRead<cr>:nohlsearch<cr>:echo "vimrc sourced"<cr>`Zzz
-nnoremap <leader>ss mZ:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`Zzz
+nnoremap <leader>sv mz:source $MYVIMRC<cr>:silent doautocmd BufRead<cr>:nohlsearch<cr>:echo "vimrc sourced"<cr>`zzz
+nnoremap <leader>ss mz:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`zzz
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
@@ -1657,7 +1657,7 @@ nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid()
 """        General
 
 " indent all file easy
-nnoremap g<c-g> mZgg=G`Z
+nnoremap g<c-g> mzgg=G`z
 
 " Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
