@@ -1259,6 +1259,10 @@ nnoremap <silent> yob :call DarkLightSwitch()<cr>
 " Netrw toggle - left
 nnoremap <silent> yoe :20Lexplore<cr>
 
+" Move visual selection (=unimpaired + gv)
+vnoremap ]e :'<,'>move '>+1 \| normal! gv<CR>
+vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
+
 " Toggle of hlsearch + Anzu
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 
