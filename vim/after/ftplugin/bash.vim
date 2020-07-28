@@ -1,5 +1,4 @@
-inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
-
+" easy shebang
 inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
 inoremap <buffer> ,#! #!/bin/bash
 
