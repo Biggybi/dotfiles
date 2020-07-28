@@ -1,1 +1,2 @@
-setlocal linebreak tw=0
+setlocal linebreak
+setlocal tw=0

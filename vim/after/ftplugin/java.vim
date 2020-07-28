@@ -5,7 +5,6 @@ inoremap <buffer> ,wh while ()<cr>{<cr>}<c-o>2<up><c-o>f)
 inoremap <buffer> ,imin -2147483648
 inoremap <buffer> ,imax 2147483647
 
-nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 " if to ternary operator
 nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
@@ -17,15 +16,12 @@ inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><
 inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
 " brackets auround paragraph
-nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
+nnoremap <buffer> <leader>{} mz{S{<esc>}S}<esc>=%`z=iB
 nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 "  name of current function (needs '()')
 nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
 " semicolon/coma EOL toggle
-nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
-nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
-
-" select allext in function
-nnoremap <buffer> <leader>vf j[[V%o
+nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
+nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"

@@ -1,9 +1,14 @@
-setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber showbreak=
+setlocal colorcolumn=0
+setlocal nolist
+setlocal nocursorline
+setlocal tw=0
+setlocal norelativenumber
+setlocal showbreak=
+
 " auto adjust height if not a vertical split (hopefuly)
-au FileType qf
-      \ if winheight('quickfix') + 3 < &lines
-      \ |   call AdjustWindowHeight(1, 5)
-      \ | endif
+if winheight('quickfix') + 3 < &lines
+  call AdjustWindowHeight(1, 5)
+endif
 au QuickfixCmdPost make call QfMakeConv()
 
 " vimscript is a joke

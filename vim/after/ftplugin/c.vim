@@ -11,7 +11,6 @@ inoremap <buffer> ,str ft_putstr("");<left><left><left>
 inoremap <buffer> ,nbr ft_putnbr();<cr>ft_putendl("");<up><left><left>
 inoremap <buffer> ,lib #include <stdlib.h><cr>#include <unistd.h><cr>#include <stdio.h><cr>#include <sys/types.h><cr>#include <sys/wait.h><cr>#include <sys/types.h><cr>#include <sys/stat.h><cr>#include <fcntl.h><cr>#include <string.h><cr>#include <bsd/string.h><cr>
 
-nnoremap <buffer> <leader><c-]> <c-w>v<c-]>z<cr>
 " if to ternary operator
 nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
@@ -19,7 +18,7 @@ nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
 " compile and execute current
 nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
-nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out
+nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out<cr>
 nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
 nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
@@ -29,15 +28,15 @@ inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><
 inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 
 " brackets around paragraph
-nnoremap <buffer> <leader>{} mZ{S{<esc>}S}<esc>=%`Z=iB
+nnoremap <buffer> <leader>{} mz{S{<esc>}S}<esc>=%`z=iB
 nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 "  name of current c,cpp function (needs '()')
 nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
 " semicolon/coma EOL toggle
-nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mZ$x`Z" : "mZA;\<esc>`Z"
-nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mZ$x`Z" : "mZA,\<esc>`Z"
+nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
+nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"
 
 " select all text in function
 nnoremap <buffer> <leader>vf j[[V%o

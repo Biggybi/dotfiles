@@ -65,5 +65,5 @@ inoremap <buffer> ,lorem Lorem ipsum dolor sit amet,
       \ luptatum zzril delenit augue duis dolore te feugait nulla
       \ facilisi.
 
-nnoremap <buffer> <leader>; i<c-o>mZ<c-o>A;<esc>`Z<esc>
-nnoremap <buffer> <leader>, i<c-o>mZ<c-o>A,<esc>`Z<esc>
+nnoremap <buffer> <leader>; i<c-o>mz<c-o>A;<esc>`z<esc>
+nnoremap <buffer> <leader>, i<c-o>mz<c-o>A,<esc>`z<esc>
