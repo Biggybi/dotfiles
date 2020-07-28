@@ -1594,10 +1594,9 @@ cnoremap <c-e> <End>
 cnoremap <c-k> <Up>
 cnoremap <c-j> <Down>
 cnoremap <c-b> <Left>
-" cnoremap <c-f> <Right>
 cnoremap <c-l> <S-Right>
 cnoremap <c-g> <S-Left>
-cnoremap <c-x> <c-h>
+cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
 
