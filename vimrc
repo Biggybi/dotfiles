@@ -1057,8 +1057,8 @@ nnoremap <silent> <leader>ft :FzfTags<cr>
 nnoremap <silent> <leader>f<c-t> :FzfBTags<cr>
 nnoremap <silent> <leader>fc :FzfCommit<cr>
 nnoremap <silent> <leader>f<c-c> :FzfBCommit<cr>
-nnoremap <silent> <leader>fg :FzfGFiles?<cr>
-nnoremap <silent> <leader>f<c-g> :FzfGFiles<cr>
+nnoremap <silent> <leader>fg :FzfGFiles<cr>
+nnoremap <silent> <leader>f<c-g> :FzfGFiles?<cr>
 nnoremap <silent> <leader>fl :FzfLines<cr>
 nnoremap <silent> <leader>f<c-l> :FzfBLines<cr>
 nnoremap <silent> <leader>f; :FzfHistory:<cr>
