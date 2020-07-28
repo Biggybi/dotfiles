@@ -1,3 +1,5 @@
+setlocal updatetime=1000
+
 " Navigating with guides
 inoremap <buffer> <silent> ,, <esc>/<++><cr>"_4s
 vnoremap <buffer> <silent> ,, <esc>/<++><cr>"_4s

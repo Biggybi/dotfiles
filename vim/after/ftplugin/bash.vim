@@ -1,3 +1,5 @@
+setlocal colorcolumn=81
+
 " easy shebang
 inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
 inoremap <buffer> ,#! #!/bin/bash

@@ -1,3 +1,6 @@
+setlocal colorcolumn=81
+setlocal suffixesadd=.js,.javascript,.es,.esx,.json
+
 nnoremap <buffer> <leader>cr :Run<cr>
 nnoremap <buffer> <leader>ca :AutoRun<cr>
 nnoremap <buffer> <leader>; i<c-o>mz<c-o>A;<esc>`z<esc>

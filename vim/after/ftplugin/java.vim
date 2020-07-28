@@ -1,3 +1,6 @@
+setlocal colorcolumn=81
+setlocal suffixesadd=.java
+
 nnoremap <buffer> <leader>cg :Shell gradle run<cr>
 
 inoremap <buffer> ,if if ()<cr>{<cr>}<c-o>2<up><c-o>f)

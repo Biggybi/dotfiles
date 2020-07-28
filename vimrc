@@ -365,15 +365,21 @@ function! SetStatusLineColorsNormal() abort
   exe "hi" g:mode_marker_group GetColor('StatusLineNormal', 'StatusLineNormal')
 endfunction
 
-function! VirtualColumnWithSpace() abort
-  let curchar = col('.')
-  let sep = ""
-  if curchar < 10
-    let sep = "  "
-  elseif curchar < 100
-    let sep = " "
-  endif
-  return curchar . sep
+function! LongestLineLen() abort
+  let len = max(map(range(1, line('$')), "virtcol([v:val, '$'])-1"))
+  return len
+endfunction
+
+function! SLVirtualColumn() abort
+  let cur = len(col('.'))
+  let max = len(LongestLineLen())
+  return col('.') . repeat(" ", max - cur)
+endfunction
+
+function! SLCurrentLine() abort
+	let max = len(line('$'))
+  let cur = len(line('.'))
+  return repeat(" ", max - cur) . line('.')
 endfunction
 
 function! StatusLineActive() abort

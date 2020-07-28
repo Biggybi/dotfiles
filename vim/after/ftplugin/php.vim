@@ -1,3 +1,5 @@
+setlocal suffixesadd=.php
+setlocal colorcolumn=81
 nnoremap <buffer> <leader>xst ciw<strong><c-o>P</strong><esc>T<
 nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
 
@@ -45,9 +47,9 @@ inoremap <buffer> ,se <select></select><esc>F<i
 inoremap <buffer> ,op <optionlect></optionlect><esc>F<i
 inoremap <buffer> ,tx <textarealect></textarealect><esc>F<i
 
-inoremap <buffer> ,fo <form action="" method=""><return><input type="text" name=""><return></form>
-inoremap <buffer> ,fg <form action="" method="get"><return><input type="text" name=""><return></form>
-inoremap <buffer> ,fp <form action="" method="post"><return><input type="text" name=""><return></form>
+inoremap <buffer> ,fo <form action="" method=""><cr><input type="text" name=""><return></form>
+inoremap <buffer> ,fg <form action="" method="get"><cr><input type="text" name=""><return></form>
+inoremap <buffer> ,fp <form action="" method="post"><cr><input type="text" name=""><return></form>
 inoremap <buffer> ,in <input type="" name="" value=""></input><esc>F<i
 
 inoremap <buffer> ,ec echo "";<esc>hi
