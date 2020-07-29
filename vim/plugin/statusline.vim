@@ -61,6 +61,7 @@ augroup StatusLineSwitch
 augroup end
 
 function! StatusLineBig() abort
+  let g:statuslinebig = 1
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
   setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
@@ -70,7 +71,7 @@ function! StatusLineBig() abort
   setlocal statusline +=\ %f%m\ %*                         "filename[modified]
   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
   setlocal statusline +=%1*\ \[%{SLCurrentLine()}\:        "current line
-  setlocal statusline +=%4v\]             "virtual column
+  setlocal statusline +=%4v\]                              "virtual column
   setlocal statusline +=\ /\ [%L:                          "total lines
   setlocal statusline +=%2p%%\]\ %*                        "total (%)
   setlocal statusline +=%<                                 "cut at end
@@ -81,8 +82,9 @@ function! StatusLineActive() abort
   let f=expand("<afile>")
   if getfsize(f) > g:LargeFile || &filetype == 'help'
     call StatusLineBig()
-    return 0
+    return
   endif
+  let g:statuslinebig = 0
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
   setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
@@ -105,3 +107,7 @@ function! StatusLineInactive() abort
   setlocal statusline +=%{&modified?'[+]':''}             "file modified
   setlocal statusline +=%=%{&filetype}\                   "filetype
 endfunction
+
+nnoremap <expr> yov g:statuslinebig == 0 ?
+      \ ":call StatusLineBig()<cr><bar>:echo 'bigline on'<cr>" :
+      \ ":call StatusLineActive()<cr><bar>:echo 'bigline off'<cr>"

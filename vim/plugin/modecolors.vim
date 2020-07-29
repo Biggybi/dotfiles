@@ -11,45 +11,39 @@ function! ModeGetter(_) abort
     return
   endif
   if mode() =~? '[s]'
-    call ModeColor('StatusLineReplace')
-    return
+    return ModeColor('StatusLineReplace')
   endif
   if mode() =~# 'R'
-    call ModeColor('StatusLineInsert')
-    return
+    return ModeColor('StatusLineInsert')
   endif
   if mode() =~? '[v]'
-    call ModeColor('StatusLineVisual')
-    return
+    return ModeColor('StatusLineVisual')
   endif
   if mode() ==? 'c'
-    call ModeColor('StatusLineCmd')
-    return
+    return ModeColor('StatusLineCmd')
   endif
   if has("nvim")
-    call ModeColorNormal('StatusLineNormal')
-    return
+    return ModeColorNormal('StatusLineNormal')
   endif
   if state() =~# '[mo]'
-    call ModeColor('StatusLinePending')
-    return
+    return ModeColor('StatusLinePending')
   elseif state() =~# '[S]'
-    call ModeColor('StatusLineFTSearch')
-    return
+    return ModeColor('StatusLineFTSearch')
   else
-    call ModeColorNormal('StatusLineNormal')
-    return
+    return ModeColorNormal('StatusLineNormal')
   endif
 endfunction
 
 function! ModeColor(color) abort
   exe "hi User1" GetColor(a:color, a:color)
   exe "hi" g:sl_color_group GetColor(a:color, a:color)
+  return
 endfunction
 
 function! ModeColorNormal(color) abort
   exe "hi User1" GetColor(a:color, a:color)
   exe "hi" g:sl_color_group . " guifg=" . s:save_color_group_fg . " guibg=" . s:save_color_group_bg
+  return
 endfunction
 
 let s:save_color_group_fg = synIDattr(hlID(g:sl_color_group), "fg#")
@@ -78,3 +72,7 @@ function! GetColor(group_fg, group_bg) abort
   let group_bg = synIDattr(hlID(a:group_bg), "bg#")
   return "guifg=".group_fg . " guibg=".group_bg
 endfunction
+
+nnoremap <expr> yo<c-v> timer_info(g:modecolor_timer)[0]['paused'] == 0 ?
+      \ ":call timer_pause(g:modecolor_timer, '1')<cr><bar>:echo 'color mode change on'<cr>"
+      \ : ":call timer_pause(g:modecolor_timer, '0')<cr><bar>:echo 'color mode change off'<cr>"
