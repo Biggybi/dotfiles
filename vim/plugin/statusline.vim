@@ -61,6 +61,7 @@ function! StatusLineActive() abort
   setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
   setlocal statusline +=%r%h%w                             "read only, special buffers
   setlocal statusline +=%{GitModify()}\ %*                 "git modified
+  setlocal statusline +=%<                                 "cut filename from start
   setlocal statusline +=\ %f%m\ %*                         "filename[modified]
   setlocal statusline +=%{anzu#search_status()}            "search results
   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
