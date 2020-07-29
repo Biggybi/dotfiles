@@ -1,7 +1,7 @@
-if exists('g:wincyclesearch')
+if exists('g:plugin_wincyclesearch')
   finish
 endif
-let g:wincyclesearch = 1
+let g:plugin_wincyclesearch = 1
 
 function! CycleWindowsSearch(direction) abort
   let forward = a:direction

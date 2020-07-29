@@ -4,6 +4,8 @@ setlocal textwidth=0
 setlocal softtabstop=2
 setlocal shiftwidth=2
 setlocal keywordprg=:help
+setlocal foldmethod=marker
+setlocal suffixesadd=.vim
 
 nnoremap <leader>s. mz:source %<cr>:nohlsearch<cr>
 nnoremap <buffer> <silent> zM :setlocal foldlevel=0<cr>zm100<c-y>

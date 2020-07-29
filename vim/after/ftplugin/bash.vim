@@ -1,4 +1,5 @@
 setlocal colorcolumn=81
+setlocal suffixesadd=.bash,.sh
 
 " easy shebang
 inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"

@@ -1,7 +1,7 @@
-if exists('g:historyblacklist')
+if exists('g:plugin_historyblacklist')
   finish
 endif
-let g:historyblacklist = 1
+let g:plugin_historyblacklist = 1
 
 " Auto remove some commands from history
 let g:commands_to_delete_from_history = get(g:, 'commands_to_delete_from_history', ['Delete', 'bw', 'bd'])

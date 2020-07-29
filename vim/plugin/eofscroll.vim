@@ -1,7 +1,7 @@
-if exists('g:eofscroll')
+if exists('g:plugin_eofscroll')
   finish
 endif
-let g:eofscroll = 1
+let g:plugin_eofscroll = 1
 
 " Do not scroll past the end of file (last line locked at bottom of window)
 function! NoScrollAtEOF() abort

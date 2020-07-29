@@ -1,7 +1,7 @@
-if exists('g:helpman')
+if exists('g:plugin_helpman')
   finish
 endif
-let g:helpman = 1
+let g:plugin_helpman = 1
 
 augroup HelpManSplit
   au!

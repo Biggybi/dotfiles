@@ -1,7 +1,7 @@
-if exists('g:statusline')
+if exists('g:plugin_statusline')
   finish
 endif
-let g:statusline = 1
+let g:plugin_statusline = 1
 
 let g:currentmode={
       \ '__'     : '- ',

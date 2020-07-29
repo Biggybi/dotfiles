@@ -1,8 +1,8 @@
-" Courtesy to DBK
-if exists('g:textobjects')
+if exists('g:plugin_textobjects')
   finish
 endif
-let g:textobjects = 1
+let g:plugin_textobjects = 1
+" Courtesy to DBK
 
 """        Start / End of line
 onoremap h :<c-u>normal! ^<cr>

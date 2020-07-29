@@ -1,7 +1,7 @@
-if exists('g:modecolor')
+if exists('g:plugin_modecolor')
   finish
 endif
-let g:modecolor = 1
+let g:plugin_modecolor = 1
 
 let g:sl_color_group = get(g:, 'sl_color_group', 'CursorLineNr')
 

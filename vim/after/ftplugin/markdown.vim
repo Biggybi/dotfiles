@@ -1,4 +1,5 @@
 setlocal linebreak
+setlocal suffixesadd=.md
 
 " Ignore diacritics/accents when searching
 cnoremap <buffer> <CR> <C-\>e getcmdtype() =~ '[?/]' ? substitute(getcmdline(), '\a', '[[=\0=]]', 'g'): getcmdline()<CR><CR>
