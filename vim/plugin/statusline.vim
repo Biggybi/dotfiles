@@ -79,12 +79,6 @@ function! StatusLineBig() abort
 endfunction
 
 function! StatusLineActive() abort
-  let f=expand("<afile>")
-  if getfsize(f) > g:LargeFile || &filetype == 'help'
-    call StatusLineBig()
-    return
-  endif
-  let g:statuslinebig = 0
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
   setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
@@ -95,9 +89,10 @@ function! StatusLineActive() abort
   setlocal statusline +=%{anzu#search_status()}            "search results
   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
   setlocal statusline +=%1*\ \[%{SLCurrentLine()}\:        "current line
-  setlocal statusline +=%{SLVirtualColumn()}\]             "virtual column
-  setlocal statusline +=\ /\ [%L:                          "total lines
-  setlocal statusline +=%2p%%\]\ %*                        "total (%)
+  " setlocal statusline +=%{SLVirtualColumn()}\]           "virtual column
+  setlocal statusline +=%-2v\]                             "virtual column
+  setlocal statusline +=\/\[%L:                            "total lines
+  setlocal statusline +=%2p%%\]\ %*                       "total (%)
   setlocal statusline +=%<                                 "cut at end
 endfunction
 
