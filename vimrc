@@ -1597,7 +1597,7 @@ nnoremap <silent> n n:call HLCurrent()<cr>
 nnoremap <silent> N N:call HLCurrent()<cr>
 
 "do not move cursor with first match
-nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
+nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>:call HLCurrent()<cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
 
 " search visual selection
