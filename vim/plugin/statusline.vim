@@ -48,12 +48,11 @@ endfunction
 
 augroup StatusLineSwitch
   au!
-  au InsertEnter * call SetStatusLineColorsAll()
+  au InsertEnter * call ModeColor('StatusLineInsert')
   au WinEnter,BufWinEnter * call StatusLineActive()
   au WinLeave * call StatusLineInactive()
-  au VimEnter,ColorScheme,InsertLeave,CmdwinLeave *
-        \ call SetStatusLineColorsAll() " |
-        " \ call StatusLineActive()
+  au VimEnter,ColorScheme,InsertLeave *
+        \ call SetStatusLineColorsAll()
 augroup end
 
 function! StatusLineActive() abort
