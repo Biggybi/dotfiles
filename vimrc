@@ -1509,6 +1509,9 @@ if ! has("nvim")
 
   let c='a'
   while c <= 'z'
+    if c == 'p'
+      let c = nr2char(1+char2nr(c))
+    endif
     let d=toupper(c)
     exec "set <M-".c.">=\e".c
     exec "imap \e".c." <M-".c.">"
