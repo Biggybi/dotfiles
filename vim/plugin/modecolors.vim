@@ -5,7 +5,7 @@ let g:plugin_modecolor = 1
 
 let g:sl_color_group = get(g:, 'sl_color_group', 'CursorLineNr')
 
-call timer_start(30, 'ModeGetter', {'repeat': -1})
+let g:modecolor_timer = timer_start(100, 'ModeGetter', {'repeat': -1})
 function! ModeGetter(_) abort
   if mode() =~? 'i' "insert mode
     return
@@ -77,9 +77,4 @@ function! GetColor(group_fg, group_bg) abort
   let group_fg = synIDattr(hlID(a:group_fg), "fg#")
   let group_bg = synIDattr(hlID(a:group_bg), "bg#")
   return "guifg=".group_fg . " guibg=".group_bg
-endfunction
-
-function! LongestLineLen() abort
-  let len = max(map(range(1, line('$')), "virtcol([v:val, '$'])-1"))
-  return len
 endfunction

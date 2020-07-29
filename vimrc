@@ -909,7 +909,7 @@ endfunction
 
 augroup SuffixesTry
   au!
-  au FileType javascript,c,cpp,python call SetSuffixes()
+  au CursorHold call ModeColour()
 augroup end
 
 """        Large Files

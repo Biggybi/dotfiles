@@ -34,6 +34,11 @@ function! GitStatus() abort
   return join(['  [+'.a,'~'.m,'-'.r.']'])
 endfunction
 
+function! LongestLineLen() abort
+  let len = max(map(range(1, line('$')), "virtcol([v:val, '$'])-1"))
+  return len
+endfunction
+
 function! SLVirtualColumn() abort
   let cur = len(col('.'))
   let max = len(LongestLineLen())
@@ -55,7 +60,29 @@ augroup StatusLineSwitch
         \ call SetStatusLineColorsAll()
 augroup end
 
+function! StatusLineBig() abort
+  setlocal statusline =
+  setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
+  setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
+  setlocal statusline +=%r%h%w                             "read only, special buffers
+  setlocal statusline +=%{GitModify()}\ %*                 "git modified
+  setlocal statusline +=%<                                 "cut filename from start
+  setlocal statusline +=\ %f%m\ %*                         "filename[modified]
+  setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
+  setlocal statusline +=%1*\ \[%{SLCurrentLine()}\:        "current line
+  setlocal statusline +=%4v\]             "virtual column
+  setlocal statusline +=\ /\ [%L:                          "total lines
+  setlocal statusline +=%2p%%\]\ %*                        "total (%)
+  setlocal statusline +=%<                                 "cut at end
+  return
+endfunction
+
 function! StatusLineActive() abort
+  let f=expand("<afile>")
+  if getfsize(f) > g:LargeFile || &filetype == 'help'
+    call StatusLineBig()
+    return 0
+  endif
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
   setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
