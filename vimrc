@@ -774,6 +774,15 @@ augroup end
 
 """        search cycle colors
 
+function! NextPrevSearch(direction)
+  let flags = ''
+  if a:direction ==# 'N'
+    let flags = 'b'
+  endif
+  call search(@/, flags)
+  call HLCurrent()
+endfunction
+
 " highlight current search and first/last search differently
 function! HLCurrent() abort
   if exists("currmatch")
@@ -1592,9 +1601,8 @@ nnoremap / :call clearmatches()<cr>/
 nnoremap <leader>/ :call clearmatches()<cr>/\v
 vnoremap <leader>/ :call clearmatches()<cr>/\v
 
-" search with different highlight
-nnoremap <silent> n n:call HLCurrent()<cr>
-nnoremap <silent> N N:call HLCurrent()<cr>
+nnoremap <silent> n :call NextPrevSearch('n')<cr>
+nnoremap <silent> N :call NextPrevSearch('N')<cr>
 
 "do not move cursor with first match
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>:call HLCurrent()<cr>
