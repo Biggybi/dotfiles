@@ -122,3 +122,6 @@
 [submodule "vim/pack/bundle/start/vim-obsession"]
 	path = vim/pack/bundle/start/vim-obsession
 	url = git@github.com:tpope/vim-obsession.git
+[submodule "vim/pack/bundle/start/vim-scriptease"]
+	path = vim/pack/bundle/start/vim-scriptease
+	url = git@github.com:tpope/vim-scriptease.git
