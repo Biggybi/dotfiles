@@ -403,32 +403,31 @@ ef() {
 # alias f='ef $HOME'
 
 # fd - cd to selected directory
-# fd() {
-# 	local dir
-# 	dir=$(find ${1:-.} -path '*/\.*' -prune \
-# 		-o -type d -print 2> /dev/null | fzf +m) &&
-# 		cd "$dir"
-# }
-
-# fd - cd to selected directory
+alias hd='fd ~'
+fd() {
+	local dir
+	dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | sed 's|^./||'  | fzf +m) &&
+		cd "$dir"
+}
 
 fo() {
 	fzf | open -
 }
 
-fd() {
-	dir=$(find -L ${1:-~} -path '*/\.*' -prune \
-		-o -type d -print 2> /dev/null | fzf --height=10 --preview="ls -p --color=always {}") && cd "$dir"
-}
-
 fzv() {
-	cd $HOM_VID
-	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Videos\///' | fzf --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
+	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f |\
+		sed 's/^.*Videos\///' |\
+		fzf --preview="" |\
+		sed 's/*//g;s/$/\"/;s/^/"/'|\
+		xargs -r vlc
 }
 
 fzm() {
-	cd $HOM_MUS
-	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f | sed 's/^.*Music\///' | fzf --preview="" | sed 's/*//g;s/$/\"/;s/^/"/'|  xargs -r vlc
+	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f |\
+		sed 's/^.*Music\///' |\
+		fzf --preview="" |\
+		sed 's/*//g;s/$/\"/;s/^/"/'|\
+		xargs -r vlc
 }
 
 fzf_semi_interactive_cd() {
