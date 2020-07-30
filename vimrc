@@ -1683,7 +1683,8 @@ nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid()
 """        General
 
 " indent all file easy
-nnoremap g<c-g> mzgg=G`z
+nnoremap g<c-g> :Nomove normal gg=G<cr>
+nnoremap gG :Nomove normal =ap<cr>
 
 " Toggle location list (awesome)
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
