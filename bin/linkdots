@@ -1,11 +1,23 @@
 #!/bin/bash
 
-# links files from DOTS to their provided LINK
+# links files from DTS to their provided LINK
+TEST=0
 
 GITURL=https://github.com/Biggybi/dotfiles
 SRC=$HOME/dotfiles
 DST=$HOME
 BACKUP=$HOME/dotfiles/dots_back
+
+if [ $TEST == 1 ]
+then
+	BACKUP="/tmp/TMP/dots_back/"
+	[ $BACKUP == "/tmp/TMP/dots_back" ] && mkdir "$BACKUP"
+	DST="/tmp/TMP/dot"
+	[ $DST == "/tmp/TMP/dot" ] && mkdir "$DST"
+	echo "backup = " $BACKUP
+	echo "dst = " $DST
+	echo "src = " $SRC
+fi
 
 cd $SRC
 
@@ -17,7 +29,8 @@ DOTS=(vim
 	inputrc
 	tmux.conf
 	bin
-	git_template
+	git/config
+	git/git_template
 	fonts
 	zhsrc)
 
@@ -29,24 +42,25 @@ LINK=(.vim
 	.inputrc
 	.tmux.conf
 	bin
+	.config/git/config
 	.git_template
 	.fonts
 	.zshrc)
 
-# links to create localy for Mac
-if [[ "$OSTYPE" == "darwin"* ]]
-then
-	LINK=(vim
-		.vimrc
-		.bashrc
-		.bash_aliases
-		.inputrc
-		.tmux.conf
-		bin
-		.git_template
-		.fonts
-		.zshrc)
-fi
+# # links to create localy for Mac
+# if [[ "$OSTYPE" == "darwin"* ]]
+# then
+# 	LINK=(vim
+# 		.vimrc
+# 		.bashrc
+# 		.bash_aliases
+# 		.inputrc
+# 		.tmux.conf
+# 		bin
+# 		.git_template
+# 		.fonts
+# 		.zshrc)
+# fi
 
 if [ -d "$SRC" ]
 then
@@ -101,7 +115,7 @@ do
 		fi
 		if [ -d $DST/$l ]
 		then
-			mkdir "$BACKUP/$lback"
+			mkdir -p "$BACKUP/$lback"
 			mv "$DST/$l/*" "$BACKUP/$lback"
 		else
 			mv "$DST/$l" "$BACKUP/$lback"
