@@ -213,6 +213,7 @@ alias tn='tmux_new_or_attach'
 alias ta='tmux attach'
 alias td='tmux detach'
 alias d='tmux detach'
+alias tl='tmux ls'
 # alias o='xdg-open '
 open() {
 	xdg-open $1 &
