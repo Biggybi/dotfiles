@@ -1,6 +1,8 @@
 setlocal colorcolumn=81
 setlocal foldmethod=syntax
 setlocal suffixesadd=.c,.h,.cpp
+setlocal colorcolumn=81
+setlocal path+=inc,incs,includes,include,src,sources,source
 
 inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
 inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
@@ -18,11 +20,9 @@ nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
 nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
-" " compile and execute current
-" nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
-" nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out<cr>
-" nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
-" nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
+" compile and execute current
+nnoremap <buffer> <leader>c. :Shell gcc -Wall -Wextra % && ./a.out<cr>
+nnoremap <buffer> <leader>cc :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
 " auto close brackets
 inoremap <buffer> { {}<c-g>U<left>

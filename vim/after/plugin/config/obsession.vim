@@ -9,3 +9,5 @@ function! ToggleObsession()
     :Obsession
   endif
 endfunction
+
+nnoremap yoo :call ToggleObsession()<cr>

@@ -17,4 +17,4 @@ function! FugitiveBlameToggle() abort
   call win_gotoid(current_window)
 endfunction
 
-nnoremap <leader>gb :call FugitiveBlameToggle()<cr>
+nnoremap ghb :call FugitiveBlameToggle()<cr>

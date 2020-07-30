@@ -3,6 +3,8 @@ if exists('g:plugin_helpman')
 endif
 let g:plugin_helpman = 1
 
+let g:ft_man_open_mode = 'vert'
+
 augroup HelpManSplit
   au!
   au FileType man wincmd H

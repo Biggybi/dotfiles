@@ -1,5 +1,6 @@
 setlocal colorcolumn=81
 setlocal suffixesadd=.java
+setlocal path+=inc,incs,includes,include,src,sources,source
 
 nnoremap <buffer> <leader>cg :Shell gradle run<cr>
 

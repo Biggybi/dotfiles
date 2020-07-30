@@ -1,5 +1,6 @@
 setlocal colorcolumn=81
 setlocal suffixesadd=.js,.javascript,.es,.esx,.json
+setlocal path+=javascript,tscript,typescript,js,ts,json
 
 nnoremap <buffer> <leader>cr :Run<cr>
 nnoremap <buffer> <leader>ca :AutoRun<cr>

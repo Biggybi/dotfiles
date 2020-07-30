@@ -73,6 +73,6 @@ function! GetColor(group_fg, group_bg) abort
   return "guifg=".group_fg . " guibg=".group_bg
 endfunction
 
-nnoremap <expr> yo<c-v> timer_info(g:modecolor_timer)[0]['paused'] == 0 ?
-      \ ":call timer_pause(g:modecolor_timer, '1')<cr><bar>:echo 'color mode change on'<cr>"
-      \ : ":call timer_pause(g:modecolor_timer, '0')<cr><bar>:echo 'color mode change off'<cr>"
+nnoremap <expr> yov timer_info(g:modecolor_timer)[0]['paused'] == 0 ?
+      \ ":call timer_pause(g:modecolor_timer, '1')<cr>:silent! call SetStatusLineColorsAll()<cr>:echo 'color mode change off'<cr>" :
+      \ ":call timer_pause(g:modecolor_timer, '0')<cr>:echo 'color mode change on'<cr>"

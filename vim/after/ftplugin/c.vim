@@ -1,6 +1,32 @@
 setlocal colorcolumn=81
 setlocal foldmethod=syntax
 setlocal suffixesadd=.c,.h
+setlocal colorcolumn=81
+setlocal filetype=c
+setlocal path+=inc,incs,includes,include,src,sources,source
+
+function! s:insertCHHeader() abort
+  let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
+  " Save cpoptions
+  let cpoptions = &cpoptions
+  " Remove the 'a' option - prevents the name of the
+  " alternate file being overwritten with a :read command
+  exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+  " exe "read " . path_to_skeletons
+  exe "read " . path_to_skeletons
+  " Restore cpoptions
+  exe "set cpoptions=" . cpoptions
+  1, 1 delete _
+  let fname = expand("%:t")
+  let fname = toupper(fname)
+  let fname = substitute(fname, "\\.", "_", "g")
+  %s/HEADERNAME/\=fname/g
+endfunction
+
+if line('$') == 1 && empty(getline(1)) && bufname("%") =~? ".h"
+  call <sid>insertCHHeader()
+  call search('^$', 'bw')
+endif
 
 inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
 inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i

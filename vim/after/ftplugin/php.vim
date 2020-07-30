@@ -1,5 +1,6 @@
 setlocal suffixesadd=.php
 setlocal colorcolumn=81
+
 nnoremap <buffer> <leader>xst ciw<strong><c-o>P</strong><esc>T<
 nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
 
