@@ -114,7 +114,7 @@ alias sshpi='ssh pi@192.168.1.102 -p 42'
 alias sshlab='ssh tris@192.168.1.101 -p 42'
 
 ### various defaults
-alias dconf-editor='dcond-editor --I-understand-that-changing-options-can-break-applications'
+alias dconf-editor='dconf-editor --I-understand-that-changing-options-can-break-applications'
 alias tree='tree --dirsfirst'
 
 ### history
