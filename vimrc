@@ -1317,8 +1317,6 @@ nnoremap <leader>OP O<esc>"+]p==
 
 " copy to clipboard
 nnoremap <leader>y "+y
-nnoremap <leader>yl "+y$
-nnoremap <leader>yh "+y^
 vnoremap <leader>y "+y
 
 """        Replace
@@ -1702,10 +1700,10 @@ nnoremap <leader>XX :%s/\s\+$//<cr>:redraw<cr>
 
 " Make
 nnoremap <leader>cm :make<cr><cr>
-nnoremap <leader>cr :make re<cr><cr>
-nnoremap <leader>ce :make ex<cr><cr>
-nnoremap <leader>ct :make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cT :make ex TESTFF=
+nnoremap <leader>cr :Shell make re<cr><cr>
+nnoremap <leader>ce :Shell make ex<cr><cr>
+nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
 function! LocListPanel(pfx) abort
