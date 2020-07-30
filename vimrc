@@ -1277,13 +1277,13 @@ vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 
 " Toggle terminal - bottom
-nnoremap <silent> yoT :call <SID>ToggleTerminal('J', 6)<CR>
+nmap yoT <Plug>(TermPop)
 
 " Toggle terminal - right
-nnoremap <silent> yo<c-t> :call <SID>ToggleTerminal('L', 60)<CR>
+nmap yo<c-t> <Plug>(TermToggleV)
 
 " Toggle terminal - right
-nnoremap <silent> yot :call <SID>PopupTerminal()<CR>
+nmap yot <Plug>(TermToggle)
 
 " Toggle keep cursor in middle of screen
 nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
