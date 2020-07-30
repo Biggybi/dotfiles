@@ -1,0 +1,21 @@
+[user]
+	email = tris@tristankapous.com
+	name = Tris
+[init]
+	templatedir = ~/.git_template
+[alias]
+	ctags = !.git/hooks/ctags
+	cm    = commit
+	cam   = commit -am
+	co    = checkout
+	s     = submodule
+	su    = submodule foreach git pull origin master
+	uuu   = submodule foreach git pull origin master
+	uu    = git pull
+[color]
+	ui = true
+[core]
+	pager = vim -
+[pager]
+	show = vim -c '%sm/\\e.\\{-}m//g' -c 'set ft=diff nobuflisted noswapfile readonly' +1 -
+	color = false

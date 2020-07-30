@@ -4,25 +4,26 @@
 
 GITURL=https://github.com/Biggybi/dotfiles
 SRC=$HOME/dotfiles
-# DST=$HOME
-DST=/tmp/dot
+DST=$HOME
+# DST=/tmp/dot
 BACKUP=$HOME/dotfiles/dots_back
 
 cd $SRC
 
-# git files to link
+# origin: git files to link
 DOTFILES=(vim
 	vimrc
 	bashrc
 	bash_aliases
 	inputrc
 	bin
-	git_template
+	git/git_template
+	git/gitconfig
 	fonts
 	zshrc
 	neomuttrc)
 
-# links to create localy for Linux
+# destination: links to create localy for Linux
 LOCFILES=(.vim
 	.vimrc
 	.bashrc
@@ -30,11 +31,12 @@ LOCFILES=(.vim
 	.inputrc
 	bin
 	.git_template
+	.gitconfig
 	.fonts
 	.zshrc
 	.config/neomutt/neomuttrc)
 
-# links to create localy for Mac
+# destination: links to create localy for Mac
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	LOCFILES=(vim
@@ -128,7 +130,7 @@ do
 				echo "$BACKUP/$lback$j new backup"
 			done
 		fi
-		if [ -d $DST/$l ]
+		if [ -d "$DST/$l" ]
 		then
 			mkdir "$BACKUP/$lback"
 			mv "$DST/$l/*" "$BACKUP/$lback"
