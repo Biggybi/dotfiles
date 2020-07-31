@@ -1625,7 +1625,7 @@ cnoremap <c-g> <S-Left>
 cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
-cnoreabbrev qqq qall!
+cnoreabbrev <expr> qqq getcmdpos() == 4 ? "qall!" : "qqq"
 
 """        Tags
 
