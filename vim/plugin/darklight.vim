@@ -3,7 +3,7 @@ if exists('g:plugin_darklight')
 endif
 let g:plugin_darklight = 1
 
-let g:dls_theme_force_load_start = get(g:, 'dls_theme_force_load_start', 'base16-onedark')
+let g:dls_theme_force_load_start = get(g:, 'dls_theme_force_load_start', '0')
 let g:dls_theme_source_sensitive = get(g:, 'dls_theme_source_sensitive', '0')
 let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
 
