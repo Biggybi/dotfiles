@@ -33,6 +33,9 @@ fi
 
 if [[ -x "$(command -v exa)" ]]
 then
+# keyboard layout
+alias kus="setxkbmap -layout us"
+alias kfr="setxkbmap -layout fr"
 	alias ls='exa'
 	alias l='ls -F'
 	alias ll='ls -l'
