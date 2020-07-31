@@ -415,18 +415,20 @@ fo() {
 }
 
 fzv() {
-	[ $HOM_VID ] && find $HOM_VID/* \( ! -regex '.*/\..*/..*' \) -type f |\
-		sed 's/^.*Videos\///' |\
-		fzf --preview="" |\
-		sed 's/*//g;s/$/\"/;s/^/"/'|\
+	[ $HOM_VID ] && find $HOM_VID/* -type f -not -path '*/\.*' |\
+		fzf --delimiter="/" --with-nth=-3.. |\
+		sed 's/*//g' |\
+		sed 's/$/\"/' |\
+		sed 's/^/"/' |\
 		xargs -r vlc
 }
 
 fzm() {
-	[ $HOM_MUS ] && find $HOM_MUS/* \( ! -regex '.*/\..*/..*' \) -type f |\
-		sed 's/^.*Music\///' |\
-		fzf --preview="" |\
-		sed 's/*//g;s/$/\"/;s/^/"/'|\
+	[ $HOME_MUS ] && find $HOME_MUS/* -type f -not -path '*/\.*' |\
+		fzf --delimiter="/" --with-nth=-3.. |\
+		sed 's/*//g' |\
+		sed 's/$/\"/' |\
+		sed 's/^/"/' |\
 		xargs -r vlc
 }
 
