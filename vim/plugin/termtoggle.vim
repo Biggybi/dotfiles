@@ -26,7 +26,7 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-function! s:PutTermPanel(buf, side, size) abort
+function! s:putTermPanel(buf, side, size) abort
   " new term if no buffer
   if a:buf == 0
     term
@@ -52,25 +52,29 @@ function! s:PopupTerminal() abort
   return
 endfunction
 
-function! <sid>TermToggle(side, size) abort
+function! s:TermToggle(side, size) abort
   let tpbl=[]
+  let closed = 0
   let tpbl = tabpagebuflist()
-  let term = 0
   " hide visible terminals
   for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
-      if term == 0
-        let term = buf
-      endif
       silent execute bufwinnr(buf) . "hide"
+      let closed += 1
     endif
   endfor
-  " return if terminal found
-  if term != 0
+  if closed > 0
     return
   endif
-  " display if no terminal
-  call s:PutTermPanel(term, a:side, a:size)
+  " open first hidden terminal
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
+    if getbufvar(buf, '&buftype') ==? 'terminal'
+      call s:putTermPanel(buf, a:side, a:size)
+      return
+    endif
+  endfor
+  " open new terminal
+  call s:putTermPanel(0, a:side, a:size)
 endfunction
 
 " let g:TermToggleHeight = get(g:, 'TermToggleHeight', '6')
