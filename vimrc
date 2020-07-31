@@ -166,21 +166,30 @@ set fillchars+=vert:▎
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
 set spellcapcheck=              " ignore leading cap in word
 set nojoinspaces                " and spaces too
-set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
-augroup NoAutoComment
-  au!
-  au FileType *
-        \ setlocal formatoptions+=j    " join comments smartly
-        \ setlocal formatoptions-=cro  " no auto comment line
-augroup end
+" set suffixesadd=.tex,.latex,.java,.c,.h,.js    " match file w/ ext
+set formatoptions+=j    " join comments smartly
+set formatoptions-=cro  " no auto comment line
+
+" augroup NoAutoComment
+"   au!
+"   au FileType *
+"         \ setlocal formatoptions+=j    " join comments smartly
+"         \ setlocal formatoptions-=cro  " no auto comment line
+" augroup end
 
 " Main window
 set display+=lastline           " show lastline even if too long
 set number                      " show number column
+" set wrap                        " no horizontal scroll
 set breakindent                 " with indent
 set showbreak=¬                 " ... showing a character
 set signcolumn="always"
 set nowrap
+
+" augroup ForceWrap
+"   au!
+"   au BufEnter * setlocal nowrap
+" augroup END
 
 " Moves boundaries
 set backspace=indent,eol,start  " backspace over lines
@@ -203,6 +212,9 @@ if has("termguicolors")
   set termguicolors             " 24 bits colors
 endif
 
+" Diff
+set diffopt+=vertical " vertical split for diff
+
 " False cursorline to have CursorLineNr working
 set cursorline
 
@@ -213,603 +225,602 @@ set tabpagemax=30
 """        DarkLightSwitch
 
 let g:theme_list = ['base16-one-light', 'base16-one-lightdim', 'base16-onedark', 'base16-one-lightdim']
-" let g:theme_force_load_start = 'base16-one-lightdim'
+let g:theme_force_load_start = 'base16-one-lightdim'
 let g:daytime = [7, 19]
-let g:theme_force_load_start = get(g:, 'theme_force_load_start')
-let g:theme_source_sensitive = 0
+" let g:theme_force_load_start = get(g:, 'theme_force_load_start', 'base16-onedark')
+" let g:theme_source_sensitive = 0
 
-function! SelectColorScheme() abort
-  if g:theme_force_load_start != '0'
-    if index(g:theme_list, g:theme_force_load_start) >= 0
-      exe "colorscheme" g:theme_force_load_start
-    else
-      echom "Auto theme not found:" g:theme_force_load_start . ". Using default:" g:theme_list[0]. "."
-      exe "colorscheme" g:theme_list[0]
-    endif
-    unlet g:theme_force_load_start
-  else
-    let hour = strftime("%H")
-    if g:daytime[0] <= hour && hour <= g:daytime[1]
-      exe "colorscheme" g:theme_list[1]
-    else
-      exe "colorscheme" g:theme_list[2]
-    endif
-  endif
-endfunction
-if ! exists("g:theme_change")
-  call SelectColorScheme()
-endif
-if g:theme_source_sensitive == 1
-  call SelectColorScheme()
-endif
+" function! SelectColorScheme() abort
+"   if g:theme_force_load_start != '0'
+"     if index(g:theme_list, g:theme_force_load_start) >= 0
+"       exe "colorscheme" g:theme_force_load_start
+"     else
+"       echom "Auto theme not found:" g:theme_force_load_start . ". Using default:" g:theme_list[0]. "."
+"       exe "colorscheme" g:theme_list[0]
+"     endif
+"     unlet g:theme_force_load_start
+"   else
+"     let hour = strftime("%H")
+"     if g:daytime[0] <= hour && hour <= g:daytime[1]
+"       exe "colorscheme" g:theme_list[1]
+"     else
+"       exe "colorscheme" g:theme_list[2]
+"     endif
+"   endif
+" endfunction
+" if ! exists("g:theme_change")
+"   call SelectColorScheme()
+" endif
+" if g:theme_source_sensitive == 1
+"   call SelectColorScheme()
+" endif
 
-function! DarkLightSwitch() abort
-  if ! exists('g:theme_change')
-    let g:theme_current_index = index(g:theme_list, g:colors_name)
-  endif
-  if ! exists('g:theme_current_index')
-    let g:theme_current_index = index(g:theme_list, g:colors_name)
-  endif
-  let g:theme_current_index += 1
-  if g:theme_current_index == len(g:theme_list)
-    let g:theme_current_index = 0
-  endif
-  exe "colorscheme" g:theme_list[g:theme_current_index]
-  let g:theme_change = 1
-endfunction
+" function! DarkLightSwitch() abort
+"   if ! exists('g:theme_change')
+"     let g:theme_current_index = index(g:theme_list, g:colors_name)
+"   endif
+"   if ! exists('g:theme_current_index')
+"     let g:theme_current_index = index(g:theme_list, g:colors_name)
+"   endif
+"   let g:theme_current_index += 1
+"   if g:theme_current_index == len(g:theme_list)
+"     let g:theme_current_index = 0
+"   endif
+"   exe "colorscheme" g:theme_list[g:theme_current_index]
+"   let g:theme_change = 1
+" endfunction
 
 """        Title
 
-augroup WinTitle
-  au!
-  au BufRead,BufEnter * let &titlestring = MyWindowTitle()
-augroup end
+" augroup WinTitle
+"   au!
+"   au BufRead,BufEnter * let &titlestring = MyWindowTitle()
+" augroup end
 
-function! GetGitRepoName(file) abort
-  let l:path=fnamemodify(a:file, ':p')
-  while l:path != '' && l:path != '/'
-    let l:path=fnamemodify(l:path, ':h')
-    let l:candidate=l:path . '/.git'
-    let l:folder=substitute(l:path, '/.*/', '', '')
-    if isdirectory(l:path . '/.git')
-      return l:folder
-    endif
-  endwhile
-  return ''
-endfunction
+" function! GetGitRepoName(file) abort
+"   let l:path=fnamemodify(a:file, ':p')
+"   while l:path != '' && l:path != '/'
+"     let l:path=fnamemodify(l:path, ':h')
+"     let l:candidate=l:path . '/.git'
+"     let l:folder=substitute(l:path, '/.*/', '', '')
+"     if isdirectory(l:path . '/.git')
+"       return l:folder
+"     endif
+"   endwhile
+"   return ''
+" endfunction
 
-function! MyWindowTitle() abort
-  let l:hostname = hostname() . "   ▏ "
-  let l:file = substitute(expand('%'), '/.*/', '', '')
-  let gitrepo = GetGitRepoName('%') . "   〉  "
-  return(hostname . gitrepo . file)
-endfunction
+" function! MyWindowTitle() abort
+"   let l:hostname = hostname() . "   ▏ "
+"   let l:file = substitute(expand('%'), '/.*/', '', '')
+"   let gitrepo = GetGitRepoName('%') . "   〉  "
+"   return(hostname . gitrepo . file)
+" endfunction
 
 """        Cursor
 
-if &term =~ "xterm\\|rxvt"
-  let &t_SI = "\e[5 q"       " insert mode
-  let &t_EI = "\e[2 q"       " normal mode
-  let &t_SR = "\e[4 q"       " replace mode
-endif
+" if &term =~ "xterm\\|rxvt"
+"   let &t_SI = "\e[5 q"       " insert mode
+"   let &t_EI = "\e[2 q"       " normal mode
+"   let &t_SR = "\e[4 q"       " replace mode
+" endif
 
 """        StatusLine
 
-let g:currentmode={
-      \ '__'     : '- ',
-      \ 'c'      : 'C ',
-      \ 'i'      : 'I ',
-      \ 'ic'     : 'I ',
-      \ 'ix'     : 'I ',
-      \ 'n'      : 'N ',
-      \ 'multi'  : 'M ',
-      \ 'ni'     : 'N ',
-      \ 'no'     : 'N ',
-      \ 'R'      : 'R ',
-      \ 'Rv'     : 'R ',
-      \ 's'      : 'S ',
-      \ 'S'      : 'S ',
-      \ ''     : 'S ',
-      \ 't'      : 'T ',
-      \ 'v'      : 'V ',
-      \ 'V'      : 'V ',
-      \ ''     : 'V ',
-      \}
+" let g:currentmode={
+"       \ '__'     : '- ',
+"       \ 'c'      : 'C ',
+"       \ 'i'      : 'I ',
+"       \ 'ic'     : 'I ',
+"       \ 'ix'     : 'I ',
+"       \ 'n'      : 'N ',
+"       \ 'multi'  : 'M ',
+"       \ 'ni'     : 'N ',
+"       \ 'no'     : 'N ',
+"       \ 'R'      : 'R ',
+"       \ 'Rv'     : 'R ',
+"       \ 's'      : 'S ',
+"       \ 'S'      : 'S ',
+"       \ ''     : 'S ',
+"       \ 't'      : 'T ',
+"       \ 'v'      : 'V ',
+"       \ 'V'      : 'V ',
+"       \ ''     : 'V ',
+"       \}
 
-function! GitModify() abort
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return [a,m,r] == [0,0,0] ? '' : '[+]'
-endfunction
+" function! GitModify() abort
+"   let [a,m,r] = GitGutterGetHunkSummary()
+"   return [a,m,r] == [0,0,0] ? '' : '[+]'
+" endfunction
 
-function! GitStatus() abort
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return join(['  [+'.a,'~'.m,'-'.r.']'])
-endfunction
+" function! GitStatus() abort
+"   let [a,m,r] = GitGutterGetHunkSummary()
+"   return join(['  [+'.a,'~'.m,'-'.r.']'])
+" endfunction
 
-function! GetColor(group_fg, group_bg) abort
-  let group_fg = synIDattr(hlID(a:group_fg), "fg#")
-  let group_bg = synIDattr(hlID(a:group_bg), "bg#")
-  return "guifg=".group_fg . " guibg=".group_bg
-endfunction
+" function! GetColor(group_fg, group_bg) abort
+"   let group_fg = synIDattr(hlID(a:group_fg), "fg#")
+"   let group_bg = synIDattr(hlID(a:group_bg), "bg#")
+"   return "guifg=".group_fg . " guibg=".group_bg
+" endfunction
 
-function! SetStatusLineColorsReplace() abort
-  exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
-  exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
-endfunction
+" function! SetStatusLineColorsReplace() abort
+"   exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
+"   exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
+" endfunction
 
-function! SetStatusLineColorsInsert() abort
-  exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
-  exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
-endfunction
+" function! SetStatusLineColorsInsert() abort
+"   exe "hi" g:mode_marker_group GetColor('StatusLineInsert', 'StatusLineInsert')
+"   exe "hi User1" GetColor('StatusLineInsert', 'StatusLineInsert')
+" endfunction
 
-function! SetStatusLineColorsVisual() abort
-  exe "hi" g:mode_marker_group GetColor('StatusLineVisual', 'StatusLineVisual')
-  exe "hi User1" GetColor('StatusLineVisual', 'StatusLineVisual')
-endfunction
+" function! SetStatusLineColorsVisual() abort
+"   exe "hi" g:mode_marker_group GetColor('StatusLineVisual', 'StatusLineVisual')
+"   exe "hi User1" GetColor('StatusLineVisual', 'StatusLineVisual')
+" endfunction
 
-function! SetStatusLineColorsCommand() abort
-  exe "hi" g:mode_marker_group GetColor('StatusLineCmd', 'StatusLineCmd')
-  exe "hi User1" GetColor('StatusLineCmd', 'StatusLineCmd')
-endfunction
+" function! SetStatusLineColorsCommand() abort
+"   exe "hi" g:mode_marker_group GetColor('StatusLineCmd', 'StatusLineCmd')
+"   exe "hi User1" GetColor('StatusLineCmd', 'StatusLineCmd')
+" endfunction
 
-function! SetStatusLineColorsPending() abort
-  exe "hi" g:mode_marker_group GetColor('StatusLinePending', 'StatusLinePending')
-  exe "hi User1" GetColor('StatusLinePending', 'StatusLinePending')
-endfunction
+" function! SetStatusLineColorsPending() abort
+"   exe "hi" g:mode_marker_group GetColor('StatusLinePending', 'StatusLinePending')
+"   exe "hi User1" GetColor('StatusLinePending', 'StatusLinePending')
+" endfunction
 
-function! SetStatusLineColorsNormal() abort
-  exe "hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
-  exe "hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
-  exe "hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
-  exe "hi User4" GetColor('StatusLineInsert', 'normal')
-  exe "hi User5" GetColor('normal', 'normal')
-  exe "hi" g:mode_marker_group GetColor('StatusLineNormal', 'StatusLineNormal')
-endfunction
+" function! SetStatusLineColorsNormal() abort
+"   exe "hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
+"   exe "hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
+"   exe "hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
+"   exe "hi User4" GetColor('StatusLineInsert', 'normal')
+"   exe "hi User5" GetColor('normal', 'normal')
+"   exe "hi" g:mode_marker_group GetColor('StatusLineNormal', 'StatusLineNormal')
+" endfunction
 
-function! LongestLineLen() abort
-  let len = max(map(range(1, line('$')), "virtcol([v:val, '$'])-1"))
-  return len
-endfunction
+" function! LongestLineLen() abort
+"   let len = max(map(range(1, line('$')), "virtcol([v:val, '$'])-1"))
+"   return len
+" endfunction
 
-function! SLVirtualColumn() abort
-  let cur = len(col('.'))
-  let max = len(LongestLineLen())
-  return col('.') . repeat(" ", max - cur)
-endfunction
+" function! SLVirtualColumn() abort
+"   let cur = len(col('.'))
+"   let max = len(LongestLineLen())
+"   return col('.') . repeat(" ", max - cur)
+" endfunction
 
-function! SLCurrentLine() abort
-	let max = len(line('$'))
-  let cur = len(line('.'))
-  return repeat(" ", max - cur) . line('.')
-endfunction
+" function! SLCurrentLine() abort
+" 	let max = len(line('$'))
+"   let cur = len(line('.'))
+"   return repeat(" ", max - cur) . line('.')
+" endfunction
 
-function! StatusLineActive() abort
-  setlocal statusline =
-  setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
-  setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
-  setlocal statusline +=%r%h%w                             "read only, special buffers
-  setlocal statusline +=%{GitModify()}\ %*                 "git modified
-  setlocal statusline +=\ %f%m\ %*                         "filename[modified]
-  setlocal statusline +=%{anzu#search_status()}            "search results
-  setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
-  setlocal statusline +=%1*\ \[%{SLCurrentLine()}\:        "current line
-  setlocal statusline +=%{SLVirtualColumn()}\]             "virtual column
-  setlocal statusline +=\ /\ [%L:                          "total lines
-  setlocal statusline +=%2p%%\]\ %*                        "total (%)
-  setlocal statusline +=%<                                 "cut at end
-endfunction
+" function! StatusLineActive() abort
+"   setlocal statusline =
+"   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
+"   setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
+"   setlocal statusline +=%r%h%w                             "read only, special buffers
+"   setlocal statusline +=%{GitModify()}\ %*                 "git modified
+"   setlocal statusline +=\ %f%m\ %*                         "filename[modified]
+"   setlocal statusline +=%{anzu#search_status()}            "search results
+"   setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
+"   setlocal statusline +=%1*\ \[%{SLCurrentLine()}\:        "current line
+"   setlocal statusline +=%{SLVirtualColumn()}\]             "virtual column
+"   setlocal statusline +=\ /\ [%L:                          "total lines
+"   setlocal statusline +=%2p%%\]\ %*                        "total (%)
+"   setlocal statusline +=%<                                 "cut at end
+" endfunction
 
-function! StatusLineInactive() abort
-  setlocal statusline =
-  setlocal statusline +=%f                                "filename
-  setlocal statusline +=%{&modified?'[+]':''}             "file modified
-  setlocal statusline +=%=%{&filetype}\                   "filetype
-endfunction
+" function! StatusLineInactive() abort
+"   setlocal statusline =
+"   setlocal statusline +=%f                                "filename
+"   setlocal statusline +=%{&modified?'[+]':''}             "file modified
+"   setlocal statusline +=%=%{&filetype}\                   "filetype
+" endfunction
 
-augroup StatusLineSwitch
-  au!
-  au InsertEnter * call SetStatusLineColorsInsert()
-  au WinEnter,BufWinEnter * call StatusLineActive()
-  au WinLeave * call StatusLineInactive()
-  au VimEnter,ColorScheme,InsertLeave,CmdwinLeave *
-        \ call SetStatusLineColorsNormal() |
-        \ call StatusLineActive()
-augroup end
+" augroup StatusLineSwitch
+"   au!
+"   au InsertEnter * call SetStatusLineColorsInsert()
+"   au WinEnter,BufWinEnter * call StatusLineActive()
+"   au WinLeave * call StatusLineInactive()
+"   au VimEnter,ColorScheme,InsertLeave,CmdwinLeave *
+"         \ call SetStatusLineColorsNormal() |
+"         \ call StatusLineActive()
+" augroup end
 
 """        Pending command mode
 
-let g:mode_marker_group = "CursorLineNr"
+" let g:mode_marker_group = "CursorLineNr"
 
-call timer_start(10, 'CheckModeAndState', {'repeat': -1})
-function! CheckModeAndState(_) abort
-  if mode() =~? 'i'
-    return
-  endif
-  if mode() =~? '[s]'
-    call SetStatusLineColorsReplace()
-    return
-  endif
-  if mode() =~# 'R'
-    call SetStatusLineColorsReplace()
-    return
-  endif
-  if mode() =~? '[v]'
-    call SetStatusLineColorsVisual()
-    return
-  endif
-  if mode() ==? 'c'
-    call SetStatusLineColorsCommand()
-    return
-  endif
-  if ! has("nvim")
-    if state() =~# '[moS]'
-      call SetStatusLineColorsPending()
-      return
-    else
-      call SetStatusLineColorsNormal()
-      return
-    endif
-  else
-    call SetStatusLineColorsNormal()
-  endif
-endfunction
+" call timer_start(10, 'CheckModeAndState', {'repeat': -1})
+" function! CheckModeAndState(_) abort
+"   if mode() =~? 'i'
+"     return
+"   endif
+"   if mode() =~? '[s]'
+"     call SetStatusLineColorsReplace()
+"     return
+"   endif
+"   if mode() =~# 'R'
+"     call SetStatusLineColorsReplace()
+"     return
+"   endif
+"   if mode() =~? '[v]'
+"     call SetStatusLineColorsVisual()
+"     return
+"   endif
+"   if mode() ==? 'c'
+"     call SetStatusLineColorsCommand()
+"     return
+"   endif
+"   if ! has("nvim")
+"     if state() =~# '[moS]'
+"       call SetStatusLineColorsPending()
+"       return
+"     else
+"       call SetStatusLineColorsNormal()
+"       return
+"     endif
+"   else
+"     call SetStatusLineColorsNormal()
+"   endif
+" endfunction
 
 ""    Extra windows
 """        Terminal
 
-" Show terminal (like c-z), exit on any character
-function! ShowTerm() abort
-  silent !read -sN 1
-  redraw!
-endfunction
-nnoremap [= :call ShowTerm()<cr>
+" " Show terminal (like c-z), exit on any character
+" function! ShowTerm() abort
+"   silent !read -sN 1
+"   redraw!
+" endfunction
+" nnoremap [= :call ShowTerm()<cr>
 
-function! PutTermPanel(buf, side, size) abort
-  " new term if no buffer
-  if a:buf == 0
-    term
-  else
-    execute "sp" bufname(a:buf)
-  endif
-  " default side if wrong argument
-  if stridx("hjklHJKL", a:side) == -1
-    execute "wincmd" "J"
-  else
-    execute "wincmd" a:side
-  endif
-  " horizontal split resize
-  if stridx("jkJK", a:side) >= 0
-    if ! a:size > 0
-      resize 6
-    else
-      execute "resize" a:size
-    endif
-    return
-  endif
-  " vertical split resize
-  if stridx("hlHL", a:side) >= 0
-    if ! a:size > 0
-      vertical resize 6
-    else
-      execute "vertical resize" a:size
-    endif
-  endif
-endfunction
+" function! PutTermPanel(buf, side, size) abort
+"   " new term if no buffer
+"   if a:buf == 0
+"     term
+"   else
+"     execute "sp" bufname(a:buf)
+"   endif
+"   " default side if wrong argument
+"   if stridx("hjklHJKL", a:side) == -1
+"     execute "wincmd" "J"
+"   else
+"     execute "wincmd" a:side
+"   endif
+"   " horizontal split resize
+"   if stridx("jkJK", a:side) >= 0
+"     if ! a:size > 0
+"       resize 6
+"     else
+"       execute "resize" a:size
+"     endif
+"     return
+"   endif
+"   " vertical split resize
+"   if stridx("hlHL", a:side) >= 0
+"     if ! a:size > 0
+"       vertical resize 6
+"     else
+"       execute "vertical resize" a:size
+"     endif
+"   endif
+" endfunction
 
-function! s:ToggleTerminal(side, size) abort
-  let tpbl=[]
-  let closed = 0
-  let tpbl = tabpagebuflist()
-  " hide visible terminals
-  for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
-    if getbufvar(buf, '&buftype') ==? 'terminal'
-      silent execute bufwinnr(buf) . "hide"
-      let closed += 1
-    endif
-  endfor
-  if closed > 0
-    return
-  endif
-  " open first hidden terminal
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
-    if getbufvar(buf, '&buftype') ==? 'terminal'
-      call PutTermPanel(buf, a:side, a:size)
-      return
-    endif
-  endfor
-  " open new terminal
-  call PutTermPanel(0, a:side, a:size)
-endfunction
+" function! s:ToggleTerminal(side, size) abort
+"   let tpbl=[]
+"   let closed = 0
+"   let tpbl = tabpagebuflist()
+"   " hide visible terminals
+"   for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
+"     if getbufvar(buf, '&buftype') ==? 'terminal'
+"       silent execute bufwinnr(buf) . "hide"
+"       let closed += 1
+"     endif
+"   endfor
+"   if closed > 0
+"     return
+"   endif
+"   " open first hidden terminal
+"   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
+"     if getbufvar(buf, '&buftype') ==? 'terminal'
+"       call PutTermPanel(buf, a:side, a:size)
+"       return
+"     endif
+"   endfor
+"   " open new terminal
+"   call PutTermPanel(0, a:side, a:size)
+" endfunction
 
-function! s:PopupTerminal() abort
-  let buf = term_start("tmux_new_or_attach vim_term", #{hidden: 1, term_finish: 'close'})
-  call popup_dialog(buf, #{minwidth: 100, minheight: 20, border:[]})
-  return
-endfunction
+" function! s:PopupTerminal() abort
+"   let buf = term_start("tmux_new_or_attach vim_term", #{hidden: 1, term_finish: 'close'})
+"   call popup_dialog(buf, #{minwidth: 100, minheight: 20, border:[]})
+"   return
+" endfunction
 
 """        Quickfix
 
-augroup QuickFixWindowSet
-  au!
-  au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber showbreak=
+" augroup QuickFixWindowSet
+"   au!
+"   au FileType qf setlocal colorcolumn=0 nolist nocursorline tw=0 norelativenumber showbreak=
+"   " vimscript is a joke
+"   au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+"   " auto adjust height if not a vertical split (hopefuly)
+"   au Filetype qf nnoremap <buffer> j <c-n>
+"   au Filetype qf nnoremap <buffer> k <c-p>
+"   au FileType qf
+"         \ if winheight('quickfix') + 3 < &lines
+"         \ |   call AdjustWindowHeight(1, 5)
+"         \ | endif
+"   au QuickfixCmdPost make call QfMakeConv()
+" augroup end
 
-  " vimscript is a joke
-  au FileType qf nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
-  " auto adjust height if not a vertical split (hopefuly)
-  au Filetype qf nnoremap <buffer> j <c-n>
-  au Filetype qf nnoremap <buffer> k <c-p>
-  au FileType qf
-        \ if winheight('quickfix') + 3 < &lines
-        \ |   call AdjustWindowHeight(1, 5)
-        \ | endif
-  au QuickfixCmdPost make call QfMakeConv()
-augroup end
+" " Change encoding of error file for quickfix
+" function! QfMakeConv() abort
+"   let qflist = getqflist()
+"   for i in qflist
+"     let i.text = iconv(i.text, "cp936", "utf-8")
+"   endfor
+"   call setqflist(qflist)
+" endfunction
 
-" Change encoding of error file for quickfix
-function! QfMakeConv() abort
-  let qflist = getqflist()
-  for i in qflist
-    let i.text = iconv(i.text, "cp936", "utf-8")
-  endfor
-  call setqflist(qflist)
-endfunction
-
-" Quickfix window height auto adjust if too big
-function! AdjustWindowHeight(minheight, maxheight)
-  let l = 1
-  let n_lines = 0
-  let w_width = winwidth(0)
-  while l <= line('$')
-    " number to float for division
-    let l_len = strlen(getline(l)) + 0.0
-    let line_width = l_len/w_width
-    let n_lines += float2nr(ceil(line_width))
-    let l += 1
-  endw
-  exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
+" " Quickfix window height auto adjust if too big
+" function! AdjustWindowHeight(minheight, maxheight)
+"   let l = 1
+"   let n_lines = 0
+"   let w_width = winwidth(0)
+"   while l <= line('$')
+"     " number to float for division
+"     let l_len = strlen(getline(l)) + 0.0
+"     let line_width = l_len/w_width
+"     let n_lines += float2nr(ceil(line_width))
+"     let l += 1
+"   endw
+"   exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+" endfunction
 
 """        Help/Man
 
-let g:ft_man_open_mode = 'vert'
+" let g:ft_man_open_mode = 'vert'
 
-augroup HelpManSplit
-  au!
-  au FileType man wincmd H
-  au FileType man setlocal tabstop=8
-  au FileType help,man setlocal showbreak= nonumber signcolumn=no
-  au FileType help au! BufRead,BufEnter <buffer> silent!
-        \ | :silent! wincmd H | :silent! 82 wincmd|
-  au FileType help au! BufLeave,WinLeave <buffer> silent!
-        \ | if &columns < 100 | :silent! 0 wincmd| | endif
-augroup end
+" augroup HelpManSplit
+"   au!
+"   au FileType man wincmd H
+"   au FileType man setlocal tabstop=8
+"   au FileType help,man setlocal showbreak= nonumber signcolumn=no
+"   au FileType help au! BufRead,BufEnter <buffer> silent!
+"         \ | :silent! wincmd H | :silent! 82 wincmd|
+"   au FileType help au! BufLeave,WinLeave <buffer> silent!
+"         \ | if &columns < 100 | :silent! 0 wincmd| | endif
+" augroup end
 
 """        Shell output split
 
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>, 'J')
-command! -complete=shellcmd -nargs=+ VShell call s:RunShellCommand(<q-args>, 'L')
-function! s:RunShellCommand(cmdline, direction) abort
-  if bufexists('scratch_terminal_output')
-    bw! scratch_terminal_output
-  endif
-  let current_window = win_getid()
-  wincmd v
-  wincmd J
-  if has("nvim")
-    exe 'terminal '. a:cmdline
-  else
-    exe 'terminal ++curwin '. a:cmdline
-  endif
-  file scratch_terminal_output
-  let term_window = win_getid()
-  let term_buf_nr = buffer_number()
-  if a:direction == 'L'
-    wincmd L
-  elseif a:direction == 'H'
-    wincmd H
-  elseif a:direction == 'J'
-    wincmd J
-    6 wincmd _
-  elseif a:direction == 'K'
-    wincmd K
-    6 wincmd _
-  endif
-  if win_getid() != current_window
-    call win_gotoid(current_window)
-  endif
-endfunction
+" command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>, 'J')
+" command! -complete=shellcmd -nargs=+ VShell call s:RunShellCommand(<q-args>, 'L')
+" function! s:RunShellCommand(cmdline, direction) abort
+"   if bufexists('scratch_terminal_output')
+"     bw! scratch_terminal_output
+"   endif
+"   let current_window = win_getid()
+"   wincmd v
+"   wincmd J
+"   if has("nvim")
+"     exe 'terminal '. a:cmdline
+"   else
+"     exe 'terminal ++curwin '. a:cmdline
+"   endif
+"   file scratch_terminal_output
+"   let term_window = win_getid()
+"   let term_buf_nr = buffer_number()
+"   if a:direction == 'L'
+"     wincmd L
+"   elseif a:direction == 'H'
+"     wincmd H
+"   elseif a:direction == 'J'
+"     wincmd J
+"     6 wincmd _
+"   elseif a:direction == 'K'
+"     wincmd K
+"     6 wincmd _
+"   endif
+"   if win_getid() != current_window
+"     call win_gotoid(current_window)
+"   endif
+" endfunction
 
-function! MoveScrathTerm(direction) abort
-  if bufexists('scratch_terminal_output')
-    let current_window = win_getid()
-    sbuffer scratch_terminal_output
-    if a:direction == 'L'
-      wincmd L
-    elseif a:direction == 'H'
-      wincmd H
-    elseif a:direction == 'J'
-      wincmd J
-      10 wincmd _
-    elseif a:direction == 'K'
-      wincmd K
-      10 wincmd _
-    elseif a:direction == 'Q'
-      :bw
-    endif
-    call win_gotoid(current_window)
-  endif
-endfunction
+" function! MoveScrathTerm(direction) abort
+"   if bufexists('scratch_terminal_output')
+"     let current_window = win_getid()
+"     sbuffer scratch_terminal_output
+"     if a:direction == 'L'
+"       wincmd L
+"     elseif a:direction == 'H'
+"       wincmd H
+"     elseif a:direction == 'J'
+"       wincmd J
+"       10 wincmd _
+"     elseif a:direction == 'K'
+"       wincmd K
+"       10 wincmd _
+"     elseif a:direction == 'Q'
+"       :bw
+"     endif
+"     call win_gotoid(current_window)
+"   endif
+" endfunction
 
 """        Job split output
 
-command! -complete=shellcmd -nargs=+ Shell2 call s:TmpShellOutput(<q-args>)
-function! s:TmpShellOutput(cmdline) abort
-  if bufexists('tmplog')
-    call deletebufline('tmplog', 1, '$')
-  else
-    call bufadd('tmplog')
-    call setbufvar('tmplog', "buftype", "nofile")
-    call setbufvar('tmplog', "filetype", "")
-  endif
-  " let logjob = job_start(execute("!bash " . a:cmdline),
-  if has("nvim")
-    let logjob = jobstart(["/bin/bash", "-c", a:cmdline],
-          \ {'out_io': 'buffer', 'out_name': 'tmplog', 'out_msg': ''})
-  else
-    let logjob = job_start(["/bin/bash", "-c", a:cmdline],
-          \ {'out_io': 'buffer', 'err_io': 'buffer', 'out_name': 'tmplog', 'err_name': 'tmplog', 'out_msg': ''})
-  endif
-  let winnr = win_getid()
-  vert sbuffer tmplog
-  setlocal wrap
-  " nnoremap <buffer> <c-c> :call job_stop('logjob')<cr>
-  wincmd L
-  60 wincmd |
-  if win_getid() != winnr
-    call win_gotoid(winnr)
-  endif
-endfunction
+" command! -complete=shellcmd -nargs=+ Shell2 call s:TmpShellOutput(<q-args>)
+" function! s:TmpShellOutput(cmdline) abort
+"   if bufexists('tmplog')
+"     call deletebufline('tmplog', 1, '$')
+"   else
+"     call bufadd('tmplog')
+"     call setbufvar('tmplog', "buftype", "nofile")
+"     call setbufvar('tmplog', "filetype", "")
+"   endif
+"   " let logjob = job_start(execute("!bash " . a:cmdline),
+"   if has("nvim")
+"     let logjob = jobstart(["/bin/bash", "-c", a:cmdline],
+"           \ {'out_io': 'buffer', 'out_name': 'tmplog', 'out_msg': ''})
+"   else
+"     let logjob = job_start(["/bin/bash", "-c", a:cmdline],
+"           \ {'out_io': 'buffer', 'err_io': 'buffer', 'out_name': 'tmplog', 'err_name': 'tmplog', 'out_msg': ''})
+"   endif
+"   let winnr = win_getid()
+"   vert sbuffer tmplog
+"   setlocal wrap
+"   " nnoremap <buffer> <c-c> :call job_stop('logjob')<cr>
+"   wincmd L
+"   60 wincmd |
+"   if win_getid() != winnr
+"     call win_gotoid(winnr)
+"   endif
+" endfunction
 
 """        Scrolling
 
-" Do not scroll past the end of file (last line locked at bottom of window)
-function! NoScrollAtEOF() abort
-  let curpos = getpos('.')
-  let lnum = get(curpos, 1, -1)
-  let len = line('$')
-  if lnum + winheight(0) >= len
-    normal! zb
-  endif
-endfunction
-" nnoremap <c-f> <c-f> <silent> :call NoScrollAtEOF()<cr>
-nmap <c-f> <Plug>(SmoothieForwards)<bar><silent> :call NoScrollAtEOF()<cr>
+" " Do not scroll past the end of file (last line locked at bottom of window)
+" function! NoScrollAtEOF() abort
+"   let curpos = getpos('.')
+"   let lnum = get(curpos, 1, -1)
+"   let len = line('$')
+"   if lnum + winheight(0) >= len
+"     normal! zb
+"   endif
+" endfunction
+" " nnoremap <c-f> <c-f> <silent> :call NoScrollAtEOF()<cr>
+" nmap <c-f> <Plug>(SmoothieForwards)<bar><silent> :call NoScrollAtEOF()<cr>
 
 """        Search cycling windows
 
-function! CycleWindowsSearch(direction) abort
-  let forward = a:direction
-  if ! v:searchforward
-    let forward = forward ? '0' : '1'
-  endif
-  let searchflags = forward ? 'W' : 'Wb'
-  let winmove = forward ? 'w' : 'W'
-  let curmove = forward ? '1' : '$'
-
-  let firstwin=winnr()
-  if ! search(@/, searchflags)
-    execute('wincmd ' . winmove)
-    let savepos = getcurpos()
-    call cursor(curmove, curmove)
-    while ! search(@/, searchflags) && firstwin != winnr()
-      call setpos('.', savepos)
-      execute('wincmd ' . winmove)
-      call cursor(curmove, curmove)
-    endwhile
-  endif
-endfunction
+" function! CycleWindowsSearch(direction) abort
+"   let forward = a:direction
+"   if ! v:searchforward
+"     let forward = forward ? '0' : '1'
+"   endif
+"   let searchflags = forward ? 'W' : 'Wb'
+"   let winmove = forward ? 'w' : 'W'
+"   let curmove = forward ? '1' : '$'
+"   let firstwin=winnr()
+"   if ! search(@/, searchflags)
+"     execute('wincmd ' . winmove)
+"     let savepos = getcurpos()
+"     call cursor(curmove, curmove)
+"     while ! search(@/, searchflags) && firstwin != winnr()
+"       call setpos('.', savepos)
+"       execute('wincmd ' . winmove)
+"       call cursor(curmove, curmove)
+"     endwhile
+"   endif
+" endfunction
 
 " nnoremap <silent> n :call CycleWindowsSearch('1')<cr>
 " nnoremap <silent> N :call CycleWindowsSearch('0')<cr>
 
 """        History
 
-" Auto remove some commands from history
-let g:commands_to_delete_from_history = ['Delete', 'bw', 'bd']
+" " Auto remove some commands from history
+" let g:commands_to_delete_from_history = ['Delete', 'bw', 'bd']
 
-function! DeleteCommandsFromHistory()
-  let lastHistoryEntry = histget('cmd', -1)
-  if trim(lastHistoryEntry) == ""
-    return
-  endif
-  let lastCommand = split(lastHistoryEntry, '\s\+')[0]
-  if (index(g:commands_to_delete_from_history, lastCommand) >= 0)
-    call histdel('cmd', -1)
-  endif
-endfunction
+" function! DeleteCommandsFromHistory()
+"   let lastHistoryEntry = histget('cmd', -1)
+"   if trim(lastHistoryEntry) == ""
+"     return
+"   endif
+"   let lastCommand = split(lastHistoryEntry, '\s\+')[0]
+"   if (index(g:commands_to_delete_from_history, lastCommand) >= 0)
+"     call histdel('cmd', -1)
+"   endif
+" endfunction
 
-augroup history_deletion
-  autocmd!
-  autocmd CmdlineLeave * call DeleteCommandsFromHistory()
-augroup END
+" augroup history_deletion
+"   autocmd!
+"   autocmd CmdlineLeave * call DeleteCommandsFromHistory()
+" augroup END
 
 ""    FileType settings
 """        Vim
-augroup VimSettings
-  au!
-  au FileType vim setlocal tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
-augroup END
+
+" augroup VimSettings
+"   au!
+"   au FileType vim setlocal tabstop=2 expandtab textwidth=0 softtabstop=2 shiftwidth=2
+" augroup END
 
 """        Mail
 
-augroup MailSettings
-  au!
-  autocmd FileType mail setlocal linebreak tw=0
-augroup end
+" augroup MailSettings
+"   au!
+"   autocmd FileType mail setlocal linebreak tw=0
+" augroup end
 
 """        Markdown
 
-augroup MarkdownSettings
-  au!
-  au FileType markdown setlocal linebreak
-augroup end
+" augroup MarkdownSettings
+"   au!
+"   au FileType markdown setlocal linebreak
+" augroup end
 
 ""    Highlights / Match
 """        show traling whitespaces
 
-augroup TrailSpace
-  au!
-  au BufWinEnter * match TrailSpace /\s\+$/
-  au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
-  au InsertLeave * match TrailSpace /\s\+$/
-  au BufWinLeave * call clearmatches()
-augroup end
+" augroup TrailSpace
+"   au!
+"   au BufWinEnter * match TrailSpace /\s\+$/
+"   au InsertEnter * match TrailSpace /\s\+\%#\@<!$/
+"   au InsertLeave * match TrailSpace /\s\+$/
+"   au BufWinLeave * call clearmatches()
+" augroup end
 
 """        color column 81 for code
 
-augroup ColorColumn
-  au!
-  if exists('+colorcolumn')
-    au FileType c,cpp,css,java,python,ruby,bash,sh,js,html,javascript setlocal colorcolumn=81
-  endif
-augroup end
+" augroup ColorColumn
+"   au!
+"   if exists('+colorcolumn')
+"     au FileType c,cpp,css,java,python,ruby,bash,sh,js,html,javascript setlocal colorcolumn=81
+"   endif
+" augroup end
 
 """        search cycle colors
 
-function! NextPrevSearch(direction)
-  let flags = ''
-  if a:direction ==# 'N'
-    let flags = 'b'
-  endif
-  call search(@/, flags)
-  call HLCurrent()
-endfunction
+" function! NextPrevSearch(direction)
+"   let flags = ''
+"   if a:direction ==# 'N'
+"     let flags = 'b'
+"   endif
+"   call search(@/, flags)
+"   call HLCurrent()
+" endfunction
 
-" highlight current search and first/last search differently
-function! HLCurrent() abort
-  if exists("currmatch")
-    call matchdelete(currmatch)
-  endif
-  if exists("*anzu#search_status")
-    :AnzuUpdateSearchStatus
-  endif
-  " only on cursor
-  let patt = '\c\%#'.@/
-  " check prev and next match
-  let prevmatch = search(@/, 'bWn')
-  let nextmatch = search(@/, 'Wn')
-  " if on first or last match
-  if prevmatch == 0 || nextmatch == 0
-    let currmatch = matchadd('EdgeSearch', patt, 101)
-  else
-    let currmatch = matchadd('IncSearch', patt, 101)
-  endif
-  redraw
-endfunction
+" " highlight current search and first/last search differently
+" function! HLCurrent() abort
+"   if exists("currmatch")
+"     call matchdelete(currmatch)
+"   endif
+"   if exists("*anzu#search_status")
+"     :AnzuUpdateSearchStatus
+"   endif
+"   " only on cursor
+"   let patt = '\c\%#'.@/
+"   " check prev and next match
+"   let prevmatch = search(@/, 'bWn')
+"   let nextmatch = search(@/, 'Wn')
+"   " if on first or last match
+"   if prevmatch == 0 || nextmatch == 0
+"     let currmatch = matchadd('EdgeSearch', patt, 101)
+"   else
+"     let currmatch = matchadd('IncSearch', patt, 101)
+"   endif
+"   redraw
+" endfunction
 
 ""    File automation
 """        Save and load
 
-function FileBottomWindow() abort
+function! FileBottomWindow() abort
   if line('w$') == line('$')
     let save_scroll = &scrolloff
     let &scrolloff = 0
@@ -829,6 +840,9 @@ augroup AutoSaveAndLoadWithFocus
   au FocusGained,BufEnter * :silent! !
   au FocusLost,WinLeave * :silent! w
 augroup end
+
+" Autocommit
+" autocmd BufWritePost * let message = input('Message? ', 'Auto-commit: saved ' . expand('%')) | execute ':silent ! if git rev-parse --git-dir > /dev/null 2>&1 ; then git add % ; git commit -m ' . shellescape(message, 1) . '; fi > /dev/null 2>&1'
 
 """        Last cursor position
 
@@ -871,14 +885,14 @@ augroup end
 
 """        Tags and paths
 
-" Get tags file from git repo
-" Set path for code projects
-augroup CodePathTags
-  au!
-  au BufEnter * silent! set tags+=.git/tags
-  au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
-        \ | set path+=inc,incs,includes,include,headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
-augroup end
+" " Get tags file from git repo
+" " Set path for code projects
+" augroup CodePathTags
+"   au!
+"   au BufEnter * silent! set tags+=.git/tags
+"   au FileType make,c,cpp,css,java,python,ruby,js,json,javascript,sh au! BufRead,BufEnter <buffer> silent!
+"         \ | setlocal path+=headers,src,srcs,sources,js,html,ruby,python,javascript,tscript,typescript
+" augroup end
 
 " autoreload tags file on save
 " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --langmap=c:.c.h &
@@ -895,23 +909,23 @@ augroup end
 
 """        File suffixes
 
-" set suffixes to try when matching a file name
-function! SetSuffixes() abort
-  let associations = [
-        \["javascript", ".js,.javascript,.es,.esx,.json"],
-        \["python", ".py,.pyw"],
-        \["c", ".c,.h"],
-        \["cpp", ".c,.h"]
-        \]
-  for ft in associations
-    execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
-  endfor
-endfunction
+" " set suffixes to try when matching a file name
+" function! SetSuffixes() abort
+"   let associations = [
+"         \["javascript", ".js,.javascript,.es,.esx,.json"],
+"         \["python", ".py,.pyw"],
+"         \["c", ".c,.h"],
+"         \["cpp", ".c,.h"]
+"         \]
+"   for ft in associations
+"     execute "au FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+"   endfor
+" endfunction
 
-augroup SuffixesTry
-  au!
-  au CursorHold call ModeColour()
-augroup end
+" augroup SuffixesTry
+"   au!
+"   au FileType javascript,c,cpp,python call SetSuffixes()
+" augroup end
 
 """        Large Files
 
@@ -955,28 +969,28 @@ nnoremap <leader>ej :e .git/vim/project_files<cr>
 ""    Plugins settings
 """        Netrw
 
-augroup AutoDeleteNetrwHiddenBuffers
-  au!
-  au FileType netrw setlocal bufhidden=wipe
-augroup end
+" augroup AutoDeleteNetrwHiddenBuffers
+"   au!
+"   au FileType netrw setlocal bufhidden=wipe
+" augroup end
 
-" Netrw customization
-let g:netrw_keepdir= 0
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 2
-let g:netrw_altv = 1
-let g:netrw_winsize = 20
-let g:netrw_sort_sequence = '[\/]$,*'  " sort folders on top
+" " Netrw customization
+" let g:netrw_keepdir= 0
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 2
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 20
+" let g:netrw_sort_sequence = '[\/]$,*'  " sort folders on top
 
-" open netrw if vim starts without file
-let g:netrw_startup = 0
-let g:netrw_startup_no_file = 0
-augroup NetrwStartup
-  au!
-  au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-  au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
-augroup end
+" " open netrw if vim starts without file
+" let g:netrw_startup = 0
+" let g:netrw_startup_no_file = 0
+" augroup NetrwStartup
+"   au!
+"   au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
+"   au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
+" augroup end
 
 """        Termdebug
 
@@ -985,179 +999,179 @@ let g:termdebug_wide = 40
 
 """        Fugitive
 
-nnoremap <silent> <leader>gg :vertical Gstatus<cr>
-set diffopt+=vertical " vertical split for diff
-augroup FugitiveSet
-  au!
-  " au FileType gitcommit start
-  au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
-augroup end
+" nnoremap <silent> <leader>gg :vertical Gstatus<cr>
+" set diffopt+=vertical " vertical split for diff
+" augroup FugitiveSet
+"   au!
+"   " au FileType gitcommit start
+"   au FileType fugitive setlocal cursorline norelativenumber nonumber colorcolumn=0
+" augroup end
 
-function! FugitiveBlameToggle() abort
-  let current_window = win_getid()
-  wincmd h
-  if &ft ==? "fugitiveblame"
-    wincmd q
-  else
-    call win_gotoid(current_window)
-    :Gblame
-  endif
-  call win_gotoid(current_window)
-endfunction
+" function! FugitiveBlameToggle() abort
+"   let current_window = win_getid()
+"   wincmd h
+"   if &ft ==? "fugitiveblame"
+"     wincmd q
+"   else
+"     call win_gotoid(current_window)
+"     :Gblame
+"   endif
+"   call win_gotoid(current_window)
+" endfunction
 
-nnoremap <leader>gb :call FugitiveBlameToggle()<cr>
+" nnoremap <leader>gb :call FugitiveBlameToggle()<cr>
 
 """        Gitgutter / GitMessenger
-if exists('&signcolumn')        " Vim 7.4.2201
-  set signcolumn=yes
-else
-  let g:gitgutter_sign_column_always = 1
-endif
-set updatetime=100              " need for Coc + gitgutter
+" if exists('&signcolumn')        " Vim 7.4.2201
+"   set signcolumn=yes
+" else
+"   let g:gitgutter_sign_column_always = 1
+" endif
+" set updatetime=100              " need for Coc + gitgutter
 
-let g:gitgutter_max_signs = 1000
+" let g:gitgutter_max_signs = 1000
 
-let g:gitgutter_sign_added = '│'
-let g:gitgutter_sign_modified = '│'
-let g:gitgutter_sign_removed = '│'
-let g:gitgutter_sign_removed_first_line = '▔'
-let g:gitgutter_sign_modified_removed = '│'
+" let g:gitgutter_sign_added = '│'
+" let g:gitgutter_sign_modified = '│'
+" let g:gitgutter_sign_removed = '│'
+" let g:gitgutter_sign_removed_first_line = '▔'
+" let g:gitgutter_sign_modified_removed = '│'
 
-nmap ghm <Plug>(git-messenger-close)<bar><Plug>(git-messenger)
-if ! has("nvim")
-  let g:git_messenger_close_on_cursor_moved = 'false'
-  let g:git_messenger_into_popup_after_show = 'false'
-endif
+" nmap ghm <Plug>(git-messenger-close)<bar><Plug>(git-messenger)
+" if ! has("nvim")
+"   let g:git_messenger_close_on_cursor_moved = 'false'
+"   let g:git_messenger_into_popup_after_show = 'false'
+" endif
 
-nmap ghp <Plug>(GitGutterPreviewHunk)
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
+" nmap ghp <Plug>(GitGutterPreviewHunk)
+" nmap ghs <Plug>(GitGutterStageHunk)
+" nmap ghu <Plug>(GitGutterUndoHunk)
 
-omap ih <Plug>(GitGutterTextObjectInnerPending)
-omap ah <Plug>(GitGutterTextObjectOuterPending)
-xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+" omap ih <Plug>(GitGutterTextObjectInnerPending)
+" omap ah <Plug>(GitGutterTextObjectOuterPending)
+" xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+" xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 """        FZF
 
-let g:fzf_command_prefix = 'Fzf'
-let g:fzf_buffers_jump = 1      " [Buffers] to existing split
+"let g:fzf_command_prefix = 'Fzf'
+"let g:fzf_buffers_jump = 1      " [Buffers] to existing split
 
-function! s:build_location_list(lines) abort
-  call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
-  lopen
-endfunction
+"function! s:build_location_list(lines) abort
+"  call setloclist(0, map(copy(a:lines), '{ "filename": v:val }'))
+"  lopen
+"endfunction
 
-function! s:build_quickfix_list(lines) abort
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-endfunction
+"function! s:build_quickfix_list(lines) abort
+"  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+"  bot copen
+"endfunction
 
-" An action can be a reference to a function that processes selected lines
-let g:fzf_action = {
-      \ 'ctrl-q': function('s:build_quickfix_list'),
-      \ 'ctrl-l': function('s:build_location_list'),
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit'}
+" " An action can be a reference to a function that processes selected lines
+"let g:fzf_action = {
+"      \ 'ctrl-q': function('s:build_quickfix_list'),
+"      \ 'ctrl-l': function('s:build_location_list'),
+"      \ 'ctrl-t': 'tab split',
+"      \ 'ctrl-x': 'split',
+"      \ 'ctrl-v': 'vsplit'}
 
-nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
-nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
-nnoremap <silent> <leader>F :FzfFiles /<cr>
-nnoremap <silent> <leader>fb :FzfBuffers<cr>
-nnoremap <silent> <leader>b :FzfBuffers<cr>
-nnoremap <silent> <leader>j :FzfBuffers<cr>
-nnoremap <silent> <leader>fw :FzfWindows<cr>
-nnoremap <silent> <leader>ft :FzfTags<cr>
-nnoremap <silent> <leader>f<c-t> :FzfBTags<cr>
-nnoremap <silent> <leader>fc :FzfCommit<cr>
-nnoremap <silent> <leader>f<c-c> :FzfBCommit<cr>
-nnoremap <silent> <leader>fg :FzfGFiles<cr>
-nnoremap <silent> <leader>f<c-g> :FzfGFiles?<cr>
-nnoremap <silent> <leader>fl :FzfLines<cr>
-nnoremap <silent> <leader>f<c-l> :FzfBLines<cr>
-nnoremap <silent> <leader>f; :FzfHistory:<cr>
-nnoremap <silent> <leader>f/ :FzfHistory/<cr>
-nnoremap <silent> <leader>fh :FzfHistory<cr>
-nnoremap <silent> <leader>fm :FzfHelptags<cr>
-nnoremap <silent> <leader>fs :FzfSnippets<cr>
-nnoremap <silent> <leader>fR :Rg<cr>
-nnoremap <silent> <leader>fr :RG<cr>
-inoremap <silent> <c-x><c-s> <c-o>:FzfSnippets<cr>
+"nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
+"nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
+"nnoremap <silent> <leader>F :FzfFiles /<cr>
+"nnoremap <silent> <leader>fb :FzfBuffers<cr>
+"nnoremap <silent> <leader>b :FzfBuffers<cr>
+"nnoremap <silent> <leader>j :FzfBuffers<cr>
+"nnoremap <silent> <leader>fw :FzfWindows<cr>
+"nnoremap <silent> <leader>ft :FzfTags<cr>
+"nnoremap <silent> <leader>f<c-t> :FzfBTags<cr>
+"nnoremap <silent> <leader>fc :FzfCommit<cr>
+"nnoremap <silent> <leader>f<c-c> :FzfBCommit<cr>
+"nnoremap <silent> <leader>fg :FzfGFiles<cr>
+"nnoremap <silent> <leader>f<c-g> :FzfGFiles?<cr>
+"nnoremap <silent> <leader>fl :FzfLines<cr>
+"nnoremap <silent> <leader>f<c-l> :FzfBLines<cr>
+"nnoremap <silent> <leader>f; :FzfHistory:<cr>
+"nnoremap <silent> <leader>f/ :FzfHistory/<cr>
+"nnoremap <silent> <leader>fh :FzfHistory<cr>
+"nnoremap <silent> <leader>fm :FzfHelptags<cr>
+"nnoremap <silent> <leader>fs :FzfSnippets<cr>
+"nnoremap <silent> <leader>fR :Rg<cr>
+"nnoremap <silent> <leader>fr :RG<cr>
+"inoremap <silent> <c-x><c-s> <c-o>:FzfSnippets<cr>
 
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
+" " Enable per-command history.
+" " CTRL-N and CTRL-P will be automatically bound to next-history and
+" " previous-history instead of down and up. If you don't like the change,
+" " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+"let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-let g:fzf_tags_command = 'ctags -R'
-" big floating window
-" let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
+"let g:fzf_tags_command = 'ctags -R'
+" " big floating window
+" " let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
 
-" bottom floating window
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.3,'yoffset':0.9,'xoffset': 0.4, 'highlight': 'normal', 'border': 'sharp' } }
-" let g:fzf_layout = {'heigh': '40%'}
+" " bottom floating window
+"let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.3,'yoffset':0.9,'xoffset': 0.4, 'highlight': 'normal', 'border': 'sharp' } }
+" " let g:fzf_layout = {'heigh': '40%'}
 
-let $FZF_DEFAULT_OPTS = '--info=inline -m --preview "head -n 500 {}" --bind "ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview,ctrl-a:toggle-all,ctrl-u:preview-up,ctrl-d:preview-down"'
-let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
-"-g '!{node_modules,.git}'
+"let $FZF_DEFAULT_OPTS = '--info=inline -m --preview "head -n 500 {}" --bind "ctrl-o:toggle+up,ctrl-i:toggle+down,ctrl-space:toggle-preview,ctrl-a:toggle-all,ctrl-u:preview-up,ctrl-d:preview-down"'
+"let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+"  "-g '!{node_modules,.git}'
 
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'gutter':  ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'Visual', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'vertsplit'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-  " \ 'border':  ['fg', 'Conditional'],
+" " Customize fzf colors to match your color scheme
+"let g:fzf_colors =
+"\ { 'fg':      ['fg', 'Normal'],
+"  \ 'bg':      ['bg', 'Normal'],
+"  \ 'gutter':  ['bg', 'Normal'],
+"  \ 'hl':      ['fg', 'Comment'],
+"  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+"  \ 'bg+':     ['bg', 'Visual', 'CursorColumn'],
+"  \ 'hl+':     ['fg', 'Statement'],
+"  \ 'info':    ['fg', 'PreProc'],
+"  \ 'border':  ['fg', 'vertsplit'],
+"  \ 'prompt':  ['fg', 'Conditional'],
+"  \ 'pointer': ['fg', 'Exception'],
+"  \ 'marker':  ['fg', 'Keyword'],
+"  \ 'spinner': ['fg', 'Label'],
+"  \ 'header':  ['fg', 'Comment'] }
+"  " \ 'border':  ['fg', 'Conditional'],
 
-"Get Files
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+" "Get Files
+"command! -bang -nargs=? -complete=dir Files
+"    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
-" Get text in files with Rg
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+" " Get text in files with Rg
+"command! -bang -nargs=* Rg
+"  \ call fzf#vim#grep(
+"  \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
+"  \   fzf#vim#with_preview(), <bang>0)
 
-" Ripgrep advanced
-function! RipgrepFzf(query, fullscreen) abort
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
+" " Ripgrep advanced
+"function! RipgrepFzf(query, fullscreen) abort
+"  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+"  let initial_command = printf(command_fmt, shellescape(a:query))
+"  let reload_command = printf(command_fmt, '{q}')
+"  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+"  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+"endfunction
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+"command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-" Git grep
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+" " Git grep
+"command! -bang -nargs=* GGrep
+"  \ call fzf#vim#grep(
+"  \   'git grep --line-number '.shellescape(<q-args>), 0,
+"  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 """        Latex Live Preview
 
-" au FileType tex,plaintex let g:tex_fold_enabled=1
-augroup TexSet
-  au!
-  au FileType tex setlocal updatetime=1000
-  " let g:livepreview_previewer = 'zathura'
-  " let g:livepreview_cursorhold_recompile = 0
-  " let g:livepreview_engine = 'your_engine' . ' [options]'
-augroup end
+" " au FileType tex,plaintex let g:tex_fold_enabled=1
+" augroup TexSet
+"   au!
+"   au FileType tex setlocal updatetime=1000
+"   " let g:livepreview_previewer = 'zathura'
+"   " let g:livepreview_cursorhold_recompile = 0
+"   " let g:livepreview_engine = 'your_engine' . ' [options]'
+" augroup end
 
 """        Vim-run
 let g:vim_run_command_map = {
@@ -1169,25 +1183,25 @@ let g:vim_run_command_map = {
 
 """        Vimwiki
 
-augroup VimWikiSettings
-  au!
-  au FileType vimwiki setlocal nonu nornu showbreak= nobreakindent linebreak
-  au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>(VimwikiToggleListItem)
-augroup end
+" augroup VimWikiSettings
+"   au!
+"   au FileType vimwiki setlocal nonu nornu showbreak= nobreakindent linebreak
+"   au FileType vimwiki nnoremap <buffer> <leader>cr <Plug>(VimwikiToggleListItem)
+" augroup end
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-      \ 'syntax': 'markdown', 'ext': '.md'}]
+" let g:vimwiki_list = [{'path': '~/vimwiki/',
+"       \ 'syntax': 'markdown', 'ext': '.md'}]
 
-" no vimwiki filetype outside wiki folder
-let g:vimwiki_global_ext = 0
+" " no vimwiki filetype outside wiki folder
+" let g:vimwiki_global_ext = 0
 
 """        Anzu
 
-let g:anzu_status_format = "[%i/%l]"
+" let g:anzu_status_format = "[%i/%l]"
 
 """        Goyo
 
-let g:goyo_width = 81
+" let g:goyo_width = 81
 
 """        Iris
 
@@ -1263,6 +1277,9 @@ nnoremap you :UndotreeToggle<cr>
 nnoremap [ou :UndotreeShow<cr>
 nnoremap ]ou :UndotreeHide<cr>
 nnoremap yo<c-u> :UndotreeFocus<cr>
+
+" Obsession
+nnoremap yoo :call ToggleObsession()<cr>
 
 " Switch dark / light theme[
 nnoremap <silent> yob :call DarkLightSwitch()<cr>
@@ -1450,6 +1467,13 @@ nnoremap ghl :Gllog! <bar> wincmd b <bar> wincmd L<cr>
 tnoremap <c-n> <c-\><c-n>
 tnoremap <c-w>; <c-w>:
 
+"""        Command Line
+
+" cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+cnoremap <c-r><c-5> <C-R>=fnameescape(expand('%:h')).'/'<cr>
+nnoremap <leader>vp :find <cr>vim/plugin/
+
+
 ""    Move Mappings
 """        Movement
 
@@ -1483,12 +1507,12 @@ nnoremap <leader>[ :bp<cr>
 
 " switch last 2 buffers
 nnoremap <leader><space> <c-^>
-onoremap <leader><space> <c-^>
+" onoremap <leader><space> <c-^>
 vnoremap <leader><space> <c-^>
 
 " last buffer in vertical split
 nnoremap <c-w><space><space> :vertical split #<cr>
-onoremap <c-w><space><space> :vertical split #<cr>
+" onoremap <c-w><space><space> :vertical split #<cr>
 vnoremap <c-w><space><space> :vertical split #<cr>
 
 " visual shifting (does not exit Visual mode)
@@ -1790,15 +1814,15 @@ nmap <leader>cf  <Plug>(coc-fix-current)
 nmap <leader>rn <Plug>(coc-rename)
 
 " show doc with Coc
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation() abort
-  if index(['vim','help'], &filetype) >= 0
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" function! s:show_documentation() abort
+"   if index(['vim','help'], &filetype) >= 0
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
 " Highlight symbol under cursor on CursorHold (K)
 augroup CocHiglightSymbol
@@ -1831,60 +1855,60 @@ let g:markdown_fenced_languages = ['css', 'js=javascript']
 
 ""    Operators
 """        Start / End of line
-onoremap h :<c-u>normal! ^<cr>
-onoremap l :<c-u>normal! v$h<cr>
-onoremap il :<c-u>normal! $v_<cr>
+" onoremap h :<c-u>normal! ^<cr>
+" onoremap l :<c-u>normal! v$h<cr>
+" onoremap il :<c-u>normal! $v_<cr>
 
-"""        Surroundings
-onoremap i. :<c-u>normal! T.vt.<cr>
-onoremap a. :<c-u>normal! F.vf.<cr>
+" """        Surroundings
+" onoremap i. :<c-u>normal! T.vt.<cr>
+" onoremap a. :<c-u>normal! F.vf.<cr>
 
-onoremap i, :<c-u>normal! T,vt,<cr>
-onoremap a, :<c-u>normal! F,vf,<cr>
+" onoremap i, :<c-u>normal! T,vt,<cr>
+" onoremap a, :<c-u>normal! F,vf,<cr>
 
-onoremap i: :<c-u>normal! T:vt:<cr>
-onoremap a: :<c-u>normal! F:vf:<cr>
+" onoremap i: :<c-u>normal! T:vt:<cr>
+" onoremap a: :<c-u>normal! F:vf:<cr>
 
-onoremap i; :<c-u>normal! T;vt;<cr>
-onoremap a; :<c-u>normal! F;vf;<cr>
+" onoremap i; :<c-u>normal! T;vt;<cr>
+" onoremap a; :<c-u>normal! F;vf;<cr>
 
-onoremap i? :<c-u>normal! T?vt?<cr>
-onoremap a? :<c-u>normal! F?vf?<cr>
+" onoremap i? :<c-u>normal! T?vt?<cr>
+" onoremap a? :<c-u>normal! F?vf?<cr>
 
-onoremap i! :<c-u>normal! T!vt!<cr>
-onoremap a! :<c-u>normal! F!vf!<cr>
+" onoremap i! :<c-u>normal! T!vt!<cr>
+" onoremap a! :<c-u>normal! F!vf!<cr>
 
-onoremap i- :<c-u>normal! T-vt-<cr>
-onoremap a- :<c-u>normal! F-vf-<cr>
+" onoremap i- :<c-u>normal! T-vt-<cr>
+" onoremap a- :<c-u>normal! F-vf-<cr>
 
-onoremap i_ :<c-u>normal! T_vt_<cr>
-onoremap a_ :<c-u>normal! F_vf_<cr>
+" onoremap i_ :<c-u>normal! T_vt_<cr>
+" onoremap a_ :<c-u>normal! F_vf_<cr>
 
-onoremap i/ :<c-u>normal! T/vt/<cr>
-onoremap a/ :<c-u>normal! F/vf/<cr>
+" onoremap i/ :<c-u>normal! T/vt/<cr>
+" onoremap a/ :<c-u>normal! F/vf/<cr>
 
-onoremap i\ :<c-u>normal! T\vt\<cr>
-onoremap a\ :<c-u>normal! F\vf\<cr>
+" onoremap i\ :<c-u>normal! T\vt\<cr>
+" onoremap a\ :<c-u>normal! F\vf\<cr>
 
-onoremap i@ :<c-u>normal! T@vt@<cr>
-onoremap a@ :<c-u>normal! F@vf@<cr>
+" onoremap i@ :<c-u>normal! T@vt@<cr>
+" onoremap a@ :<c-u>normal! F@vf@<cr>
 
-onoremap i* :<c-u>normal! T*vt*<cr>
-onoremap a* :<c-u>normal! F*vf*<cr>
+" onoremap i* :<c-u>normal! T*vt*<cr>
+" onoremap a* :<c-u>normal! F*vf*<cr>
 
-onoremap i# :<c-u>normal! T*vt*<cr>
-onoremap a# :<c-u>normal! F*vf*<cr>
+" onoremap i# :<c-u>normal! T*vt*<cr>
+" onoremap a# :<c-u>normal! F*vf*<cr>
 
-onoremap i$ :<c-u>normal! T*vt*<cr>
-onoremap a$ :<c-u>normal! F*vf*<cr>
+" onoremap i$ :<c-u>normal! T*vt*<cr>
+" onoremap a$ :<c-u>normal! F*vf*<cr>
 
-onoremap i> :<c-u>normal! T<vt><cr>
-onoremap a> :<c-u>normal! F<vf><cr>
-onoremap i< :<c-u>normal! T<vt><cr>
-onoremap a< :<c-u>normal! F<vf><cr>
+" onoremap i> :<c-u>normal! T<vt><cr>
+" onoremap a> :<c-u>normal! F<vf><cr>
+" onoremap i< :<c-u>normal! T<vt><cr>
+" onoremap a< :<c-u>normal! F<vf><cr>
 
-" onoremap i| :<c-u>normal! T|vt|<cr>
-" onoremap a| :<c-u>normal! F|vf|<cr>
+" " onoremap i| :<c-u>normal! T|vt|<cr>
+" " onoremap a| :<c-u>normal! F|vf|<cr>
 
 """        Next Surroundings
 onoremap in( :<c-u>normal! f(lvt)<cr>
@@ -1920,83 +1944,82 @@ onoremap an< :<c-u>normal! f<vf><cr>
 onoremap an> :<c-u>normal! f<vf><cr>
 onoremap iN< :<c-u>normal! F>vT<oh<cr>
 onoremap iN> :<c-u>normal! F>vT<oh<cr>
-
 onoremap aN< :<c-u>normal! F>vF<<cr>
 onoremap aN> :<c-u>normal! F>vF<<cr>
 
-onoremap in" :<c-u>normal! f"vi"<cr>
-onoremap an" :<c-u>normal! f"va"<cr>
-onoremap iN" :<c-u>normal! F"vi"<cr>
-onoremap aN" :<c-u>normal! F"va"<cr>
+" onoremap in" :<c-u>normal! f"vi"<cr>
+" onoremap an" :<c-u>normal! f"va"<cr>
+" onoremap iN" :<c-u>normal! F"vi"<cr>
+" onoremap aN" :<c-u>normal! F"va"<cr>
 
-onoremap in' :<c-u>normal! f'vi'<cr>
-onoremap an' :<c-u>normal! f'va'<cr>
-onoremap iN' :<c-u>normal! F'vi'<cr>
-onoremap aN' :<c-u>normal! F'va'<cr>
+" onoremap in' :<c-u>normal! f'vi'<cr>
+" onoremap an' :<c-u>normal! f'va'<cr>
+" onoremap iN' :<c-u>normal! F'vi'<cr>
+" onoremap aN' :<c-u>normal! F'va'<cr>
 
-onoremap in. :<c-u>normal! f.lvt.<cr>
-onoremap an. :<c-u>normal! f.vf.<cr>
-onoremap iN. :<c-u>normal! F.hvT.<cr>
-onoremap aN. :<c-u>normal! F.vF.<cr>
+" onoremap in. :<c-u>normal! f.lvt.<cr>
+" onoremap an. :<c-u>normal! f.vf.<cr>
+" onoremap iN. :<c-u>normal! F.hvT.<cr>
+" onoremap aN. :<c-u>normal! F.vF.<cr>
 
-onoremap in- :<c-u>normal! f-lvt-<cr>
-onoremap an- :<c-u>normal! f-vf-<cr>
-onoremap iN- :<c-u>normal! F-hvT-<cr>
-onoremap aN- :<c-u>normal! F-vF-<cr>
+" onoremap in- :<c-u>normal! f-lvt-<cr>
+" onoremap an- :<c-u>normal! f-vf-<cr>
+" onoremap iN- :<c-u>normal! F-hvT-<cr>
+" onoremap aN- :<c-u>normal! F-vF-<cr>
 
-onoremap in, :<c-u>normal! f,lvt,<cr>
-onoremap an, :<c-u>normal! f,vf,<cr>
-onoremap iN, :<c-u>normal! F,hvT,<cr>
-onoremap aN, :<c-u>normal! F,vF,<cr>
+" onoremap in, :<c-u>normal! f,lvt,<cr>
+" onoremap an, :<c-u>normal! f,vf,<cr>
+" onoremap iN, :<c-u>normal! F,hvT,<cr>
+" onoremap aN, :<c-u>normal! F,vF,<cr>
 
-onoremap in* :<c-u>normal! f*lvt*<cr>
-onoremap an* :<c-u>normal! f*vf*<cr>
-onoremap iN* :<c-u>normal! F*hvT*<cr>
-onoremap aN* :<c-u>normal! F*vF*<cr>
+" onoremap in* :<c-u>normal! f*lvt*<cr>
+" onoremap an* :<c-u>normal! f*vf*<cr>
+" onoremap iN* :<c-u>normal! F*hvT*<cr>
+" onoremap aN* :<c-u>normal! F*vF*<cr>
 
-onoremap in# :<c-u>normal! f#lvt#<cr>
-onoremap an# :<c-u>normal! f#vf#<cr>
-onoremap iN# :<c-u>normal! F#hvT#<cr>
-onoremap aN# :<c-u>normal! F#vF#<cr>
+" onoremap in# :<c-u>normal! f#lvt#<cr>
+" onoremap an# :<c-u>normal! f#vf#<cr>
+" onoremap iN# :<c-u>normal! F#hvT#<cr>
+" onoremap aN# :<c-u>normal! F#vF#<cr>
 
-onoremap in$ :<c-u>normal! f$lvt$<cr>
-onoremap an$ :<c-u>normal! f$vf$<cr>
-onoremap iN$ :<c-u>normal! F$hvT$<cr>
-onoremap aN$ :<c-u>normal! F$vF$<cr>
+" onoremap in$ :<c-u>normal! f$lvt$<cr>
+" onoremap an$ :<c-u>normal! f$vf$<cr>
+" onoremap iN$ :<c-u>normal! F$hvT$<cr>
+" onoremap aN$ :<c-u>normal! F$vF$<cr>
 
 ""    Headers
 """        Basic headers
 
-augroup Headers
-  au!
-  au BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
-  au BufNewFile *.html 0r $HOME/.vim/skel/html_header
-augroup end
+" augroup Headers
+"   au!
+"   au BufNewFile *.sh 0r $HOME/.vim/skel/bash_header
+"   au BufNewFile *.html 0r $HOME/.vim/skel/html_header
+" augroup end
 
 """        Auto protect c header
 
-if !exists("autocommands_loaded")
-  let autocommands_loaded = 1
-  au BufNewFile *.h call InsertCHHeader()
-endif
+" if !exists("autocommands_loaded")
+"   let autocommands_loaded = 1
+"   au BufNewFile *.h call InsertCHHeader()
+" endif
 
-function! InsertCHHeader() abort
-  let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
-  " Save cpoptions
-  let cpoptions = &cpoptions
-  " Remove the 'a' option - prevents the name of the
-  " alternate file being overwritten with a :read command
-  exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-  exe "read " . path_to_skeletons
-  " Restore cpoptions
-  exe "set cpoptions=" . cpoptions
-  1, 1 delete _
+" function! InsertCHHeader() abort
+"   let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
+"   " Save cpoptions
+"   let cpoptions = &cpoptions
+"   " Remove the 'a' option - prevents the name of the
+"   " alternate file being overwritten with a :read command
+"   exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+"   exe "read " . path_to_skeletons
+"   " Restore cpoptions
+"   exe "set cpoptions=" . cpoptions
+"   1, 1 delete _
 
-  let fname = expand("%:t")
-  let fname = toupper(fname)
-  let fname = substitute(fname, "\\.", "_", "g")
-  %s/HEADERNAME/\=fname/g
-endfunction
+"   let fname = expand("%:t")
+"   let fname = toupper(fname)
+"   let fname = substitute(fname, "\\.", "_", "g")
+"   %s/HEADERNAME/\=fname/g
+" endfunction
 
 """        42Header
 
@@ -2029,141 +2052,141 @@ endfunction
 "     #+#     #+# #+# #+# #+#
 "      +      #+# #+#  +  #+#
 
-let s:asciiart = [
-      \"        :::      ::::::::",
-      \"      :+:      :+:    :+:",
-      \"    +:+ +:+         +:+  ",
-      \"  +#+  +:+       +#+     ",
-      \"+#+#+#+#+#+   +#+        ",
-      \"     #+#    #+#          ",
-      \"    ###   ########lyon.fr"
-      \]
+" let s:asciiart = [
+"       \"        :::      ::::::::",
+"       \"      :+:      :+:    :+:",
+"       \"    +:+ +:+         +:+  ",
+"       \"  +#+  +:+       +#+     ",
+"       \"+#+#+#+#+#+   +#+        ",
+"       \"     #+#    #+#          ",
+"       \"    ###   ########lyon.fr"
+"       \]
 
-let s:start    = '/*'
-let s:end    = '*/'
-let s:fill    = '*'
-let s:length  = 80
-let s:margin  = 5
+" let s:start    = '/*'
+" let s:end    = '*/'
+" let s:fill    = '*'
+" let s:length  = 80
+" let s:margin  = 5
 
-let s:types    = {
-      \'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
-      \['/*', '*/', '*'],
-      \'\.htm$\|\.html$\|\.xml$':
-      \['<!--', '-->', '*'],
-      \'\.js$':
-      \['//', '//', '*'],
-      \'\.tex$':
-      \['%', '%', '*'],
-      \'\.ml$\|\.mli$\|\.mll$\|\.mly$':
-      \['(*', '*)', '*'],
-      \'\.vim$\|\vimrc$':
-      \['"', '"', '*'],
-      \'\.el$\|\emacs$':
-      \[';', ';', '*'],
-      \'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
-      \['!', '!', '/']
-      \}
+" let s:types    = {
+"       \'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
+"       \['/*', '*/', '*'],
+"       \'\.htm$\|\.html$\|\.xml$':
+"       \['<!--', '-->', '*'],
+"       \'\.js$':
+"       \['//', '//', '*'],
+"       \'\.tex$':
+"       \['%', '%', '*'],
+"       \'\.ml$\|\.mli$\|\.mll$\|\.mly$':
+"       \['(*', '*)', '*'],
+"       \'\.vim$\|\vimrc$':
+"       \['"', '"', '*'],
+"       \'\.el$\|\emacs$':
+"       \[';', ';', '*'],
+"       \'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
+"       \['!', '!', '/']
+"       \}
 
-function! s:filetype() abort
-  let l:f = s:filename()
-  let s:start  = '#'
-  let s:end  = '#'
-  let s:fill  = '*'
-  for type in keys(s:types)
-    if l:f =~ type
-      let s:start  = s:types[type][0]
-      let s:end  = s:types[type][1]
-      let s:fill  = s:types[type][2]
-    endif
-  endfor
-endfunction
+" function! s:filetype() abort
+"   let l:f = s:filename()
+"   let s:start  = '#'
+"   let s:end  = '#'
+"   let s:fill  = '*'
+"   for type in keys(s:types)
+"     if l:f =~ type
+"       let s:start  = s:types[type][0]
+"       let s:end  = s:types[type][1]
+"       let s:fill  = s:types[type][2]
+"     endif
+"   endfor
+" endfunction
 
-function! s:ascii(n) abort
-  return s:asciiart[a:n - 3]
-endfunction
+" function! s:ascii(n) abort
+"   return s:asciiart[a:n - 3]
+" endfunction
 
-function! s:textline(left, right)
-  let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
-  return s:start .
-        \ repeat(' ', s:margin - strlen(s:start)) . l:left .
-        \ repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right .
-        \ repeat(' ', s:margin - strlen(s:end)) . s:end
-endfunction
+" function! s:textline(left, right)
+"   let l:left = strpart(a:left, 0, s:length - s:margin * 3 - strlen(a:right) + 1)
+"   return s:start .
+"         \ repeat(' ', s:margin - strlen(s:start)) . l:left .
+"         \ repeat(' ', s:length - s:margin * 2 - strlen(l:left) - strlen(a:right)) . a:right .
+"         \ repeat(' ', s:margin - strlen(s:end)) . s:end
+" endfunction
 
-function! s:line(n) abort
-  if a:n == 1 || a:n == 11 " top and bottom line
-    return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
-  elseif a:n == 2 || a:n == 10 " blank line
-    return s:textline('', '')
-  elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
-    return s:textline('', s:ascii(a:n))
-  elseif a:n == 4 " filename
-    return s:textline(s:filename(), s:ascii(a:n))
-  elseif a:n == 6 " author
-    return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
-  elseif a:n == 8 " created
-    return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
-  elseif a:n == 9 " updated
-    return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
-  endif
-endfunction
+" function! s:line(n) abort
+"   if a:n == 1 || a:n == 11 " top and bottom line
+"     return s:start . ' ' . repeat(s:fill, s:length - strlen(s:start) - strlen(s:end) - 2) . ' ' . s:end
+"   elseif a:n == 2 || a:n == 10 " blank line
+"     return s:textline('', '')
+"   elseif a:n == 2 || a:n == 3 || a:n == 5 || a:n == 7 || a:n == 10 || a:n == 11 " empty with ascii
+"     return s:textline('', s:ascii(a:n))
+"   elseif a:n == 4 " filename
+"     return s:textline(s:filename(), s:ascii(a:n))
+"   elseif a:n == 6 " author
+"     return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
+"   elseif a:n == 8 " created
+"     return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
+"   elseif a:n == 9 " updated
+"     return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
+"   endif
+" endfunction
 
-function! s:user() abort
-  let l:user = $USER
-  if strlen(l:user) == 0
-    let l:user = "trx"
-  endif
-  return l:user
-endfunction
+" function! s:user() abort
+"   let l:user = $USER
+"   if strlen(l:user) == 0
+"     let l:user = "trx"
+"   endif
+"   return l:user
+" endfunction
 
-function! s:mail() abort
-  let l:mail = $MAIL
-  if strlen(l:mail) == 0
-    let l:mail = "tristan.kapous@protonmail.com"
-  endif
-  return l:mail
-endfunction
+" function! s:mail() abort
+"   let l:mail = $MAIL
+"   if strlen(l:mail) == 0
+"     let l:mail = "tristan.kapous@protonmail.com"
+"   endif
+"   return l:mail
+" endfunction
 
-function! s:filename() abort
-  let l:filename = expand("%:t")
-  if strlen(l:filename) == 0
-    let l:filename = "< new >"
-  endif
-  return l:filename
-endfunction
+" function! s:filename() abort
+"   let l:filename = expand("%:t")
+"   if strlen(l:filename) == 0
+"     let l:filename = "< new >"
+"   endif
+"   return l:filename
+" endfunction
 
-function! s:date() abort
-  return strftime("%Y/%m/%d %H:%M:%S")
-endfunction
+" function! s:date() abort
+"   return strftime("%Y/%m/%d %H:%M:%S")
+" endfunction
 
-function! s:insert() abort
-  let l:line = 11
-  " empty line after header
-  call append(0, "")
-  " loop over lines
-  while l:line > 0
-    call append(0, s:line(l:line))
-    let l:line = l:line - 1
-  endwhile
-endfunction
+" function! s:insert() abort
+"   let l:line = 11
+"   " empty line after header
+"   call append(0, "")
+"   " loop over lines
+"   while l:line > 0
+"     call append(0, s:line(l:line))
+"     let l:line = l:line - 1
+"   endwhile
+" endfunction
 
-function! s:update() abort
-  call s:filetype()
-  if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
-    if &mod
-      call setline(9, s:line(9))
-    endif
-    call setline(4, s:line(4))
-    return 0
-  endif
-  return 1
-endfunction
+" function! s:update() abort
+"   call s:filetype()
+"   if getline(9) =~ s:start . repeat(' ', s:margin - strlen(s:start)) . "Updated: "
+"     if &mod
+"       call setline(9, s:line(9))
+"     endif
+"     call setline(4, s:line(4))
+"     return 0
+"   endif
+"   return 1
+" endfunction
 
-function! Header101() abort
-  if s:update()
-    call s:insert()
-  endif
-endfunction
+" function! Header101() abort
+"   if s:update()
+"     call s:insert()
+"   endif
+" endfunction
 
 " Bind command and shortcut
 command! Header101 call Header101()
@@ -2173,33 +2196,33 @@ nnoremap <silent> <leader>h1 :Header101<cr>
 
 """        Signature
 
-function! MailSignature() abort
-  let firstname = "Tristan"
-  let surname = "Kapous"
-  let email = "<tris@tristankapous.com>"
-  let prefix = "--"
-  let signature_undated = prefix . " " . firstname . " " . surname . " " . email
-  if getline('$') =~ '^.*'.signature_undated
-    :$d
-  endif
-  let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S')
-  call append('$', signature)
-endfunction
+" function! MailSignature() abort
+"   let firstname = "Tristan"
+"   let surname = "Kapous"
+"   let email = "<tris@tristankapous.com>"
+"   let prefix = "--"
+"   let signature_undated = prefix . " " . firstname . " " . surname . " " . email
+"   if getline('$') =~ '^.*'.signature_undated
+"     :$d
+"   endif
+"   let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S')
+"   call append('$', signature)
+" endfunction
 
-function! DebianLogSignature() abort
-  let firstname = "Tristan"
-  let surname = "Kapous"
-  let email = "<tris@tristankapous.com>"
-  let prefix = "--"
+" function! DebianLogSignature() abort
+"   let firstname = "Tristan"
+"   let surname = "Kapous"
+"   let email = "<tris@tristankapous.com>"
+"   let prefix = "--"
 
-  let signature_undated = prefix . " " . firstname . " " . surname . " " . email
-  let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
-  if getline('.') =~ '^.*'.signature_undated
-    call setline('.', signature)
-  else
-    call append('.', signature)
-  endif
-endfunction
+  " let signature_undated = prefix . " " . firstname . " " . surname . " " . email
+  " let signature = signature_undated . " " . strftime('%a, %d %b %Y %H:%M:%S %z')
+  " if getline('.') =~ '^.*'.signature_undated
+  "   call setline('.', signature)
+  " else
+  "   call append('.', signature)
+  " endif
+" endfunction
 
 " augroup SignOnSave
 "   au!
