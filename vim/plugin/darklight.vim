@@ -18,7 +18,7 @@ function! SelectColorScheme() abort
     unlet g:dls_theme_force_load_start
   else
     let hour = strftime("%H")
-    if g:dls_daytime[0] <= hour && hour <= g:dls_daytime[1]
+    if g:dls_daytime[0] <= hour && hour < g:dls_daytime[1]
       exe "colorscheme" g:dls_theme_list[1]
     else
       exe "colorscheme" g:dls_theme_list[2]

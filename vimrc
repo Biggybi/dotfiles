@@ -337,12 +337,6 @@ augroup end
 nnoremap <leader>ej :e .git/vim/project_files<cr>
 
 ""    Plugins settings
-"""        DarkLightSwitch
-
-let g:theme_list = ['base16-one-light', 'base16-one-lightdim', 'base16-onedark', 'base16-one-lightdim']
-let g:theme_force_load_start = 'base16-one-lightdim'
-let g:daytime = [7, 19]
-
 """        Termdebug
 
 " let g:termdebug_wide = 163
