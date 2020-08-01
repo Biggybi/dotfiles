@@ -618,8 +618,9 @@ tnoremap <c-w>; <c-w>:
 
 " cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 cnoremap <c-r><c-5> <C-R>=fnameescape(expand('%:h')).'/'<cr>
+cnoreabbrev <expr> qqq getcmdpos() == 4 ? "qall!" : "qqq"
+cnoreabbrev <expr> www getcmdpos() == 4 ? "wqall!" : "www"
 nnoremap <leader>vp :find <cr>vim/plugin/
-
 
 ""    Move Mappings
 """        Movement
@@ -796,7 +797,6 @@ cnoremap <c-g> <S-Left>
 cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
-cnoreabbrev <expr> qqq getcmdpos() == 4 ? "qall!" : "qqq"
 
 """        Tags
 
