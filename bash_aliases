@@ -343,6 +343,7 @@ alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
 alias gnomelogout="DISPLAY=:0 gnome-session-quit --force"
+alias glogout="DISPLAY=:0 gnome-session-quit --force"
 
 ## Add an "alert" alias for long running commands.  Use like so:
 ##   sleep 10; alert
