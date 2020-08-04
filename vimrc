@@ -185,7 +185,7 @@ set number                      " show number column
 " set wrap                        " no horizontal scroll
 set breakindent                 " with indent
 set showbreak=¬                 " ... showing a character
-set signcolumn="always"
+set signcolumn=yes
 set nowrap
 
 " augroup ForceWrap
