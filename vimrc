@@ -369,3 +369,8 @@ let g:iris_smtp_port  = 465
 
 " let g:iris_imap_passwd_filepath = "iris.imap.gpg"
 " let g:iris_smtp_passwd_filepath = "iris.smtp.gpg"
+
+" vim:expandtab
+" vim:tw=0:ts=2:sts=2:shiftwidth=2
+" vim:foldmethod=expr:foldtext=VimFold()
+" vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-1)\:'='
