@@ -31,24 +31,15 @@ then
 	alias ls='ls -h'
 fi
 
-if [[ -x "$(command -v exa)" ]]
-then
 # keyboard layout
 alias kus="setxkbmap -layout us"
 alias kfr="setxkbmap -layout fr"
-	alias ls='exa'
-	alias l='ls -F'
-	alias ll='ls -l'
-	alias la='ls -la'
-else
-	## ls
-	alias ls='ls -h --group-directories-first --color=auto'
-	alias ll='ls -trhalF'
-	alias la='ls -lA'
-	alias l='ls -CF'
-	alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 
-fi
+alias ls='ls -h --group-directories-first --color=auto'
+alias ll='ls -trhalF'
+alias la='ls -lA'
+alias l='ls -CF'
+alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 
 ## cp is rsync
 alias cp='rsync -vh --archive --progress --whole-file'

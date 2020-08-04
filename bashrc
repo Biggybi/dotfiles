@@ -51,6 +51,8 @@ export DATAPATH="/media/data/"
 # 	caps2esc
 # fi
 
+# setxkbmap -layout us -option ctrl:nocaps
+
 # PS0='\[\ePtmux;\e\e[2 q\e\\\]'
 
 # Vim as pager
