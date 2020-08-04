@@ -27,8 +27,9 @@ fi
 set -o vi
 
 # Environement variables
+export GOPATH=$HOME/bin/go
 export PATH=$PATH:~/bin:/usr/lib:~/.npm-global/bin:/home/linuxbrew/.linuxbrew/bin
-PATH+=:$GOPATH
+PATH+=:$GOPATH/bin
 export VISUAL=vim
 export EDITOR="$VISUAL"
 # export EDITOR="nvim"
