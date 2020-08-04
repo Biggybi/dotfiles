@@ -3,7 +3,9 @@ setlocal foldmethod=syntax
 setlocal suffixesadd=.c,.h
 setlocal colorcolumn=81
 setlocal filetype=c
-setlocal path+=inc,incs,includes,include,src,sources,source
+setlocal path=inc,incs,includes,include,src,sources,source
+" ^\s*#\s*include
+" setlocal include=^\s*#\s*inc*
 
 function! s:insertCHHeader() abort
   let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"

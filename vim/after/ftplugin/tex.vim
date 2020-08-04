@@ -1,4 +1,5 @@
 setlocal updatetime=1000
+setlocal suffixesadd=.tex,.latex
 
 " Navigating with guides
 inoremap <buffer> <silent> ,, <esc>/<++><cr>"_4s

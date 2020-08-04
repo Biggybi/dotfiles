@@ -17,6 +17,15 @@ setlocal runtimepath+=~/.vim/skel
 setlocal runtimepath+=~/.vim/spell
 " setlocal path+=~/.vim/
 
+" Folding
+setlocal expandtab
+setlocal tw=0
+setlocal ts=2
+setlocal sts=2
+setlocal shiftwidth=2
+setlocal foldmethod=expr
+setlocal foldtext=VimFold()
+
 nnoremap <leader>s. mz:source %<cr>:nohlsearch<cr>
 nnoremap <buffer> <silent> zM :setlocal foldlevel=0<cr>zm100<c-y>
 inoremap <buffer> ,""<space> ""<space><space><space><space>

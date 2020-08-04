@@ -29,5 +29,5 @@ endfunction
 
 " auto adjust height if not a vertical split (hopefuly)
 if winheight('quickfix') + 3 < &lines
-  call s:adjustWindowHeight(1, 5)
+  call s:adjustWindowHeight(3, 5)
 endif

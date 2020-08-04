@@ -76,28 +76,3 @@ function! s:TermToggle(side, size) abort
   " open new terminal
   call s:putTermPanel(0, a:side, a:size)
 endfunction
-
-" let g:TermToggleHeight = get(g:, 'TermToggleHeight', '6')
-" let g:TermToggleWidth  = get(g:, 'TermToggleWidth', '50')
-" let g:TermToggleBottom = get(g:, 'TermToggleBottom', '1')
-" let g:TermToggleRight  = get(g:, 'TermToggleRight', '1')
-" let g:TermToggleBottom  = g:TermToggleBottom == '1' ? 'J': 'K'
-" let g:TermToggleRight   = g:TermToggleRight == '1' ? 'L': 'H'
-
-" function! <sid>TermPop() abort
-"   let buf = term_start("tmux_new_or_attach vim_term", #{hidden: 1, term_finish: 'close'})
-"   call popup_dialog(buf, #{minwidth: 100, minheight: 20, border:[]})
-"   return
-" endfunction
-
-" function! <sid>TermToggleV() abort
-"   call s:TermToggle(g:TermToggleRight, g:TermToggleHeight)
-" endfunction
-
-" function! <sid>TermToggleH() abort
-"   call s:TermToggle(g:TermToggleBottom, g:TermToggleWidth)
-" endfunction
-
-" nnoremap <silent> <Plug>(TermPop)     :<c-u>call <sid>TermPop()<cr>
-" nnoremap <silent> <Plug>(TermToggleV) :<c-u>call <sid>TermToggleV()<cr>
-" nnoremap <silent> <Plug>(TermToggle)  :<c-u>call <sid>TermToggleH()<cr>
