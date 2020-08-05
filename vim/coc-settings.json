@@ -19,7 +19,7 @@
 		},
 		"efm": {
 			"command": "efm-langserver",
-			"args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"],
+			"args": ["-c", "$HOME/dotfiles/langserver/efm-langserver/config.yaml"],
 			"filetypes": ["vim", "eruby", "markdown"]
 		},
 		"haskell": {
