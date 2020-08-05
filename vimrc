@@ -213,18 +213,15 @@ set tabpagemax=30
 ""    File automation
 """        Save and load
 
-function! FileBottomWindow() abort
+function! FitBufferWindowBottom() abort
   if line('w$') == line('$')
-    let save_scroll = &scrolloff
-    let &scrolloff = 0
-    normal! zb
-    let scrolloff = save_scroll
+    normal! mzGzb`z
   endif
 endfunction
 
-augroup FileBottomWindow
+augroup FitBufferWindowBottom
   au!
-  au BufEnter * call FileBottomWindow()
+  au BufEnter * call FitBufferWindowBottom()
 augroup END
 
 " Save when focus lost, load when focus gained
