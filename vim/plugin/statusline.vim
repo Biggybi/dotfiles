@@ -51,23 +51,23 @@ augroup end
 
 function! StatusLineActive() abort
   setlocal statusline =
-  setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  "mode
-  setlocal statusline +=%2*\ %{FugitiveHead()}             "git branch
-  setlocal statusline +=%r%h%w                           "read only, special buffers
-  setlocal statusline +=%{GitModify()}\ %*                 "git modified
-  setlocal statusline +=\ %f%m\ %*                         "filename[modified]
-  setlocal statusline +=%{anzu#search_status()}            "search results
-  setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          "filetype
-  setlocal statusline +=%1*\ \[%{SLCurrentLine()}\:        "current line
-  setlocal statusline +=%-2v\]                             "virtual column
-  setlocal statusline +=\/\[%L:                            "total lines
-  setlocal statusline +=%2p%%\]\ %*                        "total (%)
-  setlocal statusline +=%<                                 "cut at end
+  setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  " mode
+  setlocal statusline +=%2*\ %{FugitiveHead()}             " git branch
+  setlocal statusline +=%r%h%w                             " read only, special buffers
+  setlocal statusline +=%{GitModify()}\ %*                 " git modified
+  setlocal statusline +=\ %f%m\ %*                         " filename[modified]
+  setlocal statusline +=%{anzu#search_status()}            " search results
+  setlocal statusline +=%=%2*%=\ %{&filetype}\ %*          " filetype
+  setlocal statusline +=%1*\ [\ %l:                           " current line
+  setlocal statusline +=%-2v\]                             " virtual column
+  setlocal statusline +=\/\[%L:                            " total lines
+  setlocal statusline +=%2p%%\]\ %*                        " total (%)
+  setlocal statusline +=%<                                 " cut at end
 endfunction
 
 function! StatusLineInactive() abort
   setlocal statusline =
   setlocal statusline +=%f                                "filename
-  setlocal statusline +=%{&modified?'[+]':''}             "file modified
+  setlocal statusline +=%m                                "file modified
   setlocal statusline +=%=%{&filetype}\                   "filetype
 endfunction
