@@ -249,6 +249,10 @@ cnoremap <c-r><c-5> <C-R>=fnameescape(expand('%:h')).'/'<cr>
 nnoremap <leader>vp :find <cr>vim/plugin/
 
 
+"""        Headers
+
+nmap <leader>h1 <Plug>(Header42)
+
 ""    Move Mappings
 """        Movement
 

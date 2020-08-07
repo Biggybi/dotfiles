@@ -5,6 +5,11 @@ let g:plugin_header42 = 1
 
 """        42Header
 
+let g:header42_mail = get(g:, 'header42_mail', $MAIL)
+let g:header42_user = get(g:, 'header42_user', $USER)
+if g:header42_mail is "" | let g:header42_mail = "not_zaz@42.fr" | endif
+if g:header42_user is "" | let g:header42_user = "not_zaz" | endif
+
 let s:asciiart = [
       \"        :::      ::::::::",
       \"      :+:      :+:    :+:",
@@ -22,22 +27,31 @@ let s:length  = 80
 let s:margin  = 5
 
 let s:types    = {
-      \'\.c$\|\.h$\|\.cc$\|\.hh$\|\.cpp$\|\.hpp$\|\.php':
-      \['/*', '*/', '*'],
-      \'\.htm$\|\.html$\|\.xml$':
-      \['<!--', '-->', '*'],
-      \'\.js$':
-      \['//', '//', '*'],
-      \'\.tex$':
-      \['%', '%', '*'],
-      \'\.ml$\|\.mli$\|\.mll$\|\.mly$':
-      \['(*', '*)', '*'],
-      \'\.vim$\|\vimrc$':
-      \['"', '"', '*'],
-      \'\.el$\|\emacs$':
-      \[';', ';', '*'],
-      \'\.f90$\|\.f95$\|\.f03$\|\.f$\|\.for$':
-      \['!', '!', '/']
+      \'\.c$':    ['/*', '*/', '*'],
+      \'\.h$':    ['/*', '*/', '*'],
+      \'\.cc$':   ['/*', '*/', '*'],
+      \'\.hh$':   ['/*', '*/', '*'],
+      \'\.cpp$':  ['/*', '*/', '*'],
+      \'\.hpp$':  ['/*', '*/', '*'],
+      \'\.php':   ['/*', '*/', '*'],
+      \'\.htm$':  ['<!--', '-->', '*'],
+      \'\.html$': ['<!--', '-->', '*'],
+      \'\.xml$' : ['<!--', '-->', '*'],
+      \'\.js$':   ['//', '//', '*'],
+      \'\.tex$':  ['%', '%', '*'],
+      \'\.ml$':   ['(*', '*)', '*'],
+      \'\.mli$':  ['(*', '*)', '*'],
+      \'\.mll$':  ['(*', '*)', '*'],
+      \'\.mly$':  ['(*', '*)', '*'],
+      \'\.vim$':  ['"', '"', '*'],
+      \'\vimrc$': ['"', '"', '*'],
+      \'\.el$':   [';', ';', '*'],
+      \'\emacs$': [';', ';', '*'],
+      \'\.f90$':  ['!', '!', '/'],
+      \'\.f95$':  ['!', '!', '/'],
+      \'\.f03$':  ['!', '!', '/'],
+      \'\.f$':    ['!', '!', '/'],
+      \'\.for$':  ['!', '!', '/']
       \}
 
 function! s:filetype() abort
@@ -76,28 +90,12 @@ function! s:line(n) abort
   elseif a:n == 4 " filename
     return s:textline(s:filename(), s:ascii(a:n))
   elseif a:n == 6 " author
-    return s:textline("By: " . s:user() . " <" . s:mail() . ">", s:ascii(a:n))
+    return s:textline("By: " . g:header42_user . " <" . g:header42_mail . ">", s:ascii(a:n))
   elseif a:n == 8 " created
-    return s:textline("Created: " . s:date() . " by " . s:user(), s:ascii(a:n))
+    return s:textline("Created: " . s:date() . " by " . g:header42_user, s:ascii(a:n))
   elseif a:n == 9 " updated
-    return s:textline("Updated: " . s:date() . " by " . s:user(), s:ascii(a:n))
+    return s:textline("Updated: " . s:date() . " by " . g:header42_user, s:ascii(a:n))
   endif
-endfunction
-
-function! s:user() abort
-  let l:user = $USER
-  if l:user == ""
-    let l:user = "trx"
-  endif
-  return l:user
-endfunction
-
-function! s:mail() abort
-  let l:mail = $MAIL
-  if l:mail == ""
-    let l:mail = "tristan.kapous@protonmail.com"
-  endif
-  return l:mail
 endfunction
 
 function! s:filename() abort
@@ -142,5 +140,5 @@ function! s:header42() abort
 endfunction
 
 command! Header42 call s:header42()
-nnoremap <silent> <leader>h1 :Header42<cr>
-" au BufWritePre * call s:update ()
+nnoremap <silent> <Plug>(Header42) :<c-u>call
+      \ <sid>header42()<cr>
