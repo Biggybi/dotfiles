@@ -662,10 +662,3 @@ onoremap iN< :<c-u>normal! F>vT<oh<cr>
 onoremap iN> :<c-u>normal! F>vT<oh<cr>
 onoremap aN< :<c-u>normal! F>vF<<cr>
 onoremap aN> :<c-u>normal! F>vF<<cr>
-
-" Bind command and shortcut
-command! Header101 call Header101()
-" nnoremap <leader>h1 :Header101<cr>
-nnoremap <silent> <leader>h1 :Header101<cr>
-" au BufWritePre * call s:update ()
-
