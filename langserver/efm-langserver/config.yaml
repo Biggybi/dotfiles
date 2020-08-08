@@ -3,8 +3,8 @@ languages:
     lint-command: 'eslint -f unix --stdin'
     lint-ignore-exit-code: true
     lint-stdin: true
-    eruby:
-      lint-command: 'erb -x -T - | ruby -c'
+  eruby:
+    lint-command: 'erb -x -T - | ruby -c'
     lint-stdin: true
     lint-offset: 1
     format-command: 'htmlbeautifier'
