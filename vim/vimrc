@@ -354,6 +354,31 @@ let g:iris_smtp_port  = 465
 " let g:iris_imap_passwd_filepath = "iris.imap.gpg"
 " let g:iris_smtp_passwd_filepath = "iris.smtp.gpg"
 
+"""        Coc
+
+"TODO: make it work, and move all config here
+
+" augroup CocConfig
+"   " this one is which you're most likely to use?
+"   au VimEnter * call CocConfig()
+" augroup end
+
+" function CocConfig() abort
+"   call coc#config('languageserver', {
+"         \ 'groovy': {
+"         \   "args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
+"         \ },
+"         \ 'efm': {
+"         \   "args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
+"         \ }
+"         \})
+" endfunction
+
+" let g:coc_user_config = {
+"       \ "languageserver.groovy.args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
+" 			\ "languageserver.efm.args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
+"       \ }
+
 ""    Vimrc modeline
 " vim:expandtab
 " vim:tw=0:ts=2:sts=2:shiftwidth=2
