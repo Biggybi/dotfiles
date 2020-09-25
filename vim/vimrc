@@ -186,7 +186,10 @@ set whichwrap+=<,>,h,l,[,]      " break cursor free
 set virtualedit=block           " visual selection broken free
 set nostartofline               " vertical moves in same column
 set sidescrolloff=5             " min horizontal cursor offset
-let &scrolloff=winheight(win_getid())/10 + 1  " min vertical cursor offset
+augroup SetScrolloff
+  au BufEnter *
+        \ let &scrolloff=winheight(win_getid())/10 + 1  " min vertical cursor offset
+augroup end
 " set iskeyword+=,              " considered part of <cword>
 
 " Folding
