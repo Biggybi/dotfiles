@@ -3,10 +3,10 @@ if exists('g:plugin_qf')
 endif
 let g:plugin_qf = 1
 
-augroup QfMakeConv
-  au!
-  au QuickfixCmdPost make call QfMakeConv()
-augroup END
+" augroup QfMakeConv
+"   au!
+"   au QuickfixCmdPost make call QfMakeConv()
+" augroup END
 
 " Change encoding of error file for quickfix
 function! QfMakeConv() abort

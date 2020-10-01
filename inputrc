@@ -31,10 +31,10 @@ set mark-symlinked-directories on
 # set completion-display-width 1     # one column for completion
 
 set keymap vi-insert
-"\M-h": backward-char
-"\M-l": forward-char
-"\M-j": next-history
-"\M-k": previous-history
+# "\M-h": backward-char
+# "\M-l": forward-char
+# "\M-j": next-history
+# "\M-k": previous-history
 "\C-w": shell-backward-kill-word
 "\C-b": backward-char
 "\C-f": forward-char
@@ -45,7 +45,7 @@ set keymap vi-insert
 "\C-j": next-history
 "\C-k": previous-history
 "\C-s": operate-and-get-next
-"\C-g": " | grep "
+# "\C-g": " | grep "
 "\C-p": 'cd !$ \015'
 "\C-x\C-e": edit-and-execute-command
 "\C-x\C-r": re-read-init-file

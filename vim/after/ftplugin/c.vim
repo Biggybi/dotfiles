@@ -23,11 +23,12 @@ function! s:insertCHHeader() abort
   let fname = toupper(fname)
   let fname = substitute(fname, "\\.", "_", "g")
   %s/HEADERNAME/\=fname/g
+  call search('^$')
 endfunction
 
 if line('$') == 1 && empty(getline(1)) && bufname("%") =~? ".h"
   call <sid>insertCHHeader()
-  call search('^$', 'bw')
+  call search('^$')
 endif
 
 inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O

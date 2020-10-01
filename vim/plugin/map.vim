@@ -70,13 +70,13 @@ vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 
 " Toggle terminal - bottom
-nmap yoT <Plug>(TermPop)
+nmap yot <Plug>(TermToggle)
 
 " Toggle terminal - right
 nmap yo<c-t> <Plug>(TermToggleV)
 
-" Toggle terminal - right
-nmap yot <Plug>(TermToggle)
+" Toggle terminal - pop
+nmap yoT <Plug>(TermPop)
 
 " Toggle keep cursor in middle of screen
 nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
@@ -118,14 +118,14 @@ vnoremap <leader>y "+y
 nnoremap gr :s/<c-r>///g<left><left>
 vnoremap gr :s/<c-r>///g<left><left>
 nnoremap gR :%s/<c-r>///g<left><left>
-nnoremap c/ :s///g<left><left>
-vnoremap c/ :s///g<left><left>
-nnoremap C/ :%s///g<left><left>
+" nnoremap c/ :s///g<left><left>
+" vnoremap c/ :s///g<left><left>
+" nnoremap C/ :%s///g<left><left>
 
 " Replace word under cursor
-nnoremap c. :s/<c-r><c-w>//g<left><left>
-vnoremap c. :s/<c-r><c-w>//g<left><left>
-nnoremap C. :%s/<c-r><c-w>//g<left><left>
+" nnoremap c. :s/<c-r><c-w>//g<left><left>
+" vnoremap c. :s/<c-r><c-w>//g<left><left>
+" nnoremap C. :%s/<c-r><c-w>//g<left><left>
 
 nnoremap C <nop>
 
@@ -210,8 +210,8 @@ nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
 nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 " edit dotfiles
-nnoremap <leader>ev :e $HOME/dotfiles/vimrc<cr>
-nnoremap <leader>e<c-v> :vertical split $HOME/dotfiles/vimrc<cr>
+nnoremap <leader>ev :e $HOME/dotfiles/vim/vimrc<cr>
+nnoremap <leader>e<c-v> :vertical split $HOME/dotfiles/vim/vimrc<cr>
 nnoremap <leader>et :e $HOME/dotfiles/tmux.conf<cr>
 nnoremap <leader>e<c-t> :vertical split $HOME/dotfiles/tmux.conf<cr>
 nnoremap <leader>eb :e $HOME/dotfiles/bashrc<cr>
@@ -507,6 +507,12 @@ nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
+nnoremap <leader>cvr :Shell make re<cr><cr>
+nnoremap <leader>cve :Shell make ex<cr><cr>
+nnoremap <leader>cvt :Shell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cvT :Shell make ex TESTFF=
+nnoremap <leader>cv<c-t> :make ex TEST=test/%<cr><cr>
+
 function! LocListPanel(pfx) abort
   " if a:pfx == 'l' && len(getloclist(0)) == 0
   "   echohl ErrorMsg
@@ -515,7 +521,9 @@ function! LocListPanel(pfx) abort
   " endif
   let winnr = winnr()
   exec(a:pfx.'open')
-  wincmd L
+  if &filetype == 'qf'
+    wincmd L
+  endif
   if winnr() != winnr
     wincmd p
   endif
@@ -523,8 +531,8 @@ endfunction
 
 " Make in spit
 nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l')<cr>
-
 nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l')<cr>
+
 nnoremap <leader>cse :Shell make ex<cr><cr>
 nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>c<c-s><c-t> :VShell make ex TESTFF=test/test*<cr><cr>
@@ -543,6 +551,11 @@ endfunction
 nnoremap <leader>wcf :call FunctionLineCount()<cr>
 
 """        Coc
+
+" let g:coc_user_config = {
+"       \ "languageserver.groovy.args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
+" 			\ "languageserver.efm.args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
+"       \ }
 
 " fix error when using tabs in middle of line
 if v:version < 802
@@ -590,15 +603,15 @@ nmap <leader>cf  <Plug>(coc-fix-current)
 nmap <leader>rn <Plug>(coc-rename)
 
 " show doc with Coc
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" function! s:show_documentation() abort
-"   if index(['vim','help'], &filetype) >= 0
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
+function! s:show_documentation() abort
+  if index(['vim','help'], &filetype) >= 0
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " Highlight symbol under cursor on CursorHold (K)
 augroup CocHiglightSymbol

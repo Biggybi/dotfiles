@@ -14,12 +14,11 @@
 		},
 		"groovy": {
 			"command": "java",
-			"args" : ["-jar", "langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
+			"args" : ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
 			"filetypes": ["groovy"]
 		},
 		"efm": {
 			"command": "efm-langserver",
-			"args": ["-c", "langserver/efm-langserver/config.yaml"],
 			"filetypes": ["vim", "eruby", "markdown"]
 		},
 		"haskell": {

@@ -187,8 +187,8 @@ set virtualedit=block           " visual selection broken free
 set nostartofline               " vertical moves in same column
 set sidescrolloff=5             " min horizontal cursor offset
 augroup SetScrolloff
-  au BufEnter *
-        \ let &scrolloff=winheight(win_getid())/10 + 1  " min vertical cursor offset
+  au BufEnter *                 " min vertical cursor offset
+        \ let &scrolloff=winheight(win_getid())/10 + 1
 augroup end
 " set iskeyword+=,              " considered part of <cword>
 
@@ -302,6 +302,7 @@ augroup end
 function! AutoProjectLoad(is_mapping) abort
   let filelist = ".git/vim/project_files"
   if ! filereadable(filelist)
+    echom("[E] Project load: '.git/vim/project_files' file not found")
     return
   endif
   if bufname("%") != "" && a:is_mapping == 0
@@ -311,7 +312,9 @@ function! AutoProjectLoad(is_mapping) abort
   " silent! tabonly
   " " open first WORD of each line
   " g/\v^.*[^\s]/ if filereadable(expand('<cWORD>')) | argadd <cWORD> | $tabnew <cWORD> | tabfirst | endif
-  g/\v^[^#].*[^\s]/ if filereadable(expand(expand('<cWORD>'))) | argadd <cWORD> | endif
+  g/\v^[^#].*[^\s]/ if filereadable(expand(expand('<cWORD>'))) | argadd <cWORD>
+        \ | endif
+
   exe "bw" filelist
   wincmd p
 endfunction
@@ -324,6 +327,10 @@ augroup end
 nnoremap <leader>ej :e .git/vim/project_files<cr>
 
 ""    Plugins settings
+"""        Pathogen Helptags
+
+command! -bar Helptags :call pathogen#helptags()
+
 """        Termdebug
 
 " let g:termdebug_wide = 163
