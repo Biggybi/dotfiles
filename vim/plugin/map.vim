@@ -118,14 +118,6 @@ vnoremap <leader>y "+y
 nnoremap gr :s/<c-r>///g<left><left>
 vnoremap gr :s/<c-r>///g<left><left>
 nnoremap gR :%s/<c-r>///g<left><left>
-nnoremap c/ :s///g<left><left>
-vnoremap c/ :s///g<left><left>
-nnoremap C/ :%s///g<left><left>
-
-" Replace word under cursor
-nnoremap c. :s/<c-r><c-w>//g<left><left>
-vnoremap c. :s/<c-r><c-w>//g<left><left>
-nnoremap C. :%s/<c-r><c-w>//g<left><left>
 
 nnoremap C <nop>
 
