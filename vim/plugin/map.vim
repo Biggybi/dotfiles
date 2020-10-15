@@ -588,15 +588,15 @@ nmap <leader>cf  <Plug>(coc-fix-current)
 nmap <leader>rn <Plug>(coc-rename)
 
 " show doc with Coc
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" function! s:show_documentation() abort
-"   if index(['vim','help'], &filetype) >= 0
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
+function! s:show_documentation() abort
+  if index(['vim','help'], &filetype) >= 0
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " Highlight symbol under cursor on CursorHold (K)
 augroup CocHiglightSymbol
