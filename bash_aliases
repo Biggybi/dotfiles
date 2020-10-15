@@ -398,8 +398,9 @@ ef() {
 }
 # alias f='ef $HOME'
 
-# fd - cd to selected directory
 alias hd='fd ~'
+
+# fd - cd to selected directory
 fd() {
 	local dir
 	dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | sed 's|^./||'  | fzf +m) &&
