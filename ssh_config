@@ -1,0 +1,27 @@
+#Host gitlab.com
+#  Hostname altssh.gitlab.com
+#  User git
+#  Port 443
+#  PreferredAuthentications publickey
+#  IdentityFile ~/.ssh/gitlab
+
+Host trishome
+  Hostname 192.168.1.8
+  User biggybi
+  # Port 443
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/trishome
+
+Host trishome
+  Hostname 192.168.1.24
+  User tris
+  Port 42
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/avtiyovn
+
+Host trishome
+  Hostname 192.168.1.24
+  User tris
+  Port 42
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/gitlab
