@@ -449,3 +449,5 @@ fzf_semi_interactive_cd() {
 		builtin cd "$dir" &> /dev/null
 	done
 }
+
+alias kk='kaamelottrand'
