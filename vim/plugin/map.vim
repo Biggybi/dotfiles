@@ -70,13 +70,13 @@ vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
 
 " Toggle terminal - bottom
-nmap yoT <Plug>(TermPop)
+nmap yot <Plug>(TermToggle)
 
 " Toggle terminal - right
 nmap yo<c-t> <Plug>(TermToggleV)
 
-" Toggle terminal - right
-nmap yot <Plug>(TermToggle)
+" Toggle terminal - pop
+nmap yoT <Plug>(TermPop)
 
 " Toggle keep cursor in middle of screen
 nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
