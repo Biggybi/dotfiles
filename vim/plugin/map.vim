@@ -118,6 +118,14 @@ vnoremap <leader>y "+y
 nnoremap gr :s/<c-r>///g<left><left>
 vnoremap gr :s/<c-r>///g<left><left>
 nnoremap gR :%s/<c-r>///g<left><left>
+" nnoremap c/ :s///g<left><left>
+" vnoremap c/ :s///g<left><left>
+" nnoremap C/ :%s///g<left><left>
+
+" Replace word under cursor
+" nnoremap c. :s/<c-r><c-w>//g<left><left>
+" vnoremap c. :s/<c-r><c-w>//g<left><left>
+" nnoremap C. :%s/<c-r><c-w>//g<left><left>
 
 nnoremap C <nop>
 
@@ -513,7 +521,9 @@ function! LocListPanel(pfx) abort
   " endif
   let winnr = winnr()
   exec(a:pfx.'open')
-  wincmd L
+  if &filetype == 'qf'
+    wincmd L
+  endif
   if winnr() != winnr
     wincmd p
   endif
@@ -541,6 +551,11 @@ endfunction
 nnoremap <leader>wcf :call FunctionLineCount()<cr>
 
 """        Coc
+
+" let g:coc_user_config = {
+"       \ "languageserver.groovy.args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
+" 			\ "languageserver.efm.args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
+"       \ }
 
 " fix error when using tabs in middle of line
 if v:version < 802
