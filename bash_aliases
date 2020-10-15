@@ -103,6 +103,7 @@ alias mutt="neomutt"
 alias m="neomutt"
 
 ### ssh
+alias sshavti='ssh tris@192.168.1.24'
 alias sshhome='ssh biggybi@192.168.1.8'
 alias sshpi='ssh pi@192.168.1.102 -p 42'
 alias sshlab='ssh tris@192.168.1.101 -p 42'
@@ -449,3 +450,5 @@ fzf_semi_interactive_cd() {
 		builtin cd "$dir" &> /dev/null
 	done
 }
+
+alias kk='kaamelottrand'
