@@ -521,8 +521,8 @@ endfunction
 
 " Make in spit
 nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l')<cr>
-
 nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l')<cr>
+
 nnoremap <leader>cse :Shell make ex<cr><cr>
 nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>c<c-s><c-t> :VShell make ex TESTFF=test/test*<cr><cr>
