@@ -4,6 +4,7 @@ setlocal suffixesadd=.c,.h
 setlocal colorcolumn=81
 setlocal filetype=c
 setlocal path=inc,incs,includes,include,src,sources,source
+echom "coucou"
 " ^\s*#\s*include
 " setlocal include=^\s*#\s*inc*
 
