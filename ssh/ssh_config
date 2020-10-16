@@ -12,16 +12,16 @@ Host trishome
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/trishome
 
-Host trishome
+Host avtiyovn
   Hostname 192.168.1.24
   User tris
-  Port 42
+  Port 24
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/avtiyovn
 
-Host trishome
-  Hostname 192.168.1.24
-  User tris
-  Port 42
-  PreferredAuthentications publickey
-  IdentityFile ~/.ssh/gitlab
+# Host gitlab
+#   Hostname 192.168.1.42
+#   User tris
+#   Port 42
+#   PreferredAuthentications publickey
+#   IdentityFile ~/.ssh/gitlab
