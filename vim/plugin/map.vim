@@ -5,7 +5,7 @@
 map <space> <leader>
 
 " closing easy
-nnoremap <leader>q :quit<cr>
+nnoremap <leader>q :quit<cr><c-w>p
 
 nnoremap <leader><c-@> :echo "kewl"<cr>
 
