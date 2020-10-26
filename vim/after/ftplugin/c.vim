@@ -9,7 +9,7 @@ echom "coucou"
 " setlocal include=^\s*#\s*inc*
 
 function! s:insertCHHeader() abort
-  let path_to_skeletons = "$HOME/dotfiles/vim/skel/ch_header"
+  let path_to_skeletons = "$HOME/dotfiles/vim/skel/skel_header.c"
   " Save cpoptions
   let cpoptions = &cpoptions
   " Remove the 'a' option - prevents the name of the
