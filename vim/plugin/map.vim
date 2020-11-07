@@ -253,10 +253,10 @@ nmap <leader>h1 <Plug>(Header42)
 inoremap <c-l> <c-o>x
 
 " up down on visual lines
-nnoremap <silent> j gj
-nnoremap <silent> k gk
-xnoremap <silent> j gj
-xnoremap <silent> k gk
+nnoremap <expr> j v:count? 'j' : 'gj'
+nnoremap <expr> k v:count? 'k' : 'gk'
+xnoremap <expr> j v:count? 'j' : 'gj'
+xnoremap <expr> k v:count? 'k' : 'gk'
 
 nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
 vnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
