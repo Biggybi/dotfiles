@@ -212,6 +212,7 @@ set diffopt+=vertical " vertical split for diff
 
 " False cursorline to have CursorLineNr working
 set cursorline
+set cursorlineopt=number
 
 " Tabline
 set tabpagemax=30
