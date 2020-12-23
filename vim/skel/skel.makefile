@@ -1,69 +1,72 @@
 NAME = PROGRAMNAME
 
-SRCF = src/
-SRC = SRCF/*.c
-SRCCF = $(addprefix $(SRCF), $(SRC))
-
-HDRF = inc/
-HDRRF = $(HDRF)$(NAME).h
-
-CC = clang
-FLAG = -Wall -Wextra -g
-DEL = rm -f
-FDEL = rm -rf
-
-OBJ = $(SRC:.c=.o)
-OBJF = obj/
-OBJOF = $(addprefix $(OBJF), $(OBJ))
-OBJX = mkdir -p $(OBJF) ; mv $(OBJ) $(OBJF) 2> /dev/null
+SDIR = src
+ODIR = obj
 
 TEST = test
 TESTF = test/
 TESTFF = $(addprefix $(TESTF), $(TEST))
 
+# OS filesystem functions
+ifeq ($(OS),Windows_NT)
+	RM = del /F /Q
+	RMDIR = -RMDIR /S /Q
+	MKDIR = -mkdir
+	ERRIGNORE = 2>NUL || true
+	SEP=\\
+else
+	RM = rm -rf
+	RMDIR = rm -rf
+	MKDIR = mkdir -p
+	ERRIGNORE = 2>/dev/null
+	SEP=/
+endif
+
+VERBOSE = 0
+ifeq ($(VERBOSE),0)
+    HIDE = @
+else
+    HIDE = ""
+endif
+
+SRC = $(shell find $(SDIR) -name "*.c")
+OBJ = $(patsubst $(SDIR)%, $(ODIR)%, $(SRC:.c=.o))
+SSUBDIR = $(shell find $(SDIR) -type d -not -empty)
+
+CC = clang
+CFLAGS = -Wall -Wextra -g
+
 all: $(NAME)
 
-$(NAME):
-	@$(DEL)
-	@$(CC) -c $(FLAG) $(SRCCF) -I $(HDRF)
-	@$(OBJX)
-	@$(CC) $(FLAG) $(OBJOF) -o $(NAME)
-	@echo
-	@echo "make -> $(NAME) created"
-	@echo
+$(NAME): $(ODIR) $(OBJ)
+	$(HIDE)$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(HIDE)echo "make   ->  $(NAME) created"
+
+$(ODIR)$(SEP)%.o: $(SSUBDIR)$(SEP)%.c
+	$(HIDE)$(CC) -c $(CFLAGS) -I inc$(SEP) $^ -o $@
+
+$(ODIR):
+	$(HIDE)$(MKDIR) $(ODIR)
 
 clean: start
-	@$(FDEL) $(OBJF) $(OBJ)
-	@$(DEL)
-	@echo
-	@echo "clean -> *.o deleted"
-	@echo
+	$(HIDE)$(RMDIR) *.o obj
+	$(HIDE)echo "clean  ->  *.o deleted"
 
-fclean: clean exclean
-	@$(DEL) $(NAME) test.out
-	@$(DEL)
-	@echo
-	@echo "fclean -> $(NAME) deleted"
-	@echo
+fclean: clean
+	$(HIDE)$(RMDIR) $(NAME)
+	$(HIDE)echo "fclean ->  $(NAME) deleted"
 
-re: fclean all
-	@echo
-	@echo "re -> $(NAME) reloaded"
-	@echo
+re : fclean all
+	$(HIDE)echo "re     ->  $(NAME) reloaded"
 
 ex: re $(NAME)
-	@echo "\n----------------"
-	@echo "--- Bin exec ---"
-	@echo "----------------\n"
-	@chmod u+x $(NAME)
-	@./$(NAME) $(TESTFF)
-
-edit:
-	@vi -O $(SRCCF) $(HDRRF)
+	$(HIDE)echo
+	$(HIDE)echo "--- Bin exec ---"
+	$(HIDE)echo
+	$(HIDE)chmod u+x $(NAME)
+	$(HIDE)./$(NAME) $(TESTFF)
 
 start:
-	@echo "################"
-	@echo "### MAKEFILE ###"
-	@echo "################"
-
-.PHONY: all clean fclean exclean re
+	@echo "####################"
+	@echo "##### MAKEFILE #####"
+	@echo "####################"
