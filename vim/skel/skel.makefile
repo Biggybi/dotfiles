@@ -7,6 +7,7 @@ TEST = test
 TESTF = test/
 TESTFF = $(addprefix $(TESTF), $(TEST))
 
+INC = inc/
 # OS filesystem functions
 ifeq ($(OS),Windows_NT)
 	RM = del /F /Q
@@ -43,7 +44,7 @@ $(NAME): $(ODIR) $(OBJ)
 	$(HIDE)echo "make   ->  $(NAME) created"
 
 $(ODIR)$(SEP)%.o: $(SSUBDIR)$(SEP)%.c
-	$(HIDE)$(CC) -c $(CFLAGS) -I inc$(SEP) $^ -o $@
+	$(HIDE)$(CC) -c $(CFLAGS) -I $(INC)$(SEP) $^ -o $@
 
 $(ODIR):
 	$(HIDE)$(MKDIR) $(ODIR)
