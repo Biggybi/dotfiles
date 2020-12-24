@@ -2,6 +2,7 @@ NAME = PROGRAMNAME
 
 SDIR = src
 ODIR = obj
+# LIB = -L./libft/ -lft
 
 TEST = test
 TESTF = test/
@@ -40,7 +41,7 @@ CFLAGS = -Wall -Wextra -g
 all: $(NAME)
 
 $(NAME): $(ODIR) $(OBJ)
-	$(HIDE)$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(HIDE)$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
 	$(HIDE)echo "make   ->  $(NAME) created"
 
 $(ODIR)$(SEP)%.o: $(SSUBDIR)$(SEP)%.c
