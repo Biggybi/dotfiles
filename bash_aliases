@@ -20,6 +20,8 @@ alias c='clear'
 
 #vi debug: no vimrc/gvimrc, nocompatible
 alias vimnude='vim -u NONE -U NONE -N'
+alias vims='vim -S .git/Session.vim'
+alias vs='vim -S .git/Session.vim'
 
 ## color
 alias dir='dir --color=auto'
