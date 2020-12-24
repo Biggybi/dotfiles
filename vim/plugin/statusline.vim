@@ -26,7 +26,7 @@ let g:currentmode={
 
 function! GitModify() abort
   let [a,m,r] = GitGutterGetHunkSummary()
-  return [a,m,r] == [0,0,0] ? '' : '[+]'
+  return [a,m,r] == [0,0,0] ? ' ' : '[+]'
 endfunction
 
 function! GitStatus() abort
@@ -42,9 +42,12 @@ endfunction
 
 augroup StatusLineSwitch
   au!
-  au InsertEnter * call ModeColor('StatusLineInsert')
-  au WinEnter,BufWinEnter * call StatusLineActive()
-  au WinLeave * call StatusLineInactive()
+  au InsertEnter *
+        \ call ModeColor('StatusLineInsert')
+  au WinEnter,BufWinEnter *
+        \ call StatusLineActive()
+  au WinLeave *
+        \ call StatusLineInactive()
   au VimEnter,ColorScheme,InsertLeave *
         \ call SetStatusLineColorsAll()
 augroup end
@@ -52,10 +55,10 @@ augroup end
 function! StatusLineActive() abort
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  " mode
-  setlocal statusline +=%2*\ %{FugitiveHead()}             " git branch
-  setlocal statusline +=%r%h%w                             " read only, special buffers
-  setlocal statusline +=%{GitModify()}\ %*                 " git modified
-  setlocal statusline +=\ %f%m\                            " filename[modified]
+  setlocal statusline +=%2*\ %{FugitiveHead()}%*           " git branch
+  setlocal statusline +=%5*%r%h%w                          " read only, special buffers
+  setlocal statusline +=%{GitModify()}%*\                  " git modified
+  setlocal statusline +=\ %f%6*%m%*\                       " filename[modified]
   setlocal statusline +=%{anzu#search_status()}            " search results
   setlocal statusline +=%=%=%2*\ %{&filetype}\ %*          " filetype
   setlocal statusline +=%1*\ %3p%%\ \︱                    " total (%)

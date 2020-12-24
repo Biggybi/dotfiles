@@ -64,7 +64,8 @@ function! SetStatusLineColorsAll() abort
   exe "hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
   exe "hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
   exe "hi User4" GetColor('StatusLineInsert', 'normal')
-  exe "hi User5" GetColor('normal', 'normal')
+  exe "hi User5" GetColor('StatusLineImportant', 'StatusLineActiveLeft')
+  exe "hi User6" GetColor('StatusLineImportant', 'StatusLineActiveMid')
 endfunction
 
 function! GetColor(group_fg, group_bg) abort
