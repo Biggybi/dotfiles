@@ -258,14 +258,10 @@ augroup end
 if ! has("nvim")
   augroup ReViews
     au!
-    au BufWinLeave *
-          \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-          \ |   mkview
-          \ | endif
+    au BufWinLeave,BufWrite *
+          \ silent! mkview
     au BufWinEnter *
-          \ if expand("%") != "" && &filetype != 'help' && &filetype != 'man'
-          \ |   silent! loadview
-          \ | endif
+          \ silent! loadview
   augroup end
 endif
 
