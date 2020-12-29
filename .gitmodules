@@ -118,3 +118,6 @@
 [submodule "vim/pack/bundle/start/coc-fzf"]
 	path = vim/pack/bundle/start/coc-fzf
 	url = git@github.com:antoinemadec/coc-fzf.git
+[submodule "vim/pack/bundle/start/coc.nvim"]
+	path = vim/pack/bundle/start/coc.nvim
+	url = git@github.com:neoclide/coc.nvim.git
