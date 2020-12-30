@@ -23,7 +23,6 @@ cd $SRC
 
 # git files to link
 DOTS=(vim
-	vimrc
 	bashrc
 	bash_aliases
 	inputrc
@@ -36,7 +35,6 @@ DOTS=(vim
 
 # links to create localy for Linux
 LINK=(.vim
-	.vimrc
 	.bashrc
 	.bash_aliases
 	.inputrc
