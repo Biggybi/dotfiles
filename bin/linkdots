@@ -1,13 +1,14 @@
 #!/bin/bash
 
-# links files from DTS to their provided LINK
-TEST=0
+# links files from SRC to their provided LINK
 
+DOTFILESPATH=$HOME
 GITURL=https://github.com/Biggybi/dotfiles
-SRC=$HOME/dotfiles
+SRC=$DOTFILESPATH/dotfiles
 DST=$HOME
-BACKUP=$HOME/dotfiles/dots_back
+BACKUP=$DOTFILESPATH/dotfiles/dots_back
 
+TEST=0
 if [ $TEST == 1 ]
 then
 	BACKUP="/tmp/TMP/dots_back/"
