@@ -18,25 +18,19 @@ function! ModeHilight(_) abort
   elseif mode() ==? 'c'
     return SetHilight('StatusLineCmd')
   elseif has("nvim")
-    return SetHilightNormal('StatusLineNormal')
+    return SetHilight('StatusLineNormal')
   elseif state() =~# '[mo]'
     return SetHilight('StatusLinePending')
   elseif state() =~# '[S]'
     return SetHilight('StatusLineFTSearch')
   else
-    return SetHilightNormal('StatusLineNormal')
+    return SetHilight('StatusLineNormal')
   endif
 endfunction
 
 function! SetHilight(color) abort
   exe "hi User1" GetColor(a:color, a:color)
   exe "hi" g:sl_hilight_group GetColor(a:color, a:color)
-  return
-endfunction
-
-function! SetHilightNormal(color) abort
-  exe "hi User1" GetColor(a:color, a:color)
-  exe "hi" g:sl_hilight_group . " guifg=" . s:save_color_group_fg . " guibg=" . s:save_color_group_bg
   return
 endfunction
 
