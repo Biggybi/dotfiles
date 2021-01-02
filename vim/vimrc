@@ -227,7 +227,7 @@ endfunction
 augroup FitBufferWindowBottom
   au!
   au BufEnter * call FitBufferWindowBottom()
-augroup END
+augroup end
 
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
