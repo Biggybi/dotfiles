@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Open a folder of a DIR in EDITOR with fzf
+
+DIR="$HOME/42"
+
+DIRS=$([ $DIR ] && find $HOME_42/ -maxdepth 1 -type d -name "[^.]*" |\
+	 sed s/^\.*\\/// | grep -v *.\\/ | grep -v "^$" | sort -r |\
+	 fzf --delimiter="./" --with-nth=-1..)
+[ $DIRS ] && $EDITOR $DIRS
