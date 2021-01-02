@@ -28,6 +28,6 @@ function! s:adjustWindowHeight(minheight, maxheight)
 endfunction
 
 " auto adjust height if not a vertical split (hopefuly)
-if winheight('quickfix') < 5
-  call s:adjustWindowHeight(3, 5)
+if winheight('quickfix') < &lines - 5
+  call s:adjustWindowHeight(1, 5)
 endif
