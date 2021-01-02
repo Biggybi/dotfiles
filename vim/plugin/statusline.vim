@@ -48,8 +48,6 @@ augroup StatusLineSwitch
         \ call StatusLineActive()
   au WinLeave *
         \ call StatusLineInactive()
-  au VimEnter,ColorScheme,InsertLeave,SourcePost *
-        \ call SetStatusLineHilights()
 augroup end
 
 function! StatusLineActive() abort

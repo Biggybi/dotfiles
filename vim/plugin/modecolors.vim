@@ -3,6 +3,14 @@ if exists('g:plugin_modecolor')
 endif
 let g:plugin_modecolor = 1
 
+augroup ModeColor
+  au!
+  au ColorScheme *
+        \ call SaveColorGroup()
+  au VimEnter,ColorScheme,InsertLeave,SourcePost *
+        \ call SetStatusLineHilights()
+augroup end
+
 let g:sl_hilight_group = get(g:, 'sl_hilight_group', 'CursorLineNr')
 
 let g:modecolor_timer = timer_start(100, 'ModeHilight', {'repeat': -1})
@@ -41,11 +49,6 @@ function SaveColorGroup()
   let s:save_color_group_bg = synIDattr(hlID(g:sl_hilight_group), "bg#")
 endfunction
 
-augroup SaveColorGroup
-  au!
-  au ColorScheme * call SaveColorGroup()
-augroup end
-
 function! SetStatusLineHilights() abort
   exe "silent! hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
   exe "silent! hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
@@ -60,6 +63,14 @@ function! GetColor(group_fg, group_bg) abort
   let group_bg = synIDattr(hlID(a:group_bg), "bg#")
   return "guifg=".group_fg . " guibg=".group_bg
 endfunction
+
+augroup ModeColor
+  au!
+  au ColorScheme *
+        \ call SaveColorGroup()
+  au VimEnter,ColorScheme,InsertLeave,SourcePost *
+        \ call SetStatusLineHilights()
+augroup end
 
 nnoremap <expr> yov timer_info(g:modecolor_timer)[0]['paused'] == 0 ?
       \ ":call timer_pause(g:modecolor_timer, '1')<cr>:silent! call SetStatusLineHilights()<cr>:echo 'color mode change off'<cr>" :
