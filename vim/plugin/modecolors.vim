@@ -3,15 +3,35 @@ if exists('g:plugin_modecolor')
 endif
 let g:plugin_modecolor = 1
 
-augroup ModeColor
-  au!
-  au ColorScheme *
-        \ call SaveColorGroup()
-  au VimEnter,ColorScheme,InsertLeave,SourcePost *
-        \ call SetStatusLineHilights()
-augroup end
-
 let g:sl_hilight_group = get(g:, 'sl_hilight_group', 'CursorLineNr')
+
+let s:save_color_group_fg = synIDattr(hlID(g:sl_hilight_group), "fg#")
+let s:save_color_group_bg = synIDattr(hlID(g:sl_hilight_group), "bg#")
+function SaveColorGroup()
+  let s:save_color_group_fg = synIDattr(hlID(g:sl_hilight_group), "fg#")
+  let s:save_color_group_bg = synIDattr(hlID(g:sl_hilight_group), "bg#")
+endfunction
+
+function! GetColor(group_fg, group_bg) abort
+  let group_fg = synIDattr(hlID(a:group_fg), "fg#")
+  let group_bg = synIDattr(hlID(a:group_bg), "bg#")
+  return "guifg=".group_fg . " guibg=".group_bg
+endfunction
+
+function! SetHilight(color) abort
+  exe "hi User1" GetColor(a:color, a:color)
+  exe "hi" g:sl_hilight_group GetColor(a:color, a:color)
+  return
+endfunction
+
+function! SetStatusLineHilights() abort
+  exe "silent! hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
+  exe "silent! hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
+  exe "silent! hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
+  exe "silent! hi User4" GetColor('StatusLineInsert', 'normal')
+  exe "silent! hi User5" GetColor('StatusLineImportant', 'StatusLineActiveLeft')
+  exe "silent! hi User6" GetColor('StatusLineImportant', 'StatusLineActiveMid')
+endfunction
 
 let g:modecolor_timer = timer_start(100, 'ModeHilight', {'repeat': -1})
 function! ModeHilight(_) abort
@@ -34,34 +54,6 @@ function! ModeHilight(_) abort
   else
     return SetHilight('StatusLineNormal')
   endif
-endfunction
-
-function! SetHilight(color) abort
-  exe "hi User1" GetColor(a:color, a:color)
-  exe "hi" g:sl_hilight_group GetColor(a:color, a:color)
-  return
-endfunction
-
-let s:save_color_group_fg = synIDattr(hlID(g:sl_hilight_group), "fg#")
-let s:save_color_group_bg = synIDattr(hlID(g:sl_hilight_group), "bg#")
-function SaveColorGroup()
-  let s:save_color_group_fg = synIDattr(hlID(g:sl_hilight_group), "fg#")
-  let s:save_color_group_bg = synIDattr(hlID(g:sl_hilight_group), "bg#")
-endfunction
-
-function! SetStatusLineHilights() abort
-  exe "silent! hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
-  exe "silent! hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
-  exe "silent! hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
-  exe "silent! hi User4" GetColor('StatusLineInsert', 'normal')
-  exe "silent! hi User5" GetColor('StatusLineImportant', 'StatusLineActiveLeft')
-  exe "silent! hi User6" GetColor('StatusLineImportant', 'StatusLineActiveMid')
-endfunction
-
-function! GetColor(group_fg, group_bg) abort
-  let group_fg = synIDattr(hlID(a:group_fg), "fg#")
-  let group_bg = synIDattr(hlID(a:group_bg), "bg#")
-  return "guifg=".group_fg . " guibg=".group_bg
 endfunction
 
 augroup ModeColor

@@ -40,16 +40,6 @@ function! SLCurrentLine() abort
   return repeat(" ", max - cur) . line('.')
 endfunction
 
-augroup StatusLineSwitch
-  au!
-  au InsertEnter *
-        \ call SetHilight('StatusLineInsert')
-  au WinEnter,BufWinEnter *
-        \ call StatusLineActive()
-  au WinLeave *
-        \ call StatusLineInactive()
-augroup end
-
 function! StatusLineActive() abort
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  " mode
@@ -71,3 +61,13 @@ function! StatusLineInactive() abort
   setlocal statusline +=%m                                "file modified
   setlocal statusline +=%=%{&filetype}\                   "filetype
 endfunction
+
+augroup StatusLineSwitch
+  au!
+  au InsertEnter *
+        \ call SetHilight('StatusLineInsert')
+  au WinEnter,BufWinEnter *
+        \ call StatusLineActive()
+  au WinLeave *
+        \ call StatusLineInactive()
+augroup end
