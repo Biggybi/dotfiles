@@ -415,7 +415,7 @@ fo() {
 }
 
 fzv() {
-	[ $HOM_VID ] && find $HOM_VID/* -type f -not -path '*/\.*' |\
+	[ $HOME_VID ] && find $HOME_VID/* -type f -not -path '*/\.*' |\
 		fzf --delimiter="/" --with-nth=-3.. |\
 		sed 's/*//g' |\
 		sed 's/$/\"/' |\
