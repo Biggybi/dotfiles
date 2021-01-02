@@ -53,12 +53,12 @@ augroup SaveColorGroup
 augroup end
 
 function! SetStatusLineHilights() abort
-  exe "hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
-  exe "hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
-  exe "hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
-  exe "hi User4" GetColor('StatusLineInsert', 'normal')
-  exe "hi User5" GetColor('StatusLineImportant', 'StatusLineActiveLeft')
-  exe "hi User6" GetColor('StatusLineImportant', 'StatusLineActiveMid')
+  exe "silent! hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
+  exe "silent! hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
+  exe "silent! hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
+  exe "silent! hi User4" GetColor('StatusLineInsert', 'normal')
+  exe "silent! hi User5" GetColor('StatusLineImportant', 'StatusLineActiveLeft')
+  exe "silent! hi User6" GetColor('StatusLineImportant', 'StatusLineActiveMid')
 endfunction
 
 function! GetColor(group_fg, group_bg) abort
