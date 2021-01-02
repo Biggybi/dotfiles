@@ -68,7 +68,7 @@ augroup ModeColor
   au!
   au ColorScheme *
         \ call SaveColorGroup()
-  au VimEnter,ColorScheme,InsertLeave,SourcePost *
+  au VimEnter,ColorScheme,SourcePost *
         \ call SetStatusLineHilights()
 augroup end
 

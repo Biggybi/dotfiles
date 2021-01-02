@@ -210,7 +210,9 @@ set diffopt+=vertical " vertical split for diff
 
 " False cursorline to have CursorLineNr working
 set cursorline
-set cursorlineopt=number
+if ! has("nvim")
+  set cursorlineopt=number
+endif
 
 " Tabline
 set tabpagemax=30
