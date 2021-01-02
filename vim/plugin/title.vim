@@ -5,7 +5,7 @@ let g:plugin_title = 1
 
 augroup WinTitle
   au!
-  au BufRead,BufEnter * let &titlestring = MyWindowTitle()
+  au BufRead,BufEnter * call MyWindowTitle()
 augroup end
 
 function! GetGitRepoName(file) abort
@@ -22,8 +22,8 @@ function! GetGitRepoName(file) abort
 endfunction
 
 function! MyWindowTitle() abort
-  let l:hostname = hostname() . "   ▏ "
-  let l:file = substitute(expand('%'), '/.*/', '', '')
-  let gitrepo = GetGitRepoName('%') . "   〉  "
-  return(hostname . gitrepo . file)
+  let hostname = hostname() . "  ｜ "
+  let filepath = substitute(expand('%'), '.*/', '', '')
+  let gitrepo = GetGitRepoName('%') . "  〉  "
+  let &titlestring = hostname . gitrepo . filepath
 endfunction
