@@ -603,6 +603,9 @@ nmap <silent> [w <Plug>(coc-diagnostic-prev)
 nmap <silent> ]w <Plug>(coc-diagnostic-next)
 nmap <leader>cf  <Plug>(coc-fix-current)
 
+" Coc List
+nnoremap <leader>fv :CocFzfList<cr>
+
 " rename word
 nmap <leader>rn <Plug>(coc-rename)
 
