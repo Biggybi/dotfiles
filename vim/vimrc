@@ -302,16 +302,14 @@ augroup end
 function! AutoProjectLoad(is_mapping) abort
   let filelist = ".git/vim/project_files"
   if ! filereadable(filelist)
-    echom("[E] Project load: '.git/vim/project_files' file not found")
+    echom "[E] Project load" filelist ": file not found"
     return
   endif
   if bufname("%") != "" && a:is_mapping == 0
     return
   endif
   exe "e" filelist
-  " silent! tabonly
-  " " open first WORD of each line
-  " g/\v^.*[^\s]/ if filereadable(expand('<cWORD>')) | argadd <cWORD> | $tabnew <cWORD> | tabfirst | endif
+  " add every file as argument, excluding comments
   g/\v^[^#].*[^\s]/ if filereadable(expand(expand('<cWORD>'))) | argadd <cWORD>
         \ | endif
 
