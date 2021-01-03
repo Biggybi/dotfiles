@@ -1,3 +1,8 @@
+if exists('g:plugin_vimfold')
+  finish
+endif
+let g:plugin_trailspace = 1
+
 function! VimFold() abort
   let line = getline(v:foldstart)
   let nucolwidth = &fdc + &number * &numberwidth

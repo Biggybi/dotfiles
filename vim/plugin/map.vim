@@ -307,8 +307,36 @@ vnoremap > >gv
 """        Alt Movement
 
 " Allow <alt> key mappings
-if ! has("nvim")
+if has('nvim-0.4.0')
 
+  inoremap <M-h> <left>
+  inoremap <M-j> <down>
+  inoremap <M-k> <up>
+  inoremap <M-l> <right>
+
+  nnoremap <silent> <M-k> :wincmd k<cr>
+  nnoremap <silent> <M-j> :wincmd j<cr>
+  nnoremap <silent> <M-l> :wincmd l<cr>
+  nnoremap <silent> <M-h> :wincmd h<cr>
+
+  tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
+  tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
+  tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
+  tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
+
+  cnoremap <M-h> <left>
+  cnoremap <M-j> <down>
+  cnoremap <M-k> <up>
+  cnoremap <M-l> <right>
+
+  nnoremap <silent> <M-K> :exe "resize +1"<cr>
+  nnoremap <silent> <M-J> :exe "resize -1"<cr>
+  nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
+  nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
+
+else
+
+  "hack for terminals without modifyOtherKeys feature
   let c='a'
   while c <= 'z'
     if c == 'p'
@@ -356,34 +384,6 @@ if ! has("nvim")
   nnoremap <silent> <S-F32> :exe "vertical resize -1"<CR>
   nnoremap <silent> <S-F33> :exe "vertical resize +1"<CR>
   nnoremap <silent> <S-F34> :exe "resize +1"<cr>
-
-else
-
-  inoremap <M-h> <left>
-  inoremap <M-j> <down>
-  inoremap <M-k> <up>
-  inoremap <M-l> <right>
-
-  nnoremap <silent> <M-k> :wincmd k<cr>
-  nnoremap <silent> <M-j> :wincmd j<cr>
-  nnoremap <silent> <M-l> :wincmd l<cr>
-  nnoremap <silent> <M-h> :wincmd h<cr>
-
-  tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
-  tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
-  tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
-  tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
-
-  cnoremap <M-h> <left>
-  cnoremap <M-j> <down>
-  cnoremap <M-k> <up>
-  cnoremap <M-l> <right>
-
-  nnoremap <silent> <M-K> :exe "resize +1"<cr>
-  nnoremap <silent> <M-J> :exe "resize -1"<cr>
-  nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
-  nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
-
 endif
 
 " resize windows quicker
