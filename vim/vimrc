@@ -178,6 +178,9 @@ set number                      " show number column
 set breakindent                 " with indent
 set showbreak=¬                 " ... showing a character
 set signcolumn=yes
+if has("patch-8.1.1564")
+  set signcolumn=number
+endif
 set nowrap
 
 " Moves boundaries
