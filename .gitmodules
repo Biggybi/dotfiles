@@ -121,3 +121,6 @@
 [submodule "vim/pack/bundle/start/coc.nvim"]
 	path = vim/pack/bundle/start/coc.nvim
 	url = git@github.com:neoclide/coc.nvim.git
+[submodule "tmux/plugins/tmux-resurrect"]
+	path = tmux/plugins/tmux-resurrect
+	url = git@github.cbom:tmux-plugins/tmux-resurrect
