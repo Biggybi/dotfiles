@@ -62,10 +62,8 @@ function! StatusLineInactive() abort
   setlocal statusline +=%=%{&filetype}\                   "filetype
 endfunction
 
-augroup StatusLineSwitch
+augroup StatusActiveSwitch
   au!
-  au InsertEnter *
-        \ call SetHilight('StatusLineInsert')
   au WinEnter,BufWinEnter *
         \ call StatusLineActive()
   au WinLeave *
