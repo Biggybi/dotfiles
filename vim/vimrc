@@ -315,7 +315,6 @@ function! AutoProjectLoad(is_mapping) abort
   " add every file as argument, excluding comments
   g/\v^[^#].*[^\s]/ if filereadable(expand(expand('<cWORD>'))) | argadd <cWORD>
         \ | endif
-
   exe "bw" filelist
   wincmd p
 endfunction
