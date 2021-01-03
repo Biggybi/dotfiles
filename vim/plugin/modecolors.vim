@@ -54,16 +54,16 @@ function! ModeColorSwitch(_) abort
   endif
 endfunction
 
-function! ModeColorPause()
-  call timer_pause(g:modecolor_timer, '1')
-  silent! SetStatusLineHilights()
-  call SetColor('StatusLineNormal')
-  echo 'color mode change off'
-endfunction
-
-function! ModeColorResume()
-  call timer_pause(g:modecolor_timer, '0')
-  echo 'color mode change on'
+function! ModeColorToggle(on)
+  if a:on == 1
+    call timer_pause(g:modecolor_timer, '0')
+    echo 'color mode change on'
+  else
+    call timer_pause(g:modecolor_timer, '1')
+    silent! SetStatusLineHilights()
+    call SetColor('StatusLineNormal')
+    echo 'color mode change off'
+  endif
 endfunction
 
 augroup StartModeColor
@@ -75,5 +75,5 @@ augroup StartModeColor
 augroup end
 
 nnoremap <expr> yov timer_info(g:modecolor_timer)[0]['paused'] == 0 ?
-      \ ":call ModeColorPause()<cr>" :
-      \ ":call ModeColorResume()<cr>"
+      \ ":call ModeColorToggle(0)<cr>" :
+      \ ":call ModeColorToggle(1)<cr>"
