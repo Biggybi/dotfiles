@@ -566,10 +566,20 @@ if v:version < 802
   inoremap <c-i> <c-v><c-i>
 endif
 
+" pmenu mappings
 if has("nvim")
   inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
 else
   inoremap <expr> <c-@> pumvisible() ? coc#_select_confirm() : coc#refresh()
+endif
+
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
@@ -593,7 +603,6 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" pmenu mappings
 nmap <silent> <leader>gf <Plug>(coc-definition)
 nmap <silent> <leader>gd <Plug>(coc-declaration)
 nmap <silent> <leader>gt <Plug>(coc-type-definition)
@@ -615,8 +624,10 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation() abort
   if index(['vim','help'], &filetype) >= 0
     execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
