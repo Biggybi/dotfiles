@@ -52,6 +52,7 @@ function! ModeColorSwitch(_) abort
   else
     return SetColor('StatusLineNormal')
   endif
+  return SetColor('StatusLineNormal')
 endfunction
 
 function! ModeColorToggle(on)
