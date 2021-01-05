@@ -29,18 +29,7 @@ function! GitModify() abort
   return [a,m,r] == [0,0,0] ? ' ' : '[+]'
 endfunction
 
-function! GitStatus() abort
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return join(['  [+'.a,'~'.m,'-'.r.']'])
-endfunction
-
-function! SLCurrentLine() abort
-	let max = len(line('$'))
-  let cur = len(line('.'))
-  return repeat(" ", max - cur) . line('.')
-endfunction
-
-function! StatusLineActive() abort
+function! s:statusLineActive() abort
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  " mode
   setlocal statusline +=%2*\ %{FugitiveHead()}%*           " git branch
@@ -55,7 +44,7 @@ function! StatusLineActive() abort
   setlocal statusline +=%<                                 " cut at end
 endfunction
 
-function! StatusLineInactive() abort
+function! s:statusLineInactive() abort
   setlocal statusline =
   setlocal statusline +=%f                                "filename
   setlocal statusline +=%m                                "file modified
@@ -65,7 +54,7 @@ endfunction
 augroup StatusActiveSwitch
   au!
   au WinEnter,BufWinEnter *
-        \ call StatusLineActive()
+        \ call s:statusLineActive()
   au WinLeave *
-        \ call StatusLineInactive()
+        \ call s:statusLineInactive()
 augroup end

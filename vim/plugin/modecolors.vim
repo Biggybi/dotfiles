@@ -7,62 +7,74 @@ let g:mode_color_hl_group = get(g:, 'mode_color_hl_group', 'CursorLineNr')
 
 let s:save_color_group_fg = synIDattr(hlID(g:mode_color_hl_group), "fg#")
 let s:save_color_group_bg = synIDattr(hlID(g:mode_color_hl_group), "bg#")
-function SaveColorGroup()
+function s:saveColorGroup()
   let s:save_color_group_fg = synIDattr(hlID(g:mode_color_hl_group), "fg#")
   let s:save_color_group_bg = synIDattr(hlID(g:mode_color_hl_group), "bg#")
 endfunction
 
-function! GetColor(group_fg, group_bg) abort
+function! s:getColor(group_fg, group_bg) abort
   let group_fg = synIDattr(hlID(a:group_fg), "fg#")
   let group_bg = synIDattr(hlID(a:group_bg), "bg#")
   return "guifg=".group_fg . " guibg=".group_bg
 endfunction
 
-function! SetColor(color) abort
-  exe "hi User1" GetColor(a:color, a:color)
-  exe "hi" g:mode_color_hl_group GetColor(a:color, a:color)
+function! s:setColor(color) abort
+  exe "hi User1" s:getColor(a:color, a:color)
+  exe "hi" g:mode_color_hl_group s:getColor(a:color, a:color)
   return
 endfunction
 
-function! SetStatusLineHilights() abort
-  exe "silent! hi User1" GetColor('StatusLineNormal', 'StatusLineNormal')
-  exe "silent! hi User2" GetColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
-  exe "silent! hi User3" GetColor('StatusLineVisual', 'StatusLineVisual')
-  exe "silent! hi User4" GetColor('StatusLineInsert', 'normal')
-  exe "silent! hi User5" GetColor('StatusLineImportant', 'StatusLineActiveLeft')
-  exe "silent! hi User6" GetColor('StatusLineImportant', 'StatusLineActiveMid')
+function! s:setStatusLineHighlights() abort
+  exe "silent! hi User1" s:getColor('StatusLineNormal', 'StatusLineNormal')
+  exe "silent! hi User2" s:getColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
+  exe "silent! hi User3" s:getColor('StatusLineVisual', 'StatusLineVisual')
+  exe "silent! hi User4" s:getColor('StatusLineInsert', 'normal')
+  exe "silent! hi User5" s:getColor('StatusLineImportant', 'StatusLineActiveLeft')
+  exe "silent! hi User6" s:getColor('StatusLineImportant', 'StatusLineActiveMid')
 endfunction
 
 let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
 function! ModeColorSwitch(_) abort
   if mode() =~? '[s]'
-    return SetColor('StatusLineReplace')
+    return s:setColor('StatusLineReplace')
   elseif mode() =~# '[Ri]'
-    return SetColor('StatusLineInsert')
+    return s:setColor('StatusLineInsert')
   elseif mode() =~? '[v]'
-    return SetColor('StatusLineVisual')
+    return s:setColor('StatusLineVisual')
   elseif mode() ==? 'c'
-    return SetColor('StatusLineCmd')
+    return s:setColor('StatusLineCmd')
   elseif has("nvim")
-    return SetColor('StatusLineNormal')
+    return s:setColor('StatusLineNormal')
   elseif state() =~# '[mo]'
-    return SetColor('StatusLinePending')
+    return s:setColor('StatusLinePending')
   elseif state() =~# '[S]'
-    return SetColor('StatusLineFTSearch')
+    return s:setColor('StatusLineFTSearch')
   else
-    return SetColor('StatusLineNormal')
+    return s:setColor('StatusLineNormal')
   endif
-  return SetColor('StatusLineNormal')
+  return s:setColor('StatusLineNormal')
 endfunction
 
-function! ModeColorToggle(on)
-  if a:on == 1
+" function! s:modeColorToggle(on)
+"   if a:on == 1
+"     call timer_pause(g:modecolor_timer, '0')
+"     echo 'color mode change on'
+"   else
+"     call timer_pause(g:modecolor_timer, '1')
+"     silent! s:setStatusLineHighlights()
+"     call s:setColor('StatusLineNormal')
+"     echo 'color mode change off'
+"   endif
+" endfunction
+
+function! s:modeColorToggle()
+if timer_info(g:modecolor_timer)[0]['paused']
     call timer_pause(g:modecolor_timer, '0')
     echo 'color mode change on'
   else
     call timer_pause(g:modecolor_timer, '1')
-    silent! SetStatusLineHilights()
-    call SetColor('StatusLineNormal')
+    silent! s:setStatusLineHighlights()
+    call s:setColor('StatusLineNormal')
     echo 'color mode change off'
   endif
 endfunction
@@ -70,11 +82,10 @@ endfunction
 augroup StartModeColor
   au!
   au ColorScheme *
-        \ call SaveColorGroup()
+        \ call s:saveColorGroup()
   au VimEnter,ColorScheme,SourcePost *
-        \ call SetStatusLineHilights()
+        \ call s:setStatusLineHighlights()
 augroup end
 
-nnoremap <expr> yov timer_info(g:modecolor_timer)[0]['paused'] == 0 ?
-      \ ":call ModeColorToggle(0)<cr>" :
-      \ ":call ModeColorToggle(1)<cr>"
+noremap <silent> <unique> <script> <plug>(modeColorToggle)
+\ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
