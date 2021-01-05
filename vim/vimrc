@@ -41,8 +41,10 @@ set tags=tags,.git/tags
 """        Restore
 
 " Session restore
-set sessionoptions-=options
-set viewoptions=folds    "only these settins
+if exists('+mksession')
+  set sessionoptions-=options
+  set viewoptions=folds,cursor    "only these settins
+endif
 " restore undo history
 if exists('+undofile')
   set undofile

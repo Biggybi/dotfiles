@@ -4,7 +4,6 @@ setlocal textwidth=0
 setlocal softtabstop=2
 setlocal shiftwidth=2
 " setlocal keywordprg=:help
-setlocal foldmethod=marker
 setlocal suffixesadd=.vim
 setlocal formatoptions-=cro  " no auto comment line
 
