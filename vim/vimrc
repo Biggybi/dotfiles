@@ -153,9 +153,12 @@ set smarttab                    " tab width start of line
 set tabstop=4                   " visible width of tabs
 set softtabstop=4               " tabs 4 characters wide
 set shiftwidth=4                " indents 4 characters wide
+set shiftround                  " indent congru shiftwidth
 set autoindent                  " automatically indent new line
 set smartindent                 " ...in a sane way
-set shiftround                  " indent congru shiftwidth
+set showbreak=¬                 " ... showing a character
+set breakindent                 " with indent
+set wrap                        " wrap lines
 
 " splits
 set switchbuf=usetab            " open buffer window if exists
@@ -173,19 +176,12 @@ set formatoptions-=cro          " no auto comment line
 
 " Main window
 set display+=lastline           " show lastline even if too long
-" set wrap                        " no horizontal scroll
-set breakindent                 " with indent
-set showbreak=¬                 " ... showing a character
 set number                      " show number column
 if has("patch-8.1.1564")
   set signcolumn=number
 elseif exists('&signcolumn')        " Vim 7.4.2201
   set signcolumn=yes
 endif
-if has("patch-8.1.1564")
-  set signcolumn=number
-endif
-set nowrap
 
 " Moves boundaries
 set backspace=indent,eol,start  " backspace over lines
