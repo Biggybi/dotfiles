@@ -247,7 +247,7 @@ nnoremap ghl :Gllog! <bar> wincmd b <bar> wincmd L<cr>
 """        Terminal
 
 tnoremap <c-n> <c-\><c-n>
-tnoremap <c-w>; <c-w>:
+tnoremap <c-@> <c-w>:
 
 """        Headers
 
