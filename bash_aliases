@@ -403,6 +403,7 @@ ef() {
 
 alias hd='fd ~'
 
+alias ft="source fw"
 # fd - cd to selected directory
 fd() {
 	local dir

@@ -7,4 +7,5 @@ DIR="$HOME/42"
 SUBDIR=$([ $DIR ] && find $HOME_42/ -maxdepth 1 -type d -name "[^.]*" |\
 	 sed s/^\.*\\/// | grep -v *.\\/ | grep -v "^$" | sort -r |\
 	 fzf --delimiter="./" --with-nth=-1..)
+cd $DIR/$SUBDIR
 [ $SUBDIR ] && $EDITOR $DIR/$SUBDIR
