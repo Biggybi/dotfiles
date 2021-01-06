@@ -43,6 +43,7 @@ set tags=tags,.git/tags
 " Session restore
 if has('mksession')
   set sessionoptions-=options
+  set sessionoptions-=curdir
   set viewoptions=folds,cursor    "only these settins
 endif
 " restore undo history
