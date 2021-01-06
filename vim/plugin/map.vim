@@ -46,6 +46,23 @@ cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
 """        Toggles
 
+" Toggle ModeColorSwitch
+map yom <Plug>(modeColorToggle)
+
+" Toggle concealed characters
+function! ConcealToggle()
+  " let &conceallevel = (&conceallevel ? '0' : '2')
+  if &conceallevel
+    set conceallevel=0
+    echo "set conceallevel = 0"
+  else
+    set conceallevel=2
+    echo "set conceallevel = 2"
+  endif
+endfunction
+nnoremap yoq :call ConcealToggle()<cr>
+" nnoremap yoq :let &conceallevel = (&conceallevel ? '0' : '2')<cr>
+
 " Toggle / close / open Undotree
 let g:undotree_SetFocusWhenToggle = 1
 nnoremap you :UndotreeToggle<cr>
