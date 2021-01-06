@@ -60,7 +60,7 @@ nnoremap yoo :call ToggleObsession()<cr>
 nnoremap <silent> yob :call DarkLightSwitch()<cr>
 
 " Netrw toggle - left
-nnoremap <silent> yoe :20Lexplore<cr>
+nnoremap <silent> yoe :Lexplore<bar>:30wincmd\|<cr>
 
 " Move visual selection (=unimpaired + gv)
 vnoremap ]e :'<,'>move '>+1 \| normal! gv<CR>
