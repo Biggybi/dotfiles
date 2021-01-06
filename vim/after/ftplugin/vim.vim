@@ -23,7 +23,10 @@ setlocal ts=2
 setlocal sts=2
 setlocal shiftwidth=2
 setlocal foldmethod=expr
+
+" Personnal folding design
 setlocal foldtext=VimFold()
+setlocal foldexpr=getline(v\:lnum)=~'^\"\"'?'>'.(matchend(getline(v\:lnum),'\"\"*')-1)\:'='
 
 nnoremap <leader>s. mz:source %<cr>:nohlsearch<cr>
 nnoremap <buffer> <silent> zM :setlocal foldlevel=0<cr>zm100<c-y>

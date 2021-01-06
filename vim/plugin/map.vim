@@ -47,7 +47,7 @@ cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 """        Toggles
 
 " Toggle ModeColorSwitch
-map yom <Plug>(modeColorToggle)
+nmap yom <Plug>(modeColorToggle)
 
 " Toggle concealed characters
 function! ConcealToggle()
