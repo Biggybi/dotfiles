@@ -41,7 +41,7 @@ set tags=tags,.git/tags
 """        Restore
 
 " Session restore
-if exists('+mksession')
+if has('mksession')
   set sessionoptions-=options
   set viewoptions=folds,cursor    "only these settins
 endif
@@ -186,6 +186,9 @@ elseif exists('&signcolumn')        " Vim 7.4.2201
 endif
 
 " Moves boundaries
+if has('conceal')
+  set conceallevel=0
+endif
 set backspace=indent,eol,start  " backspace over lines
 set whichwrap+=<,>,h,l,[,]      " break cursor free
 set virtualedit=block           " visual selection broken free
