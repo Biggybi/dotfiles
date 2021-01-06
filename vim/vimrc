@@ -249,17 +249,6 @@ augroup end
 " Autocommit
 " autocmd BufWritePost * let message = input('Message? ', 'Auto-commit: saved ' . expand('%')) | execute ':silent ! if git rev-parse --git-dir > /dev/null 2>&1 ; then git add % ; git commit -m ' . shellescape(message, 1) . '; fi > /dev/null 2>&1'
 
-"""        Last cursor position
-
-" Open file where it was last closed
-augroup ReOpenFileWhereLeft
-  au!
-  au VimEnter,BufWinEnter *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") && &ft !~# 'gitcommit'
-        \ |   exe "normal! g`\""
-        \ | endif
-augroup end
-
 """        Files views
 
 " save folding state (and more based on 'viewoptions')
