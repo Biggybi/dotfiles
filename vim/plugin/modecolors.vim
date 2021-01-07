@@ -55,23 +55,11 @@ function! ModeColorSwitch(_) abort
   return s:setColor('StatusLineNormal')
 endfunction
 
-" function! s:modeColorToggle(on)
-"   if a:on == 1
-"     call timer_pause(g:modecolor_timer, '0')
-"     echo 'color mode change on'
-"   else
-"     call timer_pause(g:modecolor_timer, '1')
-"     silent! s:setStatusLineHighlights()
-"     call s:setColor('StatusLineNormal')
-"     echo 'color mode change off'
-"   endif
-" endfunction
-
 function! s:modeColorToggle()
-if timer_info(g:modecolor_timer)[0]['paused']
+  if timer_info(g:modecolor_timer)[0]['paused']
     call timer_pause(g:modecolor_timer, '0')
     echo 'color mode change on'
-  else
+  elseif g:modecolor_timer
     call timer_pause(g:modecolor_timer, '1')
     silent! s:setStatusLineHighlights()
     call s:setColor('StatusLineNormal')
