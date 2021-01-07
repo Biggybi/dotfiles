@@ -545,6 +545,7 @@ nnoremap <leader>cm :make<cr><cr>
 nnoremap <leader>cr :Shell make re<cr><cr>
 nnoremap <leader>ce :Shell make ex<cr><cr>
 nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
 nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
 
