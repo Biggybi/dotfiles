@@ -643,7 +643,9 @@ nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation() abort
-  if index(['vim','help'], &filetype) >= 0
+  if &filetype ==# 'vim'
+    exe "normal \<Plug>ScripteaseHelp"
+  elseif &filetype ==# 'help'
     execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
     call CocActionAsync('doHover')
