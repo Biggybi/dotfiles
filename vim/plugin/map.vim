@@ -240,7 +240,7 @@ nnoremap zo zczO
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv mz:source $MYVIMRC<cr>:silent doautocmd BufRead<cr>:nohlsearch<cr>:echo "vimrc sourced"<cr>`zzz
+nnoremap <leader>sv mz:source $MYVIMRC<cr>:source <c-r>=join([substitute($MYVIMRC, "/\\=[^/]*$", "", ""), "plugin/map.vim"], "/")<cr><cr>:silent doautocmd BufRead<cr>:nohlsearch<cr>:echo "vimrc sourced"<cr>`zzz
 nnoremap <leader>ss mz:source $MYVIMRC<cr>:nohlsearch<cr>:redraw<cr>:doautocmd BufRead<cr>:echo "all fresh"<cr>`zzz
 
 " source colors
