@@ -5,7 +5,12 @@
 map <space> <leader>
 
 " closing easy
-nnoremap <leader>q :quit<cr><c-w>p
+function! QuitBackToLast() abort
+  quit
+endfunction
+nnoremap <leader>q :silent! call QuitBackToLast()<cr>
+" -> this mapping does not focus the previous buffer
+" nnoremap <leader>q :quit<cr>
 
 nnoremap <leader><c-@> :echo "kewl"<cr>
 
