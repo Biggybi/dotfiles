@@ -103,9 +103,6 @@
 ; [submodule "vim/bundle/vim-airline-themes-fork"]
 ; 	path = vim/bundle/vim-airline-themes-fork
 ; 	url = git@github.com:Biggybi/vim-airline-themes.git
-[submodule "vim/bundle/vim-smoothie"]
-	path = vim/pack/bundle/start/vim-smoothie
-	url = git@github.com:psliwka/vim-smoothie.git
 [submodule "vim/bundle/vim-endwise"]
 	path = vim/pack/bundle/start/vim-endwise
 	url = git@github.com:tpope/vim-endwise.git
