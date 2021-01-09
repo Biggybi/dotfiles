@@ -8,7 +8,7 @@ map <space> <leader>
 function! QuitBackToLast() abort
   quit
 endfunction
-nnoremap <leader>q :silent! call QuitBackToLast()<cr>
+nnoremap <silent> <leader>q :silent! call QuitBackToLast()<cr>
 " -> this mapping does not focus the previous buffer
 " nnoremap <leader>q :quit<cr>
 
