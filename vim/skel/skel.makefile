@@ -38,7 +38,7 @@ SSUBDIR = $(shell find $(SDIR) -type d -not -empty)
 CC = clang
 CFLAGS = -Wall -Wextra -g
 
-all: $(NAME)
+all: greatings $(NAME)
 
 $(NAME): $(ODIR) $(OBJ)
 	$(HIDE)$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
@@ -50,7 +50,7 @@ $(ODIR)$(SEP)%.o: $(SSUBDIR)$(SEP)%.c
 $(ODIR):
 	$(HIDE)$(MKDIR) $(ODIR)
 
-clean: start
+clean: greatings
 	$(HIDE)$(RMDIR) *.o obj
 	$(HIDE)echo "clean  ->  *.o deleted"
 
@@ -68,7 +68,7 @@ ex: re $(NAME)
 	$(HIDE)chmod u+x $(NAME)
 	$(HIDE)./$(NAME) $(TESTFF)
 
-start:
+greatings:
 	@echo "####################"
 	@echo "##### MAKEFILE #####"
 	@echo "####################"
