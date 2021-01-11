@@ -179,6 +179,9 @@ set formatoptions-=cro          " no auto comment line
 
 " Main window
 set display+=lastline           " show lastline even if too long
+augroup TermOpt
+  au TerminalWinOpen * setlocal nonumber
+augroup END
 set number                      " show number column
 if has("patch-8.1.1564")
   set signcolumn=number
