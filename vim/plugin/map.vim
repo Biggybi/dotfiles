@@ -564,7 +564,7 @@ nmap <silent><leader>ch <Plug>(MoveScratchTermH)
 nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
 nmap <silent><leader>ck <Plug>(MoveScratchTermK)
 nmap <silent><leader>cl <Plug>(MoveScratchTermL)
-nmap <silent><leader>cx <Plug>(MoveScratchTermQ)
+nmap <silent><leader>cz <Plug>(MoveScratchTermQ)
 nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
 function! LocListPanel(pfx) abort
