@@ -45,6 +45,8 @@ function! s:RunShellCommand(cmdline, direction) abort
   let current_window = win_getid()
   if bufexists('scratch_terminal_output') && bufwinid('scratch_terminal_output')
     sbuffer scratch_terminal_output
+    enew
+    Glcd
     call s:LaunchTerm(cmdline)
     if win_getid() != current_window
       call win_gotoid(current_window)
