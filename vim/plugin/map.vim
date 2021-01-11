@@ -557,12 +557,10 @@ nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
 nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
 nnoremap <leader>cT :Shell make ex TESTFF=
 nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
-
-nnoremap <leader>cvr :Shell make re<cr><cr>
-nnoremap <leader>cve :Shell make ex<cr><cr>
-nnoremap <leader>cvt :Shell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cvT :Shell make ex TESTFF=
-nnoremap <leader>cv<c-t> :make ex TEST=test/%<cr><cr>
+nmap <silent><leader>ch <Plug>(MoveScrathTerm('h'))
+nmap <silent><leader>cj <Plug>(MoveScrathTerm('j'))
+nmap <silent><leader>ck <Plug>(MoveScrathTerm('k'))
+nmap <silent><leader>cl <Plug>(MoveScrathTerm('l'))
 
 function! LocListPanel(pfx) abort
   " if a:pfx == 'l' && len(getloclist(0)) == 0
