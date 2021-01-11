@@ -550,17 +550,22 @@ nnoremap <silent> <leader>xx :call TrimLines('line')<cr>
 nnoremap <leader>xX :call TrimLines('buffer')<cr>
 
 " Make
-nnoremap <leader>cm :make<cr><cr>
-nnoremap <leader>cr :Shell make re<cr><cr>
-nnoremap <leader>ce :Shell make ex<cr><cr>
-nnoremap <leader>ct :Shell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
-nnoremap <leader>cT :Shell make ex TESTFF=
-nnoremap <leader>c<c-t> :make ex TEST=test/%<cr><cr>
-nmap <silent><leader>ch <Plug>(MoveScrathTerm('h'))
-nmap <silent><leader>cj <Plug>(MoveScrathTerm('j'))
-nmap <silent><leader>ck <Plug>(MoveScrathTerm('k'))
-nmap <silent><leader>cl <Plug>(MoveScrathTerm('l'))
+nnoremap <leader>cm :make<cr>
+nnoremap <leader>cr :VShell make re<cr>
+nnoremap <leader>c<c-r> :Shell make re<cr>
+
+" " Note: make it work? scratchterm.vim
+" nmap <silent><leader>ch <Plug>(MoveScratchTerm('H'))
+" nmap <silent><leader>cj <Plug>(MoveScratchTerm('J'))
+" nmap <silent><leader>ck <Plug>(MoveScratchTerm('K'))
+" nmap <silent><leader>cl <Plug>(MoveScratchTerm('L'))
+
+nmap <silent><leader>ch <Plug>(MoveScratchTermH)
+nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
+nmap <silent><leader>ck <Plug>(MoveScratchTermK)
+nmap <silent><leader>cl <Plug>(MoveScratchTermL)
+nmap <silent><leader>cx <Plug>(MoveScratchTermQ)
+nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
 function! LocListPanel(pfx) abort
   " if a:pfx == 'l' && len(getloclist(0)) == 0
