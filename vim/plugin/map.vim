@@ -534,11 +534,20 @@ nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
 nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
       \ ":cclose<cr>" : ":bot copen<cr><c-w>p"
 
-" trim current line
-nnoremap <silent> <leader>xx :s/\s\+$//<cr>:redraw<cr>
-"trim file
-nnoremap <leader>xX :%s/\s\+$//<cr>:redraw<cr>
-nnoremap <leader>XX :%s/\s\+$//<cr>:redraw<cr>
+" trim current line or all file
+function! TrimLines(scope)
+  try
+    if a:scope ==? 'line'
+      Nomove s/\s\+$//
+    elseif a:scope ==? 'buffer'
+      Nomove %s/\s\+$//
+    endif
+  catch /E486:\ Pattern\ not found.*/
+    echo "TrimLine: No line to trim"
+  endtry
+endfunction
+nnoremap <silent> <leader>xx :call TrimLines('line')<cr>
+nnoremap <leader>xX :call TrimLines('buffer')<cr>
 
 " Make
 nnoremap <leader>cm :make<cr><cr>
