@@ -10,9 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-ALIAS_42_HOME=$HOME/42
-ALIAS_42_LFT=$HOME/42/libft
-
 shopt -s expand_aliases
 
 alias s='sudo'
@@ -293,22 +290,22 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -'
 alias cdinstall='cd $HOME/Documents/Install/Ubuntu'
-alias cd42='cd $ALIAS_42_HOME'
-alias echo42='echo $ALIAS_42_HOME'
+alias cd42='cd $HOME_42'
+alias echo42='echo $HOME_42'
 alias 42clone='git clone git@github.com:Biggybi/42.git'
 
-alias lftcd='cd $ALIAS_42_LFT'
-alias cdlft='cd $ALIAS_42_LFT'
-alias lftmk='make -C $ALIAS_42_LFT/'
-alias lftln='ln -s $ALIAS_42_LFT/ .'
-alias lftls='ls $ALIAS_42_LFT/src/*.c | cut -d/ -f7'
-alias lftcp='cp -ru $ALIAS_42_LFT/libft.a $ALIAS_42_LFT/includes/libft.h .'
+alias lftcd='cd $LFT'
+alias cdlft='cd $LFT'
+alias lftmk='make -C $LFT/'
+alias lftln='ln -s $LFT/ .'
+alias lftls='ls $LFT/src/*.c | cut -d/ -f7'
+alias lftcp='cp -ru $LFT/libft.a $LFT/includes/libft.h .'
 alias lftcl='git clone git@github.com:Biggybi/libft'
-alias lftccp='cp -u $ALIAS_42_LFT/ ./libft'
-alias cdgnl='cd $ALIAS_42_HOME/GNL'
-alias cdls='cd $ALIAS_42_HOME/ft_ls'
+alias lftccp='cp -u $LFT/ ./libft'
+alias cdgnl='cd $HOME_42/GNL'
+alias cdls='cd $HOME_42/ft_ls'
 alias cdbin='cd $HOME/bin'
-alias todoscript='vim $ALIAS_42_HOME/bin/.todo'
+alias todoscript='vim $HOME_42/bin/.todo'
 
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
@@ -331,7 +328,7 @@ alias cdapp='cd /usr/share/applications/'
 
 alias r='fc -s'
 
-##alias sedtrim="sed -n '1h;1!ALIAS_42_HOME;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
+##alias sedtrim="sed -n '1h;1!HOME_42;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
