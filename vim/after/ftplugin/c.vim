@@ -72,6 +72,12 @@ nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" 
 " select all text in function
 nnoremap <buffer> <leader>vf j[[V%o
 
-" valgrind
-nnoremap <buffer> <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
-nnoremap <buffer> <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
+" debug
+" nnoremap <buffer> <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
+nnoremap <leader>cv :VShell valgrind --leak-check=full -s ./test.out<cr>
+nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
+" nnoremap <buffer> <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
+
+nnoremap <leader>ce :VShell make ex<cr><cr>
+nnoremap <leader>ct :VShell make ex TESTFF=test/test*<cr><cr>
+nnoremap <leader>cT :VShell make ex TESTFF=
