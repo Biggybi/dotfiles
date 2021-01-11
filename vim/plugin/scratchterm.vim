@@ -1,15 +1,15 @@
-if exists('g:plugin_scratchterm')
-  finish
-endif
-let g:plugin_scratchterm = 1
+" if exists('g:plugin_scratchterm')
+"   finish
+" endif
+" let g:plugin_scratchterm = 1
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>, 'J')
 command! -complete=shellcmd -nargs=+ VShell call s:RunShellCommand(<q-args>, 'L')
 function! s:RunShellCommand(cmdline, direction) abort
+  let current_window = win_getid()
   if bufexists('scratch_terminal_output')
     bw! scratch_terminal_output
   endif
-  let current_window = win_getid()
   wincmd v
   wincmd J
   if has("nvim")
