@@ -36,15 +36,15 @@ function! s:LaunchTerm(cmdline)
   else
     exe 'terminal ++curwin '. a:cmdline
   endif
-  file scratch_terminal_output
+  file scratchterm
 endfunction
 
 function! s:RunShellCommand(cmdline, direction) abort
   let g:Scratchterm_last_cmd = a:cmdline
   let cmdline = g:Scratchterm_last_cmd
   let current_window = win_getid()
-  if bufexists('scratch_terminal_output') && bufwinid('scratch_terminal_output')
-    sbuffer scratch_terminal_output
+  if bufexists('scratchterm') && bufwinid('scratchterm')
+    sbuffer scratchterm
     enew
     Glcd
     call s:LaunchTerm(cmdline)
@@ -63,11 +63,11 @@ function! s:RunShellCommand(cmdline, direction) abort
 endfunction
 
 function! s:MoveScratchTerm(direction) abort
-  if !bufexists('scratch_terminal_output')
+  if !bufexists('scratchterm')
     return
   endif
   let current_window = win_getid()
-  sbuffer scratch_terminal_output
+  sbuffer scratchterm
   execute "wincmd" a:direction
   if index(["H", "L"], a:direction) >= 0
     exe g:TermToggleWidth "wincmd |"
