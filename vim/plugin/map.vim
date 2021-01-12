@@ -565,16 +565,11 @@ nmap <silent><leader>cl <Plug>(MoveScratchTermL)
 nmap <silent><leader>cz <Plug>(MoveScratchTermQ)
 nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
-function! LocListPanel(pfx) abort
-  " if a:pfx == 'l' && len(getloclist(0)) == 0
-  "   echohl ErrorMsg
-  "   echo "Location List is Empty."
-  "   return
-  " endif
+function! LocListPanel(pfx, side) abort
   let winnr = winnr()
   exec(a:pfx.'open')
   if &filetype == 'qf'
-    wincmd L
+    exe "wincmd" a:side
   endif
   if winnr() != winnr
     wincmd p
@@ -582,18 +577,9 @@ function! LocListPanel(pfx) abort
 endfunction
 
 " Make in spit
-nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l')<cr>
-nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l')<cr>
+nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l', 'J')<cr>
+nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l', 'J')<cr>
 
-nnoremap <leader>cse :Shell make ex<cr><cr>
-nnoremap <leader>cst :Shell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>c<c-s><c-t> :VShell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>c<c-s>t :VShell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cs<c-t> :VShell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cs<c-t> :VShell make ex TEST=test/%<cr><cr>
-nnoremap <leader>csT :Shell make ex TESTFF=
-
-" Count line in function
 function! FunctionLineCount() abort
   let firstline = search('^{', 'bn')
   let lastline = search('^}', 'n')
