@@ -39,32 +39,51 @@ function! s:LaunchTerm(cmdline)
   file scratchterm
 endfunction
 
+function! s:SetScratchAlternateFile(current_file)
+  if a:current_file == ""
+    return
+  endif
+  if @# =~ "\!.*"
+    try
+      bw @#
+    catch /.*/
+    endtry
+  endif
+  let @# = a:current_file
+endfunction
+
 function! s:RunShellCommand(cmdline, direction) abort
   let g:Scratchterm_last_cmd = a:cmdline
   let cmdline = g:Scratchterm_last_cmd
   let currpath = getcwd()
+  let current_file = bufname('%')
   let current_window = win_getid()
-  if bufexists('scratchterm') && bufwinid('scratchterm') != -1
-    sbuffer scratchterm
-    enew " new window to be able to...
-    " ...change directory to project root
-    exe "lcd!" currpath
-    try  " when scratchterm in window, not on a side, skip errors
+  let to_move = 0
+
+  if bufexists('scratchterm')
+    if bufwinid('scratchterm') != -1
+      " scratchterm in this tab
+      sbuffer scratchterm
+      enew " new window for easy cd
+      exe "lcd!" currpath
+    else
+      " scratchterm in another tab
       bw scratchterm
-    catch /.*/
-    endtry
-    call s:LaunchTerm(cmdline)
-    if win_getid() != current_window
-      call win_gotoid(current_window)
+      let to_move = 1
+      wincmd n
+      wincmd J
     endif
-    return
-  elseif bufwinid('scratchterm') != -1
-    silent bw scratchterm
+  else
+    " scratchterm nowhere
+    let to_move = 1
+    wincmd n
+    wincmd J
   endif
-  wincmd n
-  wincmd J
   call s:LaunchTerm(cmdline)
-  call s:MoveScratchTerm(a:direction)
+  call s:SetScratchAlternateFile(current_file)
+  if to_move == 1
+    call s:MoveScratchTerm(a:direction)
+  endif
   if win_getid() != current_window
     call win_gotoid(current_window)
   endif
