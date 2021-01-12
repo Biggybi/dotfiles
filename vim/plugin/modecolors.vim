@@ -35,13 +35,14 @@ endfunction
 
 let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
 function! ModeColorSwitch(_) abort
-  if mode() =~? '[s]'
+  let curr_mode = mode()
+  if curr_mode =~? '[s]'
     return s:setColor('StatusLineReplace')
-  elseif mode() =~# '[Ri]'
+  elseif curr_mode =~# '[Ri]'
     return s:setColor('StatusLineInsert')
-  elseif mode() =~? '[v]'
+  elseif curr_mode =~? '[v]'
     return s:setColor('StatusLineVisual')
-  elseif mode() ==? 'c'
+  elseif curr_mode ==? 'c'
     return s:setColor('StatusLineCmd')
   elseif has("nvim")
     return s:setColor('StatusLineNormal')
