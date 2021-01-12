@@ -43,7 +43,7 @@ function! s:RunShellCommand(cmdline, direction) abort
   let g:Scratchterm_last_cmd = a:cmdline
   let cmdline = g:Scratchterm_last_cmd
   let current_window = win_getid()
-  if bufexists('scratchterm') && bufwinid('scratchterm')
+  if bufexists('scratchterm') && bufwinid('scratchterm') != -1
     sbuffer scratchterm
     enew
     Glcd
@@ -52,6 +52,8 @@ function! s:RunShellCommand(cmdline, direction) abort
       call win_gotoid(current_window)
     endif
     return
+  elseif bufwinid('scratchterm') != -1
+    silent bw scratchterm
   endif
   wincmd n
   wincmd J
