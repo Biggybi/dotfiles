@@ -42,11 +42,17 @@ endfunction
 function! s:RunShellCommand(cmdline, direction) abort
   let g:Scratchterm_last_cmd = a:cmdline
   let cmdline = g:Scratchterm_last_cmd
+  let currpath = getcwd()
   let current_window = win_getid()
   if bufexists('scratchterm') && bufwinid('scratchterm') != -1
     sbuffer scratchterm
-    enew
-    Glcd
+    enew " new window to be able to...
+    " ...change directory to project root
+    exe "lcd!" currpath
+    try  " when scratchterm in window, not on a side, skip errors
+      bw scratchterm
+    catch /.*/
+    endtry
     call s:LaunchTerm(cmdline)
     if win_getid() != current_window
       call win_gotoid(current_window)
