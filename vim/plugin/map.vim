@@ -392,11 +392,13 @@ else
   exe "set <F32>=\ej"
   exe "set <F33>=\ek"
   exe "set <F34>=\el"
+  exe "set <F35>=\ep"
 
   exe "set <S-F31>=\eH"
   exe "set <S-F32>=\eJ"
   exe "set <S-F33>=\eK"
   exe "set <S-F34>=\eL"
+  exe "set <S-F35>=\eP"
 
   inoremap <F31> <left>
   inoremap <F32> <down>
@@ -407,11 +409,7 @@ else
   nnoremap <silent> <F32> :wincmd j<cr>
   nnoremap <silent> <F33> :wincmd k<cr>
   nnoremap <silent> <F34> :wincmd l<cr>
-
-  tnoremap <silent> <F31> <c-\><c-n>:wincmd h<cr>
-  tnoremap <silent> <F32> <c-\><c-n>:wincmd j<cr>
-  tnoremap <silent> <F33> <c-\><c-n>:wincmd k<cr>
-  tnoremap <silent> <F34> <c-\><c-n>:wincmd l<cr>
+  nnoremap <silent> <F35> :wincmd p<cr>
 
   cnoremap <F31> <left>
   cnoremap <F32> <down>
