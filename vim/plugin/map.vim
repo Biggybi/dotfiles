@@ -167,7 +167,7 @@ nnoremap gR :%s/<c-r>///g<left><left>
 
 nnoremap C <nop>
 
-"""        Files Informations
+"""        Files Information
 
 " cd shell to vim current working directory
 nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
@@ -551,12 +551,6 @@ nnoremap <leader>xX :call TrimLines('buffer')<cr>
 nnoremap <leader>cm :make<cr>
 nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
-
-" " Note: make it work? scratchterm.vim
-" nmap <silent><leader>ch <Plug>(MoveScratchTerm('H'))
-" nmap <silent><leader>cj <Plug>(MoveScratchTerm('J'))
-" nmap <silent><leader>ck <Plug>(MoveScratchTerm('K'))
-" nmap <silent><leader>cl <Plug>(MoveScratchTerm('L'))
 
 nmap <silent><leader>ch <Plug>(MoveScratchTermH)
 nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
