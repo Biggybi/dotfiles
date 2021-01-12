@@ -36,8 +36,9 @@ vnoremap ; :
 vnoremap : ;
 nnoremap <leader>; :!
 
-nnoremap gI `.gi<esc>zz:call FitBufferWindowBottom()<cr>
-nnoremap zz zz<bar>:call FitBufferWindowBottom()<cr>
+nnoremap <silent> gI `.gi<esc>zz:call FitBufferWindowBottom()<cr>
+nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
+nnoremap <silent> <leader>zz :let &scrolloff=999-&scrolloff<cr>
 
 " no more default ex mode
 nnoremap Q <nul>
