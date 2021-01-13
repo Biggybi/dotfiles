@@ -213,7 +213,7 @@ call <sid>hi("EdgeSearch",     s:gui08, s:gui02, s:cterm04, s:cterm0C, "none", "
 call <sid>hi("Search",        s:gui0D, s:gui02, s:cterm01, s:cterm0A,  "", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
 call <sid>hi("Macro",         s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("MatchParen",    s:gui03, s:gui00, "", s:cterm03,  "underline", "")
+call <sid>hi("MatchParen",    s:gui0C, s:gui02, "", s:cterm03,  "", "")
 call <sid>hi("ModeMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("MoreMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("Question",      s:gui0D, "", s:cterm0D, "", "", "")
