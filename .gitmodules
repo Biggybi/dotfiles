@@ -8,9 +8,6 @@
 [submodule "langserver/groovy-language-server"]
 	path = langserver/groovy-language-server
 	url = git@github.com:prominic/groovy-language-server.git
-; [submodule "vim/bundle/https:/github.com/junegunn/fzf.vim"]
-; 	path = vim/bundle/https:/github.com/junegunn/fzf.vim
-; 	url = git@github.com:metakirby5/codi.vim.git
 [submodule "vim/bundle/codi.vim"]
 	path = vim/pack/bundle/start/codi.vim
 	url = git@github.com:metakirby5/codi.vim.git
@@ -100,9 +97,6 @@
 [submodule "vim/bundle/undotree"]
 	path = vim/pack/bundle/start/undotree
 	url = git@github.com:mbbill/undotree.git
-; [submodule "vim/bundle/vim-airline-themes-fork"]
-; 	path = vim/bundle/vim-airline-themes-fork
-; 	url = git@github.com:Biggybi/vim-airline-themes.git
 [submodule "vim/bundle/vim-endwise"]
 	path = vim/pack/bundle/start/vim-endwise
 	url = git@github.com:tpope/vim-endwise.git
@@ -118,6 +112,7 @@
 [submodule "vim/pack/bundle/start/coc.nvim"]
 	path = vim/pack/bundle/start/coc.nvim
 	url = git@github.com:neoclide/coc.nvim.git
+	branch = release
 [submodule "tmux/plugins/tmux-resurrect"]
 	path = tmux/plugins/tmux-resurrect
 	url = git@github.cbom:tmux-plugins/tmux-resurrect
