@@ -37,6 +37,7 @@ function! s:LaunchTerm(cmdline)
     exe 'terminal ++curwin '. a:cmdline
   endif
   file scratchterm
+  set signcolumn=no
 endfunction
 
 function! s:SetScratchAlternateFile(current_file)
@@ -61,20 +62,17 @@ function! s:RunShellCommand(cmdline, direction) abort
   let to_move = 0
 
   if bufexists('scratchterm')
-    if bufwinid('scratchterm') != -1
-      " scratchterm in this tab
+    if bufwinid('scratchterm') != -1 " scratchterm in this tab
       sbuffer scratchterm
       enew " new window for easy cd
       exe "lcd!" currpath
-    else
-      " scratchterm in another tab
+    else                             " scratchterm in another tab
       bw scratchterm
       let to_move = 1
       wincmd n
       wincmd J
     endif
-  else
-    " scratchterm nowhere
+  else                               " scratchterm nowhere
     let to_move = 1
     wincmd n
     wincmd J
