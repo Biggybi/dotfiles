@@ -464,7 +464,7 @@ cnoremap <c-l> <S-Right>
 cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
 cnoremap <c-o> <s-tab>
 cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
-cnoreabbrev <expr> qqq getcmdpos() == 4 ? "qall!" : "qqq"
+cnoreabbrev <expr> qqq getcmdtype() == ':' && getcmdline() =~ "^qqq$" ? "qall!" : "qqq"
 
 " cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 cnoremap <c-r><c-5> <C-R>=fnameescape(expand('%:h')).'/'<cr>

@@ -119,3 +119,9 @@
 [submodule "tmux/plugins/tmux-fzf"]
 	path = tmux/plugins/tmux-fzf
 	url = git@github.com:sainnhe/tmux-fzf.git
+[submodule "vim/plugin/vim-cpp-enhanced-highlight"]
+	path = vim/plugin/vim-cpp-enhanced-highlight
+	url = git@github.com:octol/vim-cpp-enhanced-highlight.git
+[submodule "vim/pack/bundle/start/vim-highlightedyank"]
+	path = vim/pack/bundle/start/vim-highlightedyank
+	url = git@github.com:machakann/vim-highlightedyank.git
