@@ -54,20 +54,31 @@ nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
 nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
 " auto close brackets
+inoremap <buffer> ( ()<c-g>U<left>
+inoremap <buffer> [ []<c-g>U<left>
+inoremap <buffer> < <><c-g>U<left>
 inoremap <buffer> { {}<c-g>U<left>
-inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+
+inoremap <buffer> <expr> ) getline('.')[col('.')-1]==')' ? '<c-g>U<right>' : ')'
+inoremap <buffer> <expr> ] getline('.')[col('.')-1]==']' ? '<c-g>U<right>' : ']'
+inoremap <buffer> <expr> > getline('.')[col('.')-1]=='>' ? '<c-g>U<right>' : '>'
 inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+
+inoremap <buffer> " ""<c-g>U<left>
+inoremap <buffer> ' ''<c-g>U<left>
+inoremap <buffer> ` ``<c-g>U<left>
 
 " brackets around paragraph
 nnoremap <buffer> <leader>{} mz{S{<esc>}S}<esc>=%`z=iB
 nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
-"  name of current c,cpp function (needs '()')
-nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
-
 " semicolon/coma EOL toggle
 nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
 nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"
+
+"  name of current c,cpp function (needs '()')
+nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
 " select all text in function
 nnoremap <buffer> <leader>vf j[[V%o
