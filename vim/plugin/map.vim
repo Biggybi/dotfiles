@@ -304,10 +304,10 @@ nnoremap <expr> k v:count? 'k' : 'gk'
 xnoremap <expr> j v:count? 'j' : 'gj'
 xnoremap <expr> k v:count? 'k' : 'gk'
 
-nnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
-vnoremap <expr> <c-l> getline(".")[col(".")] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "w" : "E"
-nnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "gE" : "B"
-vnoremap <expr> <c-h> getline(".")[col(".") - 2] == ' ' <bar><bar> getline(".")[col(".") - 1] == ' ' ? "gE" : "B"
+nnoremap <expr> <c-l> getline('.')[col('.')] == ' ' <bar><bar> getline('.')[col('.') - 1] == ' ' ? 'w' : 'E'
+vnoremap <expr> <c-l> getline('.')[col('.')] == ' ' <bar><bar> getline('.')[col('.') - 1] == ' ' ? 'w' : 'E'
+nnoremap <expr> <c-h> getline('.')[col('.') - 2] == ' ' <bar><bar> getline('.')[col('.') - 1] == ' ' ? 'gE' : 'B'
+vnoremap <expr> <c-h> getline('.')[col('.') - 2] == ' ' <bar><bar> getline('.')[col('.') - 1] == ' ' ? 'gE' : 'B'
 
 nnoremap H ^
 nnoremap L $
