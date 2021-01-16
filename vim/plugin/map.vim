@@ -296,7 +296,7 @@ nmap <leader>h1 <Plug>(Header42)
 """        Movement
 
 " insert mode delete
-inoremap <c-l> <c-o>x
+inoremap <c-l> <del>
 
 " up down on visual lines
 nnoremap <expr> j v:count? 'j' : 'gj'
