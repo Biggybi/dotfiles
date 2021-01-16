@@ -558,6 +558,8 @@ nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
 nmap <silent><leader>ck <Plug>(MoveScratchTermK)
 nmap <silent><leader>cl <Plug>(MoveScratchTermL)
 nmap <silent><leader>cz <Plug>(MoveScratchTermQ)
+nmap <silent><leader>cJ <Plug>(ScrollScratchTermJ)
+nmap <silent><leader>cK <Plug>(ScrollScratchTermK)
 nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
 function! LocListPanel(pfx, side) abort

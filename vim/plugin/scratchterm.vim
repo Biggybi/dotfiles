@@ -20,6 +20,12 @@ nnoremap <silent> <Plug>(MoveScratchTermL) :<c-u>call
       \ <sid>MoveScratchTerm('L')<cr>
 nnoremap <silent> <Plug>(MoveScratchTermQ) :<c-u>call
       \ <sid>MoveScratchTerm('q')<cr>
+
+nnoremap <silent> <Plug>(ScrollScratchTermJ) :<c-u>call
+      \ <sid>ScrollScratchTerm('J')<cr>
+nnoremap <silent> <Plug>(ScrollScratchTermK) :<c-u>call
+      \ <sid>ScrollScratchTerm('K')<cr>
+
 nnoremap <silent> <Plug>(RunShellCommandRe) :<c-u>call
       \ <sid>RunShellCommand(g:Scratchterm_last_cmd, 'J')<cr>
 
@@ -98,6 +104,21 @@ function! s:MoveScratchTerm(direction) abort
     exe g:TermToggleWidth "wincmd |"
   elseif index(["J", "K"], a:direction) >= 0
     exe g:TermToggleHeight "wincmd _"
+  endif
+  call win_gotoid(current_window)
+endfunction
+
+function! s:ScrollScratchTerm(direction) abort
+  if !bufexists('scratchterm')
+    return
+  endif
+  let current_window = win_getid()
+  sbuffer scratchterm
+  if (a:direction == "K")
+    echo "coucou K"
+    normal gg
+  elseif (a:direction == "J")
+    normal G
   endif
   call win_gotoid(current_window)
 endfunction
