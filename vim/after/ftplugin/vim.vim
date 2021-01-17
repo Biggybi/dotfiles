@@ -21,7 +21,7 @@ setlocal foldmethod=expr
 setlocal foldtext=VimFold()
 setlocal foldexpr=getline(v\:lnum)=~'^\"\"'?'>'.(matchend(getline(v\:lnum),'\"\"*')-1)\:'='
 
-nnoremap <leader>s. mz:source %<cr>:nohlsearch<cr>
+nnoremap <leader>s. :Runtime<cr>
 nnoremap <buffer> <silent> zM :setlocal foldlevel=0<cr>zm100<c-y>
 inoremap <buffer> ,""<space> ""<space><space><space><space>
 inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
