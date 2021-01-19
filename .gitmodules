@@ -131,3 +131,6 @@
 [submodule "vim/pack/bundle/start/lh-vim-lib"]
 	path = vim/pack/bundle/start/lh-vim-lib
 	url = git@github.com:LucHermitte/lh-vim-lib.git
+[submodule "vim/pack/bundle/start/vim-indent-object"]
+	path = vim/pack/bundle/start/vim-indent-object
+	url = git@github.com:michaeljsmith/vim-indent-object.git
