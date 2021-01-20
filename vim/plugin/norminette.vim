@@ -15,8 +15,8 @@ function! s:Norminette(...) abort
     let l:errorformat_save = &errorformat
     let l:makeprg_save = &makeprg
     set makeprg=norminette.rb
-    set errorformat=%EError\ (line\ %l\\,\ col\ %c):%m
-    set errorformat+=,%EError\ (line\ %l):%m
+    set errorformat=%AError\ (line\ %l\\,\ col\ %c):%m
+    set errorformat+=,%AError\ (line\ %l):%m
     exe "make" a:1
   finally
     let &makeprg = l:makeprg_save
