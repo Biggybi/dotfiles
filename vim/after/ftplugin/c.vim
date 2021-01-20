@@ -82,12 +82,16 @@ nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 " select all text in function
 nnoremap <buffer> <leader>vf j[[V%o
 
+" make
+nnoremap <leader>ce :VShell make ex<cr>
+nnoremap <leader>ct :VShell make ex TESTFF=test/test*<cr>
+nnoremap <leader>cT :VShell make ex TESTFF=
+nnoremap <leader>cb :VShell bear make<cr>
+nnoremap <leader>cn :exe "Shell norminette.rb" expand('%:p')<cr>
+nnoremap <leader>cN :exe "Shell norminette.rb" expand('.')<cr>
+
 " debug
-" nnoremap <buffer> <leader>cv :!valgrind ./test.out 2> /dev/null<cr><cr>
 nnoremap <leader>cv :VShell valgrind --leak-check=full --show-leak-kinds=all -s ./test.out<cr>
 nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
-" nnoremap <buffer> <leader>csv :Shell valgrind ./test.out 2> /dev/null<cr><cr>
-
-nnoremap <leader>ce :VShell make ex<cr><cr>
-nnoremap <leader>ct :VShell make ex TESTFF=test/test*<cr><cr>
-nnoremap <leader>cT :VShell make ex TESTFF=
+nmap <leader>cn <plug>(NorminetteFile)
+nmap <leader>cN <plug>(NorminetteFolder)
