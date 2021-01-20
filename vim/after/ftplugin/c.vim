@@ -56,7 +56,6 @@ nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<c
 " auto close brackets
 inoremap <buffer> ( ()<c-g>U<left>
 inoremap <buffer> [ []<c-g>U<left>
-inoremap <buffer> < <><c-g>U<left>
 inoremap <buffer> { {}<c-g>U<left>
 
 inoremap <buffer> <expr> ) getline('.')[col('.')-1]==')' ? '<c-g>U<right>' : ')'
