@@ -29,30 +29,33 @@ nnoremap <silent> <Plug>(ScrollScratchTermK) :<c-u>call
 nnoremap <silent> <Plug>(RunShellCommandRe) :<c-u>call
       \ <sid>RunShellCommand(g:Scratchterm_last_cmd, 'J')<cr>
 
-" Note: could replace these mappings with this? (does not trigger function)
-nnoremap <silent> <Plug>(MoveScratchTerm(direction)) :<c-u>call
-      \ <sid>MoveScratchTerm(direction)<cr>
+" " Note: could replace these mappings with this? (does not trigger function)
+" nnoremap <silent> <Plug>(MoveScratchTerm(direction)) :<c-u>call
+"       \ <sid>MoveScratchTerm(direction)<cr>
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>, 'J')
 command! -complete=shellcmd -nargs=+ VShell call s:RunShellCommand(<q-args>, 'L')
 
-function! s:LaunchTerm(cmdline)
+function! s:LaunchTerm(cmdline) abort
   if has("nvim")
     exe 'terminal '. a:cmdline
   else
     exe 'terminal ++curwin '. a:cmdline
   endif
-  file scratchterm
+  try
+    file scratchterm
+  catch /.*/
+  endtry
   set signcolumn=no
 endfunction
 
-function! s:SetScratchAlternateFile(current_file)
+function! s:SetScratchAlternateFile(current_file) abort
   if a:current_file == ""
     return
   endif
   if @# =~ "\!.*"
     try
-      bw @#
+      bw! @#
     catch /.*/
     endtry
   endif
@@ -65,21 +68,18 @@ function! s:RunShellCommand(cmdline, direction) abort
   let currpath = getcwd()
   let current_file = bufname('%')
   let current_window = win_getid()
-  let to_move = 0
+  let to_move = 1
 
-  if bufexists('scratchterm')
-    if bufwinid('scratchterm') != -1 " scratchterm in this tab
-      sbuffer scratchterm
-      enew " new window for easy cd
-      exe "lcd!" currpath
-    else                             " scratchterm in another tab
-      bw scratchterm
-      let to_move = 1
-      wincmd n
-      wincmd J
-    endif
+  if bufexists('scratchterm') && bufwinid('scratchterm') != -1 " scratchterm in this tab
+    sbuffer scratchterm
+    enew " new window for easy cd
+    exe "lcd!" currpath
+    let to_move = 0
+  elseif bufexists('scratchterm') && bufwinid('scratchterm') == -1  " scratchterm in another tab
+    bw! scratchterm
+    wincmd n
+    wincmd J
   else                               " scratchterm nowhere
-    let to_move = 1
     wincmd n
     wincmd J
   endif
