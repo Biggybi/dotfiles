@@ -495,7 +495,9 @@ function! SelectFirstWordBlock(all) abort
   while (a:all == 0 && split(trim(getline(nextline)), '\W\+')[0] ==# firstword)
     let nextline += 1
   endwhile
-  normal! V
+  if mode() !~? '[v]'
+    normal! V
+  endif
   call cursor(nextline - 1, 0)
 endfunction
 
@@ -507,8 +509,9 @@ function! SelectFirstWordBlockVisual() abort
   while (getline(nextline) =~ firstword)
     let nextline += 1
   endwhile
-  " echo nextline
-  normal! V
+  if mode() !~? '[v]'
+    normal! V
+  endif
   call cursor(nextline - 1, 0)
 endfunction
 
