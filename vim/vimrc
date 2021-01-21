@@ -160,7 +160,7 @@ set shiftwidth=4                " indents 4 characters wide
 set shiftround                  " indent congru shiftwidth
 set autoindent                  " automatically indent new line
 set smartindent                 " ...in a sane way
-set showbreak=¬                 " ... showing a character
+set showbreak=>\              " ... showing a character
 set breakindent                 " with indent
 set wrap                        " wrap lines
 
