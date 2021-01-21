@@ -559,6 +559,8 @@ nnoremap <leader>xX :call TrimLines('buffer')<cr>
 nnoremap <leader>cm :make<cr>
 nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
+nnoremap <leader>cx :VShell make clean<cr>
+nnoremap <leader>c<c-x> :VShell make fclean<cr>
 
 nmap <silent><leader>ch <Plug>(MoveScratchTermH)
 nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
