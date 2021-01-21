@@ -241,7 +241,10 @@ nnoremap zo zczO
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<bar>:filetype detect<cr>
+nnoremap <leader>sr :Runtime<cr>
+nnoremap <leader>s. :Runtime<cr>
+nnoremap <silent> <leader>sp :silent! Runtime ~/.vim/plugin/*.vim<cr>
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>

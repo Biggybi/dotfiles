@@ -26,4 +26,5 @@ function! MyWindowTitle() abort
   let filepath = substitute(expand('%'), '.*/', '', '')
   let gitrepo = GetGitRepoName('%') . "  〉  "
   let &titlestring = hostname . gitrepo . filepath
+  " 〈  "
 endfunction
