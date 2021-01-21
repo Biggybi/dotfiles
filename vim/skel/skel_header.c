@@ -1,4 +1,4 @@
-#ifndef _HEADERNAME_
-# define _HEADERNAME_
+#ifndef HEADERNAME
+# define HEADERNAME
 
 #endif
