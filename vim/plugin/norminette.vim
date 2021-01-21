@@ -14,7 +14,7 @@ function! s:Norminette(...) abort
   try
     let l:errorformat_save = &errorformat
     let l:makeprg_save = &makeprg
-    let current_window = win_getid()
+    let l:current_window = win_getid()
     set makeprg=norminette.rb\ -R\
           \CheckTopCommentHeader\,
           \CheckCommentsPlacement\,
@@ -26,8 +26,8 @@ function! s:Norminette(...) abort
     set errorformat+=,%AError\ (line\ %l):%m
     exe "make" a:1
     botright cwindow
-    if win_getid() != current_window
-      call win_gotoid(current_window)
+    if win_getid() != l:current_window
+      call win_gotoid(l:current_window)
     endif
   finally
     let &makeprg = l:makeprg_save
