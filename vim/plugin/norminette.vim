@@ -14,7 +14,7 @@ function! s:Norminette(...) abort
   try
     let l:errorformat_save = &errorformat
     let l:makeprg_save = &makeprg
-    set makeprg=norminette.rb
+    set makeprg=norminette.rb\ -R\ CheckTopCommentHeader\,CheckCommentsPlacement\,CheckCommentsFormat\,CheckCppComment\,CheckForbiddenSourceHeader
     set errorformat=%AError\ (line\ %l\\,\ col\ %c):%m
     set errorformat+=,%AError\ (line\ %l):%m
     exe "make" a:1
@@ -23,4 +23,3 @@ function! s:Norminette(...) abort
     let &errorformat = l:errorformat_save
   endtry
   endfunction
-
