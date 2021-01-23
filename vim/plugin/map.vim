@@ -377,20 +377,6 @@ if has('nvim-0.4.0')
 
 else
 
-  "hack for terminals without modifyOtherKeys feature
-  let c='a'
-  while c <= 'z'
-    if c == 'p'
-      let c = nr2char(1+char2nr(c))
-    endif
-    let d=toupper(c)
-    exec "set <M-".c.">=\e".c
-    exec "imap \e".c." <M-".c.">"
-    exec "set <M-".d.">=\e".d
-    exec "imap \e".d." <M-".d.">"
-    let c = nr2char(1+char2nr(c))
-  endw
-
   exe "set <F31>=\eh"
   exe "set <F32>=\ej"
   exe "set <F33>=\ek"
