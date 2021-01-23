@@ -24,6 +24,7 @@ function! s:Norminette(...) abort
     set errorformat=%+PNorme:\ %f
     set errorformat+=,%AError\ (line\ %l\\,\ col\ %c):%m
     set errorformat+=,%AError\ (line\ %l):%m
+    set errorformat+=,%AWarning:%m
     exe "make" a:1
     botright cwindow
     if win_getid() != l:current_window
