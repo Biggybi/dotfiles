@@ -26,7 +26,7 @@ function! s:Norminette(...) abort
     set errorformat+=,%AError\ (line\ %l):%m
     set errorformat+=,%AWarning:%m
     exe "make" a:1
-    botright cwindow
+    botright copen
     if win_getid() != l:current_window
       call win_gotoid(l:current_window)
     endif
