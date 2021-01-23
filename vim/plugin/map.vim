@@ -572,14 +572,17 @@ nmap <silent><leader>co <Plug>(ScrollScratchTermK)
 nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
 function! LocListPanel(pfx, side) abort
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  if &filetype == 'qf'
-    exe "wincmd" a:side
-  endif
-  if winnr() != winnr
-    wincmd p
-  endif
+  try
+    let winnr = winnr()
+    exe a:pfx . 'open'
+    if &filetype == 'qf'
+      exe "wincmd" a:side
+    endif
+  finally
+    if winnr() != winnr
+      wincmd p
+    endif
+  endtry
 endfunction
 
 " Make in spit
