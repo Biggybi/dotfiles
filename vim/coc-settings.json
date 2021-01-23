@@ -19,7 +19,8 @@
 		},
 		"efm": {
 			"command": "efm-langserver",
-			"filetypes": ["vim", "eruby", "markdown"]
+			"filetypes": ["vim", "eruby", "markdown"],
+			"args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
 		},
 		"haskell": {
 			"command": "hie-wrapper",
