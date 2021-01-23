@@ -13,7 +13,7 @@ nnoremap <silent> <leader>q :silent! call QuitBackToLast()<cr>
 " nnoremap <leader>q :quit<cr>
 
 " Delete Hidden Buffers
-function! DeleteHiddenBuffers()
+function! DeleteHiddenBuffers() abort
   let tpbl=[]
   let closed = 0
   call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
@@ -23,7 +23,7 @@ function! DeleteHiddenBuffers()
       let closed += 1
     endif
   endfor
-  echo "Closed ".closed." hidden buffers"
+  echo "Closed" closed "hidden buffers"
 endfunction
 command! BwHidden call DeleteHiddenBuffers()
 
@@ -72,7 +72,7 @@ cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 nmap yom <Plug>(modeColorToggle)
 
 " Toggle concealed characters
-function! ConcealToggle()
+function! ConcealToggle() abort
   " let &conceallevel = (&conceallevel ? '0' : '2')
   if &conceallevel
     set conceallevel=0
@@ -201,7 +201,7 @@ command! -nargs=1 -complete=command Nomove
 \ |     unlet s:svpos
 \ | endtry
 
-function! CountRealLines()
+function! CountRealLines() abort
     let l:count = 0
     Nomove g/^[^$,\"]/let l:count += 1
     return l:count
@@ -541,7 +541,7 @@ nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
       \ ":cclose<cr>" : ":bot copen<cr><c-w>p"
 
 " trim current line or all file
-function! TrimLines(scope)
+function! TrimLines(scope) abort
   try
     if a:scope ==? 'line'
       Nomove s/\s\+$//
