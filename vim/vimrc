@@ -44,17 +44,17 @@ set tags=tags,.git/tags
 if has('mksession')
   set sessionoptions-=options
   set sessionoptions-=curdir
-  set viewoptions=folds,cursor    "only these settins
+  set viewoptions=folds,cursor       "only these settings
 endif
 " restore undo history
 if exists('+undofile')
   set undofile
 endif
 
-set history=10000               " long history
+set history=10000                    " long history
 set hidden
 
-if exists('$SUDO_USER')         " don't create root-owned files
+if exists('$SUDO_USER')              " don't create root-owned files
   set noswapfile
   set nobackup
   set nowritebackup
@@ -159,8 +159,8 @@ set softtabstop=4               " tabs 4 characters wide
 set shiftwidth=4                " indents 4 characters wide
 set shiftround                  " indent congru shiftwidth
 set autoindent                  " automatically indent new line
-set smartindent                 " ...in a sane way
-set showbreak=>\              " ... showing a character
+set smartindent                 " ... in a sane way
+set showbreak=>\                " ... showing a character
 set breakindent                 " with indent
 set wrap                        " wrap lines
 
@@ -225,10 +225,10 @@ if has('termguicolors')
 endif
 
 " Diff
-set diffopt+=vertical " vertical split for diff
+set diffopt+=vertical           " vertical split for diff
 
-" False cursorline to have CursorLineNr working
-set cursorline
+
+set cursorline                  " for CursorLineNr
 
 " Tabline
 set tabpagemax=30
