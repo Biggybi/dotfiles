@@ -348,7 +348,7 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 ## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
 ##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
 alias fbin='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
-alias flft='$EDITOR $ALIAS_42_LFT/src/$(find $ALIAS_42_LFT/src -type f -exec basename {} \; | fzf --height=10 --preview="cat $ALIAS_42_LFT/src/{}")'
+alias flft='$EDITOR $LFT/src/$(find $LFT/src -type f -exec basename {} \; | fzf --height=10 --preview="cat $LFT/src/{}")'
 # alias ev='$EDITOR $(fzf --height=10)'
 
 get_hidden_mail_adress() {
