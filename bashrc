@@ -1,6 +1,6 @@
 ###########################################################
 #   ______  _____  ______  ______ __   __ ______  _____   #
-#   |_____]   |   |  ____ |  ____   \_/   |_____]   |	  #
+#   |_____]   |   |  ____ |  ____   \_/   |_____]   |     #
 #   |_____] __|__ |_____| |_____|    |    |_____] __|__   #
 #                                                 bashrc  #
 ###########################################################
@@ -19,6 +19,8 @@ if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
 
+# let $BASH_ENV = "~/.bash_aliases"
+
 # if [ -f ~/dotfiles/vim/bundle/fzf/shell/key-bindings.bash ]; then
 # 	. ~/dotfiles/vim/bundle/fzf/shell/key-bindings.bash
 # fi
@@ -30,6 +32,7 @@ set -o vi
 export GOPATH=$HOME/bin/go
 export PATH=$PATH:~/bin:/usr/lib:~/.npm-global/bin:/home/linuxbrew/.linuxbrew/bin
 PATH+=:$GOPATH/bin
+PATH+=:~/bin/norminette
 export VISUAL=vim
 export EDITOR="$VISUAL"
 # export EDITOR="nvim"
@@ -61,19 +64,17 @@ export DATAPATH="/media/data/"
 #     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
 #     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
-shopt -s checkwinsize				# auto adjust winsize after each command
-#shopt -s globstar					# "**" match all files recursively
+shopt -s checkwinsize                               # auto adjust winsize after each command
+# shopt -s globstar                                   # "**" match all files recursively
 # if [[ "$OSTYPE" != "darwin"* ]]
 # then
-# 	shopt -s autocd					# autocd
+# 	shopt -s autocd                                 # autocd
 # fi
 
-
-#better completion
-
-bind 'TAB':menu-complete					# cycle through matches
-bind 'set menu-complete-display-prefix on'	# partial completion, then cycle
-bind 'set show-all-if-ambiguous on'			# show list of matching files
+# better completion
+bind 'TAB':menu-complete                            # cycle through matches
+bind 'set menu-complete-display-prefix on'          # partial completion, then cycle
+bind 'set show-all-if-ambiguous on'                 # show list of matching files
 # bind 'set mark-directories on'
 
 # programmable completion features, no need if
@@ -92,17 +93,18 @@ if [ -f /usr/share/bash-completion/completions/git ]; then
 fi
 
 # history
-stty -ixon											# no term flow (C-q)
-shopt -s cmdhist									# command one-liner
-shopt -s histappend									# append to history
-shopt -s histverify									# expand '!'
+stty -ixon                                          # no term flow (C-q)
+shopt -s cmdhist                                    # command one-liner
+shopt -s histappend                                 # append to history
+shopt -s histverify                                 # expand '!'
 # ignored commands
 HISTIGNORE="&:ls:l:ll:cc:c:clear:bg:fg:exit:clear:tmux\ detach:td:d"
-HISTSIZE= HISTFILESIZE=#							# infinite history
-HISTCONTROL=ignoreboth								# duplicate + whitespace
-HISTCONTROL+=:erasedups								# delete dupse (cross-session)
-# HISTCONTROL=ignorespace							# whitespace
-# HISTCONTROL=ignoredups							# duplicates
+HISTSIZE=#
+HISTFILESIZE=#                                      # infinite history
+HISTCONTROL=ignoreboth                              # duplicate + whitespace
+HISTCONTROL+=:erasedups                             # delete dupse (cross-session)
+# HISTCONTROL=ignorespace                             # whitespace
+# HISTCONTROL=ignoredups                              # duplicates
 
 # Cross-session history:  After each command, append to the history file and reread it
 PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
@@ -125,8 +127,8 @@ fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-export LESS=' -R '					# less preserve colors
-# alias less='/usr/share/vim/vim81/macros/less.sh'	# vim less
+export LESS=' -R '                                  # less preserve colors
+# alias less='/usr/share/vim/vim81/macros/less.sh'    # vim less
 
 # Color man pages in `less`
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -152,11 +154,11 @@ color_ps1()
 	local DIR="\[\e[00;01;94m\]  \w"
 	local BRANCH="\033[01;95m\]\$(git_branch %s)"
 	local PROMPT="\n \[\e[0m\]"
-	if [ -n "$SSH_CLIENT" ] ; then						# for ssh
-		local SEP="\[\e[01;93;100m\]|"					# yellow sep
+	if [ -n "$SSH_CLIENT" ] ; then    # for ssh
+		local SEP="\[\e[01;93;100m\]|"              # yellow sep
 	fi
-	if [ "$(id -u)" = 0 ] ; then						# for root
-		# local SEP="\[\e[01;31;100m\]|"					# red sep
+	if [ "$(id -u)" = 0 ] ; then                    # for root
+	    # local SEP="\[\e[01;31;100m\]|"              # red sep
 		local USER="\[\e[01;33;100m\]  \u"
 	fi
 	PS1="$START $USER $SEP $HOST  $DIR  $BRANCH $PROMPT"
@@ -192,8 +194,8 @@ then
 	#ls mac colors
 	export CDPATH=".:$HOME"
 	source $HOME/.brewconfig.zsh
-	export CLICOLOR='1'							# colors with tab (???) in Mac OS
-	export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx		#ls colors for Mac OS
+	export CLICOLOR='1'                             # colors with tab (???) in Mac OS
+	export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx          #ls colors for Mac OS
 fi
 
 # remap CAPSLOCK to CTRL in Mac OS
@@ -204,5 +206,12 @@ fi
 
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+	[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+		eval "$("$BASE16_SHELL/profile_helper.sh")" 2> /dev/null
+base16_onedark 2>&1 > /dev/null
 
 [ -f $DOT/fzf.bash ] && source $DOT/fzf.bash
