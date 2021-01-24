@@ -16,3 +16,9 @@ function! QfMakeConv() abort
   endfor
   call setqflist(qflist)
 endfunction
+
+augroup AutoQFOpen
+  au!
+  au QuickFixCmdPost [^l]* nested botright cwindow
+  au QuickFixCmdPost    l* nested botright lwindow
+augroup end
