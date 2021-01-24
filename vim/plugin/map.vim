@@ -345,6 +345,12 @@ vnoremap > >gv
 " nnoremap <leader>B :sbuffer<space>
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
+" resize windows quicker
+nnoremap <leader>= :exe "resize +10"<cr>
+nnoremap <leader>- :exe "resize -10"<cr>
+nnoremap <leader>> :exe "vertical resize +10"<CR>
+nnoremap <leader>< :exe "vertical resize -10"<CR>
+
 """        Alt Movement
 
 " Allow <alt> key mappings
@@ -381,18 +387,22 @@ else
   exe "set <F32>=\ej"
   exe "set <F33>=\ek"
   exe "set <F34>=\el"
-  exe "set <F35>=\ep"
 
   exe "set <S-F31>=\eH"
   exe "set <S-F32>=\eJ"
   exe "set <S-F33>=\eK"
   exe "set <S-F34>=\eL"
-  exe "set <S-F35>=\eP"
 
   inoremap <F31> <left>
   inoremap <F32> <down>
   inoremap <F33> <up>
   inoremap <F34> <right>
+
+  " workaround: `p` feeds `\` in some terms
+  if exists("$TMUX")
+    exe "set <F35>=\ep"
+    exe "set <S-F35>=\eP"
+  endif
 
   nnoremap <silent> <F31> :wincmd h<cr>
   nnoremap <silent> <F32> :wincmd j<cr>
@@ -409,19 +419,8 @@ else
   nnoremap <silent> <S-F32> :exe "vertical resize -1"<CR>
   nnoremap <silent> <S-F33> :exe "vertical resize +1"<CR>
   nnoremap <silent> <S-F34> :exe "resize +1"<cr>
+
 endif
-
-" resize windows quicker
-nnoremap <leader>= :exe "resize +10"<cr>
-nnoremap <leader>- :exe "resize -10"<cr>
-nnoremap <leader>> :exe "vertical resize +10"<CR>
-nnoremap <leader>< :exe "vertical resize -10"<CR>
-
-nnoremap <silent> <M-K> :exe "resize +1"<cr>
-nnoremap <silent> <M-J> :exe "resize -1"<cr>
-nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
-nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
-
 """        Searching
 
 " Pair cycle
