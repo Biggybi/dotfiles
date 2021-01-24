@@ -15,16 +15,16 @@ function! s:Norminette(...) abort
     let l:errorformat_save = &errorformat
     let l:makeprg_save = &makeprg
     let l:current_window = win_getid()
-    set makeprg=norminette.rb\ -R\
+    setlocal makeprg=norminette.rb\ -R\
           \CheckTopCommentHeader\,
           \CheckCommentsPlacement\,
           \CheckCommentsFormat\,
           \CheckCppComment\,
           \CheckForbiddenSourceHeader
-    set errorformat=%+PNorme:\ %f
-    set errorformat+=,%AError\ (line\ %l\\,\ col\ %c):%m
-    set errorformat+=,%AError\ (line\ %l):%m
-    set errorformat+=,%AWarning:%m
+    setlocal errorformat=%+PNorme:\ %f
+    setlocal errorformat+=,%AError\ (line\ %l\\,\ col\ %c):%m
+    setlocal errorformat+=,%AError\ (line\ %l):%m
+    setlocal errorformat+=,%AWarning:%m
     exe "make" a:1
     botright copen
     if win_getid() != l:current_window

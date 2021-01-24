@@ -46,7 +46,7 @@ function! s:LaunchTerm(cmdline) abort
     file scratchterm
   catch /.*/
   endtry
-  set signcolumn=no
+  setlocal signcolumn=no
 endfunction
 
 function! s:SetScratchAlternateFile(current_file) abort
