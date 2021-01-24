@@ -26,7 +26,7 @@ nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
 nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
 nnoremap <silent> <leader>F :FzfFiles /<cr>
 nnoremap <silent> <leader>fb :FzfBuffers<cr>
-nnoremap <silent> <leader>b :FzfBuffers<cr>
+nnoremap <silent> <leader>b :ls<cr>
 nnoremap <silent> <leader>j :FzfBuffers<cr>
 nnoremap <silent> <leader>fw :FzfWindows<cr>
 nnoremap <silent> <leader>ft :FzfTags<cr>
