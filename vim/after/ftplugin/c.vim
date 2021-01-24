@@ -26,7 +26,7 @@ function! s:insertCHHeader() abort
   call search('^$')
 endfunction
 
-if line('$') == 1 && empty(getline(1)) && bufname("%") =~? ".h"
+if line('$') == 1 && empty(getline(1)) && bufname("%") =~? ".h$"
   call <sid>insertCHHeader()
   call search('^$')
 endif
