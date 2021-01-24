@@ -227,7 +227,6 @@ endif
 " Diff
 set diffopt+=vertical           " vertical split for diff
 
-
 set cursorline                  " for CursorLineNr
 
 " Tabline
