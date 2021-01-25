@@ -36,9 +36,9 @@ CFLAGS = -Wall -Wextra -g
 # LIB = -L.$(SEP)libft$(SEP) -lft
 # LIBINC = -I libft$(SEP)includes$(SEP)
 
-TEST = test
-TESTF = test$(SEP)
-TESTFF = $(addprefix $(TESTF), $(TEST))
+TESTFILE = test
+TESTDIR = test$(SEP)
+TEST = $(addprefix $(TESTDIR), $(TESTFILE))
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all -s
 
 all: greatings $(NAME)
@@ -69,14 +69,14 @@ test: re $(NAME)
 	$(HIDE)echo "--- Bin exec ---"
 	$(HIDE)echo
 	$(HIDE)chmod u+x $(NAME)
-	$(HIDE)./$(NAME) $(TESTFF)
+	$(HIDE)./$(NAME) $(TEST)
 
 valgrind: re $(NAME)
 	$(HIDE)echo
 	$(HIDE)echo "--- Valgrind ---"
 	$(HIDE)echo
 	$(HIDE)chmod u+x $(NAME)
-	$(HIDE)$(VALGRIND) ./$(NAME) $(TESTFF)
+	$(HIDE)$(VALGRIND) ./$(NAME) $(TEST)
 
 greatings:
 	@echo "####################"
