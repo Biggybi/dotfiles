@@ -83,15 +83,15 @@ nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 nnoremap <buffer> <leader>vf j[[V%o
 
 " make
-nnoremap <leader>ce :VShell make ex<cr>
-nnoremap <leader>ct :VShell make ex TESTFF=test/test*<cr>
-nnoremap <leader>cT :VShell make ex TESTFF=
+nnoremap <leader>ce :VShell make test<cr>
+nnoremap <leader>ct :VShell make test TESTFF=test/test*<cr>
+nnoremap <leader>cT :VShell make test TESTFF=
 nnoremap <leader>cb :VShell bear make<cr>
 nnoremap <leader>cn :exe "Shell norminette.rb" expand('%:p')<cr>
 nnoremap <leader>cN :exe "Shell norminette.rb" expand('.')<cr>
 
 " debug
-nnoremap <leader>cv :VShell valgrind --leak-check=full --show-leak-kinds=all -s ./test.out<cr>
+nnoremap <leader>cv :VShell make valgrind<cr>
 nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
 nmap <leader>cn <plug>(NorminetteFile)
 nmap <leader>cN <plug>(NorminetteFolder)
