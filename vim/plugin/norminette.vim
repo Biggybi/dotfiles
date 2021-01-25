@@ -8,7 +8,7 @@ nnoremap <silent> <Plug>(NorminetteFile) :<c-u>call
 nnoremap <silent> <Plug>(NorminetteFolder) :<c-u>call
       \ <sid>Norminette(expand(join(map(split(&path, ','), ' v:val . expand("/*.[ch]")'))))<cr><cr>
 
-command! -complete=file_in_path -nargs=* Norminette call s:Norminette(<q-args>)
+command! -complete=file -nargs=* Norminette call s:Norminette(<q-args>)
 
 function! s:Norminette(...) abort
   try
