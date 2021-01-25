@@ -6,7 +6,7 @@ let g:plugin_norminette = 1
 nnoremap <silent> <Plug>(NorminetteFile) :<c-u>call
       \ <sid>Norminette('%')<cr><cr>
 nnoremap <silent> <Plug>(NorminetteFolder) :<c-u>call
-      \ <sid>Norminette(expand(join(map(split(&path, ','), ' v:val . expand("/*.[ch]")'))))<cr><cr>
+      \ <sid>Norminette()<cr><cr>
 
 command! -complete=file -nargs=* Norminette call s:Norminette(<q-args>)
 
@@ -25,7 +25,13 @@ function! s:Norminette(...) abort
     setlocal errorformat+=,%AError\ (line\ %l\\,\ col\ %c):%m
     setlocal errorformat+=,%AError\ (line\ %l):%m
     setlocal errorformat+=,%AWarning:%m
-    exe "make" a:1
+    if a:0 == 0
+      echom "no args"
+      let files = system('find . -maxdepth 2 -type f -name "*.[ch]"')
+    else
+      let files = join(a:000)
+    endif
+    exe "make" files
     botright copen
     if win_getid() != l:current_window
       call win_gotoid(l:current_window)
