@@ -39,6 +39,7 @@ CFLAGS = -Wall -Wextra -g
 TEST = test
 TESTF = test$(SEP)
 TESTFF = $(addprefix $(TESTF), $(TEST))
+VALGRIND = valgrind --leak-check=full --show-leak-kinds=all -s
 
 all: greatings $(NAME)
 
@@ -75,7 +76,7 @@ valgrind: re $(NAME)
 	$(HIDE)echo "--- Valgrind ---"
 	$(HIDE)echo
 	$(HIDE)chmod u+x $(NAME)
-	$(HIDE)valgrind ./$(NAME) $(TESTFF)
+	$(HIDE)$(VALGRIND) ./$(NAME) $(TESTFF)
 
 greatings:
 	@echo "####################"
