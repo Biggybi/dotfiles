@@ -415,10 +415,10 @@ else
   cnoremap <F33> <up>
   cnoremap <F34> <right>
 
-  nnoremap <silent> <S-F31> :exe "resize -1"<cr>
-  nnoremap <silent> <S-F32> :exe "vertical resize -1"<CR>
-  nnoremap <silent> <S-F33> :exe "vertical resize +1"<CR>
-  nnoremap <silent> <S-F34> :exe "resize +1"<cr>
+  nnoremap <silent> <S-F31> :exe "vertical resize -1"<cr>
+  nnoremap <silent> <S-F32> :exe "resize -1"<CR>
+  nnoremap <silent> <S-F33> :exe "resize +1"<CR>
+  nnoremap <silent> <S-F34> :exe "vertical resize +1"<cr>
 
 endif
 """        Searching
