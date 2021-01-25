@@ -6,7 +6,7 @@ let g:plugin_norminette = 1
 nnoremap <silent> <Plug>(NorminetteFile) :<c-u>call
       \ <sid>Norminette('%')<cr><cr>
 nnoremap <silent> <Plug>(NorminetteFolder) :<c-u>call
-      \ <sid>Norminette(expand(join(map(split(&path, ','), ' v:val . "/*.[ch]"'))))<cr><cr>
+      \ <sid>Norminette(expand(join(map(split(&path, ','), ' v:val . expand("/*.[ch]")'))))<cr><cr>
 
 command! -complete=file_in_path -nargs=* Norminette call s:Norminette(<q-args>)
 
