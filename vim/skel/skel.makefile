@@ -2,13 +2,13 @@ NAME = PROGRAMNAME
 
 SDIR = src
 ODIR = obj
-# LIB = -L./libft/ -lft
+# LIB = -L.$(SEP)libft$(SEP) -lft
 
 TEST = test
-TESTF = test/
+TESTF = test$(SEP)
 TESTFF = $(addprefix $(TESTF), $(TEST))
 
-INC = inc/
+INC = inc$(SEP)
 # OS filesystem functions
 ifeq ($(OS),Windows_NT)
 	RM = del /F /Q
