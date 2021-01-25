@@ -55,7 +55,7 @@ $(ODIR):
 
 clean: greatings
 	$(HIDE)$(RMDIR) *.o obj
-	$(HIDE)echo "clean  ->  *.o deleted"
+	$(HIDE)echo "clean  ->  objects deleted"
 
 fclean: clean
 	$(HIDE)$(RMDIR) $(NAME)
