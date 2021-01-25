@@ -1,14 +1,3 @@
-NAME = PROGRAMNAME
-
-SDIR = src
-ODIR = obj
-# LIB = -L.$(SEP)libft$(SEP) -lft
-
-TEST = test
-TESTF = test$(SEP)
-TESTFF = $(addprefix $(TESTF), $(TEST))
-
-INC = inc$(SEP)
 # OS filesystem functions
 ifeq ($(OS),Windows_NT)
 	RM = del /F /Q
@@ -31,12 +20,25 @@ else
     HIDE = ""
 endif
 
-SRC = $(shell find $(SDIR) -name "*.c")
+NAME = PROGRAMNAME
+
+SDIR = src$(SEP)
+ODIR = obj$(SEP)
+
+INC = inc$(SEP)
+SRC = $(shell find $(SDIR) -type f -name "*.c")
 OBJ = $(patsubst $(SDIR)%, $(ODIR)%, $(SRC:.c=.o))
-SSUBDIR = $(shell find $(SDIR) -type d -not -empty)
+SSUBDIR = $(shell find $(SDIR) -type d -not -empty)$(SEP)
 
 CC = clang
 CFLAGS = -Wall -Wextra -g
+
+# LIB = -L.$(SEP)libft$(SEP) -lft
+# LIBINC = -I libft$(SEP)includes$(SEP)
+
+TEST = test
+TESTF = test$(SEP)
+TESTFF = $(addprefix $(TESTF), $(TEST))
 
 all: greatings $(NAME)
 
@@ -44,8 +46,8 @@ $(NAME): $(ODIR) $(OBJ)
 	$(HIDE)$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
 	$(HIDE)echo "make   ->  $(NAME) created"
 
-$(ODIR)$(SEP)%.o: $(SSUBDIR)$(SEP)%.c
-	$(HIDE)$(CC) -c $(CFLAGS) -I $(INC)$(SEP) $^ -o $@
+$(ODIR)%.o: $(SSUBDIR)%.c
+	$(HIDE)$(CC) -c $(CFLAGS) -I $(INC) $(LIBINC) $^ -o $@
 
 $(ODIR):
 	$(HIDE)$(MKDIR) $(ODIR)
