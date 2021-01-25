@@ -37,12 +37,14 @@ function! s:putTermPanel(buf, side, size) abort
   if stridx("jkJK", a:side) >= 0
     execute "wincmd" a:side
     execute "resize" a:size
+    setlocal winfixheight
     return
   endif
   " vertical split resize
   if stridx("hlHL", a:side) >= 0
     execute "wincmd" a:side
     execute "vertical resize" a:size
+    setlocal winfixwidth
   endif
 endfunction
 
