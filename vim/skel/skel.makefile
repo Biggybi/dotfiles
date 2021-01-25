@@ -63,12 +63,19 @@ fclean: clean
 re : fclean all
 	$(HIDE)echo "re     ->  $(NAME) reloaded"
 
-ex: re $(NAME)
+test: re $(NAME)
 	$(HIDE)echo
 	$(HIDE)echo "--- Bin exec ---"
 	$(HIDE)echo
 	$(HIDE)chmod u+x $(NAME)
 	$(HIDE)./$(NAME) $(TESTFF)
+
+valgrind: re $(NAME)
+	$(HIDE)echo
+	$(HIDE)echo "--- Valgrind ---"
+	$(HIDE)echo
+	$(HIDE)chmod u+x $(NAME)
+	$(HIDE)valgrind ./$(NAME) $(TESTFF)
 
 greatings:
 	@echo "####################"
