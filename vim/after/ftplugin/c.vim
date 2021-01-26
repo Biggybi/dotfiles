@@ -7,6 +7,10 @@ setlocal path=inc,incs,includes,include,src,sources,source
 " ^\s*#\s*include
 " setlocal include=^\s*#\s*inc*
 
+" workaround for makefile: last line would link to a wrong file
+setlocal errorformat=%E%f:%l:%c:\ error:%m
+setlocal errorformat+=,%W%f:%l:%c:\ warning:%m
+
 function! s:insertCHHeader() abort
   try
     let path_to_skeletons = "$HOME/dotfiles/vim/skel/skel_header.c"
