@@ -29,6 +29,8 @@ nnoremap [= :call ShowTerm()<cr>
 function! s:putTermPanel(buf, side, size) abort
   " new term if no buffer
   if a:buf == 0
+    " clear screen (workaround for bashrc base16 trash)
+    call feedkeys("\<c-l>")
     term
   else
     execute "sp" bufname(a:buf)
@@ -38,13 +40,14 @@ function! s:putTermPanel(buf, side, size) abort
     execute "wincmd" a:side
     execute "resize" a:size
     setlocal winfixheight
-    return
+    setlocal nowinfixwidth
+    " vertical split resize
   endif
-  " vertical split resize
   if stridx("hlHL", a:side) >= 0
     execute "wincmd" a:side
     execute "vertical resize" a:size
     setlocal winfixwidth
+    setlocal nowinfixheight
   endif
 endfunction
 
