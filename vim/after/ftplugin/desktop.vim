@@ -1,13 +1,16 @@
 function! s:insertDektopEntrySkel() abort
-  let path_to_skeletons = "$HOME/dotfiles/vim/skel/skel.desktop"
-  " Save cpoptions
-  let cpoptions = &cpoptions
-  " Remove the 'a' option - prevents the name of the
-  " alternate file being overwritten with a :read command
-  exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-  exe "read " . path_to_skeletons
-  " Restore cpoptions
-  exe "set cpoptions=" . cpoptions
+  try
+    let path_to_skeletons = "$HOME/dotfiles/vim/skel/skel.desktop"
+    " Save cpoptions
+    let cpoptions = &cpoptions
+    " Remove the 'a' option - prevents the name of the
+    " alternate file being overwritten with a :read command
+    exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+    exe "read " . path_to_skeletons
+  finally
+    " Restore cpoptions
+    exe "set cpoptions=" . cpoptions
+  endtry
   1, 1 delete _
   let fname = expand("%:t")
   let fname = substitute(fname, ".desktop$", "", "")

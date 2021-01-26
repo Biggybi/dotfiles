@@ -2,15 +2,18 @@ setlocal colorcolumn=81
 setlocal path+=inc,incs,includes,include,src,sources,source
 
 function! s:insertMakefileSkel() abort
-  let skeleton = "$HOME/dotfiles/vim/skel/skel.makefile"
-  " Save cpoptions
-  let cpoptions = &cpoptions
-  " Remove the 'a' option - prevents the name of the
-  " alternate file being overwritten with a :read command
-  exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-  exe "read " . skeleton
-  " Restore cpoptions
-  exe "set cpoptions=" . cpoptions
+  try
+    let skeleton = "$HOME/dotfiles/vim/skel/skel.makefile"
+    " Save cpoptions
+    let cpoptions = &cpoptions
+    " Remove the 'a' option - prevents the name of the
+    " alternate file being overwritten with a :read command
+    exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
+    exe "read " . skeleton
+  finally
+    " Restore cpoptions
+    exe "set cpoptions=" . cpoptions
+  endtry
   1, 1 delete _
   let file_path = expand("%:p:h")
   let parent_folder = substitute(file_path, "/.*/", "", "")
