@@ -459,19 +459,24 @@ vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 """        Command Line
 
-cnoremap <c-a> <Home>
-cnoremap <c-e> <End>
-cnoremap <c-k> <Up>
-cnoremap <c-j> <Down>
-cnoremap <c-b> <Left>
-cnoremap <c-l> <S-Right>
-cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
+" Basic moves
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+cnoremap <c-k> <up>
+cnoremap <c-j> <down>
+cnoremap <c-@> <down>
+cnoremap <c-b> <left>
+cnoremap <c-l> <s-right>
 cnoremap <c-o> <s-tab>
-cnoremap <c-r><c-l> <c-r>=substitute(getline('.'), '^\s*', '', '')<cr>
+
+" delete from cursor
+cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
+
+" skyrim quit
 cnoreabbrev <expr> qqq getcmdtype() == ':' && getcmdline() =~ "^qqq$" ? "qall!" : "qqq"
 
-" cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-cnoremap <c-r><c-5> <C-R>=fnameescape(expand('%:h')).'/'<cr>
+" put current working directory
+cnoremap <c-r>. <c-r>=fnameescape(expand('%:h')).'/'<cr>
 nnoremap <leader>vp :find <cr>vim/plugin/
 
 """        Tags
