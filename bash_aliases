@@ -227,10 +227,19 @@ alias pg='ps -aux | head -n -3 | grep'
 ## 42 piscine
 
 newday() {
-	if [ $1 != '.' ] | [ $# == 1 ]
+	if [ $# == 1 ]
 	then
-		mkdir d"$1"
-		cd d"$1"
+		[ ! -d "$1" ] && mkdir "$1"
+		if [ -z "$(find "$1" -maxdepth 0 -empty 2> /dev/null)" ]
+		then
+			echo "$1: day ready already"
+			cd "$1"
+			return
+		fi
+		echo "newday: $1"
+		cd "$1"
+	else
+		echo "newday"
 	fi
 	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10
 }
