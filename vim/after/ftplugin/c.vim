@@ -1,7 +1,6 @@
 setlocal colorcolumn=81
 setlocal foldmethod=syntax
 setlocal suffixesadd=.c,.h
-setlocal colorcolumn=81
 setlocal filetype=c
 setlocal path=inc,incs,includes,include,src,sources,source
 " ^\s*#\s*include
@@ -34,7 +33,7 @@ if line('$') == 1 && empty(getline(1)) && bufname('%') =~? '.h$'
   call <sid>insertCHHeader()
 endif
 
-inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
+inoremap <buffer> ,ma <esc>:Header42<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
 inoremap <buffer> ,if if ()<cr>{<cr>}<esc>2k3==f)i
 inoremap <buffer> ,wh while ()<cr>{<cr>}<esc>2k3==f)i
 inoremap <buffer> ,ret return (0);<esc>^
@@ -63,7 +62,6 @@ inoremap <buffer> { {}<c-g>U<left>
 
 inoremap <buffer> <expr> ) getline('.')[col('.')-1]==')' ? '<c-g>U<right>' : ')'
 inoremap <buffer> <expr> ] getline('.')[col('.')-1]==']' ? '<c-g>U<right>' : ']'
-inoremap <buffer> <expr> > getline('.')[col('.')-1]=='>' ? '<c-g>U<right>' : '>'
 inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
 inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
 
