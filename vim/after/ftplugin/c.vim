@@ -13,29 +13,25 @@ setlocal errorformat+=,%W%f:%l:%c:\ warning:%m
 
 function! s:insertCHHeader() abort
   try
-    let path_to_skeletons = "$HOME/dotfiles/vim/skel/skel_header.c"
-    " Save cpoptions
-    let cpoptions = &cpoptions
+    let path_to_skeletons = '$HOME/dotfiles/vim/skel/skel_header.c'
     " Remove the 'a' option - prevents the name of the
     " alternate file being overwritten with a :read command
-    exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-    " exe "read " . path_to_skeletons
-    exe "read " . path_to_skeletons
+    let cpoptions_save = &cpoptions
+    set cpoptions-=a
+    exe 'read' path_to_skeletons
   finally
-    " Restore cpoptions
-    exe "set cpoptions=" . cpoptions
+    let &cpoptions = cpoptions_save
   endtry
   1, 1 delete _
-  let fname = expand("%:t")
+  let fname = expand('%:t')
   let fname = toupper(fname)
-  let fname = substitute(fname, "\\.", "_", "g")
+  let fname = substitute(fname, '\.', '_', 'g')
   %s/HEADERNAME/\=fname/g
   call search('^$')
 endfunction
 
-if line('$') == 1 && empty(getline(1)) && bufname("%") =~? ".h$"
+if line('$') == 1 && empty(getline(1)) && bufname('%') =~? '.h$'
   call <sid>insertCHHeader()
-  call search('^$')
 endif
 
 inoremap <buffer> ,ma <esc>:Header101<cr>iint<tab><tab>main(int ac, char **av)<cr>{<cr>}<esc>Oreturn(0);<esc>O
@@ -80,8 +76,8 @@ nnoremap <buffer> <leader>{} mz{S{<esc>}S}<esc>=%`z=iB
 nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
 " semicolon/coma EOL toggle
-nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
-nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"
+nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? 'mz$x`z' : 'mzA;\<esc>`z'
+nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? 'mz$x`z' : 'mzA,\<esc>`z'
 
 "  name of current c,cpp function (needs '()')
 nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
@@ -94,8 +90,8 @@ nnoremap <leader>ce :VShell make test<cr>
 nnoremap <leader>ct :VShell make test TESTFF=test/test*<cr>
 nnoremap <leader>cT :VShell make test TESTFF=
 nnoremap <leader>cb :VShell bear make<cr>
-nnoremap <leader>cn :exe "Shell norminette.rb" expand('%:p')<cr>
-nnoremap <leader>cN :exe "Shell norminette.rb" expand('.')<cr>
+nnoremap <leader>cn :exe 'Shell norminette.rb' expand('%:p')<cr>
+nnoremap <leader>cN :exe 'Shell norminette.rb' expand('.')<cr>
 
 " debug
 nnoremap <leader>cv :VShell make valgrind<cr>

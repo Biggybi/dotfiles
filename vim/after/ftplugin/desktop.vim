@@ -1,25 +1,21 @@
 function! s:insertDektopEntrySkel() abort
   try
-    let path_to_skeletons = "$HOME/dotfiles/vim/skel/skel.desktop"
-    " Save cpoptions
-    let cpoptions = &cpoptions
+    let path_to_skeletons = '$HOME/dotfiles/vim/skel/skel.desktop'
     " Remove the 'a' option - prevents the name of the
     " alternate file being overwritten with a :read command
-    exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-    exe "read " . path_to_skeletons
+    let cpoptions_save = &cpoptions
+    set cpoptions-=a
+    exe 'read' path_to_skeletons
   finally
-    " Restore cpoptions
-    exe "set cpoptions=" . cpoptions
+    let &cpoptions = cpoptions_save
   endtry
   1, 1 delete _
-  let fname = expand("%:t")
-  let fname = substitute(fname, ".desktop$", "", "")
-  let fname = substitute(fname, "\\.", "_", "g")
+  let fname = expand('%:t')
+  let fname = substitute(fname, '.desktop$', '', '')
   %s/APPNAME/\=fname/g
-  call search('Application')
+  call cursor(1, 1)
 endfunction
 
-if line('$') == 1 && empty(getline(1)) && &filetype == "desktop"
+if line('$') == 1 && empty(getline(1)) && &filetype == 'desktop'
   call <sid>insertDektopEntrySkel()
-  call cursor('$', 0)
 endif

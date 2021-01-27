@@ -3,26 +3,23 @@ setlocal path+=inc,incs,includes,include,src,sources,source
 
 function! s:insertMakefileSkel() abort
   try
-    let skeleton = "$HOME/dotfiles/vim/skel/skel.makefile"
-    " Save cpoptions
-    let cpoptions = &cpoptions
+    let skeleton = '$HOME/dotfiles/vim/skel/skel.makefile'
     " Remove the 'a' option - prevents the name of the
     " alternate file being overwritten with a :read command
-    exe "set cpoptions=" . substitute(cpoptions, "a", "", "g")
-    exe "read " . skeleton
+    let cpoptions_save = &cpoptions
+    set cpoptions-=a
+    exe 'read' skeleton
   finally
-    " Restore cpoptions
-    exe "set cpoptions=" . cpoptions
+    let &cpoptions = cpoptions_save
   endtry
   1, 1 delete _
-  let file_path = expand("%:p:h")
-  let parent_folder = substitute(file_path, "/.*/", "", "")
-  let fname = substitute(parent_folder, "\\.", "_", "g")
+  let file_path = expand('%:p:h')
+  let parent_folder = substitute(file_path, '/.*/', '', '')
+  let fname = substitute(parent_folder, '\.', '_', 'g')
   %s/PROGRAMNAME/\=fname/g
-  normal gg
+  call search(fname)
 endfunction
 
-if line('$') == 1 && empty(getline(1)) && &filetype == "make"
+if line('$') == 1 && empty(getline(1)) && &filetype == 'make'
   call <sid>insertMakefileSkel()
-  call cursor('$', 0)
 endif
