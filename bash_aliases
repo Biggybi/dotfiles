@@ -241,7 +241,7 @@ newday() {
 	else
 		echo "newday"
 	fi
-	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10
+	mkdir ex00 ex01 ex02 ex03 ex04 ex05 ex06 ex07 ex08 ex09 ex10 2> /dev/null
 }
 
 alias gccfcday='gccf -c $(find ex* -name "*.c")'
