@@ -134,3 +134,6 @@
 [submodule "vim/pack/bundle/start/vim-indent-object"]
 	path = vim/pack/bundle/start/vim-indent-object
 	url = git@github.com:michaeljsmith/vim-indent-object.git
+[submodule "vim/pack/bundle/start/FYT.vim"]
+	path = vim/pack/bundle/start/FYT.vim
+	url = git@github.com:statox/FYT.vim.git
