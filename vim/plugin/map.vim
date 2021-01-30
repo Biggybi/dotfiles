@@ -134,7 +134,7 @@ nnoremap gp V`]
 " delete without saving to register
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
-" xnoremap <leader>p "_dP
+xnoremap <leader>p "_dP
 
 " System clipboard interraction
 " paste from clipboard ...
