@@ -7,6 +7,7 @@ let g:mode_color_hl_group = get(g:, 'mode_color_hl_group', 'CursorLineNr')
 
 let s:save_color_group_fg = synIDattr(hlID(g:mode_color_hl_group), "fg#")
 let s:save_color_group_bg = synIDattr(hlID(g:mode_color_hl_group), "bg#")
+
 function s:saveColorGroup()
   let s:save_color_group_fg = synIDattr(hlID(g:mode_color_hl_group), "fg#")
   let s:save_color_group_bg = synIDattr(hlID(g:mode_color_hl_group), "bg#")
@@ -33,7 +34,6 @@ function! s:setStatusLineHighlights() abort
   exe "silent! hi User6" s:getColor('StatusLineImportant', 'StatusLineActiveMid')
 endfunction
 
-let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
 function! ModeColorSwitch(_) abort
   let curr_mode = mode()
   if curr_mode =~? '[s]'
@@ -72,9 +72,10 @@ augroup StartModeColor
   au!
   au ColorScheme *
         \ call s:saveColorGroup()
-  au VimEnter,ColorScheme,SourcePost *
+  au ColorScheme,SourcePost *
         \ call s:setStatusLineHighlights()
 augroup end
+let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
 
 noremap <silent> <unique> <script> <plug>(modeColorToggle)
 \ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
