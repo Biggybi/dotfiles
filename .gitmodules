@@ -87,9 +87,6 @@
 [submodule "vim/bundle/vim-rhubarb"]
 	path = vim/pack/bundle/start/vim-rhubarb
 	url = git@github.com:tpope/vim-rhubarb.git
-[submodule "vim/bundle/vim-highlightedyank"]
-	path = vim/pack/bundle/start/vim-highlightedyank
-	url = git@github.com:machakann/vim-highlightedyank.git
 [submodule "vim/bundle/vim-anzu"]
 	path = vim/pack/bundle/start/vim-anzu
 	url = git@github.com:osyo-manga/vim-anzu.git
@@ -122,15 +119,6 @@
 [submodule "vim/plugin/vim-cpp-enhanced-highlight"]
 	path = vim/pack/bundle/start/vim-cpp-enhanced-highlight
 	url = git@github.com:octol/vim-cpp-enhanced-highlight.git
-[submodule "vim/pack/bundle/start/vim-highlightedyank"]
-	path = vim/pack/bundle/start/vim-highlightedyank
-	url = git@github.com:machakann/vim-highlightedyank.git
-[submodule "vim/pack/bundle/start/lh-brackets"]
-	path = vim/pack/bundle/start/lh-brackets
-	url = git@github.com:LucHermitte/lh-brackets.git
-[submodule "vim/pack/bundle/start/lh-vim-lib"]
-	path = vim/pack/bundle/start/lh-vim-lib
-	url = git@github.com:LucHermitte/lh-vim-lib.git
 [submodule "vim/pack/bundle/start/vim-indent-object"]
 	path = vim/pack/bundle/start/vim-indent-object
 	url = git@github.com:michaeljsmith/vim-indent-object.git
