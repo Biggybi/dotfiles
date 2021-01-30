@@ -38,10 +38,9 @@ function! s:statusLineActive() abort
   setlocal statusline +=\ %f%6*%m%*\                       " filename[modified]
   setlocal statusline +=%{anzu#search_status()}            " search results
   setlocal statusline +=%=%=%2*\ %{&filetype}\ %*          " filetype
-  setlocal statusline +=%1*\ %3p%%\ \︱                    " total (%)
+  setlocal statusline +=%1*%<\ %3p%%\                        " total (%)
   setlocal statusline +=%4l:                               " current line
   setlocal statusline +=%-4v%*                             " virtual column
-  setlocal statusline +=%<                                 " cut at end
 endfunction
 
 function! s:statusLineInactive() abort
