@@ -5,14 +5,6 @@ let g:plugin_modecolor = 1
 
 let g:mode_color_hl_group = get(g:, 'mode_color_hl_group', 'CursorLineNr')
 
-let s:save_color_group_fg = synIDattr(hlID(g:mode_color_hl_group), "fg#")
-let s:save_color_group_bg = synIDattr(hlID(g:mode_color_hl_group), "bg#")
-
-function s:saveColorGroup()
-  let s:save_color_group_fg = synIDattr(hlID(g:mode_color_hl_group), "fg#")
-  let s:save_color_group_bg = synIDattr(hlID(g:mode_color_hl_group), "bg#")
-endfunction
-
 function! s:getColor(group_fg, group_bg) abort
   let group_fg = synIDattr(hlID(a:group_fg), "fg#")
   let group_bg = synIDattr(hlID(a:group_bg), "bg#")
@@ -70,8 +62,6 @@ endfunction
 
 augroup StartModeColor
   au!
-  au ColorScheme *
-        \ call s:saveColorGroup()
   au ColorScheme,SourcePost *
         \ call s:setStatusLineHighlights()
 augroup end
