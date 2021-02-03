@@ -2,4 +2,4 @@ if ! exists(':Goyo')
   finish
 endif
 
-let g:goyo_width = 81
+let g:goyo_width = 82
