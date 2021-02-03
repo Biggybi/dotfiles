@@ -1,3 +1,4 @@
 #!/bin/bash
 SEARCH="https://duckduckgo.com/?q="
-firefox -private-window "$SEARCH$@"
+QUERY=$SEARCH$@
+$BROWSER -new-window "$QUERY"
