@@ -25,6 +25,11 @@ function! s:Norminette(...) abort
     setlocal errorformat+=,%AError\ (line\ %l\\,\ col\ %c):%m
     setlocal errorformat+=,%AError\ (line\ %l):%m
     setlocal errorformat+=,%AWarning:%m
+
+    " " norminette v2
+    " setlocal errorformat=%+P%f:\ KO\!
+    " setlocal errorformat+=,%A%*\\p(line:%*[\ ]%l\\,\ col:%*[\ ]%c):%m
+
     if a:0 == 0
       echom "no args"
       let files = system('find . -maxdepth 2 -type f -name "*.[ch]"')
