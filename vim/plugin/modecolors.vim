@@ -18,13 +18,12 @@ function! s:setColor(color) abort
 endfunction
 
 function! s:setStatusLineHighlights() abort
-  exe "silent! hi User1" s:getColor('StatusLineNormal', 'StatusLineNormal')
-  exe "silent! hi User2" s:getColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
-  exe "silent! hi User3" s:getColor('StatusLineVisual', 'StatusLineVisual')
-  exe "silent! hi User4" s:getColor('StatusLineInsert', 'normal')
-  exe "silent! hi User5" s:getColor('StatusLineImportant', 'StatusLineActiveLeft')
-  exe "silent! hi User6" s:getColor('StatusLineImportant', 'StatusLineActiveMid')
-  exe "silent! hi User7" s:getColor('StatusLineCurDir', 'StatusLineActiveMid')
+  exe 'silent! hi User1' s:getColor('StatusLineNormal', 'StatusLineNormal')
+  exe 'silent! hi User2' s:getColor('StatusLineActiveLeft', 'StatusLineActiveLeft')
+  exe 'silent! hi User3' s:getColor('StatusLineActiveMid', 'StatusLineActiveMid')
+  exe 'silent! hi User4' s:getColor('StatusLineImportant', 'StatusLineActiveLeft')
+  exe 'silent! hi User5' s:getColor('StatusLineImportant', 'StatusLineActiveMid')
+  exe 'silent! hi User6' s:getColor('StatusLineCurDir', 'StatusLineActiveMid')
 endfunction
 
 function! ModeColorSwitch(_) abort

@@ -34,16 +34,16 @@ function! s:statusLineActive() abort
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*    " mode
   if FugitiveHead() != ''
     setlocal statusline +=%2*\ %{FugitiveHead()}%*           " git branch
-    setlocal statusline +=%5*%r%h%w                          " read only, special buffers
-    setlocal statusline +=%{GitModify()}%*\                  " git modified
-    setlocal statusline +=%7*%{split(getcwd(),'/')[-1]}%*\/  " filename[modified]
+    setlocal statusline +=%4*%r%h%w                          " read only, special buffers
+    setlocal statusline +=%{GitModify()}%*                   " git modified
+    setlocal statusline +=%6*\ %{split(getcwd(),'/')[-1]}%*%3*\/%*  " git project
   else
-    setlocal statusline +=%5*%r%h%w%*\                       " read only, special buffers
+    setlocal statusline +=%4*%r%h%w%*\                       " read only, special buffers
   endif
-  setlocal statusline +=%f%6*%m%*\                           " filename[modified]
+  setlocal statusline +=%3*%f%*%5*%m%*\%3*                   " filename[modified]
   setlocal statusline +=%=                                   " left/right separation
-  setlocal statusline +=%{anzu#search_status()}\             " search results
-  setlocal statusline +=%=%2*%(\ %{&filetype}\ %)%*          " filetype
+  setlocal statusline +=%{anzu#search_status()}\ %*          " search results
+  setlocal statusline +=%2*%(\ %{&filetype}\ %)%*            " filetype
   setlocal statusline +=%1*%<\ %3p%%\                        " total (%)
   setlocal statusline +=%4l:                                 " current line
   setlocal statusline +=%-4v%*                               " virtual column
@@ -52,7 +52,7 @@ endfunction
 function! s:statusLineInactive() abort
   setlocal statusline =
   if FugitiveHead() != ''
-    setlocal statusline +=%7*%{split(getcwd(),'/')[-1]}%*\/  " filename[modified]
+    setlocal statusline +=%6*%{split(getcwd(),'/')[-1]}%*\/  " filename[modified]
   endif
   setlocal statusline +=%f                                   "filename
   setlocal statusline +=%m                                   "file modified
