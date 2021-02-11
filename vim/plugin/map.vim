@@ -555,15 +555,20 @@ nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
 
 " trim current line or all file
 function! TrimLines(scope) abort
+  let succes = 0
   try
     if a:scope ==? 'line'
       Nomove s/\s\+$//
     elseif a:scope ==? 'buffer'
       Nomove %s/\s\+$//
     endif
+    let succes = 1
   catch /E486:\ Pattern\ not found.*/
     echo "TrimLine: No line to trim"
   endtry
+  if succes
+    echo "Lines trimmed"
+  endif
 endfunction
 nnoremap <silent> <leader>xx :call TrimLines('line')<cr>
 nnoremap <leader>xX :call TrimLines('buffer')<cr>
