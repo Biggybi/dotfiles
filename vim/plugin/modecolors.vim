@@ -3,8 +3,6 @@ if exists('g:plugin_modecolor')
 endif
 let g:plugin_modecolor = 1
 
-let g:mode_color_hl_group = get(g:, 'mode_color_hl_group', 'CursorLineNr')
-
 function! s:getColor(group_fg, group_bg) abort
   let group_fg = synIDattr(hlID(a:group_fg), "fg#")
   let group_bg = synIDattr(hlID(a:group_bg), "bg#")
@@ -65,7 +63,14 @@ augroup StartModeColor
   au ColorScheme,SourcePost *
         \ call s:setStatusLineHighlights()
 augroup end
-let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
+
+let g:mode_color_hl_group = get(g:, 'mode_color_hl_group', 'CursorLineNr')
+let g:modecolor_timer = get(g:, 'modecolor_timer', 1)
+if g:modecolor_timer == 0
+  call s:setColor('StatusLineNormal')
+else
+  let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
+endif
 
 noremap <silent> <unique> <script> <plug>(modeColorToggle)
 \ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
