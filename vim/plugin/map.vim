@@ -443,16 +443,13 @@ endif
 " Pair cycle
 nnoremap <c-g> %
 
-nnoremap / :call clearmatches()<cr>/
-nnoremap <leader>/ :call clearmatches()<cr>/\v
-vnoremap <leader>/ :call clearmatches()<cr>/\v
+nnoremap / :silent call clearmatches()<cr>/
+nnoremap ? :silent call clearmatches()<cr>?
+nnoremap <leader>/ :silent call clearmatches()<cr>/\v
+vnoremap <leader>/ :silent call clearmatches()<cr>/\v
 
-nnoremap <silent> n :call NextPrevSearch('n')<cr>
-nnoremap <silent> N :call NextPrevSearch('N')<cr>
-
-"do not move cursor with first match
-nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>:call HLCurrent()<cr>
-nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
+nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
+nnoremap <silent> g* :let @/=expand('<cword>') <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
 
 " search visual selection
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
