@@ -10,7 +10,7 @@ let g:plugin_search = 1
 let g:current_search_match = get(g:, 'current_search_match', 'IncSearch')
 let g:edge_search_match = get(g:, 'edge_search_match', 'EdgeSearch')
 let g:search_count_update = get(g:, 'search_count_update', '')
-echo '|'g:search_count_update'|'
+
 let s:pos = []
 let s:match = 0
 let s:nomatch = [0, 0]
