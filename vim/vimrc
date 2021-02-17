@@ -189,11 +189,6 @@ if ! has('nvim')
 endif
 
 set number                      " show number column
-if has('patch-8.1.1564')
-  set signcolumn=number
-elseif exists('&signcolumn')    " Vim 7.4.2201
-  set signcolumn=yes
-endif
 set signcolumn=yes              " at least for now, I'm ok with old behaviour
 
 " Moves boundaries
