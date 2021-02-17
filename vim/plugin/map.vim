@@ -443,16 +443,13 @@ endif
 " Pair cycle
 nnoremap <c-g> %
 
-nnoremap / :call clearmatches()<cr>/
-nnoremap <leader>/ :call clearmatches()<cr>/\v
-vnoremap <leader>/ :call clearmatches()<cr>/\v
+nnoremap / :silent call clearmatches()<cr>/
+nnoremap ? :silent call clearmatches()<cr>?
+nnoremap <leader>/ :silent call clearmatches()<cr>/\v
+vnoremap <leader>/ :silent call clearmatches()<cr>/\v
 
-nnoremap <silent> n :call NextPrevSearch('n')<cr>
-nnoremap <silent> N :call NextPrevSearch('N')<cr>
-
-"do not move cursor with first match
-nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>:call HLCurrent()<cr>
-nnoremap <silent> g* :let @/=expand('<cword>') <bar> set hls <cr>
+nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
+nnoremap <silent> g* :let @/=expand('<cword>') <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
 
 " search visual selection
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
@@ -555,15 +552,20 @@ nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
 
 " trim current line or all file
 function! TrimLines(scope) abort
+  let succes = 0
   try
     if a:scope ==? 'line'
       Nomove s/\s\+$//
     elseif a:scope ==? 'buffer'
       Nomove %s/\s\+$//
     endif
+    let succes = 1
   catch /E486:\ Pattern\ not found.*/
     echo "TrimLine: No line to trim"
   endtry
+  if succes
+    echo "Lines trimmed"
+  endif
 endfunction
 nnoremap <silent> <leader>xx :call TrimLines('line')<cr>
 nnoremap <leader>xX :call TrimLines('buffer')<cr>
@@ -718,41 +720,3 @@ function! StatusDiagnostic() abort
 endfunction
 
 let g:markdown_fenced_languages = ['css', 'js=javascript']
-
-""    Operators
-"""        Next Surroundings
-onoremap in( :<c-u>normal! f(lvt)<cr>
-onoremap in) :<c-u>normal! ()f(lvt)<cr>
-onoremap an( :<c-u>normal! f(vf)<cr>
-onoremap an) :<c-u>normal! f(vf)<cr>
-onoremap iN( :<c-u>normal! F)vT(oh<cr>
-onoremap iN) :<c-u>normal! F)vT(oh<cr>
-onoremap aN( :<c-u>normal! F(vf)<cr>
-onoremap aN) :<c-u>normal! F)vF(<cr>
-
-onoremap in{ :<c-u>normal! f{lvt}<cr>
-onoremap in} :<c-u>normal! f{lvt}<cr>
-onoremap an{ :<c-u>normal! f{vf}<cr>
-onoremap an} :<c-u>normal! f{vf}<cr>
-onoremap iN{ :<c-u>normal! F}vT{oh<cr>
-onoremap iN} :<c-u>normal! F}vT{oh<cr>
-onoremap aN{ :<c-u>normal! F}vF{<cr>
-onoremap aN} :<c-u>normal! F}vF{<cr>
-
-onoremap in[ :<c-u>normal! f[lvt]<cr>
-onoremap in] :<c-u>normal! f[lvt]<cr>
-onoremap an[ :<c-u>normal! f[vf]<cr>
-onoremap an] :<c-u>normal! f[vf]<cr>
-onoremap iN[ :<c-u>normal! F]vT[oh<cr>
-onoremap iN] :<c-u>normal! F]vT[oh<cr>
-onoremap aN[ :<c-u>normal! F]vF[<cr>
-onoremap aN] :<c-u>normal! F]vF[<cr>
-
-onoremap in< :<c-u>normal! f<lvt><cr>
-onoremap in> :<c-u>normal! f<lvt><cr>
-onoremap an< :<c-u>normal! f<vf><cr>
-onoremap an> :<c-u>normal! f<vf><cr>
-onoremap iN< :<c-u>normal! F>vT<oh<cr>
-onoremap iN> :<c-u>normal! F>vT<oh<cr>
-onoremap aN< :<c-u>normal! F>vF<<cr>
-onoremap aN> :<c-u>normal! F>vF<<cr>
