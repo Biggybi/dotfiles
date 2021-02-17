@@ -52,9 +52,9 @@ endfunction
 function! s:statusLineInactive() abort
   setlocal statusline =
   if FugitiveHead() != ''                                    " filepath git project split
-    setlocal statusline +=%{split(expand('%:p:h'),split(getcwd(),'/')[-1])[0]} " lhs
-    setlocal statusline +=%6*%{split(getcwd(),'/')[-1]}%*    " git project
-    setlocal statusline +=%{split(expand('%:p:h'),split(getcwd(),'/')[-1])[1]} " rhs
+    setlocal statusline +=%{get(split(expand('%:p:h'),split(getcwd(),'/')[-1]),'0')} " lhs
+    setlocal statusline +=%6*%{get(split(getcwd(),'/'),'-1')}%*    " git project
+    setlocal statusline +=%{get(split(expand('%:p:h'),split(getcwd(),'/')[-1]),'1')}\/ " rhs
     setlocal statusline +=%t                                 " filename
   else
     setlocal statusline +=%f                                 " filename
