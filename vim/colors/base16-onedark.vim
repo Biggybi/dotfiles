@@ -35,7 +35,10 @@ let g:base16_gui04 = "565c64"
 let s:gui05        = "b4b4b4"
 " let s:gui05        = "abb2bf"
 let g:base16_gui05 = "abb2bf"
-let s:gui06        = "b6bdca"
+" vi olet
+let s:gui06        = "ee82ee"
+" let s:gui06        = "c678dd"
+" let s:gui06        = "b6bdca"
 let g:base16_gui06 = "b6bdca"
 let s:gui07        = "c8ccd4"
 let g:base16_gui07 = "c8ccd4"
@@ -192,8 +195,8 @@ endfun
 " Vim editor colors
 call <sid>hi("Normal",        s:gui05, s:gui00, s:cterm05, s:cterm00, "", "")
 call <sid>hi("Bold",          "", "", "", "", "bold", "")
-" call <sid>hi("Debug",         s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("Debug",         s:gui08, s:gui08, "", "", "", "")
+call <sid>hi("Debug",         s:gui08, "", s:cterm08, "", "", "")
+" call <sid>hi("Debug",         s:gui08, s:gui08, "", "", "", "")
 call <sid>hi("DebugPC",       "", s:gui01, s:cterm08, "", "", "")
 call <sid>hi("DebugBreakpoint", s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("Directory",     s:gui0D, "", s:cterm0D, "", "", "")
@@ -207,10 +210,11 @@ call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
 " call <sid>hi("IncSearch",     s:gui02, s:gui0A, s:cterm00, s:cterm0A, "none", "")
 " call <sid>hi("IncSearch",     s:gui0C, s:gui02, s:cterm04, s:cterm0C, "none", "")
 " call <sid>hi("EdgeSearch",     s:gui08, s:gui02, s:cterm04, s:cterm0C, "none", "")
-" call <sid>hi("Search",        s:gui0E, s:gui02, s:cterm01, s:cterm0A,  "", "")
-call <sid>hi("IncSearch",     s:gui0E, s:gui02, s:cterm04, s:cterm0C, "none", "")
-call <sid>hi("EdgeSearch",     s:gui08, s:gui02, s:cterm04, s:cterm0C, "none", "")
-call <sid>hi("Search",        s:gui0D, s:gui02, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("Search",        s:gui02, s:gui0B, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("CocHighlightText", "", s:gui01, s:cterm08, "", "", "")
+call <sid>hi("IncSearch",     s:gui02, s:gui0D, s:cterm04, s:cterm0C, "none", "")
+call <sid>hi("EdgeSearch",    s:gui02, s:gui0A, s:cterm04, s:cterm0C, "none", "")
+" call <sid>hi("Search",        s:gui05, s:gui02, s:cterm01, s:cterm0A,  "", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
 call <sid>hi("Macro",         s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("MatchParen",    s:gui0C, s:gui02, "", s:cterm03,  "", "")
@@ -249,16 +253,16 @@ call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "
 call <sid>hi("StatusLineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("StatusLineActiveLeft",     s:gui05, s:gui04, s:cterm07, s:cterm02, "none", "")
 " call <sid>hi("StatusLineActiveGit",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("StatusLineNormal",     s:gui00, s:gui03, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineNormal",     s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
 " call <sid>hi("StatusLineVisual", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineVisual", s:gui00, s:gui0E, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineReplace", s:gui00, s:gui0F, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineReplace", s:gui00, s:gui05, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLinePending", s:gui00, s:gui0A, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineFTSearch", s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineCmd", s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("StatusLineCmd", s:gui00, s:gui06, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineImportant", s:gui08, "", s:cterm00, s:cterm02, "none", "")
-call <sid>hi("StatusLineCurDir", s:gui0A, "", s:cterm00, s:cterm02, "none", "")
+call <sid>hi("StatusLineCurDir", s:gui0C, "", s:cterm00, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")
@@ -276,7 +280,7 @@ call <sid>hi("TabLineSel",    s:gui05, s:gui00, s:cterm0B, s:cterm01, "none", ""
 " Standard syntax highlighting
 call <sid>hi("Boolean",      s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Character",    s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("Conditional",  s:gui0E, "", s:cterm0E, "", "", "")
+call <sid>hi("Conditional",  s:gui06, "", s:cterm0E, "", "", "")
 call <sid>hi("Constant",     s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Define",       s:gui0E, "", s:cterm0E, "", "none", "")
 call <sid>hi("Delimiter",    s:gui0F, "", s:cterm0F, "", "", "")
@@ -289,7 +293,7 @@ call <sid>hi("Label",        s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("Number",       s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Operator",     s:gui05, "", s:cterm05, "", "none", "")
 call <sid>hi("PreProc",      s:gui0A, "", s:cterm0A, "", "", "")
-call <sid>hi("Repeat",       s:gui0A, "", s:cterm0A, "", "", "")
+call <sid>hi("Repeat",       s:gui06, "", s:cterm0A, "", "", "")
 call <sid>hi("Special",      s:gui0C, "", s:cterm0C, "", "", "")
 call <sid>hi("SpecialChar",  s:gui0F, "", s:cterm0F, "", "", "")
 call <sid>hi("Statement",    s:gui0E, "", s:cterm08, "", "", "")
@@ -304,6 +308,9 @@ call <sid>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "", "")
 " C highlighting
 call <sid>hi("cOperator",   s:gui0C, "", s:cterm0C, "", "", "")
 call <sid>hi("cPreCondit",  s:gui0E, "", s:cterm0E, "", "", "")
+
+" C++
+call <sid>hi("cppStructure",    s:gui0E, "", s:cterm0E, "", "", "")
 
 " C# highlighting
 call <sid>hi("csClass",                 s:gui0A, "", s:cterm0A, "", "", "")
@@ -456,6 +463,10 @@ call <sid>hi("StartifySection",  s:gui0E, "", s:cterm0E, "", "", "")
 call <sid>hi("StartifySelect",   s:gui0C, "", s:cterm0C, "", "", "")
 call <sid>hi("StartifySlash",    s:gui03, "", s:cterm03, "", "", "")
 call <sid>hi("StartifySpecial",  s:gui03, "", s:cterm03, "", "", "")
+
+" Coc highlighting
+call <sid>hi("CocHilightText",  s:gui01, s:gui00, s:cterm05, s:cterm00, "", "")
+" call <sid>hi("Normal",        s:gui05, s:gui00, s:cterm05, s:cterm00, "", "")
 
 " Java highlighting
 call <sid>hi("javaOperator",     s:gui0D, "", s:cterm0D, "", "", "")
