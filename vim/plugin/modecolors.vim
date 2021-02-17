@@ -58,19 +58,28 @@ function! s:modeColorToggle()
   endif
 endfunction
 
+let g:modecolor_timer = get(g:, 'modecolor_timer', 1)
+function! s:startModeColor() abort
+  if g:modecolor_timer == 0
+    call s:setColor('StatusLineNormal')
+  elseif exists('timer_info(g:modecolor_timer)') <= 0
+    let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
+  endif
+endfunction
+
 augroup StartModeColor
   au!
   au ColorScheme,SourcePost *
         \ call s:setStatusLineHighlights()
+  au BufEnter *
+        \  if bufname('%') != ''
+        \|  call s:startModeColor()
+        \| endif
 augroup end
 
 let g:mode_color_hl_group = get(g:, 'mode_color_hl_group', 'CursorLineNr')
-let g:modecolor_timer = get(g:, 'modecolor_timer', 1)
-if g:modecolor_timer == 0
-  call s:setColor('StatusLineNormal')
-else
-  let g:modecolor_timer = timer_start(100, 'ModeColorSwitch', {'repeat': -1})
-endif
+
+call s:setColor('StatusLineNormal')
 
 noremap <silent> <unique> <script> <plug>(modeColorToggle)
 \ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
