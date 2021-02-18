@@ -25,6 +25,9 @@ let g:currentmode={
       \}
 
 function! GitModify() abort
+  if FugitiveHead() == ''
+    return ''
+  endif
   let [a,m,r] = GitGutterGetHunkSummary()
   return [a,m,r] == [0,0,0] ? ' ' : '[+]'
 endfunction
@@ -47,8 +50,9 @@ function! s:statusLineActive() abort
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  " mode
   if exists('g:loaded_fugitive') 
-    if FugitiveHead() != ''
-      setlocal statusline +=%2*\ %{FugitiveHead()}%*       " git branch
+    if FugitiveGitDir() != ''
+      setlocal statusline +=%2*%{FugitiveHead()!=''?
+            \'\ ':''}%{FugitiveHead()}%*                   " git branch
       setlocal statusline +=%4*%r%h%w                      " read only, special buffers
       setlocal statusline +=%{GitModify()}%*               " git modified
       setlocal statusline +=%6*\ %{
@@ -60,7 +64,7 @@ function! s:statusLineActive() abort
     endif
   else
     setlocal statusline +=%4*%r%h%w%*\                     " read only, special buffers
-    setlocal statusline +=%3*%f%*                          " file name
+    setlocal statusline +=%3*%F%*                          " file name
   endif
   setlocal statusline +=%5*%m%*                            " file modified
   setlocal statusline +=%3*%=                              " left/right separation
@@ -74,14 +78,14 @@ endfunction
 
 function! s:statusLineInactive() abort
   setlocal statusline =
-  if exists('g:loaded_fugitive') && FugitiveHead() != ''
+  if exists('g:loaded_fugitive') && FugitiveGitDir() != ''
     setlocal statusline +=%{index(['~','/'],expand('%F')[0])>0?
-          \get(split(expand('%:p:h'),
+          \get(split(expand('%:~'),
           \split(getcwd(),'/')[-1]),'0',''):''}            " lhs
     setlocal statusline +=%6*%{
           \get(split(getcwd(),'/'),'-1','')}%*             " git project
     setlocal statusline +=%{
-          \get(split(expand('%:p:h'),
+          \get(split(expand('%:~'),
           \split(getcwd(),'/')[-1]),'1','')}\/             " rhs
     setlocal statusline +=%t                               " filename
   else
