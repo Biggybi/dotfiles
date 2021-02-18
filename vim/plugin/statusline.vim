@@ -75,7 +75,7 @@ endfunction
 function! s:statusLineInactive() abort
   setlocal statusline =
   if exists('g:loaded_fugitive') && FugitiveHead() != ''
-    setlocal statusline +=%{index(['~','/'],expand('%f')[0])>0?
+    setlocal statusline +=%{index(['~','/'],expand('%F')[0])>0?
           \get(split(expand('%:p:h'),
           \split(getcwd(),'/')[-1]),'0',''):''}            " lhs
     setlocal statusline +=%6*%{
