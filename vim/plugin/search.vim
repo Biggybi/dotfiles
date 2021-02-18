@@ -40,8 +40,10 @@ function! s:cursor_in_search_match(...)
   if empty(match) | return s:nomatch | endif
   let col = getcurpos()[2]
   if col <= start | return s:nomatch | endif
-  exe g:search_count_update
-  if col <= stop  | return [start, stop] | endif
+  if col <= stop 
+    exe g:search_count_update
+    return [start, stop]
+  endif
   return s:cursor_in_search_match(stop)
 endfunction
 

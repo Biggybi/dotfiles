@@ -79,15 +79,15 @@ endfunction
 function! s:statusLineInactive() abort
   setlocal statusline =
   if exists('g:loaded_fugitive') && FugitiveGitDir() != ''
-    setlocal statusline +=%{index(['~','/'],expand('%F')[0])>0?
+    setlocal statusline +=%{FugitiveHead()!=''&&
+          \index(['~','/'],expand('%f')[0])>0?
           \get(split(expand('%:~'),
           \split(getcwd(),'/')[-1]),'0',''):''}            " lhs
     setlocal statusline +=%6*%{
           \get(split(getcwd(),'/'),'-1','')}%*             " git project
     setlocal statusline +=%{
           \get(split(expand('%:~'),
-          \split(getcwd(),'/')[-1]),'1','')}\/             " rhs
-    setlocal statusline +=%t                               " filename
+          \split(getcwd(),'/')[-1]),'1','')}               " rhs
   else
     setlocal statusline +=%F                               " filename
   endif
