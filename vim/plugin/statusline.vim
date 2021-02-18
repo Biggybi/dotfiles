@@ -49,8 +49,16 @@ function! s:statusLineActive() abort
     setlocal statusline +=%4*%r%h%w                          " read only, special buffers
     setlocal statusline +=%{GitModify()}%*                   " git modified
     setlocal statusline +=%6*\ %{split(getcwd(),'/')[-1]}%*%3*\/%*  " git project
+  if exists('g:loaded_fugitive') 
+    if FugitiveHead() != ''
+      setlocal statusline +=%3*%f%*                        " file name
+    else
+      setlocal statusline +=%4*%r%h%w%*\                   " read only, special buffers
+      setlocal statusline +=%3*%F%*                        " file path/name
+    endif
   else
-    setlocal statusline +=%4*%r%h%w%*\                       " read only, special buffers
+    setlocal statusline +=%4*%r%h%w%*\                     " read only, special buffers
+    setlocal statusline +=%3*%f%*                          " file name
   endif
   setlocal statusline +=%3*%f%*%5*%m%*\%3*                   " filename[modified]
   setlocal statusline +=%=                                   " left/right separation
