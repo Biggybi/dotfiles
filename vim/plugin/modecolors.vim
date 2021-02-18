@@ -22,6 +22,8 @@ function! s:setStatusLineHighlights() abort
   exe 'silent! hi User4' s:getColor('StatusLineImportant', 'StatusLineActiveLeft')
   exe 'silent! hi User5' s:getColor('StatusLineImportant', 'StatusLineActiveMid')
   exe 'silent! hi User6' s:getColor('StatusLineCurDir', 'StatusLineActiveMid')
+  exe 'silent! hi User7' s:getColor('StatusLineGit', 'StatusLineGit')
+  exe 'silent! hi User8' s:getColor('StatusLineGitSubmodule', 'StatusLineGitSubmodule')
 endfunction
 
 function! ModeColorSwitch(_) abort

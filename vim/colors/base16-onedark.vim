@@ -263,6 +263,8 @@ call <sid>hi("StatusLineFTSearch", s:gui00, s:gui0C, s:cterm00, s:cterm09, "none
 call <sid>hi("StatusLineCmd", s:gui00, s:gui06, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("StatusLineImportant", s:gui08, "", s:cterm00, s:cterm02, "none", "")
 call <sid>hi("StatusLineCurDir", s:gui0C, "", s:cterm00, s:cterm02, "none", "")
+call <sid>hi("StatusLineGit", s:gui0C, s:gui01, s:cterm00, s:cterm02, "none", "")
+call <sid>hi("StatusLineGitSubmodule", s:gui03, s:gui01, s:cterm00, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", s:cterm00, "none", "")

@@ -55,9 +55,11 @@ function! s:statusLineActive() abort
             \'\ ':''}%{FugitiveHead()}%*                   " git branch
       setlocal statusline +=%4*%r%h%w                      " read only, special buffers
       setlocal statusline +=%{GitModify()}%*               " git modified
-      setlocal statusline +=%6*\ %{
-            \split(getcwd(),'/')[-1]}%*%3*\/%*             " git project
-      setlocal statusline +=%3*%f%*                        " file name
+      setlocal statusline +=%7*%(\ %{FugitiveHead()!=''?
+            \get(split(getcwd(),'/'),'-1',''):''}%)%*      " git project
+      setlocal statusline +=%8*%(\ %{FugitiveHead()==''?
+            \get(split(getcwd(),'/'),'-1',''):''}%)%*      " git submodule
+      setlocal statusline +=\/%3*%f%*                      " file name
     else
       setlocal statusline +=%4*%r%h%w%*\                   " read only, special buffers
       setlocal statusline +=%3*%F%*                        " file path/name
@@ -79,17 +81,19 @@ endfunction
 function! s:statusLineInactive() abort
   setlocal statusline =
   if exists('g:loaded_fugitive') && FugitiveGitDir() != ''
-    setlocal statusline +=%{FugitiveHead()!=''&&
+    setlocal statusline +=%{
           \index(['~','/'],expand('%f')[0])>0?
           \get(split(expand('%:~'),
           \split(getcwd(),'/')[-1]),'0',''):''}            " lhs
-    setlocal statusline +=%6*%{
-          \get(split(getcwd(),'/'),'-1','')}%*             " git project
+    setlocal statusline +=%7*%{FugitiveHead()!=''?
+          \get(split(getcwd(),'/'),'-1',''):''}%*          " git project
+    setlocal statusline +=%8*%{FugitiveHead()==''?
+          \get(split(getcwd(),'/'),'-1',''):''}%*          " git submodule
     setlocal statusline +=%{
           \get(split(expand('%:~'),
           \split(getcwd(),'/')[-1]),'1','')}               " rhs
   else
-    setlocal statusline +=%F                               " filename
+    setlocal statusline +=%{expand('%:~')}                 " filename
   endif
   setlocal statusline +=%m                                 " file modified
   setlocal statusline +=%=%{&filetype}\                    " filetype
