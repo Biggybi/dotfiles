@@ -38,8 +38,6 @@ function! s:statusLineStartUp() abort
   setlocal statusline +=%4*%r%h%w%*\                       " read only, special buffers
   setlocal statusline +=%3*%f%*%5*%m%*\%3*                 " filename[modified]
   setlocal statusline +=%=                                 " left/right separation
-  setlocal statusline +=%{exists('g:anzu_topbottom_word')?
-        \anzu#search_status():''}\ %*                      " search results
   setlocal statusline +=%2*%(\ %{&filetype}\ %)%*          " filetype
   setlocal statusline +=%1*%<\ %3p%%\                      " total (%)
   setlocal statusline +=%4l:                               " current line
@@ -82,9 +80,18 @@ function! s:statusLineInactive() abort
   setlocal statusline =
   if exists('g:loaded_fugitive') && FugitiveGitDir() != ''
     setlocal statusline +=%{
-          \index(['~','/'],expand('%f')[0])>0?
-          \get(split(expand('%:~'),
-          \split(getcwd(),'/')[-1]),'0',''):''}            " lhs
+          \index(['~','/'],expand('%f')[0])>0
+          \?get(split(expand('%:~')
+          \,get(split(getcwd(),'/'),-1)),0)
+          \:FugitiveExtractGitDir('%')=~'.git$'
+          \&&split(FugitiveExtractGitDir('%'),'/')[-2]
+          \!=get(split(getcwd(),'/'),-1,'')
+          \?split(FugitiveExtractGitDir('%'),'/')[-2]
+          \.split(join(split(getcwd(),'/')[:-2],'/').'/'
+          \,split(FugitiveExtractGitDir('%'),'/')[-2])[-1]
+          \:FugitiveExtractGitDir('%')==''
+          \?get(split(expand('%:~'),get(split(getcwd(),'/'),-1)),0)
+          \:''}                                            " lhs
     setlocal statusline +=%7*%{FugitiveHead()!=''?
           \get(split(getcwd(),'/'),'-1',''):''}%*          " git project
     setlocal statusline +=%8*%{FugitiveHead()==''?
