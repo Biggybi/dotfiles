@@ -28,8 +28,8 @@ augroup StatusActiveSwitch
   au!
   au VimEnter * ++once
         \ if bufname('%') == ''
-        \|  call s:statusLineStartUp()
-        \|endif
+        \ |  call s:statusLineStartUp()
+        \ |endif
   au BufEnter,WinEnter *
         \ call s:statusLineActive()
   au WinLeave *
@@ -55,13 +55,13 @@ function! s:statusLineActive() abort
   if exists('g:loaded_fugitive')
     if FugitiveGitDir() != ''
       setlocal statusline +=%2*%{FugitiveHead()!=''?
-            \ '\ ':''}%{FugitiveHead()}%*                   " git branch
+            \'\ ':''}%{FugitiveHead()}%*                   " git branch
       setlocal statusline +=%4*%r%h%w                      " read only, special buffers
       setlocal statusline +=%{GitModify()}%*               " git modified
       setlocal statusline +=%7*%(\ %{FugitiveHead()!=''?
-            \ get(split(getcwd(),'/'),'-1',''):''}%)%*      " git project
+            \get(split(getcwd(),'/'),'-1',''):''}%)%*      " git project
       setlocal statusline +=%8*%(\ %{FugitiveHead()==''?
-            \ get(split(getcwd(),'/'),'-1',''):''}%)%*      " git submodule
+            \get(split(getcwd(),'/'),'-1',''):''}%)%*      " git submodule
       setlocal statusline +=\/%3*%f%*                      " file name
     else
       setlocal statusline +=%4*%r%h%w%*\                   " read only, special buffers
@@ -74,7 +74,7 @@ function! s:statusLineActive() abort
   setlocal statusline +=%5*%m%*                            " file modified
   setlocal statusline +=%3*%=                              " left/right separation
   setlocal statusline +=%{exists('g:anzu_topbottom_word')?
-        \ anzu#search_status():''}\ %*                      " search results
+        \anzu#search_status():''}\ %*                      " search results
   setlocal statusline +=%2*%(\ %{&filetype}\ %)%*          " filetype
   setlocal statusline +=%1*%<\ %3p%%\                      " total (%)
   setlocal statusline +=%4l:                               " current line
@@ -86,12 +86,12 @@ function! s:statusLineInactive() abort
   if exists('g:loaded_fugitive') && FugitiveGitDir() != ''
     setlocal statusline +=\ %{GitRelativePath()}           " lhs
     setlocal statusline +=%7*%{FugitiveHead()!=''?
-          \ get(split(getcwd(),'/'),'-1',''):''}%*          " git project
+          \get(split(getcwd(),'/'),'-1',''):''}%*          " git project
     setlocal statusline +=%8*%{FugitiveHead()==''?
-          \ get(split(getcwd(),'/'),'-1',''):''}%*          " git submodule
+          \get(split(getcwd(),'/'),'-1',''):''}%*          " git submodule
     setlocal statusline +=%{
-          \ get(split(expand('%:~'),
-          \ split(getcwd(),'/')[-1]),'1','')}               " rhs
+          \get(split(expand('%:~'),
+          \split(getcwd(),'/')[-1]),'1','')}               " rhs
   else
     setlocal statusline +=%{expand('%:~')}                 " filename
   endif
