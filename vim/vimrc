@@ -73,6 +73,7 @@ if !isdirectory(&backupdir) | call mkdir(&backupdir, 'p') | endif
 if !isdirectory(&directory) | call mkdir(&directory, 'p') | endif
 if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
 if !isdirectory(&viewdir) | call mkdir(&viewdir, 'p') | endif
+if !isdirectory($HOME.'/.vim/tmp/viminfo/') | call mkdir($HOME.'/.vim/tmp/viminfo/', 'p') | endif
 
 set autoread                    " auto load file changes
 set autowriteall                " auto save file changes
