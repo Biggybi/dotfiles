@@ -200,6 +200,7 @@ set whichwrap+=<,>,h,l,[,]      " break cursor free
 set virtualedit=block           " visual selection broken free
 set nostartofline               " vertical moves in same column
 set sidescrolloff=5             " min horizontal cursor offset
+set sidescroll=1                " min horizontal cursor offset
 augroup SetScrolloff            " min vertical cursor offset
   au!
   au BufRead,BufEnter *
