@@ -22,15 +22,19 @@ let g:currentmode={
       \ 'v'      : 'V ',
       \ 'V'      : 'V ',
       \ ''     : 'V ',
-      \}
+      \ }
 
-function! GitModify() abort
-  if FugitiveHead() == ''
-    return ''
-  endif
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return [a,m,r] == [0,0,0] ? ' ' : '[+]'
-endfunction
+augroup StatusActiveSwitch
+  au!
+  au VimEnter * ++once
+        \ if bufname('%') == ''
+        \|  call s:statusLineStartUp()
+        \|endif
+  au BufEnter,WinEnter *
+        \ call s:statusLineActive()
+  au WinLeave *
+        \ call s:statusLineInactive()
+augroup end
 
 function! s:statusLineStartUp() abort
   setlocal statusline =
@@ -45,18 +49,19 @@ function! s:statusLineStartUp() abort
 endfunction
 
 function! s:statusLineActive() abort
+  let s:activeFile = expand('%:~')
   setlocal statusline =
   setlocal statusline +=%1*\ %-2{g:currentmode[mode()]}%*  " mode
-  if exists('g:loaded_fugitive') 
+  if exists('g:loaded_fugitive')
     if FugitiveGitDir() != ''
       setlocal statusline +=%2*%{FugitiveHead()!=''?
-            \'\ ':''}%{FugitiveHead()}%*                   " git branch
+            \ '\ ':''}%{FugitiveHead()}%*                   " git branch
       setlocal statusline +=%4*%r%h%w                      " read only, special buffers
       setlocal statusline +=%{GitModify()}%*               " git modified
       setlocal statusline +=%7*%(\ %{FugitiveHead()!=''?
-            \get(split(getcwd(),'/'),'-1',''):''}%)%*      " git project
+            \ get(split(getcwd(),'/'),'-1',''):''}%)%*      " git project
       setlocal statusline +=%8*%(\ %{FugitiveHead()==''?
-            \get(split(getcwd(),'/'),'-1',''):''}%)%*      " git submodule
+            \ get(split(getcwd(),'/'),'-1',''):''}%)%*      " git submodule
       setlocal statusline +=\/%3*%f%*                      " file name
     else
       setlocal statusline +=%4*%r%h%w%*\                   " read only, special buffers
@@ -69,7 +74,7 @@ function! s:statusLineActive() abort
   setlocal statusline +=%5*%m%*                            " file modified
   setlocal statusline +=%3*%=                              " left/right separation
   setlocal statusline +=%{exists('g:anzu_topbottom_word')?
-        \anzu#search_status():''}\ %*                      " search results
+        \ anzu#search_status():''}\ %*                      " search results
   setlocal statusline +=%2*%(\ %{&filetype}\ %)%*          " filetype
   setlocal statusline +=%1*%<\ %3p%%\                      " total (%)
   setlocal statusline +=%4l:                               " current line
@@ -79,26 +84,14 @@ endfunction
 function! s:statusLineInactive() abort
   setlocal statusline =
   if exists('g:loaded_fugitive') && FugitiveGitDir() != ''
-    setlocal statusline +=%{
-          \index(['~','/'],expand('%f')[0])>0
-          \?get(split(expand('%:~')
-          \,get(split(getcwd(),'/'),-1)),0)
-          \:FugitiveExtractGitDir('%')=~'.git$'
-          \&&split(FugitiveExtractGitDir('%'),'/')[-2]
-          \!=get(split(getcwd(),'/'),-1,'')
-          \?split(FugitiveExtractGitDir('%'),'/')[-2]
-          \.split(join(split(getcwd(),'/')[:-2],'/').'/'
-          \,split(FugitiveExtractGitDir('%'),'/')[-2])[-1]
-          \:FugitiveExtractGitDir('%')==''
-          \?get(split(expand('%:~'),get(split(getcwd(),'/'),-1)),0)
-          \:''}                                            " lhs
+    setlocal statusline +=\ %{GitRelativePath()}           " lhs
     setlocal statusline +=%7*%{FugitiveHead()!=''?
-          \get(split(getcwd(),'/'),'-1',''):''}%*          " git project
+          \ get(split(getcwd(),'/'),'-1',''):''}%*          " git project
     setlocal statusline +=%8*%{FugitiveHead()==''?
-          \get(split(getcwd(),'/'),'-1',''):''}%*          " git submodule
+          \ get(split(getcwd(),'/'),'-1',''):''}%*          " git submodule
     setlocal statusline +=%{
-          \get(split(expand('%:~'),
-          \split(getcwd(),'/')[-1]),'1','')}               " rhs
+          \ get(split(expand('%:~'),
+          \ split(getcwd(),'/')[-1]),'1','')}               " rhs
   else
     setlocal statusline +=%{expand('%:~')}                 " filename
   endif
@@ -106,14 +99,34 @@ function! s:statusLineInactive() abort
   setlocal statusline +=%=%{&filetype}\                    " filetype
 endfunction
 
-augroup StatusActiveSwitch
-  au!
-  au VimEnter * ++once
-        \ if bufname('%') == ''
-        \| call s:statusLineStartUp()
-        \|endif
-  au BufEnter,WinEnter *
-        \ call s:statusLineActive()
-  au WinLeave *
-        \ call s:statusLineInactive()
-augroup end
+function! GitRelativePath() abort
+  let curdir = get(split(getcwd(), '/'), -1, '')
+  let gitdir = FugitiveExtractGitDir('%')
+  let project_name = get(split(gitdir, '/'), -2, '')
+  if index(['~', '/'], expand('%f')[0]) > 0
+    if matchstr(s:activeFile, curdir) != ''
+      return ''
+    endif
+    if gitdir =~ '\.git.*$' && project_name != curdir
+      let sub_gitmain = matchstr(gitdir, '/[^/]*.*/\zs.*/\ze\.git')
+      let sub_path = matchstr(getcwd(), sub_gitmain.'.*/')
+      if sub_path != ''
+        return sub_path
+      endif
+    endif
+    return get(split(expand('%:~'), curdir), '')
+  endif
+  if gitdir =~ '.git$' && project_name != curdir
+    let sub_parent = matchstr(getcwd(), project_name.'.*/')
+    return sub_parent
+  endif
+  return ''
+endfunction
+
+function! GitModify() abort
+  if FugitiveHead() == ''
+    return ''
+  endif
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return [a,m,r] == [0,0,0] ? ' ' : '[+]'
+endfunction
