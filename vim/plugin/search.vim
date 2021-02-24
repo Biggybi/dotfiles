@@ -40,7 +40,7 @@ function! s:cursor_in_search_match(...)
   if empty(match) | return s:nomatch | endif
   let col = getcurpos()[2]
   if col <= start | return s:nomatch | endif
-  if col <= stop 
+  if col <= stop
     exe g:search_count_update
     return [start, stop]
   endif
@@ -73,4 +73,10 @@ command! UpdateSearchMatch :call s:update_search_match()
 augroup Current_search_match
   autocmd!
   autocmd CursorMoved * call s:update_search_match()
+  autocmd WinLeave * :AnzuClearSearchStatus
+  autocmd BufEnter *
+        \ if getbufvar('', '&buftype') ==? 'terminal'
+        \ |  call feedkeys("\<Plug>(anzu-echohl_search_status)")
+        \ |endif
+
 augroup END

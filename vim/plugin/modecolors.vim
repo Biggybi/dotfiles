@@ -73,15 +73,15 @@ augroup StartModeColor
   au!
   au ColorScheme,SourcePost *
         \ call s:setStatusLineHighlights()
-  au BufEnter *
-        \  if bufname('%') != ''
-        \|  call s:startModeColor()
-        \| endif
+  au BufWinEnter *
+        \ if bufname('%') != ''
+        \ |  call s:startModeColor()
+        \ |endif
 augroup end
 
 let g:mode_color_hl_group = get(g:, 'mode_color_hl_group', 'CursorLineNr')
 
 call s:setColor('StatusLineNormal')
 
-noremap <silent> <unique> <script> <plug>(modeColorToggle)
-\ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
+silent! noremap <silent> <unique> <script> <plug>(modeColorToggle)
+      \ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
