@@ -92,7 +92,10 @@ set notimeout                   " no timeout on maps
 set ttimeout                    " timeout on keycodes
 set ttimeoutlen=10              " of 10 ms
 set mouse=a                     " it's a secret
-set ttymouse=xterm2             " allow mouse in tmux
+
+if ! has('nvim')
+  set ttymouse=xterm2             " allow mouse in tmux
+endif
 
 " search
 set magic                       " set magic on, for regex
