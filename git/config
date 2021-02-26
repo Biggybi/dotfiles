@@ -1,0 +1,27 @@
+[user]
+	email = tristan.kapous@protonmail.com
+	name = biggybi
+[init]
+	templatedir = ~/.git_template
+[alias]
+	ctags = !.git/hooks/ctags
+	cm    = commit
+	cam   = commit -am
+	co    = checkout
+	s     = submodule
+	su    = git submodule update --remote --merge
+	uuu   = submodule foreach git pull origin master
+	uu    = pull
+[color]
+	ui = true
+[core]
+	pager = vim -
+[pager]
+	show = vim -c '%sm/\\e.\\{-}m//g' -c 'set ft=diff nobuflisted noswapfile readonly' +1 -
+	color = false
+[pull]
+	rebase = false
+[merge]
+	tool = fugitive
+[mergetool "fugitive"]
+	cmd = vim -f -c "Gvdiffsplit" "$MERGED"
