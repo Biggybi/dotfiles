@@ -7,13 +7,6 @@ let g:dls_theme_force_load_start = get(g:, 'dls_theme_force_load_start', '0')
 let g:dls_theme_source_sensitive = get(g:, 'dls_theme_source_sensitive', '0')
 let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
 
-if ! exists("s:theme_change")
-  call s:SelectColorScheme()
-endif
-if g:dls_theme_source_sensitive == 1
-  call s:SelectColorScheme()
-endif
-
 function! s:SelectColorScheme() abort
   if g:dls_theme_force_load_start != '0'
     if index(g:dls_theme_list, g:dls_theme_force_load_start) >= 0
@@ -36,6 +29,13 @@ function! s:SelectColorScheme() abort
     endif
   endif
 endfunction
+
+if ! exists("s:theme_change")
+  call s:SelectColorScheme()
+endif
+if g:dls_theme_source_sensitive == 1
+  call s:SelectColorScheme()
+endif
 
 function! s:DarkLightSwitch() abort
   if ! exists('s:theme_change')
