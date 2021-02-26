@@ -96,7 +96,9 @@ nnoremap yo<c-u> :UndotreeFocus<cr>
 nnoremap yoo :call ToggleObsession()<cr>
 
 " Switch dark / light theme[
-nnoremap <silent> yob :call DarkLightSwitch()<cr>
+nnoremap <silent> yob :DarkLightSwitch<cr>
+nnoremap <silent> [ob :DarkLightFirst<cr>
+nnoremap <silent> ]ob :DarkLightLast<cr>
 
 " Netrw toggle - left
 nnoremap <silent> yoe :Lexplore<bar>:30wincmd\|<cr>
