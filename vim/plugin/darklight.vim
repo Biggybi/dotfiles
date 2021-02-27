@@ -10,7 +10,6 @@ let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
 function! s:SelectColorScheme() abort
   if g:dls_theme_force_load_start != '0'
     if index(g:dls_theme_list, g:dls_theme_force_load_start) >= 0
-      echo "colorscheme" g:dls_theme_force_load_start
       exe "colorscheme" g:dls_theme_force_load_start
     else
       echom "Auto theme not found:" g:dls_theme_force_load_start .
@@ -21,10 +20,8 @@ function! s:SelectColorScheme() abort
   else
     let hour = strftime("%H")
     if g:dls_daytime[0] <= hour && hour < g:dls_daytime[1]
-      echo "colorscheme" g:dls_theme_list[1]
       exe "colorscheme" g:dls_theme_list[1]
     else
-      echo "colorscheme" g:dls_theme_list[2]
       exe "colorscheme" g:dls_theme_list[2]
     endif
   endif
@@ -58,7 +55,6 @@ function! s:ApplyScheme(scheme)
       echom "Auto theme not found:" a:scheme . "."
       return
   endif
-  echo "coucou"
   exe "colorscheme" a:scheme
 endfunction
 
