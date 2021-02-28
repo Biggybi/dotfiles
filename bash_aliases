@@ -193,6 +193,8 @@ alias sall='. $HOME/.bashrc ; . $HOME/.bash_aliases ; bind -f ~/.inputrc'
 alias st='tmux source-file $HOME/.tmux.conf'
 
 alias dot='cd $HOME/dotfiles'
+alias dvs='vim -S $HOME/dotfiles/.git/Session.vim'
+alias ds='vim -S $HOME/dotfiles/.git/Session.vim'
 alias dots='git -C $HOME/dotfiles status'
 alias dotclh='git clone https://github.com/biggybi/dotfiles'
 alias dotcl='git clone git@github.com:Biggybi/dotfiles'
