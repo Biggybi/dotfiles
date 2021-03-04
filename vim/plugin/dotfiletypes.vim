@@ -5,9 +5,9 @@ let g:plugin_dotfiletypes = 1
 
 augroup DotfilesSettings
   au!
-  au BufEnter,BufWritePost,SourcePost {,.}bash_aliases,{,.}bashrc,{,.}inputrc,{,.}bash_profile
+  au BufEnter,BufWritePost,SourcePost {,.}{bash_aliases,bashrc,inputrc,bash_profile}
         \ setlocal filetype=sh
-  au BufEnter,BufWritePost,SourcePost git/config
+  au BufWinEnter,BufEnter,SourcePost git/config
         \ setlocal filetype=gitconfig
 augroup end
 
