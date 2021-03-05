@@ -101,7 +101,17 @@ nnoremap <silent> [ob :DarkLightFirst<cr>
 nnoremap <silent> ]ob :DarkLightLast<cr>
 
 " Netrw toggle - left
-nnoremap <silent> yoe :Lexplore<bar>:30wincmd\|<cr>
+let s:netrw_winsize=0
+function! NetrwToggle() abort
+  Lexplore
+  if &ft==#"netrw"
+    if s:netrw_winsize == 0
+      let s:netrw_winsize = g:netrw_winsize
+    endif
+    exe s:netrw_winsize . "wincmd|"
+  endif
+endfunction
+nnoremap <silent> yoe :call NetrwToggle()<cr>
 
 " Move visual selection (=unimpaired + gv)
 vnoremap ]e :'<,'>move '>+1 \| normal! gv<CR>
