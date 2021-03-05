@@ -125,3 +125,9 @@
 [submodule "vim/pack/bundle/start/FYT.vim"]
 	path = vim/pack/bundle/start/FYT.vim
 	url = git@github.com:statox/FYT.vim.git
+[submodule "zsh/plugins/zsh-autosuggestions"]
+	path = zsh/plugins/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+[submodule "zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
