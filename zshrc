@@ -11,13 +11,16 @@ if [ -f ~/.zsh_aliases ]; then
 fi
 
 # Environement variables
+
 export GOPATH=$HOME/bin/go
-export PATH=$PATH:~/bin:/usr/lib:~/.npm-global/bin:/home/linuxbrew/.linuxbrew/bin
+export PATH=$PATH:~/bin:/usr/lib
+PATH+=:~/.npm-global/bin
+PATH+=:/home/linuxbrew/.linuxbrew/bin
 PATH+=:$GOPATH/bin
 PATH+=:~/bin/norminette
+
 export VISUAL=vim
 export EDITOR="$VISUAL"
-# export EDITOR="nvim"
 export BROWSER=firefox
 export DOT="$HOME/dotfiles"
 export HOME_VID="$HOME/Videos"
@@ -136,17 +139,14 @@ __get_vi_mode_bottom() {
 DEFAULT_VI_MODE=viins
 
 zle-keymap-select() {
-# __set_vi_mode_cursor
-zle reset-prompt
+	zle reset-prompt
 }
-
-zle-line-init() {
-zle -K $DEFAULT_VI_MODE
-}
-
-zle -N zle-line-init
 zle -N zle-keymap-select
 
+zle-line-init() {
+	zle -K $DEFAULT_VI_MODE
+}
+zle -N zle-line-init
 
 git_branch() {
 	git symbolic-ref --short HEAD 2> /dev/null
@@ -166,8 +166,7 @@ PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
 PROMPT+=$'%{\e[00;01;94m%} %~%{\e[0m%} '    # CWD
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # Branch
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
-PROMPT+=$'%{$reset_color%}'                               # End
-# PROMPT=$'%B╭─ %{\e[01;36;100m%}  %n %{\e[0m%}%{\e[01;39;100m%}┃%{\e[0m%}%{\e[01;94;100m%} %M  %{\e[0m%} %{\e[00;01;91m%} %~%{\e[0m%} \033[01;92m%}%1v%{\e[0m% %{$reset_color%}'$'\n╰─ '
+PROMPT+=$'%{$reset_color%}'                 # End
 
 # rprompt
 
@@ -210,7 +209,6 @@ add-zsh-hook precmd prompt_precmd
 
 RPROMPT='%F{blue}${prompt_elapsed_time}%F{none}'
 
-
 # Color man pages in `less`
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -227,8 +225,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 	eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # Load zsh-syntax-highlighting; should be last.
-source ${HOME}/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ${HOME}/dotfiles/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${DOT}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ${DOT}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
 
 # Fzf
