@@ -13,6 +13,17 @@
 ""    Settings
 """        General settings
 
+augroup ZshEnv
+  if $SHELL =~# '.*zsh'
+    autocmd VimEnter * ++once
+          \ let &shell='/bin/zsh -i'
+  endif
+  if $SHELL =~# '.*bash'
+    autocmd VimEnter * ++once
+          \ let &shell='/bin/bash -i'
+  endif
+augroup end
+
 runtime! ftplugin/man.vim
 if ! has('nvim')
   packadd! matchit
@@ -24,7 +35,6 @@ filetype on
 filetype indent on                   " use indent plugin
 set keywordprg=:Man
 
-let $BASH_ENV = '$HOME/dotfiles/bash_aliases'  " use aliases in vim
 let $PAGER=''                        " vim as pager
 
 syntax on

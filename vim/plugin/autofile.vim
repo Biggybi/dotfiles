@@ -19,8 +19,10 @@ augroup end
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
   au!
-  au FocusGained,BufEnter * :silent! !
-  au FocusLost,WinLeave * :silent! w
+  " " don't do this: too expensive
+  " " still working in tmux sessions for some reason
+  " au FocusGained,BufEnter * :silent! !
+  au FocusLost,BufLeave * :silent! update
 augroup end
 
 " Autocommit
