@@ -5,17 +5,6 @@ let g:plugin_autofile = 1
 
 """        Save and load
 
-function! FitBufferWindowBottom() abort
-  if line('w$') == line('$')
-    normal! mzGzb`z
-  endif
-endfunction
-
-augroup FitBufferWindowBottom
-  au!
-  au BufEnter,BufWinEnter * call FitBufferWindowBottom()
-augroup end
-
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
   au!
@@ -40,6 +29,17 @@ if ! has("nvim")
           \ silent! loadview
   augroup end
 endif
+
+function! FitBufferWindowBottom() abort
+  if line('w$') == line('$') && &filetype!='terminal'
+    normal! mzGzb`z
+  endif
+endfunction
+
+augroup FitBufferWindowBottom
+  au!
+  au WinEnter,WinLeave * call FitBufferWindowBottom()
+augroup end
 
 """        Working directory
 
