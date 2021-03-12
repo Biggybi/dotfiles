@@ -45,8 +45,10 @@ export HISTFILESIZE=1000000             # number of commands in history file
 export HISTTIMEFORMAT="[%F %T] "
 export HISTIGNORE="&:ls:bg:fg:exit"		# ignore some commands
 
-setopt INC_APPEND_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
+setopt EXTENDED_HISTORY                 # save start time and duration
+setopt INC_APPEND_HISTORY               # update history when command is issued
+setopt HIST_IGNORE_ALL_DUPS             # don't save duplicates in history
+setopt HIST_IGNORE_SPACE                # don't save commands starting with spaces
 
 # completion
 autoload -U compinit
@@ -111,29 +113,29 @@ __set_vi_mode_cursor() {
 }
 
 __get_vi_mode_top() {
-	local color
+	local vimstyle
 	case $KEYMAP in
 		vicmd)
-			color='%{\e[00;01;93m%}╭─%{\e[0m%}'
+			vimstyle='%{\e[00;01;93m%}╭─%{\e[0m%}'
 			;;
 		main|viins)
-			color='%{\e[00;01;92m%}╭─%{\e[0m%}'
+			vimstyle='%{\e[00;01;92m%}╭─%{\e[0m%}'
 			;;
 	esac
-	print -n -- $color
+	print -n -- $vimstyle
 }
 
 __get_vi_mode_bottom() {
-	local color
+	local vimstyle
 	case $KEYMAP in
 		vicmd)
-			color='%{\e[00;01;93m%}╰─ 〈%{\e[0m%}'
+			vimstyle='%{\e[00;01;93m%}╰─ 〈%{\e[0m%}'
 			;;
 		main|viins)
-			color='%{\e[00;01;92m%}╰─ 〉%{\e[0m%}'
+			vimstyle='%{\e[00;01;92m%}╰─ 〉%{\e[0m%}'
 			;;
 	esac
-	print -n -- $color
+	print -n -- $vimstyle
 }
 
 DEFAULT_VI_MODE=viins
@@ -165,6 +167,9 @@ PROMPT+=$'%{\e[01;39;100m%}  ⃒%{\e[0m%}'     # Sep
 PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
 PROMPT+=$'%{\e[00;01;94m%} %~%{\e[0m%} '    # CWD
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # Branch
+PROMPT+='	-%F{blue}${prompt_elapsed_time}%F{none}'
+PROMPT+='%(?.%F{green}0.%F{red}%?)'
+PROMPT+=$'%{$reset_color%}-'
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
 PROMPT+=$'%{$reset_color%}'                 # End
 
@@ -194,6 +199,7 @@ prompt_precmd() {
 		else
 			prompt_elapsed_time=${ms}ms
 		fi
+		prompt_elapsed_time+=' '
 		unset prompt_preexec_ms
 	else
 		# Clear previous result when hitting ENTER with no command to execute
@@ -207,7 +213,8 @@ autoload -Uz add-zsh-hook
 add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
 
-RPROMPT='%F{blue}${prompt_elapsed_time}%F{none}'
+# RPROMPT='%F{blue}${prompt_elapsed_time}%F{none}${check_last_exit_code} '
+# RPROMPT+='%(?.%F{green}0.%F{red}%?)'
 
 # Color man pages in `less`
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -225,8 +232,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 	eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # Load zsh-syntax-highlighting; should be last.
-source ${DOT}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ${DOT}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${DOT}/shells/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ${DOT}/shells/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
 
 # Fzf

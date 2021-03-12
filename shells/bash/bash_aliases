@@ -146,33 +146,39 @@ vimpluginstall() {
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
 alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
 
-alias eb='$EDITOR $HOME/dotfiles/bashrc'
-alias ep='$EDITOR $HOME/dotfiles/bash_profile'
-alias ea='$EDITOR $HOME/dotfiles/bash_aliases'
-alias ev='$EDITOR $HOME/dotfiles/vim/vimrc'
-alias en='$EDITOR $HOME/dotfiles/inputrc'
-alias et='$EDITOR $HOME/dotfiles/tmux.conf'
+alias eb='$EDITOR $HOME/dotfiles/shells/bash/bashrc'
+alias ez='$EDITOR $HOME/dotfiles/shells/zsh/zshrc'
+alias eza='$EDITOR $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias ep='$EDITOR $HOME/dotfiles/shells/bash/bash_profile'
+alias ea='$EDITOR $HOME/dotfiles/shells/bash/bash_aliases'
+alias ev='$EDITOR $HOME/dotfiles/shells/bash/vim/vimrc'
+alias en='$EDITOR $HOME/dotfiles/shells/bash/inputrc'
+alias et='$EDITOR $HOME/dotfiles/shells/bash/tmux.conf'
 alias eh='$EDITOR $HOME/.bash_history'
 alias efs='$EDITOR /etc/fstab'
 alias eapt='sudo $EDITOR /etc/apt/sources.list'
 alias eg='sh .git/vimgit'
 
-alias vb='vim $HOME/dotfiles/bashrc'
-alias vp='vim $HOME/dotfiles/bash_profile'
-alias va='vim $HOME/dotfiles/bash_aliases'
-alias vv='vim $HOME/dotfiles/vim/vimrc'
-alias vn='vim $HOME/dotfiles/inputrc'
-alias vt='vim $HOME/dotfiles/tmux.conf'
+alias vb='vim $HOME/dotfiles/shells/bash/bashrc'
+alias vp='vim $HOME/dotfiles/shells/bash/bash_profile'
+alias va='vim $HOME/dotfiles/shells/bash/bash_aliases'
+alias vz='vim $HOME/dotfiles/shells/zsh/zshrc'
+alias vza='vim $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias vv='vim $HOME/dotfiles/shells/bash/vim/vimrc'
+alias vn='vim $HOME/dotfiles/shells/bash/inputrc'
+alias vt='vim $HOME/dotfiles/shells/bash/tmux.conf'
 alias vh='vim $HOME/.bash_history'
 alias vfs='vim /etc/fstab'
 alias vapt='sudo vim /etc/apt/sources.list'
 alias vg='vim $(./.git/vimgit)'
 
-alias vbashrc='vim $HOME/dotfiles/bashrc'
-alias valias='vim $HOME/dotfiles/bash_aliases'
-alias vimrc='vim $HOME/dotfiles/vim/vimrc'
-alias vinputrc='vim $HOME/dotfiles/inputrc'
-alias vitmux='vim $HOME/dotfiles/tmux.conf'
+alias vbashrc='vim $HOME/dotfiles/shells/bash/bashrc'
+alias valias='vim $HOME/dotfiles/shells/bash/bash_aliases'
+alias vzshrc='vim $HOME/dotfiles/shells/zsh/zshrc'
+alias vzalias='vim $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias vimrc='vim $HOME/dotfiles/shells/bash/vim/vimrc'
+alias vinputrc='vim $HOME/dotfiles/shells/bash/inputrc'
+alias vitmux='vim $HOME/dotfiles/shells/bash/tmux.conf'
 alias vfstab='vim /etc/fstab'
 alias vapt='sudo vim /etc/apt/sources.list'
 alias vmgit='sh .git/vimgit'
@@ -181,6 +187,7 @@ alias sbash='. $HOME/.bashrc'
 alias smacbash='. $HOME/.bash_profile'
 alias scolor='eval "$(dircolors $HOME/.dircolors)"'
 alias salias='. $HOME/.bash_aliases'
+alias szalias='. $HOME/.zsh_aliases'
 alias sinputrc='bind -f ~/.inputrc'
 alias stmux='tmux source-file $HOME/.tmux.conf'
 
@@ -368,17 +375,13 @@ get_hidden_mail_adress() {
 
 # alias fav='. fav'
 
-# firefox
-alias foxn='firefox -new-window '
-alias foxyt='firefox -new-window youtube.com'
-
 # youtube dl
 alias ydl='youtube-dl'
 
 # terminal web apps
 alias pubip="pubip"
 alias pubcity="pubip city"
-alias pubcountry="pubcountry"
+alias pubcountry="pubip country"
 
 meteo() {
 	curl wttr.in/$1
@@ -457,7 +460,7 @@ fzf_semi_interactive_cd() {
 					echo;
 					ls -p --color=always "${__cd_path}";
 					')"
-		[[ ${#dir} != 0 ]] || return 0
+		[[ ${#dir} != 1 ]] || return 1
 		builtin cd "$dir" &> /dev/null
 	done
 }

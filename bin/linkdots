@@ -24,8 +24,10 @@ cd $SRC
 
 # git files to link
 DOTS=(vim
-	bashrc
-	bash_aliases
+	shells/bash/bashrc
+	shells/bash/bash_aliases
+	shells/zsh/zshrc
+	shells/zsh/zsh_aliases
 	inputrc
 	tmux.conf
 	bin
@@ -38,6 +40,8 @@ DOTS=(vim
 LINK=(.vim
 	.bashrc
 	.bash_aliases
+	.zshrc
+	.zsh_aliases
 	.inputrc
 	.tmux.conf
 	bin
