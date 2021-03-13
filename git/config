@@ -5,9 +5,10 @@
 	templatedir = ~/.git_template
 [alias]
 	ctags = !.git/hooks/ctags
-	cm    = commit
+	cm    = commit -m
 	cam   = commit -am
 	co    = checkout
+	cob   = checkout -b
 	s     = submodule
 	su    = git submodule update --remote --merge
 	uuu   = submodule foreach git pull origin master
