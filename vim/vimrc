@@ -92,10 +92,13 @@ set modelineexpr                " flexible modeline set
 """        User Interface settings
 
 " Title
-set title                       " window title (file)
-set titleold=
+if has('title')
+  set title                       " window title (file)
+  set titleold=
+endif
 
 " Mappings chill
+let mapleader=' '
 set notimeout                   " no timeout on maps
 set ttimeout                    " timeout on keycodes
 set ttimeoutlen=10              " of 10 ms
@@ -109,25 +112,34 @@ endif
 set magic                       " set magic on, for regex
 set ignorecase                  " case insensitive search
 set smartcase                   " case-sens if cap
-set hlsearch                    " highlight all searches
-set incsearch                   " highlight match while typing
+if has('extra_search')
+  set hlsearch                    " highlight all searches
+  set incsearch                   " highlight match while typing
+endif
 " set path+=**                  " recursive path from current path
 " ignore some files from wildcard expansion
 set nrformats-=octal            " <c-a>/<c-x> do not use octals
 
-set wildignore+=**/__pycache__/**
-set wildignore+=**/venv/**
-set wildignore+=**/node_modules/**
-set wildignore+=**/dist/**
-set wildignore+=**/build/**
-set wildignore+=*.o
-set wildignore+=*.pyc
-set wildignore+=*.swp
+if has('wildignore')
+  set wildignore+=**/__pycache__/**
+  set wildignore+=**/venv/**
+  set wildignore+=**/node_modules/**
+  set wildignore+=**/dist/**
+  set wildignore+=**/build/**
+  set wildignore+=*.o
+  set wildignore+=*.pyc
+  set wildignore+=*.swp
+endif
 
 " Command line window
 set cmdheight=2                 " Command-line height
-set showcmd                     " show command
-set wildmenu                    " show matches to commands
+if has('cmdline_info')
+  set showcmd                     " show command
+  set ruler                       " show cursor line / column
+endif
+if has('wildmenu')
+  set wildmenu                    " show matches to commands
+endif
 set wildchar=<tab>              " complete w/ tab
 set wildmode=longest,full
 set fileignorecase              " ignore case using filename
@@ -135,7 +147,6 @@ set wildignorecase              " ignore case completing filenames
 
 " status line
 set laststatus=2                " always show satus line
-set ruler                       " show cursor line / column
 set noshowmode
 
 " Shortmess : 'hit enter' prompt custzomization
@@ -170,9 +181,13 @@ set softtabstop=4               " tabs 4 characters wide
 set shiftwidth=4                " indents 4 characters wide
 set shiftround                  " indent congru shiftwidth
 set autoindent                  " automatically indent new line
-set smartindent                 " ... in a sane way
-set showbreak=>\                " ... showing a character
-set breakindent                 " with indent
+if has('smartindent')
+  set smartindent               " ... in a sane way
+endif
+if has('linebreak')
+  set showbreak=>\              " ... showing a character
+  set breakindent               " with indent
+endif
 set wrap                        " wrap lines
 
 " splits
@@ -182,11 +197,12 @@ set splitright                  " default split right
 " set list
 
 " guides smartisation
-set fillchars+=vert:▎
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
 set spellcapcheck=              " ignore leading cap in word
 set nojoinspaces                " and spaces too
-set formatoptions+=j            " join comments smartly
+if v:version > 703 || v:version == 203 && has('patch541')
+  set formatoptions+=j            " join comments smartly
+endif
 set formatoptions-=cro          " no auto comment line
 
 " Main window
@@ -217,12 +233,18 @@ augroup SetScrolloff            " min vertical cursor offset
   au BufRead,BufEnter *
         \ let &l:scrolloff = winheight(winnr())/10 + 1
 augroup end
-" set iskeyword+=,              " considered part of <cword>
+" set iskeyword+=,                " considered part of <cword>
+set iskeyword+=-                " considered part of <cword>
 
 " Folding
-set foldmethod=syntax           " fold based on indent
-set foldnestmax=2               " deepest fold is 10 levels
-set nofoldenable                " don't fold by default
+if has('folding')
+  if has('windows')
+    set fillchars+=vert:▎
+  endif
+  set foldmethod=syntax           " fold based on indent
+  set foldnestmax=2               " deepest fold is 10 levels
+  set nofoldenable                " don't fold by default
+endif
 
 " Colors
 let base16colorspace=256        " access 256 colorspace
@@ -232,9 +254,11 @@ if has('termguicolors')
 endif
 
 " Diff
-set diffopt+=vertical           " vertical split for diff
+if has('diff')
+  set diffopt+=vertical           " vertical split for diff
+endif
 
-set cursorline                  " for CursorLineNr
+" set cursorline                  " for CursorLineNr
 
 " Tabline
 set tabpagemax=30
