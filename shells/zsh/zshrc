@@ -72,8 +72,8 @@ bindkey '^f' forward-char
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey '^l' clear-screen
-bindkey '^j' vi-down-line-or-history
-bindkey '^k' vi-up-line-or-history
+bindkey -s '^j' '^[[B' # next history EOL
+bindkey -s '^k' '^[[A' # previous history EOL
 bindkey '^o' expand-or-complete
 bindkey '^n' accept-and-infer-next-history
 
