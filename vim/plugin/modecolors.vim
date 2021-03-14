@@ -9,6 +9,12 @@ function! s:getHLString(group) abort
   endif
   let group_fg = synIDattr(hlID(a:group), "fg#")
   let group_bg = synIDattr(hlID(a:group), "bg#")
+  if group_fg == ''
+    return ''
+  endif
+  if group_bg == ''
+    return ''
+  endif
   if &termguicolors == 1
     return "guifg=".group_fg . " guibg=".group_bg
   else
@@ -41,8 +47,15 @@ function! s:setExtraStrings() abort
 endfunction
 
 function! s:modeColorHL(color) abort
+  if a:color == '!'
+    if g:modecolor_extra != ''
+      exe "hi" g:modecolor_extra s:HLGroupNormal
+    endif
+    return
+  endif
   if a:color != ''
     exe "hi User1" a:color
+  else
   endif
   if g:modecolor_extra ==# ''
     return
@@ -111,7 +124,7 @@ function! s:modeColorToggle()
     echo 'color mode change on'
   elseif s:modecolor_timer
     call timer_pause(s:modecolor_timer, '1')
-    " silent! s:modeColorInit()
+    silent! s:modeColorInit()
     call s:modeColorHL(s:HLStrings['Normal'])
     echo 'color mode change off'
   endif
@@ -149,12 +162,20 @@ augroup StartModeColor
         \ call s:modeColorHL(s:HLStrings['Normal'])
 augroup end
 
-command! -nargs=? -complete=highlight ModeColorExtra
+# ModeColorExtra[!] [Group]
+# force a color, and deactivate auto switch
+# highlight `statusline` and `extra` with the given Group
+# if `!` is given, `extra` takes the `normal` value
+command! -bang -nargs=? -complete=highlight ModeColorExtra
       \ if exists('s:modecolor_timer') && ! timer_info(s:modecolor_timer)[0]['paused']
       \ |  call timer_pause(s:modecolor_timer, 1)
       \ |endif
-      \ |call s:modeColorHL(s:getHLString(<q-args>))
+      \ |call s:modeColorHL(s:getHLString(<f-args>))
+      \ |if expand('<bang>') == '!'
+      \ |  call s:modeColorHL('!')
+      \ |endif
 
+# toggle color switch
 command! -nargs=0 ModeColorToggle call s:modeColorToggle()
 silent! noremap <silent> <unique> <script> <plug>(modeColorToggle)
       \ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
