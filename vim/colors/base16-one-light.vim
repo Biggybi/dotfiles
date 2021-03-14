@@ -30,11 +30,14 @@ let s:gui04        = "696c77"
 let g:base16_gui04 = "696c77"
 let s:gui05        = "383a42"
 let g:base16_gui05 = "383a42"
-let s:gui06        = "202227"
+" let s:gui06        = "202227"
+" let s:gui06        = "ee82ee"
+let s:gui06        = "d675d6"
 let g:base16_gui06 = "202227"
 let s:gui07        = "090a0b"
 let g:base16_gui07 = "090a0b"
-let s:gui08        = "e06c75"
+" let s:gui08        = "e06c75"
+let s:gui08        = "c96169"
 let g:base16_gui08 = "e06c75"
 " let s:gui08        = "ca1243"
 " let g:base16_gui08 = "ca1243"
@@ -45,18 +48,24 @@ let s:gui09        = "f88f22"
 let g:base16_gui09 = "d75f00"
 " let s:gui0A        = "c18401"
 " let s:gui0A        = "d5a541"
-let s:gui0A        = "dd8c49"
+" let s:gui0A        = "dd8c49"
+let s:gui0A        = "b37400"
 let g:base16_gui0A = "c18401"
-let s:gui0B        = "50a14f"
+" let s:gui0B        = "50a14f"
+let s:gui0B        = "489047"
 let g:base16_gui0B = "50a14f"
 " let s:gui0C        = "0184bc"
-let s:gui0C        = "56b6c2"
+" let s:gui0C        = "56b6c2"
+let s:gui0C        = "3696c2"
 let g:base16_gui0C = "0184bc"
-let s:gui0D        = "4078f2"
+" let s:gui0D        = "4078f2"
+let s:gui0D        = "396cd9"
 let g:base16_gui0D = "4078f2"
 " let s:gui0E        = "a626a4"
 " let s:gui0E        = "c626a4"
-let s:gui0E        = "a470d4"
+" let s:gui0E        = "a470d4"
+" let s:gui0E        = "8359a9"
+let s:gui0E        = "9364be"
 let g:base16_gui0E = "a626a4"
 let s:gui0F        = "986801"
 let g:base16_gui0F = "986801"
@@ -203,20 +212,26 @@ call <sid>hi("Exception",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("FoldColumn",    s:gui0C, s:gui01, s:cterm0C, s:cterm01, "", "")
 " call <sid>hi("Folded",        s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
 call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
-call <sid>hi("IncSearch",     s:gui0E, s:gui01, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("EdgeSearch",     s:gui08, s:gui01, s:cterm04, s:cterm0C, "none", "")
-call <sid>hi("Search",        s:gui0D, s:gui01, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("CocHighlightText", "", s:gui02, s:cterm08, "", "", "")
+" call <sid>hi("IncSearch",     s:gui0E, s:gui01, s:cterm00, s:cterm09, "none", "")
+" call <sid>hi("EdgeSearch",     s:gui08, s:gui01, s:cterm04, s:cterm0C, "none", "")
+" call <sid>hi("Search",        s:gui0D, s:gui01, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("Search",        s:gui05, s:gui0C, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("IncSearch",     s:gui05, s:gui06, s:cterm04, s:cterm0C, "none", "")
+call <sid>hi("EdgeSearch",    s:gui05, s:gui08, s:cterm04, s:cterm0C, "none", "")
 " call <sid>hi("IncSearch",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
 " call <sid>hi("EdgeSearch",     s:gui00, s:gui09, s:cterm04, s:cterm0C, "none", "")
 " call <sid>hi("Search",        s:gui00, s:gui0C, s:cterm01, s:cterm0A,  "", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
 call <sid>hi("Macro",         s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("MatchParen",    s:gui03, s:gui00, "", s:cterm03,  "underline", "")
+" call <sid>hi("MatchParen",    s:gui03, s:gui00, "", s:cterm03,  "underline", "")
+call <sid>hi("MatchParen",    s:gui0C, s:gui02, "", s:cterm03,  "", "")
 call <sid>hi("ModeMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("MoreMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("Question",      s:gui0D, "", s:cterm0D, "", "", "")
 call <sid>hi("Substitute",    s:gui01, s:gui0B, s:cterm01, s:cterm0A, "none", "")
-call <sid>hi("SpecialKey",    s:gui04, s:gui0D, s:cterm05, "", "", "")
+" call <sid>hi("SpecialKey",    s:gui04, s:gui0D, s:cterm05, "", "", "")
+call <sid>hi("SpecialKey",    s:gui04, "", s:cterm05, "", "", "")
 call <sid>hi("TooLong",       s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("Underlined",    s:gui08, "", s:cterm08, "", "", "")
 " call <sid>hi("Visual",        "", s:gui02, "", s:cterm02, "", "")
@@ -235,46 +250,52 @@ call <sid>hi("NonText",       s:gui03, "", s:cterm03, "", "", "")
 call <sid>hi("LineNr",        s:gui03, s:gui00, s:cterm00, s:cterm01, "", "")
 " call <sid>hi("SignColumn",    s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
 call <sid>hi("SignColumn",    s:gui03, s:gui00, s:cterm03, s:cterm00, "", "")
-" call <sid>hi("StatusLine",    s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
-call <sid>hi("StatusLine",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
-call <sid>hi("StatusLineNC",  s:gui04, s:gui01, s:cterm03, s:cterm01, "none", "")
-call <sid>hi("StatusLineTerm",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
-call <sid>hi("StatusLineTermNc",    s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
 " call <sid>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none", "")
 " call <sid>hi("VertSplit",     s:gui04, s:gui00, s:cterm02, s:cterm02, "none", "")
-call <sid>hi("VertSplit",     s:gui01, s:gui00, s:cterm02, s:cterm02, "none", "")
+call <sid>hi("VertSplit",     s:gui02, s:gui00, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("VertSplit2",     s:gui02, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("StatusLineActiveMid",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("StatusLineActiveLeft",     s:gui05, s:gui03, s:cterm07, s:cterm02, "none", "")
-" call <sid>hi("StatusLineActiveGit",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
-call <sid>hi("StatusLineNormal",     s:gui00, s:gui04, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineInsert",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
-" call <sid>hi("StatusLineVisual", s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineVisual", s:gui00, s:gui0E, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineReplace", s:gui00, s:gui09, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLinePending", s:gui00, s:gui0A, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineCmd", s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineFTSearch", s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("StatusLineImportant", s:gui0D, "", s:cterm00, s:cterm02, "none", "")
-call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
+call <sid>hi("ColorColumn",   "", s:gui02, "", s:cterm01, "none", "")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui00, "", "", "none", "")
-call <sid>hi("CursorLineNr",  s:gui05, s:gui01, s:cterm04, s:cterm01, "none", "")
+call <sid>hi("CursorLineNr",  s:gui05, s:gui02, s:cterm04, s:cterm01, "none", "")
+call <sid>hi("EndOfBuffer",  s:gui00, s:gui00, s:cterm04, s:cterm01, "none", "")
 call <sid>hi("QuickFixLine",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("PMenuSel",      s:gui00, s:gui03, s:cterm01, s:cterm05, "", "")
 call <sid>hi("PMenuSbar",     s:gui04, s:gui04, s:cterm01, s:cterm05, "", "")
 call <sid>hi("PMenuThumb",    s:gui01, s:gui01, s:cterm01, s:cterm05, "", "")
-call <sid>hi("TabLine",       s:gui05, s:gui01, s:cterm03, s:cterm01, "none", "")
-call <sid>hi("TabLineFill",   s:gui05, s:gui01, s:cterm03, s:cterm01, "none", "")
+call <sid>hi("TabLine",       s:gui05, s:gui02, s:cterm03, s:cterm01, "none", "")
+call <sid>hi("TabLineFill",   s:gui05, s:gui02, s:cterm03, s:cterm01, "none", "")
 call <sid>hi("TabLineSel",    s:gui05, s:gui00, s:cterm0B, s:cterm01, "none", "")
+
+call <sid>hi("SuliGitSub",    s:gui0B, s:gui02, s:cterm00, s:cterm02, "none", "")
+call <sid>hi("SuliGit",       s:gui0D, s:gui02, s:cterm00, s:cterm02, "none", "")
+call <sid>hi("SuliCurDir",    s:gui00, s:gui02, s:cterm00, s:cterm02, "none", "")
+call <sid>hi("SuliGitMod",    s:gui08, s:gui01, s:cterm00, s:cterm02, "none", "")
+call <sid>hi("SuliFileMod",   s:gui08, s:gui02, s:cterm00, s:cterm02, "none", "")
+call <sid>hi("SuliFTSearch",  s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliCmd",       s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliPending",   s:gui00, s:gui0A, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliReplace",   s:gui00, s:gui09, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliVisual",    s:gui00, s:gui0E, s:cterm00, s:cterm09, "none", "")
+" call <sid>hi("SuliVisual",  s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliInsert",    s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliNormal",    s:gui00, s:gui03, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliOuter",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("SuliMid",       s:gui05, s:gui02, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("StatusLineTermNC",    s:gui04, s:gui02, s:cterm02, s:cterm02, "none", "")
+call <sid>hi("StatusLineTerm",      s:gui05, s:gui02, s:cterm02, s:cterm02, "none", "")
+call <sid>hi("StatuslineNC",        s:gui04, s:gui02, s:cterm03, s:cterm01, "none", "")
+call <sid>hi("StatusLine",          s:gui05, s:gui02, s:cterm02, s:cterm02, "none", "")
+" call <sid>hi("StatusLine",        s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
 
 " Standard syntax highlighting
 call <sid>hi("Boolean",      s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Character",    s:gui08, "", s:cterm08, "", "", "")
 " call <sid>hi("Comment",      s:gui03, "", s:cterm03, "", "italic", "")
 call <sid>hi("Comment",      s:gui03, s:gui00, s:cterm05, s:cterm03, "italic", "")
-call <sid>hi("Conditional",  s:gui0E, "", s:cterm0E, "", "", "")
+" call <sid>hi("Conditional",  s:gui0E, "", s:cterm0E, "", "", "")
+call <sid>hi("Conditional",  s:gui06, "", s:cterm0E, "", "", "")
 call <sid>hi("Constant",     s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Define",       s:gui0E, "", s:cterm0E, "", "none", "")
 call <sid>hi("Delimiter",    s:gui0F, "", s:cterm0F, "", "", "")
@@ -287,7 +308,7 @@ call <sid>hi("Label",        s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("Number",       s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Operator",     s:gui05, "", s:cterm05, "", "none", "")
 call <sid>hi("PreProc",      s:gui0A, "", s:cterm0A, "", "", "")
-call <sid>hi("Repeat",       s:gui0A, "", s:cterm0A, "", "", "")
+call <sid>hi("Repeat",       s:gui0E, "", s:cterm0A, "", "", "")
 call <sid>hi("Special",      s:gui0C, "", s:cterm0C, "", "", "")
 call <sid>hi("SpecialChar",  s:gui0F, "", s:cterm0F, "", "", "")
 call <sid>hi("Statement",    s:gui0E, "", s:cterm08, "", "", "")
