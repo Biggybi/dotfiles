@@ -167,9 +167,8 @@ PROMPT+=$'%{\e[01;39;100m%}  ⃒%{\e[0m%}'     # Sep
 PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
 PROMPT+=$'%{\e[00;01;94m%} %~%{\e[0m%} '    # CWD
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # Branch
-PROMPT+='	-%F{blue}${prompt_elapsed_time}%F{none}'
-PROMPT+='%(?.%F{green}0.%F{red}%?)'
-PROMPT+=$'%{$reset_color%}-'
+PROMPT+=$'	%{\e[00;01;94m%}${prompt_elapsed_time}%{\e[0m%}'
+PROMPT+=$'%{$reset_color%}'
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
 PROMPT+=$'%{$reset_color%}'                 # End
 
@@ -199,7 +198,11 @@ prompt_precmd() {
 		else
 			prompt_elapsed_time=${ms}ms
 		fi
-		prompt_elapsed_time+=' '
+		# prompt_elapsed_time+=' '
+		prompt_elapsed_time+=$' %(?.%{\e[00;01;92m%}0.%{\e[00;01;91m%}%?)'
+		# prompt_elapsed_time+=${reset_color%}                 # End
+		prompt_elapsed_time=[${prompt_elapsed_time}
+		prompt_elapsed_time+=$'%{\e[00;01;94m%}]'
 		unset prompt_preexec_ms
 	else
 		# Clear previous result when hitting ENTER with no command to execute
@@ -212,9 +215,6 @@ setopt nopromptbang prompt{cr,percent,sp,subst}
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
-
-# RPROMPT='%F{blue}${prompt_elapsed_time}%F{none}${check_last_exit_code} '
-# RPROMPT+='%(?.%F{green}0.%F{red}%?)'
 
 # Color man pages in `less`
 export LESS_TERMCAP_mb=$'\E[01;31m'
