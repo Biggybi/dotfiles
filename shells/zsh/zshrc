@@ -37,7 +37,6 @@ export DATAPATH="/media/data/"
 stty -ixon
 
 # history
-
 export HISTFILE=~/.zsh_history
 export SAVEHIST=1000000                 # 
 export HISTSIZE=1000000                 # number of commands in session history
@@ -51,12 +50,9 @@ setopt HIST_IGNORE_ALL_DUPS             # don't save duplicates in history
 setopt HIST_IGNORE_SPACE                # don't save commands starting with spaces
 
 # completion
-autoload -U compinit
-zstyle ':completion:*' menu selectzmodload zsh/complist
-compinit
-_comp_options+=(globdots)
-
-zmodload zsh/complist
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # completion: case insensitive
+zstyle ':completion:*' menu selectzmodload                # completion: use menu
+setopt no_list_ambiguous                                  # completion: complete then show menu
 
 # vi mode
 bindkey -v
@@ -72,12 +68,15 @@ bindkey '^f' forward-char
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey '^l' clear-screen
-bindkey -s '^j' '^[[B' # next history EOL
-bindkey -s '^k' '^[[A' # previous history EOL
+bindkey '^j' history-search-forward
+bindkey '^k' history-search-backward
+bindkey '^[[B' history-search-forward
+bindkey '^[[A' history-search-backward
 bindkey '^o' expand-or-complete
 bindkey '^n' accept-and-infer-next-history
 
 # complete menu mode mappings
+zmodload zsh/complist
 bindkey -M menuselect '^h' vi-backward-char
 bindkey -M menuselect '^j' vi-down-line-or-history
 bindkey -M menuselect '^l' vi-forward-char
