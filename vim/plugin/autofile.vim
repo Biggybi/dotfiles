@@ -8,10 +8,8 @@ let g:plugin_autofile = 1
 " Save when focus lost, load when focus gained
 augroup AutoSaveAndLoadWithFocus
   au!
-  " " don't do this: too expensive
-  " " still working in tmux sessions for some reason
-  " au FocusGained,BufEnter * :silent! !
-  au FocusLost,BufLeave * :silent! update
+  au FocusGained,BufEnter,CursorMoved * silent! checktime
+  au FocusLost,BufLeave,WinLeave * silent! update
 augroup end
 
 " Autocommit
