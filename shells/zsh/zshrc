@@ -162,11 +162,11 @@ precmd() {
 PROMPT=''
 PROMPT+=$'$(__get_vi_mode_top) '
 PROMPT+=$'%{\e[01;33;100m%}  %n %{\e[0m%}'  # User
-PROMPT+=$'%{\e[01;39;100m%}  ⃒%{\e[0m%}'     # Sep
+PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'     # Sep
 PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
 PROMPT+=$'%{\e[00;01;94m%} %~%{\e[0m%} '    # CWD
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # Branch
-PROMPT+=$'	%{\e[00;01;94m%}${prompt_elapsed_time}%{\e[0m%}'
+PROMPT+=$'	${promt_cmd_info}'
 PROMPT+=$'%{$reset_color%}'
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
 PROMPT+=$'%{$reset_color%}'                 # End
@@ -187,25 +187,22 @@ prompt_precmd() {
 		local -ri m=$(( (elapsed_s/60)%60 ))
 		local -ri h=$(( elapsed_s/3600 ))
 		if (( h > 0 )); then
-			prompt_elapsed_time=${h}h${m}m
+			command_time=${h}h${m}m
 		elif (( m > 0 )); then
-			prompt_elapsed_time=${m}m${s}s
+			command_time=${m}m${s}s
 		elif (( s >= 10 )); then
-			prompt_elapsed_time=${s}.${(l:2::0:)$(( ms/10 ))}s # 12.34s
+			command_time=${s}.${(l:2::0:)$(( ms/10 ))}s # 12.34s
 		elif (( s > 0 )); then
-			prompt_elapsed_time=${s}.${(l:3::0:)ms}s # 1.234s
+			command_time=${s}.${(l:3::0:)ms}s # 1.234s
 		else
-			prompt_elapsed_time=${ms}ms
+			command_time=${ms}ms
 		fi
-		# prompt_elapsed_time+=' '
-		prompt_elapsed_time+=$' %(?.%{\e[00;01;92m%}0.%{\e[00;01;91m%}%?)'
-		# prompt_elapsed_time+=${reset_color%}                 # End
-		prompt_elapsed_time=[${prompt_elapsed_time}
-		prompt_elapsed_time+=$'%{\e[00;01;94m%}]'
+		promt_cmd_info=$' %(?.%{\e[00;01;92m%}[0.%{\e[00;01;91m%}[%?)'\ $'%{\e[00;01;94m%}'${command_time}
+		promt_cmd_info+=$'%(?.%{\e[00;01;92m%}.%{\e[00;01;91m%})]'
 		unset prompt_preexec_ms
 	else
 		# Clear previous result when hitting ENTER with no command to execute
-		unset prompt_elapsed_time
+		unset promt_cmd_info
 	fi
 }
 
