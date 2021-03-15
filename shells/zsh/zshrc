@@ -230,9 +230,21 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 	[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 	eval "$("$BASE16_SHELL/profile_helper.sh")"
 
+fzf_zvm() {
+	[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh
+}
+zvm_after_init_commands+=(fzf_zvm)
+
+zvm_after_lazy_keybindings() {
+	zvm_bindkey viins '^j' history-search-forward
+	zvm_bindkey viins '^k' history-search-backward
+	zvm_bindkey viins '^n' accept-and-infer-next-history
+}
+
 # Load zsh-syntax-highlighting; should be last.
 source ${DOT}/shells/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${DOT}/shells/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${DOT}/shells/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 bindkey '^ ' autosuggest-accept
 
 # Fzf
