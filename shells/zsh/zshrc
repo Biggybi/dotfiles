@@ -23,14 +23,7 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 export BROWSER=firefox
 export DOT="$HOME/dotfiles"
-export HOME_VID="$HOME/Videos"
-export HOME_PIC="$HOME/Pictures"
-export HOME_GAM="$HOME/Games"
-export HOME_DOC="$HOME/Documents"
-export HOME_MUS="$HOME/Music"
-export HOME_42="$HOME/42"
-export GOPATH="$HOME/go"
-export LFT="$HOME_42/libft/"
+export LFT="$HOME/42/libft/"
 export DATAPATH="/media/data/"
 
 # disable shell scroll interrupt
@@ -162,7 +155,7 @@ precmd() {
 PROMPT=''
 PROMPT+=$'$(__get_vi_mode_top) '
 PROMPT+=$'%{\e[01;33;100m%}  %n %{\e[0m%}'  # User
-PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'     # Sep
+PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'    # Sep
 PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
 PROMPT+=$'%{\e[00;01;94m%} %~%{\e[0m%} '    # CWD
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # Branch
