@@ -106,8 +106,8 @@ function! s:statusLineInactive() abort
     setlocal statusline +=%8*%{FugitiveHead()==''?
           \get(split(getcwd(),'/'),'-1',''):''}%*          " git submodule
     setlocal statusline +=%{
-          \get(split(expand('%:~'),
-          \split(getcwd(),'/')[-1]),'1','')}               " rhs
+          \matchstr(expand('%:~'),
+          \split(getcwd(),'/')[-1].'\\\zs.*')}             " git filepath
   else
     setlocal statusline +=\ %f                             " filename relative
   endif
