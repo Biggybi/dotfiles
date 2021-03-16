@@ -17,7 +17,6 @@ function! s:cpc(...) abort
   endif
 
   if a:0 <= 1 " normal mode
-    let [curLine, curCol] = getpos('.')[1:2]
     :'[,']yank *
     :'[put!
     :'[,']Commentary
