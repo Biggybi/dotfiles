@@ -20,7 +20,8 @@ function! s:cpc(...) abort
     :'[,']yank *
     :'[put!
     :'[,']Commentary
-    normal j_
+    call cursor(line('.') + 1, '_')
+    normal _
     return
   endif
 
