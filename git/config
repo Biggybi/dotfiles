@@ -10,7 +10,7 @@
 	co    = checkout
 	cob   = checkout -b
 	s     = submodule
-	su    = git submodule update --remote --merge
+	suu   = submodule update --remote --merge
 	uuu   = submodule foreach git pull origin master
 	uu    = pull
 [color]
