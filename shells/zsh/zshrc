@@ -106,27 +106,21 @@ __set_vi_mode_cursor() {
 
 __get_vi_mode_top() {
 	local vimstyle
-	case $KEYMAP in
-		vicmd)
-			vimstyle='%{\e[00;01;93m%}╭─%{\e[0m%}'
-			;;
-		main|viins)
-			vimstyle='%{\e[00;01;92m%}╭─%{\e[0m%}'
-			;;
-	esac
+	vimstyle='%{\e[00;01;92m%}╭─%{\e[0m%}'
+	if [ "$KEYMAP" = "vicmd" ]
+	then
+		vimstyle='%{\e[00;01;93m%}╭─%{\e[0m%}'
+	fi
 	print -n -- $vimstyle
 }
 
 __get_vi_mode_bottom() {
 	local vimstyle
-	case $KEYMAP in
-		vicmd)
-			vimstyle='%{\e[00;01;93m%}╰─ 〈%{\e[0m%}'
-			;;
-		main|viins)
-			vimstyle='%{\e[00;01;92m%}╰─ 〉%{\e[0m%}'
-			;;
-	esac
+	vimstyle='%{\e[01;01;92m%}╰─ 〉%{\e[0m%}'
+	if [ "$KEYMAP" = "vicmd" ]
+	then
+		vimstyle='%{\e[00;01;93m%}╰─ 〈%{\e[0m%}'
+	fi
 	print -n -- $vimstyle
 }
 
