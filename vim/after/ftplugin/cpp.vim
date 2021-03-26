@@ -44,4 +44,4 @@ nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" 
 nnoremap <buffer> <leader>vf j[[V%o
 
 " valgrind
-nnoremap <leader>cv :VShell valgrind --leak-check=full -s ./test.out<cr>
+nnoremap <leader>cv :VShell make valgrind<cr>
