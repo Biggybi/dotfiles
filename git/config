@@ -11,6 +11,7 @@
 	cob   = checkout -b
 	s     = submodule
 	suu   = submodule update --remote --merge
+	sui   = submodule update --init --recursive
 	uuu   = submodule foreach git pull origin master
 	uu    = pull
 [color]
