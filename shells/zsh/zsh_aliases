@@ -363,7 +363,7 @@ alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,shar
 ## alias se='$EDITOR $(find ~/bin/* -type f | fzf)';
 ## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
 ##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-alias fbin='$EDITOR $(find $HOME/bin/* -type f | sed s/*\//g | fzf -d/ -n5 --height=10)'
+alias fbin='$EDITOR $(find $HOME/bin/* -type f | sed "s/*//g" | fzf -d/ -n5 --height=10)'
 alias flft='$EDITOR $LFT/src/$(find $LFT/src -type f -exec basename {} \; | fzf --height=10 --preview="cat $LFT/src/{}")'
 # alias ev='$EDITOR $(fzf --height=10)'
 
