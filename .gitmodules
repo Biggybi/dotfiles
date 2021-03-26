@@ -1,24 +1,9 @@
-[submodule "vim/codi.vim"]
-	path = vim/pack/bundle/start/codi.vim
-	url = git@github.com:metakirby5/codi.vim.git
-[submodule "vim/tern_for_vim"]
-	path = vim/pack/bundle/start/tern_for_vim
-	url = git@github.com:ternjs/tern_for_vim.git
 [submodule "vim/tlib_vim"]
 	path = vim/pack/bundle/start/tlib_vim
 	url = git@github.com:tomtom/tlib_vim.git
-[submodule "vim/vim-addon-mw-utils"]
-	path = vim/pack/bundle/start/vim-addon-mw-utils
-	url = git@github.com:MarcWeber/vim-addon-mw-utils.git
-[submodule "vim/vim-coloresque"]
-	path = vim/pack/bundle/start/vim-coloresque
-	url = git@github.com:gko/vim-coloresque.git
 [submodule "vim/vim-eunuch"]
 	path = vim/pack/bundle/start/vim-eunuch
 	url = git@github.com:tpope/vim-eunuch
-[submodule "vim/vim-snipmate"]
-	path = vim/pack/bundle/start/vim-snipmate
-	url = git@github.com:garbas/vim-snipmate
 [submodule "vim/ultisnips"]
 	path = vim/pack/bundle/start/ultisnips
 	url = git@github.com:sirver/ultisnips
@@ -35,9 +20,6 @@
 [submodule "vim/vim-swap"]
 	path = vim/pack/bundle/start/vim-swap
 	url = git@github.com:machakann/vim-swap.git
-[submodule "vim/fzf.vim"]
-	path = vim/pack/bundle/start/fzf.vim
-	url = git@github.com:junegunn/fzf.vim.git
 [submodule "vim/MatchTag"]
 	path = vim/pack/bundle/start/MatchTag
 	url = git@github.com:gregsexton/MatchTag.git
@@ -68,6 +50,9 @@
 [submodule "vim/vimwiki"]
 	path = vim/pack/bundle/start/vimwiki
 	url = git@github.com:vimwiki/vimwiki.git
+[submodule "vim/fzf.vim"]
+	path = vim/pack/bundle/start/fzf.vim
+	url = git@github.com:junegunn/fzf.vim.git
 [submodule "vim/fzf"]
 	path = vim/pack/bundle/start/fzf
 	url = git@github.com:junegunn/fzf.git
