@@ -115,7 +115,6 @@ function! s:ScrollScratchTerm(direction) abort
   let current_window = win_getid()
   sbuffer scratchterm
   if (a:direction == "K")
-    echo "coucou K"
     normal gg
   elseif (a:direction == "J")
     normal G
