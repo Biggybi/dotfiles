@@ -583,7 +583,7 @@ nnoremap <silent> <leader>xx :call TrimLines('line')<cr>
 nnoremap <leader>xX :call TrimLines('buffer')<cr>
 
 " Make
-nnoremap <leader>cm :make<cr>
+nnoremap <leader>cm :make<cr><cr>
 nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
 nnoremap <leader>cx :VShell make clean<cr>
