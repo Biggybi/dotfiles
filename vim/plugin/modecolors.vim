@@ -162,10 +162,10 @@ augroup StartModeColor
         \ call s:modeColorHL(s:HLStrings['Normal'])
 augroup end
 
-# ModeColorExtra[!] [Group]
-# force a color, and deactivate auto switch
-# highlight `statusline` and `extra` with the given Group
-# if `!` is given, `extra` takes the `normal` value
+" ModeColorExtra[!] [Group]
+" force a color, and deactivate auto switch
+" highlight `statusline` and `extra` with the given Group
+" if `!` is given, `extra` takes the `normal` value
 command! -bang -nargs=? -complete=highlight ModeColorExtra
       \ if exists('s:modecolor_timer') && ! timer_info(s:modecolor_timer)[0]['paused']
       \ |  call timer_pause(s:modecolor_timer, 1)
@@ -175,7 +175,7 @@ command! -bang -nargs=? -complete=highlight ModeColorExtra
       \ |  call s:modeColorHL('!')
       \ |endif
 
-# toggle color switch
+" toggle color switch
 command! -nargs=0 ModeColorToggle call s:modeColorToggle()
 silent! noremap <silent> <unique> <script> <plug>(modeColorToggle)
       \ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
