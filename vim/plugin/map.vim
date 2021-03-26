@@ -2,7 +2,7 @@
 """        Modes
 
 " space as leader, prompt '\' in command line window :)
-map <space> <leader>
+" map <space> <leader>
 
 " closing easy
 function! QuitBackToLast() abort

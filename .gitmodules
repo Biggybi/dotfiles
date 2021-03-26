@@ -149,3 +149,6 @@
 [submodule "shells/shells/zsh/plugins/zsh-vi-mode"]
 	path = shells/zsh/plugins/zsh-vi-mode
 	url = git@github.com:jeffreytse/zsh-vi-mode.git
+[submodule "fonts/JetBrainsMono"]
+	path = fonts/JetBrainsMono
+	url = git@github.com:JetBrains/JetBrainsMono.git
