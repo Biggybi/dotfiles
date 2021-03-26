@@ -392,74 +392,31 @@ nnoremap <leader>< :exe "vertical resize -10"<CR>
 
 """        Alt Movement
 
-" Allow <alt> key mappings
-if has('nvim-0.4.0')
+inoremap <M-h> <left>
+inoremap <M-j> <down>
+inoremap <M-k> <up>
+inoremap <M-l> <right>
 
-  inoremap <M-h> <left>
-  inoremap <M-j> <down>
-  inoremap <M-k> <up>
-  inoremap <M-l> <right>
+nnoremap <silent> <M-k> :wincmd k<cr>
+nnoremap <silent> <M-j> :wincmd j<cr>
+nnoremap <silent> <M-l> :wincmd l<cr>
+nnoremap <silent> <M-h> :wincmd h<cr>
 
-  nnoremap <silent> <M-k> :wincmd k<cr>
-  nnoremap <silent> <M-j> :wincmd j<cr>
-  nnoremap <silent> <M-l> :wincmd l<cr>
-  nnoremap <silent> <M-h> :wincmd h<cr>
+tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
+tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
+tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
+tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
 
-  tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
-  tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
-  tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
-  tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
+cnoremap <M-h> <left>
+cnoremap <M-j> <down>
+cnoremap <M-k> <up>
+cnoremap <M-l> <right>
 
-  cnoremap <M-h> <left>
-  cnoremap <M-j> <down>
-  cnoremap <M-k> <up>
-  cnoremap <M-l> <right>
+nnoremap <silent> <M-K> :exe "resize +1"<cr>
+nnoremap <silent> <M-J> :exe "resize -1"<cr>
+nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
+nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
 
-  nnoremap <silent> <M-K> :exe "resize +1"<cr>
-  nnoremap <silent> <M-J> :exe "resize -1"<cr>
-  nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
-  nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
-
-else
-
-  exe "set <F31>=\eh"
-  exe "set <F32>=\ej"
-  exe "set <F33>=\ek"
-  exe "set <F34>=\el"
-
-  exe "set <S-F31>=\eH"
-  exe "set <S-F32>=\eJ"
-  exe "set <S-F33>=\eK"
-  exe "set <S-F34>=\eL"
-
-  inoremap <F31> <left>
-  inoremap <F32> <down>
-  inoremap <F33> <up>
-  inoremap <F34> <right>
-
-  " workaround: `p` feeds `\` in some terms
-  if exists("$TMUX")
-    exe "set <F35>=\ep"
-    exe "set <S-F35>=\eP"
-  endif
-
-  nnoremap <silent> <F31> :wincmd h<cr>
-  nnoremap <silent> <F32> :wincmd j<cr>
-  nnoremap <silent> <F33> :wincmd k<cr>
-  nnoremap <silent> <F34> :wincmd l<cr>
-  nnoremap <silent> <F35> :wincmd p<cr>
-
-  cnoremap <F31> <left>
-  cnoremap <F32> <down>
-  cnoremap <F33> <up>
-  cnoremap <F34> <right>
-
-  nnoremap <silent> <S-F31> :exe "vertical resize -1"<cr>
-  nnoremap <silent> <S-F32> :exe "resize -1"<CR>
-  nnoremap <silent> <S-F33> :exe "resize +1"<CR>
-  nnoremap <silent> <S-F34> :exe "vertical resize +1"<cr>
-
-endif
 """        Searching
 
 " Pair cycle
