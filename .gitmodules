@@ -1,12 +1,15 @@
 [submodule "vim/tlib_vim"]
 	path = vim/pack/bundle/start/tlib_vim
 	url = git@github.com:tomtom/tlib_vim.git
+	ignore = dirty
 [submodule "vim/vim-eunuch"]
 	path = vim/pack/bundle/start/vim-eunuch
 	url = git@github.com:tpope/vim-eunuch
+	ignore = dirty
 [submodule "vim/ultisnips"]
 	path = vim/pack/bundle/start/ultisnips
 	url = git@github.com:sirver/ultisnips
+	ignore = dirty
 [submodule "vim/vim-snippets"]
 	path = vim/pack/bundle/start/vim-snippets
 	url = git@github.com:honza/vim-snippets
@@ -14,54 +17,71 @@
 [submodule "vim/vim-unimpaired"]
 	path = vim/pack/bundle/start/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
+	ignore = dirty
 [submodule "vim/vim-repeat"]
 	path = vim/pack/bundle/start/vim-repeat
 	url = git@github.com:tpope/vim-repeat.git
+	ignore = dirty
 [submodule "vim/vim-swap"]
 	path = vim/pack/bundle/start/vim-swap
 	url = git@github.com:machakann/vim-swap.git
+	ignore = dirty
 [submodule "vim/MatchTag"]
 	path = vim/pack/bundle/start/MatchTag
 	url = git@github.com:gregsexton/MatchTag.git
+	ignore = dirty
 [submodule "vim/vim-vinegar"]
 	path = vim/pack/bundle/start/vim-vinegar
 	url = git@github.com:tpope/vim-vinegar.git
+	ignore = dirty
 [submodule "vim/vim-commentary"]
 	path = vim/pack/bundle/start/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
+	ignore = dirty
 [submodule "vim/vim-fugitive"]
 	path = vim/pack/bundle/start/vim-fugitive
 	url = git@github.com:tpope/vim-fugitive.git
+	ignore = dirty
 [submodule "vim/vim-gitgutter"]
 	path = vim/pack/bundle/start/vim-gitgutter
 	url = git@github.com:airblade/vim-gitgutter.git
+	ignore = dirty
 [submodule "vim/vim-surround"]
 	path = vim/pack/bundle/start/vim-surround
 	url = git@github.com:tpope/vim-surround.git
+	ignore = dirty
 [submodule "vim/vim-speeddating"]
 	path = vim/pack/bundle/start/vim-speeddating
 	url = git@github.com:tpope/vim-speeddating.git
+	ignore = dirty
 [submodule "vim/goyo.vim"]
 	path = vim/pack/bundle/start/goyo.vim
 	url = git@github.com:junegunn/goyo.vim.git
+	ignore = dirty
 [submodule "vim/vim-tmux-focus-events"]
 	path = vim/pack/bundle/start/vim-tmux-focus-events
 	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git
+	ignore = dirty
 [submodule "vim/vimwiki"]
 	path = vim/pack/bundle/start/vimwiki
 	url = git@github.com:vimwiki/vimwiki.git
+	ignore = dirty
 [submodule "vim/fzf.vim"]
 	path = vim/pack/bundle/start/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
+	ignore = dirty
 [submodule "vim/fzf"]
 	path = vim/pack/bundle/start/fzf
 	url = git@github.com:junegunn/fzf.git
+	ignore = dirty
 [submodule "vim/vim-pseudocl"]
 	path = vim/pack/bundle/start/vim-pseudocl
 	url = git@github.com:junegunn/vim-pseudocl.git
+	ignore = dirty
 [submodule "vim/vim-rhubarb"]
 	path = vim/pack/bundle/start/vim-rhubarb
 	url = git@github.com:tpope/vim-rhubarb.git
+	ignore = dirty
 [submodule "vim/vim-anzu"]
 	path = vim/pack/bundle/start/vim-anzu
 	url = git@github.com:osyo-manga/vim-anzu.git
@@ -69,31 +89,40 @@
 [submodule "vim/undotree"]
 	path = vim/pack/bundle/start/undotree
 	url = git@github.com:mbbill/undotree.git
+	ignore = dirty
 [submodule "vim/vim-endwise"]
 	path = vim/pack/bundle/start/vim-endwise
 	url = git@github.com:tpope/vim-endwise.git
+	ignore = dirty
 [submodule "vim/vim-obsession"]
 	path = vim/pack/bundle/start/vim-obsession
 	url = git@github.com:tpope/vim-obsession.git
+	ignore = dirty
 [submodule "vim/vim-scriptease"]
 	path = vim/pack/bundle/start/vim-scriptease
 	url = git@github.com:tpope/vim-scriptease.git
+	ignore = dirty
 [submodule "vim/coc-fzf"]
 	path = vim/pack/bundle/start/coc-fzf
 	url = git@github.com:antoinemadec/coc-fzf.git
+	ignore = dirty
 [submodule "vim/coc.nvim"]
 	path = vim/pack/bundle/start/coc.nvim
 	url = git@github.com:neoclide/coc.nvim.git
+	ignore = dirty
 	branch = release
 [submodule "vim/vim-cpp-enhanced-highlight"]
 	path = vim/pack/bundle/start/vim-cpp-enhanced-highlight
 	url = git@github.com:octol/vim-cpp-enhanced-highlight.git
+	ignore = dirty
 [submodule "vim/vim-indent-object"]
 	path = vim/pack/bundle/start/vim-indent-object
 	url = git@github.com:michaeljsmith/vim-indent-object.git
+	ignore = dirty
 [submodule "vim/FYT.vim"]
 	path = vim/pack/bundle/start/FYT.vim
 	url = git@github.com:statox/FYT.vim.git
+	ignore = dirty
 [submodule "gnome_setup/xcape"]
 	path = gnome_setup/xcape
 	url = git@github.com:alols/xcape.git
