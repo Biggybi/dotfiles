@@ -1,0 +1,37 @@
+XTerm*loginShell: true
+XTerm*termName: xterm-256color
+
+XTerm*visualBell: False
+XTerm.Bell: false
+/* XTerm.vt100.bellIsUrgent: false */
+
+/* xterm*font: *-fixed-*-*-*-18-* */
+XTerm.vt100.renderFont: true
+XTerm*faceName: JetBrains Mono NL
+XTerm*faceSize: 12
+/* XTerm*faceName: Ubuntu Mono */
+/* XTerm*faceName: Source Code Pro Regular */
+/* XTerm.vt100.scaleHeight: 1.20 */
+
+/* color */
+XTerm*background: #2C2C2C
+XTerm*foreground: #B4B4B4
+XTerm*cursorColor: grey
+
+/* history */
+XTerm*internalBorder: 0
+XTerm*scrollBar: false
+XTerm*scrollKey: true
+XTerm*saveLines: 4096
+
+/* XTerm.vt100.metaSendsEscape: true */
+
+/* copy / paste */
+XTerm.vt100.translations: #override \n\
+		Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+		Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+/* /1* font size *1/ */
+/* Ctrl <Key> minus: smaller-vt-font() \n\ */
+/* Ctrl <Key> plus: larger-vt-font() \n\ */
+/* Ctrl <Key> 0: set-vt-font(d) */
