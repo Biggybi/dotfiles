@@ -152,3 +152,4 @@
 [submodule "fonts/JetBrainsMono"]
 	path = fonts/JetBrainsMono
 	url = git@github.com:JetBrains/JetBrainsMono.git
+	ignore = dirty
