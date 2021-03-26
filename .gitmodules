@@ -1,10 +1,11 @@
 [submodule "gnome_setup/xcape"]
 	path = gnome_setup/xcape
-	url = https://github.com/alols/xcape.git
+	url = git@github.com:alols/xcape.git
 	ignore = dirty
 [submodule "langserver/efm-langserver"]
 	path = langserver/efm-langserver
 	url = git@github.com:mattn/efm-langserver.git
+	ignore = dirty
 [submodule "langserver/groovy-language-server"]
 	path = langserver/groovy-language-server
 	url = git@github.com:prominic/groovy-language-server.git
@@ -16,25 +17,25 @@
 	url = git@github.com:ternjs/tern_for_vim.git
 [submodule "vim/bundle/tlib_vim"]
 	path = vim/pack/bundle/start/tlib_vim
-	url = https://github.com/tomtom/tlib_vim.git
+	url = git@github.com:tomtom/tlib_vim.git
 [submodule "vim/bundle/vim-addon-mw-utils"]
 	path = vim/bundle/vim-addon-mw-utils
-	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+	url = git@github.com:MarcWeber/vim-addon-mw-utils.git
 [submodule "vim/bundle/vim-coloresque"]
 	path = vim/bundle/vim-coloresque
 	url = git@github.com:gko/vim-coloresque.git
 [submodule "vim/bundle/vim-eunuch"]
 	path = vim/pack/bundle/start/vim-eunuch
-	url = https://github.com/tpope/vim-eunuch
+	url = git@github.com:tpope/vim-eunuch
 [submodule "vim/bundle/vim-snipmate"]
 	path = vim/bundle/vim-snipmate
-	url = https://github.com/garbas/vim-snipmate
+	url = git@github.com:garbas/vim-snipmate
 [submodule "vim/bundle/ultisnips"]
 	path = vim/pack/bundle/start/ultisnips
-	url = https://github.com/sirver/ultisnips
+	url = git@github.com:sirver/ultisnips
 [submodule "vim/bundle/vim-snippets"]
 	path = vim/pack/bundle/start/vim-snippets
-	url = https://github.com/honza/vim-snippets
+	url = git@github.com:honza/vim-snippets
 	ignore = dirty
 [submodule "vim/bundle/vim-unimpaired"]
 	path = vim/pack/bundle/start/vim-unimpaired
@@ -125,12 +126,12 @@
 [submodule "vim/pack/bundle/start/FYT.vim"]
 	path = vim/pack/bundle/start/FYT.vim
 	url = git@github.com:statox/FYT.vim.git
-[submodule "zsh/plugins/zsh-autosuggestions"]
-	path = zsh/plugins/zsh-autosuggestions
+[submodule "shells/zsh/plugins/zsh-autosuggestions"]
+	path = shells/zsh/plugins/zsh-autosuggestions
 	url = git@github.com:zsh-users/zsh-autosuggestions.git
-[submodule "zsh/plugins/zsh-syntax-highlighting"]
-	path = zsh/plugins/zsh-syntax-highlighting
+[submodule "shells/zsh/plugins/zsh-syntax-highlighting"]
+	path = shells/zsh/plugins/zsh-syntax-highlighting
 	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
-[submodule "shells/zsh/plugins/zsh-vi-mode"]
+[submodule "shells/shells/zsh/plugins/zsh-vi-mode"]
 	path = shells/zsh/plugins/zsh-vi-mode
 	url = git@github.com:jeffreytse/zsh-vi-mode.git
