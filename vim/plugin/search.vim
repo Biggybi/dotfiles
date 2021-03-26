@@ -82,9 +82,4 @@ augroup Current_search_match
   autocmd!
   autocmd CursorMoved * call s:update_search_match()
   autocmd WinLeave * :AnzuClearSearchStatus
-  autocmd BufEnter *
-        \ if getbufvar('', '&buftype') ==? 'terminal'
-        \ |  call feedkeys("\<Plug>(anzu-echohl_search_status)")
-        \ |endif
-
 augroup END
