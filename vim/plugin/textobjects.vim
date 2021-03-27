@@ -2,7 +2,10 @@ if exists('g:plugin_textobjects')
   finish
 endif
 let g:plugin_textobjects = 1
-" Courtesy to DBK
+" Courtesy of DBK
+
+"""        Whole Buffer
+onoremap ag :<c-u>normal! ggVG<cr><c-o><c-o>
 
 """        Start / End of line
 onoremap h :<c-u>normal! ^<cr>
