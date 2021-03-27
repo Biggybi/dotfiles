@@ -33,7 +33,6 @@ let s:special_char = [
       \ '&',
       \ ]
 
-" # lsjfdlskdjf sldkfj ldkj # lkdsj lkjf sdkjf
 let s:bracket_char = [
       \ [ '(', ')' ],
       \ [ '{', '}' ],
