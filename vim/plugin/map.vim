@@ -546,8 +546,6 @@ function! TrimLines(scope) abort
     echo "Lines trimmed"
   endif
 endfunction
-nnoremap <silent> <leader>xx :call TrimLines('line')<cr>
-nnoremap <leader>xX :call TrimLines('buffer')<cr>
 
 " Make
 nnoremap <leader>cm :make<cr><cr>
