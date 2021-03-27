@@ -559,7 +559,7 @@ function! LocListPanel(pfx, side) abort
   endtry
 endfunction
 
-" Make in spit
+" Make in split
 nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l', 'J')<cr>
 nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l', 'J')<cr>
 
