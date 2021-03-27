@@ -10,8 +10,7 @@ function! s:cpc(...) abort
 
   if !a:0
     echo matchstr(expand('<sfile>'), '[^. ]*$')
-    " Hail Tpope for thy tricks
-    " plugin/commentary.vim:28:0
+    " Hail Tpope for thy tricks plugin/commentary.vim:28:0
     let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
     return 'g@'
   endif
