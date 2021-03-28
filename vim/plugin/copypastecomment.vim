@@ -3,34 +3,31 @@ if exists('g:plugin_copypastecomment')
 endif
 let g:plugin_copypastecomment = 1
 
+let s:curpos = []
+
 function! s:cpc(...) abort
   if ! exists('g:loaded_commentary')
-    echom "Error : CopyPasteComment: depend on `vim-commentary` [https://github.com/tpope/vim-commentary]."
+    echom "Error : CopyPasteComment: depend on `vim-commentary`"
+    echom "[https://github.com/tpope/vim-commentary]."
   endif
 
   if !a:0
-    echo matchstr(expand('<sfile>'), '[^. ]*$')
+    if s:curpos == []
+      let s:curpos = getpos('.')[1:2]
+    endif
     " Hail Tpope for thy tricks plugin/commentary.vim:28:0
+    " -> recall this function in normal mode, with lines auto arguments
     let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
     return 'g@'
   endif
 
-  if a:0 <= 1 " normal mode
-    :'[,']yank *
-    :'[put!
-    :'[,']Commentary
-    call cursor(line('.') + 1, '_')
-    normal _
-    return
+  '[,']yank *
+  '[put!
+  '[,']Commentary
+  if s:curpos != []
+    call cursor(s:curpos[0] + line("']") - line("'[") + 1, s:curpos[1], 1)
   endif
-
-  if a:0 > 1 " visual mode
-    exe ':' . a:1 . ',' . a:2 'yank *'
-    exe ':' . a:1 . 'put!'
-    exe ':' . a:1 . ',' . a:2 'Commentary'
-    call cursor(line("']") + 1, 0)
-    normal _
-  endif
+  let s:curpos = []
 endfunction
 
 nnoremap <expr> <Plug>Cpc     <sid>cpc()
@@ -38,7 +35,9 @@ xnoremap <expr> <Plug>Cpc     <sid>cpc()
 nnoremap <expr> <Plug>CpcLine <sid>cpc() . '_'
 
 if !hasmapto('<Plug>Cpc') || maparg('yc','n') ==# ''
-  nmap yc  <Plug>Cpc
+  nmap gyc  <Plug>Cpc
+  " xmap gyc <Plug>Cpc
+  " nmap gycc <Plug>CpcLine
   xmap gyc <Plug>Cpc
-  nmap ycc <Plug>CpcLine
+  nmap gycc <Plug>CpcLine
 endif

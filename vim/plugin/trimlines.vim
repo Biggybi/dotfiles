@@ -5,24 +5,24 @@ let g:plugin_trimlines = 1
 
 let g:trimlines_pattern = get(g:, 'trimlines_pattern', '\s\+$')
 
+let s:curpos = []
+
 function! s:trim(...) abort
   if !a:0
-    echo matchstr(expand('<sfile>'), '[^. ]*$')
+    if s:curpos == []
+      let s:curpos = getpos('.')[1:2]
+    endif
     " Hail Tpope for thy tricks: plugin/commentary.vim:28:0
+    " -> recall with auto arguments (line marks)
     let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
     return 'g@'
   endif
 
-  if a:0 <= 1 " normal mode
-    silent! exe "'[,']s/" . g:trimlines_pattern . "/"
-    call cursor(line("'["), '_')
-    normal _
-    return
+  silent! exe "'[,']s/" . g:trimlines_pattern . "/"
+  if s:curpos != []
+    call cursor(s:curpos[0], s:curpos[1], 1)
   endif
-
-  if a:0 > 1 " visual mode
-   exe ':silent!' . a:1 . ',' . a:2 . 's/'. g:trimlines_pattern . '//'
-  endif
+  let s:curpos = []
 endfunction
 
 nnoremap <expr> <Plug>Trim     <sid>trim()
