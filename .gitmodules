@@ -153,3 +153,6 @@
 	path = fonts/JetBrainsMono
 	url = git@github.com:JetBrains/JetBrainsMono.git
 	ignore = dirty
+[submodule "vim/pack/bundle/start/vim-lsp-cxx-highlight"]
+	path = vim/pack/bundle/start/vim-lsp-cxx-highlight
+	url = git@github.com:jackguo380/vim-lsp-cxx-highlight.git

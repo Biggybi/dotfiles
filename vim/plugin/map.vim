@@ -264,11 +264,11 @@ nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 " edit dotfiles
 nnoremap <leader>ev :e $HOME/dotfiles/vim/vimrc<cr>
-nnoremap <leader>eV :split $HOME/dotfiles/vim/vimrc<cr>
-nnoremap <leader>e<c-v> :vertical split $HOME/dotfiles/vim/vimrc<cr>
+nnoremap <leader>Ev :split $HOME/dotfiles/vim/vimrc<cr>
+nnoremap <leader><c-e>v :vertical split $HOME/dotfiles/vim/vimrc<cr>
 nnoremap <leader>et :e $HOME/dotfiles/tmux/tmux.conf<cr>
-nnoremap <leader>eT :split $HOME/dotfiles/tmux/tmux.conf<cr>
-nnoremap <leader>e<c-t> :vertical split $HOME/dotfiles/tmux/tmux.conf<cr>
+nnoremap <leader>Et :split $HOME/dotfiles/tmux/tmux.conf<cr>
+nnoremap <leader><c-e>t :vertical split $HOME/dotfiles/tmux/tmux.conf<cr>
 
 nnoremap <leader>ebb :e $HOME/dotfiles/shells/bash/bashrc<cr>
 nnoremap <leader>Ebb :split $HOME/dotfiles/shells/bash/bashrc<cr>
