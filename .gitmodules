@@ -156,3 +156,6 @@
 [submodule "vim/pack/bundle/start/vim-lsp-cxx-highlight"]
 	path = vim/pack/bundle/start/vim-lsp-cxx-highlight
 	url = git@github.com:jackguo380/vim-lsp-cxx-highlight.git
+[submodule "shells/themes/base16-shell"]
+	path = shells/themes/base16-shell
+	url = git@github.com:chriskempson/base16-shell.git

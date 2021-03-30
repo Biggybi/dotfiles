@@ -146,14 +146,14 @@ precmd() {
 	psvar[1]=$(git_branch)
 }
 
-PROMPT=''
+PROMPT=$'\n'
 PROMPT+=$'$(__get_vi_mode_top) '
 PROMPT+=$'%{\e[01;33;100m%}  %n %{\e[0m%}'  # User
 PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'    # Sep
 PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
 PROMPT+=$'%{\e[00;01;94m%} %~%{\e[0m%} '    # CWD
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # Branch
-PROMPT+=$'	${promt_cmd_info}'
+PROMPT+=$'\t${promt_cmd_info}'
 PROMPT+=$'%{$reset_color%}'
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
 PROMPT+=$'%{$reset_color%}'                 # End
