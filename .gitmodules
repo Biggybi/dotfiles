@@ -159,3 +159,6 @@
 [submodule "shells/themes/base16-shell"]
 	path = shells/themes/base16-shell
 	url = git@github.com:chriskempson/base16-shell.git
+[submodule "42/norminettev1"]
+	path = 42/norminettev1
+	url = git@gitlab.com:42lyon/norminette-client-externe.git
