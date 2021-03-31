@@ -355,10 +355,37 @@ nnoremap L $
 nnoremap <c-k> {
 nnoremap <c-j> }
 
+function! VisualBlockParagraphJump(down) abort
+  normal gv
+  let [curline, curcol] = getcurpos('.')[1:2]
+  let new_line = -1
+  if a:down == 1
+    if line('.') >= line('$') - 2
+      normal 2j
+      return
+    endif
+    if getline(line('.') + 1)[0] == ''
+      normal 2j
+    endif
+    let new_line = search('^$', 'W') - 1
+    exe 'normal' curline - new_line . 'k'
+  else
+    if getline(line('.') - 1)[0] == ''
+      normal 2k
+    endif
+    let new_line = search('^$', 'Wb') + 1
+    exe 'normal' new_line - curline . 'j'
+  endif
+  if new_line != -1
+    call cursor(new_line, curcol)
+  endif
+endfunction
+
+vnoremap <silent> <c-k> :<c-u>call VisualBlockParagraphJump('0')<cr>
+vnoremap <silent> <c-j> :<c-u>call VisualBlockParagraphJump('1')<cr>
+
 vnoremap H ^
 vnoremap L g_
-vnoremap <c-k> {
-vnoremap <c-j> }
 
 "go to next / previous buffer
 nnoremap <leader>] :bn<cr>
