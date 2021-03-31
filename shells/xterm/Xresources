@@ -31,4 +31,4 @@ XTerm.vt100.translations: #override \n\
 		Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
 		Ctrl <Key>-: smaller-vt-font() \n\
 		Ctrl <Key>+: larger-vt-font() \n\
-		Ctrl <Key>0: set-vt-font(d) \n\
+		Ctrl <Key>0: set-vt-font(d)
