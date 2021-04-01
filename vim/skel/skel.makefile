@@ -28,7 +28,7 @@ ODIR = obj$(SEP)
 INC = inc$(SEP)
 SRC = $(shell find $(SDIR) -type f -name "*.c")
 OBJ = $(patsubst $(SDIR)%, $(ODIR)%, $(SRC:.c=.o))
-SSUBDIR = $(shell find $(SDIR) -type d -not -empty)$(SEP)
+SSUBDIR = $(shell find $(SDIR) -type d -not -empty)
 
 CC = clang
 CFLAGS = -Wall -Wextra -g
