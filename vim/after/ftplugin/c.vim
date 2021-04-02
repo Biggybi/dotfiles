@@ -9,6 +9,9 @@ setlocal path=inc,incs,includes,include,src,sources,source
 " workaround for makefile: last line would link to a wrong file
 setlocal errorformat=%E%f:%l:%c:\ error:%m
 setlocal errorformat+=,%W%f:%l:%c:\ warning:%m
+setlocal errorformat+=,%E%f:%l:%c:\ %tote:%m
+setlocal errorformat+=,%Emake:\ ***\ [%f:%l:\ %.%#]%m
+setlocal errorformat+=,%W%f:%c:\ %m
 
 function! s:insertCHHeader() abort
   try
