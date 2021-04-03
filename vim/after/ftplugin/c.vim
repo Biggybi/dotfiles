@@ -3,8 +3,6 @@ setlocal foldmethod=syntax
 setlocal suffixesadd=.c,.h
 setlocal filetype=c
 setlocal path=inc,incs,includes,include,src,sources,source
-" ^\s*#\s*include
-" setlocal include=^\s*#\s*inc*
 
 " workaround for makefile: last line would link to a wrong file
 setlocal errorformat^=,%Amake:\ ***\ [%f:%l:\ %.%#]%m
