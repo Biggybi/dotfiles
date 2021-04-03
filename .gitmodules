@@ -162,6 +162,3 @@
 [submodule "42/norminettev1"]
 	path = 42/norminettev1
 	url = git@gitlab.com:42lyon/norminette-client-externe.git
-[submodule "tmux/plugins/tmux-continuum"]
-	path = tmux/plugins/tmux-continuum
-	url = git@github.com:tmux-plugins/tmux-continuum.git
