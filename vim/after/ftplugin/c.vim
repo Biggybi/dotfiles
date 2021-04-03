@@ -7,7 +7,7 @@ setlocal path=inc,incs,includes,include,src,sources,source
 " setlocal include=^\s*#\s*inc*
 
 " workaround for makefile: last line would link to a wrong file
-setlocal errorformat^=%Emake:\ ***\ [%f:%l:\ %.%#]%m,
+setlocal errorformat^=,%Amake:\ ***\ [%f:%l:\ %.%#]%m
 
 function! s:insertCHHeader() abort
   try
