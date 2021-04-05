@@ -21,6 +21,7 @@ PATH+=:~/bin/norminette
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export MANPAGER="vim -M +MANPAGER -"
 export BROWSER=firefox
 export DOT="$HOME/dotfiles"
 export LFT="$HOME/42/libft/"
