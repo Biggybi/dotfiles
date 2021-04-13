@@ -10,6 +10,13 @@ if [ -f ~/.zsh_aliases ]; then
 	. ~/.zsh_aliases
 fi
 
+if [ -n "$ZSH_ENV" ]; then source "$ZSH_ENV"; fi
+
+# command not found (package suggestion)
+if [[ -s '/etc/zsh_command_not_found' ]]; then
+	source '/etc/zsh_command_not_found'
+fi
+
 # Environement variables
 
 export GOPATH=$HOME/bin/go

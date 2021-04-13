@@ -198,12 +198,6 @@ nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
 nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap <leader><c-n> :vs <c-r>=expand('%:p:h') . '/'<cr>
-
-" Word count
-function! WordCount() abort
-  return system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
-endfunction
-
 command! -nargs=1 -complete=command Nomove
 \   try
 \ |     let s:svpos = winsaveview()
@@ -213,14 +207,6 @@ command! -nargs=1 -complete=command Nomove
 \ |     unlet s:svpos
 \ | endtry
 
-function! CountRealLines() abort
-    let l:count = 0
-    Nomove g/^[^$,\"]/let l:count += 1
-    return l:count
-endfunction
-
-nnoremap <leader>wcc :echo WordCount()<cr>
-nnoremap <leader>wcl :echo CountRealLines()<cr>
 
 " new file in vertical split instead of horizontal
 nnoremap <c-w><c-n> :vertical new<cr>
