@@ -231,11 +231,20 @@ zvm_after_lazy_keybindings() {
 	zvm_bindkey viins '^n' accept-and-infer-next-history
 }
 
-# Load zsh-syntax-highlighting; should be last.
-source ${DOT}/shells/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ${DOT}/shells/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${DOT}/shells/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-bindkey '^ ' autosuggest-accept
+# Load Homebrew config script
+source $HOME/.brewconfig.zsh
 
-# Fzf
-[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh
+# Launch base 16 theme
+export BASE16_SHELL=$DOT/shells/themes/base16-shell
+if [ -d $BASE16_SHELL ]; then
+	[ -n "$PS1" ] && \
+		[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+		eval "$("$BASE16_SHELL/profile_helper.sh")"
+fi
+
+# Plugins
+source $DOT/shells/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^ ' autosuggest-accept
+source $DOT/shells/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source $DOT/shells/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+zvm_after_init_commands+=('[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh')
