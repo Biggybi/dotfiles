@@ -137,6 +137,7 @@ alias gnomek='DISPLAY=:0 gnome-shell -r'
 alias gnome-build='sudo glib-compile-schemas /usr/share/glib-2.0/schemas'
 alias gnomexts='cd /usr/share/gnome-shell/extensions'
 alias gnome-theme-login='sudo update-alternatives --config gdm3-theme.gresource'
+alias gnome-term-xterm='sudo update-alternatives --set x-terminal-emulator /usr/bin/xterm'
 
 vimpluginstall() {
 	cd $HOME/dotfiles/vim/pack/bundle/start/
@@ -311,7 +312,7 @@ alias cdinstall='cd $HOME/Documents/Install/Ubuntu'
 alias cd42='cd $HOME_42'
 alias echo42='echo $HOME_42'
 alias 42clone='git clone git@github.com:Biggybi/42.git'
-alias 42norm='norminette.rb s{,ou}rc{,es,s}/*.c inc*/*.h'
+alias 42norm='norminette.rb *.[ch] s{,ou}rc{,es,s}/*.c inc*/*.h'
 
 alias lftcd='cd $LFT'
 alias cdlft='cd $LFT'
