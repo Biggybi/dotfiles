@@ -231,9 +231,6 @@ zvm_after_lazy_keybindings() {
 	zvm_bindkey viins '^n' accept-and-infer-next-history
 }
 
-# Load Homebrew config script
-source $HOME/.brewconfig.zsh
-
 # Launch base 16 theme
 export BASE16_SHELL=$DOT/shells/themes/base16-shell
 if [ -d $BASE16_SHELL ]; then
