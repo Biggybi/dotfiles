@@ -311,6 +311,7 @@ alias cdinstall='cd $HOME/Documents/Install/Ubuntu'
 alias cd42='cd $HOME_42'
 alias echo42='echo $HOME_42'
 alias 42clone='git clone git@github.com:Biggybi/42.git'
+alias 42norm='norminette.rb s{,ou}rc{,es,s}/*.c inc*/*.h'
 
 alias lftcd='cd $LFT'
 alias cdlft='cd $LFT'
