@@ -650,11 +650,15 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " show doc with Coc
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> <leader>K K
+noremap <silent> <leader>K K
 
 function! s:show_documentation() abort
   if &filetype ==# 'vim'
-    exe "normal \<Plug>ScripteaseHelp"
+    try
+      exe "normal \<Plug>ScripteaseHelp"
+    catch /^Vim\%((\a\+)\)\=:E149:/
+      echo "sorry : no help for " . expand("<cword>")
+    endtry
   elseif &filetype ==# 'help'
     execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
