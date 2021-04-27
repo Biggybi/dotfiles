@@ -201,7 +201,7 @@ nnoremap <leader><c-n> :vs <c-r>=expand('%:p:h') . '/'<cr>
 
 " Word count
 function! WordCount() abort
-  return system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+  return matchstr(system('wc -w ' . expand('%')), '\d*') . " words"
 endfunction
 
 command! -nargs=1 -complete=command Nomove
