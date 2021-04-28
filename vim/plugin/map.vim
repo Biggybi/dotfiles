@@ -209,13 +209,13 @@ command! -nargs=1 -complete=command Nomove
 
 
 " new file in vertical split instead of horizontal
-nnoremap <c-w><c-n> :vertical new<cr>
+nnoremap <silent> <c-w><c-n> :vertical new<cr>
 
 " open file under cursor in vertical split instead of horizontal
-nnoremap <c-w><c-f> :vertical wincmd f<cr>
+nnoremap <silent> <c-w><c-f> :vertical wincmd f<cr>
 
 " open file under cursor in a netrw pannel on the left
-nnoremap <c-w><c-d> :Lexplore <cfile><cr>
+nnoremap <silent> <c-w><c-d> :Lexplore <cfile><cr>
 
 """        Folding
 
