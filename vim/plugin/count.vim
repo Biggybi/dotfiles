@@ -7,7 +7,11 @@ let g:plugin_count = 1
 function! s:wordCount() abort
   let shellsave=&shell
   let &shell='sh'
-  echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+  if empty(system("detex"))
+    echo system("detex " . expand("%") . " | wc -w | tr -d [[:space:]]") "words"
+  else
+    echo matchstr(system('wc -w ' . expand('%')), '\d*') . " words"
+  endif
   let shell=shellsave
 endfunction
 
