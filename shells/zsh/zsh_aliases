@@ -90,7 +90,7 @@ alias df='df -h'
 alias free='free -h'
 
 ## vim
-alias e="$EDITOR"
+alias e='$EDITOR'
 alias v="vim"
 alias vi='vim'
 alias sv="sudo vim"
