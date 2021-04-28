@@ -11,7 +11,7 @@ function! s:wordCount() abort
   let shell=shellsave
 endfunction
 
-function! s:countRealLines() abort
+function! s:realLinesCount() abort
   let s:count = 0
   let view = winsaveview()
   " Nomove g/^[^$,\"]/let s:count += 1
@@ -24,4 +24,4 @@ endfunction
 
 nnoremap <silent> <leader>wcc :call <sid>wordCount()<cr>
 nnoremap <silent> <leader>wcw :call <sid>wordCount()<cr>
-nnoremap <silent> <leader>wcl :call <sid>countRealLines()<cr>
+nnoremap <silent> <leader>wcl :call <sid>realLinesCount()<cr>
