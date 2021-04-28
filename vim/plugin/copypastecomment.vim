@@ -5,12 +5,13 @@ let g:plugin_copypastecomment = 1
 
 let s:curpos = []
 
-function! s:cpc(...) abort
-  if ! exists('g:loaded_commentary')
-    echom "Error : CopyPasteComment: depend on `vim-commentary`"
-    echom "[https://github.com/tpope/vim-commentary]."
-  endif
+if ! exists('g:loaded_commentary')
+  echo "Error : CopyPasteComment: depend on `vim-commentary`"
+  echo "[https://github.com/tpope/vim-commentary]."
+  finish
+endif
 
+function! s:cpc(...) abort
   if !a:0
     if s:curpos == []
       let s:curpos = getpos('.')[1:2]

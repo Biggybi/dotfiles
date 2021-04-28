@@ -49,7 +49,9 @@ function! s:cursor_in_search_match(...)
   let col = getcurpos()[2]
   if col <= start | return s:nomatch | endif
   if col <= stop
-    exe g:search_count_update
+    if exists(g:search_count_update)
+      exe g:search_count_update
+    endif
     return [start, stop]
   endif
   return s:cursor_in_search_match(stop)
@@ -80,6 +82,8 @@ command! UpdateSearchMatch :call s:update_search_match()
 
 augroup Current_search_match
   autocmd!
-  autocmd CursorMoved * call s:update_search_match()
-  autocmd WinLeave * :AnzuClearSearchStatus
+  autocmd CursorMoved * silent! call s:update_search_match()
+  if exists(':AnzuClearSearchStatus')
+    autocmd WinLeave * :AnzuClearSearchStatus
+  endif
 augroup END
