@@ -217,6 +217,10 @@ nnoremap <silent> <c-w><c-f> :vertical wincmd f<cr>
 " open file under cursor in a netrw pannel on the left
 nnoremap <silent> <c-w><c-d> :Lexplore <cfile><cr>
 
+" start command for all windows / arguments
+nnoremap <c-w>; :windo<space>
+nnoremap <c-w>: :argdo<space>
+
 """        Folding
 
 " Open / close fold with <c-space>
