@@ -5,6 +5,11 @@
 #												   zshrc  #
 ###########################################################
 
+# autocompletion
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
 # aliases
 if [ -f ~/.zsh_aliases ]; then
 	. ~/.zsh_aliases
