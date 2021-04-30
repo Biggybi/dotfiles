@@ -3,7 +3,7 @@
 		"ccls": {
 			"command": "ccls",
 			"filetypes": [ "c", "cpp", "objc", "objcpp" ],
-			"rootPatterns": [ ".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/" ],
+			"rootPatterns": [ ".ccls", ".git/compile_commands.json", ".vim/", ".git/", ".hg/" ],
 			"initializationOptions": {
 				"cache": { "directory": "/tmp/ccls" },
 				"highlight": { "lsRanges" : true }
@@ -45,28 +45,11 @@
 			}
 		}
 	},
-	"eslint.filetypes": [
-		"javascript",
-		"typescript",
-		"typescriptreact",
-		"javascriptreact"
-	],
 	"eslint.options" : {
 		"env": {
 			"browser": true,
 			"node": true
 		}
-	},
-	"markdownlint.config":
-	{
-		"default": true,
-		"line_length": false,
-		"blanks-around-headings": false,
-		"blanks-around-lists": false,
-		"first-line-h1": false,
-		"no-empty-links": false,
-		"no-duplicate-header": false,
-		"no-multiple-blanks": false
 	},
 	"list.insertMappings": {
 		"<C-r>": "do:refresh",
@@ -78,18 +61,6 @@
 		"<C-x>": "call:MyFunc",
 		"<C-v>": "eval:@@"
 	},
-	"explorer.sources": [
-		{
-			"name": "buffer",
-			"expand": true
-		},
-		{
-			"name": "file",
-			"expand": true
-		}
-	],
-	"explorer.previewAction.onHover": false,
-	"java.home": "/usr/lib/jvm/java-1.14.0-openjdk-amd64",
 	"suggest.noselect": true,
 	"coc.preferences.useQuickfixForLocations": true,
 	"suggest.echodocSupport": true,
