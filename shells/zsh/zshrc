@@ -17,6 +17,9 @@ if [[ -s '/etc/zsh_command_not_found' ]]; then
 	source '/etc/zsh_command_not_found'
 fi
 
+# bell off
+unsetopt BEEP
+
 # Environement variables
 
 export GOPATH=$HOME/bin/go
