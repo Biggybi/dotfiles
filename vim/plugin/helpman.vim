@@ -12,6 +12,7 @@ augroup HelpManSplit
         \ if winwidth(win_getid()) != 80
         \ |  :silent! wincmd H | :silent! 80 wincmd|
         \ |endif
+        \ |setlocal conceallevel=0
   au FileType help
         \ let &scrolloff = &lines/10 + 1
   au FileType help au! BufLeave,WinLeave <buffer> silent!
