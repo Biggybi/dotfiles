@@ -6,7 +6,7 @@ let g:plugin_copypastecomment = 1
 let s:curpos = []
 
 function! s:cpc(...) abort
-  if !a:1
+  if !a:0
     if s:curpos == []
       let s:curpos = getpos('.')[1:2]
     endif
