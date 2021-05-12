@@ -16,7 +16,7 @@ function! s:cpc(...) abort
     return 'g@'
   endif
 
-  '[,']yank *
+  '[,']yank
   '[put!
   '[,']Commentary
   if s:curpos != []
