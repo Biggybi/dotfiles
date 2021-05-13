@@ -19,21 +19,21 @@ if ! has('nvim')
   packadd! termdebug
 endif
 
-filetype plugin on                   " use filetype plugin
+filetype plugin on              " use filetype plugin
 filetype on
-filetype indent on                   " use indent plugin
+filetype indent on              " use indent plugin
 set keywordprg=:Man
 
 " use bash aliases
 let $BASH_ENV =
       \'$HOME/dotfiles/shells/bash/bash_aliases'
-let $PAGER=''                        " vim as pager
+let $PAGER=''                   " vim as pager
 
 syntax on
-set encoding=utf-8                   " character encoding
+set encoding=utf-8              " character encoding
 scriptencoding utf8
-set ttyfast                          " faster redrawing
-set nolazyredraw                     " no redraw executing macros
+set ttyfast                     " faster redrawing
+set nolazyredraw                " no redraw executing macros
 set tags=tags,.git/tags
 
 
@@ -43,17 +43,17 @@ set tags=tags,.git/tags
 if has('mksession')
   set sessionoptions-=options
   set sessionoptions-=curdir
-  set viewoptions=folds,cursor       "only these settings
+  set viewoptions=folds,cursor  " only these settings
 endif
 " restore undo history
 if exists('+undofile')
   set undofile
 endif
 
-set history=10000                    " long history
+set history=10000               " long history
 set hidden
 
-if exists('$SUDO_USER')              " don't create root-owned files
+if exists('$SUDO_USER')         " don't create root-owned files
   set noswapfile
   set nobackup
   set nowritebackup
@@ -85,7 +85,7 @@ set modelineexpr                " flexible modeline set
 
 " Title
 if has('title')
-  set title                       " window title (file)
+  set title                     " window title (file)
   set titleold=
 endif
 
@@ -97,7 +97,7 @@ set ttimeoutlen=10              " of 10 ms
 set mouse=a                     " it's a secret
 
 if ! has('nvim')
-  set ttymouse=xterm2             " allow mouse in tmux
+  set ttymouse=xterm2           " allow mouse in tmux
 endif
 
 " search
@@ -105,8 +105,8 @@ set magic                       " set magic on, for regex
 set ignorecase                  " case insensitive search
 set smartcase                   " case-sens if cap
 if has('extra_search')
-  set hlsearch                    " highlight all searches
-  set incsearch                   " highlight match while typing
+  set hlsearch                  " highlight all searches
+  set incsearch                 " highlight match while typing
 endif
 " set path+=**                  " recursive path from current path
 " ignore some files from wildcard expansion
@@ -126,11 +126,11 @@ endif
 " Command line window
 set cmdheight=2                 " Command-line height
 if has('cmdline_info')
-  set showcmd                     " show command
-  set ruler                       " show cursor line / column
+  set showcmd                   " show command
+  set ruler                     " show cursor line / column
 endif
 if has('wildmenu')
-  set wildmenu                    " show matches to commands
+  set wildmenu                  " show matches to commands
 endif
 set wildchar=<tab>              " complete w/ tab
 set wildmode=longest,full
@@ -233,9 +233,9 @@ if has('folding')
   if has('windows')
     set fillchars+=vert:▎
   endif
-  set foldmethod=syntax           " fold based on indent
-  set foldnestmax=2               " deepest fold is 10 levels
-  set nofoldenable                " don't fold by default
+  set foldmethod=syntax         " fold based on indent
+  set foldnestmax=2             " deepest fold is 10 levels
+  set nofoldenable              " don't fold by default
 endif
 
 " Colors
@@ -247,7 +247,7 @@ endif
 
 " Diff
 if has('diff')
-  set diffopt+=vertical           " vertical split for diff
+  set diffopt+=vertical         " vertical split for diff
 endif
 
 " set cursorline                  " for CursorLineNr
