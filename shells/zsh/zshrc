@@ -94,40 +94,6 @@ bindkey -M menuselect '^o' reverse-menu-complete
 
 autoload -U colors && colors
 
-__set_cursor() {
-	local style
-	case $1 in
-		reset) style=0;; # The terminal emulator's default
-		blink-block) style=1;;
-		block) style=2;;
-		blink-underline) style=3;;
-		underline) style=4;;
-		blink-vertical-line) style=5;;
-		vertical-line) style=6;;
-	esac
-	[ $style -ge 0 ] && print -n -- "\e[${style} q"
-}
-
-# Set your desired cursors here...
-__set_vi_mode_cursor() {
-	case $KEYMAP in
-		vicmd)
-			__set_cursor block
-			;;
-		main|viins)
-			__set_cursor vertical-line
-			;;
-	esac
-}
-
-__get_vi_mode_top() {
-	local vimstyle
-	if [ "$KEYMAP" = "vicmd" ]
-	then
-	fi
-	print -n -- $vimstyle
-}
-
 __get_vi_mode_bottom() {
 	local vimstyle
 	vimstyle='%{\e[01;01;92m%} > %{\e[0m%}'
@@ -160,8 +126,7 @@ precmd() {
 	psvar[1]=$(git_branch)
 }
 
-PROMPT=$'\n'
-PROMPT+=$'$(__get_vi_mode_top) '
+PROMPT=$'\n '
 PROMPT+=$'%{\e[01;33;100m%}  %n %{\e[0m%}'  # User
 PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'    # Sep
 PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
