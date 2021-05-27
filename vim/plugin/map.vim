@@ -313,32 +313,27 @@ nmap <leader>h1 <Plug>(Header42)
 inoremap <c-l> <del>
 
 " up down on visual lines
-nnoremap <expr> j v:count? 'j' : 'gj'
-nnoremap <expr> k v:count? 'k' : 'gk'
-xnoremap <expr> j v:count? 'j' : 'gj'
-xnoremap <expr> k v:count? 'k' : 'gk'
+nnoremap <silent> <expr> j v:count? ':silent normal j<cr>' : ':silent normal gj<cr>'
+nnoremap <silent> <expr> k v:count? ':silent normal k<cr>' : ':silent normal gk<cr>'
+xnoremap <silent> <expr> j v:count? ':normal j' : ':normal gj<cr>gvgj'
+xnoremap <silent> <expr> k v:count? ':normal k' : ':normal gk<cr>gvgk'
 
 " navigate between start/end of WORD
-nnoremap <expr> <c-l> getline('.')[col('.')] == ' '
+nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
       \ <bar><bar> col('.') == col('$') - 1
       \ <bar><bar> col('$') == 1
-      \ ? 'w' : 'E'
-vnoremap <expr> <c-l> getline('.')[col('.')] == ' '
-      \ <bar><bar> getline('.')[col('.') - 1] == ' '
-      \ <bar><bar> col('.') == col('$') - 1
-      \ <bar><bar> col('$') == 1
-      \ ? 'w' : 'E'
-nnoremap <expr> <c-h> getline('.')[col('.') - 2] == ' '
+      \ ? ':silent normal w<cr>' : ':silent normal E<cr>'
+nnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
       \ <bar><bar> col('$') == 1
       \ <bar><bar> col('.') == 1
-      \ ? 'gE' : 'B'
+      \ ? ':silent normal gE<cr>' : ':silent normal B<cr>'
 vnoremap <expr> <c-h> getline('.')[col('.') - 2] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
       \ <bar><bar> col('$') == 1
       \ <bar><bar> col('.') == 1
-      \ ? 'gE' : 'B'
+      \ ? ':silent normal gE<cr>' : ':silent normal B<cr>'
 
 nnoremap H ^
 nnoremap L $
