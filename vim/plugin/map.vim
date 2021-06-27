@@ -313,8 +313,8 @@ nmap <leader>h1 <Plug>(Header42)
 inoremap <c-l> <del>
 
 " up down on visual lines
-nnoremap  <expr> j v:count? 'j' : 'gj'
-nnoremap  <expr> k v:count? 'k' : 'gk'
+nnoremap <silent> <expr> j v:count? 'j' : ':normal gj<cr>'
+nnoremap <silent> <expr> k v:count? 'k' : ':normal gk<cr>'
 
 " navigate between start/end of WORD
 nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
