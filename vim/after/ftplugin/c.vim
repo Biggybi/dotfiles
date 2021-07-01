@@ -84,7 +84,7 @@ nnoremap <buffer> <leader>vf j[[V%o
 nnoremap <leader>ce :VShell make test<cr>
 nnoremap <leader>ct :VShell make test TESTFF=test/test*<cr>
 nnoremap <leader>cT :VShell make test TESTFF=
-nnoremap <leader>cb :VShell bear make<cr>
+nnoremap <leader>cb :VShell make build<cr>
 nnoremap <leader>cn :exe 'Shell norminette.rb' expand('%:p')<cr>
 nnoremap <leader>cN :exe 'Shell norminette.rb' expand('.')<cr>
 
