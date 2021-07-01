@@ -91,5 +91,10 @@ nnoremap <leader>cN :exe 'Shell norminette.rb' expand('.')<cr>
 " debug
 nnoremap <leader>cv :VShell make valgrind<cr>
 nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
+
+" lsp
+" switch to header file
+nnoremap <leader>hh :CocCommand clangd.switchSourceHeader<cr>
+
 nmap <leader>cn <plug>(NorminetteFile)
 nmap <leader>cN <plug>(NorminetteFolder)
