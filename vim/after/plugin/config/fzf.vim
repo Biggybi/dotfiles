@@ -67,8 +67,8 @@ let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 "-g '!{node_modules,.git}'
 
 " Customize fzf colors to match your color scheme
-let g:fzf_colors =
-      \ { 'fg':      ['fg', 'Normal'],
+let g:fzf_colors = {
+      \ 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
       \ 'gutter':  ['bg', 'Normal'],
       \ 'hl':      ['fg', 'Comment'],
@@ -82,7 +82,6 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
-" \ 'border':  ['fg', 'Conditional'],
 
 "Get Files
 command! -bang -nargs=? -complete=dir Files
