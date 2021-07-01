@@ -488,41 +488,71 @@ function! SelectFirstWordBlock(all) abort
     let curpos = getpos('.')
     let curline = curpos[1]
     let nextline = curline + 1
-    let firstword = split(trim(getline('.')), '\W\+')[0]
-    while (a:all == 1 && split(trim(getline(nextline)), '\W\+')[0] =~ firstword)
+    let prevline = curline - 1
+    let firstword = get(split(trim(getline('.')), '\W\+'), 0)
+
+    while (a:all == 1 && get(split(trim(getline(nextline)), '\W\+'), 0) =~ firstword)
       let nextline += 1
     endwhile
-    while (a:all == 0 && split(trim(getline(nextline)), '\W\+')[0] ==# firstword)
+    while (a:all == 0 && get(split(trim(getline(nextline)), '\W\+'), 0) ==# firstword)
       let nextline += 1
     endwhile
+
+    while (a:all == 1 && get(split(trim(getline(prevline)), '\W\+'), 0) =~ firstword)
+      let prevline += 1
+    endwhile
+    while (a:all == 0 && get(split(trim(getline(prevline)), '\W\+'), 0) ==# firstword)
+      let prevline += 1
+    endwhile
+
+    echom firstword prevline nextline
     if mode() !~? '[v]'
       normal! V
     endif
   finally
-    call cursor(nextline - 1, 0)
+    call cursor(nextline, 0)
+    normal gv
+    normal o
+    call cursor(prevline, 0)
   endtry
 endfunction
 
 function! SelectFirstWordBlockVisual() abort
   try
     let curpos = getpos('.')
+    let curpos2 = getpos('.')
+    if curpos2[3] < curpos[3]
+      normal o
+    endif
+    normal ^
+    normal gv
     let curline = curpos[1]
     let nextline = curline + 1
+    let prevline = curline - 1
     let firstword = @*
-    while (getline(nextline) =~ firstword)
+    while (getline(nextline) =~ "^\\s\*".firstword.".*")
+      " echom yeah
       let nextline += 1
     endwhile
+    while (getline(prevline) =~ "^\\s\*".firstword.".*")
+      " echom coucou
+      let prevline -= 1
+    endwhile
+    let nextline -= 1
+    let prevline += 1
     if mode() !~? '[v]'
       normal! V
     endif
   finally
-    call cursor(nextline - 1, 0)
+    call cursor(nextline, 0)
+    normal o
+    call cursor(prevline, 0)
   endtry
 endfunction
 
-vnoremap <c-p> :call SelectFirstWordBlockVisual()<cr>
-nnoremap <leader>V :silent! call SelectFirstWordBlock('1')<cr>
-nnoremap <leader><c-v> :silent! call SelectFirstWordBlock('0')<cr>
+vnoremap <silent> <c-p> :call SelectFirstWordBlockVisual()<cr>
+nnoremap <silent> <leader>V :call SelectFirstWordBlock('1')<cr>
+nnoremap <silent> <leader><c-v> :call SelectFirstWordBlock('0')<cr>
 
 """        Folding
 
