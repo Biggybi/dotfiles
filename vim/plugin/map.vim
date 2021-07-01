@@ -312,6 +312,9 @@ nmap <leader>h1 <Plug>(Header42)
 " insert mode delete
 inoremap <c-l> <del>
 
+" insert mode start / end of line
+inoremap <c-a> <c-o>^
+inoremap <c-e> <c-o>$
 " up down on visual lines
 nnoremap <silent> <expr> j v:count? 'j' : ':normal gj<cr>'
 nnoremap <silent> <expr> k v:count? 'k' : ':normal gk<cr>'
