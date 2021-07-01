@@ -23,6 +23,7 @@ let g:fzf_action = {
       \ 'ctrl-v': 'vsplit'}
 
 nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
+nnoremap <silent> <leader>f. :FzfGFiles $DOT<cr>
 nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
 nnoremap <silent> <leader>F :FzfFiles /<cr>
 nnoremap <silent> <leader>fb :FzfBuffers<cr>
