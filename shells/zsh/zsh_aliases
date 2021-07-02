@@ -189,6 +189,8 @@ alias scolor='eval "$(dircolors $HOME/.dircolors)"'
 alias salias='. $HOME/.bash_aliases'
 alias sinputrc='bind -f ~/.inputrc'
 alias stmux='tmux source-file $HOME/.tmux.conf'
+alias sxressources='xrdb ~/dotfiles/shells/xterm/Xresources'
+alias sx='xrdb ~/dotfiles/shells/xterm/Xresources'
 
 alias sb='. $HOME/.bashrc'
 alias sp='. $HOME/.bash_profile'
