@@ -27,13 +27,14 @@ alias vdir='vdir --color=auto'
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	alias ls='ls -h'
+else
+	alias ls='ls -h --group-directories-first --color=auto'
 fi
 
 # keyboard layout
 alias kus="setxkbmap -layout us"
 alias kfr="setxkbmap -layout fr"
 
-alias ls='ls -h --group-directories-first --color=auto'
 alias ll='ls -trhalF'
 alias la='ls -lA'
 alias l='ls -CF'
