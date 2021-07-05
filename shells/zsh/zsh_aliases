@@ -225,7 +225,7 @@ alias o=open
 
 # alias fzf='fzf --color="dark" --tabstop=4'
 # alias fd='fd ~'
-alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
+alias lcmd='echo "$(fc -ln -1)" | sed "s/^ *//"'
 alias lcmdcp='echo "$(fc -ln -1)" | tr '\''\n'\'' '\'' '\'' | cip'
 alias lcmdalias='echo "$(fc -ln -1)" | sed "s/^. *//" >> $DOT/bash_aliases'
 alias hg='history | grep'
