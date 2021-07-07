@@ -292,7 +292,7 @@ alias aptl='apt list'
 alias uuu='sudo apt update && sudo apt upgrade && notify-send "Update done"'
 alias uu='sudo apt update && sudo apt upgrade&& notify-send "Update done"'
 alias crashrm='sudo rm /var/crash/*'
-alias rmDS='find . -name *.DS_Store -type f -delete'
+alias rmDS='find . -name "*.DS_Store" -type f -delete -print'
 alias myip='hostname -I | sed "s/\ .*//g"'
 
 ### Hardware info
