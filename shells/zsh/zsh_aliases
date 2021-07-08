@@ -217,11 +217,14 @@ alias ta='tmux attach'
 alias td='tmux detach'
 alias d='tmux detach'
 alias tl='tmux ls'
-# alias o='xdg-open '
-open() {
-	xdg-open $1 &
-}
-alias o=open
+
+if [[ "$OSTYPE" != "darwin"* ]]
+then
+	open() {
+		xdg-open $1 &
+	}
+	alias o=open
+fi
 
 # alias fzf='fzf --color="dark" --tabstop=4'
 # alias fd='fd ~'
