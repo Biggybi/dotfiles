@@ -110,7 +110,7 @@ if has('extra_search')
 endif
 " set path+=**                  " recursive path from current path
 " ignore some files from wildcard expansion
-set nrformats-=octal            " <c-a>/<c-x> do not use octals
+set nrformats=hex            " <c-a>/<c-x> do not use octals
 
 if has('wildignore')
   set wildignore+=**/__pycache__/**
