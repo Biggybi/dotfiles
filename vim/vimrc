@@ -133,7 +133,7 @@ if has('wildmenu')
   set wildmenu                  " show matches to commands
 endif
 set wildchar=<tab>              " complete w/ tab
-set wildmode=longest,full
+set wildmode=longest:full,full
 set fileignorecase              " ignore case using filename
 set wildignorecase              " ignore case completing filenames
 
