@@ -190,7 +190,9 @@ set splitright                  " default split right
 
 " guides smartisation
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
-set spellcapcheck=              " ignore leading cap in word
+if has('spellcheck')
+  set spellcapcheck=            " ignore leading cap in word
+endif
 set nojoinspaces                " and spaces too
 if v:version > 703 || v:version == 203 && has('patch541')
   set formatoptions+=j            " join comments smartly
