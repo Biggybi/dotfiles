@@ -296,6 +296,12 @@ alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name *.DS_Store -type f -delete'
 alias myip='hostname -I | sed "s/\ .*//g"'
 
+alias pacup="sudo pacman -Syu"     # sync / upgrade
+alias paci="sudo pacman -S"        # install
+alias pacrm="sudo pacman -R"       # remove
+alias pacpurge="sudo pacman -Rns"  # remove purge
+alias pacs="pacman -Ss"            # search
+
 ### Hardware info
 alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
 
