@@ -27,13 +27,14 @@ alias vdir='vdir --color=auto'
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	alias ls='ls -h'
+else
+	alias ls='ls -h --group-directories-first --color=auto'
 fi
 
 # keyboard layout
 alias kus="setxkbmap -layout us"
 alias kfr="setxkbmap -layout fr"
 
-alias ls='ls -h --group-directories-first --color=auto'
 alias ll='ls -trhalF'
 alias la='ls -lA'
 alias l='ls -CF'
@@ -218,15 +219,18 @@ alias ta='tmux attach'
 alias td='tmux detach'
 alias d='tmux detach'
 alias tl='tmux ls'
-# alias o='xdg-open '
-open() {
-	xdg-open $1 &
-}
-alias o=open
+
+if [[ "$OSTYPE" != "darwin"* ]]
+then
+	open() {
+		xdg-open $1 &
+	}
+	alias o=open
+fi
 
 # alias fzf='fzf --color="dark" --tabstop=4'
 # alias fd='fd ~'
-alias lcmd='echo "$(fc -ln -1)" | sed "s/^. *//"'
+alias lcmd='echo "$(fc -ln -1)" | sed "s/^ *//"'
 alias lcmdcp='echo "$(fc -ln -1)" | tr '\''\n'\'' '\'' '\'' | cip'
 alias lcmdalias='echo "$(fc -ln -1)" | sed "s/^. *//" >> $DOT/bash_aliases'
 alias hg='history | grep'
@@ -293,7 +297,7 @@ alias aptl='apt list'
 alias uuu='sudo apt update && sudo apt upgrade && notify-send "Update done"'
 alias uu='sudo apt update && sudo apt upgrade&& notify-send "Update done"'
 alias crashrm='sudo rm /var/crash/*'
-alias rmDS='find . -name *.DS_Store -type f -delete'
+alias rmDS='find . -name "*.DS_Store" -type f -delete -print'
 alias myip='hostname -I | sed "s/\ .*//g"'
 
 alias pacup="sudo pacman -Syu"     # sync / upgrade
@@ -357,6 +361,7 @@ alias r='fc -s'
 ##alias sedtrim="sed -n '1h;1!HOME_42;${;g;s/^[ \t]*//g;s/[ \t]*$//g;p;}'"
 
 alias macflatmouse='defaults write .GlobalPreferences com.apple.mouse.scaling -1'
+alias maclock="pmset displaysleepnow"
 alias maclogout="osascript -e 'tell app \"System Events\" to log out'"
 alias maclogoutf="osascript -e 'tell app \"System Events\" to «event aevtrlgo»'"
 alias gnomelogout="DISPLAY=:0 gnome-session-quit --force"
