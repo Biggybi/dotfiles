@@ -33,4 +33,7 @@ if !hasmapto('<Plug>Trim') || maparg('yc','n') ==# ''
   nmap dx  <Plug>Trim
   xmap gdx <Plug>Trim
   nmap dxx <Plug>TrimLine
+  nmap d<space>  <Plug>Trim
+  xmap gd<space> <Plug>Trim
+  nmap d<space><space> <Plug>TrimLine
 endif
