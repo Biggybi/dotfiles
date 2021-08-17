@@ -41,6 +41,9 @@ TESTDIR = test$(SEP)
 TEST = $(addprefix $(TESTDIR), $(TESTFILE))
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all -s
 
+BUILD = bear
+BUILDFILE = compile_commands.json
+
 all: greatings $(NAME)
 
 $(NAME): $(ODIR) $(OBJ)
@@ -70,6 +73,9 @@ test: re $(NAME)
 	$(HIDE)echo
 	$(HIDE)chmod u+x $(NAME)
 	$(HIDE)./$(NAME) $(TEST)
+
+build: clean
+	$(BUILD) --output $(BUILDFILE) 2> /dev/null -- make
 
 valgrind: re $(NAME)
 	$(HIDE)echo
