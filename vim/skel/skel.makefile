@@ -30,15 +30,19 @@ SRC = $(shell find $(SDIR) -type f -name "*.c")
 OBJ = $(patsubst $(SDIR)%, $(ODIR)%, $(SRC:.c=.o))
 SSUBDIR = $(shell find $(SDIR) -type d -not -empty)
 
-CC = clang
+CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # LIB = -L.$(SEP)libft$(SEP) -lft
 # LIBINC = -I libft$(SEP)includes$(SEP)
 
-TESTFILE = test
 TESTDIR = test$(SEP)
-TEST = $(addprefix $(TESTDIR), $(TESTFILE))
+TESTFILES = main.c test.c test.h
+TESTSRC = $(addprefix $(TESTDIR), $(TESTFILES))
+TESTOBJ = $(TESTFILES%.c=.o)
+TESTH = $(TESTDIR)test.h
+TESTBIN = test.out
+
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all -s
 
 BUILD = bear
@@ -67,12 +71,22 @@ fclean: clean
 re : fclean all
 	$(HIDE)echo "re     ->  $(NAME) reloaded"
 
-test: re $(NAME)
+$(TESTDIR)%.o: $(TESTDIR)%.c
+	$(HIDE)$(CC) -c $(CFLAGS) $(pkg-config --libs libbsd) -I $(INC) $< -o $@
+	$(HIDE)echo "test    ->  $@"
+
+teststart: $(NAME) $(TESTDIR)*.o
 	$(HIDE)echo
 	$(HIDE)echo "--- Bin exec ---"
 	$(HIDE)echo
-	$(HIDE)chmod u+x $(NAME)
-	$(HIDE)./$(NAME) $(TEST)
+	$(HIDE)$(CC) $(TESTH) $(TESTSRC) -I $(INC) -L. -lft -o $(TESTBIN)
+	$(HIDE)chmod u+x $(TESTBIN)
+
+$(TESTDIR)$(TESTBIN):
+	$(HIDE)$(MKDIR) %@
+
+test: teststart $(TESTDIR)$(TESTBIN)
+	$(HIDE)./$(TESTBIN)
 
 build: clean
 	$(BUILD) --output $(BUILDFILE) 2> /dev/null -- make
