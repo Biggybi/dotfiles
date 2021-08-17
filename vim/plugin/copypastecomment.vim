@@ -29,8 +29,13 @@ nnoremap <expr> <Plug>Cpc     <sid>cpc()
 xnoremap <expr> <Plug>Cpc     <sid>cpc()
 nnoremap <expr> <Plug>CpcLine <sid>cpc() . '_'
 
-if !hasmapto('<Plug>Cpc') || maparg('yc','n') ==# ''
+if !hasmapto('<Plug>Cpc') || maparg('gyc','n') ==# ''
   nmap gyc <Plug>Cpc
   xmap gyc <Plug>Cpc
   nmap gycc <Plug>CpcLine
+endif
+
+if !hasmapto('<Plug>Cpc') || maparg('yc','n') ==# ''
+  nmap yc <Plug>Cpc
+  nmap ycc <Plug>CpcLine
 endif
