@@ -92,6 +92,10 @@ bindkey -M menuselect '^l' vi-forward-char
 bindkey -M menuselect '^k' vi-up-line-or-history
 bindkey -M menuselect '^o' reverse-menu-complete
 
+# normal mode mappings
+bindkey -a 'H' beginning-of-line
+bindkey -a 'L' end-of-line
+
 autoload -U colors && colors
 
 __get_vi_mode_bottom() {
