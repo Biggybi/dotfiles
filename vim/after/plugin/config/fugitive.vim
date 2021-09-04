@@ -2,7 +2,7 @@ if ! exists('g:loaded_fugitive')
   finish
 endif
 
-nnoremap <silent> <leader>gg :vertical Gstatus<cr>
+nnoremap <silent> <leader>gg :vertical Git<cr>
 set diffopt+=vertical " vertical split for diff
 
 function! FugitiveBlameToggle() abort
