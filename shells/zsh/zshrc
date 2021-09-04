@@ -65,7 +65,7 @@ setopt no_list_ambiguous                                  # completion: complete
 
 # vi mode
 bindkey -v
-export KEYTIMEOUT=1
+KEYTIMEOUT=1
 
 autoload edit-command-line
 zle -N edit-command-line
