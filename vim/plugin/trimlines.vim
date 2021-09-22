@@ -29,10 +29,12 @@ nnoremap <expr> <Plug>Trim     <sid>trim()
 xnoremap <expr> <Plug>Trim     <sid>trim()
 nnoremap <expr> <Plug>TrimLine <sid>trim() . '_'
 
-if !hasmapto('<Plug>Trim') || maparg('yc','n') ==# ''
+if !hasmapto('<Plug>Trim') || maparg('dx','n') ==# ''
   nmap dx  <Plug>Trim
   xmap gdx <Plug>Trim
   nmap dxx <Plug>TrimLine
+endif
+if !hasmapto('<Plug>Trim') || maparg('d<space>','n')
   nmap d<space>  <Plug>Trim
   xmap gd<space> <Plug>Trim
   nmap d<space><space> <Plug>TrimLine
