@@ -52,20 +52,20 @@ stty -ixon
 # history
 export HISTFILE=~/.zsh_history
 export SAVEHIST=1000000
-export HISTSIZE=1000000                 # number of commands in session history
-export HISTFILESIZE=1000000             # number of commands in history file
+export HISTSIZE=1000000                 # session history size
+export HISTFILESIZE=1000000             # history file size
 export HISTTIMEFORMAT="[%F %T] "
 export HISTIGNORE="&:ls:bg:fg:exit"		# ignore some commands
 
 setopt EXTENDED_HISTORY                 # save start time and duration
 setopt INC_APPEND_HISTORY               # update history when command is issued
-setopt HIST_IGNORE_ALL_DUPS             # don't save duplicates in history
-setopt HIST_IGNORE_SPACE                # don't save commands starting with spaces
+setopt HIST_IGNORE_ALL_DUPS             # hide duplicates in history
+setopt HIST_IGNORE_SPACE                # hide commands starting with spaces
 
 # completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # completion:  case insensitive
-zstyle ':completion:*' menu selectzmodload                # completion: use menu
-setopt no_list_ambiguous                                  # completion: complete then show menu
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' #  case insensitive
+zstyle ':completion:*' menu selectzmodload                # use menu
+setopt no_list_ambiguous                                  # complete then show menu
 
 # vi mode
 bindkey -v
@@ -153,14 +153,14 @@ PROMPT+=$'%{$reset_color%}'                 # End
 
 # rprompt
 
-prompt_preexec() {
-	prompt_preexec_ms=${(%):-%D{%s%3.}}
+prompt_timer_preexec() {
+	prompt_timer_preexec_ms=${(%):-%D{%s%3.}}
 }
 
-prompt_precmd() {
-	if (( prompt_preexec_ms )); then
+prompt_timer_precmd() {
+	if (( prompt_timer_preexec_ms )); then
 		local -ri now_ms=${(%):-%D{%s%3.}}
-		local -ri elapsed_ms=$(( now_ms - prompt_preexec_ms ))
+		local -ri elapsed_ms=$(( now_ms - prompt_timer_preexec_ms ))
 		local -ri elapsed_s=$(( elapsed_ms/1000 ))
 		local -ri ms=$(( elapsed_ms%1000 ))
 		local -ri s=$(( elapsed_s%60))
@@ -179,9 +179,9 @@ prompt_precmd() {
 		fi
 		promt_cmd_info=$' %(?.%{\e[00;01;92m%}[0.%{\e[00;01;91m%}[%?)'\ $'%{\e[00;01;94m%}'${command_time}
 		promt_cmd_info+=$'%(?.%{\e[00;01;92m%}.%{\e[00;01;91m%})]'
-		unset prompt_preexec_ms
+		unset prompt_timer_preexec_ms
 	else
-		# Clear previous result when hitting ENTER with no command to execute
+		# Clear previous result on empty command
 		unset promt_cmd_info
 	fi
 }
@@ -189,8 +189,8 @@ prompt_precmd() {
 setopt nopromptbang prompt{cr,percent,sp,subst}
 
 autoload -Uz add-zsh-hook
-add-zsh-hook preexec prompt_preexec
-add-zsh-hook precmd prompt_precmd
+add-zsh-hook preexec prompt_timer_preexec
+add-zsh-hook precmd prompt_timer_precmd
 
 # Color man pages in `less`
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -215,11 +215,9 @@ if [ -d $BASE16_SHELL ]; then
 		eval "$("$BASE16_SHELL/profile_helper.sh")"
 fi
 
-# Plugins
-source $DOT/shells/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^ ' autosuggest-accept
-source $DOT/shells/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source $DOT/shells/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Plugin Sourcer
+source "$DOT/shells/zsh/plugins/zsh-pluginsourcer/zsh-pluginsourcer.zsh"
+
 zvm_after_init_commands+=('[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh')
 zvm_after_init_commands+=('bindkey "^j" history-search-forward')
 zvm_after_init_commands+=('bindkey "^k" history-search-backward')
