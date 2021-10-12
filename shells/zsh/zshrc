@@ -25,7 +25,7 @@ fi
 # bell off
 unsetopt BEEP
 
-# Environement variables
+# Environment variables
 
 export GOPATH=$HOME/bin/go
 export PATH=$PATH:~/bin:/usr/lib
@@ -40,6 +40,12 @@ export MANPAGER="vim -M +MANPAGER -"
 export BROWSER=firefox
 export DOT="$HOME/dotfiles"
 export LFT="$HOME/42/libft/"
+export HOME_VID="$HOME/Videos"
+export HOME_PIC="$HOME/Pictures"
+export HOME_GAM="$HOME/Games"
+export HOME_DOC="$HOME/Documents"
+export HOME_MUS="$HOME/Music"
+export HOME_42="$HOME/Work"
 export DATAPATH="/media/data/"
 
 # disable shell scroll interrupt
