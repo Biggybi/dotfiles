@@ -1,4 +1,4 @@
-" courtesy from Christian Brabandt
+" courtesy of Christian Brabandt
 " https://vi.stackexchange.com/a/15361/22375
 
 if exists('g:plugin_smart_line_search')
