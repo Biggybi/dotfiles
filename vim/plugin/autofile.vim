@@ -29,7 +29,7 @@ if ! has("nvim")
 endif
 
 function! FitBufferWindowBottom() abort
-  if line('w$') == line('$') && &filetype!='terminal'
+  if line('w$') == line('$') && &buftype!='terminal'
     normal! mzGzb`z
   endif
 endfunction
