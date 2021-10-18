@@ -59,16 +59,18 @@ if exists('$SUDO_USER')         " don't create root-owned files
   set nowritebackup
   set noundofile
   set viminfo=
+elseif has('nvim')
+  set viminfo+=n$HOME/.nvim/tmp/viminfo/nviminfo
+  set backupdir=$HOME/.nvim/tmp/backup//
+  set directory=$HOME/.nvim/tmp/swap//
+  set undodir=$HOME/.nvim/tmp/undo//
+  set viewdir=$HOME/.nvim/tmp/view//
 else
+  set viminfo+=n$HOME/.vim/tmp/viminfo/viminfo
   set backupdir=$HOME/.vim/tmp/backup//
   set directory=$HOME/.vim/tmp/swap//
   set undodir=$HOME/.vim/tmp/undo//
   set viewdir=$HOME/.vim/tmp/view//
-  if has('nvim')
-    set viminfo+=n$HOME/.vim/tmp/viminfo/nviminfo
-  else
-    set viminfo+=n$HOME/.vim/tmp/viminfo/viminfo
-  endif
 endif
 
 if !isdirectory(&backupdir) | call mkdir(&backupdir, 'p') | endif
