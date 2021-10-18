@@ -89,10 +89,10 @@ bindkey '^o' expand-or-complete
 bindkey '^n' accept-and-infer-next-history
 bindkey '^ ' autosuggest-accept
 
-# bindkey '\Mh' vi-backward-char
-# bindkey '\Mj' vi-down-line-or-history
-# bindkey '\Ml' vi-forward-char
-# bindkey '\Mk' vi-up-line-or-history
+bindkey 'h' vi-backward-char
+bindkey 'j' history-search-forward
+bindkey 'l' vi-forward-char
+bindkey 'k' history-search-backward
 
 # complete menu mode mappings
 zmodload zsh/complist
