@@ -129,7 +129,7 @@ nmap yoT <Plug>(TermPop)
 
 nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
 command! ZZToggle
-      \| let &scrolloff=999-&scrolloff
+      \ let &scrolloff=999-&scrolloff
       \| echo &scrolloff > 900 ? "zz mode on" : "zz mode off"
 nnoremap <silent> yoz :ZZToggle<cr>
 
