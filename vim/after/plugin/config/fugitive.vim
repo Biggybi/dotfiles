@@ -12,7 +12,7 @@ function! FugitiveBlameToggle() abort
     wincmd q
   else
     call win_gotoid(current_window)
-    :Gblame
+    :G blame
   endif
   call win_gotoid(current_window)
 endfunction
