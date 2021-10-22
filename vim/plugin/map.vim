@@ -345,6 +345,8 @@ vnoremap <expr> <c-h> getline('.')[col('.') - 2] == ' '
 
 nnoremap H ^
 nnoremap L $
+onoremap <c-k> {
+onoremap <c-j> }
 nnoremap <c-k> {
 nnoremap <c-j> }
 
