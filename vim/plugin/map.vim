@@ -200,13 +200,13 @@ nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap <leader><c-n> :vs <c-r>=expand('%:p:h') . '/'<cr>
 command! -nargs=1 -complete=command Nomove
-\   try
-\ |     let s:svpos = winsaveview()
-\ |     execute <q-mods> <q-args>
-\ | finally
-\ |     call winrestview(s:svpos)
-\ |     unlet s:svpos
-\ | endtry
+      \   try
+      \ |     let s:svpos = winsaveview()
+      \ |     execute <q-mods> <q-args>
+      \ | finally
+      \ |     call winrestview(s:svpos)
+      \ |     unlet s:svpos
+      \ | endtry
 
 
 " new file in vertical split instead of horizontal
