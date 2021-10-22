@@ -33,12 +33,6 @@ if !hasmapto('<Plug>Trim')
   if maparg('dx', 'n') ==# ''
     nmap dx  <Plug>Trim
   endif
-  if maparg('gdx', 'n') ==# ''
-    nmap gdx <Plug>Trim
-  endif
-  if maparg('gdxx', 'n') ==# ''
-    nmap gdxx <Plug>TrimLine
-  endif
   if maparg('dxx', 'n') ==# ''
     nmap dxx <Plug>TrimLine
   endif
