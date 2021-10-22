@@ -130,7 +130,12 @@ nmap yo<c-t> <Plug>(TermToggleV)
 nmap yoT <Plug>(TermPop)
 
 " Toggle keep cursor in middle of screen
-nnoremap <silent> yoz :let &scrolloff=999-&scrolloff<cr>
+
+nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
+command! ZZToggle
+      \| let &scrolloff=999-&scrolloff
+      \| echo &scrolloff > 900 ? "zz mode on" : "zz mode off"
+nnoremap <silent> yoz :ZZToggle<cr>
 
 " Load project files buffers
 nnoremap yoj :call AutoProjectLoad('1')<cr>
