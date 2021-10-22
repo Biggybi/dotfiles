@@ -4,6 +4,9 @@
 " space as leader, prompt '\' in command line window :)
 " map <space> <leader>
 
+" ctrl-c does not show :q
+nnoremap <c-c> :silent! <c-c>
+
 " closing easy
 function! QuitBackToLast() abort
   quit
