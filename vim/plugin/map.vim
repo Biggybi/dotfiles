@@ -564,6 +564,11 @@ nnoremap zM zMzb
 nnoremap <silent> zm :set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
 nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
 
+"""        Windows
+
+nnoremap <silent> <c-w><c-c> :let buff=bufname()<cr>:close<cr>:echo buff . " closed"<cr>
+nnoremap <silent> <c-w>c     :let buff=bufname()<cr>:close<cr>:echo buff . " closed"<cr>
+
 ""    Code Mappings
 """        General
 
