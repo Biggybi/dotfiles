@@ -73,7 +73,6 @@ nmap yom <Plug>(modeColorToggle)
 
 " Toggle concealed characters
 function! ConcealToggle() abort
-  " let &conceallevel = (&conceallevel ? '0' : '2')
   if &conceallevel
     set conceallevel=0
     echo "set conceallevel = 0"
@@ -83,7 +82,6 @@ function! ConcealToggle() abort
   endif
 endfunction
 nnoremap yoq :call ConcealToggle()<cr>
-" nnoremap yoq :let &conceallevel = (&conceallevel ? '0' : '2')<cr>
 
 " Toggle / close / open Undotree
 let g:undotree_SetFocusWhenToggle = 1
@@ -101,13 +99,10 @@ nnoremap <silent> [ob :DarkLightFirst<cr>
 nnoremap <silent> ]ob :DarkLightLast<cr>
 
 " Netrw toggle - left
-let s:netrw_winsize=0
+let s:netrw_winsize = get(g:, 'netrw_winsize', '-80')
 function! NetrwToggle() abort
   Lexplore
   if &ft==#"netrw"
-    if s:netrw_winsize == 0
-      let s:netrw_winsize = g:netrw_winsize
-    endif
     exe s:netrw_winsize . "wincmd|"
   endif
 endfunction
