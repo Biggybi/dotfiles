@@ -414,30 +414,30 @@ nnoremap <leader>< :exe "vertical resize -10"<CR>
 
 """        Alt Movement
 
-inoremap <M-h> <left>
-inoremap <M-j> <down>
-inoremap <M-k> <up>
-inoremap <M-l> <right>
+inoremap <A-h> <left>
+inoremap <A-j> <down>
+inoremap <A-k> <up>
+inoremap <A-l> <right>
 
-nnoremap <silent> <M-k> :wincmd k<cr>
-nnoremap <silent> <M-j> :wincmd j<cr>
-nnoremap <silent> <M-l> :wincmd l<cr>
-nnoremap <silent> <M-h> :wincmd h<cr>
+nnoremap <silent> <A-k> :wincmd k<cr>
+nnoremap <silent> <A-j> :wincmd j<cr>
+nnoremap <silent> <A-l> :wincmd l<cr>
+nnoremap <silent> <A-h> :wincmd h<cr>
 
-tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
-tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
-tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
-tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
+tnoremap <silent> <A-k> <c-\><c-n>:wincmd k<cr>
+tnoremap <silent> <A-j> <c-\><c-n>:wincmd j<cr>
+tnoremap <silent> <A-l> <c-\><c-n>:wincmd l<cr>
+tnoremap <silent> <A-h> <c-\><c-n>:wincmd h<cr>
 
-cnoremap <M-h> <left>
-cnoremap <M-j> <down>
-cnoremap <M-k> <up>
-cnoremap <M-l> <right>
+cnoremap <A-h> <left>
+cnoremap <A-j> <down>
+cnoremap <A-k> <up>
+cnoremap <A-l> <right>
 
-nnoremap <silent> <M-K> :exe "resize +1"<cr>
-nnoremap <silent> <M-J> :exe "resize -1"<cr>
-nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
-nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
+nnoremap <silent> <A-K> :exe "resize +1"<cr>
+nnoremap <silent> <A-J> :exe "resize -1"<cr>
+nnoremap <silent> <A-L> :exe "vertical resize +1"<CR>
+nnoremap <silent> <A-H> :exe "vertical resize -1"<CR>
 
 """        Searching
 
