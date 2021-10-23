@@ -1,12 +1,19 @@
 ""    General Mappings
-"""        Modes
+"""        Special Keys
 
 " space as leader, prompt '\' in command line window :)
 " map <space> <leader>
 
+" backspace key
+map  <c-h>
+if has ('nvim')
+  nmap <bs> <c-h>
+endif
+
 " ctrl-c does not show :q
 nnoremap <c-c> :silent! <c-c>
 
+"""        Modes
 " closing easy
 function! QuitBackToLast() abort
   quit
