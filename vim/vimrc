@@ -19,8 +19,8 @@ if ! has('nvim')
   packadd! termdebug
 endif
 
+filetype on                     " use filetype detection
 filetype plugin on              " use filetype plugin
-filetype on
 filetype indent on              " use indent plugin
 set keywordprg=:Man
 
