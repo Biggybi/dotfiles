@@ -15,12 +15,14 @@
 
 " GUI color definitions
 " let s:gui00        = "282c34"
-let s:gui00        = "2C2C2C"
+" let s:gui00        = "2C2C2C"
+let s:gui00        = "202020"
 " let s:gui00        = "2E3436"
 " let s:gui00        = "303030"
 let g:base16_gui00 = "282c34"
 " let s:gui01        = "353b45"
-let s:gui01        = "383838"
+" let s:gui01        = "383838"
+let s:gui01        = "303030"
 let g:base16_gui01 = "353b45"
 " let s:gui02        = "3e4451"
 let s:gui02        = "454545"
