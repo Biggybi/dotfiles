@@ -1,12 +1,15 @@
+/* terminal */
 XTerm*loginShell: true
 XTerm*termName: xterm-256color
 
 /* <alt> key */
 xterm*metaSendsEscape: true
 
+/* no bell */
 XTerm*visualBell: False
 XTerm.Bell: false
 
+/* font */
 XTerm.vt100.renderFont: true
 XTerm*faceName: JetBrains Mono NL
 XTerm*faceSize: 12
@@ -17,10 +20,13 @@ XTerm*faceSize4: 14
 XTerm*faceSize5: 16
 XTerm*faceSize6: 20
 
-/* color */
-XTerm*background: #2C2C2C
-XTerm*foreground: #B4B4B4
+/* colors */
+*foreground: rgb:b2/b2/b2
+*background: rgb:20/20/20
+
+/* cursor */
 XTerm*cursorColor: grey
+XTerm.vt100.cursorBlink: never
 
 /* history */
 XTerm*internalBorder: 0
@@ -28,6 +34,7 @@ XTerm*scrollBar: false
 XTerm*scrollKey: true
 XTerm*saveLines: 4096
 
+/* mappings */
 /* copy / paste / font size */
 XTerm.vt100.translations: #override \n\
 		Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
