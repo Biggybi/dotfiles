@@ -101,9 +101,10 @@ bindkey -M menuselect '^[h' vi-backward-char
 bindkey -M menuselect '^[j' vi-down-line-or-history
 bindkey -M menuselect '^[l' vi-forward-char
 bindkey -M menuselect '^[k' vi-up-line-or-history
-
-bindkey -M menuselect '^o' reverse-menu-complete
+bindkey -M menuselect '^[y' accept-search
+bindkey -M menuselect '^[m' accept-search
 bindkey -M menuselect '^y' accept-search
+bindkey -M menuselect '^o' reverse-menu-complete
 
 # normal mode mappings
 bindkey -a 'H' beginning-of-line
