@@ -1,3 +1,6 @@
+if has ('nvim')
+  finish
+endif
 vim9script
 
 command -bar -bang Ls Ls(<bang>0)
