@@ -149,7 +149,7 @@ nnoremap yog :Goyo<cr>
 """        Copy / Paste / Delete
 
 " select last paste
-nnoremap gp V`]
+nnoremap gp `[v`]
 
 " delete without saving to register
 nnoremap <leader>d "_d
