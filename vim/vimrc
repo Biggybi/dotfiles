@@ -235,7 +235,7 @@ set iskeyword+=-                " considered part of <cword>
 " Folding
 if has('folding')
   if has('windows')
-    set fillchars+=vert:│
+    set fillchars+=vert:│       " window separator
   endif
   set foldmethod=syntax         " fold based on indent
   set foldnestmax=2             " deepest fold is 10 levels
