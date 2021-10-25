@@ -50,21 +50,21 @@ endfunction
 function! s:modeColorHL(color) abort
   if a:color == '!'
     if g:modecolor_extra != ''
-      exe "hi" g:modecolor_extra s:HLGroupNormal
+      exe "silent hi" g:modecolor_extra s:HLGroupNormal
     endif
     return
   endif
   if a:color != ''
-    exe "hi User1" a:color
+    exe "silent hi User1" a:color
   else
   endif
   if g:modecolor_extra ==# ''
     return
   endif
   if a:color is s:HLStrings['Normal']
-    exe "hi" g:modecolor_extra s:HLGroupNormal
+    exe "silent hi" g:modecolor_extra s:HLGroupNormal
   else
-    exe "hi" g:modecolor_extra a:color
+    exe "silent hi" g:modecolor_extra a:color
   endif
 endfunction
 
