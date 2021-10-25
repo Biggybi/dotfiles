@@ -147,7 +147,7 @@ endfunction
 if exists('s:modecolor_timer')
   call timer_stop(s:modecolor_timer)
   if s:HLGroupNormal != ''
-    exe "hi" g:modecolor_extra s:HLGroupNormal
+    silent exe "hi" g:modecolor_extra s:HLGroupNormal
   endif
   call s:startModeColor()
 endif
