@@ -37,7 +37,8 @@ function! s:setHLDic() abort
         \ 'GitMod'   : s:getHLString('SuliGitMod'),
         \ 'CurDir'   : s:getHLString('SuliCurDir'),
         \ 'Git'      : s:getHLString('SuliGit'),
-        \ 'GitSub'   : s:getHLString('SuliGitSub')}
+        \ 'GitSub'   : s:getHLString('SuliGitSub'),
+        \ 'Sep'      : s:getHLString('SuliSep')}
 endfunction
 
 function! s:setExtraStrings() abort
@@ -76,6 +77,7 @@ function! s:highlightUserGroups() abort
   exe 'silent! hi User6' s:HLStrings['CurDir']
   exe 'silent! hi User7' s:HLStrings['Git']
   exe 'silent! hi User8' s:HLStrings['GitSub']
+  exe 'silent! hi User9' s:HLStrings['Sep']
 endfunction
 
 function! s:modeColorInit() abort

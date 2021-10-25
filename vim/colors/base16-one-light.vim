@@ -283,6 +283,7 @@ call <sid>hi("SuliInsert",    s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", ""
 call <sid>hi("SuliNormal",    s:gui00, s:gui03, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("SuliOuter",     s:gui05, s:gui01, s:cterm07, s:cterm02, "none", "")
 call <sid>hi("SuliMid",       s:gui05, s:gui02, s:cterm07, s:cterm02, "none", "")
+call <sid>hi("SuliSep",       s:gui00, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("StatusLineTermNC",    s:gui04, s:gui02, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("StatusLineTerm",      s:gui05, s:gui02, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("StatuslineNC",        s:gui04, s:gui02, s:cterm03, s:cterm01, "none", "")

@@ -266,6 +266,7 @@ call <sid>hi("SuliInsert",       s:gui00, s:gui0B, s:cterm00, s:cterm0B, "none",
 call <sid>hi("SuliNormal",       s:gui00, s:gui03, s:cterm00, s:cterm03, "none", "")
 call <sid>hi("SuliOuter",        s:gui05, s:gui04, s:cterm05, s:cterm04, "none", "")
 call <sid>hi("SuliMid",          s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
+call <sid>hi("SuliSep",          s:gui00, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("StatusLineTermNC", s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
 call <sid>hi("StatusLineTerm",   s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("StatuslineNC",     s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
@@ -351,7 +352,7 @@ call <sid>hi("gitcommitSelectedFile",   s:gui0B, "", s:cterm0B, "", "bold", "")
 
 " GitGutter highlighting
 call <sid>hi("GitGutterAdd",           s:gui0B, s:gui00, s:cterm0B, s:cterm00, "bold", "")
-call <sid>hi("GitGutterChange",        s:gui0D, s:gui00, s:cterm0D, s:cterm00, "bold", "")
+call <sid>hi("GitGutterChange",        s:gui0C, s:gui00, s:cterm0D, s:cterm00, "bold", "")
 call <sid>hi("GitGutterDelete",        s:gui08, s:gui00, s:cterm08, s:cterm00, "bold", "")
 call <sid>hi("GitGutterChangeDelete",  s:gui0E, s:gui00, s:cterm0E, s:cterm00, "bold", "")
 
