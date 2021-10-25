@@ -325,8 +325,8 @@ inoremap <c-l> <del>
 inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>$
 " up down on visual lines
-nnoremap <silent> <expr> j v:count? 'j' : ':<c-u>normal gj<cr>'
-nnoremap <silent> <expr> k v:count? 'k' : ':<c-u>normal gk<cr>'
+nnoremap <silent> <expr> j v:count? 'j' : '<cmd>normal gj<cr>'
+nnoremap <silent> <expr> k v:count? 'k' : '<cmd>normal gk<cr>'
 
 " navigate between start/end of WORD
 nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
