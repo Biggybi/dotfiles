@@ -37,11 +37,19 @@ function! s:visualParagraphDown() range abort
   exe "normal" wantline . "gg"
 endfunction
 
+command! -range ParaSelUp :call <sid>visualParagraphUp()
+command! -range ParaSelDown :call <sid>visualParagraphDown()
+
 vnoremap <silent> <c-j> :call <sid>visualParagraphDown()<cr>
 vnoremap <silent> <c-k> :call <sid>visualParagraphUp()<cr>
 
-xnoremap <expr> <Plug>ParaSelUp   <sid>visualParagraphUp()
-xnoremap <expr> <Plug>ParaSelDown <sid>visualParagraphDown()
+" " Note: error: not allowed there
+" xnoremap <expr> <Plug>ParaSelUp   <sid>visualParagraphUp()
+" xnoremap <expr> <Plug>ParaSelDown <sid>visualParagraphDown()
 
-command! -range ParaSelUp :call <sid>visualParagraphUp()
-command! -range ParaSelDown :call <sid>visualParagraphDown()
+" if !hasmapto('<Plug>ParaSelUp') && maparg('<c-k>','x') ==# ''
+"   xmap <c-k> <Plug>ParaSelUp()
+" endif
+" if !hasmapto('<Plug>ParaSelDown') && maparg('<c-j>','x') ==# ''
+"   xmap <c-j> <Plug>ParaSelDown()
+" endif
