@@ -18,6 +18,7 @@ function! s:visualParagraphUp() range abort
     return
   endif
   exe "normal" wantline . "gg"
+  echo wantline
 endfunction
 
 function! s:visualParagraphDown() range abort
@@ -33,7 +34,6 @@ function! s:visualParagraphDown() range abort
     endif
     return
   endif
-  echo wantline
   exe "normal" wantline . "gg"
 endfunction
 
