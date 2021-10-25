@@ -207,9 +207,12 @@ nnoremap <leader>fP :let @"=expand('%:p')<cr>:echo expand('%:p')<cr>
 " show file name and copy it to unnamed register
 nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
 
+"""        New Files / Windows
 " new file here
 nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
+nnoremap <leader>ns :sp <c-r>=expand('%:p:h') . '/'<cr>
+nnoremap <leader>nt :tabnew <c-r>=expand('%:p:h') . '/'<cr>
 nnoremap <leader><c-n> :vs <c-r>=expand('%:p:h') . '/'<cr>
 command! -nargs=1 -complete=command Nomove
       \   try
@@ -229,10 +232,6 @@ nnoremap <silent> <c-w><c-f> :vertical wincmd f<cr>
 
 " open file under cursor in a netrw pannel on the left
 nnoremap <silent> <c-w><c-d> :Lexplore <cfile><cr>
-
-" start command for all windows / arguments
-nnoremap <c-w>; :windo<space>
-nnoremap <c-w>: :argdo<space>
 
 """        Folding
 
@@ -326,8 +325,8 @@ inoremap <c-l> <del>
 inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>$
 " up down on visual lines
-nnoremap <silent> <expr> j v:count? 'j' : ':normal gj<cr>'
-nnoremap <silent> <expr> k v:count? 'k' : ':normal gk<cr>'
+nnoremap <silent> <expr> j v:count? 'j' : ':<c-u>normal gj<cr>'
+nnoremap <silent> <expr> k v:count? 'k' : ':<c-u>normal gk<cr>'
 
 " navigate between start/end of WORD
 nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
@@ -486,6 +485,10 @@ cnoreabbrev <expr> qqq getcmdtype() == ':' && getcmdline() =~ "^qqq$" ? "qall!" 
 cnoremap <c-r>. <c-r>=fnameescape(expand('%:h')).'/'<cr>
 nnoremap <leader>vp :find <cr>vim/plugin/
 
+" start command for all windows / arguments
+nnoremap <c-w>; :windo<space>
+nnoremap <c-w>: :argdo<space>
+
 """        Tags
 
 " show matching tags
@@ -581,21 +584,22 @@ nnoremap <silent> <c-w><c-c> :let buff=bufname()<cr>:close<cr>:echo buff . " clo
 nnoremap <silent> <c-w>c     :let buff=bufname()<cr>:close<cr>:echo buff . " closed"<cr>
 
 ""    Code Mappings
-"""        General
+"""        Indent
 
 " indent all file easy
 nnoremap g<c-g> :Nomove normal gg=G<cr>
 nnoremap gG :Nomove normal =ap<cr>
 
-" Toggle location list (awesome)
+"""        Toggle quickfix
+" location list
 nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
       \ ":lclose<cr>" : ":bot lopen<cr><c-w>p"
 
-" Toggle quickfix list (awesome)
+" quickfix list
 nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
       \ ":cclose<cr>" : ":bot copen<cr><c-w>p"
 
-" Make
+"""        Make
 nnoremap <leader>cm :make<cr><cr>
 nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
@@ -611,6 +615,7 @@ nmap <silent><leader>ci <Plug>(ScrollScratchTermJ)
 nmap <silent><leader>co <Plug>(ScrollScratchTermK)
 nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
+" Make in split
 function! LocListPanel(pfx, side) abort
   try
     let winnr = winnr()
@@ -625,9 +630,10 @@ function! LocListPanel(pfx, side) abort
   endtry
 endfunction
 
-" Make in split
 nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l', 'J')<cr>
 nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l', 'J')<cr>
+
+"""        Count
 
 function! FunctionLineCount() abort
   let firstline = search('^{', 'bn')
@@ -637,7 +643,7 @@ endfunction
 
 nnoremap <leader>wcf :call FunctionLineCount()<cr>
 
-" show doc
+"""        Doc
 noremap <silent> <leader>K K
 
 let g:markdown_fenced_languages = ['css', 'js=javascript']
