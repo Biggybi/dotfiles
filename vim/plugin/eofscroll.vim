@@ -13,4 +13,5 @@ function! NoScrollAtEOF() abort
   endif
 endfunction
 
-nnoremap <silent> <c-d>  <c-d>:call NoScrollAtEOF()<cr>
+nnoremap <silent> <c-d>  <c-d><cmd>call NoScrollAtEOF()<cr>
+nnoremap <silent> <c-f>  <c-f><cmd>call NoScrollAtEOF()<cr>
