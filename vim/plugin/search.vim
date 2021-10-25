@@ -80,6 +80,18 @@ endfunction
 
 command! UpdateSearchMatch :call s:update_search_match()
 
+function s:toggleHL()
+  if &hlsearch
+    call anzu#clear_search_status()
+    nohlsearch
+    set nohlsearch
+  else
+    set hlsearch
+  endif
+endfunction
+
+command! ToggleHL :call s:toggleHL()
+
 augroup Current_search_match
   autocmd!
   autocmd CursorMoved * silent! call s:update_search_match()

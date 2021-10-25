@@ -125,8 +125,8 @@ nnoremap <silent> yoe :call NetrwToggle()<cr>
 vnoremap ]e :'<,'>move '>+1 \| normal! gv<CR>
 vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
 
-" Toggle of hlsearch + Anzu
-nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
+" Toggle hlsearch + Anzu
+nnoremap <silent> yoh :ToggleHL<cr>
 
 " Toggle terminal - bottom
 nmap yot <Plug>(TermToggle)
