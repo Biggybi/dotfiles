@@ -53,9 +53,9 @@ nmap <silent> <leader>gd <Plug>(coc-declaration)
 nmap <silent> <leader>gt <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
-nmap <silent> [w <Plug>(coc-diagnostic-prev)
-nmap <silent> ]w <Plug>(coc-diagnostic-next)
-nmap <leader>cf  <Plug>(coc-fix-current)
+nmap <silent> [w         <Plug>(coc-diagnostic-prev)
+nmap <silent> ]w         <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>cf <Plug>(coc-fix-current)
 
 function! s:show_documentation() abort
   if &filetype ==# 'vim'
