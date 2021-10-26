@@ -159,9 +159,9 @@
 [submodule "shells/themes/base16-shell"]
 	path = shells/themes/base16-shell
 	url = https://www.github.com/chriskempson/base16-shell.git
-[submodule "42/norminettev1"]
-	path = 42/norminettev1
-	url = git@gitlab.com:42lyon/norminette-client-externe.git
+; [submodule "42/norminettev1"]
+; 	path = 42/norminettev1
+; 	url = git@gitlab.com:42lyon/norminette-client-externe.git
 [submodule "tmux/plugins/tmux-continuum"]
 	path = tmux/plugins/tmux-continuum
 	url = https://www.github.com/tmux-plugins/tmux-continuum.git
