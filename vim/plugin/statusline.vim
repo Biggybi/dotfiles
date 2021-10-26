@@ -109,7 +109,6 @@ function! s:statusLineInactive() abort
         \&modified?'+\ ':'':''}%*                          " file modified
   setlocal statusline +=%=%(\ %{&filetype!=''?
         \&filetype:&buftype}\ %)                           " filetype or buftype
-  setlocal statusline +=%9*│%*
 endfunction
 
 function! GitRelativePath() abort
