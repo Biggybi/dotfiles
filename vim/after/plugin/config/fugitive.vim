@@ -24,3 +24,4 @@ nnoremap <silent> ghc :G commit<cr>
 nnoremap <silent> ghl :Gclog<cr>
 nnoremap <silent> ghp :G push<cr>
 nnoremap <silent> ghr :Gread<cr>
+nnoremap <silent> ghh :G add %<cr>
