@@ -3,9 +3,8 @@ if ! exists('g:loaded_gitgutter')
 endif
 
 nmap ghm <Plug>(git-messenger-close)<bar><Plug>(git-messenger)
-nmap ghp <Plug>(GitGutterPreviewHunk)
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghs <Plug>(GitGutterPreviewHunk)
+nmap gha <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 omap ih <Plug>(GitGutterTextObjectInnerPending)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
