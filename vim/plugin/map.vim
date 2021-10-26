@@ -128,17 +128,6 @@ vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
 " Toggle hlsearch + Anzu
 nnoremap <silent> yoh :ToggleHL<cr>
 
-" Toggle terminal - bottom
-nmap yot <Plug>(TermToggle)
-
-" Toggle terminal - right
-nmap yo<c-t> <Plug>(TermToggleV)
-
-" Toggle terminal - pop
-nmap yoT <Plug>(TermPop)
-
-" Toggle keep cursor in middle of screen
-
 nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
 command! ZZToggle
       \ let &scrolloff=999-&scrolloff
