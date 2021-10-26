@@ -20,7 +20,7 @@ nnoremap yot :TermToggle<cr>
 nnoremap yo<c-t> :TermToggleV<cr>
 nnoremap yoT :TermPop<cr>
 
-" " does not work
+" " Note: does not work but whyyyyyyyyyyyyyyy?
 " nnoremap <expr> <Plug>TermToggleV <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)
 " nnoremap <expr> <Plug>TermToggle  <sid>TermToggle(g:TermToggleBottom, g:TermToggleHeight)
 " nnoremap <expr> <Plug>TermPop     <sid>PopupTerminal()
