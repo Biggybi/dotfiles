@@ -317,6 +317,9 @@ inoremap <c-e> <c-o>$
 nnoremap <silent> <expr> j v:count? 'j' : '<cmd>normal gj<cr>'
 nnoremap <silent> <expr> k v:count? 'k' : '<cmd>normal gk<cr>'
 
+nnoremap gH H
+nnoremap gL L
+
 " navigate between start/end of WORD
 nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
