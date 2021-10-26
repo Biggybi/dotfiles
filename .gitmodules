@@ -1,167 +1,167 @@
 [submodule "vim/tlib_vim"]
 	path = vim/pack/bundle/start/tlib_vim
-	url = git@github.com:tomtom/tlib_vim.git
+	url = https://www.github.com/tomtom/tlib_vim.git
 	ignore = dirty
 [submodule "vim/vim-eunuch"]
 	path = vim/pack/bundle/start/vim-eunuch
-	url = git@github.com:tpope/vim-eunuch
+	url = https://www.github.com/tpope/vim-eunuch
 	ignore = dirty
 [submodule "vim/ultisnips"]
 	path = vim/pack/bundle/start/ultisnips
-	url = git@github.com:sirver/ultisnips
+	url = https://www.github.com/sirver/ultisnips
 	ignore = dirty
 [submodule "vim/vim-snippets"]
 	path = vim/pack/bundle/start/vim-snippets
-	url = git@github.com:honza/vim-snippets
+	url = https://www.github.com/honza/vim-snippets
 	ignore = dirty
 [submodule "vim/vim-unimpaired"]
 	path = vim/pack/bundle/start/vim-unimpaired
-	url = git@github.com:tpope/vim-unimpaired.git
+	url = https://www.github.com/tpope/vim-unimpaired.git
 	ignore = dirty
 [submodule "vim/vim-repeat"]
 	path = vim/pack/bundle/start/vim-repeat
-	url = git@github.com:tpope/vim-repeat.git
+	url = https://www.github.com/tpope/vim-repeat.git
 	ignore = dirty
 [submodule "vim/vim-swap"]
 	path = vim/pack/bundle/start/vim-swap
-	url = git@github.com:machakann/vim-swap.git
+	url = https://www.github.com/machakann/vim-swap.git
 	ignore = dirty
 [submodule "vim/MatchTag"]
 	path = vim/pack/bundle/start/MatchTag
-	url = git@github.com:gregsexton/MatchTag.git
+	url = https://www.github.com/gregsexton/MatchTag.git
 	ignore = dirty
 [submodule "vim/vim-vinegar"]
 	path = vim/pack/bundle/start/vim-vinegar
-	url = git@github.com:tpope/vim-vinegar.git
+	url = https://www.github.com/tpope/vim-vinegar.git
 	ignore = dirty
 [submodule "vim/vim-commentary"]
 	path = vim/pack/bundle/start/vim-commentary
-	url = git@github.com:tpope/vim-commentary.git
+	url = https://www.github.com/tpope/vim-commentary.git
 	ignore = dirty
 [submodule "vim/vim-fugitive"]
 	path = vim/pack/bundle/start/vim-fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+	url = https://www.github.com/tpope/vim-fugitive.git
 	ignore = dirty
 [submodule "vim/vim-gitgutter"]
 	path = vim/pack/bundle/start/vim-gitgutter
-	url = git@github.com:airblade/vim-gitgutter.git
+	url = https://www.github.com/airblade/vim-gitgutter.git
 	ignore = dirty
 [submodule "vim/vim-surround"]
 	path = vim/pack/bundle/start/vim-surround
-	url = git@github.com:tpope/vim-surround.git
+	url = https://www.github.com/tpope/vim-surround.git
 	ignore = dirty
 [submodule "vim/vim-speeddating"]
 	path = vim/pack/bundle/start/vim-speeddating
-	url = git@github.com:tpope/vim-speeddating.git
+	url = https://www.github.com/tpope/vim-speeddating.git
 	ignore = dirty
 [submodule "vim/goyo.vim"]
 	path = vim/pack/bundle/start/goyo.vim
-	url = git@github.com:junegunn/goyo.vim.git
+	url = https://www.github.com/junegunn/goyo.vim.git
 	ignore = dirty
 [submodule "vim/vim-tmux-focus-events"]
 	path = vim/pack/bundle/start/vim-tmux-focus-events
-	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git
+	url = https://www.github.com/tmux-plugins/vim-tmux-focus-events.git
 	ignore = dirty
 [submodule "vim/vimwiki"]
 	path = vim/pack/bundle/start/vimwiki
-	url = git@github.com:vimwiki/vimwiki.git
+	url = https://www.github.com/vimwiki/vimwiki.git
 	ignore = dirty
 [submodule "vim/fzf.vim"]
 	path = vim/pack/bundle/start/fzf.vim
-	url = git@github.com:junegunn/fzf.vim.git
+	url = https://www.github.com/junegunn/fzf.vim.git
 	ignore = dirty
 [submodule "vim/fzf"]
 	path = vim/pack/bundle/start/fzf
-	url = git@github.com:junegunn/fzf.git
+	url = https://www.github.com/junegunn/fzf.git
 	ignore = dirty
 [submodule "vim/vim-pseudocl"]
 	path = vim/pack/bundle/start/vim-pseudocl
-	url = git@github.com:junegunn/vim-pseudocl.git
+	url = https://www.github.com/junegunn/vim-pseudocl.git
 	ignore = dirty
 [submodule "vim/vim-rhubarb"]
 	path = vim/pack/bundle/start/vim-rhubarb
-	url = git@github.com:tpope/vim-rhubarb.git
+	url = https://www.github.com/tpope/vim-rhubarb.git
 	ignore = dirty
 [submodule "vim/vim-anzu"]
 	path = vim/pack/bundle/start/vim-anzu
-	url = git@github.com:osyo-manga/vim-anzu.git
+	url = https://www.github.com/osyo-manga/vim-anzu.git
 	ignore = dirty
 [submodule "vim/undotree"]
 	path = vim/pack/bundle/start/undotree
-	url = git@github.com:mbbill/undotree.git
+	url = https://www.github.com/mbbill/undotree.git
 	ignore = dirty
 [submodule "vim/vim-endwise"]
 	path = vim/pack/bundle/start/vim-endwise
-	url = git@github.com:tpope/vim-endwise.git
+	url = https://www.github.com/tpope/vim-endwise.git
 	ignore = dirty
 [submodule "vim/vim-obsession"]
 	path = vim/pack/bundle/start/vim-obsession
-	url = git@github.com:tpope/vim-obsession.git
+	url = https://www.github.com/tpope/vim-obsession.git
 	ignore = dirty
 [submodule "vim/vim-scriptease"]
 	path = vim/pack/bundle/start/vim-scriptease
-	url = git@github.com:tpope/vim-scriptease.git
+	url = https://www.github.com/tpope/vim-scriptease.git
 	ignore = dirty
 [submodule "vim/coc-fzf"]
 	path = vim/pack/bundle/start/coc-fzf
-	url = git@github.com:antoinemadec/coc-fzf.git
+	url = https://www.github.com/antoinemadec/coc-fzf.git
 	ignore = dirty
 [submodule "vim/coc.nvim"]
 	path = vim/pack/bundle/start/coc.nvim
-	url = git@github.com:neoclide/coc.nvim.git
+	url = https://www.github.com/neoclide/coc.nvim.git
 	ignore = dirty
 	branch = release
 [submodule "vim/vim-cpp-enhanced-highlight"]
 	path = vim/pack/bundle/start/vim-cpp-enhanced-highlight
-	url = git@github.com:octol/vim-cpp-enhanced-highlight.git
+	url = https://www.github.com/octol/vim-cpp-enhanced-highlight.git
 	ignore = dirty
 [submodule "vim/vim-indent-object"]
 	path = vim/pack/bundle/start/vim-indent-object
-	url = git@github.com:michaeljsmith/vim-indent-object.git
+	url = https://www.github.com/michaeljsmith/vim-indent-object.git
 	ignore = dirty
 [submodule "vim/FYT.vim"]
 	path = vim/pack/bundle/start/FYT.vim
-	url = git@github.com:statox/FYT.vim.git
+	url = https://www.github.com/statox/FYT.vim.git
 	ignore = dirty
 [submodule "gnome_setup/xcape"]
 	path = gnome_setup/xcape
-	url = git@github.com:alols/xcape.git
+	url = https://www.github.com/alols/xcape.git
 	ignore = dirty
 [submodule "langserver/efm-langserver"]
 	path = langserver/efm-langserver
-	url = git@github.com:mattn/efm-langserver.git
+	url = https://www.github.com/mattn/efm-langserver.git
 	ignore = dirty
 [submodule "langserver/groovy-language-server"]
 	path = langserver/groovy-language-server
-	url = git@github.com:prominic/groovy-language-server.git
+	url = https://www.github.com/prominic/groovy-language-server.git
 [submodule "tmux/plugins/tmux-resurrect"]
 	path = tmux/plugins/tmux-resurrect
-	url = git@github.com:tmux-plugins/tmux-resurrect
+	url = https://www.github.com/tmux-plugins/tmux-resurrect
 [submodule "tmux/plugins/tmux-fzf"]
 	path = tmux/plugins/tmux-fzf
-	url = git@github.com:sainnhe/tmux-fzf.git
+	url = https://www.github.com/sainnhe/tmux-fzf.git
 [submodule "shells/zsh/plugins/zsh-autosuggestions"]
 	path = shells/zsh/plugins/zsh-autosuggestions
-	url = git@github.com:zsh-users/zsh-autosuggestions.git
+	url = https://www.github.com/zsh-users/zsh-autosuggestions.git
 [submodule "shells/zsh/plugins/zsh-syntax-highlighting"]
 	path = shells/zsh/plugins/zsh-syntax-highlighting
-	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+	url = https://www.github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "shells/shells/zsh/plugins/zsh-vi-mode"]
 	path = shells/zsh/plugins/zsh-vi-mode
-	url = git@github.com:jeffreytse/zsh-vi-mode.git
+	url = https://www.github.com/jeffreytse/zsh-vi-mode.git
 [submodule "fonts/JetBrainsMono"]
 	path = fonts/JetBrainsMono
-	url = git@github.com:JetBrains/JetBrainsMono.git
+	url = https://www.github.com/JetBrains/JetBrainsMono.git
 	ignore = dirty
 [submodule "vim/pack/bundle/start/vim-lsp-cxx-highlight"]
 	path = vim/pack/bundle/start/vim-lsp-cxx-highlight
-	url = git@github.com:jackguo380/vim-lsp-cxx-highlight.git
+	url = https://www.github.com/jackguo380/vim-lsp-cxx-highlight.git
 [submodule "shells/themes/base16-shell"]
 	path = shells/themes/base16-shell
-	url = git@github.com:chriskempson/base16-shell.git
+	url = https://www.github.com/chriskempson/base16-shell.git
 [submodule "42/norminettev1"]
 	path = 42/norminettev1
 	url = git@gitlab.com:42lyon/norminette-client-externe.git
 [submodule "tmux/plugins/tmux-continuum"]
 	path = tmux/plugins/tmux-continuum
-	url = git@github.com:tmux-plugins/tmux-continuum.git
+	url = https://www.github.com/tmux-plugins/tmux-continuum.git
