@@ -41,7 +41,7 @@ alias l='ls -CF'
 alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
 
 ## cp is rsync
-alias cp='rsync -vh --archive --progress --whole-file'
+alias cp="rsync -vh --archive --progress --whole-file"
 
 ## Git
 
