@@ -12,12 +12,27 @@ let g:TermToggleRight     = get(g:, 'TermToggleRight', '1')
 let g:TermToggleBottom    = g:TermToggleBottom == '1' ? 'J': 'K'
 let g:TermToggleRight     = g:TermToggleRight == '1' ? 'L': 'H'
 
-nnoremap <silent> <Plug>(TermToggleV) :<c-u>call
-      \ <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)<cr>
-nnoremap <silent> <Plug>(TermToggle)  :<c-u>call
-      \ <sid>TermToggle(g:TermToggleBottom, g:TermToggleHeight)<cr>
-nnoremap <Plug>(TermPop)     :<c-u>call
-      \ <sid>PopupTerminal()<cr>
+command! TermToggleV :call <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)
+command! TermToggle  :call <sid>TermToggle(g:TermToggleBottom, g:TermToggleHeight)
+command! TermPop     :call <sid>PopupTerminal()
+
+nnoremap yot :TermToggle<cr>
+nnoremap yo<c-t> :TermToggleV<cr>
+nnoremap yoT :TermPop<cr>
+
+" " does not work
+" nnoremap <expr> <Plug>TermToggleV <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)
+" nnoremap <expr> <Plug>TermToggle  <sid>TermToggle(g:TermToggleBottom, g:TermToggleHeight)
+" nnoremap <expr> <Plug>TermPop     <sid>PopupTerminal()
+" if !hasmapto('<Plug>TermToggle') && maparg('yot','n') ==# ''
+"   nmap yot <Plug>TermToggle
+" endif
+" if !hasmapto('<Plug>TermToggleV') && maparg('yo<c-t>','n') ==# ''
+"   nmap yo<c-t> <Plug>TermToggleV
+" endif
+" if !hasmapto('<Plug>TermPop') && maparg('yoT','n') ==# ''
+"   nmap yoT <Plug>TermPop
+" endif
 
 " <c-z> but back with any key
 function! ShowTerm() abort
