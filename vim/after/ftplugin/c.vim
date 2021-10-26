@@ -1,7 +1,6 @@
 setlocal colorcolumn=81
 setlocal foldmethod=syntax
 setlocal suffixesadd=.c,.h
-setlocal filetype=c
 setlocal path=inc,incs,includes,include,src,sources,source
 
 " workaround for makefile: last line would link to a wrong file
@@ -47,9 +46,9 @@ nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><
 nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
 " compile and execute current
-nnoremap <buffer> <leader>cc :!gcc -Wall -Wextra % && ./a.out<cr>
-nnoremap <buffer> <leader>cC :!gcc -Wall -Wextra % && ./a.out<cr>
-nnoremap <buffer> <leader>csc :Shell gcc -Wall -Wextra % && ./a.out<cr>
+nnoremap <buffer> <leader>cc      :!gcc -Wall -Wextra % && ./a.out<cr>
+nnoremap <buffer> <leader>cC      :!gcc -Wall -Wextra % && ./a.out<cr>
+nnoremap <buffer> <leader>csc     :Shell gcc -Wall -Wextra % && ./a.out<cr>
 nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
 " auto close brackets
@@ -74,8 +73,8 @@ nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? 'mz$x`z' : "mzA;\<esc>`z"
 nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? 'mz$x`z' : "mzA,\<esc>`z"
 
-"  name of current c,cpp function (needs '()')
-nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
+" declaration of current function (needs '()')
+nnoremap <buffer> <silent> <leader>gm ][[[h^t(b
 
 " select all text in function
 nnoremap <buffer> <leader>vf j[[V%o
@@ -94,7 +93,9 @@ nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
 
 " lsp
 " switch to header file
-nnoremap <leader>hh :CocCommand clangd.switchSourceHeader<cr>
+if exists(":CocCommand")
+  nnoremap <leader>hh :CocCommand clangd.switchSourceHeader<cr>
+endif
 
 nmap <leader>cn <plug>(NorminetteFile)
 nmap <leader>cN <plug>(NorminetteFolder)
