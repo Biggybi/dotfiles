@@ -20,10 +20,6 @@ XTerm*faceSize4: 14
 XTerm*faceSize5: 16
 XTerm*faceSize6: 20
 
-/* colors */
-*foreground: rgb:b2/b2/b2
-*background: rgb:20/20/20
-
 /* cursor */
 XTerm*cursorColor: grey
 XTerm.vt100.cursorBlink: never
