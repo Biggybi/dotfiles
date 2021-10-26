@@ -154,6 +154,18 @@ endif
 
 call s:modeColorInit()
 
+if has("nvim")
+  augroup NvimColorAu
+    au!
+    au ColorScheme *
+          \ call s:modeColorInit()
+    au InsertEnter *
+          \ call s:modeColorHL(s:HLStrings['Insert'])
+    au CmdlineEnter *
+          \ call s:modeColorHL(s:HLStrings['Cmd'])
+  augroup END
+endif
+
 augroup StartModeColor
   au!
   au ColorScheme *
