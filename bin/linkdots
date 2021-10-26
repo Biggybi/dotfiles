@@ -130,10 +130,7 @@ do
 	if [ ! -e "$DST/$l" ]
 	then
 		linkparent=$(echo $DST/$l | sed 's/\(\/.*\/\).*/\1/')
-		if [ -d $linkparent ]
-		then
-			mkdir $linkparent
-		fi
+		! [ -d $linkparent ] && mkdir -p $linkparent
 		ln -fs "$SRC/$f" "$DST/$l"
 		echo "link created : $l -> $f "
 	fi
