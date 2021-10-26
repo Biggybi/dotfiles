@@ -73,7 +73,7 @@ function! VerboseUpdate() abort
 endfunction
 
 nnoremap <c-s> :call VerboseUpdate()<cr>
-vnoremap <c-s> :call VerboseUpdate()<cr>
+vnoremap <c-s> :<c-u>call VerboseUpdate()<cr>
 inoremap <c-s> <esc>:call VerboseUpdate()<cr>
 
 " :W! save files as root
@@ -373,7 +373,7 @@ vnoremap <leader><space> <c-^>
 " last buffer in vertical split
 nnoremap <c-w><space><space> :vertical split #<cr>
 " onoremap <c-w><space><space> :vertical split #<cr>
-vnoremap <c-w><space><space> :vertical split #<cr>
+vnoremap <c-w><space><space> :<c-u>vertical split #<cr>
 
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
