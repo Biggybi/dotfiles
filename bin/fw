@@ -2,7 +2,7 @@
 
 # Open a folder of a DIR in EDITOR with fzf
 
-DIR="$HOME/42"
+DIR="$HOME/Work/prog"
 
 SUBDIR=$([ $DIR ] && find $DIR -maxdepth 1 -type d -name "[^.]*" |\
 	 sed s/^\.*\\/// | grep -v *.\\/ | grep -v "^$" | sort -r |\
