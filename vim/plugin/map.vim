@@ -79,6 +79,21 @@ inoremap <c-s> <esc>:call VerboseUpdate()<cr>
 " :W! save files as root
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
+"""        Insert mode undo breaks
+inoremap . .<c-g>u
+inoremap , ,<c-g>u
+inoremap ; ;<c-g>u
+inoremap : :<c-g>u
+inoremap ' '<c-g>u
+inoremap " "<c-g>u
+inoremap ` `<c-g>u
+inoremap ( (<c-g>u
+inoremap ) )<c-g>u
+inoremap { {<c-g>u
+inoremap } }<c-g>u
+inoremap [ [<c-g>u
+inoremap ] ]<c-g>u
+
 """        Toggles
 
 " Toggle ModeColorSwitch
