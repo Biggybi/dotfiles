@@ -4,14 +4,14 @@ if exists('g:plugin_`!v expand("%:t:r")`')
   finish
 endif
 let g:plugin_`!v expand("%:t:r")` = 1
-
-
+${4}
 endsnippet
 
 # Titlelize in the Transformation
 snippet title "Titlelize in the Transformation"
 ${1:a text}
 ${1/\w+\s*/\\u$0/g}
+${2}
 endsnippet
 
 # Create plugin <plug> mappings and commands
