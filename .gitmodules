@@ -174,3 +174,6 @@
 [submodule "vim/pack/bundle/start/vim-abolish"]
 	path = vim/pack/bundle/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish
+[submodule "vim/pack/bundle/start/vim-go"]
+	path = vim/pack/bundle/start/vim-go
+	url = https://github.com/fatih/vim-go
