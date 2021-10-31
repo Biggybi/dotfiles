@@ -3,7 +3,6 @@ if exists('g:plugin_window_zoom')
 endif
 let g:plugin_window_zoom = 1
 
-" Zoom / Restore window.
 function! s:ZoomToggle() abort
     if exists('t:zoomed') && t:zoomed
         execute t:zoom_winrestcmd
