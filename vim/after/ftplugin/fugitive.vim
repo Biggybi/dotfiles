@@ -1,4 +1,4 @@
 nmap <buffer> [h [c
 nmap <buffer> ]h ]c
-nmap <c-j> ]]
-nmap <c-k> [[
+nmap <buffer> <c-j> ]]
+nmap <buffer> <c-k> [[

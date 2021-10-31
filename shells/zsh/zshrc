@@ -5,11 +5,6 @@
 #												   zshrc  #
 ###########################################################
 
-# autocompletion
-autoload -Uz compinit promptinit
-compinit
-promptinit
-
 # environment
 if [ -n "$ZSH_ENV" ]; then source "$ZSH_ENV"; fi
 
@@ -25,6 +20,13 @@ unsetopt BEEP
 
 # Environment variables
 
+## Applications
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export MANPAGER="vim -M +MANPAGER -"
+export BROWSER=firefox
+
+## PATH
 export GOPATH=$HOME/bin/go
 export PATH=$PATH:~/bin:/usr/lib
 PATH+=:~/.npm-global/bin
@@ -32,10 +34,8 @@ PATH+=:/home/linuxbrew/.linuxbrew/bin
 PATH+=:$GOPATH/bin
 PATH+=:~/bin/norminette
 
-export VISUAL=vim
-export EDITOR="$VISUAL"
-export MANPAGER="vim -M +MANPAGER -"
-export BROWSER=firefox
+## Paths
+export PROG="$HOME/Work/prog/"
 export DOT="$HOME/dotfiles"
 export LFT="$HOME/42/libft/"
 export HOME_VID="$HOME/Videos"
@@ -62,7 +62,11 @@ setopt INC_APPEND_HISTORY               # update history when command is issued
 setopt HIST_IGNORE_ALL_DUPS             # hide duplicates in history
 setopt HIST_IGNORE_SPACE                # hide commands starting with spaces
 
-# completion
+# autocompletion
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' #  case insensitive
 zstyle ':completion:*' menu selectzmodload                # use menu
 setopt no_list_ambiguous                                  # complete then show menu
@@ -80,9 +84,9 @@ bindkey '^b' backward-char
 bindkey '^f' forward-char
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
-bindkey '^l' clear-screen
 bindkey '^j' history-search-forward
 bindkey '^k' history-search-backward
+bindkey '^l' clear-screen
 bindkey '^[[B' history-search-forward
 bindkey '^[[A' history-search-backward
 bindkey '^o' expand-or-complete
