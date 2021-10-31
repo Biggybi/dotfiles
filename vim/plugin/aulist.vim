@@ -1,6 +1,11 @@
 " taken from https://gist.github.com/george-b/2f842efaf2141cb935a81f6174b6401f
 " modified in https://gist.github.com/benknoble/d53208c6f1ad8f2130fd706c9cdbd006
 
+if exists('g:plugin_aulist')
+  finish
+endif
+let g:plugin_aulist = 1
+
 if !exists('##CmdlineLeave')
   finish
 endif
