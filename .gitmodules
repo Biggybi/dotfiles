@@ -165,3 +165,6 @@
 [submodule "tmux/plugins/tmux-continuum"]
 	path = tmux/plugins/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "vim/pack/bundle/start/ZoomWin"]
+	path = vim/pack/bundle/start/ZoomWin
+	url = https://github.com/itspriddle/ZoomWin
