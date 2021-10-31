@@ -1,8 +1,3 @@
-if exists('g:plugin_vimwiki')
-  finish
-endif
-let plugin_vimwiki = 1
-
 let g:vimwiki_list = [{'path': '~/vimwiki/',
       \ 'syntax': 'markdown', 'ext': '.md'}]
 

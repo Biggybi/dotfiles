@@ -1,8 +1,3 @@
-if exists('g:plugin_gitgutter')
-  finish
-endif
-let g:plugin_gitgutter = 1
-
 if exists('&signcolumn')        " Vim 7.4.2201
   set signcolumn=yes
 else
