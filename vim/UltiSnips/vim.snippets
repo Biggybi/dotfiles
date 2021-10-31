@@ -1,0 +1,25 @@
+# Multi-inclusion protection
+snippet plug_guards "Multi-inclusion protection" b
+if exists('g:plugin_`!v expand("%:t:r")`')
+  finish
+endif
+let g:plugin_`!v expand("%:t:r")` = 1
+
+
+endsnippet
+
+# Titlelize in the Transformation
+snippet title "Titlelize in the Transformation"
+${1:a text}
+${1/\w+\s*/\\u$0/g}
+endsnippet
+
+# Create plugin <plug> mappings and commands
+snippet plug_map "Create plugin <plug> mappings and commands" b!
+command! ${1:Name} :call s:${1/\w+\s*/\l$0/}  ()
+nnoremap <expr> <plug>`!p snip.rv = t[1]` <sid>${1/\w+\s*/\l$0/}()
+if !hasmapto('<plug>`!p snip.rv = t[1]`') && maparg('`!p snip.rv = t[3]`', '${2:mode}') ==# ''
+  `!p snip.rv = t[2]`map ${3:mapping} <plug>`!p snip.rv = t[1]`
+endif
+${4}
+endsnippet
