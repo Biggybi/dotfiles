@@ -121,11 +121,6 @@ nnoremap yo<c-u> :UndotreeFocus<cr>
 " Obsession
 nnoremap yoo :call ToggleObsession()<cr>
 
-" Switch dark / light theme[
-nnoremap <silent> yob :DarkLightSwitch<cr>
-nnoremap <silent> [ob :DarkLightFirst<cr>
-nnoremap <silent> ]ob :DarkLightLast<cr>
-
 " Netrw toggle - left
 let s:netrw_winsize = get(g:, 'netrw_winsize', '-80')
 function! NetrwToggle() abort

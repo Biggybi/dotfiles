@@ -7,41 +7,41 @@ let g:dls_theme_force_load_start = get(g:, 'dls_theme_force_load_start', '0')
 let g:dls_theme_source_sensitive = get(g:, 'dls_theme_source_sensitive', '0')
 let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
 
-function! s:SetTheme(theme) abort
+function! s:setTheme(theme) abort
   try
     exe "colorscheme" a:theme
   catch /^Vim\%((\a\+)\)\=:E185/
   endtry
 endfunction
 
-function! s:SelectColorScheme() abort
+function! s:selectColorScheme() abort
   if g:dls_theme_force_load_start != '0'
     if index(g:dls_theme_list, g:dls_theme_force_load_start) >= 0
-      call s:SetTheme(g:dls_theme_force_load_start)
+      call s:setTheme(g:dls_theme_force_load_start)
     else
       echom "Auto theme not found:" g:dls_theme_force_load_start .
             \ ". Using default:" g:dls_theme_list[0]. "."
-      call s:SetTheme(g:dls_theme_list[0])
+      call s:setTheme(g:dls_theme_list[0])
     endif
     unlet g:dls_theme_force_load_start
   else
     let hour = strftime("%H")
     if g:dls_daytime[0] <= hour && hour < g:dls_daytime[1]
-      call s:SetTheme(g:dls_theme_list[1])
+      call s:setTheme(g:dls_theme_list[1])
     else
-      call s:SetTheme(g:dls_theme_list[2])
+      call s:setTheme(g:dls_theme_list[2])
     endif
   endif
 endfunction
 
 if ! exists("s:theme_change")
-  call s:SelectColorScheme()
+  call s:selectColorScheme()
 endif
 if g:dls_theme_source_sensitive == 1
-  call s:SelectColorScheme()
+  call s:selectColorScheme()
 endif
 
-function! s:DarkLightSwitch() abort
+function! s:darkLightSwitch() abort
   if ! exists('s:theme_change')
     let s:theme_index = index(g:dls_theme_list, g:colors_name)
   endif
@@ -57,7 +57,7 @@ function! s:DarkLightSwitch() abort
   let s:theme_change = 1
 endfunction
 
-function! s:ApplyScheme(scheme)
+function! s:applyScheme(scheme)
   if index(g:dls_theme_list, a:scheme) < 0
       echom "Auto theme not found:" a:scheme . "."
       return
@@ -65,6 +65,28 @@ function! s:ApplyScheme(scheme)
   exe "colorscheme" a:scheme
 endfunction
 
-command! DarkLightSwitch :call s:DarkLightSwitch()
-command! DarkLightLast :call s:ApplyScheme(get(g:dls_theme_list, -2))
-command! DarkLightFirst :call s:ApplyScheme(get(g:dls_theme_list, 0))
+function! s:darkLightFirst()
+  call s:applyScheme(get(g:dls_theme_list, 0))
+endfunction
+
+function! s:darkLightLast()
+  call s:applyScheme(get(g:dls_theme_list, -2))
+endfunction
+
+command! DarkLightSwitch :call s:darkLightSwitch()
+command! DarkLightFirst  :call s:darkLightFirst()
+command! DarkLightLast   :call s:darkLightLast()
+
+nnoremap <expr> <plug>DarkLightSwitch <sid>darkLightSwitch()
+nnoremap <expr> <plug>DarkLightFirst  <sid>darkLightFirst()
+nnoremap <expr> <plug>DarkLightLast   <sid>darkLightLast()
+
+if !hasmapto('<plug>DarkLightSwitch') && maparg('yob', 'n') ==# ''
+  nmap yob <plug>DarkLightSwitch
+endif
+if !hasmapto('<plug>DarkLightFirst') && maparg('[ob', 'n') ==# ''
+  nmap [ob <plug>DarkLightFirst
+endif
+if !hasmapto('<plug>DarkLightLast') && maparg(']ob', 'n') ==# ''
+  nmap ]ob <plug>DarkLightLast
+endif
