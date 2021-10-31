@@ -4,7 +4,7 @@ setlocal suffixesadd=.go
 setlocal path=inc,incs,includes,include,src,sources,source
 
 " compile and execute current
-nnoremap <buffer> <leader>cc      :exe "VShell ++shell go build " . expand('%') . " && ./" . expand('%<')<cr>
+nnoremap <buffer> <leader>cc      :exe "VShell ++shell go build " . expand('%') . " && ./" . expand('%:r')<cr>
 nnoremap <buffer> <leader>cC      :!gcc -Wall -Wextra % && ./a.out<cr>
 nnoremap <buffer> <leader>cs      :Shell gcc -Wall -Wextra % && ./a.out<cr>
 nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
