@@ -66,16 +66,6 @@ nnoremap - @@
 inoremap <c-z> <c-[><c-z>
 cnoremap <c-z> <c-[><c-z>
 
-" <c-s> save and enter normal mode
-function! VerboseUpdate() abort
-  update
-  echo(':update '.expand('%'))
-endfunction
-
-nnoremap <c-s> :call VerboseUpdate()<cr>
-vnoremap <c-s> :<c-u>call VerboseUpdate()<cr>
-inoremap <c-s> <esc>:call VerboseUpdate()<cr>
-
 " :W! save files as root
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
 
