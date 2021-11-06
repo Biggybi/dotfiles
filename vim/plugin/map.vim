@@ -155,11 +155,9 @@ xnoremap <leader>p "_dP
 nnoremap <leader>p mp"+]p==`p
 nnoremap <leader>P mp"+]P==`p
 " ... on new line ...
-nnoremap <leader>op o<esc>"+]p==
+nnoremap ]<leader>p o<esc>"+]p==
 " ... above
-nnoremap <leader>oP O<esc>"+]p==
-nnoremap <leader>Op O<esc>"+]p==
-nnoremap <leader>OP O<esc>"+]p==
+nnoremap [<leader>p O<esc>"+]p==
 
 " copy to clipboard
 nnoremap <leader>y "+y
