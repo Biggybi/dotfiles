@@ -383,30 +383,75 @@ nnoremap <leader>< :exe "vertical resize -10"<CR>
 
 """        Alt Movement
 
-inoremap <A-h> <left>
-inoremap <A-j> <down>
-inoremap <A-k> <up>
-inoremap <A-l> <right>
+" " for with <meta sends escape> terminal
+" inoremap <expr> <esc>l getcurpos()[2] == 1 && getline('.') != '' ? "<esc>a" : "<esc>a<right>"
+" inoremap <expr> <esc>h getcurpos()[2] == 1 ? "<esc>i<left>" : '<esc>i'
+" inoremap <expr> <esc>j getcurpos()[2] == 1 ? "<esc><down>i" : "<esc><down>a"
+" inoremap <expr> <esc>k getcurpos()[2] == 1 ? "<esc><up>i" : "<esc><up>a"
+" inoremap <c-]> <esc><esc>
+" inoremap e <c-o>$
+" inoremap a <c-o>^
+" inoremap <esc> <c-o>:stopinsert<cr>
 
-nnoremap <silent> <A-k> :wincmd k<cr>
-nnoremap <silent> <A-j> :wincmd j<cr>
-nnoremap <silent> <A-l> :wincmd l<cr>
-nnoremap <silent> <A-h> :wincmd h<cr>
+" " map <left> <right> for escape sequences
+" inoremap <expr> <c-f> getcurpos()[2] == 1 && getline('.') != '' ? "<esc>a" : "<esc>a<right>"
+" inoremap <expr> <c-b> getcurpos()[2] == 1 ? "<esc>i<left>" : '<esc>i'
 
-tnoremap <silent> <A-k> <c-\><c-n>:wincmd k<cr>
-tnoremap <silent> <A-j> <c-\><c-n>:wincmd j<cr>
-tnoremap <silent> <A-l> <c-\><c-n>:wincmd l<cr>
-tnoremap <silent> <A-h> <c-\><c-n>:wincmd h<cr>
+inoremap <a-h> <left>
+inoremap <a-j> <down>
+inoremap <a-k> <up>
+inoremap <a-l> <right>
 
-cnoremap <A-h> <left>
-cnoremap <A-j> <down>
-cnoremap <A-k> <up>
-cnoremap <A-l> <right>
+cnoremap <a-h> <left>
+cnoremap <a-j> <down>
+cnoremap <a-k> <up>
+cnoremap <a-l> <right>
 
-nnoremap <silent> <A-K> :exe "resize +1"<cr>
-nnoremap <silent> <A-J> :exe "resize -1"<cr>
-nnoremap <silent> <A-L> :exe "vertical resize +1"<CR>
-nnoremap <silent> <A-H> :exe "vertical resize -1"<CR>
+nnoremap <silent> <a-h> :wincmd h<cr>
+nnoremap <silent> <a-j> :wincmd j<cr>
+nnoremap <silent> <a-k> :wincmd k<cr>
+nnoremap <silent> <a-l> :wincmd l<cr>
+
+tnoremap <silent> <a-h> <c-\><c-n>:wincmd h<cr>
+tnoremap <silent> <a-j> <c-\><c-n>:wincmd j<cr>
+tnoremap <silent> <a-k> <c-\><c-n>:wincmd k<cr>
+tnoremap <silent> <a-l> <c-\><c-n>:wincmd l<cr>
+
+nnoremap <silent> <a-H> :exe "vertical resize -1"<CR>
+nnoremap <silent> <a-J> :exe "resize -1"<cr>
+nnoremap <silent> <a-K> :exe "resize +1"<cr>
+nnoremap <silent> <a-L> :exe "vertical resize +1"<CR>
+
+nnoremap <silent> <a-o> :tabnext<cr>
+nnoremap <silent> <a-i> :tabprevious<cr>
+
+nnoremap <silent> <leader>o :tabnext<cr>
+nnoremap <silent> <leader>i :tabprevious<cr>
+
+" inoremap <M-h> <left>
+" inoremap <M-j> <down>
+" inoremap <M-k> <up>
+" inoremap <M-l> <right>
+
+" cnoremap <M-h> <left>
+" cnoremap <M-j> <down>
+" cnoremap <M-k> <up>
+" cnoremap <M-l> <right>
+
+" nnoremap <silent> <M-h> :wincmd h<cr>
+" nnoremap <silent> <M-j> :wincmd j<cr>
+" nnoremap <silent> <M-k> :wincmd k<cr>
+" nnoremap <silent> <M-l> :wincmd l<cr>
+
+" tnoremap <silent> <M-h> <c-\><c-n>:wincmd h<cr>
+" tnoremap <silent> <M-j> <c-\><c-n>:wincmd j<cr>
+" tnoremap <silent> <M-k> <c-\><c-n>:wincmd k<cr>
+" tnoremap <silent> <M-l> <c-\><c-n>:wincmd l<cr>
+
+" nnoremap <silent> <M-H> :exe "vertical resize -1"<CR>
+" nnoremap <silent> <M-J> :exe "resize -1"<cr>
+" nnoremap <silent> <M-K> :exe "resize +1"<cr>
+" nnoremap <silent> <M-L> :exe "vertical resize +1"<CR>
 
 """        Searching
 
