@@ -3,8 +3,16 @@ if exists('g:plugin_forward_search')
 endif
 let g:plugin_forward_search = 1
 
-nnoremap <expr> n 'Nn'[v:searchforward]
-nnoremap <expr> N 'nN'[v:searchforward]
+function! s:searchNext()
+  return printf('Nn'[v:searchforward])
+endfunction
+
+function! s:searchPrev()
+  return printf('nN'[v:searchforward])
+endfunction
+
+nnoremap <expr> n <sid>searchNext()
+nnoremap <expr> N <sid>searchPrev()
 
 nnoremap <expr> : getcharsearch().forward ? ';' : ','
 nnoremap <expr> , getcharsearch().forward ? ',' : ';'
