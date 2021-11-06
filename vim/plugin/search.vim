@@ -98,5 +98,5 @@ augroup Current_search_match
   if exists(':AnzuClearSearchStatus')
     autocmd WinLeave * :AnzuClearSearchStatus
   endif
-  autocmd CmdLineEnter / set hlsearch
-augroup END
+  autocmd CmdLineEnter / silent set hlsearch
+augroup end
