@@ -3,4 +3,4 @@ if ! exists('g:anzu_status_format')
 endif
 
 let g:anzu_status_format = "[%i/%l]"
-nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:nohlsearch<cr>
+nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:ToggleHL<cr>
