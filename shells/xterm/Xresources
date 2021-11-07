@@ -2,9 +2,11 @@
 XTerm*loginShell: true
 XTerm*termName: xterm-256color
 
-/* <alt> key */
+/* special keys */
 xterm*metaSendsEscape: false
 xterm*eightBitInput: true
+
+/* bell */
 XTerm*visualBell: False
 XTerm.Bell: false
 
