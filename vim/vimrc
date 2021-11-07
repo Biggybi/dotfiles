@@ -244,7 +244,6 @@ endif
 
 " Colors
 let base16colorspace=256        " access 256 colorspace
-set t_Co=256                    " say terminal supports 256
 if has('termguicolors')
   set termguicolors             " 24 bits colors
 endif
