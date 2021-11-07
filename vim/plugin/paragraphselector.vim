@@ -11,14 +11,16 @@ function! s:visualParagraphUp() range abort
   let wantcol = getcurpos('.')[4]
   let wantline = search('^$\n\zs.*[^\n]', 'nWbe')
   if wantline == 0
-    echo wantline
     if &virtualedit ==# 'block'
       normal gg
     endif
     return
   endif
+  if wantline == curline
+    normal k
+    let wantline = search('^$\n\zs.*[^\n]', 'nWbe')
+  endif
   exe "normal" wantline . "gg"
-  echo wantline
 endfunction
 
 function! s:visualParagraphDown() range abort
