@@ -12,7 +12,7 @@ function! s:visualParagraphUp() range abort
   let wantline = search('^$\n\zs.*[^\n]', 'nWbe')
   if wantline == 0
     if &virtualedit ==# 'block'
-      normal gg
+      exe "normal gg"
     endif
     return
   endif
@@ -21,6 +21,9 @@ function! s:visualParagraphUp() range abort
     let wantline = search('^$\n\zs.*[^\n]', 'nWbe')
   endif
   exe "normal" wantline . "gg"
+  if getcurpos('.')[1] == 1
+    exe "normal ^" . expand(wantcol-1) . "\<right>"
+  endif
 endfunction
 
 function! s:visualParagraphDown() range abort
