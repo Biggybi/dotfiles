@@ -128,6 +128,7 @@ vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
 " Toggle hlsearch + Anzu
 nnoremap <silent> yoh :ToggleHL<cr>
 
+" TODO: keep cursor on the same column
 nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
 command! ZZToggle
       \ let &scrolloff=999-&scrolloff
