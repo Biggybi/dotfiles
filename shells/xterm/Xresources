@@ -34,6 +34,6 @@ XTerm*saveLines: 4096
 XTerm.vt100.translations: #override \n\
 		Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
 		Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
-		Ctrl <Key>-: smaller-vt-font() \n\
-		Ctrl <Key>+: larger-vt-font() \n\
-		Ctrl <Key>0: set-vt-font(d)
+		Meta <Key>-: smaller-vt-font() \n\
+		Meta <Key>+: larger-vt-font() \n\
+		Meta <Key>0: set-vt-font(d)
