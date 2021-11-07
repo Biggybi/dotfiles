@@ -23,3 +23,5 @@ endfunction
 if line('$') == 1 && empty(getline(1)) && &filetype == 'make'
   call <sid>insertMakefileSkel()
 endif
+
+let b:undo_ftplugin = "setlocal colorcolumn< path<"

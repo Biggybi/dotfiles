@@ -99,3 +99,5 @@ endif
 
 nmap <leader>cn <plug>(NorminetteFile)
 nmap <leader>cN <plug>(NorminetteFolder)
+
+let b:undo_ftplugin =  "setlocal colorcolumn< foldmethod< suffixesadd< path<"

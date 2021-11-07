@@ -29,3 +29,5 @@ nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 " semicolon/coma EOL toggle
 nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
 nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"
+
+let b:undo_ftplugin = "setlocal colorcolumn< suffixesadd< path<"

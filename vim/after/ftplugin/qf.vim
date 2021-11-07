@@ -31,3 +31,5 @@ endfunction
 if winheight('quickfix') < &lines - 5
   call s:adjustWindowHeight(1, 5)
 endif
+
+let b:undo_ftplugin = "setlocal colorcolumn< nolist< nocursorline< tw< norelativenumber< showbreak< wrap<"

@@ -6,3 +6,5 @@ setlocal suffixesadd=.md
 " nnoremap <buffer> <leader>cr :Run<cr>
 " nnoremap <buffer> <leader>ca :AutoRun<cr>
 " nnoremap <buffer> <leader><cr> A<br><esc>
+
+let b:undo_ftplugin = "setlocal linebreak< suffixesadd<"

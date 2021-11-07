@@ -70,3 +70,5 @@ inoremap <buffer> ,lorem Lorem ipsum dolor sit amet,
 
 nnoremap <buffer> <leader>; i<c-o>mz<c-o>A;<esc>`z<esc>
 nnoremap <buffer> <leader>, i<c-o>mz<c-o>A,<esc>`z<esc>
+
+let b:undo_ftplugin = "setlocal suffixesadd< colorcolumn<"

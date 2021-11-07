@@ -48,3 +48,5 @@ nnoremap <buffer> <leader>vm ][v%
 if exists(":CocCommand")
   nnoremap <leader>hh :CocCommand clangd.switchSourceHeader<cr>
 endif
+
+let b:undo_ftplugin = "setlocal colorcolumn< foldmethod< suffixesadd< path< tabstop< softtabstop< shiftwidth<"

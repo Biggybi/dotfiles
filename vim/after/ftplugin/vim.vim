@@ -27,3 +27,5 @@ inoremap <buffer> ,""<space> ""<space><space><space><space>
 inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><space><space>
 inoremap <buffer> ,''<space> ""<space><space><space><space>
 inoremap <buffer> ,'''<space> """<space><space><space><space><space><space><space><space>
+
+let b:undo_ftplugin = "setlocal textwidth< shiftwidth< expandtab< tabstop< softtabstop< keywordprg< suffixesadd< formatoptions< runtimepath< path< foldmethod< foldtext< foldexpr< foldlevel<"

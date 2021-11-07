@@ -45,3 +45,5 @@ nnoremap <buffer> <leader>vf j[[V%o
 
 " valgrind
 nnoremap <leader>cv :VShell make valgrind<cr>
+
+let b:undo_ftplugin = "setlocal colorcolumn< foldmethod< suffixesadd< colorcolumn< path<"
