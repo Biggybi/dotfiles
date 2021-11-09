@@ -189,6 +189,9 @@ set splitright                  " default split right
 " set list
 
 " guides smartisation
+if has('cursorline')
+  set cursorline                " for CursorLineNr
+endif
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
 if has('spellcheck')
   set spellcapcheck=            " ignore leading cap in word
@@ -210,7 +213,9 @@ if ! has('nvim')
 endif
 
 set number                      " show number column
-set signcolumn=yes              " at least for now, I'm ok with old behaviour
+if has ('signcolumn')
+  set signcolumn=yes            " at least for now, I'm ok with old behaviour
+endif
 
 " Moves boundaries
 if has('conceal')
@@ -250,8 +255,6 @@ endif
 if has('diff')
   set diffopt+=vertical         " vertical split for diff
 endif
-
-" set cursorline                  " for CursorLineNr
 
 " Tabline
 set tabpagemax=30
