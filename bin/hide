@@ -2,11 +2,11 @@
 
 # Hide or unhide file given as argument
 
-let F=0
+let f=0
 
 if [ $1 == '-f' ]
 then
-	let F=1
+	let f=1
 	shift
 fi
 
@@ -17,7 +17,7 @@ do
 		echo "no such file: $1"
 	elif [[ $1 == '.'* ]]
 	then
-		if [ $F == 0 ] && [ -e ${1:1} ]
+		if [ $f == 0 ] && [ -e ${1:1} ]
 		then
 			echo $1 exists, use -f to override
 		else
@@ -25,7 +25,7 @@ do
 			echo "unhide $1"
 		fi
 	else
-		if [ $F == 0 ] && [ -e "."$1 ]
+		if [ $f == 0 ] && [ -e "."$1 ]
 		then
 			echo "."$1 exists, use -f to override
 		else
