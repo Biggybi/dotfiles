@@ -33,8 +33,10 @@ augroup StatusActiveSwitch
   au BufEnter ?\+ ++once
         \ call s:statusLineActive()
   au WinEnter,BufEnter *
-        \ call s:statusLineActive()
+        \ if &ft !=# 'qf'
+        \ |  call s:statusLineActive()
         \ |setlocal cursorline
+        \ |endif
   au WinLeave *
         \ call s:statusLineInactive()
         \ |setlocal nocursorline
