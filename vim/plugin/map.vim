@@ -453,11 +453,19 @@ nnoremap <silent> <leader>i :tabprevious<cr>
 
 """        Searching
 
-" Pair cycle
-nnoremap <c-g> %
+" Matchit : easier '%'
+nmap <silent> <c-g>  <Plug>(MatchitNormalForward)
+nmap <silent> <c-g>  <Plug>(MatchitNormalForward)
+omap <silent> <c-g>  <Plug>(MatchitOperationForward)
+nmap <silent> [<c-g> <Plug>(MatchitNormalMultiBackward)
+nmap <silent> ]<c-g> <Plug>(MatchitNormalMultiForward)
+xmap <silent> [<c-g> <Plug>(MatchitVisualMultiBackward)
+xmap <silent> ]<c-g> <Plug>(MatchitVisualMultiForward)
+omap <silent> [<c-g> <Plug>(MatchitOperationMultiBackward)
+omap <silent> ]<c-g> <Plug>(MatchitOperationMultiForward)
 
-nnoremap / :silent call clearmatches()<cr>/
-nnoremap ? :silent call clearmatches()<cr>?
+nnoremap /         :silent call clearmatches()<cr>/
+nnoremap ?         :silent call clearmatches()<cr>?
 nnoremap <leader>/ :silent call clearmatches()<cr>/\v
 vnoremap <leader>/ :silent call clearmatches()<cr>/\v
 
