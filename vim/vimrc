@@ -73,11 +73,9 @@ else
   set viewdir=$HOME/.vim/tmp/view//
 endif
 
-if !isdirectory(&backupdir) | call mkdir(&backupdir, 'p') | endif
-if !isdirectory(&directory) | call mkdir(&directory, 'p') | endif
-if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
-if !isdirectory(&viewdir) | call mkdir(&viewdir, 'p') | endif
-if !isdirectory($HOME.'/.vim/tmp/viminfo/') | call mkdir($HOME.'/.vim/tmp/viminfo/', 'p') | endif
+for d in [ &backupdir, &directory, &undodir, &viewdir, $HOME.'/.vim/tmp/viminfo/' ]
+  if !isdirectory(d) | call mkdir(d, 'p') | endif
+endfor
 
 set autoread                    " auto load file changes
 set autowriteall                " auto save file changes
