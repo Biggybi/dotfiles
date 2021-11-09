@@ -325,10 +325,10 @@ nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
       \ <bar><bar> col('.') == col('$') - 1
       \ <bar><bar> col('$') == 1
       \ ? 'w' : 'E'
-vnoremap <expr> <c-l> getline('.')[col('.') - 2] == ' '
+vnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
+      \ <bar><bar> col('.') == col('$') - 1
       \ <bar><bar> col('$') == 1
-      \ <bar><bar> col('.') == 1
       \ ? 'w' : 'E'
 
 nnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
@@ -336,7 +336,7 @@ nnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
       \ <bar><bar> col('$') == 1
       \ <bar><bar> col('.') == 1
       \ ? 'gE' : 'B'
-vnoremap <expr> <c-h> getline('.')[col('.') - 2] == ' '
+vnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
       \ <bar><bar> col('$') == 1
       \ <bar><bar> col('.') == 1
