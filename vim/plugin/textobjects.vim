@@ -109,7 +109,9 @@ for char in get(g:, 'special_char_obj', s:special_char)
   call s:create_a_map(char)
 endfor
 
-for char in get(g:, 'bracket_char_obj', s:bracket_char)
-  call s:create_bracket_i_map(char[0], char[1])
-  call s:create_bracket_a_map(char[0], char[1])
-endfor
+if ! has('patch3255')
+  for char in get(g:, 'bracket_char_obj', s:bracket_char)
+    call s:create_bracket_i_map(char[0], char[1])
+    call s:create_bracket_a_map(char[0], char[1])
+  endfor
+endif
