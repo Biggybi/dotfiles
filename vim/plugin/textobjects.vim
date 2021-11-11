@@ -8,8 +8,8 @@ let g:plugin_textobjects = 1
 onoremap ag :<c-u>normal! ggVG<cr><c-o><c-o>
 
 """        Start / End of line
-onoremap h :<c-u>normal! ^<cr>
-onoremap l :<c-u>normal! v$h<cr>
+onoremap h  :<c-u>normal! ^<cr>
+onoremap l  :<c-u>normal! v$h<cr>
 onoremap il :<c-u>normal! $v_<cr>
 
 """        Special char
