@@ -2,7 +2,9 @@ if exists('g:plugin_textobjects')
   finish
 endif
 let g:plugin_textobjects = 1
+
 " Courtesy of DBK
+" https://github.com/benknoble/Dotfiles/blob/master/links/vim/plugin/punctuation_textobjects.vim
 
 """        Whole Buffer
 onoremap ag :<c-u>normal! ggVG<cr><c-o><c-o>
@@ -12,7 +14,7 @@ onoremap h  :<c-u>normal! ^<cr>
 onoremap l  :<c-u>normal! v$h<cr>
 onoremap il :<c-u>normal! $v_<cr>
 
-"""        Special char
+"""        Special char i / in / iN / a / an / aN
 let s:special_char = [
       \ '.',
       \ ',',
@@ -33,14 +35,7 @@ let s:special_char = [
       \ '&',
       \ ]
 
-let s:bracket_char = [
-      \ [ '(', ')' ],
-      \ [ '{', '}' ],
-      \ [ '<', '>' ],
-      \ [ '[', ']' ],
-      \ ]
-
-function! s:create_i_map(char) abort
+function! s:create_special_i_map(char) abort
   if ! hasmapto(printf('i%s', a:char), 'vo')
     execute printf('xnoremap <unique> i%s :<C-u>normal! T%svt%s<CR>',
           \ a:char, a:char, a:char)
@@ -57,7 +52,7 @@ function! s:create_i_map(char) abort
   endif
 endfunction
 
-function! s:create_a_map(char) abort
+function! s:create_special_a_map(char) abort
   if ! hasmapto(printf('a%s', a:char), 'vo')
     execute printf('xnoremap <unique> a%s :<C-u>normal! F%svf%s<CR>',
           \ a:char, a:char, a:char)
@@ -73,6 +68,24 @@ function! s:create_a_map(char) abort
           \ a:char, a:char)
   endif
 endfunction
+
+for char_pair in get(g:, 'special_char', s:special_char)
+  call s:create_special_i_map(char_pair)
+  call s:create_special_a_map(char_pair)
+endfor
+
+"""        Bracket char in / iN / an / aN
+if has('patch3255')
+  " this was implemented in path 3255
+  finish
+endif
+
+  let s:bracket_char = [
+        \ [ '(', ')' ],
+        \ [ '{', '}' ],
+        \ [ '<', '>' ],
+        \ [ '[', ']' ],
+        \ ]
 
 function! s:create_bracket_i_map(char1, char2) abort
   for char in [a:char1, a:char2]
@@ -104,14 +117,7 @@ function! s:create_bracket_a_map(char1, char2) abort
   endfor
 endfunction
 
-for char in get(g:, 'special_char_obj', s:special_char)
-  call s:create_i_map(char)
-  call s:create_a_map(char)
+for char_pair in get(g:, 'bracket_char', s:bracket_char)
+  call s:create_bracket_i_map(char_pair[0], char_pair[1])
+  call s:create_bracket_a_map(char_pair[0], char_pair[1])
 endfor
-
-if ! has('patch3255')
-  for char in get(g:, 'bracket_char_obj', s:bracket_char)
-    call s:create_bracket_i_map(char[0], char[1])
-    call s:create_bracket_a_map(char[0], char[1])
-  endfor
-endif
