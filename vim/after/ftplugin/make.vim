@@ -24,4 +24,12 @@ if line('$') == 1 && empty(getline(1)) && &filetype == 'make'
   call <sid>insertMakefileSkel()
 endif
 
-let b:undo_ftplugin = "setlocal colorcolumn< path<"
+" auto close brackets
+inoremap <buffer> ( ()<c-g>U<left>
+inoremap <buffer> $ $()<left>
+
+let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
+if ! empty('b:undo_ftplugin')
+  let b:undo_ftplugin .= ' | '
+endif
+let b:undo_ftplugin .= "setlocal colorcolumn< path<"

@@ -1,9 +1,13 @@
-setlocal nonu
-setlocal nornu
+setlocal nonumber
+setlocal norelativenumber
 setlocal showbreak=
 setlocal nobreakindent
 setlocal linebreak
 
 nnoremap <buffer> <leader>cr <Plug>(VimwikiToggleListItem)
 
-let b:undo_ftplugin = "setlocal nu< rnu< showbreak< breakindent< linebreak<"
+let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
+if ! empty('b:undo_ftplugin')
+  let b:undo_ftplugin .= ' | '
+endif
+let b:undo_ftplugin .= "setlocal number< relativenumber< showbreak< breakindent< linebreak<"

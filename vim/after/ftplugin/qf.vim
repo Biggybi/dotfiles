@@ -1,13 +1,12 @@
 setlocal colorcolumn=0
 setlocal nolist
 setlocal nocursorline
-setlocal tw=0
+setlocal textwidth=0
 setlocal norelativenumber
 setlocal showbreak=
 setlocal wrap
 
-" vimscript is a joke
-nnoremap <buffer> <cr> :execute "normal! \<lt>cr>"<cr>
+nnoremap <buffer> <silent> <cr> <cr>
 
 nnoremap <buffer> j <c-n>
 nnoremap <buffer> k <c-p>
@@ -32,4 +31,8 @@ if winheight('quickfix') < &lines - 5
   call s:adjustWindowHeight(1, 5)
 endif
 
-let b:undo_ftplugin = "setlocal colorcolumn< list< cursorline< tw< relativenumber< showbreak< wrap<"
+let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
+if ! empty('b:undo_ftplugin')
+  let b:undo_ftplugin .= ' | '
+endif
+let b:undo_ftplugin .= "setlocal colorcolumn< list< cursorline< textwidth< relativenumber< showbreak< wrap<"

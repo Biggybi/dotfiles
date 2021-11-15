@@ -29,4 +29,8 @@ nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
 nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"
 
-let b:undo_ftplugin = "setlocal colorcolumn< suffixesadd< path<"
+let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
+if ! empty('b:undo_ftplugin')
+  let b:undo_ftplugin .= ' | '
+endif
+let b:undo_ftplugin .= "setlocal colorcolumn< suffixesadd< path<"
