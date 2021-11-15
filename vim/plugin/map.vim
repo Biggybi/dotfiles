@@ -197,11 +197,13 @@ nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
 
 """        New Files / Windows
 " new file here
-nnoremap <leader>nn :e <c-r>=expand('%:p:h') . '/'<cr>
-nnoremap <leader>nv :vs <c-r>=expand('%:p:h') . '/'<cr>
-nnoremap <leader>ns :sp <c-r>=expand('%:p:h') . '/'<cr>
-nnoremap <leader>nt :tabnew <c-r>=expand('%:p:h') . '/'<cr>
-nnoremap <leader><c-n> :vs <c-r>=expand('%:p:h') . '/'<cr>
+nnoremap <leader>nn      :e <c-r>=expand('%:p:h').'/'<cr>
+nnoremap <leader>nv     :vs <c-r>=expand('%:p:h').'/'<cr>
+nnoremap <leader>ns     :sp <c-r>=expand('%:p:h').'/'<cr>
+nnoremap <leader>nt :tabnew <c-r>=expand('%:p:h').'/'<cr>
+nnoremap <leader><c-n>  :vs <c-r>=expand('%:p:h').'/'<cr>
+nnoremap <leader>N      :sp <c-r>=expand('%:p:h').'/'<cr>
+
 command! -nargs=1 -complete=command Nomove
       \   try
       \ |     let s:svpos = winsaveview()
