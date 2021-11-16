@@ -189,11 +189,11 @@ set splitright                  " default split right
 " set list
 
 " guides smartisation
-if has('cursorline')
+if exists('&cursorline')
   set cursorline                " for CursorLineNr
 endif
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
-if has('spellcheck')
+if exists('&spellcapcheck')
   set spellcapcheck=            " ignore leading cap in word
 endif
 set nojoinspaces                " and spaces too
@@ -213,12 +213,12 @@ if ! has('nvim')
 endif
 
 set number                      " show number column
-if has ('signcolumn')
+if exists('&signcolumn')
   set signcolumn=yes            " at least for now, I'm ok with old behaviour
 endif
 
 " Moves boundaries
-if has('conceal')
+if exists('&conceal')
   set conceallevel=0
 endif
 set backspace=indent,eol,start  " backspace over lines
