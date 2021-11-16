@@ -47,4 +47,8 @@ inoremap <buffer> ,nu $\varnothing$
 inoremap <buffer> ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<esc>5kA
 inoremap <buffer> ,rn (\ref{})<++><esc>F}i
 
-let b:undo_ftplugin = "setlocal updatetime< suffixesadd<"
+let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
+if ! empty('b:undo_ftplugin')
+  let b:undo_ftplugin .= ' | '
+endif
+let b:undo_ftplugin .= "setlocal updatetime< suffixesadd<"
