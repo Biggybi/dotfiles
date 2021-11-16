@@ -98,7 +98,7 @@ set ttimeout                    " timeout on keycodes
 set ttimeoutlen=10              " of 10 ms
 set mouse=a                     " it's a secret
 
-if ! has('nvim')
+if ! has('nvim') && exists('&ttymouse')
   set ttymouse=xterm2           " allow mouse in tmux
 endif
 
