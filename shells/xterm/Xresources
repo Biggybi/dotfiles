@@ -12,8 +12,8 @@ XTerm.Bell: false
 
 /* font */
 XTerm.vt100.renderFont: true
-XTerm*faceName: JetBrains Mono NL
-XTerm*faceSize: 12
+XTerm*faceName:  JetBrains Mono NL
+XTerm*faceSize:  12
 XTerm*faceSize1: 10
 XTerm*faceSize2: 11
 XTerm*faceSize3: 12
