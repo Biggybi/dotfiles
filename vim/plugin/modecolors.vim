@@ -22,6 +22,7 @@ function! s:getHLString(group) abort
   endif
 endfunction
 
+" TODO: optional hl groups (link to existing groups by default)
 function! s:setHLDic() abort
   let s:HLStrings = {
         \ 'Mid'      : s:getHLString('SuliMid'),
@@ -47,25 +48,21 @@ function! s:setExtraStrings() abort
   let s:HLGroupNormal = s:getHLString(g:modecolor_extra_normal)
 endfunction
 
-function! s:modeColorHL(color) abort
-  if a:color == '!'
-    if g:modecolor_extra != ''
-      exe "silent hi" g:modecolor_extra s:HLGroupNormal
-    endif
-    return
-  endif
-  if a:color != ''
-    exe "silent hi User1" a:color
-  else
-  endif
+function! s:modeColorExtraHL(color) abort
   if g:modecolor_extra ==# ''
     return
   endif
-  if a:color is s:HLStrings['Normal']
-    exe "silent hi" g:modecolor_extra s:HLGroupNormal
-  else
-    exe "silent hi" g:modecolor_extra a:color
+  if a:color ==# ''
+    let a:color = s:HLGroupNormal
   endif
+    exe "silent hi" g:modecolor_extra a:color
+endfunction
+
+function! s:modeColorHL(color) abort
+  if a:color != ''
+    exe "silent hi User1" a:color
+  endif
+  call s:modeColorExtraHL(a:color)
 endfunction
 
 function! s:highlightUserGroups() abort
@@ -184,10 +181,8 @@ command! -bang -nargs=? -complete=highlight ModeColorExtra
       \ if exists('s:modecolor_timer') && ! timer_info(s:modecolor_timer)[0]['paused']
       \ |  call timer_pause(s:modecolor_timer, 1)
       \ |endif
-      \ |call s:modeColorHL(s:getHLString(<f-args>))
-      \ |if expand('<bang>') == '!'
-      \ |  call s:modeColorHL('!')
-      \ |endif
+      \ |if expand('<bang>') == '!' |  call s:modeColorExtraHL(s:getHLString(<f-args>))
+      \ |else | call s:modeColorHL(s:getHLString(<f-args>)) | endif
 
 " toggle color switch
 command! -nargs=0 ModeColorToggle call s:modeColorToggle()
