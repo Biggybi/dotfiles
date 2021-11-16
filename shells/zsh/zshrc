@@ -93,18 +93,18 @@ bindkey '^o' expand-or-complete
 bindkey '^n' accept-and-infer-next-history
 bindkey '^ ' autosuggest-accept
 
-bindkey '^[h' vi-backward-char
-bindkey '^[j' history-search-forward
-bindkey '^[l' vi-forward-char
-bindkey '^[k' history-search-backward
+bindkey 'è' vi-backward-char
+bindkey 'ê' history-search-forward
+bindkey 'ë' history-search-backward
+bindkey 'ì' vi-forward-char
 
 # complete menu mode mappings
 zmodload zsh/complist
 
-bindkey -M menuselect '^[h' vi-backward-char
-bindkey -M menuselect '^[j' vi-down-line-or-history
-bindkey -M menuselect '^[l' vi-forward-char
-bindkey -M menuselect '^[k' vi-up-line-or-history
+bindkey -M menuselect 'è' vi-backward-char
+bindkey -M menuselect 'ê' vi-down-line-or-history
+bindkey -M menuselect 'ë' vi-up-line-or-history
+bindkey -M menuselect 'ì' vi-forward-char
 bindkey -M menuselect '^[y' accept-search
 bindkey -M menuselect '^[m' accept-search
 bindkey -M menuselect '^y' accept-search
@@ -143,7 +143,6 @@ git_branch() {
 }
 
 setopt prompt_subst
-# autoload -U promptinit
 precmd() {
 	psvar[1]=$(git_branch)
 }

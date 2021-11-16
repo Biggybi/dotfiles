@@ -12,8 +12,8 @@ augroup HelpManSplit
         \ if winwidth(win_getid()) != 80
         \ |  silent! wincmd H | silent! 80 wincmd|
         \ |endif
-  au FileType help
-        \ let &scrolloff = &lines/10 + 1
+  " au FileType help
+  "       \ let &scrolloff = &lines/10 + 1
   au FileType help au! BufLeave,WinLeave <buffer> silent!
         \ if &columns < 100 | silent! 0 wincmd| | endif
 augroup end
