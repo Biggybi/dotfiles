@@ -19,9 +19,6 @@ if ! has('nvim')
   packadd! termdebug
 endif
 
-" workaround for makefile error: fix wrong file entry
-set errorformat^=%Amake:\ ***\ [%f:%l:\ %.%#]%m
-
 filetype on                     " use filetype detection
 filetype plugin on              " use filetype plugin
 filetype indent on              " use indent plugin
@@ -38,6 +35,8 @@ set ttyfast                     " faster redrawing
 set nolazyredraw                " no redraw executing macros
 set tags=tags,.git/tags
 
+" workaround for makefile error: fix wrong file entry
+set errorformat^=%Amake:\ ***\ [%f:%l:\ %.%#]%m
 
 """        Restore
 
@@ -190,11 +189,11 @@ set splitright                  " default split right
 " set list
 
 " guides smartisation
-if has('cursorline')
+if exists('&cursorline')
   set cursorline                " for CursorLineNr
 endif
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
-if has('spellcheck')
+if exists('&spellcapcheck')
   set spellcapcheck=            " ignore leading cap in word
 endif
 set nojoinspaces                " and spaces too
@@ -214,12 +213,12 @@ if ! has('nvim')
 endif
 
 set number                      " show number column
-if has ('signcolumn')
+if exists('&signcolumn')
   set signcolumn=yes            " at least for now, I'm ok with old behaviour
 endif
 
 " Moves boundaries
-if has('conceal')
+if exists('&conceal')
   set conceallevel=0
 endif
 set backspace=indent,eol,start  " backspace over lines
@@ -261,10 +260,6 @@ endif
 set tabpagemax=30
 
 ""    Plugins settings
-"""        Pathogen Helptags
-
-command! -bar Helptags :call pathogen#helptags()
-
 """        Termdebug
 
 " let g:termdebug_wide = 163

@@ -5,11 +5,23 @@ setlocal textwidth=0
 setlocal norelativenumber
 setlocal showbreak=
 setlocal wrap
+setlocal nomodeline
 
 nnoremap <buffer> <silent> <cr> <cr>
 
 nnoremap <buffer> j <c-n>
 nnoremap <buffer> k <c-p>
+
+function! s:quickFixCurrentErrorIdx()
+  let qfid = getqflist({'id' : 0}).id
+  let qf_err = getqflist({'id' : qfid, 'idx' : 0}).idx
+  return printf(":%scc|wincmd p|%d", qf_err, qf_err)
+endfunction
+
+nnoremap <silent> <buffer> <c-k> :cprev<cr>:wincmd p<cr>
+nnoremap <silent> <buffer> <c-j> :cnext<cr>:wincmd p<cr>
+nnoremap <silent> <buffer> <c-h> :exe <sid>quickFixCurrentErrorIdx()<cr>
+nnoremap <silent> <buffer> <c-l> <cr>:wincmd p<cr>
 
 " Quickfix window height auto adjust if too big
 function! s:adjustWindowHeight(minheight, maxheight)
@@ -35,4 +47,5 @@ let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
 if ! empty('b:undo_ftplugin')
   let b:undo_ftplugin .= ' | '
 endif
-let b:undo_ftplugin .= "setlocal colorcolumn< list< cursorline< textwidth< relativenumber< showbreak< wrap<"
+let b:undo_ftplugin .= "setlocal colorcolumn< list< cursorline< textwidth< relativenumber< showbreak< wrap< modeline<"
+let b:undo_ftplugin .= "| if hasmapto('\<sid>quickFixCurrentErrorIdx') | nunmap <buffer> <c-j> | nunmap <buffer> <c-k> | nunmap <buffer> <c-h> | nunmap <buffer> <c-l> | endif"
