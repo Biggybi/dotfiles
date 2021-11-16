@@ -11,6 +11,10 @@ nnoremap <buffer> <silent> <cr> <cr>
 nnoremap <buffer> j <c-n>
 nnoremap <buffer> k <c-p>
 
+nnoremap <silent> <buffer> <c-k> :cprev<cr>:wincmd p<cr>
+nnoremap <silent> <buffer> <c-j> :cnext<cr>:wincmd p<cr>
+nnoremap <silent> <buffer> <c-h> <cr><c-w>p
+
 " Quickfix window height auto adjust if too big
 function! s:adjustWindowHeight(minheight, maxheight)
   let l = 1
