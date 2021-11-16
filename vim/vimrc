@@ -260,10 +260,6 @@ endif
 set tabpagemax=30
 
 ""    Plugins settings
-"""        Pathogen Helptags
-
-command! -bar Helptags :call pathogen#helptags()
-
 """        Termdebug
 
 " let g:termdebug_wide = 163
