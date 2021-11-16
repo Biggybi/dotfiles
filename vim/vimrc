@@ -19,14 +19,16 @@ if ! has('nvim')
   packadd! termdebug
 endif
 
+" workaround for makefile error: fix wrong file entry
+set errorformat^=%Amake:\ ***\ [%f:%l:\ %.%#]%m
+
 filetype on                     " use filetype detection
 filetype plugin on              " use filetype plugin
 filetype indent on              " use indent plugin
 set keywordprg=:Man
 
 " use bash aliases
-let $BASH_ENV =
-      \'$HOME/dotfiles/shells/bash/bash_aliases'
+let $BASH_ENV = '$HOME/dotfiles/shells/bash/bash_aliases'
 let $PAGER=''                   " vim as pager
 
 syntax on
@@ -109,8 +111,7 @@ if has('extra_search')
   set incsearch                 " highlight match while typing
 endif
 " set path+=**                  " recursive path from current path
-" ignore some files from wildcard expansion
-set nrformats=hex            " <c-a>/<c-x> do not use octals
+set nrformats=hex               " <c-a>/<c-x> do not use octals
 
 if has('wildignore')
   set wildignore+=**/__pycache__/**
