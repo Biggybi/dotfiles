@@ -232,13 +232,13 @@ nnoremap <silent> <c-w><c-d> :Lexplore <cfile><cr>
 
 " Open / close fold with <c-space>
 if ! has("nvim")
-  nnoremap <c-@> za
-  onoremap <c-@> <c-c>za
-  vnoremap <c-@> zf
+  nnoremap <silent> <c-@> za:call FitBufferWindowBottom()<cr>
+  onoremap <silent> <c-@> <c-c>za:call FitBufferWindowBottom()<cr>
+  vnoremap <silent> <c-@> zf
 elseif has("nvim")
-  nnoremap <c-space> za
-  onoremap <c-space> <c-c>za
-  vnoremap <c-space> zf
+  nnoremap <silent> <c-space> za:call FitBufferWindowBottom()<cr>
+  onoremap <silent> <c-space> <c-c>za:call FitBufferWindowBottom()<cr>
+  vnoremap <silent> <c-space> zf
 endif
 
 " close every fold except current
