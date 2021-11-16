@@ -159,6 +159,11 @@ nnoremap <leader>P mp"+]P==`p
 nnoremap ]<leader>p o<esc>"+]p==
 " ... above
 nnoremap [<leader>p O<esc>"+]p==
+" ... fix conflict for unimpaired blank lines
+if mapleader == "\<space>"
+  nmap [<space><space> <plug>Unimpaired-blank-up
+  nmap ]<space><space> <plug>Unimpaired-blank-up
+endif
 
 " copy to clipboard
 nnoremap <leader>y "+y
