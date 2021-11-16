@@ -10,8 +10,7 @@
 "                                                                              "
 " **************************************************************************** "
 
-""    Settings
-"""        General settings
+""    General settings
 
 runtime! ftplugin/man.vim
 if ! has('nvim')
@@ -35,10 +34,189 @@ set ttyfast                     " faster redrawing
 set nolazyredraw                " no redraw executing macros
 set tags=tags,.git/tags
 
+" Mappings chill
+let mapleader=' '
+set notimeout                   " no timeout on maps
+set ttimeout                    " timeout on keycodes
+set ttimeoutlen=10              " of 10 ms
+set mouse=a                     " it's a secret
+
+if ! has('nvim') && exists('&ttymouse')
+  set ttymouse=xterm2           " allow mouse in tmux
+endif
+
+" Bell off
+set visualbell                  " do not ring the bell
+set noerrorbells                " no bell for error messages
+set t_vb=                       " no bell at all
+
+" Splits / Buffers
+set switchbuf=usetab            " open buffer window if exists
+set splitbelow                  " default split below
+set splitright                  " default split right
+
 " workaround for makefile error: fix wrong file entry
 set errorformat^=%Amake:\ ***\ [%f:%l:\ %.%#]%m
 
-"""        Restore
+""    UI
+" Insert mode completion menu
+set completeopt+=longest        " complete matching string
+set completeopt+=menuone        " pmenu on single match too
+
+" Indent
+set noexpandtab                 " tabs ftw
+set smarttab                    " tab width start of line
+set tabstop=4                   " visible width of tabs
+set softtabstop=4               " tabs 4 characters wide
+set shiftwidth=4                " indents 4 characters wide
+set shiftround                  " indent congru shiftwidth
+set autoindent                  " automatically indent new line
+if has('smartindent')
+  set smartindent               " ... in a sane way
+endif
+
+" Folds
+if has('folding')
+  if has('windows')
+    set fillchars+=vert:│       " window separator
+  endif
+  set foldmethod=syntax         " fold based on indent
+  set foldnestmax=2             " deepest fold is 10 levels
+  set nofoldenable              " don't fold by default
+endif
+
+" Diffs
+if has('diff')
+  set diffopt+=vertical         " vertical split for diff
+endif
+
+" Title
+if has('title')
+  set title                     " window title (file)
+  set titleold=
+endif
+
+" Statusline / Tabline
+set laststatus=2                " always show satus line
+set noshowmode
+set tabpagemax=30
+
+""    Style
+" Window
+if exists('&cursorline')
+  set cursorline                " for CursorLineNr
+endif
+set number                      " show number column
+if exists('&signcolumn')
+  set signcolumn=yes            " at least for now, I'm ok with old behaviour
+endif
+set wrap                        " wrap lines
+if has('linebreak')
+  set showbreak=>\              " ... showing a character
+  set breakindent               " with indent
+endif
+
+" Display
+if exists('&conceal')
+  set conceallevel=0            " show concealed characters
+endif
+set display+=lastline           " show lastline even if too long
+" terminal specific
+if ! has('nvim')
+  augroup TermOpt | au!
+    au TerminalWinOpen * setlocal
+          \ nonumber
+          \ signcolumn=no
+  augroup end
+endif
+
+" Color
+let base16colorspace=256        " access 256 colorspace
+if has('termguicolors')
+  set termguicolors             " 24 bits colors
+endif
+
+""    Search
+set magic                       " set magic on, for regex
+set ignorecase                  " case insensitive search
+set smartcase                   " case-sens if cap
+if has('extra_search')
+  set hlsearch                  " highlight all searches
+  set incsearch                 " highlight match while typing
+endif
+"        set path+=**                  " recursive path from current path
+set nrformats=hex               " <c-a>/<c-x> do not use octals
+
+if has('wildignore')
+  set wildignore+=**/__pycache__/**
+  set wildignore+=**/venv/**
+  set wildignore+=**/node_modules/**
+  set wildignore+=**/dist/**
+  set wildignore+=**/build/**
+  set wildignore+=*.o
+  set wildignore+=*.pyc
+  set wildignore+=*.swp
+endif
+
+""    Command line
+set cmdheight=2                 " Command-line height
+if has('cmdline_info')
+  set showcmd                   " show command
+  set ruler                     " show cursor line / column
+endif
+if has('wildmenu')
+  set wildmenu                  " show matches to commands
+endif
+set wildchar=<tab>              " complete w/ tab
+set wildmode=longest:full,full
+set fileignorecase              " ignore case using filename
+set wildignorecase              " ignore case completing filenames
+
+" Shortmess : 'hit enter' prompt custzomization
+set shortmess+=A                " Always edit if swap exists
+set shortmess+=f                " Abbrev file count
+set shortmess+=i                " Abbrev line without end
+set shortmess+=l                " Abbrev line and word count
+set shortmess+=m                " Abbrev modified
+set shortmess+=n                " Abbrev new file
+set shortmess+=r                " Abbrev read only
+set shortmess+=w                " Abbrev writter
+set shortmess+=x                " Abbrev dos and mac format
+set shortmess+=W                " No message when writing
+set shortmess+=F                " As if silent autocomands
+set shortmess+=c                " No ins completion message
+set shortmess+=s                " No 'search hit BOTTOM' message
+
+""    Text
+" Move boundaries
+set backspace=indent,eol,start  " backspace over lines
+set whichwrap+=<,>,h,l,[,]      " break cursor free
+set iskeyword+=-                " '-' considered part of <word>
+set virtualedit=block           " visual selection broken free
+set nostartofline               " vertical moves in same column
+if exists('&spellcapcheck')
+  set spellcapcheck=            " caps don't start sentences
+endif
+
+" Scroll
+set sidescrolloff=5             " min horizontal cursor offset
+set sidescroll=1                " min horizontal cursor offset
+augroup SetScrolloff            " min vertical cursor offset
+  au!
+  au BufRead,BufEnter *
+        \ let &l:scrolloff = winheight(winnr())/10 + 1
+augroup end
+
+" Join
+set nojoinspaces                " join with only one space
+if v:version > 703 || v:version == 203 && has('patch541')
+  set formatoptions+=j          " join comments without leader
+endif
+set formatoptions-=cro          " no auto comment line
+set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
+
+
+""    Save / Restore
 
 " Session restore
 if has('mksession')
@@ -46,13 +224,18 @@ if has('mksession')
   set sessionoptions-=curdir
   set viewoptions=folds,cursor  " only these settings
 endif
+
+set history=10000               " long history
+set hidden
+
+set autoread                    " auto load file changes
+set autowriteall                " auto save file changes
+set modelineexpr                " flexible modeline set
+
 " restore undo history
 if exists('+undofile')
   set undofile
 endif
-
-set history=10000               " long history
-set hidden
 
 if exists('$SUDO_USER')         " don't create root-owned files
   set noswapfile
@@ -78,194 +261,12 @@ for d in [ &backupdir, &directory, &undodir, &viewdir, $HOME.'/.vim/tmp/viminfo/
   if !isdirectory(d) | call mkdir(d, 'p') | endif
 endfor
 
-set autoread                    " auto load file changes
-set autowriteall                " auto save file changes
-set modelineexpr                " flexible modeline set
-
-"""        User Interface settings
-
-" Title
-if has('title')
-  set title                     " window title (file)
-  set titleold=
-endif
-
-" Mappings chill
-let mapleader=' '
-set notimeout                   " no timeout on maps
-set ttimeout                    " timeout on keycodes
-set ttimeoutlen=10              " of 10 ms
-set mouse=a                     " it's a secret
-
-if ! has('nvim') && exists('&ttymouse')
-  set ttymouse=xterm2           " allow mouse in tmux
-endif
-
-" search
-set magic                       " set magic on, for regex
-set ignorecase                  " case insensitive search
-set smartcase                   " case-sens if cap
-if has('extra_search')
-  set hlsearch                  " highlight all searches
-  set incsearch                 " highlight match while typing
-endif
-" set path+=**                  " recursive path from current path
-set nrformats=hex               " <c-a>/<c-x> do not use octals
-
-if has('wildignore')
-  set wildignore+=**/__pycache__/**
-  set wildignore+=**/venv/**
-  set wildignore+=**/node_modules/**
-  set wildignore+=**/dist/**
-  set wildignore+=**/build/**
-  set wildignore+=*.o
-  set wildignore+=*.pyc
-  set wildignore+=*.swp
-endif
-
-" Command line window
-set cmdheight=2                 " Command-line height
-if has('cmdline_info')
-  set showcmd                   " show command
-  set ruler                     " show cursor line / column
-endif
-if has('wildmenu')
-  set wildmenu                  " show matches to commands
-endif
-set wildchar=<tab>              " complete w/ tab
-set wildmode=longest:full,full
-set fileignorecase              " ignore case using filename
-set wildignorecase              " ignore case completing filenames
-
-" status line
-set laststatus=2                " always show satus line
-set noshowmode
-
-" Shortmess : 'hit enter' prompt custzomization
-set shortmess+=A                " Always edit if swap exists
-set shortmess+=f                " Abbrev file count
-set shortmess+=i                " Abbrev line without end
-set shortmess+=l                " Abbrev line and word count
-set shortmess+=m                " Abbrev modified
-set shortmess+=n                " Abbrev new file
-set shortmess+=r                " Abbrev read only
-set shortmess+=w                " Abbrev writter
-set shortmess+=x                " Abbrev dos and mac format
-set shortmess+=W                " No message when writing
-set shortmess+=F                " As if silent autocomands
-set shortmess+=c                " No ins completion message
-set shortmess+=s                " No 'search hit BOTTOM' message
-
-" insert complete menu
-set completeopt+=longest        " complete matching string
-set completeopt+=menuone        " pmenu on single match too
-
-" Bell
-set visualbell                  " do not ring the bell
-set noerrorbells                " no bell for error messages
-set t_vb=                       " no bell at all
-
-" tabulation control
-set noexpandtab                 " tabs ftw
-set smarttab                    " tab width start of line
-set tabstop=4                   " visible width of tabs
-set softtabstop=4               " tabs 4 characters wide
-set shiftwidth=4                " indents 4 characters wide
-set shiftround                  " indent congru shiftwidth
-set autoindent                  " automatically indent new line
-if has('smartindent')
-  set smartindent               " ... in a sane way
-endif
-if has('linebreak')
-  set showbreak=>\              " ... showing a character
-  set breakindent               " with indent
-endif
-set wrap                        " wrap lines
-
-" splits
-set switchbuf=usetab            " open buffer window if exists
-set splitbelow                  " default split below
-set splitright                  " default split right
-" set list
-
-" guides smartisation
-if exists('&cursorline')
-  set cursorline                " for CursorLineNr
-endif
-set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
-if exists('&spellcapcheck')
-  set spellcapcheck=            " ignore leading cap in word
-endif
-set nojoinspaces                " and spaces too
-if v:version > 703 || v:version == 203 && has('patch541')
-  set formatoptions+=j            " join comments smartly
-endif
-set formatoptions-=cro          " no auto comment line
-
-" Main window
-set display+=lastline           " show lastline even if too long
-
-if ! has('nvim')
-  augroup TermOpt
-    au!
-    au TerminalWinOpen * setlocal nonumber signcolumn=no
-  augroup END
-endif
-
-set number                      " show number column
-if exists('&signcolumn')
-  set signcolumn=yes            " at least for now, I'm ok with old behaviour
-endif
-
-" Moves boundaries
-if exists('&conceal')
-  set conceallevel=0
-endif
-set backspace=indent,eol,start  " backspace over lines
-set whichwrap+=<,>,h,l,[,]      " break cursor free
-set virtualedit=block           " visual selection broken free
-set nostartofline               " vertical moves in same column
-set sidescrolloff=5             " min horizontal cursor offset
-set sidescroll=1                " min horizontal cursor offset
-augroup SetScrolloff            " min vertical cursor offset
-  au!
-  au BufRead,BufEnter *
-        \ let &l:scrolloff = winheight(winnr())/10 + 1
-augroup end
-" set iskeyword+=,                " considered part of <cword>
-set iskeyword+=-                " considered part of <cword>
-
-" Folding
-if has('folding')
-  if has('windows')
-    set fillchars+=vert:│       " window separator
-  endif
-  set foldmethod=syntax         " fold based on indent
-  set foldnestmax=2             " deepest fold is 10 levels
-  set nofoldenable              " don't fold by default
-endif
-
-" Colors
-let base16colorspace=256        " access 256 colorspace
-if has('termguicolors')
-  set termguicolors             " 24 bits colors
-endif
-
-" Diff
-if has('diff')
-  set diffopt+=vertical         " vertical split for diff
-endif
-
-" Tabline
-set tabpagemax=30
-
-""    Plugins settings
-"""        Termdebug
-
+""    Extras
+" Termdebug
 " let g:termdebug_wide = 163
 let g:termdebug_wide = 40
 
-"""        Vim-run
+" Vim-run
 let g:vim_run_command_map = {
       \'javascript': 'node',
       \'php': 'php',
@@ -273,7 +274,7 @@ let g:vim_run_command_map = {
       \'markdown': 'markdown',
       \}
 
-"""        Coc
+" Coc
 
 "TODO: make it work, and move all config here
 
