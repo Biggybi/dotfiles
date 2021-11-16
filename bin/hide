@@ -12,25 +12,27 @@ fi
 
 while [[ $1 ]]
 do
-	if ! [ -e ${1} ]
+	let fname=$1
+	if ! [ -e $fname ]
 	then
-		echo "no such file: $1"
-	elif [[ $1 == '.'* ]]
+		echo "no such file: $fname"
+	elif [[ $fname == '.'* ]]
 	then
-		if [ $f == 0 ] && [ -e ${1:1} ]
+		let unhidden_fname=${1:1}
+		if [ $f == 0 ] && [ -e $unhidden_fname ]
 		then
-			echo $1 exists, use -f to override
+			echo "$fname exists, use -f to override"
 		else
-			mv $1 ${1:1}
-			echo "unhide $1"
+			mv $fname ${1:1}
+			echo "unhide $fname"
 		fi
 	else
-		if [ $f == 0 ] && [ -e "."$1 ]
+		if [ $f == 0 ] && [ -e "."$fname ]
 		then
-			echo "."$1 exists, use -f to override
+			echo ".$fname exists, use -f to override"
 		else
-			mv $1 "."$1
-			echo "hide $1"
+			mv $fname "."$fname
+			echo "hide $fname"
 		fi
 	fi
 	shift
