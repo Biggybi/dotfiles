@@ -3,14 +3,23 @@ if exists('g:plugin_modecolor')
 endif
 let g:plugin_modecolor = 1
 
+"" Get options
+let g:modecolor_prefix = get(g:, 'modecolor_prefix', 'Suli')
+let g:modecolor_timer_switch = get(g:, 'modecolor_timer_switch', 1)
+let g:modecolor_refresh_time = get(g:, 'modecolor_refresh_time', 50)
+
+"" Autocommand functions
 function! s:getHLString(group) abort
   if empty(a:group)
     return ''
   endif
   let fg = synIDattr(hlID(a:group), "fg#")
   let bg = synIDattr(hlID(a:group), "bg#")
-  if empty(bg) || empty(bg)
-    return ''
+  if empty(fg)
+    let fg = synIDattr(hlID(g:modecolor_main), "fg#")
+  endif
+  if empty(bg)
+    let bg = synIDattr(hlID(g:modecolor_main), "bg#")
   endif
   let env = &termguicolors == 1 ? 'gui' : 'cterm'
   return printf("%sfg=%s %sbg=%s", env, fg, env, bg)
@@ -19,21 +28,21 @@ endfunction
 " TODO: optional hl groups (link to existing groups by default)
 function! s:setHLDic() abort
   let s:HLStrings = {
-        \ 'Mid'      : s:getHLString('SuliMid'),
-        \ 'Outer'    : s:getHLString('SuliOuter'),
-        \ 'Normal'   : s:getHLString('SuliNormal'),
-        \ 'Insert'   : s:getHLString('SuliInsert'),
-        \ 'Visual'   : s:getHLString('SuliVisual'),
-        \ 'Replace'  : s:getHLString('SuliReplace'),
-        \ 'Pending'  : s:getHLString('SuliPending'),
-        \ 'FTSearch' : s:getHLString('SuliFTSearch'),
-        \ 'Cmd'      : s:getHLString('SuliCmd'),
-        \ 'FileMod'  : s:getHLString('SuliFileMod'),
-        \ 'GitMod'   : s:getHLString('SuliGitMod'),
-        \ 'CurDir'   : s:getHLString('SuliCurDir'),
-        \ 'Git'      : s:getHLString('SuliGit'),
-        \ 'GitSub'   : s:getHLString('SuliGitSub'),
-        \ 'Sep'      : s:getHLString('SuliSep')}
+        \ 'Mid'      : s:getHLString(g:modecolor_prefix.'Mid'),
+        \ 'Outer'    : s:getHLString(g:modecolor_prefix.'Outer'),
+        \ 'Normal'   : s:getHLString(g:modecolor_prefix.'Normal'),
+        \ 'Insert'   : s:getHLString(g:modecolor_prefix.'Insert'),
+        \ 'Visual'   : s:getHLString(g:modecolor_prefix.'Visual'),
+        \ 'Replace'  : s:getHLString(g:modecolor_prefix.'Replace'),
+        \ 'Pending'  : s:getHLString(g:modecolor_prefix.'Pending'),
+        \ 'FTSearch' : s:getHLString(g:modecolor_prefix.'FTSearch'),
+        \ 'Cmd'      : s:getHLString(g:modecolor_prefix.'Cmd'),
+        \ 'FileMod'  : s:getHLString(g:modecolor_prefix.'FileMod'),
+        \ 'GitMod'   : s:getHLString(g:modecolor_prefix.'GitMod'),
+        \ 'CurDir'   : s:getHLString(g:modecolor_prefix.'CurDir'),
+        \ 'Git'      : s:getHLString(g:modecolor_prefix.'Git'),
+        \ 'GitSub'   : s:getHLString(g:modecolor_prefix.'GitSub'),
+        \ 'Sep'      : s:getHLString(g:modecolor_prefix.'Sep')}
 endfunction
 
 function! s:setExtraStrings() abort
@@ -55,116 +64,161 @@ function! s:highlightUserGroups() abort
   exe 'silent! hi User9' s:HLStrings['Sep']
 endfunction
 
-function! s:modeColorInit() abort
-  call s:setHLDic()
-  call s:setExtraStrings()
-  call s:highlightUserGroups()
-endfunction
-
-function! s:modeColorExtraHL(color) abort
-  let colorstring = s:HLStrings[a:color]
-  if empty(a:color) || empty(colorstring)
-    return ''
-  endif
-  if a:color ==? 'Normal'
+function! s:modeColorHL(group) abort
+  exe "silent hi User1" s:HLStrings[a:group]
+  let colorstring = s:HLStrings[a:group]
+  if a:group ==? 'Normal'
     exe "silent hi" g:modecolor_extra s:HLGroupExtra
     return
   endif
   exe "silent hi" g:modecolor_extra colorstring
 endfunction
 
-function! s:modeColorMainHL(color) abort
-  " exe "silent hi" g:modecolor_main a:color
-  let colorstring = s:HLStrings[a:color]
-  exe "silent hi User1" colorstring
-endfunction
-
-function! s:modeColorAllHL(color = '') abort
-  if empty(a:color)
-    call s:modeColorExtraHL(g:modecolor_main)
-    call s:modeColorMainHL(g:modecolor_extra)
-  endif
-  call s:modeColorExtraHL(a:color)
-  call s:modeColorMainHL(a:color)
-endfunction
-
-function! s:modeColorSwitch(_) abort
+function! s:mcSwitch(_) abort
   if g:modecolor_timer_switch == 0
-    call timer_pause(s:modecolor_timer, 1)
-    return s:modeColorAllHL('Normal')
+    call timer_pause(s:mc_timer, 1)
+    return s:modeColorHL('Normal')
   endif
   let curr_mode = mode()
   if curr_mode =~? '[s]'
-    return s:modeColorAllHL('Replace')
+    return s:modeColorHL('Replace')
   elseif curr_mode =~# '[Ri]'
-    return s:modeColorAllHL('Insert')
+    return s:modeColorHL('Insert')
   elseif curr_mode =~? '[v]'
-    return s:modeColorAllHL('Visual')
+    return s:modeColorHL('Visual')
   elseif curr_mode ==? 'c'
-    return s:modeColorAllHL('Cmd')
-  elseif ! exists('*state')
-    return s:modeColorAllHL('Normal')
+    return s:modeColorHL('Cmd')
+  elseif !exists('*state')
+    return s:modeColorHL('SuliNormal')
   elseif state() =~# '[mo]'
-    return s:modeColorAllHL('Pending')
+    return s:modeColorHL('Pending')
   elseif state() =~# '[S]'
-    return s:modeColorAllHL('FTSearch')
-  else
-    return s:modeColorAllHL('Normal')
+    return s:modeColorHL('FTSearch')
   endif
-  return s:modeColorAllHL('Normal')
+  return s:modeColorHL('Normal')
 endfunction
 
-function! s:modeColorToggle()
-  if ! exists('s:modecolor_timer')
+"" Command functions
+function! s:mcCmdExtraHL(group) abort
+  if !hlID(a:group)
+    return
+  endif
+  if exists('s:mc_timer')
+    call timer_pause(s:mc_timer, 1)
+    exe "silent hi User1" s:HLGroupMain
+  endif
+  let colorstring = s:getHLString(a:group)
+  if !empty(colorstring)
+    exe "silent hi" g:modecolor_extra colorstring
+  endif
+endfunction
+
+function! s:mcCmdMainHL(group) abort
+  if !hlID(a:group)
+    return
+  endif
+  if exists('s:mc_timer')
+    call timer_pause(s:mc_timer, 1)
+    exe "silent hi" g:modecolor_extra s:HLGroupExtra
+  endif
+  let colorstring = s:getHLString(a:group)
+  if !empty(colorstring)
+    exe "silent hi User1" colorstring
+  endif
+endfunction
+
+function! s:mdCmdAllHL(group = '') abort
+  if !hlID(a:group)
+    return
+  endif
+  if exists('s:mc_timer')
+    call timer_pause(s:mc_timer, 1)
+  endif
+  if empty(a:group)
+    call s:mcCmdExtraHL(g:modecolor_extra)
+    call s:mcCmdMainHL(g:modecolor_main)
+  endif
+  let colorstring = s:getHLString(a:group)
+  if !empty(colorstring)
+    exe "silent hi User1" colorstring
+    exe "silent hi" g:modecolor_extra colorstring
+  endif
+endfunction
+
+function! s:mcToggle()
+  if ! exists('s:mc_timer')
     if g:modecolor_timer_switch == 0
       let g:modecolor_timer_switch = 1
-      echo 'color mode change on'
-      call s:startModeColor()
+      call s:modeColorStart()
     endif
     return
   endif
-  if timer_info(s:modecolor_timer)[0]['paused']
-    call timer_pause(s:modecolor_timer, '0')
-    echo 'color mode change on'
-  elseif s:modecolor_timer
-    call timer_pause(s:modecolor_timer, '1')
+  if timer_info(s:mc_timer)[0]['paused']
+    call timer_pause(s:mc_timer, '0')
+  elseif s:mc_timer
+    call timer_pause(s:mc_timer, '1')
     silent! s:modeColorInit()
-    call s:modeColorAllHL('Normal')
-    echo 'color mode change off'
+    call s:modeColorHL('Normal')
   endif
 endfunction
 
-let g:modecolor_timer_switch = get(g:, 'modecolor_timer_switch', 1)
-let g:modecolor_refresh_time = get(g:, 'modecolor_refresh_time', 50)
+function! s:mcOn()
+  if ! exists('s:mc_timer')
+    if g:modecolor_timer_switch == 0
+      let g:modecolor_timer_switch = 1
+      call s:modeColorStart()
+    endif
+    return
+  endif
+  call timer_pause(s:mc_timer, '0')
+endfunction
 
-function! s:startModeColor() abort
+function! s:mcOff()
+  call timer_pause(s:mc_timer, '1')
+  exe "silent hi" g:modecolor_extra s:HLGroupExtra
+  exe "silent hi User1" s:HLGroupMain
+endfunction
+
+" Usage: ModeColorExtra [HLGroup]
+" deactivate auto switch, force a color on
+" `g:modecolor_extra` and `g:modecolor_main`
+
+"" Starter
+function! s:modeColorStart() abort
   if g:modecolor_timer_switch == 0
-    call s:modeColorAllHL('Normal')
-  elseif exists('timer_info(s:modecolor_timer)') <= 0
-    let Switcher = function('s:modeColorSwitch')
-    let s:modecolor_timer = timer_start(g:modecolor_refresh_time, Switcher, {'repeat': -1})
+    call s:modeColorHL('Normal')
+  elseif exists('timer_info(s:mc_timer)') <= 0
+    let Switcher = function('s:mcSwitch')
+    let s:mc_timer = timer_start(g:modecolor_refresh_time, Switcher, {'repeat': -1})
   endif
 endfunction
 
-if exists('s:modecolor_timer')
-  call timer_stop(s:modecolor_timer)
+if exists('s:mc_timer')
+  call timer_stop(s:mc_timer)
   if s:HLGroupMain != ''
     silent exe "hi" g:modecolor_extra s:HLGroupExtra
   endif
-  call s:startModeColor()
+  call s:modeColorStart()
 endif
 
+function! s:modeColorInit() abort
+  call s:setHLDic()
+  call s:setExtraStrings()
+  call s:highlightUserGroups()
+endfunction
 call s:modeColorInit()
 
+
+"" Autocommands
 if has("nvim")
   augroup NvimColorAu
     au!
     au ColorScheme *
           \ call s:modeColorInit()
     au InsertEnter *
-          \ call s:modeColorAllHL('Insert')
+          \ call s:modeColorHL('Insert')
     au CmdlineEnter *
-          \ call s:modeColorAllHL('Cmd')
+          \ call s:modeColorHL('Cmd')
   augroup END
 endif
 
@@ -173,37 +227,35 @@ augroup StartModeColor
   au ColorScheme *
         \ call s:modeColorInit()
   au BufWinEnter ?\+ ++once
-        \ call s:startModeColor()
+        \ call s:modeColorStart()
   au WinEnter *
-        \ call s:modeColorAllHL('Normal')
+        \ call s:modeColorHL('Normal')
 augroup end
+"" Commands
+command! -nargs=? -complete=highlight ModeColorExtra
+      \ call s:mcCmdExtraHL(<q-args>)
+command! -nargs=? -complete=highlight ModeColorMain
+      \ call s:mcCmdMainHL(<q-args>)
+command! -nargs=? -complete=highlight ModeColorAll
+      \ call s:mdCmdAllHL(<q-args>)
 
-" ModeColorExtra[!] [Group]
-" force a color, and deactivate auto switch
-" highlight `statusline` and `extra` with the given Group
-" if `!` is given, `extra` takes the `normal` value
+command! -nargs=0 ModeColortoggle call s:mcToggle()
+command! -nargs=0 ModeColoron     call s:mcOn()
+command! -nargs=0 ModeColoroff    call s:mcOff()
 
-command! -bang -nargs=? -complete=highlight ModeColorExtra
-      \ if exists('s:modecolor_timer') && ! timer_info(s:modecolor_timer)[0]['paused']
-      \ |  call timer_pause(s:modecolor_timer, 1)
-      \ |  call s:modeColorMainHL()
-      \ |endif
-      \ |call s:modeColorExtraHL(s:getHLString(<q-args>))
-
-command! -bang -nargs=? -complete=highlight ModeColorMain
-      \ if exists('s:modecolor_timer') && ! timer_info(s:modecolor_timer)[0]['paused']
-      \ |  call timer_pause(s:modecolor_timer, 1)
-      \ |  call s:modeColorExtraHL()
-      \ |endif
-      \ |call s:modeColorMainHL(s:getHLString(<q-args>))
-
-command! -bang -nargs=? -complete=highlight ModeColorAll
-      \ if exists('s:modecolor_timer') && ! timer_info(s:modecolor_timer)[0]['paused']
-      \ |  call timer_pause(s:modecolor_timer, 1)
-      \ |endif
-      \ |call s:modeColorAllHL(s:HLString(<q-args>))
-
-" toggle color switch
-command! -nargs=0 ModeColorToggle call s:modeColorToggle()
 silent! noremap <silent> <unique> <script> <plug>(modeColorToggle)
-      \ :set lz<cr>:call <sid>modeColorToggle()<cr>:set nolz<cr>
+      \ :set lz<cr>:call <sid>mcToggle()<cr>:set nolz<cr>
+silent! noremap <silent> <unique> <script> <plug>(modeColorOff)
+      \ :set lz<cr>:call <sid>mcOff()<cr>:set nolz<cr>
+silent! noremap <silent> <unique> <script> <plug>(modeColorOn)
+      \ :set lz<cr>:call <sid>moOn()<cr>:set nolz<cr>
+
+if !hasmapto('<plug>modeColorToggle') && maparg('yom', 'n') ==# ''
+  nmap yom <plug>modeColorToggle
+endif
+if !hasmapto('<plug>modeColorOn') && maparg('yom', 'n') ==# ''
+  nmap [om <plug>modeColorOn
+endif
+if !hasmapto('<plug>modeColorOff') && maparg('yom', 'n') ==# ''
+  nmap ]om <plug>modeColorOff
+endif

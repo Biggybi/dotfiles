@@ -88,6 +88,8 @@ inoremap ] ]<c-g>u
 
 " Toggle ModeColorSwitch
 nmap yom <Plug>(modeColorToggle)
+nmap [om <Plug>(modeColorOn)
+nmap ]om <Plug>(modeColorOff)
 
 " Toggle concealed characters
 function! ConcealToggle() abort
