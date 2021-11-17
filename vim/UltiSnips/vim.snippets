@@ -23,3 +23,39 @@ if !hasmapto('<plug>`!p snip.rv = t[1]`') && maparg('`!p snip.rv = t[3]`', '${2:
 endif
 ${4}
 endsnippet
+
+# Create plugin <plug> mappings and commands
+snippet letg "get global variable with default value" b!
+let g:${1:var_name} = get(g:, '`!p snip.rv = t[1]`', '${2}')
+${3}
+endsnippet
+
+# Quick echo
+snippet echo "echo message"
+echo "${1:test}"
+endsnippet
+
+# Quick echom
+snippet echom "echo message"
+echom "${1:test}"
+endsnippet
+
+# Sections for modeline
+snippet sectionsub "top level comment" b
+"""        ${1}
+endsnippet
+
+# Sections for modeline
+snippet section "lower level comment" b
+""    ${1}
+endsnippet
+
+# todoc
+snippet todoc "todo with line comment" b!
+`!v GetCommentMarker()`TODO: $1
+endsnippet
+
+# todob
+snippet todob "todo with block comment" b!
+`!v GetBlockCommentMarks()[0]`TODO: $1`!v GetBlockCommentMarks()[1]`
+endsnippet
