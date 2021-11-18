@@ -15,9 +15,9 @@ alias s='sudo'
 alias c='clear'
 
 #vi debug: no vimrc/gvimrc, nocompatible
-alias vimnude='vim -u NONE -U NONE -N'
-alias vims='vim -S .git/Session.vim'
-alias vs='vim -S .git/Session.vim'
+alias vimnude='$EDITOR -u NONE -U NONE -N'
+alias vims='$EDITOR -S .git/Session.vim'
+alias vs='$EDITOR -S .git/Session.vim'
 
 ## color
 alias dir='dir --color=auto'
@@ -94,7 +94,7 @@ alias free='free -h'
 alias e='$EDITOR'
 alias v="vim"
 alias vi='vim'
-alias sv="sudo vim"
+alias sv="sudo $EDITOR"
 alias nv="nvim"
 
 ## mutt
@@ -144,8 +144,13 @@ vimpluginstall() {
 	git clone $1
 }
 
+nvimpluginstall() {
+	cd $HOME/dotfiles/vim/nvim/pack/
+	git clone $1
+}
+
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
-alias vigninstall='vim $HOME/dotfiles/gnome_setup/install.sh'
+alias vigninstall='$EDITOR $HOME/dotfiles/gnome_setup/install.sh'
 
 alias eb='$EDITOR $HOME/dotfiles/shells/bash/bashrc'
 alias ez='$EDITOR $HOME/dotfiles/shells/zsh/zshrc'
@@ -161,28 +166,28 @@ alias efs='$EDITOR /etc/fstab'
 alias eapt='sudo $EDITOR /etc/apt/sources.list'
 alias eg='sh .git/vimgit'
 
-alias vb='vim $HOME/dotfiles/shells/bash/bashrc'
-alias vp='vim $HOME/dotfiles/shells/bash/bash_profile'
-alias va='vim $HOME/dotfiles/shells/bash/bash_aliases'
-alias vz='vim $HOME/dotfiles/shells/zsh/zshrc'
-alias vza='vim $HOME/dotfiles/shells/zsh/zsh_aliases'
-alias vv='vim $HOME/dotfiles/vim/vimrc'
-alias vn='vim $HOME/dotfiles/shells/bash/inputrc'
-alias vt='vim $HOME/dotfiles/tmux/tmux.conf'
-alias vh='vim $HOME/.bash_history'
-alias vfs='vim /etc/fstab'
-alias vapt='sudo vim /etc/apt/sources.list'
-alias vg='vim $(./.git/vimgit)'
+alias vb='$EDITOR $HOME/dotfiles/shells/bash/bashrc'
+alias vp='$EDITOR $HOME/dotfiles/shells/bash/bash_profile'
+alias va='$EDITOR $HOME/dotfiles/shells/bash/bash_aliases'
+alias vz='$EDITOR $HOME/dotfiles/shells/zsh/zshrc'
+alias vza='$EDITOR $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias vv='$EDITOR $HOME/dotfiles/vim/vimrc'
+alias vn='$EDITOR $HOME/dotfiles/shells/bash/inputrc'
+alias vt='$EDITOR $HOME/dotfiles/tmux/tmux.conf'
+alias vh='$EDITOR $HOME/.bash_history'
+alias vfs='$EDITOR /etc/fstab'
+alias vapt='sudo $EDITOR /etc/apt/sources.list'
+alias vg='$EDITOR $(./.git/vimgit)'
 
-alias vbashrc='vim $HOME/dotfiles/shells/bash/bashrc'
-alias valias='vim $HOME/dotfiles/shells/bash/bash_aliases'
-alias vzshrc='vim $HOME/dotfiles/shells/zsh/zshrc'
-alias vzalias='vim $HOME/dotfiles/shells/zsh/zsh_aliases'
-alias vimrc='vim $HOME/dotfiles/vim/vimrc'
-alias vinputrc='vim $HOME/dotfiles/shells/bash/inputrc'
-alias vitmux='vim $HOME/dotfiles/tmux/tmux.conf'
-alias vfstab='vim /etc/fstab'
-alias vapt='sudo vim /etc/apt/sources.list'
+alias vbashrc='$EDITOR $HOME/dotfiles/shells/bash/bashrc'
+alias valias='$EDITOR $HOME/dotfiles/shells/bash/bash_aliases'
+alias vzshrc='$EDITOR $HOME/dotfiles/shells/zsh/zshrc'
+alias vzalias='$EDITOR $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias vimrc='$EDITOR $HOME/dotfiles/vim/vimrc'
+alias vinputrc='$EDITOR $HOME/dotfiles/shells/bash/inputrc'
+alias vitmux='$EDITOR $HOME/dotfiles/tmux/tmux.conf'
+alias vfstab='$EDITOR /etc/fstab'
+alias vapt='sudo $EDITOR /etc/apt/sources.list'
 alias vmgit='sh .git/vimgit'
 
 alias sbash='. $HOME/.bashrc'
@@ -203,8 +208,8 @@ alias sall='. $HOME/.zshrc ; . $HOME/.zsh_aliases'
 alias st='tmux source-file $HOME/.tmux.conf'
 
 alias dot='cd $HOME/dotfiles'
-alias dvs='vim -S $HOME/dotfiles/.git/Session.vim'
-alias ds='vim -S $HOME/dotfiles/.git/Session.vim'
+alias dvs='$EDITOR -S $HOME/dotfiles/.git/Session.vim'
+alias ds='$EDITOR -S $HOME/dotfiles/.git/Session.vim'
 alias dots='git -C $HOME/dotfiles status'
 alias dotclh='git clone https://github.com/biggybi/dotfiles'
 alias dotcl='git clone git@github.com:Biggybi/dotfiles'
@@ -263,7 +268,7 @@ alias gccfcday='gccf -c $(find ex* -name "*.c")'
 alias gccmday='gccf main.c $(find . -name "*.c")'
 alias vp='vi src/*.c inc*/*.h Makefile'
 
-alias viday='vim $(find . -name "*.c")'
+alias viday='$EDITOR $(find . -name "*.c")'
 alias seer='tail -n -1 */*'
 alias executer='for i in */*; do echo "$i"; sh "$i"; echo ; done ;'
 alias emperess='for i in */*; do echo "==> $i <=="; cat "$i"; echo "= ex =" ; sh "$i"; echo ; done ;'
@@ -271,7 +276,7 @@ alias cemperess='for i in */*\.c; do echo "==> $i <=="; cat "$i"; echo "= ex =" 
 
 ## apache server
 alias www='cd /var/www/tristankapous'
-alias viit='vim $(fc -ln -1)'
+alias viit='$EDITOR $(fc -ln -1)'
 alias lsit='ls $(fc -ln -1)'
 alias catit='cat $(fc -ln -1)'
 alias cpit='cp $(fc -ln -1) '
@@ -336,7 +341,7 @@ alias lftccp='cp -u $LFT/ ./libft'
 alias cdgnl='cd $HOME_42/GNL'
 alias cdls='cd $HOME_42/ft_ls'
 alias cdbin='cd $HOME/bin'
-alias todoscript='vim $HOME_42/bin/.todo'
+alias todoscript='$EDITOR $HOME_42/bin/.todo'
 
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
