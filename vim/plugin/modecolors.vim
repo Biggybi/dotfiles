@@ -16,10 +16,10 @@ function! s:getHLString(group) abort
   let fg = synIDattr(hlID(a:group), "fg#")
   let bg = synIDattr(hlID(a:group), "bg#")
   if empty(fg)
-    let fg = synIDattr(hlID(g:modecolor_main), "fg#")
+    let fg = synIDattr(hlID(g:modecolor_base), "fg#")
   endif
   if empty(bg)
-    let bg = synIDattr(hlID(g:modecolor_main), "bg#")
+    let bg = synIDattr(hlID(g:modecolor_base), "bg#")
   endif
   let env = &termguicolors == 1 ? 'gui' : 'cterm'
   return printf("%sfg=%s %sbg=%s", env, fg, env, bg)
@@ -46,9 +46,10 @@ function! s:setHLDic() abort
 endfunction
 
 function! s:setExtraStrings() abort
-  let g:modecolor_main  = get(g:, 'modecolor_hl_group_normal', 'SuliNormal')
+  let g:modecolor_base  = get(g:, 'modecolor_hl_group_normal', 'SuliNormal')
+  let g:modecolor_main  = get(g:, 'modecolor_hl_group_normal', 'User1')
   let g:modecolor_extra = get(g:, 'modecolor_hl_group_extra', 'CursorLineNr')
-  let s:HLGroupMain     = s:getHLString(g:modecolor_main)
+  let s:HLGroupMain     = s:getHLString(g:modecolor_base)
   let s:HLGroupExtra    = s:getHLString(g:modecolor_extra)
 endfunction
 
@@ -65,7 +66,7 @@ function! s:highlightUserGroups() abort
 endfunction
 
 function! s:modeColorHL(group) abort
-  exe "silent hi User1" s:HLStrings[a:group]
+  exe "silent hi" g:modecolor_main s:HLStrings[a:group]
   let colorstring = s:HLStrings[a:group]
   if a:group ==? 'Normal'
     exe "silent hi" g:modecolor_extra s:HLGroupExtra
@@ -89,7 +90,7 @@ function! s:mcSwitch(_) abort
   elseif curr_mode ==? 'c'
     return s:modeColorHL('Cmd')
   elseif !exists('*state')
-    return s:modeColorHL('SuliNormal')
+    return s:modeColorHL('Normal')
   elseif state() =~# '[mo]'
     return s:modeColorHL('Pending')
   elseif state() =~# '[S]'
@@ -105,11 +106,14 @@ function! s:mcCmdExtraHL(group) abort
   endif
   if exists('s:mc_timer')
     call timer_pause(s:mc_timer, 1)
-    exe "silent hi User1" s:HLGroupMain
+    exe "silent hi" g:modecolor_main s:HLGroupMain
   endif
-  let colorstring = s:getHLString(a:group)
-  if !empty(colorstring)
-    exe "silent hi" g:modecolor_extra colorstring
+  let s:ExtraColorstring = s:getHLString(a:group)
+  if !empty(s:ExtraColorstring)
+    exe "silent hi" g:modecolor_extra s:ExtraColorstring
+    if exists('s:MainColorstring')
+      exe "silent hi" g:modecolor_main s:MainColorstring
+    endif
   endif
 endfunction
 
@@ -121,9 +125,12 @@ function! s:mcCmdMainHL(group) abort
     call timer_pause(s:mc_timer, 1)
     exe "silent hi" g:modecolor_extra s:HLGroupExtra
   endif
-  let colorstring = s:getHLString(a:group)
-  if !empty(colorstring)
-    exe "silent hi User1" colorstring
+  let s:MainColorstring = s:getHLString(a:group)
+  if !empty(s:MainColorstring)
+    exe "silent hi" g:modecolor_main s:MainColorstring
+    if exists('s:ExtraColorstring')
+      exe "silent hi" g:modecolor_extra s:ExtraColorstring
+    endif
   endif
 endfunction
 
@@ -136,12 +143,13 @@ function! s:mdCmdAllHL(group = '') abort
   endif
   if empty(a:group)
     call s:mcCmdExtraHL(g:modecolor_extra)
-    call s:mcCmdMainHL(g:modecolor_main)
+    call s:mcCmdMainHL(g:modecolor_base)
   endif
-  let colorstring = s:getHLString(a:group)
-  if !empty(colorstring)
-    exe "silent hi User1" colorstring
-    exe "silent hi" g:modecolor_extra colorstring
+  let s:MainColorstring = s:getHLString(a:group)
+  let s:ExtraColorstring = s:MainColorstring
+  if !empty(s:MainColorstring)
+    exe "silent hi" g:modecolor_main s:MainColorstring
+    exe "silent hi" g:modecolor_extra s:ExtraColorstring
   endif
 endfunction
 
@@ -176,12 +184,12 @@ endfunction
 function! s:mcOff()
   call timer_pause(s:mc_timer, '1')
   exe "silent hi" g:modecolor_extra s:HLGroupExtra
-  exe "silent hi User1" s:HLGroupMain
+  exe "silent hi" g:modecolor_main s:HLGroupMain
 endfunction
 
 " Usage: ModeColorExtra [HLGroup]
 " deactivate auto switch, force a color on
-" `g:modecolor_extra` and `g:modecolor_main`
+" `g:modecolor_extra` and `g:modecolor_base`
 
 "" Starter
 function! s:modeColorStart() abort
