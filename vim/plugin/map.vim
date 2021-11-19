@@ -211,15 +211,6 @@ nnoremap <leader>nt :tabnew <c-r>=expand('%:p:h').'/'<cr>
 nnoremap <leader><c-n>  :vs <c-r>=expand('%:p:h').'/'<cr>
 nnoremap <leader>N      :sp <c-r>=expand('%:p:h').'/'<cr>
 
-command! -nargs=1 -complete=command Nomove
-      \   try
-      \ |     let s:svpos = winsaveview()
-      \ |     execute <q-mods> <q-args>
-      \ | finally
-      \ |     call winrestview(s:svpos)
-      \ |     unlet s:svpos
-      \ | endtry
-
 
 " new file in vertical split instead of horizontal
 nnoremap <silent> <c-w><c-n> :vertical new<cr>
@@ -606,6 +597,15 @@ nnoremap <silent> <c-w>c     :let buff=bufname()<cr>:close<cr>:echo buff . " clo
 
 ""    Code Mappings
 """        Indent
+
+command! -nargs=1 -complete=command Nomove
+      \ try
+      \ |  let s:svpos = winsaveview()
+      \ |  execute <q-mods> <q-args>
+      \ |finally
+      \ |  call winrestview(s:svpos)
+      \ |  unlet s:svpos
+      \ |endtry
 
 " indent all file easy
 nnoremap g<c-g> :Nomove normal gg=G<cr>

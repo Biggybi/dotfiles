@@ -7,8 +7,8 @@ function! s:visualParagraphUp() range abort
   if mode() != 'v'
     normal! gv
   endif
-  let curline = getcurpos('.')[1]
-  let wantcol = getcurpos('.')[4]
+  let curline = getcurpos()[1]
+  let wantcol = getcurpos()[4]
   let wantline = search('^$\n\zs.*[^\n]', 'nWbe')
   if wantline == 0
     if &virtualedit ==# 'block'
@@ -21,7 +21,7 @@ function! s:visualParagraphUp() range abort
     let wantline = search('^$\n\zs.*[^\n]', 'nWbe')
   endif
   exe "normal" wantline . "gg"
-  if getcurpos('.')[1] == 1
+  if getcurpos()[1] == 1
     exe "normal ^" . expand(wantcol-1) . "\<right>"
   endif
 endfunction
@@ -30,8 +30,8 @@ function! s:visualParagraphDown() range abort
   if mode() != 'v'
     normal! gv
   endif
-  let curline = getcurpos('.')[1]
-  let wantcol = getcurpos('.')[4]
+  let curline = getcurpos()[1]
+  let wantcol = getcurpos()[4]
   let wantline = search('[^\n].*\n^$', 'nW')
   if wantline == 0
     if &virtualedit ==# 'block'
