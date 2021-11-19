@@ -5,7 +5,6 @@ setlocal tabstop=2
 setlocal softtabstop=2
   " setlocal keywordprg=:help
 setlocal suffixesadd=.vim
-setlocal formatoptions-=cro  " no auto comment line
 
 setlocal runtimepath+=~/.vim/after/plugin/config/
 setlocal runtimepath+=~/.vim/after/ftplugin/
@@ -32,4 +31,4 @@ let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
 if ! empty('b:undo_ftplugin')
   let b:undo_ftplugin .= ' | '
 endif
-let b:undo_ftplugin .= "setlocal textwidth< shiftwidth< expandtab< tabstop< softtabstop< keywordprg< suffixesadd< formatoptions< runtimepath< path< foldmethod< foldtext< foldexpr< foldlevel<"
+let b:undo_ftplugin .= "setlocal textwidth< shiftwidth< expandtab< tabstop< softtabstop< keywordprg< suffixesadd< runtimepath< path< foldmethod< foldtext< foldexpr< foldlevel<"
