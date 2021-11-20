@@ -14,10 +14,12 @@
 alias s='sudo'
 alias c='clear'
 
+alias vim="vim -T xterm-256color"
+alias v="vim -T xterm-256color"
 #vi debug: no vimrc/gvimrc, nocompatible
-alias vimnude='$EDITOR -u NONE -U NONE -N'
-alias vims='$EDITOR -S .git/Session.vim'
-alias vs='$EDITOR -S .git/Session.vim'
+alias vimnude='$VISUAL -u NONE -U NONE -N'
+alias vims='$VISUAL -S .git/Session.vim'
+alias vs='$VISUAL -S .git/Session.vim'
 
 ## color
 alias dir='dir --color=auto'
@@ -91,10 +93,10 @@ alias df='df -h'
 alias free='free -h'
 
 ## vim
-alias e='$EDITOR'
+alias e='$VISUAL'
 alias v="vim"
 alias vi='vim'
-alias sv="sudo $EDITOR"
+alias sv="sudo $VISUAL"
 alias nv="nvim"
 
 ## mutt
@@ -150,44 +152,44 @@ nvimpluginstall() {
 }
 
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
-alias vigninstall='$EDITOR $HOME/dotfiles/gnome_setup/install.sh'
+alias vigninstall='$VISUAL $HOME/dotfiles/gnome_setup/install.sh'
 
-alias eb='$EDITOR $HOME/dotfiles/shells/bash/bashrc'
-alias ez='$EDITOR $HOME/dotfiles/shells/zsh/zshrc'
-alias ea='$EDITOR $HOME/dotfiles/shells/zsh/zsh_aliases'
-alias eza='$EDITOR $HOME/dotfiles/shells/zsh/zsh_aliases'
-alias ep='$EDITOR $HOME/dotfiles/shells/bash/bash_profile'
-alias eba='$EDITOR $HOME/dotfiles/shells/bash/bash_aliases'
-alias ev='$EDITOR $HOME/dotfiles/vim/vimrc'
-alias en='$EDITOR $HOME/dotfiles/shells/bash/inputrc'
-alias et='$EDITOR $HOME/dotfiles/tmux/tmux.conf'
-alias eh='$EDITOR $HOME/.zsh_history'
-alias efs='$EDITOR /etc/fstab'
-alias eapt='sudo $EDITOR /etc/apt/sources.list'
+alias eb='$VISUAL $HOME/dotfiles/shells/bash/bashrc'
+alias ez='$VISUAL $HOME/dotfiles/shells/zsh/zshrc'
+alias ea='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias eza='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias ep='$VISUAL $HOME/dotfiles/shells/bash/bash_profile'
+alias eba='$VISUAL $HOME/dotfiles/shells/bash/bash_aliases'
+alias ev='$VISUAL $HOME/dotfiles/vim/vimrc'
+alias en='$VISUAL $HOME/dotfiles/shells/bash/inputrc'
+alias et='$VISUAL $HOME/dotfiles/tmux/tmux.conf'
+alias eh='$VISUAL $HOME/.zsh_history'
+alias efs='$VISUAL /etc/fstab'
+alias eapt='sudo $VISUAL /etc/apt/sources.list'
 alias eg='sh .git/vimgit'
 
-alias vb='$EDITOR $HOME/dotfiles/shells/bash/bashrc'
-alias vp='$EDITOR $HOME/dotfiles/shells/bash/bash_profile'
-alias va='$EDITOR $HOME/dotfiles/shells/bash/bash_aliases'
-alias vz='$EDITOR $HOME/dotfiles/shells/zsh/zshrc'
-alias vza='$EDITOR $HOME/dotfiles/shells/zsh/zsh_aliases'
-alias vv='$EDITOR $HOME/dotfiles/vim/vimrc'
-alias vn='$EDITOR $HOME/dotfiles/shells/bash/inputrc'
-alias vt='$EDITOR $HOME/dotfiles/tmux/tmux.conf'
-alias vh='$EDITOR $HOME/.bash_history'
-alias vfs='$EDITOR /etc/fstab'
-alias vapt='sudo $EDITOR /etc/apt/sources.list'
-alias vg='$EDITOR $(./.git/vimgit)'
+alias vb='$VISUAL $HOME/dotfiles/shells/bash/bashrc'
+alias vp='$VISUAL $HOME/dotfiles/shells/bash/bash_profile'
+alias va='$VISUAL $HOME/dotfiles/shells/bash/bash_aliases'
+alias vz='$VISUAL $HOME/dotfiles/shells/zsh/zshrc'
+alias vza='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias vv='$VISUAL $HOME/dotfiles/vim/vimrc'
+alias vn='$VISUAL $HOME/dotfiles/shells/bash/inputrc'
+alias vt='$VISUAL $HOME/dotfiles/tmux/tmux.conf'
+alias vh='$VISUAL $HOME/.bash_history'
+alias vfs='$VISUAL /etc/fstab'
+alias vapt='sudo $VISUAL /etc/apt/sources.list'
+alias vg='$VISUAL $(./.git/vimgit)'
 
-alias vbashrc='$EDITOR $HOME/dotfiles/shells/bash/bashrc'
-alias valias='$EDITOR $HOME/dotfiles/shells/bash/bash_aliases'
-alias vzshrc='$EDITOR $HOME/dotfiles/shells/zsh/zshrc'
-alias vzalias='$EDITOR $HOME/dotfiles/shells/zsh/zsh_aliases'
-alias vimrc='$EDITOR $HOME/dotfiles/vim/vimrc'
-alias vinputrc='$EDITOR $HOME/dotfiles/shells/bash/inputrc'
-alias vitmux='$EDITOR $HOME/dotfiles/tmux/tmux.conf'
-alias vfstab='$EDITOR /etc/fstab'
-alias vapt='sudo $EDITOR /etc/apt/sources.list'
+alias vbashrc='$VISUAL $HOME/dotfiles/shells/bash/bashrc'
+alias valias='$VISUAL $HOME/dotfiles/shells/bash/bash_aliases'
+alias vzshrc='$VISUAL $HOME/dotfiles/shells/zsh/zshrc'
+alias vzalias='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias vimrc='$VISUAL $HOME/dotfiles/vim/vimrc'
+alias vinputrc='$VISUAL $HOME/dotfiles/shells/bash/inputrc'
+alias vitmux='$VISUAL $HOME/dotfiles/tmux/tmux.conf'
+alias vfstab='$VISUAL /etc/fstab'
+alias vapt='sudo $VISUAL /etc/apt/sources.list'
 alias vmgit='sh .git/vimgit'
 
 alias sbash='. $HOME/.bashrc'
@@ -208,8 +210,8 @@ alias sall='. $HOME/.zshrc ; . $HOME/.zsh_aliases'
 alias st='tmux source-file $HOME/.tmux.conf'
 
 alias dot='cd $HOME/dotfiles'
-alias dvs='$EDITOR -S $HOME/dotfiles/.git/Session.vim'
-alias ds='$EDITOR -S $HOME/dotfiles/.git/Session.vim'
+alias dvs='$VISUAL -S $HOME/dotfiles/.git/Session.vim'
+alias ds='$VISUAL -S $HOME/dotfiles/.git/Session.vim'
 alias dots='git -C $HOME/dotfiles status'
 alias dotclh='git clone https://github.com/biggybi/dotfiles'
 alias dotcl='git clone git@github.com:Biggybi/dotfiles'
@@ -268,7 +270,7 @@ alias gccfcday='gccf -c $(find ex* -name "*.c")'
 alias gccmday='gccf main.c $(find . -name "*.c")'
 alias vp='vi src/*.c inc*/*.h Makefile'
 
-alias viday='$EDITOR $(find . -name "*.c")'
+alias viday='$VISUAL $(find . -name "*.c")'
 alias seer='tail -n -1 */*'
 alias executer='for i in */*; do echo "$i"; sh "$i"; echo ; done ;'
 alias emperess='for i in */*; do echo "==> $i <=="; cat "$i"; echo "= ex =" ; sh "$i"; echo ; done ;'
@@ -276,7 +278,7 @@ alias cemperess='for i in */*\.c; do echo "==> $i <=="; cat "$i"; echo "= ex =" 
 
 ## apache server
 alias www='cd /var/www/tristankapous'
-alias viit='$EDITOR $(fc -ln -1)'
+alias viit='$VISUAL $(fc -ln -1)'
 alias lsit='ls $(fc -ln -1)'
 alias catit='cat $(fc -ln -1)'
 alias cpit='cp $(fc -ln -1) '
@@ -341,7 +343,7 @@ alias lftccp='cp -u $LFT/ ./libft'
 alias cdgnl='cd $HOME_42/GNL'
 alias cdls='cd $HOME_42/ft_ls'
 alias cdbin='cd $HOME/bin'
-alias todoscript='$EDITOR $HOME_42/bin/.todo'
+alias todoscript='$VISUAL $HOME_42/bin/.todo'
 
 alias tmp='mkdir /tmp/TMP 2>/dev/null ; cd /tmp/TMP'
 alias tmpclean='rm -r /tmp/TMP'
@@ -381,12 +383,12 @@ alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,sha
 alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'
 
 ## file edition
-## alias se='$EDITOR $(find ~/bin/* -type f | fzf)';
-## se() { $EDITOR $(find ~/bin/* -type f | fzf);}
-##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $EDITOR "$@"' ignorename ;}
-alias fbin='$EDITOR $(find $HOME/bin/* -type f | sed "s/*//g" | fzf -d/ -n5 --height=10)'
-alias flft='$EDITOR $LFT/src/$(find $LFT/src -type f -exec basename {} \; | fzf --height=10 --preview="cat $LFT/src/{}")'
-# alias ev='$EDITOR $(fzf --height=10)'
+## alias se='$VISUAL $(find ~/bin/* -type f | fzf)';
+## se() { $VISUAL $(find ~/bin/* -type f | fzf);}
+##eb() { find ~/bin/* -type f | fzf | xargs -r bash -c '</dev/tty  $VISUAL "$@"' ignorename ;}
+alias fbin='$VISUAL $(find $HOME/bin/* -type f | sed "s/*//g" | fzf -d/ -n5 --height=10)'
+alias flft='$VISUAL $LFT/src/$(find $LFT/src -type f -exec basename {} \; | fzf --height=10 --preview="cat $LFT/src/{}")'
+# alias ev='$VISUAL $(fzf --height=10)'
 
 get_hidden_mail_adress() {
 	grep "at.*dot" $1 | sed 's/\bdot\b/./g;s/\bat\b/\@/;s/[[:space:]]//g'
@@ -427,7 +429,7 @@ change_shell() {
 ef() {
 	cd "$1"
 	P=$(fzf --height=60%)
-	[ "$P" != "" ] && $EDITOR $P
+	[ "$P" != "" ] && $VISUAL $P
 }
 # alias f='ef $HOME'
 
