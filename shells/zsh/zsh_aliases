@@ -15,7 +15,7 @@ alias s='sudo'
 alias c='clear'
 
 alias vim="vim -T xterm-256color"
-alias v="vim -T xterm-256color"
+alias v="$VISUAL"
 #vi debug: no vimrc/gvimrc, nocompatible
 alias vimnude='$VISUAL -u NONE -U NONE -N'
 alias vims='$VISUAL -S .git/Session.vim'
