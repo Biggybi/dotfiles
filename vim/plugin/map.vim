@@ -74,15 +74,13 @@ inoremap . .<c-g>u
 inoremap , ,<c-g>u
 inoremap ; ;<c-g>u
 inoremap : :<c-g>u
-inoremap ' '<c-g>u
-inoremap " "<c-g>u
-inoremap ` `<c-g>u
 inoremap ( (<c-g>u
 inoremap ) )<c-g>u
 inoremap { {<c-g>u
 inoremap } }<c-g>u
 inoremap [ [<c-g>u
 inoremap ] ]<c-g>u
+inoremap _ _<c-g>u
 
 """        Toggles
 
