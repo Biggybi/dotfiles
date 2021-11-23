@@ -56,8 +56,8 @@ nnoremap <silent> gI `.gi<esc>zz:call FitBufferWindowBottom()<cr>
 " no more default ex mode
 nnoremap Q <nul>
 
-" redraw
-nnoremap <c-q> :redraw!<cr>
+" reset screen
+nnoremap <silent> <c-q> :mode<cr>
 
 " repeat last macro
 nnoremap - @@
