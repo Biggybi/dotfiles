@@ -480,12 +480,18 @@ vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 " Basic moves
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
-cnoremap <c-k> <up>
-cnoremap <c-j> <down>
-cnoremap <c-@> <down>
+if !has('nvim')
+  cnoremap <c-@> <down>
+  cnoremap <c-k> <up>
+  cnoremap <c-j> <down>
+else
+  cnoremap <c-k> <up>
+  cnoremap <c-j> <down>
+  cnoremap <C-Space> <down>
+endif
 cnoremap <c-b> <left>
 cnoremap <c-l> <s-right>
-cnoremap <c-o> <s-tab>
+cmap <c-o> <s-tab>
 
 " delete from cursor
 cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
