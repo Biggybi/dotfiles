@@ -21,11 +21,9 @@ unsetopt BEEP
 # Environment variables
 
 ## Applications
-if [ -z "$TMUX" ] ; then
-	export VISUAL=vim
-	export MANPAGER="vim -M +MANPAGER -"
-else
-	export VISUAL=(vim -T xterm-256color)
+export VISUAL=vim
+if [ -n "$TMUX" ] && [ $VISUAL = 'vim' ] ; then
+	VISUAL=(vim -T xterm-256color)
 	export MANPAGER="vim -T xterm-256color -M +MANPAGER -"
 fi
 export EDITOR=(vi -e)
