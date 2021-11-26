@@ -8,23 +8,23 @@ augroup WinTitle
   au BufRead,BufEnter * call s:mywindowTitle()
 augroup end
 
-function! GetGitRepoName(file) abort
-  let l:path=fnamemodify(a:file, ':p')
-  while l:path != '' && l:path != '/'
-    let l:path=fnamemodify(l:path, ':h')
-    let l:candidate=l:path . '/.git'
-    let l:folder=substitute(l:path, '/.*/', '', '')
-    if isdirectory(l:path . '/.git')
-      return l:folder
+function! s:getGitRepoName(file) abort
+  let path=fnamemodify(a:file, ':p')
+  while path != '' && path != '/'
+    let path=fnamemodify(path, ':h')
+    let folder=substitute(path, '/.*/', '', '')
+    if isdirectory(path . '/.git')
+      return folder
     endif
   endwhile
   return ''
 endfunction
 
 function! s:mywindowTitle() abort
-  let hostname = hostname() . "  │ "
-  let filepath = substitute(expand('%'), '.*/', '', '')
-  let gitrepo = GetGitRepoName('%') . "  〉  "
-  let &titlestring = hostname . gitrepo . filepath
-  " 〈  "
+  let hostname = hostname()
+  let progname = v:progname
+  let gitrepo  = s:getGitRepoName('%')
+  let filename = substitute(expand('%'), '.*/', '', '')
+  let &titlestring = printf('%s | %s | %s 〉%s',
+        \ hostname, progname, gitrepo, filename)
 endfunction
