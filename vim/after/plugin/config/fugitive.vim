@@ -25,3 +25,5 @@ nnoremap <silent> ghl :Gclog<cr>
 nnoremap <silent> ghp :G push<cr>
 nnoremap <silent> ghr :Gread<cr>
 nnoremap <silent> ghh :G add %<cr>
+nnoremap <silent> gha :G commit --amend<cr>
+nnoremap <silent> ghe :G commit --amend --no-edit<cr>
