@@ -208,3 +208,6 @@
 [submodule "nvim/pack/bundle/start/telescope.nvim"]
 	path = nvim/pack/bundle/start/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule "nvim/pack/bundle/start/gitsigns.nvim"]
+	path = nvim/pack/bundle/start/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim
