@@ -28,3 +28,5 @@ if ! has('nvim')
   nnoremap <silent> ghb :FugitiveBlameToggle<cr>
 endif
 nnoremap <silent> ghh :G add %<cr>
+nnoremap <silent> gha :G commit --amend<cr>
+nnoremap <silent> ghe :G commit --amend --no-edit<cr>

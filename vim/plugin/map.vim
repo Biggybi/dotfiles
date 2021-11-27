@@ -56,8 +56,8 @@ nnoremap <silent> gI `.gi<esc>zz:call FitBufferWindowBottom()<cr>
 " no more default ex mode
 nnoremap Q <nul>
 
-" redraw
-nnoremap <c-q> :redraw!<cr>
+" reset screen
+nnoremap <silent> <c-q> :mode<cr>
 
 " repeat last macro
 nnoremap - @@
@@ -74,15 +74,13 @@ inoremap . .<c-g>u
 inoremap , ,<c-g>u
 inoremap ; ;<c-g>u
 inoremap : :<c-g>u
-inoremap ' '<c-g>u
-inoremap " "<c-g>u
-inoremap ` `<c-g>u
 inoremap ( (<c-g>u
 inoremap ) )<c-g>u
 inoremap { {<c-g>u
 inoremap } }<c-g>u
 inoremap [ [<c-g>u
 inoremap ] ]<c-g>u
+inoremap _ _<c-g>u
 
 """        Toggles
 
@@ -312,6 +310,7 @@ inoremap <c-l> <del>
 " insert mode start / end of line
 inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>$
+
 " up down on visual lines
 nnoremap <silent> <expr> j v:count? 'j' : '<cmd>normal gj<cr>'
 nnoremap <silent> <expr> k v:count? 'k' : '<cmd>normal gk<cr>'

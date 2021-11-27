@@ -92,11 +92,12 @@ bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey '^j' history-search-forward
 bindkey '^k' history-search-backward
-bindkey '^l' clear-screen
 bindkey '^[[B' history-search-forward
 bindkey '^[[A' history-search-backward
+bindkey '^l' clear-screen
 bindkey '^o' expand-or-complete
 bindkey '^n' accept-and-infer-next-history
+bindkey '^u' backward-kill-word
 bindkey '^ ' autosuggest-accept
 
 bindkey 'è' vi-backward-char
