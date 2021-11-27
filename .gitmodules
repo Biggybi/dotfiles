@@ -190,9 +190,6 @@
 [submodule "nvim/pack/bundle/start/nvim-lspinstall"]
 	path = nvim/pack/bundle/start/nvim-lspinstall
 	url = https://github.com/kabouzeid/nvim-lspinstall
-[submodule "nvim/pack/bundle/start/LuaSnip"]
-	path = nvim/pack/bundle/start/LuaSnip
-	url = https://github.com/L3MON4D3/LuaSnip
 [submodule "nvim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
