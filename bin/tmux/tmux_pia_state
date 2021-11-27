@@ -1,2 +1,11 @@
 #!/bin/bash
-[ -d /sys/class/net/wgpia0 ] && printf "%s" 'o' || printf "%s" 'x'
+
+fgdefault='#[default]'
+if [ -d /sys/class/net/wgpia0 ] ; then
+	fgcolor='#[fg=brightgreen]'
+	piamarker="+V"
+else
+	fgcolor='#[fg=brightred]'
+	piamarker="-V"
+fi
+printf "%s" "${fgcolor}${piamarker}${fgdefault}"

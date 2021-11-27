@@ -1,0 +1,16 @@
+#!/bin/bash
+
+fgdefault='#[default]'
+if [ "$(id -u)" = 0 ] ; then
+	userfgcolor='#[fg=brightred]'
+else
+	userfgcolor='#[fg=brightblue]'
+fi
+if [ -n "$SSH_CLIENT" ] ; then
+	hostfgcolor='#[fg=brighyellow]'
+else
+	hostfgcolor='#[fg=brightgreen]'
+fi
+printf "%s" "${userfgcolor}${USER}${fgdefault} - ${hostfgcolor}$(cat /etc/hostname)${fgdefault}"
+# printf "${piamarker}"
+# printf "#[fg=brightred]%s" 'x'
