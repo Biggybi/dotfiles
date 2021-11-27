@@ -141,6 +141,14 @@ function! GitModify() abort
   if FugitiveHead() == ''  || &buftype == 'terminal'
     return ''
   endif
-  let [a,m,r] = GitGutterGetHunkSummary()
+  let [a, m, r] = [0, 0, 0]
+  if exists('*GitGutterGetHunkSummary')
+    let [a,m,r] = GitGutterGetHunkSummary()
+  elseif exists('b:gitsigns_status')
+    let a = get(split(b:gitsigns_status), 0)
+    let m = get(split(b:gitsigns_status), 1)
+    let r = get(split(b:gitsigns_status), 2)
+  endif
+
   return [a,m,r] == [0,0,0] ? ' ' : ' + '
 endfunction
