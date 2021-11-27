@@ -245,42 +245,47 @@ nnoremap <leader>sv :source $MYVIMRC<bar>:filetype detect<cr>
 nnoremap <leader>sr :Runtime<cr>
 nnoremap <leader>s. :Runtime<cr>
 nnoremap <silent> <leader>sp :silent! Runtime ~/.vim/plugin/*.vim<cr>
+nnoremap <silent> <leader>sf :silent! :filetype detect<cr>
 
 " source colors
 nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
 nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 " edit dotfiles
-nnoremap <leader>ev :e $HOME/dotfiles/vim/vimrc<cr>
-nnoremap <leader>Ev :split $HOME/dotfiles/vim/vimrc<cr>
-nnoremap <leader><c-e>v :vertical split $HOME/dotfiles/vim/vimrc<cr>
-nnoremap <leader>et :e $HOME/dotfiles/tmux/tmux.conf<cr>
-nnoremap <leader>Et :split $HOME/dotfiles/tmux/tmux.conf<cr>
-nnoremap <leader><c-e>t :vertical split $HOME/dotfiles/tmux/tmux.conf<cr>
+nnoremap <leader>ev      :e  $DOT/vim/vimrc<cr>
+nnoremap <leader>Ev      :sp $DOT/vim/vimrc<cr>
+nnoremap <leader><c-e>v  :vs $DOT/vim/vimrc<cr>
+nnoremap <leader>en      :e  $DOT/nvim/init.vim<cr>
+nnoremap <leader>En      :sp $DOT/nvim/init.vim<cr>
+nnoremap <leader><c-e>n  :vs $DOT/nvim/init.vim<cr>
 
-nnoremap <leader>ebb :e $HOME/dotfiles/shells/bash/bashrc<cr>
-nnoremap <leader>Ebb :split $HOME/dotfiles/shells/bash/bashrc<cr>
-nnoremap <leader><c-e>bb :vertical split $HOME/dotfiles/shells/bash/bashrc<cr>
-nnoremap <leader>eba :e $HOME/dotfiles/shells/bash/bash_aliases<cr>
-nnoremap <leader>Eba :split $HOME/dotfiles/shells/bash/bash_aliases<cr>
-nnoremap <leader><c-e>ba :vertical split $HOME/dotfiles/shells/bash/bash_aliases<cr>
-nnoremap <leader>ebp :e $HOME/dotfiles/shells/bash/bash_profile<cr>
-nnoremap <leader>Ebp :split $HOME/dotfiles/shells/bash/bash_profile<cr>
-nnoremap <leader><c-e>b :vertical split $HOME/dotfiles/shells/bash/bash_profile<cr>
+nnoremap <leader>et      :e  $DOT/tmux/tmux.conf<cr>
+nnoremap <leader>Et      :sp $DOT/tmux/tmux.conf<cr>
+nnoremap <leader><c-e>t  :vs $DOT/tmux/tmux.conf<cr>
 
-nnoremap <leader>ezz :e $HOME/dotfiles/shells/zsh/zshrc<cr>
-nnoremap <leader>Ezz :split $HOME/dotfiles/shells/zsh/zshrc<cr>
-nnoremap <leader><c-e>zz :vertical split $HOME/dotfiles/shells/zsh/zshrc<cr>
-nnoremap <leader>eza :e $HOME/dotfiles/shells/zsh/zsh_aliases<cr>
-nnoremap <leader>Eza :split $HOME/dotfiles/shells/zsh/zsh_aliases<cr>
-nnoremap <leader><c-e>za :vertical split $HOME/dotfiles/shells/zsh/zsh_aliases<cr>
+nnoremap <leader>ebb     :e  $DOT/shells/bash/bashrc<cr>
+nnoremap <leader>Ebb     :sp $DOT/shells/bash/bashrc<cr>
+nnoremap <leader><c-e>bb :vs $DOT/shells/bash/bashrc<cr>
+nnoremap <leader>eba     :e  $DOT/shells/bash/bash_aliases<cr>
+nnoremap <leader>Eba     :sp $DOT/shells/bash/bash_aliases<cr>
+nnoremap <leader><c-e>ba :vs $DOT/shells/bash/bash_aliases<cr>
+nnoremap <leader>ebp     :e  $DOT/shells/bash/bash_profile<cr>
+nnoremap <leader>Ebp     :sp $DOT/shells/bash/bash_profile<cr>
+nnoremap <leader><c-e>b  :vs $DOT/shells/bash/bash_profile<cr>
 
-nnoremap <leader>ebn :e $HOME/dotfiles/inputrc<cr>
-nnoremap <leader>Ebn :split $HOME/dotfiles/inputrc<cr>
-nnoremap <leader><c-e>bn :vertical split $HOME/dotfiles/inputrc<cr>
+nnoremap <leader>ezz     :e  $DOT/shells/zsh/zshrc<cr>
+nnoremap <leader>Ezz     :sp $DOT/shells/zsh/zshrc<cr>
+nnoremap <leader><c-e>zz :vs $DOT/shells/zsh/zshrc<cr>
+nnoremap <leader>eza     :e  $DOT/shells/zsh/zsh_aliases<cr>
+nnoremap <leader>Eza     :sp $DOT/shells/zsh/zsh_aliases<cr>
+nnoremap <leader><c-e>za :vs $DOT/shells/zsh/zsh_aliases<cr>
 
-nnoremap <leader>ec1 :e $HOME/dotfiles/vim/colors/base16-onedark.vim<cr>
-nnoremap <leader>ec2 :e $HOME/dotfiles/vim/colors/base16-one-light.vim<cr>
+nnoremap <leader>ebn     :e  $DOT/inputrc<cr>
+nnoremap <leader>Ebn     :sp $DOT/inputrc<cr>
+nnoremap <leader><c-e>bn :vs $DOT/inputrc<cr>
+
+nnoremap <leader>ec1     :e  $DOT/vim/colors/base16-onedark.vim<cr>
+nnoremap <leader>ec2     :e  $DOT/vim/colors/base16-one-light.vim<cr>
 
 " " rename file
 " nnoremap <leader>mv :!mv % %:h:p/
