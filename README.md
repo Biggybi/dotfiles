@@ -9,4 +9,4 @@
 	- install only what you want
 	- edit `dotfiles` folder path
 - `cd dotfiles; ./bin/linkdots --plugins`
-Files that already exist are saved in `dotfiles/dots_back`.
+        - Files that already exist are saved in `dotfiles/dots_back`.

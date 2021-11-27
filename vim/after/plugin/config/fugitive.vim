@@ -17,13 +17,16 @@ function! s:fugitiveBlameToggle() abort
 endfunction
 command! FugitiveBlameToggle :call <sid>fugitiveBlameToggle()
 
-nnoremap <silent> ghb :FugitiveBlameToggle<cr>
+nnoremap <silent> ghB :FugitiveBlameToggle<cr>
 nnoremap <silent> <leader>gg :vertical Git<cr>
 nnoremap <silent> ghg :vertical Git<cr>
 nnoremap <silent> ghc :G commit<cr>
 nnoremap <silent> ghl :Gclog<cr>
 nnoremap <silent> ghp :G push<cr>
-nnoremap <silent> ghr :Gread<cr>
+if ! has('nvim')
+  nnoremap <silent> ghr :Gread<cr>
+  nnoremap <silent> ghb :FugitiveBlameToggle<cr>
+endif
 nnoremap <silent> ghh :G add %<cr>
 nnoremap <silent> gha :G commit --amend<cr>
 nnoremap <silent> ghe :G commit --amend --no-edit<cr>

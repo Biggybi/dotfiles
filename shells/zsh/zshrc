@@ -21,11 +21,9 @@ unsetopt BEEP
 # Environment variables
 
 ## Applications
-if [ -z "$TMUX" ] ; then
-	export VISUAL=vim
-	export MANPAGER="vim -M +MANPAGER -"
-else
-	export VISUAL=(vim -T xterm-256color)
+export VISUAL=nvim
+if [ -n "$TMUX" ] && [ $VISUAL = 'vim' ] ; then
+	VISUAL=(vim -T xterm-256color)
 	export MANPAGER="vim -T xterm-256color -M +MANPAGER -"
 fi
 export EDITOR=(vi -e)
@@ -33,7 +31,9 @@ export BROWSER=firefox
 
 ## PATH
 export GOPATH=$HOME/bin/go
-export PATH=$PATH:~/bin:/usr/lib
+export PATH=$PATH:$HOME/bin
+PATH+=:$HOME/bin/tmux
+PATH+=:/usr/lib
 PATH+=:~/.npm-global/bin
 PATH+=:/home/linuxbrew/.linuxbrew/bin
 PATH+=:$GOPATH/bin
@@ -132,6 +132,15 @@ __get_vi_mode_bottom() {
 	print -n -- $vimstyle
 }
 
+__get_pia_state() {
+	local piastate=$(piactl get connectionstate)
+	if [ ${piastate:0:1} = 'C' ] ; then
+		print -n -- 'PIA up'
+	else
+	print -n -- 'PIA down'
+	fi
+}
+
 DEFAULT_VI_MODE=viins
 
 zle-keymap-select() {
@@ -154,15 +163,25 @@ precmd() {
 }
 
 PROMPT=$'\n '
-PROMPT+=$'%{\e[01;33;100m%}  %n %{\e[0m%}'  # User
-PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'    # Sep
-PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # Host
-PROMPT+=$'%{\e[00;01;94m%} %~%{\e[0m%} '    # CWD
-PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # Branch
+if [ "$(id -u)" = 0 ] ; then
+	PROMPT+=$'%{\e[01;31;100m%}  %n %{\e[0m%}'  # root user
+else
+	PROMPT+=$'%{\e[01;36;100m%}  %n %{\e[0m%}'  # user
+fi
+PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'    # separation
+if [ -n "$SSH_CLIENT" ] ; then
+	PROMPT+=$'%{\e[01;33;100m%} %M  %{\e[0m%} ' # ssh host
+else
+	PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # host
+fi
+PROMPT+=$'%{\e[00;01;93m%} %~%{\e[0m%} '    # cwd
+PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # branch
+# NOTE: too slow
+# PROMPT+=$'$(__get_pia_state)'
 PROMPT+=$'\t${promt_cmd_info}'
 PROMPT+=$'%{$reset_color%}'
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
-PROMPT+=$'%{$reset_color%}'                 # End
+PROMPT+=$'%{$reset_color%}'                 # end
 
 # rprompt
 
