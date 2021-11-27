@@ -24,6 +24,7 @@ cd $SRC
 
 # git files to link
 DOTS=(vim
+	nvim
 	shells/zsh/zshrc
 	shells/zsh/zsh_aliases
 	shells/xterm/Xresources
@@ -39,6 +40,7 @@ DOTS=(vim
 
 # links to create localy for Linux
 LINK=(.vim
+	.config/nvim
 	.zshrc
 	.zsh_aliases
 	.Xresources
