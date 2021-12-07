@@ -82,6 +82,7 @@ function! s:RunShellCommand(cmdline, direction) abort
   else                               " scratchterm nowhere
     wincmd n
     wincmd J
+    setlocal winfixheight
   endif
   call s:LaunchTerm(cmdline)
   call s:SetScratchAlternateFile(current_file)
@@ -101,10 +102,15 @@ function! s:MoveScratchTerm(direction) abort
   sbuffer scratchterm
   execute "wincmd" a:direction
   if index(["H", "L"], a:direction) >= 0
+    setlocal nowinfixheight
+    setlocal winfixwidth
     exe g:TermToggleWidth "wincmd |"
   elseif index(["J", "K"], a:direction) >= 0
+    setlocal nowinfixwidth
+    setlocal winfixheight
     exe g:TermToggleHeight "wincmd _"
   endif
+  " call feedkeys("i\<c-c>")
   call win_gotoid(current_window)
 endfunction
 
