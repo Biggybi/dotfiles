@@ -162,7 +162,7 @@ nnoremap [<leader>p O<esc>"+]p==
 " ... fix conflict for unimpaired blank lines
 if mapleader == "\<space>"
   nmap [<space><space> <plug>(unimpaired-blank-up)
-  nmap ]<space><space> <plug>(unimpaired-blank-up)
+  nmap ]<space><space> <plug>(unimpaired-blank-down)
 endif
 
 " copy to clipboard
