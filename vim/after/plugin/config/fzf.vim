@@ -22,30 +22,48 @@ let g:fzf_action = {
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'}
 
-nnoremap <silent> <leader>ff :FzfFiles $HOME<cr>
-nnoremap <silent> <leader>f. :FzfGFiles $DOT<cr>
-nnoremap <silent> <leader><c-f> :call getcwd() <bar> :FzfFiles<cr>
-nnoremap <silent> <leader>F :FzfFiles /<cr>
-nnoremap <silent> <leader>fb :FzfBuffers<cr>
-nnoremap <silent> <leader>b :ls<cr>
-nnoremap <silent> <leader>j :FzfBuffers<cr>
-nnoremap <silent> <leader>fw :FzfWindows<cr>
-nnoremap <silent> <leader>ft :FzfTags<cr>
+nnoremap <silent> <leader>ff     :FzfFiles $HOME<cr>
+nnoremap <silent> <leader>f.     :FzfGFiles $DOT<cr>
+nnoremap <silent> <leader><c-f>  :call getcwd() <bar> FzfFiles<cr>
+nnoremap <silent> <leader>F      :FzfFiles /<cr>
+nnoremap <silent> <leader>fb     :FzfBuffers<cr>
+nnoremap <silent> <leader>b      :ls<cr>
+nnoremap <silent> <leader>j      :FzfBuffers<cr>
+nnoremap <silent> <leader>fw     :FzfWindows<cr>
+nnoremap <silent> <leader>ft     :echo ".." <bar> FzfTags<cr>
 nnoremap <silent> <leader>f<c-t> :FzfBTags<cr>
-nnoremap <silent> <leader>fc :FzfCommit<cr>
+nnoremap <silent> <leader>fc     :FzfCommit<cr>
 nnoremap <silent> <leader>f<c-c> :FzfBCommit<cr>
-nnoremap <silent> <leader>fg :FzfGFiles<cr>
+nnoremap <silent> <leader>fg     :FzfGFiles<cr>
 nnoremap <silent> <leader>f<c-g> :FzfGFiles?<cr>
-nnoremap <silent> <leader>fl :FzfLines<cr>
+nnoremap <silent> <leader>fl     :FzfLines<cr>
 nnoremap <silent> <leader>f<c-l> :FzfBLines<cr>
-nnoremap <silent> <leader>f; :FzfHistory:<cr>
-nnoremap <silent> <leader>f/ :FzfHistory/<cr>
-nnoremap <silent> <leader>fh :FzfHistory<cr>
-nnoremap <silent> <leader>fm :FzfHelptags<cr>
-nnoremap <silent> <leader>fs :FzfSnippets<cr>
-nnoremap <silent> <leader>fR :Rg<cr>
-nnoremap <silent> <leader>fr :RG<cr>
+nnoremap <silent> <leader>f;     :FzfSearchHistory<cr>
+nnoremap <silent> <leader>f/     :FzfCommandHistory<cr>
+nnoremap <silent> <leader>fh     :FzfHistory<cr>
+nnoremap <silent> <leader>fm     :FzfHelptags<cr>
+nnoremap <silent> <leader>fs     :FzfSnippets<cr>
+nnoremap <silent> <leader>fR     :Rg<cr>
+nnoremap <silent> <leader>fr     :RG<cr>
 inoremap <silent> <c-x><c-s> <c-o>:FzfSnippets<cr>
+
+" redefine commands to avoid preview-window
+command! -bang -nargs=* FzfLines
+      \ call fzf#vim#lines(<q-args>, {'options': ['--info=inline', '--preview-window=hidden']}, <bang>0)
+command! -bang -nargs=* FzfBLines
+      \ call fzf#vim#buffer_lines(<q-args>, {'options': ['--info=inline', '--preview-window=hidden']}, <bang>0)
+command! -bar -bang FzfWindows
+      \ call fzf#vim#windows({'options': ['--preview-window=hidden']}, <bang>0)
+command! -bang -nargs=* FzfHistory
+      \ call fzf#vim#history(<bang>0)
+command! -bang -nargs=* FzfCommandHistory
+      \ call fzf#vim#command_history({'options': ['--preview-window=hidden']}, <bang>0)
+command! -bang -nargs=* FzfSearchHistory
+      \ call fzf#vim#search_history({'options': ['--preview-window=hidden']}, <bang>0)
+command! -bar -bang FzfHelptags
+      \ call fzf#vim#helptags({'options': ['--preview-window=hidden']}, <bang>0)
+command! -bar -bang FzfSnippets
+      \ call fzf#vim#snippets({'options': ['--preview-window=hidden']}, <bang>0)
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
