@@ -43,8 +43,8 @@ nnoremap <silent> <leader>f/     :FzfCommandHistory<cr>
 nnoremap <silent> <leader>fh     :FzfHistory<cr>
 nnoremap <silent> <leader>fm     :FzfHelptags<cr>
 nnoremap <silent> <leader>fs     :FzfSnippets<cr>
-nnoremap <silent> <leader>fR     :Rg<cr>
-nnoremap <silent> <leader>fr     :RG<cr>
+nnoremap <silent> <leader>fR     :FzfRg<cr>
+nnoremap <silent> <leader>fr     :FzfRG<cr>
 inoremap <silent> <c-x><c-s> <c-o>:FzfSnippets<cr>
 
 " redefine commands to avoid preview-window
@@ -102,10 +102,6 @@ let g:fzf_colors = {
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
-"Get Files
-command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
 " Get text in files with Rg
 command! -bang -nargs=* Rg
       \ call fzf#vim#grep(
@@ -113,7 +109,7 @@ command! -bang -nargs=* Rg
       \   fzf#vim#with_preview(), <bang>0)
 
 " Ripgrep advanced
-function! RipgrepFzf(query, fullscreen) abort
+function! s:ripgrepFzf(query, fullscreen) abort
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
@@ -121,10 +117,10 @@ function! RipgrepFzf(query, fullscreen) abort
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang FzfRG call s:ripgrepFzf(<q-args>, <bang>0)
 
 " Git grep
-command! -bang -nargs=* GGrep
+command! -bang -nargs=* FzfGlines
       \ call fzf#vim#grep(
       \   'git grep --line-number '.shellescape(<q-args>), 0,
       \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
