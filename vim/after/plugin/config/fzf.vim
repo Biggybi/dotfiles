@@ -75,8 +75,12 @@ let g:fzf_tags_command = 'ctags -R'
 " big floating window
 " let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
 
-" bottom floating window
-let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.3, 'yoffset':1.0, 'xoffset': 0.7, 'border': 'top' } }
+" See `man fzf-tmux` for available options
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,80%' }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+endif
 
 let g:fzf_preview_window = ['right', 'ctrl-]']
 " let g:fzf_layout = {'heigh': '40%'}
