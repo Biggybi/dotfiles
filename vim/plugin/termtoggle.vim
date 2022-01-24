@@ -44,8 +44,12 @@ nnoremap [= :call ShowTerm()<cr>
 function! s:putTermPanel(buf, side, size) abort
   " new term if no buffer
   if a:buf == 0
-    " clear screen (workaround for bashrc base16 trash)
-    call feedkeys("\<c-l>")
+    " clear screen (workaround for bashrc base16 trash output)
+    if exists("$TMUX")
+      call feedkeys("clear\<cr>")
+    else
+      call feedkeys("\<esc>cc")
+    endif
     term
   else
     execute "sp" bufname(a:buf)
