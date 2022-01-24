@@ -9,8 +9,8 @@ let g:TermTogglePopHeight = get(g:, 'TermTogglePopHeight', '25')
 let g:TermTogglePopWidth  = get(g:, 'TermTogglePopWidth', '80')
 let g:TermToggleBottom    = get(g:, 'TermToggleBottom', '1')
 let g:TermToggleRight     = get(g:, 'TermToggleRight', '1')
-let g:TermToggleBottom    = g:TermToggleBottom == '1' ? 'J': 'K'
-let g:TermToggleRight     = g:TermToggleRight == '1' ? 'L': 'H'
+let g:TermToggleBottom    = g:TermToggleBottom !~ '{J,K}' || g:TermToggleBottom == '1' ? 'J': 'K'
+let g:TermToggleRight     = g:TermToggleBottom !~ '{L,H}' || g:TermToggleRight == '1' ? 'L': 'H'
 
 command! TermToggleV :call <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)
 command! TermToggle  :call <sid>TermToggle(g:TermToggleBottom, g:TermToggleHeight)
