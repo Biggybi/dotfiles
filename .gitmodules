@@ -149,6 +149,7 @@
 [submodule "shells/shells/zsh/plugins/zsh-vi-mode"]
 	path = shells/zsh/plugins/zsh-vi-mode
 	url = https://github.com/jeffreytse/zsh-vi-mode
+	ignore = dirty
 [submodule "fonts/JetBrainsMono"]
 	path = fonts/JetBrainsMono
 	url = https://github.com/JetBrains/JetBrainsMono
@@ -202,6 +203,7 @@
 [submodule "nvim/pack/bundle/start/lua-language-server"]
 	path = nvim/pack/bundle/start/lua-language-server
 	url = https://github.com/sumneko/lua-language-server
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/nvim-treesitter"]
 	path = nvim/pack/bundle/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
