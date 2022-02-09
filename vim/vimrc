@@ -167,6 +167,9 @@ endif
 if has('wildmenu')
   set wildmenu                  " show matches to commands
 endif
+if has('wildoptions')
+  set wildoptions=pum           " vertical command-mode completion list
+endif
 set wildchar=<tab>              " complete w/ tab
 set wildmode=longest:full,full
 set fileignorecase              " ignore case using filename
