@@ -15,8 +15,7 @@ if has ('nvim')
   nmap <bs> <c-h>
 endif
 
-" ctrl-c does not show :q
-nnoremap <c-c> :silent! <c-c>
+nnoremap <buffer> <c-c> :feedkeys("\<c-c>")
 
 """        Modes
 " closing easy
