@@ -9,8 +9,8 @@ let g:TermTogglePopHeight = get(g:, 'TermTogglePopHeight', '25')
 let g:TermTogglePopWidth  = get(g:, 'TermTogglePopWidth', '80')
 let g:TermToggleBottom    = get(g:, 'TermToggleBottom', '1')
 let g:TermToggleRight     = get(g:, 'TermToggleRight', '1')
-let g:TermToggleBottom    = g:TermToggleBottom == '1' ? 'J': 'K'
-let g:TermToggleRight     = g:TermToggleRight == '1' ? 'L': 'H'
+let g:TermToggleBottom    = g:TermToggleBottom !~ '{J,K}' || g:TermToggleBottom == '1' ? 'J': 'K'
+let g:TermToggleRight     = g:TermToggleBottom !~ '{L,H}' || g:TermToggleRight == '1' ? 'L': 'H'
 
 command! TermToggleV :call <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)
 command! TermToggle  :call <sid>TermToggle(g:TermToggleBottom, g:TermToggleHeight)
@@ -44,8 +44,12 @@ nnoremap [= :call ShowTerm()<cr>
 function! s:putTermPanel(buf, side, size) abort
   " new term if no buffer
   if a:buf == 0
-    " clear screen (workaround for bashrc base16 trash)
-    call feedkeys("\<c-l>")
+    " clear screen (workaround for bashrc base16 trash output)
+    if exists("$TMUX")
+      call feedkeys("clear\<cr>")
+    else
+      call feedkeys("\<esc>cc")
+    endif
     term
   else
     execute "sp" bufname(a:buf)
@@ -72,27 +76,31 @@ function! s:PopupTerminal() abort
   return
 endfunction
 
-function! s:TermToggle(side, size) abort
-  let tpbl=[]
+function! s:HideVisibleTerm(tpbl) abort
   let closed = 0
-  let tpbl = tabpagebuflist()
-  " hide visible terminals
-  for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
+  for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(a:tpbl, v:val)>=0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
       silent execute bufwinnr(buf) . "hide"
       let closed += 1
     endif
   endfor
-  if closed > 0
-    return
-  endif
-  " open first hidden terminal
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
+  return closed
+endfunction
+
+function! s:OpenFirstTerm(tpbl, side, size) abort
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(a:tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
       call s:putTermPanel(buf, a:side, a:size)
       return
     endif
   endfor
-  " open new terminal
+endfunction
+
+function! s:TermToggle(side, size) abort
+  let tpbl = tabpagebuflist()
+  if s:HideVisibleTerm(tpbl) > 0
+    return
+  endif
+  call s:OpenFirstTerm(tpbl, a:side, a:size)
   call s:putTermPanel(0, a:side, a:size)
 endfunction
