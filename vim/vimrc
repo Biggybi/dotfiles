@@ -167,7 +167,8 @@ endif
 if has('wildmenu')
   set wildmenu                  " show matches to commands
 endif
-if has('wildoptions')
+if has("patch4417")
+  " NOTE: has('wildoptions') -> never true?
   set wildoptions=pum           " vertical command-mode completion list
 endif
 set wildchar=<tab>              " complete w/ tab
