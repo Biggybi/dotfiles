@@ -3,5 +3,7 @@
 session=$(tmux list-sessions\
 	| sed 's/:.*//'\
 	| grep -v ^$(tmux display-message -p '#S')$\
-	| fzf --reverse)
+	| fzf --reverse\
+	--header=$(tmux display-message -p '#S')\ '(current)'\
+	--no-info)
 [[ $session != '' ]] && tmux switch-client -t $session
