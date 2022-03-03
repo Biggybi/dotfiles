@@ -1,8 +1,7 @@
 #!/bin/bash
 
 session=$(tmux list-sessions\
-	| sed -E 's/:.*#//'\
-	| grep -v \"^$(tmux display-message -p '#S')\$\"\
-	| fzf --reverse\
-	| sed 's/:.*//')
+	| sed 's/:.*//'\
+	| grep -v ^$(tmux display-message -p '#S')$\
+	| fzf --reverse)
 [[ $session != '' ]] && tmux switch-client -t $session
