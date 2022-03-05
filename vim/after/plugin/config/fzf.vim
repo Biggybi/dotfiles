@@ -76,7 +76,7 @@ let g:fzf_tags_command = 'ctags -R'
 " let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'rounded' } }
 
 " See `man fzf-tmux` for available options
-if exists('$TMUX')
+if exists('$TMUX') && str2float(system('tmux -V | grep -Eo " [0-9.]*"')) >= 3.2
   let g:fzf_layout = { 'tmux': '-p90%,80%' }
 else
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }

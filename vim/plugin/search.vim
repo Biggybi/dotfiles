@@ -25,11 +25,17 @@ function! s:delete_current_match()
   let winid = s:pos[3]
   if winbufnr(winid) == -1 | return | endif
   if has('patch-8.1.1084') || has('nvim-0.5.0')
-    try | call matchdelete(s:match, winid) | catch /^Vim\%((\a\+)\)\=:E803:/ | endtry
+    try
+      call matchdelete(s:match, winid)
+    catch /^Vim\%((\a\+)\)\=:E803:/
+    endtry
   else
     let same_win = winid == win_getid()
     if !same_win | noautocmd call win_gotoid(winid) | endif
-    try | call matchdelete(s:match) | catch /^Vim\%((\a\+)\)\=:E803:/ | endtry
+    try
+      call matchdelete(s:match)
+    catch /^Vim\%((\a\+)\)\=:E803:/
+    endtry
     if !same_win | noautocmd wincmd p | endif
   endif
 endfunction
