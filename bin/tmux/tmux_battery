@@ -3,7 +3,7 @@
 if [ "$(which acpi)" ]; then
 	# Set the default color to the local variable fgdefault.
 	fgdefault='#[default]'
-	if [ "$(cat /sys/class/power_supply/ACAD/online)" == 1 ] ; then
+	if [ "$(find /sys/class/power_supply/*/online)" == 1 ] ; then
 		charging='+'
 	else
 		charging='-'
