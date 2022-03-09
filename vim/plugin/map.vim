@@ -424,6 +424,10 @@ if ! has("nvim")
   nnoremap <silent> <a-L> :exe "vertical resize +1"<CR>
   nnoremap <silent> <a-o> :tabnext<cr>
   nnoremap <silent> <a-i> :tabprevious<cr>
+  nnoremap <silent> <c-w>o :tabnext<cr>
+  nnoremap <silent> <c-w>i :tabprevious<cr>
+  nnoremap <silent> <c-w><c-o> :tabnext<cr>
+  nnoremap <silent> <c-w><c-i> :tabprevious<cr>
   nnoremap <silent> <a-p> :normal g<tab><cr>
 else
   inoremap <m-h> <left>
