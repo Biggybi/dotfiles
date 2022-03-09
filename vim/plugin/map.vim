@@ -632,9 +632,10 @@ nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
 " quickfix list
 nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
       \ ":cclose<cr>" : ":bot copen<cr><c-w>p"
+nnoremap <silent> <leader>cc :cc<cr>
 
 """        Make
-nnoremap <leader>cm :make<cr><cr>
+nnoremap <leader>cm :VShell make<cr>
 nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
 nnoremap <leader>cx :VShell make clean<cr>
