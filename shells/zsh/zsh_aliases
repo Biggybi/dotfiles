@@ -358,7 +358,7 @@ alias bc='bc -q'
 # alias asciidh="man ascii | grep ".*30.*40.*" -A18 -B1"
 
 alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
-alias regex_ipv4="grep -Eo '([0-9]+\.){3}[0-9]+'"
+alias regex_ipv4="grep -Eo '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b'"
 
 ### config : app icons
 alias cdapp='cd /usr/share/applications/'
