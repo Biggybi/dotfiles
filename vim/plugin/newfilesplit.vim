@@ -32,4 +32,5 @@ if !hasmapto('<plug>NewFile') && maparg('<leader>n <', 'n') ==# ''
   nmap <c-n>s     <Plug>NewFileHor
   nmap <c-n><c-s> <Plug>NewFileHor
   nmap <c-n>t     <Plug>NewFileTab
+  nmap <c-n><c-t> <Plug>NewFileTab
 endif
