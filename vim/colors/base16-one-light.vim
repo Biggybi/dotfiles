@@ -291,6 +291,9 @@ call <sid>hi("StatuslineNC",        s:gui04, s:gui02, s:cterm03, s:cterm01, "non
 call <sid>hi("StatusLine",          s:gui05, s:gui02, s:cterm02, s:cterm02, "none", "")
 " call <sid>hi("StatusLine",        s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
 
+" QuickFix
+call <sid>hi("qfError",   s:gui09, s:gui00, s:cterm09, s:cterm00, "", "")
+
 " Standard syntax highlighting
 call <sid>hi("Boolean",      s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Character",    s:gui08, "", s:cterm08, "", "", "")

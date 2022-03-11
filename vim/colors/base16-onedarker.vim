@@ -284,6 +284,9 @@ call <sid>hi("Todo",         s:gui0C, s:gui00, s:cterm0C, s:cterm00, "", "")
 call <sid>hi("Type",         s:gui0A, "", s:cterm0A, "", "none", "")
 call <sid>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "", "")
 
+" QuickFix
+call <sid>hi("qfError",   s:gui09, s:gui00, s:cterm09, s:cterm00, "", "")
+
 " C highlighting
 call <sid>hi("cOperator",   s:gui0C, "", s:cterm0C, "", "", "")
 call <sid>hi("cPreCondit",  s:gui0E, "", s:cterm0E, "", "", "")
