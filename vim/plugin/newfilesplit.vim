@@ -24,7 +24,7 @@ nnoremap <expr> <plug>NewFileHor ":sp "   . <sid>fPath()
 nnoremap <expr> <plug>NewFileTab ":tabe " . <sid>fPath()
 
 " nnoremap <expr> <plug>NewFile <sid>newFile()
-if !hasmapto('<plug>NewFile') && maparg('<leader>n <', 'n') ==# ''
+if !hasmapto('<plug>NewFile') && maparg('<c-n>', 'n') ==# ''
   nmap <c-n>n     <Plug>NewFile
   nmap <c-n><c-n> <Plug>NewFile
   nmap <c-n>v     <Plug>NewFileVer
