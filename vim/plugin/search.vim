@@ -8,7 +8,8 @@ let g:plugin_search = 1
 
 " let g:search_count_update = ':AnzuUpdateSearchStatus'
 let g:current_search_match = get(g:, 'current_search_match', 'IncSearch')
-let g:edge_search_match = get(g:, 'edge_search_match', 'EdgeSearch')
+let g:first_search_match = get(g:, 'first_search_match', 'FirstSearch')
+let g:last_search_match = get(g:, 'last_search_match', 'LastSearch')
 let g:search_count_update = get(g:, 'search_count_update', '')
 
 let s:pos = []
@@ -70,8 +71,10 @@ function! s:update_search_match()
     let window = win_getid()
     if s:pos != [start, stop, line, window]
       call s:delete_current_match()
-      if search(@/, 'bWn') == 0 || search(@/, 'Wn') == 0
-        let s:match = matchaddpos(g:edge_search_match, [[line, start+1, stop-start]])
+      if search(@/, 'bWn') == 0
+        let s:match = matchaddpos(g:first_search_match, [[line, start+1, stop-start]])
+      elseif search(@/, 'Wn') == 0
+        let s:match = matchaddpos(g:last_search_match, [[line, start+1, stop-start]])
       else
         let s:match = matchaddpos(g:current_search_match, [[line, start+1, stop-start]])
       endif

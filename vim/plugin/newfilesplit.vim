@@ -4,6 +4,7 @@ endif
 let g:plugin_newfilesplit = 1
 
 let g:newfilesplit_hometild = get(g:, 'newfilesplit_hometild', 1)
+let g:newfilesplit_base_map = get(g:, 'newfilesplit_base_map', "<c-n>")
 
 function! s:fPath(hometild = 2) abort
   let fpath=expand('%:p:h').'/'
@@ -18,18 +19,23 @@ endfunction
 
 " Note: Fix: command not showing in command-line until input
 nnoremap <expr> <plug>NewFile    ":e "    . <sid>fPath()
-" nnoremap <plug>NewFile    :e <c-\>e<sid>fPath(1)<cr>
 nnoremap <expr> <plug>NewFileVer ":vs "   . <sid>fPath()
 nnoremap <expr> <plug>NewFileHor ":sp "   . <sid>fPath()
 nnoremap <expr> <plug>NewFileTab ":tabe " . <sid>fPath()
 
-" nnoremap <expr> <plug>NewFile <sid>newFile()
-if !hasmapto('<plug>NewFile') && maparg('<c-n>', 'n') ==# ''
-  nmap <c-n>n     <Plug>NewFile
-  nmap <c-n><c-n> <Plug>NewFile
-  nmap <c-n>v     <Plug>NewFileVer
-  nmap <c-n><c-v> <Plug>NewFileVer
-  nmap <c-n>s     <Plug>NewFileHor
-  nmap <c-n><c-s> <Plug>NewFileHor
-  nmap <c-n>t     <Plug>NewFileTab
+function! s:map(mapstring, type)
+  if maparg(g:newfilesplit_base_map.a:mapstring, 'n') ==# ''
+    exe printf("nmap %s%s <Plug>NewFile%s", g:newfilesplit_base_map, a:mapstring, a:type)
+  endif
+endfunction
+
+if !hasmapto('<plug>NewFile')
+  call s:map('n',     '<right>')
+  call s:map('<c-n>', '<right>')
+  call s:map('v',     'Ver')
+  call s:map('<c-v>', 'Ver')
+  call s:map('s',     'Hor')
+  call s:map('<c-s>', 'Hor')
+  call s:map('t',     'Tab')
+  call s:map('<c-t>', 'Tab')
 endif

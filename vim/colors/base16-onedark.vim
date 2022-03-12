@@ -190,9 +190,10 @@ call <sid>hi("TrailSpace",    s:gui0C, s:gui02, s:cterm0C, s:cterm02, "strikethr
 call <sid>hi("Exception",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("FoldColumn",    s:gui0C, s:gui01, s:cterm0C, s:cterm01, "", "")
 call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm00, "", "")
-call <sid>hi("Search",        s:gui02, s:gui0B, s:cterm02, s:cterm0B,  "", "")
-call <sid>hi("IncSearch",     s:gui02, s:gui0D, s:cterm02, s:cterm0D, "none", "")
-call <sid>hi("EdgeSearch",    s:gui02, s:gui08, s:cterm02, s:cterm08, "none", "")
+call <sid>hi("Search",        s:gui02, s:gui0A, s:cterm02, s:cterm0B,  "", "")
+call <sid>hi("IncSearch",     s:gui02, s:gui0B, s:cterm02, s:cterm0D, "none", "")
+call <sid>hi("FirstSearch",    s:gui02, s:gui0D, s:cterm02, s:cterm08, "none", "")
+call <sid>hi("LastSearch",    s:gui02, s:gui08, s:cterm02, s:cterm08, "none", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
 call <sid>hi("Macro",         s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("MatchParen",    s:gui0C, s:gui02, s:cterm0C, s:cterm02,  "", "")
@@ -282,6 +283,9 @@ call <sid>hi("Tag",          s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("Todo",         s:gui0C, s:gui00, s:cterm0C, s:cterm00, "", "")
 call <sid>hi("Type",         s:gui0A, "", s:cterm0A, "", "none", "")
 call <sid>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "", "")
+
+" QuickFix
+call <sid>hi("qfError",   s:gui09, s:gui00, s:cterm09, s:cterm00, "", "")
 
 " C highlighting
 call <sid>hi("cOperator",   s:gui0C, "", s:cterm0C, "", "", "")

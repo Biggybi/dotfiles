@@ -207,9 +207,10 @@ call <sid>hi("FoldColumn",    s:gui0C, s:gui01, s:cterm0C, s:cterm01, "", "")
 " call <sid>hi("Folded",        s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
 call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
 call <sid>hi("CocHighlightText", "", s:gui01, s:cterm08, "", "", "")
-call <sid>hi("IncSearch",     s:gui0E, s:gui01, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("EdgeSearch",    s:gui08, s:gui01, s:cterm04, s:cterm0C, "none", "")
-call <sid>hi("Search",        s:gui0D, s:gui01, s:cterm01, s:cterm0A,  "", "")
+call <sid>hi("Search",        s:gui02, s:gui0A, s:cterm02, s:cterm0B,  "", "")
+call <sid>hi("IncSearch",     s:gui02, s:gui0B, s:cterm02, s:cterm0D, "none", "")
+call <sid>hi("FirstSearch",    s:gui02, s:gui0D, s:cterm02, s:cterm08, "none", "")
+call <sid>hi("LastSearch",    s:gui02, s:gui08, s:cterm02, s:cterm08, "none", "")
 " call <sid>hi("IncSearch",     s:gui00, s:gui0B, s:cterm00, s:cterm09, "none", "")
 " call <sid>hi("EdgeSearch",     s:gui00, s:gui09, s:cterm04, s:cterm0C, "none", "")
 " call <sid>hi("Search",        s:gui00, s:gui0C, s:cterm01, s:cterm0A,  "", "")
@@ -281,6 +282,9 @@ call <sid>hi("StatuslineNC",        s:gui04, s:gui01, s:cterm03, s:cterm01, "non
 " call <sid>hi("StatuslineNC",      s:gui05, s:gui01, s:cterm03, s:cterm01, "none", "")
 call <sid>hi("StatusLine",          s:gui05, s:gui01, s:cterm02, s:cterm02, "none", "")
 " call <sid>hi("StatusLine",        s:gui04, s:gui02, s:cterm04, s:cterm02, "none", "")
+
+" QuickFix
+call <sid>hi("qfError",   s:gui09, s:gui00, s:cterm09, s:cterm00, "", "")
 
 " Standard syntax highlighting
 call <sid>hi("Boolean",      s:gui09, "", s:cterm09, "", "", "")

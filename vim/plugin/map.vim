@@ -424,6 +424,10 @@ if ! has("nvim")
   nnoremap <silent> <a-L> :exe "vertical resize +1"<CR>
   nnoremap <silent> <a-o> :tabnext<cr>
   nnoremap <silent> <a-i> :tabprevious<cr>
+  nnoremap <silent> <c-w>o :tabnext<cr>
+  nnoremap <silent> <c-w>i :tabprevious<cr>
+  nnoremap <silent> <c-w><c-o> :tabnext<cr>
+  nnoremap <silent> <c-w><c-i> :tabprevious<cr>
   nnoremap <silent> <a-p> :normal g<tab><cr>
 else
   inoremap <m-h> <left>
@@ -628,9 +632,10 @@ nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
 " quickfix list
 nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
       \ ":cclose<cr>" : ":bot copen<cr><c-w>p"
+nnoremap <silent> <leader>cc :cc<cr>
 
 """        Make
-nnoremap <leader>cm :make<cr><cr>
+nnoremap <leader>cm :VShell make<cr>
 nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
 nnoremap <leader>cx :VShell make clean<cr>

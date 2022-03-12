@@ -179,9 +179,6 @@
 [submodule "vim/pack/bundle/start/vim-go"]
 	path = vim/pack/bundle/start/vim-go
 	url = https://github.com/fatih/vim-go
-[submodule "nvim/pack/bundle/start/cmp-cmdline"]
-	path = nvim/pack/bundle/start/cmp-cmdline
-	url = https://github.com/hrsh7th/cmp-cmdline
 [submodule "nvim/pack/bundle/start/cmp-nvim-lsp"]
 	path = nvim/pack/bundle/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp
