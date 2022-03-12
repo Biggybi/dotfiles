@@ -27,13 +27,14 @@ nnoremap <expr> <plug>NewFileTab ":tabe " . <sid>fPath()
 " nnoremap <expr> <plug>NewFile <sid>newFile()
 
 function! s:map(mapstring, type)
-  if maparg(g:newfilesplit_base_map.a:mapstring, 'n') ==# ''
-    exe printf("nmap %s%s <Plug>NewFile%s", g:newfilesplit_base_map, a:mapstring, a:type)
+  let lhs = g:newfilesplit_base_map.a:mapstring
+  if maparg(lhs, 'n') ==# ''
+    exe printf("nmap %s <Plug>NewFile%s", lhs, a:type)
   endif
 endfunction
 
 if !hasmapto('<plug>NewFile')
-  call s:map('n',     '<right>')
+  call s:map('n',     '<right>') "<right>: fix for line not showing up
   call s:map('<c-n>', '<right>')
   call s:map('v',     'Ver')
   call s:map('<c-v>', 'Ver')
