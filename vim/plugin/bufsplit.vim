@@ -31,13 +31,10 @@ function s:fPathTab() abort
   return ":tabnew ".s:getPath()
 endfunction
 
-" Note: Fix: command not showing in command-line until input
 nnoremap <expr> <plug>BufSplitCur <sid>fPathCur()
 nnoremap <expr> <plug>BufSplitVer <sid>fPathVer()
 nnoremap <expr> <plug>BufSplitHor <sid>fPathHor()
 nnoremap <expr> <plug>BufSplitTab <sid>fPathTab()
-
-" nnoremap <expr> <plug>BufSplit <sid>newFile()
 
 function! s:map(mapstring, type)
   let lhs = g:newfilesplit_base_map.a:mapstring
