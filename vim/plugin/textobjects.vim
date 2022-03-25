@@ -12,7 +12,7 @@ onoremap ag :<c-u>normal! ggVG<cr><c-o><c-o>
 """        Start / End of line
 onoremap h  :<c-u>normal! ^<cr>
 onoremap l  :<c-u>normal! v$h<cr>
-onoremap il :<c-u>normal! $v_<cr>
+onoremap il :<c-u>normal! $v0<cr>
 
 """        Special char i / in / iN / a / an / aN
 let s:special_char = [
