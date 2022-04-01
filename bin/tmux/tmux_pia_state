@@ -1,11 +1,15 @@
 #!/bin/bash
 
 fgdefault='#[default]'
-if [ -d /sys/class/net/wgpia0 ] ; then
+if [ $(piactl get connectionstate) == 'Connected' ]\
+	|| [ -d /sys/class/net/wgpia0 ] ; then
 	fgcolor='#[fg=brightgreen]'
 	piamarker="+V"
+elif [ $(piactl get connectionstate) == 'Connecting' ]; then
+	fgcolor='#[fg=purple]'
+	piamarker="~V"
 else
-	fgcolor='#[fg=brightred]'
+	fgcolor='#[fg=orange]'
 	piamarker="-V"
 fi
 printf "%s" "${fgcolor}${piamarker}${fgdefault}"
