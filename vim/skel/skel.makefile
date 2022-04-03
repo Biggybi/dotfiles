@@ -54,7 +54,7 @@ $(NAME): $(ODIR) $(OBJ)
 	$(HIDE)$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
 	$(HIDE)echo "make   ->  $(NAME) created"
 
-$(ODIR)%.o: $(SSUBDIR)%.c $(INC)$(NAME).h
+$(ODIR)%.o: $(SSUBDIR)%.c
 	$(HIDE)$(CC) -c $(CFLAGS) -I $(INC) $(LIBINC) $< -o $@
 
 $(ODIR):
