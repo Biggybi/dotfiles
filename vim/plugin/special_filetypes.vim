@@ -5,10 +5,12 @@ let g:plugin_dotfiletypes = 1
 
 augroup SpecialFiletypes
   au!
-  au BufEnter,BufWritePost,SourcePost {,.}{bash_aliases,bashrc,inputrc,bash_profile}
-        \ setlocal filetype=sh
-  au BufWinEnter,BufEnter,SourcePost {*/,}git/config
+  au BufNewFile,BufRead,BufEnter,SourcePost {*/,}git/config
         \ setlocal filetype=gitconfig
-  au BufRead,BufNewFile,BufEnter Jenkinsfile
+  au BufNewFile,BufRead,BufEnter,SourcePost Jenkinsfile
         \ setlocal filetype=groovy
+  au BufNewFile,BufRead,BufEnter,SourcePost .bashrc,bashrc,bash.bashrc,
+        \.bash[_-]profile,.bash[_-]logout,.bash[_-]aliases,bash-fc[-.],
+        \*.ebuild,*.bash,*.eclass,PKGBUILD,APKBUILD
+        \ setlocal filetype=bash
 augroup end
