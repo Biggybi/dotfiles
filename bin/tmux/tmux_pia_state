@@ -6,10 +6,16 @@ if [ $(piactl get connectionstate) == 'Connected' ]\
 	fgcolor='#[fg=brightgreen]'
 	piamarker="+V"
 elif [ $(piactl get connectionstate) == 'Connecting' ]; then
-	fgcolor='#[fg=brightyellow]'
+	fgcolor='#[fg=brightblue]'
 	piamarker="~V"
-else
+elif [ $(piactl get connectionstate) == 'Reconnecting' ]; then
+	fgcolor='#[fg=magenta]'
+	piamarker="~V"
+elif [ $(piactl get connectionstate) == 'Disconnected' ]; then
 	fgcolor='#[fg=red]'
 	piamarker="-V"
+else
+	fgcolor='#[fg=yellow]'
+	piamarker="!V"
 fi
 printf "%s" "${fgcolor}${piamarker}${fgdefault}"
