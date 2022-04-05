@@ -9,8 +9,9 @@ augroup SpecialFiletypes
         \ setlocal filetype=gitconfig
   au BufNewFile,BufRead,BufEnter,SourcePost Jenkinsfile
         \ setlocal filetype=groovy
-  au BufNewFile,BufRead,BufEnter,SourcePost .bashrc,bashrc,bash.bashrc,
-        \.bash[_-]profile,.bash[_-]logout,.bash[_-]aliases,bash-fc[-.],
-        \*.ebuild,*.bash,*.eclass,PKGBUILD,APKBUILD
+  au BufNewFile,BufRead,BufEnter,SourcePost
+        \ *.bash,.bashrc,bashrc,bash.bashrc,.bash[_-]profile,
+        \.bash[_-]logout,.bash[_-]aliases,bash-fc[-.],
+        \*.ebuild,*.eclass,PKGBUILD,APKBUILD
         \ setlocal filetype=bash
 augroup end
