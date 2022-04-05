@@ -607,6 +607,18 @@ nnoremap <silent> <c-w><c-c> :let buff=bufname()<cr>:close<cr>:echo buff . " clo
 nnoremap <silent> <c-w>c     :let buff=bufname()<cr>:close<cr>:echo buff . " closed"<cr>
 
 ""    Code Mappings
+"""        Auto Brackets
+" auto close brackets
+
+inoremap ( ()<c-g>U<left>
+inoremap [ []<c-g>U<left>
+inoremap { {}<c-g>U<left>
+
+inoremap <expr> ) getline('.')[col('.')-1]==')' ? '<c-g>U<right>' : ')'
+inoremap <expr> ] getline('.')[col('.')-1]==']' ? '<c-g>U<right>' : ']'
+inoremap <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+inoremap <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+
 """        Indent
 
 command! -nargs=1 -complete=command Nomove

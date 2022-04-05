@@ -20,15 +20,6 @@ inoremap <buffer> ,cl console.log();<esc>F)i
 nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
 vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
 
-" auto close brackets
-inoremap <buffer> { {}<c-g>U<left>
-inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
-
-" brackets auround paragraph
-nnoremap <buffer> <leader>{} mz{S{<esc>}S}<esc>=%`z=iB
-nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
-
 " semicolon/coma EOL toggle
 nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
 nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"

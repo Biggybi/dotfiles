@@ -6,11 +6,6 @@ nnoremap <buffer> <leader>xst ciw<em><c-o>P</em><esc>T<
 
 nnoremap <buffer> <c-w>u :40 wincmd\|<cr>
 
-" auto close brackets
-inoremap <buffer> { {}<c-g>U<left>
-inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
-
 inoremap <buffer> ,php <?php<cr>?><esc>O
 inoremap <buffer> ,bo <body></body><esc>F<i
 inoremap <buffer> ,h1 <h1></h1><esc>F<i

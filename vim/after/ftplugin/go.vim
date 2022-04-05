@@ -14,16 +14,6 @@ nnoremap <buffer> <leader>cr      :exe "VShell ++shell go run " . expand('%')<cr
 " nnoremap <buffer> <leader>cs      :Shell gcc -Wall -Wextra % && ./a.out<cr>
 " nnoremap <buffer> <leader>cs<c-m> :Shell gcc -Wall -Wextra % main.c && ./a.out<cr>
 
-" auto close brackets
-inoremap <buffer> ( ()<c-g>U<left>
-inoremap <buffer> [ []<c-g>U<left>
-inoremap <buffer> { {}<c-g>U<left>
-
-inoremap <buffer> <expr> ) getline('.')[col('.')-1]==')' ? '<c-g>U<right>' : ')'
-inoremap <buffer> <expr> ] getline('.')[col('.')-1]==']' ? '<c-g>U<right>' : ']'
-inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
-inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-
 inoremap <buffer> " ""<c-g>U<left>
 inoremap <buffer> ' ''<c-g>U<left>
 inoremap <buffer> ` ``<c-g>U<left>
