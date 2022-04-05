@@ -45,9 +45,7 @@ nnoremap <leader><c-@> :echo "kewl"<cr>
 
 " enter command mode with ;
 nnoremap ; :
-nnoremap : ;
 vnoremap ; :
-vnoremap : ;
 nnoremap <leader>; :!
 
 nnoremap <silent> gI `.gi<esc>zz:call FitBufferWindowBottom()<cr>
