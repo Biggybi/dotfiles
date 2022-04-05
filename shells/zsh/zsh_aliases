@@ -103,6 +103,12 @@ alias nv="nvim"
 alias mutt="neomutt"
 alias m="neomutt"
 
+## pia
+alias piaup="piactl connect"
+alias piadown="piactl disconnect"
+alias pias="piactl get connectionstate"
+alias pia="piactl "
+
 ### ssh
 alias sshavti='ssh tris@192.168.1.24'
 alias sshhome='ssh biggybi@192.168.1.8'
