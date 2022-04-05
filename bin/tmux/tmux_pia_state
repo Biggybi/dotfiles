@@ -1,17 +1,18 @@
 #!/bin/bash
 
 fgdefault='#[default]'
-if [ $(piactl get connectionstate) == 'Connected' ]\
-	|| [ -d /sys/class/net/wgpia0 ] ; then
+piastate=$(piactl get connectionstate)
+if [[ "$piastate" == 'Connected' ]]\
+	|| [[ -d /sys/class/net/wgpia0 ]] ; then
 	fgcolor='#[fg=brightgreen]'
 	piamarker="+V"
-elif [ $(piactl get connectionstate) == 'Connecting' ]; then
+elif [[ "$piastate" == 'Connecting' ]];  then
 	fgcolor='#[fg=brightblue]'
 	piamarker="~V"
-elif [ $(piactl get connectionstate) == 'Reconnecting' ]; then
+elif [[  "$piastate" =~ (Reconnecting|DisconnectingToReconnect) ]]; then
 	fgcolor='#[fg=magenta]'
 	piamarker="~V"
-elif [ $(piactl get connectionstate) == 'Disconnected' ]; then
+elif [[  "$piastate" =~ (Disconnected|Interrupted) ]]; then
 	fgcolor='#[fg=red]'
 	piamarker="-V"
 else
