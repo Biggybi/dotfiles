@@ -252,7 +252,7 @@ call <sid>hi("CursorLineNr",  s:gui05, s:gui01, s:cterm04, s:cterm01, "none", ""
 call <sid>hi("EndOfBuffer",  s:gui00, s:gui00, s:cterm04, s:cterm01, "none", "")
 call <sid>hi("QuickFixLine",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
-call <sid>hi("PMenuSel",      s:gui00, s:gui03, s:cterm01, s:cterm05, "", "")
+call <sid>hi("PMenuSel",      s:gui05, s:gui03, s:cterm01, s:cterm05, "", "")
 call <sid>hi("PMenuSbar",     s:gui04, s:gui04, s:cterm01, s:cterm05, "", "")
 call <sid>hi("PMenuThumb",    s:gui01, s:gui01, s:cterm01, s:cterm05, "", "")
 call <sid>hi("TabLine",       s:gui05, s:gui01, s:cterm03, s:cterm01, "none", "")
