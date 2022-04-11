@@ -20,9 +20,9 @@ elif [ "$val"  -lt "40"  ] ; then color='#[fg=orange]'
 elif [ "$val"  -lt "60"  ] ; then color='#[fg=brightyellow]'
 elif [ "$val"  -lt "80"  ] ; then color='#[fg=brightgreen]'
 elif [ "$val"  -lt "100" ] ; then color='#[fg=blue]'
-elif [ "$state" == '-'   ] ; then color='#[fg=brightblue]'
+elif [ "$state" == '-'   ] ; then color='#[fg=blue]'
 elif [ "$state" == '+'   ] ; then color='#[fg=grey]'
 fi
 
 default='#[default]'
-printf "%s" "${fgcolor}${charging}${battery_charge}${default}"
+printf "%s" "${color}${state}${battery_charge}${default}"
