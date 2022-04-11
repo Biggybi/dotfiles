@@ -139,16 +139,6 @@ __get_vi_mode_bottom() {
 
 DEFAULT_VI_MODE=viins
 
-zle-keymap-select() {
-	zle reset-prompt
-}
-zle -N zle-keymap-select
-
-zle-line-init() {
-	zle -K $DEFAULT_VI_MODE
-}
-zle -N zle-line-init
-
 git_branch() {
 	git symbolic-ref --short HEAD 2> /dev/null
 }
