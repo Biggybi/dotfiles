@@ -14,6 +14,8 @@ onoremap h  :<c-u>normal! ^<cr>
 onoremap l  :<c-u>normal! v$h<cr>
 onoremap il :<c-u>normal! g_v_<cr>
 onoremap al :<c-u>normal! $v0<cr>
+xnoremap il :<c-u>normal! g_v_<cr>
+xnoremap al :<c-u>normal! $v0<cr>
 
 """        Special char i / in / iN / a / an / aN
 let s:special_char = [
