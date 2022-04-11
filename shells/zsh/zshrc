@@ -82,7 +82,6 @@ promptinit
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==94=34}:${(s.:.)LS_COLORS}")';
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' #  case insensitive
 zstyle ':completion:*' menu selectzmodload                # use menu
-setopt no_list_ambiguous                                  # complete then show menu
 
 # vi mode
 bindkey -v
