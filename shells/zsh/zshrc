@@ -137,15 +137,6 @@ __get_vi_mode_bottom() {
 	print -n -- $vimstyle
 }
 
-__get_pia_state() {
-	local piastate=$(piactl get connectionstate)
-	if [ ${piastate:0:1} = 'C' ] ; then
-		print -n -- 'PIA up'
-	else
-	print -n -- 'PIA down'
-	fi
-}
-
 DEFAULT_VI_MODE=viins
 
 zle-keymap-select() {
@@ -182,7 +173,6 @@ fi
 PROMPT+=$'%{\e[00;01;93m%} %~%{\e[0m%} '    # cwd
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # branch
 # NOTE: too slow
-# PROMPT+=$'$(__get_pia_state)'
 PROMPT+=$'\t${promt_cmd_info}'
 PROMPT+=$'%{$reset_color%}'
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
