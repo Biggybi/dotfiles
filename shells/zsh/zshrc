@@ -67,6 +67,9 @@ setopt INC_APPEND_HISTORY               # update history when command is issued
 setopt HIST_IGNORE_ALL_DUPS             # hide duplicates in history
 setopt HIST_IGNORE_SPACE                # hide commands starting with spaces
 
+# ls_colors
+eval "$(dircolors $DOT/shells/themes/dircolors)"
+
 # bash style word (no '/')
 autoload -U select-word-style
 select-word-style bash
