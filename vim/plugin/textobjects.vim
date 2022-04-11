@@ -44,10 +44,14 @@ function! s:create_special_i_map(char) abort
           \ a:char, a:char, a:char)
     execute printf('onoremap <unique> i%s :<C-u>normal vi%s<CR>',
           \ a:char, a:char)
+  endif
+  if ! hasmapto(printf('in%s', a:char), 'vo')
     execute printf('xnoremap <unique> in%s :<C-u>normal! f%slvt%s<CR>',
           \ a:char, a:char, a:char)
     execute printf('onoremap <unique> in%s :<C-u>normal vin%s<CR>',
           \ a:char, a:char)
+  endif
+  if ! hasmapto(printf('iN%s', a:char), 'vo')
     execute printf('xnoremap <unique> iN%s :<C-u>normal! F%shvT%s<CR>',
           \ a:char, a:char, a:char)
     execute printf('onoremap <unique> iN%s :<C-u>normal viN%s<CR>',
@@ -61,10 +65,14 @@ function! s:create_special_a_map(char) abort
           \ a:char, a:char, a:char)
     execute printf('onoremap <unique> a%s :<C-u>normal va%s<CR>',
           \ a:char, a:char)
+  endif
+  if ! hasmapto(printf('an%s', a:char), 'vo')
     execute printf('xnoremap <unique> an%s :<C-u>normal! f%svf%s<CR>',
           \ a:char, a:char, a:char)
     execute printf('onoremap <unique> an%s :<C-u>normal vin%s<CR>',
           \ a:char, a:char)
+  endif
+  if ! hasmapto(printf('aN%s', a:char), 'vo')
     execute printf('xnoremap <unique> aN%s :<C-u>normal! F%svF%s<CR>',
           \ a:char, a:char, a:char)
     execute printf('onoremap <unique> aN%s :<C-u>normal viN%s<CR>',
