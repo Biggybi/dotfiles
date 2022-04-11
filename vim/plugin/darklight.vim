@@ -3,7 +3,7 @@ if exists('g:plugin_darklight')
 endif
 let g:plugin_darklight = 1
 
-let g:dls_start_theme_index = get(g:, 'dls_start_theme_index', 0)
+let g:dls_start_theme_index = get(g:, 'dls_start_theme_index', '0')
 let g:dls_theme_source_sensitive = get(g:, 'dls_theme_source_sensitive', '0')
 
 let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
@@ -12,7 +12,8 @@ let s:dls_theme_list = get(g:, 'dls_theme_list', [
       \get(g:, 'dls_color_0', 'base16-onedarker'),
       \get(g:, 'dls_color_1', 'base16-onedark'),
       \get(g:, 'dls_color_2', 'base16-one-lightdim'),
-      \get(g:, 'dls_color_3', 'base16-one-light')])
+      \get(g:, 'dls_color_3', 'base16-one-light')
+      \])
 
 let g:dls_night = get(g:, 'dls_night', s:dls_theme_list[0])
 let g:dls_day   = get(g:, 'dls_day', s:dls_theme_list['$'])
@@ -81,11 +82,11 @@ function! s:applyScheme(scheme)
 endfunction
 
 function! s:darkLightNight()
-  call s:applyScheme(get(s:dls_theme_list, 0))
+  call s:applyScheme(get(s:dls_theme_list, '0'))
 endfunction
 
 function! s:darkLightDay()
-  call s:applyScheme(get(s:dls_theme_list, -2))
+  call s:applyScheme(get(s:dls_theme_list, '-3'))
 endfunction
 
 command! DarkLightSwitch :call s:darkLightSwitch()
