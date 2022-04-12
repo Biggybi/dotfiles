@@ -11,8 +11,10 @@ if [ -n "$ZSH_ENV" ]; then source "$ZSH_ENV"; fi
 # aliases
 if [ -f "$HOME/.zsh_aliases" ]; then source "$HOME/.zsh_aliases"; fi
 
-# command not found (package suggestion)
-if [[ -s '/etc/zsh_command_not_found' ]] then
+# "command not found" package suggestion (`pkgfile --update`)
+if [ -f "/usr/share/doc/pkgfile/command-not-found.zsh" ]; then
+	source "/usr/share/doc/pkgfile/command-not-found.zsh"; fi
+if [[ -s '/etc/zsh_command_not_found' ]]; then
 	source '/etc/zsh_command_not_found'; fi
 
 # bell off
@@ -21,23 +23,24 @@ unsetopt BEEP
 # Environment variables
 
 ## Applications
-export VISUAL=nvim
-if [ -n "$TMUX" ] && [ $VISUAL = 'vim' ] ; then
-	VISUAL=(vim -T xterm-256color)
-	export MANPAGER="vim -T xterm-256color -M +MANPAGER -"
-fi
+
+export VISUAL=vim
+export MANPAGER="vim -M +MANPAGER -"
 export EDITOR=(vi -e)
 export BROWSER=firefox
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk/"
 
 ## PATH
 export GOPATH=$HOME/bin/go
 export PATH=$PATH:$HOME/bin
 PATH+=:$HOME/bin/tmux
+PATH+=:$HOME/bin/git
 PATH+=:/usr/lib
 PATH+=:~/.npm-global/bin
 PATH+=:/home/linuxbrew/.linuxbrew/bin
 PATH+=:$GOPATH/bin
 PATH+=:~/bin/norminette
+PATH+=:$JAVA_HOME
 
 ## Paths
 export PROG="$HOME/Work/prog/"
@@ -86,6 +89,7 @@ zstyle ':completion:*' menu selectzmodload                # use menu
 # vi mode
 bindkey -v
 KEYTIMEOUT=1
+stty erase "^?"
 
 autoload edit-command-line
 zle -N edit-command-line
