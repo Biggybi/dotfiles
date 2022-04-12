@@ -226,11 +226,12 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Launch base 16 theme
-export BASE16_SHELL="$DOT/shells/themes/base16-shell"
-if [ -d $BASE16_SHELL ]; then
-	[ -n "$PS1" ] && \
-		[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-		eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+base16_theme=$(cat ~/.config/base16_theme)
+if [[ "$base16_theme" == "" ]] ; then
+	source "$DOT/bin/base16/base16-one-dark"
+else
+	source "$DOT/bin/base16/$base16_theme"
 fi
 
 # Plugin Sourcer

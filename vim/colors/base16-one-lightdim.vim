@@ -8,109 +8,70 @@
 " :colorscheme works in terminals supported by base16-shell scripts
 " User must set this variable in .vimrc
 "   let g:base16_shell_path=base16-builder/output/shell/
-if !has("gui_running")
-  if exists("g:base16_shell_path")
-    execute "silent !/bin/sh ".g:base16_shell_path."/base16-one-light.sh"
-  endif
+let g:base16_one_lightdim_shell = get(g:, 'base16_one_lightdim_shell', '~/bin/base16/base16-one-light')
+let g:base16_noshell = get(g:, 'base16_noshell', '0')
+if !has("gui_running") && g:base16_noshell != 1
+    execute "silent !/bin/sh " .. g:base16_one_lightdim_shell
 endif
 
 " GUI color definitions
-" let s:gui00        = "fafafa"
-let s:gui00        = "E0E0E0"
-let g:base16_gui00 = "fafafa"
-" let s:gui01        = "f0f0f1"
-let s:gui01        = "C3C3C3"
-let g:base16_gui01 = "f0f0f1"
-let s:gui02        = "e5e5e6"
-let g:base16_gui02 = "e5e5e6"
-let s:gui03        = "a0a1a7"
-let g:base16_gui03 = "a0a1a7"
-let s:gui04        = "696c77"
-let g:base16_gui04 = "696c77"
-let s:gui05        = "383a42"
-let g:base16_gui05 = "383a42"
-" let s:gui06        = "202227"
-let s:gui06        = "ee82ee"
-let g:base16_gui06 = "202227"
-let s:gui07        = "090a0b"
-let g:base16_gui07 = "090a0b"
-let s:gui08        = "e06c75"
-" let s:gui08        = "ee6f6f"
-let g:base16_gui08 = "e06c75"
-" let s:gui08        = "ca1243"
-" let g:base16_gui08 = "ca1243"
-" let s:gui09        = "d75f00"
-" let s:gui09        = "ff8522"
-" let s:gui09        = "ff9000"
-let s:gui09        = "f88f22"
-let g:base16_gui09 = "d75f00"
-" let s:gui0A        = "c18401"
-" let s:gui0A        = "d5a541"
-" let s:gui0A        = "ee6f6f"
-let s:gui0A        = "dd8049"
-" let s:gui0A        = "D56F13"
-let g:base16_gui0A = "c18401"
-let s:gui0B        = "50a14f"
-let g:base16_gui0B = "50a14f"
-" let s:gui0C        = "0184bc"
-let s:gui0C        = "56b6c2"
-let g:base16_gui0C = "0184bc"
-let s:gui0D        = "4078f2"
-let g:base16_gui0D = "4078f2"
-" let s:gui0E        = "a626a4"
-" let s:gui0E        = "c656a4"
-let s:gui0E        = "a470d4"
-let g:base16_gui0E = "a626a4"
-let s:gui0F        = "986801"
-let g:base16_gui0F = "986801"
+" let s:gui00        = "#fafafa"
+let s:gui00        = "#E0E0E0"
+" let s:gui01        = "#f0f0f1"
+let s:gui01        = "#C3C3C3"
+let s:gui02        = "#D1D1D1"
+let s:gui03        = "#a0a1a7"
+let s:gui04        = "#696c77"
+let s:gui05        = "#383a42"
+" let s:gui06        = "#202227"
+let s:gui06        = "#ee82ee"
+let s:gui07        = "#090a0b"
+let s:gui08        = "#e06c75"
+" let s:gui08        = "#ee6f6f"
+" let s:gui08        = "#ca1243"
+" let s:gui09        = "#d75f00"
+" let s:gui09        = "#ff8522"
+" let s:gui09        = "#ff9000"
+let s:gui09        = "#f88f22"
+" let s:gui0A        = "#c18401"
+" let s:gui0A        = "#d5a541"
+" let s:gui0A        = "#ee6f6f"
+let s:gui0A        = "#dd8049"
+" let s:gui0A        = "#D56F13"
+let s:gui0B        = "#50a14f"
+" let s:gui0C        = "#0184bc"
+let s:gui0C        = "#56b6c2"
+let s:gui0D        = "#4078f2"
+" let s:gui0E        = "#a626a4"
+" let s:gui0E        = "#c656a4"
+let s:gui0E        = "#a470d4"
+let s:gui0F        = "#986801"
 
 " Terminal color definitions
 let s:cterm00        = "00"
-let g:base16_cterm00 = "00"
 let s:cterm03        = "08"
-let g:base16_cterm03 = "08"
 let s:cterm05        = "07"
-let g:base16_cterm05 = "07"
 let s:cterm07        = "15"
-let g:base16_cterm07 = "15"
 let s:cterm08        = "01"
-let g:base16_cterm08 = "01"
 let s:cterm0A        = "03"
-let g:base16_cterm0A = "03"
 let s:cterm0B        = "02"
-let g:base16_cterm0B = "02"
 let s:cterm0C        = "06"
-let g:base16_cterm0C = "06"
 let s:cterm0D        = "04"
-let g:base16_cterm0D = "04"
 let s:cterm0E        = "05"
-let g:base16_cterm0E = "05"
 if exists("base16colorspace") && base16colorspace == "256"
   let s:cterm01        = "18"
-  let g:base16_cterm01 = "18"
   let s:cterm02        = "19"
-  let g:base16_cterm02 = "19"
   let s:cterm04        = "20"
-  let g:base16_cterm04 = "20"
   let s:cterm06        = "21"
-  let g:base16_cterm06 = "21"
   let s:cterm09        = "16"
-  let g:base16_cterm09 = "16"
   let s:cterm0F        = "17"
-  let g:base16_cterm0F = "17"
 else
   let s:cterm01        = "10"
-  let g:base16_cterm01 = "10"
   let s:cterm02        = "11"
-  let g:base16_cterm02 = "11"
   let s:cterm04        = "12"
-  let g:base16_cterm04 = "12"
   let s:cterm06        = "13"
-  let g:base16_cterm06 = "13"
   let s:cterm09        = "09"
-  let g:base16_cterm09 = "09"
   let s:cterm0F        = "14"
-  let g:base16_cterm0F = "14"
 endif
 
 " Neovim terminal colours
@@ -170,10 +131,10 @@ function! g:Base16hi(group, guifg, guibg, ctermfg, ctermbg, ...)
   let l:guisp = get(a:, 2, "")
 
   if a:guifg != ""
-    exec "hi " . a:group . " guifg=#" . a:guifg
+    exec "hi " . a:group . " guifg=" . a:guifg
   endif
   if a:guibg != ""
-    exec "hi " . a:group . " guibg=#" . a:guibg
+    exec "hi " . a:group . " guibg=" . a:guibg
   endif
   if a:ctermfg != ""
     exec "hi " . a:group . " ctermfg=" . a:ctermfg
@@ -185,10 +146,9 @@ function! g:Base16hi(group, guifg, guibg, ctermfg, ctermbg, ...)
     exec "hi " . a:group . " gui=" . l:attr . " cterm=" . l:attr
   endif
   if l:guisp != ""
-    exec "hi " . a:group . " guisp=#" . l:guisp
+    exec "hi " . a:group . " guisp=" . l:guisp
   endif
 endfunction
-
 
 fun <sid>hi(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
   call g:Base16hi(a:group, a:guifg, a:guibg, a:ctermfg, a:ctermbg, a:attr, a:guisp)
@@ -206,7 +166,7 @@ call <sid>hi("Exception",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("FoldColumn",    s:gui0C, s:gui01, s:cterm0C, s:cterm01, "", "")
 " call <sid>hi("Folded",        s:gui03, s:gui01, s:cterm03, s:cterm01, "", "")
 call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm01, "", "")
-call <sid>hi("CocHighlightText", "", s:gui01, s:cterm08, "", "", "")
+call <sid>hi("CocHighlightText", "", s:gui02, s:cterm08, "", "", "")
 call <sid>hi("Search",        s:gui02, s:gui0A, s:cterm02, s:cterm0B,  "", "")
 call <sid>hi("IncSearch",     s:gui02, s:gui0B, s:cterm02, s:cterm0D, "none", "")
 call <sid>hi("FirstSearch",    s:gui02, s:gui0D, s:cterm02, s:cterm08, "none", "")
@@ -216,7 +176,7 @@ call <sid>hi("LastSearch",    s:gui02, s:gui08, s:cterm02, s:cterm08, "none", ""
 " call <sid>hi("Search",        s:gui00, s:gui0C, s:cterm01, s:cterm0A,  "", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
 call <sid>hi("Macro",         s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("MatchParen",    s:gui0C, s:gui01, "", s:cterm03,  "", "")
+call <sid>hi("MatchParen",    s:gui02, s:gui01, "", s:cterm03,  "", "")
 call <sid>hi("ModeMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("MoreMsg",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("Question",      s:gui0D, "", s:cterm0D, "", "", "")
@@ -253,7 +213,7 @@ call <sid>hi("EndOfBuffer",  s:gui00, s:gui00, s:cterm04, s:cterm01, "none", "")
 call <sid>hi("QuickFixLine",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("PMenuSel",      s:gui05, s:gui03, s:cterm01, s:cterm05, "", "")
-call <sid>hi("PMenuSbar",     s:gui04, s:gui04, s:cterm01, s:cterm05, "", "")
+call <sid>hi("PMenuSbar",     s:gui04, s:gui03, s:cterm01, s:cterm05, "", "")
 call <sid>hi("PMenuThumb",    s:gui01, s:gui01, s:cterm01, s:cterm05, "", "")
 call <sid>hi("TabLine",       s:gui05, s:gui01, s:cterm03, s:cterm01, "none", "")
 call <sid>hi("TabLineFill",   s:gui05, s:gui01, s:cterm03, s:cterm01, "none", "")
@@ -267,7 +227,7 @@ call <sid>hi("SuliFileMod",   s:gui08, s:gui01, s:cterm00, s:cterm02, "none", ""
 call <sid>hi("SuliFTSearch",  s:gui00, s:gui0C, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("SuliCmd",       s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
 " call <sid>hi("SuliCmd",     s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
-call <sid>hi("SuliPending",   s:gui00, s:gui0A, s:cterm00, s:cterm09, "none", "")
+call <sid>hi("SuliPending",   s:gui00, s:gui06, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("SuliReplace",   s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")
 call <sid>hi("SuliVisual",    s:gui00, s:gui0E, s:cterm00, s:cterm09, "none", "")
 " call <sid>hi("SuliVisual",  s:gui00, s:gui08, s:cterm00, s:cterm09, "none", "")

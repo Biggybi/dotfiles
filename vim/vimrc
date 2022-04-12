@@ -266,8 +266,6 @@ for d in [ &backupdir, &directory, &undodir, &viewdir, $HOME.'/.vim/tmp/viminfo/
 endfor
 
 ""    Extras
-" Termdebug
-" let g:termdebug_wide = 163
 let g:termdebug_wide = 40
 
 " Vim-run
@@ -277,31 +275,6 @@ let g:vim_run_command_map = {
       \'python': 'python',
       \'markdown': 'markdown',
       \}
-
-" Coc
-
-"TODO: make it work, and move all config here
-
-" augroup CocConfig
-"   " this one is which you're most likely to use?
-"   au VimEnter * call CocConfig()
-" augroup end
-
-" function CocConfig() abort
-"   call coc#config('languageserver', {
-"         \ 'groovy': {
-"         \   "args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
-"         \ },
-"         \ 'efm': {
-"         \   "args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
-"         \ }
-"         \})
-" endfunction
-
-" let g:coc_user_config = {
-"       \ "languageserver.groovy.args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
-"       \ "languageserver.efm.args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
-"       \ }
 
 ""    Vimrc modeline
 " vim:expandtab

@@ -3,117 +3,81 @@
 " by Chris Kempson (http://chriskempson.com)
 " OneDark scheme by Lalit Magant (http://github.com/tilal6991)
 
-" " This enables the coresponding base16-shell script to run so that
-" " :colorscheme works in terminals supported by base16-shell scripts
-" " User must set this variable in .vimrc
-" "   let g:base16_shell_path=base16-builder/output/shell/
-" if !has("gui_running")
-"   if exists("g:base16_shell_path")
-"     execute "silent !/bin/sh ".g:base16_shell_path."/base16-onedark.sh"
-"   endif
-" endif
+" This enables the coresponding base16-shell script to run so that
+" :colorscheme works in terminals supported by base16-shell scripts
+" User must set this variable in .vimrc
+"   let g:base16_shell_path=base16-builder/output/shell/
+let g:base16_one_darker_shell = get(g:, 'base16_one_darker_shell', '~/bin/base16/base16-one-darker')
+let g:base16_noshell = get(g:, 'base16_noshell', '0')
+if !has("gui_running") && g:base16_noshell != 1
+    execute "silent !source " .. g:base16_one_darker_shell
+endif
 
 " GUI color definitions
-let s:gui00        = "2C2C2C"
-let g:base16_gui00 = "2C2C2C"
-let s:gui01        = "303030"
-let g:base16_gui01 = "303030"
-let s:gui02        = "454545"
-let g:base16_gui02 = "454545"
-let s:gui03        = "7C7C7C"
-let g:base16_gui03 = "7C7C7C"
-let s:gui04        = "565656"
-let g:base16_gui04 = "565656"
-let s:gui05        = "b4b4b4"
-let g:base16_gui05 = "b4b4b4"
-let s:gui06        = "ee82ee"
-let g:base16_gui06 = "ee82ee"
-let s:gui07        = "c8ccd4"
-let g:base16_gui07 = "c8ccd4"
-let s:gui08        = "ee6f6f"
-let g:base16_gui08 = "ee6f6f"
-let s:gui09        = "d19a66"
-let g:base16_gui09 = "d19a66"
-let s:gui0A        = "e5c07b"
-let g:base16_gui0A = "e5c07b"
-let s:gui0B        = "98c379"
-let g:base16_gui0B = "98c379"
-let s:gui0C        = "24a1c0"
-let g:base17_gui0C = "24a1c0"
-let s:gui0D        = "61afef"
-let g:base16_gui0D = "61afef"
-let s:gui0E        = "a470d4"
-let g:base16_gui0E = "a470d4"
-let s:gui0F        = "be5046"
-let g:base16_gui0F = "be5046"
+let s:gui00        = "#202020"
+let s:gui01        = "#303030"
+let s:gui02        = "#454545"
+let s:gui03        = "#7C7C7C"
+let s:gui04        = "#565656"
+let s:gui05        = "#b4b4b4"
+let s:gui06        = "#ee82ee"
+let s:gui07        = "#c8ccd4"
+let s:gui08        = "#ee6f6f"
+let s:gui09        = "#d19a66"
+let s:gui0A        = "#e5c07b"
+let s:gui0B        = "#98c379"
+let s:gui0C        = "#24a1c0"
+let s:gui0D        = "#61afef"
+let s:gui0E        = "#a470d4"
+let s:gui0F        = "#be5046"
+
+let g:base17_gui0C = "#24a1c0"
 
 " Terminal color definitions
 let s:cterm00        = "00"
-let g:base16_cterm00 = "00"
 let s:cterm03        = "08"
-let g:base16_cterm03 = "08"
 let s:cterm05        = "07"
-let g:base16_cterm05 = "07"
 let s:cterm07        = "15"
-let g:base16_cterm07 = "15"
 let s:cterm08        = "01"
-let g:base16_cterm08 = "01"
 let s:cterm0A        = "03"
-let g:base16_cterm0A = "03"
 let s:cterm0B        = "02"
-let g:base16_cterm0B = "02"
 let s:cterm0C        = "06"
-let g:base16_cterm0C = "06"
 let s:cterm0D        = "04"
-let g:base16_cterm0D = "04"
 let s:cterm0E        = "05"
-let g:base16_cterm0E = "05"
 if exists("base16colorspace") && base16colorspace == "256"
   let s:cterm01        = "18"
-  let g:base16_cterm01 = "18"
   let s:cterm02        = "19"
-  let g:base16_cterm02 = "19"
   let s:cterm04        = "20"
-  let g:base16_cterm04 = "20"
   let s:cterm06        = "21"
-  let g:base16_cterm06 = "21"
   let s:cterm09        = "16"
-  let g:base16_cterm09 = "16"
   let s:cterm0F        = "17"
-  let g:base16_cterm0F = "17"
 else
   let s:cterm01        = "10"
-  let g:base16_cterm01 = "10"
   let s:cterm02        = "11"
-  let g:base16_cterm02 = "11"
   let s:cterm04        = "12"
-  let g:base16_cterm04 = "12"
   let s:cterm06        = "13"
-  let g:base16_cterm06 = "13"
   let s:cterm09        = "09"
-  let g:base16_cterm09 = "09"
   let s:cterm0F        = "14"
-  let g:base16_cterm0F = "14"
 endif
 
 " Neovim terminal colours
 if has("nvim")
-  let g:terminal_color_0 =  "#282c34"
-  let g:terminal_color_1 =  "#e06c75"
-  let g:terminal_color_2 =  "#98c379"
-  let g:terminal_color_3 =  "#e5c07b"
-  let g:terminal_color_4 =  "#61afef"
-  let g:terminal_color_5 =  "#c678dd"
-  let g:terminal_color_6 =  "#56b6c2"
-  let g:terminal_color_7 =  "#abb2bf"
-  let g:terminal_color_8 =  "#545862"
-  let g:terminal_color_9 =  "#e06c75"
-  let g:terminal_color_10 = "#98c379"
-  let g:terminal_color_11 = "#e5c07b"
-  let g:terminal_color_12 = "#61afef"
-  let g:terminal_color_13 = "#c678dd"
-  let g:terminal_color_14 = "#56b6c2"
-  let g:terminal_color_15 = "#c8ccd4"
+  let g:terminal_color_0 =  "#202020"
+  let g:terminal_color_1 =  "#303030"
+  let g:terminal_color_2 =  "#454545"
+  let g:terminal_color_3 =  "#7C7C7C"
+  let g:terminal_color_4 =  "#565656"
+  let g:terminal_color_5 =  "#b4b4b4"
+  let g:terminal_color_6 =  "#ee82ee"
+  let g:terminal_color_7 =  "#c8ccd4"
+  let g:terminal_color_8 =  "#ee6f6f"
+  let g:terminal_color_9 =  "#d19a66"
+  let g:terminal_color_10 = "#e5c07b"
+  let g:terminal_color_11 = "#98c379"
+  let g:terminal_color_12 = "#24a1c0"
+  let g:terminal_color_13 = "#61afef"
+  let g:terminal_color_14 = "#a470d4"
+  let g:terminal_color_15 = "#be5046"
   let g:terminal_color_background = g:terminal_color_0
   let g:terminal_color_foreground = g:terminal_color_5
   if &background == "light"
@@ -122,29 +86,29 @@ if has("nvim")
   endif
 elseif has("terminal")
   let g:terminal_ansi_colors = [
-        \ "#282c34",
-        \ "#e06c75",
-        \ "#98c379",
-        \ "#e5c07b",
-        \ "#61afef",
-        \ "#c678dd",
-        \ "#56b6c2",
-        \ "#abb2bf",
-        \ "#545862",
-        \ "#e06c75",
-        \ "#98c379",
-        \ "#e5c07b",
-        \ "#61afef",
-        \ "#c678dd",
-        \ "#56b6c2",
+        \ "#202020",
+        \ "#303030",
+        \ "#454545",
+        \ "#7C7C7C",
+        \ "#565656",
+        \ "#b4b4b4",
+        \ "#ee82ee",
         \ "#c8ccd4",
-        \ ]
+        \ "#ee6f6f",
+        \ "#d19a66",
+        \ "#e5c07b",
+        \ "#98c379",
+        \ "#24a1c0",
+        \ "#61afef",
+        \ "#a470d4",
+        \ "#be5046",
+        \]
 endif
 
 " Theme setup
 hi clear
 syntax reset
-let g:colors_name = "base16-onedark"
+let g:colors_name = "base16-onedarker"
 
 " Highlighting function
 " Optional variables are attributes and guisp
@@ -153,10 +117,10 @@ function! g:Base16hi(group, guifg, guibg, ctermfg, ctermbg, ...)
   let l:guisp = get(a:, 2, "")
 
   if a:guifg != ""
-    exec "hi " . a:group . " guifg=#" . a:guifg
+    exec "hi " . a:group . " guifg=" . a:guifg
   endif
   if a:guibg != ""
-    exec "hi " . a:group . " guibg=#" . a:guibg
+    exec "hi " . a:group . " guibg=" . a:guibg
   endif
   if a:ctermfg != ""
     exec "hi " . a:group . " ctermfg=" . a:ctermfg
@@ -168,10 +132,9 @@ function! g:Base16hi(group, guifg, guibg, ctermfg, ctermbg, ...)
     exec "hi " . a:group . " gui=" . l:attr . " cterm=" . l:attr
   endif
   if l:guisp != ""
-    exec "hi " . a:group . " guisp=#" . l:guisp
+    exec "hi " . a:group . " guisp=" . l:guisp
   endif
 endfunction
-
 
 fun <sid>hi(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
   call g:Base16hi(a:group, a:guifg, a:guibg, a:ctermfg, a:ctermbg, a:attr, a:guisp)
@@ -192,6 +155,7 @@ call <sid>hi("FoldColumn",    s:gui0C, s:gui01, s:cterm0C, s:cterm01, "", "")
 call <sid>hi("Folded",        s:gui03, s:gui00, s:cterm03, s:cterm00, "", "")
 call <sid>hi("Search",        s:gui02, s:gui0A, s:cterm02, s:cterm0B,  "", "")
 call <sid>hi("IncSearch",     s:gui02, s:gui0B, s:cterm02, s:cterm0D, "none", "")
+call <sid>hi("OnlySearch",    s:gui02, s:gui06, s:cterm02, s:cterm08, "none", "")
 call <sid>hi("FirstSearch",    s:gui02, s:gui0D, s:cterm02, s:cterm08, "none", "")
 call <sid>hi("LastSearch",    s:gui02, s:gui08, s:cterm02, s:cterm08, "none", "")
 call <sid>hi("Italic",        "", "", "", "", "none", "")
@@ -235,11 +199,11 @@ call <sid>hi("TabLineFill",   s:gui05, s:gui01, s:cterm05, s:cterm01, "none", ""
 call <sid>hi("TabLineSel",    s:gui05, s:gui00, s:cterm05, s:cterm00, "none", "")
 
 " Status Line
-call <sid>hi("SuliGitSub",       s:gui0C, s:gui02, s:cterm0C, s:cterm01, "none", "")
-call <sid>hi("SuliGit",          s:gui0A, s:gui02, s:cterm0A, s:cterm01, "none", "")
+call <sid>hi("SuliGitSub",       s:gui0C, s:gui01, s:cterm0C, s:cterm01, "none", "")
+call <sid>hi("SuliGit",          s:gui0A, s:gui01, s:cterm0A, s:cterm01, "none", "")
 call <sid>hi("SuliGitMod",       s:gui08, s:gui04, s:cterm08, s:cterm04, "none", "")
-call <sid>hi("SuliFileMod",      s:gui08, s:gui02, s:cterm08, s:cterm01, "none", "")
-call <sid>hi("SuliCurDir",       s:gui0C, s:gui02, s:cterm0C, s:cterm01, "none", "")
+call <sid>hi("SuliFileMod",      s:gui08, s:gui01, s:cterm08, s:cterm01, "none", "")
+call <sid>hi("SuliCurDir",       s:gui0C, s:gui01, s:cterm0C, s:cterm01, "none", "")
 call <sid>hi("SuliCmd",          s:gui00, s:gui08, s:cterm00, s:cterm08, "none", "")
 call <sid>hi("SuliFTSearch",     s:gui00, s:gui0C, s:cterm00, s:cterm0C, "none", "")
 call <sid>hi("SuliPending",      s:gui00, s:gui0A, s:cterm00, s:cterm0A, "none", "")
@@ -248,7 +212,7 @@ call <sid>hi("SuliVisual",       s:gui00, s:gui0E, s:cterm00, s:cterm0E, "none",
 call <sid>hi("SuliInsert",       s:gui00, s:gui0B, s:cterm00, s:cterm0B, "none", "")
 call <sid>hi("SuliNormal",       s:gui00, s:gui03, s:cterm00, s:cterm03, "none", "")
 call <sid>hi("SuliOuter",        s:gui05, s:gui04, s:cterm05, s:cterm04, "none", "")
-call <sid>hi("SuliMid",          s:gui05, s:gui02, s:cterm05, s:cterm01, "none", "")
+call <sid>hi("SuliMid",          s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("SuliSep",          s:gui00, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("StatusLineTermNC", s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
 call <sid>hi("StatusLineTerm",   s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
@@ -258,7 +222,7 @@ call <sid>hi("Ruler",            s:gui0A, s:gui0B, s:cterm0A, s:cterm0B, "none",
 
 " Standard syntax highlighting
 call <sid>hi("Boolean",      s:gui09, "", s:cterm09, "", "", "")
-call <sid>hi("Character",    s:gui08, "", s:cterm08, "", "", "")
+call <sid>hi("Character",    s:gui0B, "", s:cterm08, "", "", "")
 call <sid>hi("Conditional",  s:gui06, "", s:cterm06, "", "", "")
 call <sid>hi("Constant",     s:gui09, "", s:cterm09, "", "", "")
 call <sid>hi("Define",       s:gui0E, "", s:cterm0E, "", "none", "")
@@ -281,6 +245,7 @@ call <sid>hi("String",       s:gui0B, "", s:cterm0B, "", "", "")
 call <sid>hi("Structure",    s:gui0E, "", s:cterm0E, "", "", "")
 call <sid>hi("Tag",          s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("Todo",         s:gui0C, s:gui00, s:cterm0C, s:cterm00, "", "")
+call <sid>hi("Type",         s:gui0B, "", s:cterm0A, "", "none", "")
 call <sid>hi("Type",         s:gui0A, "", s:cterm0A, "", "none", "")
 call <sid>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "", "")
 
@@ -288,17 +253,26 @@ call <sid>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("qfError",   s:gui09, s:gui00, s:cterm09, s:cterm00, "", "")
 
 " C highlighting
-call <sid>hi("cOperator",   s:gui0C, "", s:cterm0C, "", "", "")
-call <sid>hi("cPreCondit",  s:gui0E, "", s:cterm0E, "", "", "")
-
+call <sid>hi("cOperator",         s:gui0C, "", s:cterm0C, "", "", "")
+call <sid>hi("cPreCondit",        s:gui0E, "", s:cterm0E, "", "", "")
+call <sid>hi("cDefine",           s:gui0E, "", s:cterm0E, "", "", "")
+call <sid>hi("cCustomMacro",      s:gui0C, "", s:cterm0E, "", "", "")
+call <sid>hi("cInclude",          s:gui0C, "", s:cterm0E, "", "", "")
+call <sid>hi("cStructureMember",  s:gui03, "", s:cterm0E, "", "", "")
+" call <sid>hi("cStorageClass",     s:gui08, "", s:cterm0E, "", "", "")
+" call <sid>hi("cParen",            s:gui0A, "", s:cterm0E, "", "", "")
+" call <sid>hi("cBlock",            s:gui0A, "", s:cterm0E, "", "", "")
+" cStructureMember cParen cBlock cBlock cBlock
 " C++
 call <sid>hi("cppStructure",    s:gui0E, "", s:cterm0E, "", "", "")
 
 " C# highlighting
-call <sid>hi("csClass",                 s:gui0A, "", s:cterm0A, "", "", "")
+call <sid>hi("csClassStorage",          s:gui0E, "", s:cterm06, "", "", "")
+call <sid>hi("csClass",                 s:gui0E, "", s:cterm06, "", "", "")
+call <sid>hi("csClassType",             s:gui0A, "", s:cterm06, "", "", "")
 call <sid>hi("csAttribute",             s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("csModifier",              s:gui0E, "", s:cterm0E, "", "", "")
-call <sid>hi("csType",                  s:gui08, "", s:cterm08, "", "", "")
+call <sid>hi("csType",                  s:gui0E, "", s:cterm0D, "", "", "")
 call <sid>hi("csUnspecifiedStatement",  s:gui0D, "", s:cterm0D, "", "", "")
 call <sid>hi("csContextualStatement",   s:gui0E, "", s:cterm0E, "", "", "")
 call <sid>hi("csNewDecleration",        s:gui08, "", s:cterm08, "", "", "")
@@ -440,10 +414,17 @@ call <sid>hi("StartifySlash",    s:gui03, "", s:cterm03, "", "", "")
 call <sid>hi("StartifySpecial",  s:gui03, "", s:cterm03, "", "", "")
 
 " Coc highlighting
-call <sid>hi("CocHighlightText", "", s:gui01, "", s:cterm01, "", "")
+" call <sid>hi("CocHighlightText", "", s:gui01, "", s:cterm01, "", "")
+
+call <sid>hi("CocSelectedLine", s:gui0E, s:gui0A, "", s:cterm01, "", "")
+call <sid>hi("CocSelectedText", s:gui0E, s:gui0A, "", s:cterm01, "", "")
+
+call <sid>hi("CocListMode", s:gui0B, s:gui04, "", s:cterm01, "", "")
+call <sid>hi("CocListPath", s:gui03, s:gui01, "", s:cterm01, "", "")
 
 " Java highlighting
 call <sid>hi("javaOperator",     s:gui0D, "", s:cterm0D, "", "", "")
+call <sid>hi("javaTypedef",     s:gui0B, "", s:cterm0D, "", "", "")
 
 " Remove functions
 delf <sid>hi
