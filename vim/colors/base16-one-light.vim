@@ -11,7 +11,7 @@
 let g:base16_one_light_shell = get(g:, 'base16_one_light_shell', '~/bin/base16/base16-one-light')
 let g:base16_noshell = get(g:, 'base16_noshell', '0')
 if !has("gui_running") && g:base16_noshell != 1
-    execute "silent !source " .. g:base16_one_light_shell
+    execute "silent !source" g:base16_one_light_shell
 endif
 
 " GUI color definitions

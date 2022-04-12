@@ -226,10 +226,13 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Launch base 16 theme
-
-base16_theme=$(cat ~/.config/base16_theme)
-if [[ "$base16_theme" == "" ]] ; then
-	source "$DOT/bin/base16/base16-one-dark"
+if [ -e "$HOME/.config/base16_theme" ]; then
+	base16_theme=$(cat ~/.config/base16_theme)
+	if [[ "$base16_theme" != "" ]] ; then
+		"$DOT/bin/base16/$base16_theme"
+	else
+		source "$DOT/bin/base16/base16-one-darker"
+	fi
 else
 	source "$DOT/bin/base16/$base16_theme"
 fi

@@ -131,7 +131,6 @@ if ! has('nvim')
 endif
 
 " Color
-let base16colorspace=256        " access 256 colorspace
 if has('termguicolors')
   set termguicolors             " 24 bits colors
 endif

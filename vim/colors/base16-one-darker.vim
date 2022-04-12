@@ -10,7 +10,7 @@
 let g:base16_one_darker_shell = get(g:, 'base16_one_darker_shell', '~/bin/base16/base16-one-darker')
 let g:base16_noshell = get(g:, 'base16_noshell', '0')
 if !has("gui_running") && g:base16_noshell != 1
-    execute "silent !source " .. g:base16_one_darker_shell
+    execute "silent !source" g:base16_one_darker_shell
 endif
 
 " GUI color definitions

@@ -3,14 +3,17 @@ if exists('g:plugin_darklight')
 endif
 let g:plugin_darklight = 1
 
+let g:dls_current_theme = get(g:, 'dls_start_theme_index', '/home/tris/.config/base16_theme')
+
 let g:dls_start_theme_index = get(g:, 'dls_start_theme_index', '0')
 let g:dls_theme_source_sensitive = get(g:, 'dls_theme_source_sensitive', '0')
+" let g:dls_theme_shell_sensitive = get(g:, 'dls_theme_shell_sensitive', '1')
 
 let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
 
 let s:dls_theme_list = get(g:, 'dls_theme_list', [
-      \get(g:, 'dls_color_0', 'base16-onedarker'),
-      \get(g:, 'dls_color_1', 'base16-onedark'),
+      \get(g:, 'dls_color_0', 'base16-one-darker'),
+      \get(g:, 'dls_color_1', 'base16-one-dark'),
       \get(g:, 'dls_color_2', 'base16-one-lightdim'),
       \get(g:, 'dls_color_3', 'base16-one-light')
       \])
@@ -34,7 +37,22 @@ function! s:setTheme(theme) abort
   endtry
 endfunction
 
+function! s:shellThemeDetect() abort
+  if !file_readable(expand('$HOME/.config/base16_theme'))
+    return 0
+  endif
+  let base16_theme=get(readfile(expand('$HOME/.config/base16_theme'), '', 1), 0)
+  if (base16_theme == "")
+    return 0
+  endif
+  exe "colorscheme" base16_theme
+  return 1
+endfunction
+
 function! s:selectColorScheme() abort
+  if s:shellThemeDetect() != 0
+    return
+  endif
   if g:dls_start_theme_index != 0
     if index(s:dls_theme_list, g:dls_start_theme_index) >= 0
       call s:setTheme(g:dls_start_theme_index)
@@ -53,14 +71,6 @@ function! s:selectColorScheme() abort
     endif
   endif
 endfunction
-
-if ! exists("s:theme_change")
-  call s:selectColorScheme()
-  let s:theme_change = 1
-endif
-if g:dls_theme_source_sensitive == 1
-  call s:selectColorScheme()
-endif
 
 function! s:darkLightSwitch() abort
   if ! exists('s:theme_index')
@@ -105,4 +115,9 @@ if !hasmapto('<plug>DarkLightNight') && maparg('[ob', 'n') ==# ''
 endif
 if !hasmapto('<plug>DarkLightDay') && maparg(']ob', 'n') ==# ''
   nmap ]ob <plug>DarkLightDay
+endif
+
+if ! exists("s:theme_change")
+  call s:selectColorScheme()
+  let s:theme_change = 1
 endif
