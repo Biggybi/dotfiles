@@ -97,7 +97,7 @@ elseif has("terminal")
         \ "#383a42",
         \ "#3696c2",
         \ "#090a0b",
-        \ "#e5e5e5",
+        \ "#c3c3c3",
         \ "#f88f22",
         \ "#489047",
         \ "#d37400",
@@ -115,17 +115,17 @@ let g:colors_name = "base16-one-light"
 
 " Highlighting function
 " Optional variables are attributes and guisp
-function! g:Base16hi(group, guifg, guibg, attr = '', guisp = '')
-  let fg = a:guifg == "" ? "" :       "guifg=" .. a:guifg
-  let bg = a:guibg == "" ? "" :       "guibg=" .. a:guibg
-  let attrib = a:attr == "" ? "" :    "gui=" .. a:attr .. " cterm=" .. a:attr
-  let sp = a:guisp == "" ? "" :       "guisp=" .. a:guisp
-  exec printf("hi %s %s %s %s %s %s %s",
-        \a:group, fg, bg, fg, bg, attrib, sp)
+function! g:Base16hi(group, fg, bg, attr = '', sp = '')
+  let fg = a:fg == "" ? "" : "guifg=" .. a:fg
+  let bg = a:bg == "" ? "" : "guibg=" .. a:bg
+  let sp = a:sp == "" ? "" : "guisp=" .. a:sp
+  let at = a:attr  == "" ? "" : "gui=" .. a:attr .. " cterm=" .. a:attr
+  exe printf("hi %s %s %s %s %s %s %s",
+        \a:group, fg, bg, fg, bg, at, sp)
 endfunction
 
-fun <sid>hi(group, guifg, guibg, attr, guisp)
-  call g:Base16hi(a:group, a:guifg, a:guibg, a:attr, a:guisp)
+fun <sid>hi(group, fg, bg, attr, sp)
+  call g:Base16hi(a:group, a:fg, a:bg, a:attr, a:sp)
 endfun
 
 " Vim editor colors
