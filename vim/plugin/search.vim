@@ -12,6 +12,20 @@ let g:first_search_match = get(g:, 'first_search_match', 'FirstSearch')
 let g:last_search_match = get(g:, 'last_search_match', 'LastSearch')
 let g:search_count_update = get(g:, 'search_count_update', '')
 
+function s:set_defaultHL()
+  if ! hlexists(g:first_search_match)
+    hi link FirstSearch DiffDelete
+  endif
+  if ! hlexists(g:last_search_match)
+    hi link LastSearch DiffText
+  endif
+endfunction
+
+augroup SetDefaultHl
+  autocmd ColorScheme * call s:set_defaultHL()
+  autocmd VimEnter * ++once call s:set_defaultHL()
+augroup end
+
 let s:pos = []
 let s:match = 0
 let s:nomatch = [0, 0]
