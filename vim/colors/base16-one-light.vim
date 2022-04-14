@@ -12,7 +12,10 @@ let g:base16_one_light_shell = get(g:, 'base16_one_light_shell',
       \'~/dotfiles/shells/themes/base16/base16-one-light')
 let g:base16_noshell = get(g:, 'base16_noshell', '0')
 if !has("gui_running") && g:base16_noshell != 1
+  if readfile('/home/tris/.config/base16_theme')[0]
+        \!= matchstr(g:base16_one_light_shell, '[^/]*$')
     execute "silent !source" g:base16_one_light_shell
+  endif
 endif
 
 " GUI color definitions

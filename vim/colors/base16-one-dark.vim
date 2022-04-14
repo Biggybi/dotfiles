@@ -11,7 +11,10 @@ let g:base16_one_dark_shell = get(g:, 'base16_one_dark_shell',
       \'~/dotfiles/shells/themes/base16/base16-one-dark')
 let g:base16_noshell = get(g:, 'base16_noshell', '0')
 if !has("gui_running") && g:base16_noshell != 1
+  if readfile('/home/tris/.config/base16_theme')[0]
+        \!= matchstr(g:base16_one_dark_shell, '[^/]*$')
     execute "silent !source" g:base16_one_dark_shell
+  endif
 endif
 
 " GUI color definitions
