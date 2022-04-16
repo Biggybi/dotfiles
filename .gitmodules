@@ -123,10 +123,6 @@
 	path = vim/pack/bundle/start/FYT.vim
 	url = https://github.com/statox/FYT.vim
 	ignore = dirty
-[submodule "gnome_setup/xcape"]
-	path = gnome_setup/xcape
-	url = https://github.com/alols/xcape
-	ignore = dirty
 [submodule "langserver/efm-langserver"]
 	path = langserver/efm-langserver
 	url = https://github.com/mattn/efm-langserver
