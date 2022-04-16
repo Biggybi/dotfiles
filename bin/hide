@@ -2,23 +2,23 @@
 
 # Hide or unhide file given as argument
 
-let f=0
+f=0
 
 if [ $1 == '-f' ]
 then
-	let f=1
+	f=1
 	shift
 fi
 
 while [[ $1 ]]
 do
-	let fname=$1
+	fname=$1
 	if ! [ -e $fname ]
 	then
 		echo "no such file: $fname"
 	elif [[ $fname == '.'* ]]
 	then
-		let unhidden_fname=${1:1}
+		unhidden_fname=${1:1}
 		if [ $f == 0 ] && [ -e $unhidden_fname ]
 		then
 			echo "$fname exists, use -f to override"
