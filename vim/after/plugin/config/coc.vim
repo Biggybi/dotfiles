@@ -27,8 +27,8 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
-inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
+inoremap <silent> <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <silent> <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
 hi link CocHilightText Visual
 
 " inoremap <expr> <c-n> pumvisible() ? "\<C-p>" : coc#refresh()
