@@ -9,7 +9,7 @@
 " User must set this variable in .vimrc
 "   let g:base16_shell_path=base16-builder/output/shell/
 let g:base16_one_lightdim_shell = get(g:, 'base16_one_lightdim_shell',
-      \'~/dotfiles/shells/themes/base16/base16-one-lightdim')
+      \'$BASE16_PATH/base16-one-lightdim')
 let g:base16_noshell = get(g:, 'base16_noshell', '0')
 if !has("gui_running") && g:base16_noshell != 1
   if readfile('/home/tris/.config/base16_theme')[0]
