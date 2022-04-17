@@ -157,6 +157,10 @@ nvimpluginstall() {
 	git clone $1
 }
 
+gchub() {
+	git clone git@github.com:biggybi/$1
+}
+
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
 alias vigninstall='$VISUAL $HOME/dotfiles/gnome_setup/install.sh'
 
