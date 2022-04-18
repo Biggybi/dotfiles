@@ -24,8 +24,8 @@ unsetopt BEEP
 
 ## Applications
 
-export VISUAL=vim
-export MANPAGER="vim -M +MANPAGER -"
+export VISUAL=(vim -X)
+export MANPAGER=(vim -M +MANPAGER -)
 export EDITOR=(vi -e)
 export BROWSER=firefox
 export JAVA_HOME="/usr/lib/jvm/java-11-openjdk/"
