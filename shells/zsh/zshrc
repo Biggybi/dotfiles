@@ -168,7 +168,6 @@ else
 fi
 PROMPT+=$'%{\e[00;01;93m%} %~%{\e[0m%} '    # cwd
 PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # branch
-# NOTE: too slow
 PROMPT+=$'\t${promt_cmd_info}'
 PROMPT+=$'%{$reset_color%}'
 PROMPT+=$'\n$(__get_vi_mode_bottom)'
