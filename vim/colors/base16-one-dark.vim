@@ -18,72 +18,51 @@ if !has("gui_running") && g:base16_noshell != 1
 endif
 
 " GUI color definitions
-let s:gui00        = "#2C2C2C"
-let s:gui01        = "#363636"
-let s:gui02        = "#454545"
-let s:gui03        = "#7C7C7C"
-let s:gui04        = "#565656"
-let s:gui05        = "#b4b4b4"
-let s:gui06        = "#ee82ee"
-let s:gui07        = "#c8ccd4"
-let s:gui08        = "#ee6f6f"
-let s:gui09        = "#d19a66"
-let s:gui0A        = "#e5c07b"
-let s:gui0B        = "#98c379"
-let s:gui0C        = "#24a1c0"
-let s:gui0D        = "#61afef"
-let s:gui0E        = "#a470d4"
-let s:gui0F        = "#be5046"
+let s:gui00     = "#2C2C2C"
+let s:gui01     = "#363636"
+let s:gui02     = "#454545"
+let s:gui03     = "#7C7C7C"
+let s:gui04     = "#565656"
+let s:gui05     = "#b4b4b4"
+let s:gui06     = "#ee82ee"
+let s:gui07     = "#c8ccd4"
+let s:gui08     = "#ee6f6f"
+let s:gui09     = "#d19a66"
+let s:gui0A     = "#e5c07b"
+let s:gui0B     = "#98c379"
+let s:gui0C     = "#24a1c0"
+let s:gui0D     = "#61afef"
+let s:gui0E     = "#a470d4"
+let s:gui0F     = "#be5046"
 
 " Terminal color definitions
-let s:cterm00        = "00"
-let s:cterm03        = "08"
-let s:cterm05        = "07"
-let s:cterm07        = "15"
-let s:cterm08        = "01"
-let s:cterm0A        = "03"
-let s:cterm0B        = "02"
-let s:cterm0C        = "06"
-let s:cterm0D        = "04"
-let s:cterm0E        = "05"
+let s:cterm00   = "00"
+let s:cterm03   = "08"
+let s:cterm05   = "07"
+let s:cterm07   = "15"
+let s:cterm08   = "01"
+let s:cterm0A   = "03"
+let s:cterm0B   = "02"
+let s:cterm0C   = "06"
+let s:cterm0D   = "04"
+let s:cterm0E   = "05"
 if exists("base16colorspace") && base16colorspace == "256"
-  let s:cterm01        = "18"
-  let s:cterm02        = "19"
-  let s:cterm04        = "20"
-  let s:cterm06        = "21"
-  let s:cterm09        = "16"
-  let s:cterm0F        = "17"
+  let s:cterm01 = "18"
+  let s:cterm02 = "19"
+  let s:cterm04 = "20"
+  let s:cterm06 = "21"
+  let s:cterm09 = "16"
+  let s:cterm0F = "17"
 else
-  let s:cterm01        = "10"
-  let s:cterm02        = "11"
-  let s:cterm04        = "12"
-  let s:cterm06        = "13"
-  let s:cterm09        = "09"
-  let s:cterm0F        = "14"
+  let s:cterm01 = "10"
+  let s:cterm02 = "11"
+  let s:cterm04 = "12"
+  let s:cterm06 = "13"
+  let s:cterm09 = "09"
+  let s:cterm0F = "14"
 endif
 
-
-" Neovim terminal colours
-if has("nvim")
-  let g:terminal_color_0 =  "#282c34"
-  let g:terminal_color_1 =  "#e06c75"
-  let g:terminal_color_2 =  "#98c379"
-  let g:terminal_color_3 =  "#e5c07b"
-  let g:terminal_color_4 =  "#61afef"
-  let g:terminal_color_5 =  "#c678dd"
-  let g:terminal_color_6 =  "#56b6c2"
-  let g:terminal_color_7 =  "#abb2bf"
-  let g:terminal_color_8 =  "#545862"
-  let g:terminal_color_9 =  "#e06c75"
-  let g:terminal_color_10 = "#98c379"
-  let g:terminal_color_11 = "#e5c07b"
-  let g:terminal_color_12 = "#61afef"
-  let g:terminal_color_13 = "#c678dd"
-  let g:terminal_color_14 = "#56b6c2"
-  let g:terminal_color_15 = "#c8ccd4"
-  let g:terminal_color_background = g:terminal_color_0
-  let g:terminal_color_foreground = g:terminal_color_5
-elseif has("terminal")
+if has("terminal") || has("nvim")
   let g:terminal_ansi_colors = [
         \ "#282c34",
         \ "#e06c75",
@@ -102,6 +81,22 @@ elseif has("terminal")
         \ "#56b6c2",
         \ "#c8ccd4",
         \ ]
+endif
+
+if has("nvim")
+  function! s:Nvim_term_colors() abort
+    let i = 0
+    for term_color in g:terminal_ansi_colors
+      exe printf("let g:terminal_color_%d = \"%s\"", i, term_color)
+      let i = i + 1
+    endfor
+    if &background == "light"
+      let g:terminal_color_background = g:terminal_color_7
+      let g:terminal_color_foreground = g:terminal_color_2
+    endif
+  endfunction
+
+  call <sid>Nvim_term_colors()
 endif
 
 " Theme setup
