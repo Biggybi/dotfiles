@@ -13,15 +13,17 @@ function! s:sourceScripts() abort
   let filters = [
         \"/\.vim/[^\/].*/start/",
         \"/\.vim/colors/",
-        \"^/usr",
-        \"/ftplugin/"
+        \"^/usr/",
+        \"/ftplugin/",
+        \"/skel",
+        \"/spell",
         \]
   for filter in filters
     exe printf("call filter(sources, 'v:val !~ \"%s\"')", filter)
   endfor
 
   for source in sources
-    exe printf("silent! %s %s*.vim", runtimecmd, source)
+    exe printf("silent! %s %s/*.vim", runtimecmd, source)
   endfor
 endfunction
 
