@@ -241,7 +241,6 @@ nnoremap zo zczO
 nnoremap <leader>sv :source $MYVIMRC<bar>:filetype detect<cr>
 nnoremap <leader>sr :Runtime<cr>
 nnoremap <leader>s. :Runtime<cr>
-nnoremap <silent> <leader>sp :silent! Runtime ~/.vim/plugin/*.vim<cr>
 nnoremap <silent> <leader>sf :silent! :filetype detect<cr>
 
 " source colors
