@@ -159,9 +159,6 @@
 [submodule "tmux/plugins/tmux-continuum"]
 	path = tmux/plugins/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
-[submodule "vim/pack/bundle/start/ZoomWin"]
-	path = vim/pack/bundle/start/ZoomWin
-	url = https://github.com/itspriddle/ZoomWin
 [submodule "vim/pack/bundle/start/fugitive-gitlab.vim"]
 	path = vim/pack/bundle/start/fugitive-gitlab.vim
 	url = https://github.com/shumphrey/fugitive-gitlab.vim
