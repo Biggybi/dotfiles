@@ -25,7 +25,10 @@ set keywordprg=:Man
 
 " use bash aliases
 let $BASH_ENV = '$HOME/dotfiles/shells/bash/bash_aliases'
-let $PAGER=''                   " vim as pager
+
+" allow :Man
+let $PAGER=''
+let $MANPAGER=''
 
 syntax on
 set encoding=utf-8              " character encoding
