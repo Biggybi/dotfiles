@@ -6,11 +6,6 @@ nnoremap <leader>eo :CocConfig<cr>
 nnoremap <leader>Eo :split <bar> CocConfig<cr>
 nnoremap <leader><c-e>o :vertical split <bar> CocConfig<cr>
 
-" let g:coc_user_config = {
-"       \ "languageserver.groovy.args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
-" 			\ "languageserver.efm.args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
-"       \ }
-
 " pmenu mappings
 if has("nvim")
   inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
