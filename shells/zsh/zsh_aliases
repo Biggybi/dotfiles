@@ -324,6 +324,13 @@ alias pacrm="sudo pacman -R"       # remove
 alias pacpurge="sudo pacman -Rns"  # remove purge
 alias pacs="pacman -Ss"            # search
 
+alias yayup="sudo yay -Syu"     # sync / upgrade
+alias yayi="sudo yay -S"        # install
+alias yayrm="sudo yay -R"       # remove
+alias yaypurge="sudo yay -Rns"  # remove purge
+alias yays="yay -Ss"            # search
+alias yayclean="yay -Yc"        # remove orphans
+
 ### Hardware info
 alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
 
