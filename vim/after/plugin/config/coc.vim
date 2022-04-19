@@ -52,9 +52,19 @@ nmap <silent> <leader>gd <Plug>(coc-declaration)
 nmap <silent> <leader>gt <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
+nmap <silent> <leader>cf <Plug>(coc-fix-current)
+nmap <silent> <leader>ce <Plug>(coc-codelens-action)
+nmap <silent> <leader>ca <Plug>(coc-codeaction)
+nmap <silent> <leader>c= <Plug>(coc-format-selected)
+xmap <silent> <leader>c= <Plug>(coc-format-selected)
 nmap <silent> [w         <Plug>(coc-diagnostic-prev)
 nmap <silent> ]w         <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>cf <Plug>(coc-fix-current)
+
+" Coc Fzf
+nnoremap <leader>fz :CocFzfList<cr>
+nnoremap <leader>fo :CocFzfList outline<cr>
+
+xmap <leader>ca  <Plug>(coc-codeaction-selected)
 
 function! s:show_documentation() abort
   if &filetype ==# 'vim'
