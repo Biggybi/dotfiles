@@ -373,8 +373,10 @@ alias gccf='gcc -Wall -Wextra '
 alias p='python3.7'
 alias phpserv='php -S localhost:4000'
 alias bc='bc -q'
-# alias asciid="man ascii | grep Tables -A15 | cut -c 25- | sed 's/^ /    /;s/$^//;1,2d;5d'"
-# alias asciidh="man ascii | grep ".*30.*40.*" -A18 -B1"
+
+alias asciidec="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 14 | tail -n 13 | cut -c 23-"
+alias asciihex="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 18 | tail -n 17 | cut -c 4-22"
+alias asciidechex="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 18 | tail -n 17 | cut -c 4-"
 
 alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 alias regex_ipv4="grep -Eo '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b'"
