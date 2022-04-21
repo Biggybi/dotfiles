@@ -5,6 +5,7 @@ let g:plugin_verboseupdate = 1
 
 " <c-s> save and enter normal mode
 function! s:verboseUpdate() abort
+  if &buftype ==# 'nofile' | return | endif
   if &ro
     echo 'Error updating: '.expand('%') . ' (readonly)'
   else
