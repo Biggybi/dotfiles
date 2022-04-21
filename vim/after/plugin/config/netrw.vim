@@ -28,11 +28,10 @@ let g:netrw_winsize = 30
 let g:netrw_sort_sequence = '[\/]$,*'  " sort folders on top
 
 " Netrw toggle - left
-let s:netrw_winsize = get(g:, 'netrw_winsize', '-80')
 function! s:netrwToggle() abort
   Lexplore
   if &ft==#"netrw"
-    exe s:netrw_winsize . "wincmd|"
+    exe g:netrw_winsize . "wincmd|"
   endif
 endfunction
 nnoremap <silent> yoe :call <sid>netrwToggle()<cr>
