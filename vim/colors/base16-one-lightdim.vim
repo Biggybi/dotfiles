@@ -414,9 +414,20 @@ function! s:hl()
   " Java highlighting
   call <sid>hi("javaOperator",     s:gui0D, "", "", "")
 
-endfunction
+  " User Groups defaults
+  hi link User1 SuliNormal
+  hi link User2 SuliOuter
+  hi link User3 SuliMid
+  hi link User4 SuliGitMod
+  hi link User5 SuliFileMod
+  hi link User6 SuliCurDir
+  hi link User7 SuliGit
+  hi link User8 SuliGitSub
+  hi link User9 SuliSep
 
+endfunction
 call s:hl()
+
 augroup OneLightdimHL
   au!
   au ColorScheme <amatch> call s:hl()
