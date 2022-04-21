@@ -7,10 +7,18 @@ let g:netrw_startup = 0
 let g:netrw_startup_no_file = 0
 let g:netrw_home = "vim/tmp/plugin"
 
+function! s:NetrwStartup() abort
+  if (g:netrw_startup_no_file == 1 || g:netrw_startup == 1)
+        \&& expand('%') == ''
+    Ex
+  elseif g:netrw_startup == 1
+    Lexplore | wincmd w | endif
+  endif
+endfunction
+
 augroup NetrwStartup
   au!
-  au VimEnter * if g:netrw_startup_no_file == '1' && expand("%") == "" | e . | endif
-  au VimEnter * if g:netrw_startup == '1' && expand('%') == "" | Lexplore | wincmd w | endif
+  au VimEnter * call <sid>NetrwStartup()
 augroup end
 
 augroup AutoDeleteNetrwHiddenBuffers
