@@ -108,16 +108,6 @@ nnoremap yo<c-u> :UndotreeFocus<cr>
 " Obsession
 nnoremap yoo :call ToggleObsession()<cr>
 
-" Netrw toggle - left
-let s:netrw_winsize = get(g:, 'netrw_winsize', '-80')
-function! NetrwToggle() abort
-  Lexplore
-  if &ft==#"netrw"
-    exe s:netrw_winsize . "wincmd|"
-  endif
-endfunction
-nnoremap <silent> yoe :call NetrwToggle()<cr>
-
 " Move visual selection (=unimpaired + gv)
 vnoremap ]e :'<,'>move '>+1 \| normal! gv<CR>
 vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
