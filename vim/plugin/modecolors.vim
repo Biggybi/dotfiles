@@ -54,15 +54,7 @@ function! s:setExtraStrings() abort
 endfunction
 
 function! s:highlightUserGroups() abort
-  exe 'silent! hi User1' s:HLStrings['Normal']
-  exe 'silent! hi User2' s:HLStrings['Outer']
-  exe 'silent! hi User3' s:HLStrings['Mid']
-  exe 'silent! hi User4' s:HLStrings['GitMod']
-  exe 'silent! hi User5' s:HLStrings['FileMod']
-  exe 'silent! hi User6' s:HLStrings['CurDir']
-  exe 'silent! hi User7' s:HLStrings['Git']
-  exe 'silent! hi User8' s:HLStrings['GitSub']
-  exe 'silent! hi User9' s:HLStrings['Sep']
+  exe printf("silent! hi link User1 %sNormal", g:modecolor_prefix)
 endfunction
 
 function! s:modeColorHL(group) abort
