@@ -7,10 +7,12 @@
 " :colorscheme works in terminals supported by base16-shell scripts
 " User must set this variable in .vimrc
 "   let g:base16_shell_path=base16-builder/output/shell/
+let s:colors_name = "base16-one-dark"
 let g:base16_one_dark_shell = get(g:, 'base16_one_dark_shell',
-      \'$BASE16_PATH/base16-one-dark')
-let g:base16_noshell = get(g:, 'base16_noshell', '0')
-if !has("gui_running") && g:base16_noshell != 1
+      \'$BASE16_PATH/' .. s:colors_name)
+let g:base16_noshell = get(g:, 'base16_noshell', 0)
+
+if !has("gui_running") && g:base16_noshell != 1 && v:vim_did_enter == 1
     execute "silent !source" g:base16_one_dark_shell
 endif
 
@@ -99,7 +101,7 @@ endif
 " Theme setup
 hi clear
 syntax reset
-let g:colors_name = "base16-one-dark"
+let g:colors_name = s:colors_name
 
 " Highlighting function
 " Optional variables are attributes and guisp
