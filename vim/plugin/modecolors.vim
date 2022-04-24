@@ -73,22 +73,15 @@ function! s:mcSwitch(_) abort
     return s:modeColorHL('Normal')
   endif
   let curr_mode = mode()
-  if curr_mode =~? '[s]'
-    return s:modeColorHL('Replace')
-  elseif curr_mode =~# '[Ri]'
-    return s:modeColorHL('Insert')
-  elseif curr_mode =~? '[v]'
-    return s:modeColorHL('Visual')
-  elseif curr_mode ==? 'c'
-    return s:modeColorHL('Cmd')
-  elseif !exists('*state')
-    return s:modeColorHL('Normal')
-  elseif state() =~# '[mo]'
-    return s:modeColorHL('Pending')
-  elseif state() =~# '[S]'
-    return s:modeColorHL('FTSearch')
+  if curr_mode =~? '[s]'     | return s:modeColorHL('Replace')  |
+  elseif curr_mode =~# '[Ri]'  | return s:modeColorHL('Insert')   |
+  elseif curr_mode =~? '[v]' | return s:modeColorHL('Visual')   |
+  elseif curr_mode ==? 'c'     | return s:modeColorHL('Cmd')      |
+  elseif !exists('*state')     | return s:modeColorHL('Normal')   |
+  elseif state() =~# '[mo]'    | return s:modeColorHL('Pending')  |
+  elseif state() =~# '[S]'     | return s:modeColorHL('FTSearch') |
+  else                         | return s:modeColorHL('Normal')   |
   endif
-  return s:modeColorHL('Normal')
 endfunction
 
 "" Command functions
