@@ -147,9 +147,20 @@ alias gnomexts='cd /usr/share/gnome-shell/extensions'
 alias gnome-theme-login='sudo update-alternatives --config gdm3-theme.gresource'
 alias gnome-term-xterm='sudo update-alternatives --set x-terminal-emulator /usr/bin/xterm'
 
+vimplugclone() {
+	git clone "$1" "$HOME/dotfiles/vim/pack/bundle/start/"
+}
+
+vimplugremove() {
+	rm -rf "$HOME/dotfiles/vim/pack/bundle/start/$(basename "$1")"
+}
+
 vimpluginstall() {
-	cd $HOME/dotfiles/vim/pack/bundle/start/
-	git clone $1
+	git submodule add -f "$1" "$HOME/dotfiles/vim/pack/bundle/start/$(basename "$1")"
+}
+
+vimpluguninstall() {
+	git rm -f "$HOME/dotfiles/vim/pack/bundle/start/$(basename "$1")"
 }
 
 nvimpluginstall() {
