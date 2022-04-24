@@ -1,5 +1,3 @@
-" vi:syntax=vim
-
 " base16-vim (https://github.com/chriskempson/base16-vim)
 " by Chris Kempson (http://chriskempson.com)
 " One Light scheme by Daniel Pfeifer (http://github.com/purpleKarrot)
@@ -119,13 +117,15 @@ let g:colors_name = s:colors_name
 
 " Highlighting function
 " Optional variables are attributes and guisp
-function! g:Base16hi(group, fg, bg, attr = '', sp = '')
-  let fg = a:fg == "" ? "" : "guifg=" .. a:fg
-  let bg = a:bg == "" ? "" : "guibg=" .. a:bg
-  let sp = a:sp == "" ? "" : "guisp=" .. a:sp
-  let at = a:attr  == "" ? "" : "gui=" .. a:attr .. " cterm=" .. a:attr
+function! g:Base16hi(group, fg, bg, at = '', sp = '')
+  let guifg =   a:fg == "" ? "" : "guifg="   .. get(s:, "gui"   .. a:fg)
+  let guibg =   a:bg == "" ? "" : "guibg="   .. get(s:, "gui"   .. a:bg)
+  let ctermfg = a:fg == "" ? "" : "ctermfg=" .. get(s:, "cterm" .. a:fg)
+  let ctermbg = a:bg == "" ? "" : "ctermbg=" .. get(s:, "cterm" .. a:bg)
+  let sp =      a:sp == "" ? "" : "guisp="   .. get(s:, "gui"   .. a:sp)
+  let at =      a:at == "" ? "" : "gui=" .. a:att .. " cterm=" .. a:att
   exe printf("hi %s %s %s %s %s %s %s",
-        \a:group, fg, bg, fg, bg, at, sp)
+        \a:group, guifg, guibg, ctermfg, ctermbg, at, sp)
 endfunction
 
 fun <sid>hi(group, fg, bg, attr, sp)
