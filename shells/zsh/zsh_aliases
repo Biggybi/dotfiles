@@ -380,9 +380,6 @@ alias asciidec="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 14 | tail -n 13
 alias asciihex="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 18 | tail -n 17 | cut -c 4-22"
 alias asciidechex="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 18 | tail -n 17 | cut -c 4-"
 
-alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
-alias regex_ipv4="grep -Eo '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b'"
-
 ### config : app icons
 alias cdapp='cd /usr/share/applications/'
 
@@ -510,3 +507,7 @@ fzf_semi_interactive_cd() {
 }
 
 alias kk='kaamelottrand'
+
+alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
+alias regex_ipv4="grep -Eo '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b'"
+
