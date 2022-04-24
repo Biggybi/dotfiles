@@ -60,7 +60,7 @@ function! s:statusLineActive() abort
     setlocal statusline +=%2*\ [Term]\ %*\ %t              "  [Term] filename
   elseif &previewwindow==1                                 " preview window
     setlocal statusline +=%2*\ %w\ %*%3*\ %t%*\            "  [Preview] filename
-  elseif exists('g:loaded_fugitive') && FugitiveGitDir() != ''
+  elseif exists('*FugitiveGitDir()') && FugitiveGitDir() != ''
     setlocal statusline +=%2*%(\ %{FugitiveHead()}%)%*     " git branch
     setlocal statusline +=%4*%([%R]%)                      " read only, special buffers
     setlocal statusline +=%{GitModify()}%*                 " git modified
