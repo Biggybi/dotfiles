@@ -193,10 +193,10 @@ function! s:hl()
   call <sid>hi("PMenuSel",      "05", "03", "", "")
   call <sid>hi("PMenuSbar",     "04", "03", "", "")
   call <sid>hi("PMenuThumb",    "01", "01", "", "")
-  call <sid>hi("TabLine",       "05", "01", "none", "")
-  call <sid>hi("TabLineFill",   "05", "01", "none", "")
-  call <sid>hi("TabLineSel",    "05", "00", "none", "")
 
+  call <sid>hi("TabLine",       "05", "02", "none", "")
+  call <sid>hi("TabLineFill",   "05", "00", "none", "")
+  call <sid>hi("TabLineSel",    "05", "03", "none", "")
   " Status Line
   call <sid>hi("SuliGitSub",    "0B", "01", "none", "")
   call <sid>hi("SuliGit",       "0D", "01", "none", "")
