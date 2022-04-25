@@ -367,10 +367,10 @@ vnoremap > >gv
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
 " resize windows quicker
-nnoremap <leader>= :exe "resize +10"<cr>
-nnoremap <leader>- :exe "resize -10"<cr>
-nnoremap <leader>> :exe "vertical resize +10"<CR>
-nnoremap <leader>< :exe "vertical resize -10"<CR>
+nnoremap <silent> <Leader>= :exe "resize "          . (winheight(0) * 3/2 + 1)<CR>
+nnoremap <silent> <Leader>- :exe "resize "          . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <leader>> :exe "vertical resize " . (winwidth(0)  * 4/3 + 1)<CR>
+nnoremap <silent> <leader>< :exe "vertical resize " . (winwidth(0)  * 3/4)<CR>
 
 """        Alt Movement
 
