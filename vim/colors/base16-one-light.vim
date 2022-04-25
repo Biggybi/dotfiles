@@ -110,7 +110,7 @@ function! g:Base16hi(group, fg, bg, at = '', sp = '')
   let ctermfg = a:fg == "" ? "" : "ctermfg=" .. get(s:, "cterm" .. a:fg)
   let ctermbg = a:bg == "" ? "" : "ctermbg=" .. get(s:, "cterm" .. a:bg)
   let sp =      a:sp == "" ? "" : "guisp="   .. get(s:, "gui"   .. a:sp)
-  let at =      a:at == "" ? "" : "gui=" .. a:att .. " cterm=" .. a:att
+  let at =      a:at == "" ? "" : "gui=" .. a:at .. " cterm=" .. a:at
   exe printf("hi %s %s %s %s %s %s %s",
         \a:group, guifg, guibg, ctermfg, ctermbg, at, sp)
 endfunction
@@ -189,6 +189,7 @@ function! s:hl()
   call <sid>hi("TabLineFill",   "05", "02", "none", "")
   call <sid>hi("TabLineSel",    "05", "00", "none", "")
 
+  " Status Line
   call <sid>hi("SuliGitSub",    "0B", "02", "none", "")
   call <sid>hi("SuliGit",       "0D", "02", "none", "")
   call <sid>hi("SuliCurDir",    "00", "02", "none", "")
@@ -396,18 +397,6 @@ function! s:hl()
 
   " Java highlighting
   call <sid>hi("javaOperator",     "0D", "", "", "")
-
-  " User Groups defaults
-  hi link User1 SuliNormal
-  hi link User2 SuliOuter
-  hi link User3 SuliMid
-  hi link User4 SuliGitMod
-  hi link User5 SuliFileMod
-  hi link User6 SuliCurDir
-  hi link User7 SuliGit
-  hi link User8 SuliGitSub
-  hi link User9 SuliSep
-
 endfunction
 call s:hl()
 

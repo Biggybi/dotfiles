@@ -34,8 +34,8 @@ let s:gui0E     = "#a470d4"
 let s:gui0F     = "#be5046"
 
 " Terminal color definitions
-let s:cterm00   = "236"
-let s:cterm03   = "08"
+let s:cterm00   = "00"
+let s:cterm03   = "236"
 let s:cterm05   = "07"
 let s:cterm07   = "15"
 let s:cterm08   = "01"
@@ -44,7 +44,8 @@ let s:cterm0B   = "02"
 let s:cterm0C   = "06"
 let s:cterm0D   = "04"
 let s:cterm0E   = "05"
-if exists("base16colorspace") && base16colorspace == "256"
+" if exists("base16colorspace") && base16colorspace == "256"
+if &t_Co >= 16
   let s:cterm01 = "18"
   let s:cterm02 = "19"
   let s:cterm04 = "20"
@@ -136,7 +137,7 @@ function! s:hl()
   call <sid>hi("Search",        "02", "0A",  "", "")
   call <sid>hi("IncSearch",     "02", "0B", "none", "")
   call <sid>hi("OnlySearch",    "02", "06", "none", "")
-  call <sid>hi("FirstSearch",    "02", "0D", "none", "")
+  call <sid>hi("FirstSearch",   "02", "0D", "none", "")
   call <sid>hi("LastSearch",    "02", "08", "none", "")
   call <sid>hi("Italic",        "", "", "none", "")
   call <sid>hi("Macro",         "08", "", "", "")
@@ -158,11 +159,11 @@ function! s:hl()
   call <sid>hi("Ignore",        "03", "00", "", "")
   call <sid>hi("Cursor",        "00", "05", "", "")
   call <sid>hi("NonText",       "03", "", "", "")
-  call <sid>hi("LineNr",         "03", "00", "", "")
-  call <sid>hi("SignColumn",     "03", "00", "", "")
+  call <sid>hi("LineNr",        "03", "00", "", "")
+  call <sid>hi("SignColumn",    "03", "00", "", "")
   " call <sid>hi("VertSplit",     "01", "01", "none", "")
-  call <sid>hi("VertSplit",      "01", "00", "none", "")
-  call <sid>hi("VertSplit2",     "02", "01", "none", "")
+  call <sid>hi("VertSplit",     "01", "00", "none", "")
+  call <sid>hi("VertSplit2",    "02", "01", "none", "")
   " redline
   call <sid>hi("ColorColumn",   "", "01", "none", "")
   call <sid>hi("CursorColumn",  "", "02", "none", "")
@@ -395,28 +396,14 @@ function! s:hl()
 
   " Coc highlighting
   " call <sid>hi("CocHighlightText", "", "01", "", "")
-
   call <sid>hi("CocSelectedLine", "0E", "0A", "", "")
   call <sid>hi("CocSelectedText", "0E", "0A", "", "")
-
   call <sid>hi("CocListMode", "0B", "04", "", "")
   call <sid>hi("CocListPath", "03", "01", "", "")
 
   " Java highlighting
   call <sid>hi("javaOperator",     "0D", "", "", "")
   call <sid>hi("javaTypedef",     "0B", "", "", "")
-
-  " User Groups defaults
-  hi link User1 SuliNormal
-  hi link User2 SuliOuter
-  hi link User3 SuliMid
-  hi link User4 SuliGitMod
-  hi link User5 SuliFileMod
-  hi link User6 SuliCurDir
-  hi link User7 SuliGit
-  hi link User8 SuliGitSub
-  hi link User9 SuliSep
-
 endfunction
 call s:hl()
 

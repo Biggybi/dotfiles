@@ -4,7 +4,7 @@ endif
 let g:plugin_modecolor = 1
 
 "" Get options
-let g:modecolor_prefix = get(g:, 'modecolor_prefix', 'Suli')
+let g:modecolor_prefix =       get(g:, 'modecolor_prefix', 'Suli')
 let g:modecolor_timer_switch = get(g:, 'modecolor_timer_switch', 1)
 let g:modecolor_refresh_time = get(g:, 'modecolor_refresh_time', 50)
 
@@ -47,14 +47,22 @@ endfunction
 
 function! s:setExtraStrings() abort
   let s:modecolor_base  = get(g:, 'modecolor_hl_group_normal', 'SuliNormal')
-  let s:modecolor_main  = get(g:, 'modecolor_hl_group_normal', 'SuliNormal')
+  let s:modecolor_main  = get(g:, 'modecolor_hl_group_normal', 'User1')
   let s:modecolor_extra = get(g:, 'modecolor_hl_group_extra', 'CursorLineNr')
   let s:HLGroupMain     = s:getHLString(s:modecolor_base)
   let s:HLGroupExtra    = s:getHLString(s:modecolor_extra)
 endfunction
 
 function! s:highlightUserGroups() abort
-  exe printf("silent! hi link User1 %sNormal", g:modecolor_prefix)
+  exe 'silent! hi User1' s:HLStrings['Normal']
+  exe 'silent! hi User2' s:HLStrings['Outer']
+  exe 'silent! hi User3' s:HLStrings['Mid']
+  exe 'silent! hi User4' s:HLStrings['GitMod']
+  exe 'silent! hi User5' s:HLStrings['FileMod']
+  exe 'silent! hi User6' s:HLStrings['CurDir']
+  exe 'silent! hi User7' s:HLStrings['Git']
+  exe 'silent! hi User8' s:HLStrings['GitSub']
+  exe 'silent! hi User9' s:HLStrings['Sep']
 endfunction
 
 function! s:modeColorHL(group) abort
