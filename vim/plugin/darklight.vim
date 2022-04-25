@@ -121,3 +121,10 @@ if ! exists("s:theme_change")
   call s:selectColorScheme()
   let s:theme_change = 1
 endif
+
+augroup LumenDarkLight
+  au!
+  autocmd User LumenLight DarkLightDay
+  autocmd User LumenDark  DarkLightNight
+augroup end
+
