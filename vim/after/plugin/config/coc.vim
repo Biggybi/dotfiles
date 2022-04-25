@@ -14,12 +14,26 @@ else
 endif
 
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f><cmd>call NoScrollAtEOF()\<cr>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ?
+        \ "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ?
+        \ coc#float#scroll(1) : "\<C-f><cmd>call NoScrollAtEOF()\<cr>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ?
+        \ coc#float#scroll(1) : "\<C-f>"
+
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ?
+        \ coc#float#scroll(0) : "\<C-b>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ?
+        \ coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ?
+        \ "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+  nnoremap <silent><nowait><expr> <C-]> coc#float#has_scroll() ?
+        \ coc#float#close('.') : "\<C-]>"
+  vnoremap <silent><nowait><expr> <C-]> coc#float#has_scroll() ?
+        \ coc#float#close('.') : "\<C-]>"
+  inoremap <silent><nowait><expr> <C-]> coc#float#has_scroll() ?
+        \ "\<c-o>:call coc#float#close('.')\<cr>" : "\<C-]>"
 endif
 
 inoremap <silent> <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
