@@ -95,7 +95,7 @@ function! s:statusLineInactive() abort
     setlocal statusline +=\ [Term]\ %t                     "  [Term] filename
   elseif &previewwindow==1                                 " preview window
     setlocal statusline +=\ %w\ %t                         "  [Preview] filename
-  elseif exists('g:loaded_fugitive') && FugitiveGitDir() != ''
+  elseif exists('*FugitiveGitDir()') && FugitiveGitDir() != ''
     setlocal statusline +=\ %(%{GitRelativePath()}%)       " lhs
     setlocal statusline +=%7*%{FugitiveHead()!=''?
           \get(split(getcwd(),'/'),'-1',''):''}%*          " git project
