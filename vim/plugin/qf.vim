@@ -1,7 +1,7 @@
-if exists('g:plugin_qf')
+if exists('g:plugin_qff')
   finish
 endif
-let g:plugin_qf = 1
+let g:plugin_qff = 1
 
 " augroup QfMakeConv
 "   au!
