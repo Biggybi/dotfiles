@@ -110,6 +110,12 @@ vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
 " Toggle hlsearch + Anzu
 nnoremap <silent> yoh :ToggleHL<cr>
 
+" winfix width/height
+nnoremap <silent> yo<c-w> :setlocal winfixwidth!<cr>:echo &winfixwidth == 0
+      \? 'nowinfixwidth' : 'winfixwidth'<cr>
+nnoremap <silent> yo<c-h> :setlocal winfixheight!<cr>:echo &winfixheight == 0
+      \? 'nowinfixheight' : 'winfixheight'<cr>
+
 " TODO: keep cursor on the same column
 nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
 command! ZZToggle
