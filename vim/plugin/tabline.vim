@@ -16,7 +16,7 @@ function! TabLine() abort
   let s ..= '%#TabLineFill#%T%=' " free space
   let s ..= '%{%TablineDir()%}'  " current dir / git
   if tabpagenr('$') > 1
-    let s ..= '%1* X '      " close button
+    let s ..= '%1*%999X X '      " close button
   endif
   return s
 endfunction
