@@ -127,7 +127,7 @@ function! s:mcCmdMainHL(group) abort
   endif
 endfunction
 
-function! s:mdCmdAllHL(group = '') abort
+function! s:mcCmdAllHL(group = '') abort
   if !hlID(a:group)
     return
   endif
