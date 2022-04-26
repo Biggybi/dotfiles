@@ -3,7 +3,7 @@ if exists('g:plugin_sourcer')
 endif
 let g:plugin_sourcer = 1
 
-let g:sourcer_use_scriptease = get(g:, 'sourcer_use_scriptease', '1')
+let g:sourcer_use_scriptease = get(g:, 'sourcer_use_scriptease', 1)
 
 function! s:sourceScripts() abort
   let runtimecmd = exists(':Runtime') && g:sourcer_use_scriptease == 1
@@ -18,16 +18,18 @@ function! s:sourceScripts() abort
         \"/skel",
         \"/spell",
         \]
+
   for filter in filters
     exe printf("call filter(sources, 'v:val !~ \"%s\"')", filter)
   endfor
 
   for source in sources
-    exe printf("silent! %s %s/*.vim", runtimecmd, source)
+    silent! exe printf("%s %s/*.vim", runtimecmd, source)
   endfor
+  if exists('$MYVIMRC') | source $MYVIMRC | endif
 endfunction
 
-nnoremap <expr> <plug>Sourcer <sid>sourceScripts()
+nnoremap <expr> <plug>Sourcer <sid>sourceScripts() . ":echo 'Sourcer done'<cr>"
 
 if !hasmapto('<Plug>Sourcer') && maparg('<leader>sp','n') ==# ''
     nmap <leader>sp <Plug>Sourcer
