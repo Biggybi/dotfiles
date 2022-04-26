@@ -345,6 +345,7 @@ alias yays="yay -Ss"       # search
 alias yayclean="yay -Yc"   # remove orphans
 
 alias archup="sudo pacman -Syu && yay -Syu"  # pacman + yay
+alias archkeyring="pacman -S archlinux-keyring"
 
 ### Hardware info
 alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
