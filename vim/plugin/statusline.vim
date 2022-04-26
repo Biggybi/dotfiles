@@ -115,8 +115,10 @@ function! FilePath() abort
   let unfoc_filename = matchstr(unfoc_path_name, ".*" . unfoc_relpath . unfoc_name . "/\\zs.*")
   let unfoc_gitdir_path = matchstr(focus_gitdir, '.*\.git')
   let focus_gitdir_path = matchstr(unfoc_gitdir, '.*\.git')
-  if matchstr(focus_gitdir_path, unfoc_gitdir_path) != ''
-    if match(unfoc_gitdir, '.*/.git/modules/.*') == '' " is a submodule of focused buffer
+  let unfoc_is_focsub = matchstr(focus_gitdir_path, unfoc_gitdir_path) != ''
+  let unfoc_is_sub = match(unfoc_gitdir, '.*/.git/modules/.*') == 0
+  if unfoc_is_focsub != 0
+    if unfoc_is_sub " is a submodule of focused buffer
       if unfoc_name ==# focus_name
         return '%6*' . unfoc_name . '%3* ' . unfoc_path_name
       else
@@ -130,6 +132,27 @@ function! FilePath() abort
       endif
     endif
   endif
+  if unfoc_gitdir != ''
+    let unfoc_head = matchstr(unfoc_gitdir, '.*/\ze[^/]*/\.git')
+    if unfoc_is_focsub == 0
+      let unfoc_gitdir_path = matchstr(unfoc_gitdir, '.*\.git')
+      let unfoc_parent_path = matchstr(unfoc_gitdir_path, '.*/\ze[^/]*/\.git')
+      let unfoc_parent_name = matchstr(unfoc_gitdir_path, '.*/\zs[^/]*\ze/\.git')
+      if unfoc_is_sub
+        let unfoc_between = matchstr(unfoc_relpath, unfoc_parent_path . unfoc_parent_name . '\zs.*')
+        if unfoc_relpath != ''
+          return unfoc_parent_path . '%7*' . unfoc_parent_name . '%3*' . unfoc_between . '%6*' . unfoc_name . '%3*/' . unfoc_filename
+        else
+          let unfoc_between = matchstr(unfoc_fullpath, unfoc_parent_path . unfoc_parent_name . '\zs.*\ze' . unfoc_name . '$')
+          return unfoc_parent_path . '%7*' . unfoc_parent_name . '%3*' . unfoc_between . '%6*' . unfoc_name . '%3*/' . unfoc_filename
+        endif
+      endif
+      let unfoc_between = matchstr(unfoc_fullpath, unfoc_parent_path . unfoc_parent_name . '\zs.*\ze' . unfoc_name . '$')
+      return unfoc_parent_path . '%7*' . unfoc_parent_name . '%3*/' . unfoc_filename
+    else
+      return unfoc_head . '%7*' . unfoc_name . '%3*/' . unfoc_filename
+    endif
+  endif
   return unfoc_path_name
 endfunction
 
@@ -137,7 +160,7 @@ function! GitModify() abort
   if FugitiveHead() == ''  || &buftype == 'terminal'
     return ''
   endif
-  let [a, m, r] = [0, 0, 0]
+  let [a,m,r] = [0,0,0]
   if exists('*GitGutterGetHunkSummary')
     let [a,m,r] = GitGutterGetHunkSummary()
   elseif exists('b:gitsigns_status')
