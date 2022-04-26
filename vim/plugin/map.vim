@@ -462,10 +462,11 @@ xmap <silent> ]<c-g> <Plug>(MatchitVisualMultiForward)
 omap <silent> [<c-g> <Plug>(MatchitOperationMultiBackward)
 omap <silent> ]<c-g> <Plug>(MatchitOperationMultiForward)
 
-nnoremap /         :silent call clearmatches()<cr>/
-nnoremap ?         :silent call clearmatches()<cr>?
-nnoremap <leader>/ :silent call clearmatches()<cr>/\v
-vnoremap <leader>/ :silent call clearmatches()<cr>/\v
+" TODO: write in non-visible color to hide, silent nor working
+nnoremap /         :call clearmatches()\|nohl<cr>/
+nnoremap ?         :call clearmatches()\|nohl<cr>?
+nnoremap <leader>/ :call clearmatches()\|nohl<cr>/\v
+vnoremap <leader>/ :call clearmatches()\|nohl<cr>/\v
 
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
