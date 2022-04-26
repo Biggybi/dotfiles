@@ -136,21 +136,17 @@ function! FilePath() abort
     let unfoc_head = matchstr(unfoc_gitdir, '.*/\ze[^/]*/\.git')
     if unfoc_is_focsub == 0
       let unfoc_gitdir_path = matchstr(unfoc_gitdir, '.*\.git')
-      let unfoc_parent_path = matchstr(unfoc_gitdir_path, '.*/\ze[^/]*/\.git')
       let unfoc_parent_name = matchstr(unfoc_gitdir_path, '.*/\zs[^/]*\ze/\.git')
       if unfoc_is_sub
-        let unfoc_between = matchstr(unfoc_relpath, unfoc_parent_path . unfoc_parent_name . '\zs.*')
         if unfoc_relpath != ''
-          return unfoc_parent_path . '%7*' . unfoc_parent_name . '%3*' . unfoc_between . '%6*' . unfoc_name . '%3*/' . unfoc_filename
+          return '%7*' . unfoc_parent_name . '%3* %6*' . unfoc_name . '%3* ' . unfoc_filename
         else
-          let unfoc_between = matchstr(unfoc_fullpath, unfoc_parent_path . unfoc_parent_name . '\zs.*\ze' . unfoc_name . '$')
-          return unfoc_parent_path . '%7*' . unfoc_parent_name . '%3*' . unfoc_between . '%6*' . unfoc_name . '%3*/' . unfoc_filename
+          return '%7*' . unfoc_parent_name . '%3* %6*' . unfoc_name . '%3* ' . unfoc_filename
         endif
       endif
-      let unfoc_between = matchstr(unfoc_fullpath, unfoc_parent_path . unfoc_parent_name . '\zs.*\ze' . unfoc_name . '$')
-      return unfoc_parent_path . '%7*' . unfoc_parent_name . '%3*/' . unfoc_filename
+      return '%7*' . unfoc_parent_name . '%3* ' . unfoc_filename
     else
-      return unfoc_head . '%7*' . unfoc_name . '%3*/' . unfoc_filename
+      return unfoc_head . '%7*' . unfoc_name . '%3* ' . unfoc_filename
     endif
   endif
   return unfoc_path_name
