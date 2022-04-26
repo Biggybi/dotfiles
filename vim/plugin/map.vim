@@ -81,11 +81,6 @@ inoremap _ _<c-g>u
 
 """        Toggles
 
-" Toggle ModeColorSwitch
-nmap yom <Plug>(modeColorToggle)
-nmap [om <Plug>(modeColorOn)
-nmap ]om <Plug>(modeColorOff)
-
 " Toggle concealed characters
 function! ConcealToggle() abort
   if &conceallevel

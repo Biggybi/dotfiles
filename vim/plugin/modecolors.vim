@@ -238,19 +238,19 @@ command! -nargs=0 ModeColortoggle call s:mcToggle()
 command! -nargs=0 ModeColoron     call s:mcOn()
 command! -nargs=0 ModeColoroff    call s:mcOff()
 
-silent! noremap <silent> <unique> <script> <plug>(modeColorToggle)
+silent! noremap <silent> <unique> <script> <plug>modeColorToggle
       \ :set lz<cr>:call <sid>mcToggle()<cr>:set nolz<cr>
-silent! noremap <silent> <unique> <script> <plug>(modeColorOff)
+silent! noremap <silent> <unique> <script> <plug>modeColorOff
       \ :set lz<cr>:call <sid>mcOff()<cr>:set nolz<cr>
-silent! noremap <silent> <unique> <script> <plug>(modeColorOn)
-      \ :set lz<cr>:call <sid>moOn()<cr>:set nolz<cr>
+silent! noremap <silent> <unique> <script> <plug>modeColorOn
+      \ :set lz<cr>:call <sid>mcOn()<cr>:set nolz<cr>
 
 if !hasmapto('<plug>modeColorToggle') && maparg('yom', 'n') ==# ''
   nmap yom <plug>modeColorToggle
 endif
-if !hasmapto('<plug>modeColorOn') && maparg('yom', 'n') ==# ''
+if !hasmapto('<plug>modeColorOn') && maparg('[om', 'n') ==# ''
   nmap [om <plug>modeColorOn
 endif
-if !hasmapto('<plug>modeColorOff') && maparg('yom', 'n') ==# ''
+if !hasmapto('<plug>modeColorOff') && maparg(']om', 'n') ==# ''
   nmap ]om <plug>modeColorOff
 endif
