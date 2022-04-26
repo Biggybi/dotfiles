@@ -1,21 +1,32 @@
 function! TabLine() abort
   let s = ''
   for i in range(tabpagenr('$'))
-    if i + 1 == tabpagenr()
+    let i = i + 1
+    if i == tabpagenr()
       let s ..= '%#TabLineSel#'  " current tab
     else
       let s ..= '%#TabLine#'     " non-current tabs
     endif
-    let s ..= '%' .. (i + 1) .. 'T' " tab number (mouse click)
-    let s ..= ' %{TabLabel(' .. (i + 1) .. ')} ' " Label
+    let s ..= '%' .. (i) .. 'T' " tab number (mouse click)
+    let label = TabLabel(i)
+    let [lab_size, padding] = s:tablab_size(i, label)
+    let s ..= '%-' .. lab_size .. '.' .. lab_size . '(' .. repeat(' ', padding) .. label .. '%)' " Label
     let s ..= '%#TabLineFill#  ' " tabs separation
   endfor
   let s ..= '%#TabLineFill#%T%=' " free space
   let s ..= '%{%TablineDir()%}'  " current dir / git
   if tabpagenr('$') > 1
-    let s ..= '%1*%999X X '      " close button
+    let s ..= '%1* X '      " close button
   endif
   return s
+endfunction
+
+function! s:tablab_size(index, label)
+  let lab_size = tabpagebuflist(a:index)->map({
+        \_, v -> bufname(v)->matchstr('[^/]*$')->len()
+        \})->max() + 2
+  let padding = (lab_size - a:label->len()) / 2
+  return [lab_size, padding]
 endfunction
 
 function! TabLabel(n) abort
