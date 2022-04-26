@@ -265,6 +265,9 @@ nnoremap <leader><c-e>zz :vs $DOT/shells/zsh/zshrc<cr>
 nnoremap <leader>eza     :e  $DOT/shells/zsh/zsh_aliases<cr>
 nnoremap <leader>Eza     :sp $DOT/shells/zsh/zsh_aliases<cr>
 nnoremap <leader><c-e>za :vs $DOT/shells/zsh/zsh_aliases<cr>
+nnoremap <leader>ezh     :e  $HOME/.zsh_history<cr>
+nnoremap <leader>Ezh     :sp $HOME/.zsh_history<cr>
+nnoremap <leader><c-e>zh :vs $HOME/.zsh_history<cr>
 
 nnoremap <leader>ebn     :e  $DOT/inputrc<cr>
 nnoremap <leader>Ebn     :sp $DOT/inputrc<cr>
