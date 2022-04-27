@@ -59,9 +59,11 @@ function! s:tab_label(index, total_label_size, right_side_len) abort
     let padstring = repeat(' ', padding)
     return padstring . label . padstring
   endif
-  let padding = max([(tab_size - label->len()) / 2, 1])
-  let padstring = repeat(' ', padding)
-  return padstring . label . padstring
+  let left_padding = max([(tab_size - label->len()) / 2, 1])
+  let left_padstring = repeat(' ', left_padding)
+  echo tab_size left_padding
+  let right_padstring = repeat(' ', tab_size - left_padding - len(label))
+  return left_padstring . label . right_padstring
 endfunction
 
 function! s:label_text(n) abort
