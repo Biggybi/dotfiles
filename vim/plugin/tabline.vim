@@ -36,10 +36,16 @@ function! TabLine() abort
   return s
 endfunction
 
+function! s:getname(v) abort
+  let name = bufname(a:v)
+  if name !=# '' | return name | endif
+  return printf("[%s]", &buftype)
+endfunction
+
 function! s:total_label_size() abort
   let lst_label_size = range(1, tabpagenr('$'))->map({
         \  _, v -> tabpagebuflist(v)->map({
-        \    _, v -> bufname(v)->matchstr('[^/]*$')->len()
+        \    _, v -> s:getname(v)->matchstr('[^/]*$')->len()
         \  })->max()
         \})->map({
         \  _, v -> v < g:tabline_min_tab_size ? g:tabline_min_tab_size : v
@@ -55,7 +61,7 @@ endfunction
 function! s:tab_label(index, total_label_size, right_side_len) abort
   let label = s:label_text(a:index)
   let tab_size = tabpagebuflist(a:index)->map({
-        \_, v -> bufname(v)->matchstr('[^/]*$')->len()
+        \_, v -> s:getname(v)->matchstr('[^/]*$')->len()
         \})->max()
   let tab_size = max([tab_size, g:tabline_min_tab_size]) + len(g:tabline_tab_sep)
 
@@ -74,7 +80,7 @@ endfunction
 function! s:label_text(n) abort
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  return matchstr(bufname(buflist[winnr - 1]), '[^/]*$')
+  return matchstr(s:getname(buflist[winnr - 1]), '[^/]*$')
 endfunction
 
 function! s:tablineDir() abort
