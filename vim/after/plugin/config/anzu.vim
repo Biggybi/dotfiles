@@ -1,4 +1,4 @@
-if ! exists('g:anzu_status_format')
+if ! exists('g:loaded_anzu')
   finish
 endif
 
