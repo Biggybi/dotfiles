@@ -17,6 +17,8 @@ function! TabLine() abort
   let s ..= '%{%TablineDir()%}'  " current dir / git
   if tabpagenr('$') > 1
     let s ..= '%1*%999X X '      " close button
+  else
+    let s ..= '%1* - '
   endif
   return s
 endfunction
