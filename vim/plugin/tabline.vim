@@ -3,11 +3,23 @@ if exists('g:plugin_tabline')
 endif
 let g:plugin_tabline = 1
 
-let g:tabline_min_tab_size = get(g:, 'tabline_min_tab_size', 20)
+let g:tabline_min_tab_size = get(g:, 'tabline_min_tab_size', 0)
 let g:tabline_expand_tabs = get(g:, 'tabline_expand_tabs', 0)
 
 function! TabLine() abort
+  let lst_label_size = range(1, tabpagenr('$'))->map({
+        \  _, v -> tabpagebuflist(v)->map({
+        \    _, v -> bufname(v)->matchstr('[^/]*$')->len()
+        \  })->max()
+        \})->map({
+        \  _, v -> v < g:tabline_min_tab_size ? g:tabline_min_tab_size : v
+        \})
+  let total_label_size = 0
+  for size in lst_label_size
+    let total_label_size = total_label_size + size + 4
+  endfor
   let tablinedir = TablineDir()
+  let right_side_len = len(tablinedir) + 5
   let s = ''
   for i in range(tabpagenr('$'))
     let i = i + 1
@@ -17,7 +29,7 @@ function! TabLine() abort
       let s ..= '%#TabLine#'     " non-current tabs
     endif
     let s ..= '%' .. (i) .. 'T'  " tab number (mouse click)
-    let s ..= s:tab_label(i)     " tab label
+    let s ..= s:tab_label(i, total_label_size, right_side_len)     " tab label
     let s ..= '%#TabLineFill#  ' " tabs separation
   endfor
   let s ..= '%#TabLineFill#%T%=' " free space
@@ -28,18 +40,20 @@ function! TabLine() abort
   return s
 endfunction
 
-function! s:tab_label(index)
+function! s:tab_label(index, total_label_size, right_side_len)
   let label = s:label_text(a:index)
-  let lab_size = tabpagebuflist(a:index)->map({
+  let tab_size = tabpagebuflist(a:index)->map({
         \_, v -> bufname(v)->matchstr('[^/]*$')->len()
         \})->max() + 2
-  let lab_size = max([lab_size, g:tabline_min_tab_size])
-  let is_too_wide = (lab_size) * tabpagenr('$') > &columns
-  if g:tabline_expand_tabs || is_too_wide
-    let lab_size = (&columns - 20) / tabpagenr('$')
-    echo lab_size
+  let tab_size = max([tab_size, g:tabline_min_tab_size])
+
+  if g:tabline_expand_tabs || a:total_label_size > &columns
+    let tab_size = (&columns - a:right_side_len - 2) / tabpagenr('$')
+    let padding = max([((tab_size - label->len() - 1)) / 2, 1])
+    let padstring = repeat(' ', padding)
+    return padstring . label . padstring
   endif
-  let padding = max([(lab_size - label->len()) / 2, 1])
+  let padding = max([(tab_size - label->len()) / 2, 1])
   let padstring = repeat(' ', padding)
   return padstring . label . padstring
 endfunction
@@ -50,7 +64,7 @@ function! s:label_text(n) abort
   return matchstr(bufname(buflist[winnr - 1]), '[^/]*$')
 endfunction
 
-function! TablineDir() abort
+function! s:tablineDir() abort
   if exists('*FugitiveGitDir()') && FugitiveGitDir() != ''
     let s = ''
     let s ..= isdirectory('.git') ? '%7* ' : '%8* '
