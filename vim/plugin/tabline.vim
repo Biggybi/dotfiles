@@ -7,6 +7,7 @@ let g:tabline_min_tab_size = get(g:, 'tabline_min_tab_size', 0)
 let g:tabline_expand_tabs = get(g:, 'tabline_expand_tabs', 0)
 let g:tabline_tab_sep = get(g:, 'tabline_tab_sep', '  ')
 let g:tabline_tab_margin = get(g:, 'tabline_tab_margin', 1)
+let g:tabline_rhs_margin = get(g:, 'tabline_rhs_margin', 1)
 let g:tabline_close_button = get(g:, 'tabline_close_button', ' X ')
 let g:tabline_dummy_close_button = get(g:, 'tabline_dummy_close_button', ' - ')
 let g:tabline_left_fill_char = get(g:, 'tabline_left_fill_char', ' ')
@@ -30,7 +31,7 @@ function! TabLine() abort
     let s ..= s:tab_label(i, total_label_size, rightside_len)     " tab label
     let s ..= '%#TabLineFill#' . g:tabline_tab_sep " tabs separation
   endfor
-  let s ..= '%#TabLineFill#%T%=' " free space
+  let s ..= '%#TabLineFill#%T%<%=' " free space
   let s ..= tablinedir           " current dir / git
   let s ..= tabpagenr('$') > 1
         \? '%1*%999X' . g:tabline_close_button
@@ -76,13 +77,18 @@ function! s:tab_label(index, total_label_size, rightside_len) abort
         \})->max()
   let tab_size = max([tab_size, g:tabline_min_tab_size]) + len(g:tabline_tab_sep)
 
-  if g:tabline_expand_tabs || a:total_label_size > &columns
-    let tab_size = (&columns - a:rightside_len - 2) / tabpagenr('$')
-    let padding = max([((tab_size - label->len() - 1)) / 2, 1])
-    let padstring = repeat(' ', padding)
-    return padstring . label . padstring
+  if g:tabline_expand_tabs || a:total_label_size + a:rightside_len + len(g:tabline_close_button) > &columns
+    let tab_size = (&columns - a:rightside_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * tabpagenr('$')) / tabpagenr('$')
+    if len(label) > tab_size - 2
+      let label = label[:tab_size - 2 - len(g:tabline_tab_sep)] .. '…'
+      let left_padding = 1
+      let tab_size = len(label) + 2
+    else
+      let left_padding = max([((tab_size - label->len() - 1)) / 2, 1])
+    endif
+  else
+    let left_padding = max([(tab_size - label->len()) / 2, 1])
   endif
-  let left_padding = max([(tab_size - label->len()) / 2, 1])
   let left_padstring = repeat(g:tabline_left_fill_char, left_padding)
   let right_padstring = repeat(g:tabline_right_fill_char, tab_size - left_padding - len(label))
   return left_padstring . label . right_padstring
