@@ -11,6 +11,8 @@ let g:tabline_close_button = get(g:, 'tabline_close_button', ' X ')
 let g:tabline_dummy_close_button = get(g:, 'tabline_dummy_close_button', ' - ')
 let g:tabline_left_fill_char = get(g:, 'tabline_left_fill_char', ' ')
 let g:tabline_right_fill_char = get(g:, 'tabline_right_fill_char', ' ')
+let g:tabline_label_max_size = get(g:, 'tabline_label_max_size', 20)
+let g:tabline_label_overflow_char = get(g:, 'tabline_label_overflow_char', '|')
 
 function! TabLine() abort
   let total_label_size = s:total_label_size()
@@ -37,15 +39,15 @@ function! TabLine() abort
 endfunction
 
 function! s:getname(v) abort
-  let name = bufname(a:v)
+  let name = matchstr(bufname(a:v), '[^/]*$')[:g:tabline_label_max_size]
   if name !=# '' | return name | endif
-  return printf("[%s]", &buftype)
+  return printf("[%s]", &buftype[:g:tabline_label_max_size])
 endfunction
 
 function! s:total_label_size() abort
   let lst_label_size = range(1, tabpagenr('$'))->map({
         \  _, v -> tabpagebuflist(v)->map({
-        \    _, v -> s:getname(v)->matchstr('[^/]*$')->len()
+        \    _, v -> s:getname(v)->len()
         \  })->max()
         \})->map({
         \  _, v -> v < g:tabline_min_tab_size ? g:tabline_min_tab_size : v
@@ -61,7 +63,7 @@ endfunction
 function! s:tab_label(index, total_label_size, right_side_len) abort
   let label = s:label_text(a:index)
   let tab_size = tabpagebuflist(a:index)->map({
-        \_, v -> s:getname(v)->matchstr('[^/]*$')->len()
+        \_, v -> s:getname(v)->len()
         \})->max()
   let tab_size = max([tab_size, g:tabline_min_tab_size]) + len(g:tabline_tab_sep)
 
@@ -80,7 +82,7 @@ endfunction
 function! s:label_text(n) abort
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  return matchstr(s:getname(buflist[winnr - 1]), '[^/]*$')
+  return s:getname(buflist[winnr - 1])
 endfunction
 
 function! s:tablineDir() abort
