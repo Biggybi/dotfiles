@@ -17,7 +17,7 @@ let g:tabline_label_overflow_char = get(g:, 'tabline_label_overflow_char', '|')
 function! TabLine() abort
   let total_label_size = s:total_label_size()
   let tablinedir = s:tablineDir()
-  let right_side_len = len(tablinedir)
+  let rightside_len = s:get_rightside_len()
   let s = ''
   for i in range(tabpagenr('$'))
     let i = i + 1
@@ -27,7 +27,7 @@ function! TabLine() abort
       let s ..= '%#TabLine#'     " non-current tabs
     endif
     let s ..= '%' .. (i) .. 'T'  " tab number (mouse click)
-    let s ..= s:tab_label(i, total_label_size, right_side_len)     " tab label
+    let s ..= s:tab_label(i, total_label_size, rightside_len)     " tab label
     let s ..= '%#TabLineFill#' . g:tabline_tab_sep " tabs separation
   endfor
   let s ..= '%#TabLineFill#%T%=' " free space
@@ -42,6 +42,15 @@ function! s:getname(v) abort
   let name = matchstr(bufname(a:v), '[^/]*$')[:g:tabline_label_max_size]
   if name !=# '' | return name | endif
   return printf("[%s]", &buftype[:g:tabline_label_max_size])
+endfunction
+
+function! s:get_rightside_len() abort
+  let rightside_len = range(1, tabpagenr('$'))->map({
+        \  _, v -> tabpagebuflist(v)->map({
+        \    _, v -> FugitiveExtractGitDir(v)->matchstr('[^/]*\ze/\.git')->len()
+        \  })->max()
+        \})->max()
+  return rightside_len + 2 * g:tabline_rhs_margin
 endfunction
 
 function! s:total_label_size() abort
@@ -60,7 +69,7 @@ function! s:total_label_size() abort
   return total_label_size
 endfunction
 
-function! s:tab_label(index, total_label_size, right_side_len) abort
+function! s:tab_label(index, total_label_size, rightside_len) abort
   let label = s:label_text(a:index)
   let tab_size = tabpagebuflist(a:index)->map({
         \_, v -> s:getname(v)->len()
@@ -68,7 +77,7 @@ function! s:tab_label(index, total_label_size, right_side_len) abort
   let tab_size = max([tab_size, g:tabline_min_tab_size]) + len(g:tabline_tab_sep)
 
   if g:tabline_expand_tabs || a:total_label_size > &columns
-    let tab_size = (&columns - a:right_side_len - 2) / tabpagenr('$')
+    let tab_size = (&columns - a:rightside_len - 2) / tabpagenr('$')
     let padding = max([((tab_size - label->len() - 1)) / 2, 1])
     let padstring = repeat(' ', padding)
     return padstring . label . padstring
