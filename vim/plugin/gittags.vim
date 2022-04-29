@@ -11,3 +11,13 @@ if &tags ==# ''
 endif
 
 let &tags ..= option_string
+
+function! s:Ctags(...) abort
+  " echo "coucou"
+  " if a:0 ==# '!'
+  "   exe ":!echo " .. join(tags_files_lst, ' ')
+  " endif
+  exe ":!.git/hooks/ctags >/dev/null 2>&1 &"
+endfunction
+
+command! -bang Ctags :call s:Ctags('<lt>bang>') | call feedkeys("\<c-m>", 't')
