@@ -1,0 +1,13 @@
+if exists('g:plugin_gittags')
+  finish
+endif
+let g:plugin_gittags = 1
+
+let tags_files_lst = systemlist('find .git -name "[0-9]*tags" 2> /dev/null')
+let option_string = join(tags_files_lst, ',')[:-2]
+
+if &tags ==# ''
+  let &tags ..= ','
+endif
+
+let &tags ..= option_string
