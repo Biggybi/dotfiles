@@ -63,7 +63,7 @@ export SAVEHIST=1000000
 export HISTSIZE=1000000                 # session history size
 export HISTFILESIZE=1000000             # history file size
 export HISTTIMEFORMAT="[%F %T] "
-export HISTIGNORE="&:ls:bg:fg:exit"		# ignore some commands
+export HISTIGNORE="&:ls:bg:fg:exit:clear:reset"		# ignore some commands
 
 setopt EXTENDED_HISTORY                 # save start time and duration
 setopt INC_APPEND_HISTORY               # update history when command is issued
