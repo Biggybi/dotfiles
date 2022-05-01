@@ -81,25 +81,47 @@ function! s:reduce_sep(total_used_space) abort
   return sep
 endfunction
 
+function! s:is_tab_overflow(total_label_size, dir_box_len) abort
+  let needed_space = a:total_label_size + a:dir_box_len + len(g:tabline_close_button)
+  return needed_space > &columns
+endfunction
+
+function! s:is_label_overflow(label, tab_size, padd) abort
+  return len(a:label) > a:tab_size - 2 * a:padd
+endfunction
+
+function! s:get_left_padding(tab_size, label) abort
+  return max([(a:tab_size - len(a:label)) / 2, 1])
+endfunction
+
+function! s:get_overflow_tab_size(reserved_space) abort
+  let tab_size = (
+        \&columns
+        \- a:reserved_space
+        \- len(g:tabline_close_button)
+        \- len(g:tabline_tab_sep) * (tabpagenr('$') - 1)
+        \)
+        \/ tabpagenr('$')
+  return tab_size
+endfunction
+
 function! s:tab_label(index, total_label_size, dir_box_len) abort
   let label = s:label_text(a:index)
   let tab_size = tabpagebuflist(a:index)->map({
-        \_, v -> s:getname(v)->len()
+        \  _, v -> s:getname(v)->len()
         \})->max()
   let tab_size = max([tab_size, g:tabline_min_tab_size]) + len(g:tabline_tab_sep)
+  let left_padding = s:get_left_padding(tab_size, label)
 
-  if a:total_label_size + a:dir_box_len + len(g:tabline_close_button) > &columns || g:tabline_expand_tabs
+  if s:is_tab_overflow(a:total_label_size, a:dir_box_len) || g:tabline_expand_tabs
     let label = s:label_text(a:index)
-    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * (tabpagenr('$') - 1)) / tabpagenr('$')
-    if len(label) > tab_size - 2
+    let tab_size = s:get_overflow_tab_size(a:dir_box_len)
+    let left_padding = s:get_left_padding(tab_size, label)
+    if s:is_label_overflow(label, tab_size, 1)
       let label = label[:tab_size - 3] .. '`'
       let tab_size -= 1
       let left_padding = 1
-    else
-      let left_padding = max([(tab_size - len(label)) / 2, 1])
     endif
-  else
-    let left_padding = max([(tab_size - len(label)) / 2, 1])
   endif
   let left_padstring = repeat(g:tabline_left_fill_char, left_padding)
   let right_padstring = repeat(g:tabline_right_fill_char, tab_size - left_padding - len(label))
