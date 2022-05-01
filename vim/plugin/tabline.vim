@@ -32,8 +32,7 @@ function! TabLine() abort
     let s ..= '%' .. (i) .. 'T'  " tab number (mouse click)
     let s ..= s:tab_label(i, total_label_size, dir_box_len)     " tab label
   endfor
-  " let s:expantab_mode_sep = get(g:, 'tabline_tab_sep', '')
-  let s ..= '%#TabLineFill#%T%<%=' " free space
+  let s ..= '%#TabLineFill#%T%=' " free space
   let s ..= tablinedir           " current dir / git
   let s ..= tabpagenr('$') > 1
         \? '%1*%999X' . g:tabline_close_button
@@ -91,13 +90,14 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
 
   if g:tabline_expand_tabs
     let label = s:label_text(a:index)
-    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * tabpagenr('$')) / tabpagenr('$')
+    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * (tabpagenr('$'))) / tabpagenr('$')
+    " let tab_size -= 1
     if len(label) > tab_size - 2
       let total_used_space = a:total_label_size + a:dir_box_len + len(g:tabline_close_button)
       let sep = s:reduce_sep(total_used_space)
       let label = label[:tab_size - 2 - len(sep)] .. '`'
       let padding = 1
-      let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(sep) * (tabpagenr('$'))) / tabpagenr('$')
+      let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(sep) * ((tabpagenr('$') - 1))) / tabpagenr('$')
       let left_padstring = repeat(g:tabline_left_fill_char, padding)
       let right_padstring = repeat(g:tabline_right_fill_char, tab_size - padding - len(label))
       let s = left_padstring . label . right_padstring
@@ -109,11 +109,11 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
     let left_padding = max([(tab_size - len(label)) / 2, 1])
   elseif a:total_label_size + a:dir_box_len + len(g:tabline_close_button) > &columns
     let label = s:label_text(a:index)
-    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * tabpagenr('$')) / tabpagenr('$')
+    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * (tabpagenr('$') - 1)) / tabpagenr('$')
+    let tab_size -= 1
     if len(label) > tab_size - 2
       let label = label[:tab_size - 2] .. '`'
       let left_padding = 1
-      let tab_size = len(label) + 2
     else
       let left_padding = max([(tab_size - len(label)) / 2, 1])
     endif
