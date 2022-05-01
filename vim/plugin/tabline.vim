@@ -13,6 +13,7 @@ let g:tabline_dummy_close_button = get(g:, 'tabline_dummy_close_button', ' - ')
 let g:tabline_left_fill_char = get(g:, 'tabline_left_fill_char', ' ')
 let g:tabline_right_fill_char = get(g:, 'tabline_right_fill_char', ' ')
 let g:tabline_label_max_size = get(g:, 'tabline_label_max_size', 50)
+let g:tabline_dirbox_max_size = get(g:, 'tabline_dirbox_max_size', 15)
 let g:tabline_label_overflow_char = get(g:, 'tabline_label_overflow_char', '|')
 
 " let s:expantab_mode_sep = get(g:, 'tabline_tab_sep', '')
@@ -41,9 +42,16 @@ function! TabLine() abort
 endfunction
 
 function! s:getname(v) abort
-  let name = matchstr(bufname(a:v), '[^/]*$')[:g:tabline_label_max_size]
-  if name !=# '' | return name | endif
-  return printf("[%s]", getbufvar(a:v, '&buftype')[:g:tabline_label_max_size])
+  let buftype = getbufvar(a:v, '&buftype')
+  if buftype ==# 'terminal'
+    let name = "[Term]"
+  else
+    let name = matchstr(bufname(a:v), '[^/]*$')
+  endif
+  if name ==# ''
+    return printf("[%s]", buftype[:g:tabline_label_max_size])
+  endif
+  return name[:g:tabline_label_max_size]
 endfunction
 
 function! s:total_label_size() abort
@@ -137,21 +145,33 @@ function! s:get_folder_tab_len() abort
 endfunction
 
 function! s:get_dir_len(dir) abort
-  if exists('*FugitiveGitDir()') && FugitiveGitDir(a:dir) != ''
-    return matchstr(FugitiveGitDir(a:dir), "[^/]*$")->len()
+  let buf = bufname(a:dir)
+  if getbufvar(buf, '&buftype') !=# ''
+    return 0
   endif
-  let dir_len = len(matchstr(expand("%:p:h"), "[^/]*$"))
-  return dir_len
+  if exists('*FugitiveGitDir()') && FugitiveExtractGitDir(buf) != ''
+    if matchstr(FugitiveExtractGitDir(buf), ".*/\.git$") != ''
+      let dir = matchstr(FugitiveExtractGitDir(buf), "[^/]*\\ze/\.git$")
+    else
+      let dir = matchstr(FugitiveExtractGitDir(buf), "[^/]*$")
+    endif
+  else
+    let dir = matchstr(buf, "[^/]*\\ze/[^/]*$")
+  endif
+  return min([len(dir), g:tabline_dirbox_max_size])
 endfunction
 
 function! s:tablineDir(dir_box_len) abort
   let s = ''
-  if exists('*FugitiveGitDir()') && FugitiveGitDir() != ''
+  if exists('*FugitiveGitDir()') && FugitiveWorkTree() != ''
     let s ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
     let label = matchstr(FugitiveWorkTree(), "[^/]*$")
   else
     let s ..= '%3*'
     let label = matchstr(expand("%:p:h"), "[^/]*$")
+    if len(label) > g:tabline_dirbox_max_size
+      let label = label[:g:tabline_dirbox_max_size - 2] .. '`'
+    endif
   endif
   let padd = (a:dir_box_len - len(label)) / 2
   let s ..= repeat(' ', padd)
