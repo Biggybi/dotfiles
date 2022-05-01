@@ -12,14 +12,14 @@ let g:tabline_close_button = get(g:, 'tabline_close_button', ' X ')
 let g:tabline_dummy_close_button = get(g:, 'tabline_dummy_close_button', ' - ')
 let g:tabline_left_fill_char = get(g:, 'tabline_left_fill_char', ' ')
 let g:tabline_right_fill_char = get(g:, 'tabline_right_fill_char', ' ')
-let g:tabline_label_max_size = get(g:, 'tabline_label_max_size', 20)
+let g:tabline_label_max_size = get(g:, 'tabline_label_max_size', 50)
 let g:tabline_label_overflow_char = get(g:, 'tabline_label_overflow_char', '|')
 
 " let s:expantab_mode_sep = get(g:, 'tabline_tab_sep', '')
 function! TabLine() abort
   let total_label_size = s:total_label_size()
-  let tablinedir = s:tablineDir()
-  let rightside_len = s:get_rightside_len()
+  let dir_box_len = s:get_folder_tab_len()
+  let tablinedir = s:tablineDir(dir_box_len)
   let s = ''
   for i in range(tabpagenr('$'))
     let i = i + 1
@@ -29,10 +29,10 @@ function! TabLine() abort
       let s ..= '%#TabLine#'     " non-current tabs
     endif
     let s ..= '%' .. (i) .. 'T'  " tab number (mouse click)
-    let s ..= s:tab_label(i, total_label_size, rightside_len)     " tab label
+    let s ..= s:tab_label(i, total_label_size, dir_box_len)     " tab label
   endfor
   " let s:expantab_mode_sep = get(g:, 'tabline_tab_sep', '')
-  let s ..= '%#TabLineFill#%T %<%=' " free space
+  let s ..= '%#TabLineFill#%T%<%=' " free space
   let s ..= tablinedir           " current dir / git
   let s ..= tabpagenr('$') > 1
         \? '%1*%999X' . g:tabline_close_button
@@ -44,15 +44,6 @@ function! s:getname(v) abort
   let name = matchstr(bufname(a:v), '[^/]*$')[:g:tabline_label_max_size]
   if name !=# '' | return name | endif
   return printf("[%s]", &buftype[:g:tabline_label_max_size])
-endfunction
-
-function! s:get_rightside_len() abort
-  let rightside_len = range(1, tabpagenr('$'))->map({
-        \  _, v -> tabpagebuflist(v)->map({
-        \    _, v -> FugitiveExtractGitDir(v)->matchstr('[^/]*\ze/\.git')->len()
-        \  })->max()
-        \})->max()
-  return rightside_len + 2 * g:tabline_rhs_margin
 endfunction
 
 function! s:total_label_size() abort
@@ -83,7 +74,7 @@ function! s:reduce_sep(total_used_space) abort
   return sep
 endfunction
 
-function! s:tab_label(index, total_label_size, rightside_len) abort
+function! s:tab_label(index, total_label_size, dir_box_len) abort
   let label = s:label_text(a:index)
   let tab_size = tabpagebuflist(a:index)->map({
         \_, v -> s:getname(v)->len()
@@ -92,13 +83,13 @@ function! s:tab_label(index, total_label_size, rightside_len) abort
 
   if g:tabline_expand_tabs
     let label = s:label_text(a:index)
-    let tab_size = (&columns - a:rightside_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * tabpagenr('$')) / tabpagenr('$')
+    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * tabpagenr('$')) / tabpagenr('$')
     if len(label) > tab_size - 2
-      let total_used_space = a:total_label_size + a:rightside_len + len(g:tabline_close_button)
+      let total_used_space = a:total_label_size + a:dir_box_len + len(g:tabline_close_button)
       let sep = s:reduce_sep(total_used_space)
       let label = label[:tab_size - 2 - len(sep)] .. '`'
       let padding = 1
-      let tab_size = (&columns - a:rightside_len - len(g:tabline_close_button) - len(sep) * (tabpagenr('$'))) / tabpagenr('$')
+      let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(sep) * (tabpagenr('$'))) / tabpagenr('$')
       let left_padstring = repeat(g:tabline_left_fill_char, padding)
       let right_padstring = repeat(g:tabline_right_fill_char, tab_size - padding - len(label))
       let s = left_padstring . label . right_padstring
@@ -108,11 +99,11 @@ function! s:tab_label(index, total_label_size, rightside_len) abort
       return s
     endif
     let left_padding = max([(tab_size - len(label)) / 2, 1])
-  elseif a:total_label_size + a:rightside_len + len(g:tabline_close_button) > &columns
+  elseif a:total_label_size + a:dir_box_len + len(g:tabline_close_button) > &columns
     let label = s:label_text(a:index)
-    let tab_size = (&columns - a:rightside_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * tabpagenr('$')) / tabpagenr('$')
+    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * tabpagenr('$')) / tabpagenr('$')
     if len(label) > tab_size - 2
-      let label = label[:tab_size - 2 - len(g:tabline_tab_sep)] .. '`'
+      let label = label[:tab_size - 2] .. '`'
       let left_padding = 1
       let tab_size = len(label) + 2
     else
@@ -136,15 +127,38 @@ function! s:label_text(n) abort
   return s:getname(buflist[winnr - 1])
 endfunction
 
-function! s:tablineDir() abort
-  if exists('*FugitiveGitDir()') && FugitiveGitDir() != ''
-    let s = ''
-    let s ..= isdirectory('.git') ? '%7* ' : '%8* '
-    let s ..= matchstr(FugitiveWorkTree(), "[^/]*$")
-    let s ..= ' %*'
-    return s
+function! s:get_folder_tab_len() abort
+  let dir_box_len = range(1, tabpagenr('$'))->map({
+        \  _, v -> tabpagebuflist(v)->map({
+        \    _, v -> s:get_dir_len(v)
+        \  })->max()
+        \})->max()
+  return dir_box_len + 2 * g:tabline_rhs_margin
+endfunction
+
+function! s:get_dir_len(dir) abort
+  if exists('*FugitiveGitDir()') && FugitiveGitDir(a:dir) != ''
+    return matchstr(FugitiveGitDir(a:dir), "[^/]*$")->len()
   endif
-  return '%3* ' .. matchstr(expand("%:p:h"), "[^/]*$") .. ' %*'
+  let dir_len = len(matchstr(expand("%:p:h"), "[^/]*$"))
+  return dir_len
+endfunction
+
+function! s:tablineDir(dir_box_len) abort
+  let s = ''
+  if exists('*FugitiveGitDir()') && FugitiveGitDir() != ''
+    let s ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
+    let label = matchstr(FugitiveWorkTree(), "[^/]*$")
+  else
+    let s ..= '%3*'
+    let label = matchstr(expand("%:p:h"), "[^/]*$")
+  endif
+  let padd = (a:dir_box_len - len(label)) / 2
+  let s ..= repeat(' ', padd)
+  let s ..= label
+  let s ..= repeat(' ', a:dir_box_len - len(label) - padd)
+  let s ..= '%*'
+  return s
 endfunction
 
 set tabline=%!TabLine()
