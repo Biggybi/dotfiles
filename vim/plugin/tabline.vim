@@ -115,7 +115,7 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
       let left_padding = 1
       let tab_size = len(label) + 2
     else
-      let left_padding = max([((tab_size - len(label) - 1)) / 2, 1])
+      let left_padding = max([(tab_size - len(label)) / 2, 1])
     endif
   else
     let left_padding = max([(tab_size - len(label)) / 2, 1])
