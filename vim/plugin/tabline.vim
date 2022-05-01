@@ -34,9 +34,21 @@ function! TabLine() abort
   endfor
   let s ..= '%#TabLineFill#%T%=' " free space
   let s ..= dirbox_label           " current dir / git
+  let s ..= s:get_button()
+  return s
+endfunction
+
+function! s:get_button() abort
+  let button_close = g:tl_button_close
+  let button_onetab = g:tl_button_onetab
+  if exists("g:loaded_obsession")
+    let button_close = ObsessionStatus(' S ', ' - ')
+    let button_onetab = ObsessionStatus(' S ', ' - ')
+  endif
+  let s = ""
   let s ..= tabpagenr('$') > 1
-        \? '%1*%999X' . g:tl_button_close
-        \: '%1*' . g:tl_button_onetab
+        \? '%1*%999X' .. button_close
+        \: '%1*' .. button_onetab
   return s
 endfunction
 
