@@ -63,18 +63,18 @@ function! s:total_label_size() abort
         \})
   let total_label_size = 0
   for size in lst_label_size
-    let total_label_size += size + len(g:tl_tab_sep)
+    let total_label_size += size + strchars(g:tl_tab_sep)
   endfor
-  let total_label_size -= len(g:tl_tab_sep)
+  let total_label_size -= strchars(g:tl_tab_sep)
   return total_label_size
 endfunction
 
 function! s:reduce_sep(total_used_space) abort
   let sep = g:tl_tab_sep
-  let sep_len = len(sep)
+  let sep_len = strchars(sep)
   let total_used_space = a:total_used_space
   let i = 0
-  while total_used_space > &columns && len(sep) > 1
+  while total_used_space > &columns && strchars(sep) > 1
     let sep = sep[:-2]
     let total_used_space -= tabpagenr('$')
   endwhile
@@ -82,24 +82,24 @@ function! s:reduce_sep(total_used_space) abort
 endfunction
 
 function! s:is_tab_overflow(total_label_size, dir_box_len) abort
-  let needed_space = a:total_label_size + a:dir_box_len + len(g:tl_button_close) + 1
+  let needed_space = a:total_label_size + a:dir_box_len + strchars(g:tl_button_close) + 1
   return needed_space > &columns
 endfunction
 
 function! s:is_label_overflow(label, tab_size, padd) abort
-  return len(a:label) > a:tab_size - 2 * a:padd
+  return strchars(a:label) > a:tab_size - 2 * a:padd
 endfunction
 
 function! s:get_left_padding(tab_size, label) abort
-  return max([(a:tab_size - len(a:label)) / 2, 1])
+  return max([(a:tab_size - strchars(a:label)) / 2, 1])
 endfunction
 
 function! s:get_overflow_tab_size(reserved_space) abort
   let tab_size = (
         \&columns
         \- a:reserved_space
-        \- len(g:tl_button_close)
-        \- len(g:tl_tab_sep) * (tabpagenr('$') - 1)
+        \- strchars(g:tl_button_close)
+        \- strchars(g:tl_tab_sep) * (tabpagenr('$') - 1)
         \)
         \/ tabpagenr('$')
   return tab_size
@@ -110,7 +110,7 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
   let tab_size = tabpagebuflist(a:index)->map({
         \  _, v -> s:getname(v)->len()
         \})->max()
-  let tab_size = max([tab_size, g:tl_tabsize]) + len(g:tl_tab_sep)
+  let tab_size = max([tab_size, g:tl_tabsize]) + strchars(g:tl_tab_sep)
   let left_padding = s:get_left_padding(tab_size, label)
 
   if s:is_tab_overflow(a:total_label_size, a:dir_box_len) || g:tl_expand
@@ -124,7 +124,7 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
     endif
   endif
   let left_padstring = repeat(g:tl_left_fill, left_padding)
-  let right_padstring = repeat(g:tl_right_fill, tab_size - left_padding - len(label))
+  let right_padstring = repeat(g:tl_right_fill, tab_size - left_padding - strchars(label))
   let s = left_padstring . label . right_padstring
   if a:index < tabpagenr('$')
     let s ..= '%#TabLineFill#' .. g:tl_tab_sep
@@ -173,14 +173,14 @@ function! s:get_dirbox() abort
   else
     let s ..= '%3*'
     let label = matchstr(expand("%:p:h"), "[^/]*$")
-    if len(label) > g:tl_dirbox_max
+    if strchars(label) > g:tl_dirbox_max
       let label = label[:g:tl_dirbox_max - 2] .. g:tl_tab_overflow
     endif
   endif
-  let padd = (len - len(label)) / 2
+  let padd = (len - strchars(label)) / 2
   let s ..= repeat(' ', padd)
   let s ..= label
-  let s ..= repeat(' ', len - len(label) - padd)
+  let s ..= repeat(' ', len - strchars(label) - padd)
   let s ..= '%*'
   return [s, len]
 endfunction
