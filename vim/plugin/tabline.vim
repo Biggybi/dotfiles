@@ -82,7 +82,7 @@ function! s:reduce_sep(total_used_space) abort
 endfunction
 
 function! s:is_tab_overflow(total_label_size, dir_box_len) abort
-  let needed_space = a:total_label_size + a:dir_box_len + len(g:tl_button_close)
+  let needed_space = a:total_label_size + a:dir_box_len + len(g:tl_button_close) + 1
   return needed_space > &columns
 endfunction
 
