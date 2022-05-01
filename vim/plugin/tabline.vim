@@ -1,26 +1,26 @@
-if exists('g:plugin_tabline')
+if exists('g:plugin_tl')
   finish
 endif
-let g:plugin_tabline = 1
+let g:plugin_tl = 1
 
-let g:tabline_min_tab_size = get(g:, 'tabline_min_tab_size', 30)
-let g:tabline_expand_tabs = get(g:, 'tabline_expand_tabs', 0)
-let g:tabline_tab_sep = get(g:, 'tabline_tab_sep', '  ')
-let g:tabline_tab_margin = get(g:, 'tabline_tab_margin', 1)
-let g:tabline_rhs_margin = get(g:, 'tabline_rhs_margin', 1)
-let g:tabline_close_button = get(g:, 'tabline_close_button', ' X ')
-let g:tabline_dummy_close_button = get(g:, 'tabline_dummy_close_button', ' - ')
-let g:tabline_left_fill_char = get(g:, 'tabline_left_fill_char', ' ')
-let g:tabline_right_fill_char = get(g:, 'tabline_right_fill_char', ' ')
-let g:tabline_label_max_size = get(g:, 'tabline_label_max_size', 50)
-let g:tabline_dirbox_max_size = get(g:, 'tabline_dirbox_max_size', 15)
-let g:tabline_label_overflow_char = get(g:, 'tabline_label_overflow_char', '`')
+let g:tl_tabsize       = get(g:, 'tl_tabsize',       30)
+let g:tl_expand        = get(g:, 'tl_expand',        0)
+let g:tl_tab_sep       = get(g:, 'tl_tab_sep',       '  ')
+let g:tl_tab_margin    = get(g:, 'tl_tab_margin',    1)
+let g:tl_rhs_margin    = get(g:, 'tl_rhs_margin',    1)
+let g:tl_button_close  = get(g:, 'tl_button_close',  ' X ')
+let g:tl_button_onetab = get(g:, 'tl_button_onetab', ' - ')
+let g:tl_left_fill     = get(g:, 'tl_left_fill',     ' ')
+let g:tl_right_fill    = get(g:, 'tl_right_fill',    ' ')
+let g:tl_label_max     = get(g:, 'tl_label_max',     50)
+let g:tl_dirbox_max    = get(g:, 'tl_dirbox_max',    15)
+" let g:tl_tab_overflow  = get(g:, 'tl_tab_overflow',  '°')
+let g:tl_tab_overflow  = get(g:, 'tl_tab_overflow',  '`')
 
-" let s:expantab_mode_sep = get(g:, 'tabline_tab_sep', '')
+" let s:expantab_mode_sep = get(g:, 'tl_tab_sep', '')
 function! TabLine() abort
   let total_label_size = s:total_label_size()
-  let dir_box_len = s:get_folder_tab_len()
-  let tablinedir = s:tablineDir(dir_box_len)
+  let [dirbox_label, dir_box_len] = s:get_dirbox()
   let s = ''
   for i in range(tabpagenr('$'))
     let i = i + 1
@@ -33,10 +33,10 @@ function! TabLine() abort
     let s ..= s:tab_label(i, total_label_size, dir_box_len)     " tab label
   endfor
   let s ..= '%#TabLineFill#%T%=' " free space
-  let s ..= tablinedir           " current dir / git
+  let s ..= dirbox_label           " current dir / git
   let s ..= tabpagenr('$') > 1
-        \? '%1*%999X' . g:tabline_close_button
-        \: '%1*' . g:tabline_dummy_close_button
+        \? '%1*%999X' . g:tl_button_close
+        \: '%1*' . g:tl_button_onetab
   return s
 endfunction
 
@@ -48,9 +48,9 @@ function! s:getname(v) abort
     let name = matchstr(bufname(a:v), '[^/]*$')
   endif
   if name ==# ''
-    return printf("[%s]", buftype[:g:tabline_label_max_size])
+    return printf("[%s]", buftype[:g:tl_label_max])
   endif
-  return name[:g:tabline_label_max_size]
+  return name[:g:tl_label_max]
 endfunction
 
 function! s:total_label_size() abort
@@ -59,18 +59,18 @@ function! s:total_label_size() abort
         \    _, v -> s:getname(v)->len()
         \  })->max()
         \})->map({
-        \  _, v -> v < g:tabline_min_tab_size ? g:tabline_min_tab_size : v
+        \  _, v -> v < g:tl_tabsize ? g:tl_tabsize : v
         \})
   let total_label_size = 0
   for size in lst_label_size
-    let total_label_size += size + g:tabline_tab_margin * 2 + len(g:tabline_tab_sep)
+    let total_label_size += size + len(g:tl_tab_sep)
   endfor
-  let total_label_size -= len(g:tabline_tab_sep)
+  let total_label_size -= len(g:tl_tab_sep)
   return total_label_size
 endfunction
 
 function! s:reduce_sep(total_used_space) abort
-  let sep = g:tabline_tab_sep
+  let sep = g:tl_tab_sep
   let sep_len = len(sep)
   let total_used_space = a:total_used_space
   let i = 0
@@ -82,7 +82,7 @@ function! s:reduce_sep(total_used_space) abort
 endfunction
 
 function! s:is_tab_overflow(total_label_size, dir_box_len) abort
-  let needed_space = a:total_label_size + a:dir_box_len + len(g:tabline_close_button)
+  let needed_space = a:total_label_size + a:dir_box_len + len(g:tl_button_close)
   return needed_space > &columns
 endfunction
 
@@ -98,8 +98,8 @@ function! s:get_overflow_tab_size(reserved_space) abort
   let tab_size = (
         \&columns
         \- a:reserved_space
-        \- len(g:tabline_close_button)
-        \- len(g:tabline_tab_sep) * (tabpagenr('$') - 1)
+        \- len(g:tl_button_close)
+        \- len(g:tl_tab_sep) * (tabpagenr('$') - 1)
         \)
         \/ tabpagenr('$')
   return tab_size
@@ -110,24 +110,24 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
   let tab_size = tabpagebuflist(a:index)->map({
         \  _, v -> s:getname(v)->len()
         \})->max()
-  let tab_size = max([tab_size, g:tabline_min_tab_size]) + len(g:tabline_tab_sep)
+  let tab_size = max([tab_size, g:tl_tabsize]) + len(g:tl_tab_sep)
   let left_padding = s:get_left_padding(tab_size, label)
 
-  if s:is_tab_overflow(a:total_label_size, a:dir_box_len) || g:tabline_expand_tabs
+  if s:is_tab_overflow(a:total_label_size, a:dir_box_len) || g:tl_expand
     let label = s:label_text(a:index)
     let tab_size = s:get_overflow_tab_size(a:dir_box_len)
     let left_padding = s:get_left_padding(tab_size, label)
     if s:is_label_overflow(label, tab_size, 1)
-      let label = label[:tab_size - 3] .. g:tabline_label_overflow_char
+      let label = label[:tab_size - 3] .. g:tl_tab_overflow
       let tab_size -= 1
       let left_padding = 1
     endif
   endif
-  let left_padstring = repeat(g:tabline_left_fill_char, left_padding)
-  let right_padstring = repeat(g:tabline_right_fill_char, tab_size - left_padding - len(label))
+  let left_padstring = repeat(g:tl_left_fill, left_padding)
+  let right_padstring = repeat(g:tl_right_fill, tab_size - left_padding - len(label))
   let s = left_padstring . label . right_padstring
   if a:index < tabpagenr('$')
-    let s ..= '%#TabLineFill#' .. g:tabline_tab_sep
+    let s ..= '%#TabLineFill#' .. g:tl_tab_sep
   endif
   return s
 endfunction
@@ -138,13 +138,13 @@ function! s:label_text(n) abort
   return s:getname(buflist[winnr - 1])
 endfunction
 
-function! s:get_folder_tab_len() abort
+function! s:get_dirbox_len() abort
   let dir_box_len = range(1, tabpagenr('$'))->map({
         \  _, v -> tabpagebuflist(v)->map({
         \    _, v -> s:get_dir_len(v)
         \  })->max()
         \})->max()
-  return dir_box_len + 2 * g:tabline_rhs_margin
+  return min([dir_box_len + 2 * g:tl_rhs_margin, g:tl_dirbox_max])
 endfunction
 
 function! s:get_dir_len(dir) abort
@@ -161,27 +161,28 @@ function! s:get_dir_len(dir) abort
   else
     let dir = matchstr(buf, "[^/]*\\ze/[^/]*$")
   endif
-  return min([len(dir), g:tabline_dirbox_max_size])
+  return min([len(dir), g:tl_dirbox_max])
 endfunction
 
-function! s:tablineDir(dir_box_len) abort
+function! s:get_dirbox() abort
   let s = ''
+  let len = s:get_dirbox_len()
   if exists('*FugitiveGitDir()') && FugitiveWorkTree() != ''
     let s ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
     let label = matchstr(FugitiveWorkTree(), "[^/]*$")
   else
     let s ..= '%3*'
     let label = matchstr(expand("%:p:h"), "[^/]*$")
-    if len(label) > g:tabline_dirbox_max_size
-      let label = label[:g:tabline_dirbox_max_size - 2] .. g:tabline_tab_overflow_char
+    if len(label) > g:tl_dirbox_max
+      let label = label[:g:tl_dirbox_max - 2] .. g:tl_tab_overflow
     endif
   endif
-  let padd = (a:dir_box_len - len(label)) / 2
+  let padd = (len - len(label)) / 2
   let s ..= repeat(' ', padd)
   let s ..= label
-  let s ..= repeat(' ', a:dir_box_len - len(label) - padd)
+  let s ..= repeat(' ', len - len(label) - padd)
   let s ..= '%*'
-  return s
+  return [s, len]
 endfunction
 
 set tabline=%!TabLine()
