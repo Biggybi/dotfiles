@@ -43,7 +43,7 @@ endfunction
 function! s:getname(v) abort
   let name = matchstr(bufname(a:v), '[^/]*$')[:g:tabline_label_max_size]
   if name !=# '' | return name | endif
-  return printf("[%s]", &buftype[:g:tabline_label_max_size])
+  return printf("[%s]", getbufvar(a:v, '&buftype')[:g:tabline_label_max_size])
 endfunction
 
 function! s:total_label_size() abort
