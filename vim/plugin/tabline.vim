@@ -14,7 +14,7 @@ let g:tabline_left_fill_char = get(g:, 'tabline_left_fill_char', ' ')
 let g:tabline_right_fill_char = get(g:, 'tabline_right_fill_char', ' ')
 let g:tabline_label_max_size = get(g:, 'tabline_label_max_size', 50)
 let g:tabline_dirbox_max_size = get(g:, 'tabline_dirbox_max_size', 15)
-let g:tabline_label_overflow_char = get(g:, 'tabline_label_overflow_char', '|')
+let g:tabline_label_overflow_char = get(g:, 'tabline_label_overflow_char', '`')
 
 " let s:expantab_mode_sep = get(g:, 'tabline_tab_sep', '')
 function! TabLine() abort
