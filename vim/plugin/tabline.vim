@@ -88,31 +88,12 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
         \})->max()
   let tab_size = max([tab_size, g:tabline_min_tab_size]) + len(g:tabline_tab_sep)
 
-  if g:tabline_expand_tabs
-    let label = s:label_text(a:index)
-    let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * (tabpagenr('$'))) / tabpagenr('$')
-    " let tab_size -= 1
-    if len(label) > tab_size - 2
-      let total_used_space = a:total_label_size + a:dir_box_len + len(g:tabline_close_button)
-      let sep = s:reduce_sep(total_used_space)
-      let label = label[:tab_size - 2 - len(sep)] .. '`'
-      let padding = 1
-      let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(sep) * ((tabpagenr('$') - 1))) / tabpagenr('$')
-      let left_padstring = repeat(g:tabline_left_fill_char, padding)
-      let right_padstring = repeat(g:tabline_right_fill_char, tab_size - padding - len(label))
-      let s = left_padstring . label . right_padstring
-      if a:index < tabpagenr('$')
-        let s ..= '%#TabLineFill#' .. sep
-      endif
-      return s
-    endif
-    let left_padding = max([(tab_size - len(label)) / 2, 1])
-  elseif a:total_label_size + a:dir_box_len + len(g:tabline_close_button) > &columns
+  if a:total_label_size + a:dir_box_len + len(g:tabline_close_button) > &columns || g:tabline_expand_tabs
     let label = s:label_text(a:index)
     let tab_size = (&columns - a:dir_box_len - len(g:tabline_close_button) - len(g:tabline_tab_sep) * (tabpagenr('$') - 1)) / tabpagenr('$')
-    let tab_size -= 1
     if len(label) > tab_size - 2
-      let label = label[:tab_size - 2] .. '`'
+      let label = label[:tab_size - 3] .. '`'
+      let tab_size -= 1
       let left_padding = 1
     else
       let left_padding = max([(tab_size - len(label)) / 2, 1])
