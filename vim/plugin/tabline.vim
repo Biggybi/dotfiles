@@ -118,7 +118,7 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
     let tab_size = s:get_overflow_tab_size(a:dir_box_len)
     let left_padding = s:get_left_padding(tab_size, label)
     if s:is_label_overflow(label, tab_size, 1)
-      let label = label[:tab_size - 3] .. '`'
+      let label = label[:tab_size - 3] .. g:tabline_label_overflow_char
       let tab_size -= 1
       let left_padding = 1
     endif
@@ -173,7 +173,7 @@ function! s:tablineDir(dir_box_len) abort
     let s ..= '%3*'
     let label = matchstr(expand("%:p:h"), "[^/]*$")
     if len(label) > g:tabline_dirbox_max_size
-      let label = label[:g:tabline_dirbox_max_size - 2] .. '`'
+      let label = label[:g:tabline_dirbox_max_size - 2] .. g:tabline_tab_overflow_char
     endif
   endif
   let padd = (a:dir_box_len - len(label)) / 2
