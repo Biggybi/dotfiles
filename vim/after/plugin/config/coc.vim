@@ -103,6 +103,48 @@ augroup CocFormatAndK
   au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+""    highlight symbol under cursor
+function! s:CocSymbolHLOn()
+  augroup CocHighlightSymbol
+    au!
+    au CursorHold * silent call CocActionAsync('highlight')
+  augroup end
+  let s:CocHlSymbolOn = 1
+endfunction
+
+call s:CocSymbolHLOn()
+
+function! s:CocSymbolHLOff() abort
+  au! CocHighlightSymbol
+  let s:CocHlSymbolOn = 0
+endfunction
+
+function! s:CocSymbolHLToggle() abort
+  if s:CocHlSymbolOn
+    call s:CocSymbolHLOff()
+  else
+    call s:CocSymbolHLOn()
+  endif
+endfunction
+
+command! CocSymbolHLOn :call s:CocSymbolHLOn()
+nnoremap <expr> <plug>CocSymbolHLOn <sid>CocSymbolHLOn()
+if !hasmapto('<plug>CocSymbolHLOn') && maparg('[oH', 'n') ==# ''
+  nmap [oH <plug>CocSymbolHLOn
+endif
+
+command! CocSymbolHLOff :call s:CocSymbolHLOff()
+nnoremap <expr> <plug>CocSymbolHLOff <sid>CocSymbolHLOff()
+if !hasmapto('<plug>CocSymbolHLOff') && maparg(']oH', 'n') ==# ''
+  nmap ]oH <plug>CocSymbolHLOff
+endif
+
+command! CocSymbolHLToggle :call s:CocSymbolHLToggle()
+nnoremap <expr> <plug>CocSymbolHLToggle <sid>CocSymbolHLToggle()
+if !hasmapto('<plug>CocSymbolHLToggle') && maparg('yoH', 'n') ==# ''
+  nmap yoH <plug>CocSymbolHLToggle
+endif
+
 function! StatusDiagnostic() abort
   let info = get(b:, 'coc_diagnostic_info', {})
   if empty(info) | return '' | endif
