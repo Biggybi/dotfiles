@@ -47,6 +47,11 @@ hi link CocHilightText Visual
 let g:coc_snippet_next = '<c-f>'
 let g:coc_snippet_prev = '<c-b>'
 
+augroup CocJumpPlaceholder
+  au!
+  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
 ""    function / class text object
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -94,14 +99,6 @@ function! s:show_documentation() abort
 endfunction
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-augroup CocFormatAndK
-  au!
-  " Setup formatexpr specified filetype(s).
-  au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
 
 ""    highlight symbol under cursor
 function! s:CocSymbolHLOn()
