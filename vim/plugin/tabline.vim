@@ -21,6 +21,7 @@ let g:tl_tab_overflow  = get(g:, 'tl_tab_overflow',  '`')
 function! TabLine() abort
   let total_label_size = s:total_label_size()
   let [dirbox_label, dir_box_len] = s:get_dirbox()
+  let button = s:get_button()
   let s = ''
   for i in range(tabpagenr('$'))
     let i = i + 1
@@ -34,14 +35,14 @@ function! TabLine() abort
   endfor
   let s ..= '%#TabLineFill#%T%=' " free space
   let s ..= dirbox_label           " current dir / git
-  let s ..= s:get_button()
+  let s ..= button
   return s
 endfunction
 
 function! s:get_button() abort
   let button_close = g:tl_button_close
   let button_onetab = g:tl_button_onetab
-  if exists("g:loaded_obsession")
+  if exists("g:loaded_obsession") && ObsessionStatus() != ''
     let button_close = ObsessionStatus(' S ', ' X ')
     let button_onetab = ObsessionStatus(' S ', ' - ')
   endif
@@ -164,7 +165,7 @@ function! s:get_dir_len(dir) abort
   if getbufvar(buf, '&buftype') !=# ''
     return 0
   endif
-  if exists('g:loaded_fugitive') && FugitiveExtractGitDir(buf) != ''
+  if exists('*FugitiveGitDir()') && FugitiveExtractGitDir(buf) != ''
     if matchstr(FugitiveExtractGitDir(buf), ".*/\.git$") != ''
       let dir = matchstr(FugitiveExtractGitDir(buf), "[^/]*\\ze/\.git$")
     else
@@ -179,7 +180,7 @@ endfunction
 function! s:get_dirbox() abort
   let s = ''
   let len = s:get_dirbox_len()
-  if exists('g:loaded_fugitive') && FugitiveWorkTree() != ''
+  if exists('*FugitiveGitDir()') && FugitiveWorkTree() != ''
     let s ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
     let label = matchstr(FugitiveWorkTree(), "[^/]*$")
   else
