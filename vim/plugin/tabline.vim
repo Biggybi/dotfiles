@@ -190,6 +190,9 @@ function! s:get_dirbox() abort
       let label = label[:g:tl_dirbox_max - 2] .. g:tl_tab_overflow
     endif
   endif
+  if len == 2 * g:tl_rhs_margin
+    let len += strlen(label)
+  endif
   let padd = (len - strchars(label)) / 2
   let s ..= repeat(' ', padd)
   let s ..= label
