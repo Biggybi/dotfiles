@@ -105,11 +105,18 @@ endfunction
 
 function! FilePath() abort
   let focus_name = get(split(getcwd(), '/'), -1, '')
-  let focus_gitdir = FugitiveExtractGitDir('%')
-  let focus_path = matchstr(focus_gitdir, ".*\\ze\\.git$")
+  if exists('g:loaded_fugitive')
+    let focus_gitdir = FugitiveExtractGitDir('%')
+    let focus_path = matchstr(focus_gitdir, ".*\\ze\\.git$")
+  endif
   let unfoc_path_name = expand('%')
-  let unfoc_gitdir = FugitiveExtractGitDir(unfoc_path_name)
-  let unfoc_fullpath = FugitiveWorkTree(unfoc_gitdir)
+  if exists('g:loaded_fugitive')
+    let unfoc_gitdir = FugitiveExtractGitDir(unfoc_path_name)
+    let unfoc_fullpath = FugitiveWorkTree(unfoc_gitdir)
+  else
+    let unfoc_fullpath = ''
+    let focus_path = ''
+  endif
   let unfoc_name = matchstr(unfoc_fullpath, "[^/]*$")
   let unfoc_relpath = matchstr(unfoc_fullpath, focus_path . "\\zs.*\\ze" . unfoc_name)
   let unfoc_filename = matchstr(unfoc_path_name, ".*" . unfoc_relpath . unfoc_name . "/\\zs.*")
