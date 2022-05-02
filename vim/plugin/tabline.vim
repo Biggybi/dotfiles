@@ -1,7 +1,7 @@
-if exists('g:plugin_tl')
+if exists('g:plugin_tabline')
   finish
 endif
-let g:plugin_tl = 1
+let g:plugin_tabline = 1
 
 let g:tl_tabsize       = get(g:, 'tl_tabsize',       30)
 let g:tl_expand        = get(g:, 'tl_expand',        0)
