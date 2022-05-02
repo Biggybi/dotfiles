@@ -54,14 +54,17 @@ function! s:get_button() abort
 endfunction
 
 function! s:getname(v) abort
-  let buftype = getbufvar(a:v, '&buftype')
-  if buftype ==# 'terminal'
+  let name = matchstr(bufname(a:v), '[^/]*$')
+  if &buftype ==# 'terminal'
     let name = "[Term]"
-  else
-    let name = matchstr(bufname(a:v), '[^/]*$')
   endif
-  if name ==# ''
-    return printf("[%s]", buftype[:g:tl_label_max])
+  if strlen(name) !=# ''
+    return name[:g:tl_label_max]
+  endif
+  if &buftype !=# ''
+    let name = '[' .. &buftype .. ']'
+  else
+    let name = "[No Name]"
   endif
   return name[:g:tl_label_max]
 endfunction
