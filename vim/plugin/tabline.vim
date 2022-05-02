@@ -42,7 +42,7 @@ function! s:get_button() abort
   let button_close = g:tl_button_close
   let button_onetab = g:tl_button_onetab
   if exists("g:loaded_obsession")
-    let button_close = ObsessionStatus(' S ', ' - ')
+    let button_close = ObsessionStatus(' S ', ' X ')
     let button_onetab = ObsessionStatus(' S ', ' - ')
   endif
   let s = ""
@@ -164,7 +164,7 @@ function! s:get_dir_len(dir) abort
   if getbufvar(buf, '&buftype') !=# ''
     return 0
   endif
-  if exists('*FugitiveGitDir()') && FugitiveExtractGitDir(buf) != ''
+  if exists('g:loaded_fugitive') && FugitiveExtractGitDir(buf) != ''
     if matchstr(FugitiveExtractGitDir(buf), ".*/\.git$") != ''
       let dir = matchstr(FugitiveExtractGitDir(buf), "[^/]*\\ze/\.git$")
     else
@@ -179,7 +179,7 @@ endfunction
 function! s:get_dirbox() abort
   let s = ''
   let len = s:get_dirbox_len()
-  if exists('*FugitiveGitDir()') && FugitiveWorkTree() != ''
+  if exists('g:loaded_fugitive') && FugitiveWorkTree() != ''
     let s ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
     let label = matchstr(FugitiveWorkTree(), "[^/]*$")
   else
