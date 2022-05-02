@@ -61,12 +61,15 @@ function! s:getname(v) abort
   if strlen(name) !=# ''
     return name[:g:tl_label_max]
   endif
-  if &buftype !=# ''
-    let name = '[' .. &buftype .. ']'
-  else
-    let name = "[No Name]"
+  if name != ''
+    return name[:g:tl_label_max]
   endif
-  return name[:g:tl_label_max]
+  if &buftype !=# ''
+    let name = printf("[%s]", &buftype[:g:tl_label_max - 2])
+  else
+    let name = printf("[%s]", "No Name"[:g:tl_label_max - 2])
+  endif
+  return name
 endfunction
 
 function! s:total_label_size() abort
@@ -181,27 +184,27 @@ function! s:get_dir_len(dir) abort
 endfunction
 
 function! s:get_dirbox() abort
-  let s = ''
-  let len = s:get_dirbox_len()
+  let dirbox_str = ''
+  let dirbox_len = s:get_dirbox_len()
   if exists('*FugitiveGitDir()') && FugitiveWorkTree() != ''
-    let s ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
-    let label = matchstr(FugitiveWorkTree(), "[^/]*$")
+    let dirbox_str ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
+    let dirbox_label = matchstr(FugitiveWorkTree(), "[^/]*$")
   else
-    let s ..= '%3*'
-    let label = matchstr(expand("%:p:h"), "[^/]*$")
-    if strchars(label) > g:tl_dirbox_max
-      let label = label[:g:tl_dirbox_max - 2] .. g:tl_tab_overflow
+    let dirbox_str ..= '%3*'
+    let dirbox_label = matchstr(getcwd(), "[^/]*$")
+    if strchars(dirbox_label) > g:tl_dirbox_max
+      let dirbox_label = dirbox_label[:g:tl_dirbox_max - 2] .. g:tl_tab_overflow
     endif
   endif
-  if len == 2 * g:tl_rhs_margin
-    let len += strlen(label)
+  if dirbox_len == 2 * g:tl_rhs_margin
+    let dirbox_len += strlen(dirbox_label)
   endif
-  let padd = (len - strchars(label)) / 2
-  let s ..= repeat(' ', padd)
-  let s ..= label
-  let s ..= repeat(' ', len - strchars(label) - padd)
-  let s ..= '%*'
-  return [s, len]
+  let padd = (dirbox_len - strchars(dirbox_label)) / 2
+  let dirbox_str ..= repeat(' ', padd)
+  let dirbox_str ..= dirbox_label
+  let dirbox_str ..= repeat(' ', dirbox_len - strchars(dirbox_label) - padd)
+  let dirbox_str ..= '%*'
+  return [dirbox_str, dirbox_len]
 endfunction
 
 set tabline=%!TabLine()
