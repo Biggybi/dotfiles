@@ -2,11 +2,12 @@ if ! exists(':CocEnable')
   finish
 endif
 
+""    edit config mappings
 nnoremap <leader>eo :CocConfig<cr>
 nnoremap <leader>Eo :split <bar> CocConfig<cr>
 nnoremap <leader><c-e>o :vertical split <bar> CocConfig<cr>
 
-" pmenu mappings
+""    pmenu mappings
 if has("nvim")
   inoremap <expr> <c-space> pumvisible() ? coc#_select_confirm() : coc#refresh()
 else
@@ -40,18 +41,13 @@ inoremap <silent> <expr> <c-j> pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent> <expr> <c-k> pumvisible() ? "\<C-p>" : coc#refresh()
 hi link CocHilightText Visual
 
+""    snippets mappings
+
 " inoremap <expr> <c-n> pumvisible() ? "\<C-p>" : coc#refresh()
 let g:coc_snippet_next = '<c-f>'
 let g:coc_snippet_prev = '<c-b>'
 
-" use tab as in VSCode
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? coc#_select_confirm() :
-"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-
-" function / class text object
+""    function / class text object
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
@@ -61,6 +57,7 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
+""    lsp mappings
 nmap <silent> <leader>gf <Plug>(coc-definition)
 nmap <silent> <leader>gd <Plug>(coc-declaration)
 nmap <silent> <leader>gt <Plug>(coc-type-definition)
@@ -69,16 +66,16 @@ nmap <silent> <leader>gr <Plug>(coc-references)
 nmap <silent> <leader>cf <Plug>(coc-fix-current)
 nmap <silent> <leader>ce <Plug>(coc-codelens-action)
 nmap <silent> <leader>ca <Plug>(coc-codeaction)
+xmap <silent> <leader>ca <Plug>(coc-codeaction-selected)
 nmap <silent> <leader>c= <Plug>(coc-format-selected)
 xmap <silent> <leader>c= <Plug>(coc-format-selected)
 nmap <silent> [w         <Plug>(coc-diagnostic-prev)
 nmap <silent> ]w         <Plug>(coc-diagnostic-next)
-
-" Coc Fzf
+nmap <leader>rn          <Plug>(coc-rename)
 nnoremap <leader>fz :CocFzfList<cr>
 nnoremap <leader>fo :CocFzfList outline<cr>
 
-xmap <leader>ca  <Plug>(coc-codeaction-selected)
+""    show doc
 
 function! s:show_documentation() abort
   if &filetype ==# 'vim'
@@ -98,10 +95,12 @@ endfunction
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" Highlight symbol under cursor on CursorHold (K)
-augroup CocHiglightSymbol
+augroup CocFormatAndK
   au!
-  au CursorHold * silent call CocActionAsync('highlight')
+  " Setup formatexpr specified filetype(s).
+  au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 function! StatusDiagnostic() abort
@@ -117,16 +116,3 @@ function! StatusDiagnostic() abort
   return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
-augroup CocFormatAndK
-  au!
-  " Setup formatexpr specified filetype(s).
-  au FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Coc List
-nnoremap <leader>fv :CocFzfList<cr>
-
-" rename word
-nmap <leader>rn <Plug>(coc-rename)
