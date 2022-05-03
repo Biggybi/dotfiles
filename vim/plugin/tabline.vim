@@ -55,7 +55,8 @@ endfunction
 
 function! s:getname(v) abort
   let name = matchstr(bufname(a:v), '[^/]*$')
-  if &buftype ==# 'terminal'
+  let buftype = getbufvar(a:v, '&buftype')
+  if buftype ==# 'terminal'
     let name = "[Term]"
   endif
   if strlen(name) !=# ''
@@ -64,8 +65,8 @@ function! s:getname(v) abort
   if name != ''
     return name[:g:tl_label_max]
   endif
-  if &buftype !=# ''
-    let name = printf("[%s]", &buftype[:g:tl_label_max - 2])
+  if buftype !=# ''
+    let name = printf("[%s]", buftype[:g:tl_label_max - 2])
   else
     let name = printf("[%s]", "No Name"[:g:tl_label_max - 2])
   endif
