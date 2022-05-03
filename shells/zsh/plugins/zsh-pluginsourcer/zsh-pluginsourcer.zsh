@@ -25,7 +25,11 @@ function sourcePlugins()
 {
 	for plugin in $(ls "$PLUGINSOURCER_PATH") ; do
 		if [ "$plugin" != "zsh-pluginsourcer" ] ; then
-			source "$PLUGINSOURCER_PATH/$plugin/$plugin.zsh"
+			myfile=$(find "$PLUGINSOURCER_PATH/$plugin/" -name "$plugin\.zsh")
+			if ! [ -n "$myfile" ] ; then
+				myfile=$(find "$PLUGINSOURCER_PATH/$plugin/" -name "$plugin\.plugin\.zsh")
+			fi
+			source "$myfile"
 		fi
 	done
 }
