@@ -6,6 +6,7 @@ let g:plugin_tabline = 1
 let g:tl_tabsize       = get(g:, 'tl_tabsize',       30)
 let g:tl_expand        = get(g:, 'tl_expand',        0)
 let g:tl_tab_sep       = get(g:, 'tl_tab_sep',       '  ')
+let g:tl_section_sep   = get(g:, 'tl_section_sep',   ' ')
 let g:tl_tab_margin    = get(g:, 'tl_tab_margin',    1)
 let g:tl_rhs_margin    = get(g:, 'tl_rhs_margin',    1)
 let g:tl_button_close  = get(g:, 'tl_button_close',  ' X ')
@@ -120,6 +121,7 @@ function! s:get_overflow_tab_size(reserved_space) abort
         \- a:reserved_space
         \- strchars(g:tl_button_close)
         \- strchars(g:tl_tab_sep) * (tabpagenr('$') - 1)
+        \- strchars(g:tl_section_sep)
         \)
         \/ tabpagenr('$')
   return tab_size
@@ -192,20 +194,20 @@ function! s:get_dirbox() abort
   let dirbox_str = ''
   let dirbox_len = s:get_dirbox_len()
   if exists('*FugitiveGitDir()') && FugitiveWorkTree() != ''
-    let dirbox_str ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
+    let dirbox_color = isdirectory('.git') ? '%7*' : '%8*'    " submodule?
     let dirbox_label = matchstr(FugitiveWorkTree(), "[^/]*$")
   else
-    let dirbox_str ..= '%3*'
+    let dirbox_color = '%3*'
     let dirbox_label = matchstr(getcwd(), "[^/]*$")
     if strchars(dirbox_label) > g:tl_dirbox_max
       let dirbox_label = dirbox_label[:g:tl_dirbox_max - 2] .. g:tl_tab_overflow
     endif
   endif
   if dirbox_len == 2 * g:tl_rhs_margin
-    let dirbox_len += strlen(dirbox_label)
+    let dirbox_len += strchars(dirbox_label) + g:tl_section_sep
   endif
-  let padd = (dirbox_len - strchars(dirbox_label)) / 2
-  let dirbox_str ..= repeat(' ', padd)
+  let padd = min([(dirbox_len - strchars(dirbox_label)) / 2, g:tl_rhs_margin])
+  let dirbox_str ..= g:tl_section_sep .. dirbox_color .. repeat(' ', padd)
   let dirbox_str ..= dirbox_label
   let dirbox_str ..= repeat(' ', dirbox_len - strchars(dirbox_label) - padd)
   let dirbox_str ..= '%*'
