@@ -135,7 +135,7 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
 
   if s:is_tab_overflow(a:total_label_size, a:dir_box_len) || g:tl_expand
     let label = s:label_text(a:index)
-    let tab_size = s:get_overflow_tab_size(a:dir_box_len)
+    let tab_size = s:get_overflow_tab_size(a:dir_box_len + 1)
     let left_padding = s:get_left_padding(tab_size, label)
     if s:is_label_overflow(label, tab_size, 1)
       if match(label, '^[.*\]$') != -1
@@ -192,20 +192,20 @@ function! s:get_dirbox() abort
   let dirbox_str = ''
   let dirbox_len = s:get_dirbox_len()
   if exists('*FugitiveGitDir()') && FugitiveWorkTree() != ''
-    let dirbox_str ..= isdirectory('.git') ? '%7*' : '%8*'    " submodule?
+    let dirbox_color = isdirectory('.git') ? '%7*' : '%8*'    " submodule?
     let dirbox_label = matchstr(FugitiveWorkTree(), "[^/]*$")
   else
-    let dirbox_str ..= '%3*'
+    let dirbox_color = '%3*'
     let dirbox_label = matchstr(getcwd(), "[^/]*$")
     if strchars(dirbox_label) > g:tl_dirbox_max
       let dirbox_label = dirbox_label[:g:tl_dirbox_max - 2] .. g:tl_tab_overflow
     endif
   endif
   if dirbox_len == 2 * g:tl_rhs_margin
-    let dirbox_len += strlen(dirbox_label)
+    let dirbox_len += strlen(dirbox_label) + 1
   endif
-  let padd = (dirbox_len - strchars(dirbox_label)) / 2
-  let dirbox_str ..= repeat(' ', padd)
+  let padd = min([(dirbox_len - strchars(dirbox_label)) / 2, g:tl_rhs_margin])
+  let dirbox_str ..= ' ' .. dirbox_color .. repeat(' ', padd)
   let dirbox_str ..= dirbox_label
   let dirbox_str ..= repeat(' ', dirbox_len - strchars(dirbox_label) - padd)
   let dirbox_str ..= '%*'
