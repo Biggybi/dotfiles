@@ -138,7 +138,11 @@ function! s:tab_label(index, total_label_size, dir_box_len) abort
     let tab_size = s:get_overflow_tab_size(a:dir_box_len)
     let left_padding = s:get_left_padding(tab_size, label)
     if s:is_label_overflow(label, tab_size, 1)
-      let label = label[:tab_size - 3] .. g:tl_tab_overflow
+      if match(label, '^[.*\]$') != -1
+        let label = label[:-4] .. ']' .. g:tl_tab_overflow
+      else
+        let label = label[:tab_size - 3] .. g:tl_tab_overflow
+      endif
       let tab_size -= 1
       let left_padding = 1
     endif
