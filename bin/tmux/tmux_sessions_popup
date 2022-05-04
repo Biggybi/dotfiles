@@ -2,8 +2,7 @@
 
 current_session=$(tmux display-message -p '#S')
 
-session=$(tmux list-sessions\
-	| sed 's/:.*//'\
+session=$(tmux list-sessions -F \#S\
 	| grep -v ^$current_session$\
 	| fzf --reverse --no-info\
 	--header=$current_session\ '(current)')
