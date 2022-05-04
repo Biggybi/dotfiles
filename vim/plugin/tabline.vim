@@ -60,7 +60,7 @@ function! s:getname(v) abort
   if buftype ==# 'terminal'
     let name = "[Term]"
   endif
-  if strlen(name) !=# ''
+  if name !=# ''
     return name[:g:tl_label_max]
   endif
   if name != ''
@@ -77,7 +77,7 @@ endfunction
 function! s:total_label_size() abort
   let lst_label_size = range(1, tabpagenr('$'))->map({
         \  _, v -> tabpagebuflist(v)->map({
-        \    _, v -> s:getname(v)->len()
+        \    _, v -> s:getname(v)->strchars()
         \  })->max()
         \})->map({
         \  _, v -> v < g:tl_tabsize ? g:tl_tabsize : v
@@ -103,7 +103,7 @@ function! s:reduce_sep(total_used_space) abort
 endfunction
 
 function! s:is_tab_overflow(total_label_size, dir_box_len) abort
-  let needed_space = a:total_label_size + a:dir_box_len + strchars(g:tl_button_close) + 1
+  let needed_space = a:total_label_size + a:dir_box_len + strchars(g:tl_button_close)
   return needed_space > &columns
 endfunction
 
@@ -130,7 +130,7 @@ endfunction
 function! s:tab_label(index, total_label_size, dir_box_len) abort
   let label = s:label_text(a:index)
   let tab_size = tabpagebuflist(a:index)->map({
-        \  _, v -> s:getname(v)->len()
+        \  _, v -> s:getname(v)->strchars()
         \})->max()
   let tab_size = max([tab_size, g:tl_tabsize]) + strchars(g:tl_tab_sep)
   let left_padding = s:get_left_padding(tab_size, label)
@@ -187,7 +187,7 @@ function! s:get_dir_len(dir) abort
   else
     let dir = matchstr(buf, "[^/]*\\ze/[^/]*$")
   endif
-  return min([len(dir), g:tl_dirbox_max])
+  return min([strchars(dir), g:tl_dirbox_max])
 endfunction
 
 function! s:get_dirbox() abort
