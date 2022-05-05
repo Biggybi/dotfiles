@@ -2,8 +2,12 @@
 
 current_session=$(tmux display-message -p '#S')
 
-session=$(tmux list-sessions -F \#S\
-	| grep -v ^$current_session$\
-	| fzf --reverse --no-info\
+session=$(tmux list-sessions -F "#{session_last_attached}--XXXX--#S" \
+	| sort -rn \
+	| sed 's/.*--XXXX--//'\
+	| grep -v ^$current_session\ *\
+	| column -t\
+	| fzf --prompt='session > ' --reverse --no-info\
 	--header=$current_session\ '(current)')
+
 [[ $session != '' ]] && tmux switch-client -t $session
