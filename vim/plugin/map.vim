@@ -120,9 +120,9 @@ function! NetrwToggle() abort
 endfunction
 nnoremap <silent> yoe :call NetrwToggle()<cr>
 
-" Move visual selection (=unimpaired + gv)
-vnoremap ]e :'<,'>move '>+1 \| normal! gv<CR>
-vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
+" " Move visual selection (=unimpaired + gv)
+xmap [e <Plug>(unimpaired-move-selection-up)\|gv
+xmap ]e <Plug>(unimpaired-move-selection-down)\|gv
 
 " Toggle hlsearch + Anzu
 nnoremap <silent> yoh :ToggleHL<cr>
