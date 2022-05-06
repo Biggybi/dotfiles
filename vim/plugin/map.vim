@@ -401,6 +401,15 @@ nnoremap <leader>< :exe "vertical resize -10"<CR>
 " inoremap <expr> <c-f> getcurpos()[2] == 1 && getline('.') != '' ? "<esc>a" : "<esc>a<right>"
 " inoremap <expr> <c-b> getcurpos()[2] == 1 ? "<esc>i<left>" : '<esc>i'
 
+if $WSL_DISTRO_NAME != ''
+  for i in range(char2nr('a'), char2nr('z'))
+    let char = nr2char(i)
+    execute "set <M-".char.">=\e".char
+    let char = nr2char(i - 32)
+    execute "set <M-".char.">=\e".char
+  endfor
+endif
+
 if ! has("nvim")
   inoremap <a-h> <left>
   inoremap <a-j> <down>
