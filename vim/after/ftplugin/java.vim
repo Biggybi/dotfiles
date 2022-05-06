@@ -30,11 +30,6 @@ nnoremap <buffer> <leader>xt $Ji<space>?<esc>$i : 0<esc>^dw
 nnoremap <buffer> <leader>xT ^iif<space>(<esc>f?h3s)<cr><esc>f:h3s;<cr>else<cr><esc>
 nnoremap <buffer> <leader>x<c-t> ^iif<space>(<esc>f?h3s)<cr><esc>f:hc$;<esc>
 
-" auto close brackets
-inoremap <buffer> { {}<c-g>U<left>
-inoremap <buffer> <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
-inoremap <buffer> <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
-
 " brackets auround paragraph
 nnoremap <buffer> <leader>{} mz{S{<esc>}S}<esc>=%`z=iB
 nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j

@@ -37,7 +37,7 @@ augroup StatusActiveSwitch
         \ |  call s:statusLineActive()
         \ |setlocal cursorline
         \ |endif
-  au WinLeave *
+  au BufLeave,WinLeave *
         \ call s:statusLineInactive()
         \ |setlocal nocursorline
 augroup end
@@ -60,17 +60,17 @@ function! s:statusLineActive() abort
     setlocal statusline +=%2*\ [Term]\ %*\ %t              "  [Term] filename
   elseif &previewwindow==1                                 " preview window
     setlocal statusline +=%2*\ %w\ %*%3*\ %t%*\            "  [Preview] filename
-  elseif exists('g:loaded_fugitive') && FugitiveGitDir() != ''
+  elseif exists('*FugitiveGitDir()') && FugitiveGitDir() != ''
     setlocal statusline +=%2*%(\ %{FugitiveHead()}%)%*     " git branch
     setlocal statusline +=%4*%([%R]%)                      " read only, special buffers
     setlocal statusline +=%{GitModify()}%*                 " git modified
     setlocal statusline +=%(\ %w%q%)                       " special buffers
     setlocal statusline +=%7*%(\ %{FugitiveHead()!=''?
-          \get(split(getcwd(),'/'),'-1',''):''}%)%*        " git project
+          \get(split(getcwd(),'/'),'-1','').'\ ':''}%)%*  " git project
     setlocal statusline +=%8*%(\ %{FugitiveHead()==''?
-          \get(split(getcwd(),'/'),'-1',''):''}%)%*        " git submodule
+          \get(split(getcwd(),'/'),'-1','').'\ ':''}%)%*  " git submodule
     setlocal statusline +=%3*%<%(%{bufname()==''?'':
-          \'\/'.expand(bufname()).'\ '}%)%*                " file name
+          \expand(bufname()).'\ '}%)%*                " file name
   else
     setlocal statusline +=%3*%<\ %F%*                      " file name
   endif
@@ -95,53 +95,75 @@ function! s:statusLineInactive() abort
     setlocal statusline +=\ [Term]\ %t                     "  [Term] filename
   elseif &previewwindow==1                                 " preview window
     setlocal statusline +=\ %w\ %t                         "  [Preview] filename
-  elseif exists('g:loaded_fugitive') && FugitiveGitDir() != ''
-    setlocal statusline +=\ %(%{GitRelativePath()}%)       " lhs
-    setlocal statusline +=%7*%{FugitiveHead()!=''?
-          \get(split(getcwd(),'/'),'-1',''):''}%*          " git project
-    setlocal statusline +=%8*%{FugitiveHead()==''?
-          \get(split(getcwd(),'/'),'-1',''):''}%*          " git submodule
-    setlocal statusline +=%{
-          \matchstr(expand('%:~'),
-          \split(getcwd(),'/')[-1].'\\\zs.*')}             " git filepath
-  else
-    setlocal statusline +=\ %f                             " filename relative
   endif
+  setlocal statusline +=\ %(%{%FilePath()%}%)              " file path
   setlocal statusline +=%5*\ %{&buftype!='terminal'?
         \&modified?'+\ ':'':''}%*                          " file modified
   setlocal statusline +=%=%(\ %{&filetype!=''?
         \&filetype:&buftype}\ %)                           " filetype or buftype
 endfunction
 
-function! GitRelativePath() abort
-  let curdir = get(split(getcwd(), '/'), -1, '')
-  let gitdir = FugitiveExtractGitDir('%')
-  let project_name = get(split(gitdir, '/'), -2, '')
-  if index(['~', '/'], expand('%f')[0]) > 0
-    if matchstr(g:actual_curbuf, curdir) != ''
-      return ''
-    endif
-    if gitdir =~ '\.git.*$' && project_name != curdir
-      let sub_gitmain = matchstr(gitdir, '/[^/]*.*/\zs.*/\ze\.git')
-      let sub_path = matchstr(getcwd(), sub_gitmain.'.*/')
-      if sub_path != ''
-        return sub_path
+function! FilePath() abort
+  let focus_name = get(split(getcwd(), '/'), -1, '')
+  if exists('g:loaded_fugitive')
+    let focus_gitdir = FugitiveExtractGitDir('%')
+    let focus_path = matchstr(focus_gitdir, ".*\\ze\\.git$")
+  endif
+  let unfoc_path_name = expand('%')
+  if exists('g:loaded_fugitive')
+    let unfoc_gitdir = FugitiveExtractGitDir(unfoc_path_name)
+    let unfoc_fullpath = FugitiveWorkTree(unfoc_gitdir)
+  else
+    let unfoc_fullpath = ''
+    let focus_path = ''
+  endif
+  let unfoc_name = matchstr(unfoc_fullpath, "[^/]*$")
+  let unfoc_relpath = matchstr(unfoc_fullpath, focus_path . "\\zs.*\\ze" . unfoc_name)
+  let unfoc_filename = matchstr(unfoc_path_name, ".*" . unfoc_relpath . unfoc_name . "/\\zs.*")
+  let unfoc_gitdir_path = matchstr(focus_gitdir, '.*\.git')
+  let focus_gitdir_path = matchstr(unfoc_gitdir, '.*\.git')
+  let unfoc_is_focsub = matchstr(focus_gitdir_path, unfoc_gitdir_path) != ''
+  let unfoc_is_sub = match(unfoc_gitdir, '.*/.git/modules/.*') == 0
+  if unfoc_is_focsub != 0
+    if unfoc_is_sub " is a submodule of focused buffer
+      if unfoc_name ==# focus_name
+        return '%6*' . unfoc_name . '%3* ' . unfoc_path_name
+      else
+        return '%6*' . unfoc_name . '%3* ' . unfoc_filename
+      endif
+    else
+      if unfoc_filename != ''
+        return '%7*' . unfoc_name . '%3* ' . unfoc_filename
+      else
+        return '%7*' . unfoc_name . '%3* ' . unfoc_path_name
       endif
     endif
-    return get(split(expand('%:~'), curdir), '')
   endif
-  if gitdir =~ '.git$' && project_name != curdir
-    let sub_parent = matchstr(getcwd(), project_name.'.*/')
-    return sub_parent
+  if unfoc_gitdir != ''
+    let unfoc_head = matchstr(unfoc_gitdir, '.*/\ze[^/]*/\.git')
+    if unfoc_is_focsub == 0
+      let unfoc_gitdir_path = matchstr(unfoc_gitdir, '.*\.git')
+      let unfoc_parent_name = matchstr(unfoc_gitdir_path, '.*/\zs[^/]*\ze/\.git')
+      if unfoc_is_sub
+        if unfoc_relpath != ''
+          return '%7*' . unfoc_parent_name . '%3* %6*' . unfoc_name . '%3* ' . unfoc_filename
+        else
+          return '%7*' . unfoc_parent_name . '%3* %6*' . unfoc_name . '%3* ' . unfoc_filename
+        endif
+      endif
+      return '%7*' . unfoc_parent_name . '%3* ' . unfoc_filename
+    else
+      return unfoc_head . '%7*' . unfoc_name . '%3* ' . unfoc_filename
+    endif
   endif
-  return ''
+  return unfoc_path_name
 endfunction
 
 function! GitModify() abort
   if FugitiveHead() == ''  || &buftype == 'terminal'
     return ''
   endif
-  let [a, m, r] = [0, 0, 0]
+  let [a,m,r] = [0,0,0]
   if exists('*GitGutterGetHunkSummary')
     let [a,m,r] = GitGutterGetHunkSummary()
   elseif exists('b:gitsigns_status')
@@ -149,6 +171,5 @@ function! GitModify() abort
     let m = get(split(b:gitsigns_status), 1)
     let r = get(split(b:gitsigns_status), 2)
   endif
-
   return [a,m,r] == [0,0,0] ? ' ' : ' + '
 endfunction

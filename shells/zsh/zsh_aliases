@@ -14,7 +14,7 @@
 alias s='sudo'
 alias c='clear'
 
-alias vim="vim -T xterm-256color"
+alias vim="vim -X"
 alias v="$VISUAL"
 #vi debug: no vimrc/gvimrc, nocompatible
 alias vimnude='$VISUAL -u NONE -U NONE -N'
@@ -103,6 +103,12 @@ alias nv="nvim"
 alias mutt="neomutt"
 alias m="neomutt"
 
+## pia
+alias piaup="piactl connect"
+alias piadown="piactl disconnect"
+alias pias="piactl get connectionstate"
+alias pia="piactl "
+
 ### ssh
 alias sshavti='ssh tris@192.168.1.24'
 alias sshhome='ssh biggybi@192.168.1.8'
@@ -141,14 +147,29 @@ alias gnomexts='cd /usr/share/gnome-shell/extensions'
 alias gnome-theme-login='sudo update-alternatives --config gdm3-theme.gresource'
 alias gnome-term-xterm='sudo update-alternatives --set x-terminal-emulator /usr/bin/xterm'
 
+vimplugclone() {
+	git clone "$1" "$HOME/dotfiles/vim/pack/bundle/start/"
+}
+
+vimplugremove() {
+	rm -rf "$HOME/dotfiles/vim/pack/bundle/start/$(basename "$1")"
+}
+
 vimpluginstall() {
-	cd $HOME/dotfiles/vim/pack/bundle/start/
-	git clone $1
+	git submodule add -f "$1" "$HOME/dotfiles/vim/pack/bundle/start/$(basename "$1")"
+}
+
+vimpluguninstall() {
+	git rm -f "$HOME/dotfiles/vim/pack/bundle/start/$(basename "$1")"
 }
 
 nvimpluginstall() {
-	cd $HOME/dotfiles/vim/nvim/pack/
+	cd $HOME/dotfiles/nvim/pack/bundle/start/
 	git clone $1
+}
+
+gchub() {
+	git clone git@github.com:biggybi/$1
 }
 
 alias cdgninstall='cd $HOME/dotfiles/gnome_setup/'
@@ -167,19 +188,21 @@ alias eh='$VISUAL $HOME/.zsh_history'
 alias efs='$VISUAL /etc/fstab'
 alias eapt='sudo $VISUAL /etc/apt/sources.list'
 alias eg='sh .git/vimgit'
+alias ex='$VISUAL $HOME/.Xresources'
 
 alias vb='$VISUAL $HOME/dotfiles/shells/bash/bashrc'
-alias vp='$VISUAL $HOME/dotfiles/shells/bash/bash_profile'
-alias va='$VISUAL $HOME/dotfiles/shells/bash/bash_aliases'
 alias vz='$VISUAL $HOME/dotfiles/shells/zsh/zshrc'
+alias va='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
 alias vza='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
+alias vp='$VISUAL $HOME/dotfiles/shells/bash/bash_profile'
 alias vv='$VISUAL $HOME/dotfiles/vim/vimrc'
 alias vn='$VISUAL $HOME/dotfiles/shells/bash/inputrc'
 alias vt='$VISUAL $HOME/dotfiles/tmux/tmux.conf'
-alias vh='$VISUAL $HOME/.bash_history'
+alias vh='$VISUAL $HOME/.zsh_history'
 alias vfs='$VISUAL /etc/fstab'
 alias vapt='sudo $VISUAL /etc/apt/sources.list'
 alias vg='$VISUAL $(./.git/vimgit)'
+alias vx='$VISUAL $HOME/.Xresources'
 
 alias vbashrc='$VISUAL $HOME/dotfiles/shells/bash/bashrc'
 alias valias='$VISUAL $HOME/dotfiles/shells/bash/bash_aliases'
@@ -314,6 +337,16 @@ alias pacrm="sudo pacman -R"       # remove
 alias pacpurge="sudo pacman -Rns"  # remove purge
 alias pacs="pacman -Ss"            # search
 
+alias yayup="yay -Syu"     # sync / upgrade
+alias yayi="yay -S"        # install
+alias yayrm="yay -R"       # remove
+alias yaypurge="yay -Rns"  # remove purge
+alias yays="yay -Ss"       # search
+alias yayclean="yay -Yc"   # remove orphans
+
+alias archup="sudo pacman -Syu && yay -Syu"  # pacman + yay
+alias archkeyring="pacman -S archlinux-keyring"
+
 ### Hardware info
 alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
 
@@ -354,11 +387,13 @@ alias gccf='gcc -Wall -Wextra '
 alias p='python3.7'
 alias phpserv='php -S localhost:4000'
 alias bc='bc -q'
-# alias asciid="man ascii | grep Tables -A15 | cut -c 25- | sed 's/^ /    /;s/$^//;1,2d;5d'"
-# alias asciidh="man ascii | grep ".*30.*40.*" -A18 -B1"
 
 alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 alias regex_ipv4="grep -Eo '\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'"
+
+alias asciidec="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 14 | tail -n 13 | cut -c 23-"
+alias asciihex="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 18 | tail -n 17 | cut -c 4-22"
+alias asciidechex="man ascii 2> /dev/null | grep \"^\ *Tables$\" -A 18 | tail -n 17 | cut -c 4-"
 
 ### config : app icons
 alias cdapp='cd /usr/share/applications/'
@@ -487,3 +522,7 @@ fzf_semi_interactive_cd() {
 }
 
 alias kk='kaamelottrand'
+
+alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
+alias regex_ipv4="grep -Eo '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b'"
+

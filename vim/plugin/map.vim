@@ -45,9 +45,7 @@ nnoremap <leader><c-@> :echo "kewl"<cr>
 
 " enter command mode with ;
 nnoremap ; :
-nnoremap : ;
 vnoremap ; :
-vnoremap : ;
 nnoremap <leader>; :!
 
 nnoremap <silent> gI `.gi<esc>zz:call FitBufferWindowBottom()<cr>
@@ -82,11 +80,6 @@ inoremap ] ]<c-g>u
 inoremap _ _<c-g>u
 
 """        Toggles
-
-" Toggle ModeColorSwitch
-nmap yom <Plug>(modeColorToggle)
-nmap [om <Plug>(modeColorOn)
-nmap ]om <Plug>(modeColorOff)
 
 " Toggle concealed characters
 function! ConcealToggle() abort
@@ -126,6 +119,12 @@ xmap ]e <Plug>(unimpaired-move-selection-down)\|gv
 
 " Toggle hlsearch + Anzu
 nnoremap <silent> yoh :ToggleHL<cr>
+
+" winfix width/height
+nnoremap <silent> yo<c-w> :setlocal winfixwidth!<cr>:echo &winfixwidth == 0
+      \? 'nowinfixwidth' : 'winfixwidth'<cr>
+nnoremap <silent> yo<c-h> :setlocal winfixheight!<cr>:echo &winfixheight == 0
+      \? 'nowinfixheight' : 'winfixheight'<cr>
 
 " TODO: keep cursor on the same column
 nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
@@ -243,7 +242,6 @@ nnoremap zo zczO
 nnoremap <leader>sv :source $MYVIMRC<bar>:filetype detect<cr>
 nnoremap <leader>sr :Runtime<cr>
 nnoremap <leader>s. :Runtime<cr>
-nnoremap <silent> <leader>sp :silent! Runtime ~/.vim/plugin/*.vim<cr>
 nnoremap <silent> <leader>sf :silent! :filetype detect<cr>
 
 " source colors
@@ -278,6 +276,9 @@ nnoremap <leader><c-e>zz :vs $DOT/shells/zsh/zshrc<cr>
 nnoremap <leader>eza     :e  $DOT/shells/zsh/zsh_aliases<cr>
 nnoremap <leader>Eza     :sp $DOT/shells/zsh/zsh_aliases<cr>
 nnoremap <leader><c-e>za :vs $DOT/shells/zsh/zsh_aliases<cr>
+nnoremap <leader>ezh     :e  $HOME/.zsh_history<cr>
+nnoremap <leader>Ezh     :sp $HOME/.zsh_history<cr>
+nnoremap <leader><c-e>zh :vs $HOME/.zsh_history<cr>
 
 nnoremap <leader>ebn     :e  $DOT/inputrc<cr>
 nnoremap <leader>Ebn     :sp $DOT/inputrc<cr>
@@ -380,10 +381,10 @@ vnoremap > >gv
 " nnoremap <leader>T :vertical sbuffer !/bin/bash<cr>
 
 " resize windows quicker
-nnoremap <leader>= :exe "resize +10"<cr>
-nnoremap <leader>- :exe "resize -10"<cr>
-nnoremap <leader>> :exe "vertical resize +10"<CR>
-nnoremap <leader>< :exe "vertical resize -10"<CR>
+nnoremap <silent> <Leader>= :exe "resize "          . (winheight(0) * 3/2 + 1)<CR>
+nnoremap <silent> <Leader>- :exe "resize "          . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <leader>> :exe "vertical resize " . (winwidth(0)  * 4/3 + 1)<CR>
+nnoremap <silent> <leader>< :exe "vertical resize " . (winwidth(0)  * 3/4)<CR>
 
 """        Alt Movement
 
@@ -433,10 +434,6 @@ if ! has("nvim")
   nnoremap <silent> <a-L> :exe "vertical resize +1"<CR>
   nnoremap <silent> <a-o> :tabnext<cr>
   nnoremap <silent> <a-i> :tabprevious<cr>
-  nnoremap <silent> <c-w>o :tabnext<cr>
-  nnoremap <silent> <c-w>i :tabprevious<cr>
-  nnoremap <silent> <c-w><c-o> :tabnext<cr>
-  nnoremap <silent> <c-w><c-i> :tabprevious<cr>
   nnoremap <silent> <a-p> :normal g<tab><cr>
 else
   inoremap <m-h> <left>
@@ -464,8 +461,13 @@ else
   nnoremap <silent> <m-p> :normal g<tab><cr>
 endif
 
-nnoremap <silent> <leader>o :tabnext<cr>
-nnoremap <silent> <leader>i :tabprevious<cr>
+nnoremap <silent> <leader>o  :tabnext<cr>
+nnoremap <silent> <leader>i  :tabprevious<cr>
+nnoremap <silent> <c-w><c-o> :tabnext<cr>
+nnoremap <silent> <c-w><c-i> :tabprevious<cr>
+nnoremap <silent> <c-w><c-u> :only<cr>
+nnoremap <silent> <c-w>u     :only<cr>
+nnoremap <silent> <c-w><c-p> :normal g<tab><cr>
 
 """        Searching
 
@@ -480,10 +482,11 @@ xmap <silent> ]<c-g> <Plug>(MatchitVisualMultiForward)
 omap <silent> [<c-g> <Plug>(MatchitOperationMultiBackward)
 omap <silent> ]<c-g> <Plug>(MatchitOperationMultiForward)
 
-nnoremap /         :silent call clearmatches()<cr>/
-nnoremap ?         :silent call clearmatches()<cr>?
-nnoremap <leader>/ :silent call clearmatches()<cr>/\v
-vnoremap <leader>/ :silent call clearmatches()<cr>/\v
+" TODO: write in non-visible color to hide, silent nor working
+nnoremap /         :call clearmatches()\|nohl<cr>/
+nnoremap ?         :call clearmatches()\|nohl<cr>?
+nnoremap <leader>/ :call clearmatches()\|nohl<cr>/\v
+vnoremap <leader>/ :call clearmatches()\|nohl<cr>/\v
 
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
 nnoremap <silent> g* :let @/=expand('<cword>') <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
@@ -618,6 +621,18 @@ nnoremap <silent> <c-w><c-c> :let buff=bufname()<cr>:close<cr>:echo buff . " clo
 nnoremap <silent> <c-w>c     :let buff=bufname()<cr>:close<cr>:echo buff . " closed"<cr>
 
 ""    Code Mappings
+"""        Auto Brackets
+" auto close brackets
+
+inoremap ( ()<c-g>U<left>
+inoremap [ []<c-g>U<left>
+inoremap { {}<c-g>U<left>
+
+inoremap <expr> ) getline('.')[col('.')-1]==')' ? '<c-g>U<right>' : ')'
+inoremap <expr> ] getline('.')[col('.')-1]==']' ? '<c-g>U<right>' : ']'
+inoremap <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
+inoremap <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+
 """        Indent
 
 command! -nargs=1 -complete=command Nomove

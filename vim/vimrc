@@ -25,7 +25,10 @@ set keywordprg=:Man
 
 " use bash aliases
 let $BASH_ENV = '$HOME/dotfiles/shells/bash/bash_aliases'
-let $PAGER=''                   " vim as pager
+
+" allow :Man
+let $PAGER=''
+let $MANPAGER=''
 
 syntax on
 set encoding=utf-8              " character encoding
@@ -98,6 +101,7 @@ endif
 
 " Statusline / Tabline
 set laststatus=2                " always show satus line
+set showtabline=2
 set noshowmode
 set tabpagemax=30
 
@@ -131,7 +135,6 @@ if ! has('nvim')
 endif
 
 " Color
-let base16colorspace=256        " access 256 colorspace
 if has('termguicolors')
   set termguicolors             " 24 bits colors
 endif
@@ -266,8 +269,6 @@ for d in [ &backupdir, &directory, &undodir, &viewdir, $HOME.'/.vim/tmp/viminfo/
 endfor
 
 ""    Extras
-" Termdebug
-" let g:termdebug_wide = 163
 let g:termdebug_wide = 40
 
 " Vim-run
@@ -277,31 +278,6 @@ let g:vim_run_command_map = {
       \'python': 'python',
       \'markdown': 'markdown',
       \}
-
-" Coc
-
-"TODO: make it work, and move all config here
-
-" augroup CocConfig
-"   " this one is which you're most likely to use?
-"   au VimEnter * call CocConfig()
-" augroup end
-
-" function CocConfig() abort
-"   call coc#config('languageserver', {
-"         \ 'groovy': {
-"         \   "args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
-"         \ },
-"         \ 'efm': {
-"         \   "args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
-"         \ }
-"         \})
-" endfunction
-
-" let g:coc_user_config = {
-"       \ "languageserver.groovy.args": ["-jar", "/home/tris/dotfiles/langserver/groovy-language-server/build/libs/groovy-language-server.jar"],
-"       \ "languageserver.efm.args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
-"       \ }
 
 ""    Vimrc modeline
 " vim:expandtab

@@ -19,6 +19,14 @@ Host avtiyovn
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/avtiyovn
 
+Host github.com
+	Hostname ssh.github.com
+	Port 443
+
+Host gitlab.com
+	Hostname altssh.gitlab.com
+	Port 443
+
 # Host gitlab
 #   Hostname 192.168.1.42
 #   User tris

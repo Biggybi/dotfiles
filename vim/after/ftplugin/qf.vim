@@ -7,6 +7,8 @@ setlocal showbreak=
 setlocal wrap
 setlocal nomodeline
 
+wincmd J
+
 nnoremap <buffer> <silent> <cr> <cr>
 
 nnoremap <buffer> j <c-n>

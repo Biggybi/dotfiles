@@ -33,6 +33,8 @@ SSUBDIR = $(shell find $(SDIR) -type d -not -empty)
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
+RUNCMD = bash -c ./
+
 # LIB = -L.$(SEP)libft$(SEP) -lft
 # LIBINC = -I libft$(SEP)includes$(SEP)
 
@@ -54,7 +56,7 @@ $(NAME): $(ODIR) $(OBJ)
 	$(HIDE)$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
 	$(HIDE)echo "make   ->  $(NAME) created"
 
-$(ODIR)%.o: $(SSUBDIR)%.c $(INC)$(NAME).h
+$(ODIR)%.o: $(SSUBDIR)%.c
 	$(HIDE)$(CC) -c $(CFLAGS) -I $(INC) $(LIBINC) $< -o $@
 
 $(ODIR):
@@ -89,7 +91,10 @@ test: teststart $(TESTDIR)$(TESTBIN)
 	$(HIDE)./$(TESTBIN)
 
 build: clean
-	$(BUILD) --output $(BUILDFILE) 2> /dev/null -- make
+	$(HIDE)$(BUILD) --output $(BUILDFILE) 2> /dev/null -- make
+
+run:
+	$(HIDE)$(RUNCMD)$(NAME)
 
 valgrind: re $(NAME)
 	$(HIDE)echo

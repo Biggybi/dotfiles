@@ -1,43 +1,41 @@
-" vi:syntax=vim
-
 " base16-vim (https://github.com/chriskempson/base16-vim)
 " by Chris Kempson (http://chriskempson.com)
-" One Light scheme by Daniel Pfeifer (http://github.com/purpleKarrot)
+" OneDark scheme by Lalit Magant (http://github.com/tilal6991)
 
 " This enables the coresponding base16-shell script to run so that
 " :colorscheme works in terminals supported by base16-shell scripts
 " User must set this variable in .vimrc
 "   let g:base16_shell_path=base16-builder/output/shell/
-let s:colors_name = "base16-one-light"
-let g:base16_one_light_shell = get(g:, 'base16_one_light_shell',
-			\'$BASE16_PATH/' .. s:colors_name)
+let s:colors_name = "base16-one-darker"
+let g:base16_one_darker_shell = get(g:, 'base16_one_darker_shell',
+      \'$BASE16_PATH/' .. s:colors_name)
 let g:base16_noshell = get(g:, 'base16_noshell', 0)
 
 if !has("gui_running") && g:base16_noshell != 1 && v:vim_did_enter == 1
-    execute "silent !source" g:base16_one_light_shell
+    execute "silent !source" g:base16_one_darker_shell
 endif
 
 " GUI color definitions
-let s:gui00     = "#ffffff"
-let s:gui01     = "#C3C3C3"
-let s:gui02     = "#e5e5e5"
-let s:gui03     = "#a0a1a7"
-let s:gui04     = "#696c77"
-let s:gui05     = "#383a42"
-let s:gui06     = "#d675d6"
-let s:gui07     = "#090a0b"
-let s:gui08     = "#c96169"
-let s:gui09     = "#f88f22"
-let s:gui0A     = "#d37400"
-let s:gui0B     = "#489047"
-let s:gui0C     = "#3696c2"
-let s:gui0D     = "#396cd9"
-let s:gui0E     = "#9364be"
-let s:gui0F     = "#986801"
+let s:gui00     = "#202020"
+let s:gui01     = "#303030"
+let s:gui02     = "#454545"
+let s:gui03     = "#565656"
+let s:gui04     = "#7C7C7C"
+let s:gui05     = "#b4b4b4"
+let s:gui06     = "#ee82ee"
+let s:gui07     = "#c8ccd4"
+let s:gui08     = "#ee6f6f"
+let s:gui09     = "#d19a66"
+let s:gui0A     = "#e5c07b"
+let s:gui0B     = "#98c379"
+let s:gui0C     = "#24a1c0"
+let s:gui0D     = "#61afef"
+let s:gui0E     = "#a470d4"
+let s:gui0F     = "#be5046"
 
 " Terminal color definitions
 let s:cterm00   = "00"
-let s:cterm03   = "08"
+let s:cterm03   = "236"
 let s:cterm05   = "07"
 let s:cterm07   = "15"
 let s:cterm08   = "01"
@@ -46,7 +44,8 @@ let s:cterm0B   = "02"
 let s:cterm0C   = "06"
 let s:cterm0D   = "04"
 let s:cterm0E   = "05"
-if exists("base16colorspace") && base16colorspace == "256"
+" if exists("base16colorspace") && base16colorspace == "256"
+if &t_Co >= 16
   let s:cterm01 = "18"
   let s:cterm02 = "19"
   let s:cterm04 = "20"
@@ -64,22 +63,22 @@ endif
 
 if has("terminal") || has("nvim")
   let g:terminal_ansi_colors = [
-        \ "#ffffff",
-        \ "#C3C3C3",
-        \ "#489047",
-        \ "#a0a1a7",
-        \ "#696c77",
-        \ "#383a42",
-        \ "#3696c2",
-        \ "#090a0b",
-        \ "#c3c3c3",
-        \ "#f88f22",
-        \ "#489047",
-        \ "#d37400",
-        \ "#3696c2",
-        \ "#9364be",
-        \ "#9364be",
-        \ "#986801",
+        \ "#282c34",
+        \ "#e06c75",
+        \ "#98c379",
+        \ "#e5c07b",
+        \ "#61afef",
+        \ "#c678dd",
+        \ "#56b6c2",
+        \ "#abb2bf",
+        \ "#545862",
+        \ "#e06c75",
+        \ "#98c379",
+        \ "#e5c07b",
+        \ "#61afef",
+        \ "#c678dd",
+        \ "#56b6c2",
+        \ "#c8ccd4",
         \ ]
 endif
 
@@ -90,8 +89,10 @@ if has("nvim")
       exe printf("let g:terminal_color_%d = \"%s\"", i, term_color)
       let i = i + 1
     endfor
+    if &background == "light"
       let g:terminal_color_background = g:terminal_color_7
       let g:terminal_color_foreground = g:terminal_color_2
+    endif
   endfunction
 
   call <sid>Nvim_term_colors()
@@ -124,96 +125,84 @@ function! s:hl()
   call <sid>hi("Normal",        "05", "00", "", "")
   call <sid>hi("Bold",          "", "", "bold", "")
   call <sid>hi("Debug",         "08", "", "", "")
+  call <sid>hi("DebugPC",       "", "01", "", "")
+  call <sid>hi("DebugBreakpoint", "08", "", "", "")
   call <sid>hi("Directory",     "0D", "", "", "")
   call <sid>hi("Error",         "07", "08", "", "")
   call <sid>hi("ErrorMsg",      "08", "00", "", "")
-  call <sid>hi("TrailSpace",    "0C", "01", "strikethrough", "")
+  call <sid>hi("TrailSpace",    "0C", "02", "strikethrough", "")
   call <sid>hi("Exception",     "08", "", "", "")
   call <sid>hi("FoldColumn",    "0C", "01", "", "")
-  " call <sid>hi("Folded",        "03", "01", "", "")
-  call <sid>hi("Folded",        "03", "00", "", "")
-  call <sid>hi("CocHighlightText", "", "02", "", "")
-  call <sid>hi("Search",        "0C", "02",  "", "")
-  call <sid>hi("IncSearch",     "0E", "02", "none", "")
-  call <sid>hi("FirstSearch",   "0B", "02", "none", "")
-  call <sid>hi("LastSearch",    "0A", "02", "none", "")
+  call <sid>hi("Folded",        "04", "00", "", "")
+  call <sid>hi("Search",        "0D", "03",  "", "")
+  call <sid>hi("IncSearch",     "0E", "03", "none", "")
+  call <sid>hi("FirstSearch",   "0B", "03", "none", "")
+  call <sid>hi("LastSearch",    "0A", "03", "none", "")
   call <sid>hi("Italic",        "", "", "none", "")
   call <sid>hi("Macro",         "08", "", "", "")
-  " call <sid>hi("MatchParen",    "03", "00",  "underline", "")
   call <sid>hi("MatchParen",    "0C", "02",  "", "")
   call <sid>hi("ModeMsg",       "0B", "", "", "")
   call <sid>hi("MoreMsg",       "0B", "", "", "")
   call <sid>hi("Question",      "0D", "", "", "")
-  call <sid>hi("Substitute",    "01", "0B", "none", "")
-  " call <sid>hi("SpecialKey",    "04", "0D", "", "")
+  call <sid>hi("Substitute",    "01", "0A", "none", "")
   call <sid>hi("SpecialKey",    "04", "", "", "")
   call <sid>hi("TooLong",       "08", "", "", "")
   call <sid>hi("Underlined",    "08", "", "", "")
-  " call <sid>hi("Visual",        "", "02", "", "")
+  call <sid>hi("Comment",       "04", "", "italic", "")
   call <sid>hi("Visual",        "", "02", "", "")
   call <sid>hi("VisualNOS",     "08", "", "", "")
   call <sid>hi("WarningMsg",    "08", "", "", "")
-  " call <sid>hi("WildMenu",      "08", "0A", "", "")
-  " call <sid>hi("WildMenu",      "08", "01", "", "")
-  call <sid>hi("WildMenu",      "01", "04", "", "")
+  call <sid>hi("WildMenu",      "00", "04", "", "")
   call <sid>hi("Title",         "0D", "", "none", "")
-  call <sid>hi("Conceal",       "03", "01", "", "")
-  call <sid>hi("Ignore",       "03", "00", "", "")
+  call <sid>hi("Conceal",       "0A", "01", "", "")
+  call <sid>hi("Ignore",        "04", "00", "", "")
   call <sid>hi("Cursor",        "00", "05", "", "")
-  call <sid>hi("NonText",       "03", "", "", "")
-  " call <sid>hi("LineNr",        "03", "01", "", "")
-  call <sid>hi("LineNr",        "03", "00", "", "")
-  " call <sid>hi("SignColumn",    "03", "01", "", "")
-  call <sid>hi("SignColumn",    "03", "00", "", "")
-  " call <sid>hi("VertSplit",     "02", "02", "none", "")
-  " call <sid>hi("VertSplit",     "04", "00", "none", "")
-  call <sid>hi("VertSplit",     "02", "00", "none", "")
-  call <sid>hi("VertSplit2",     "02", "01", "none", "")
-  call <sid>hi("ColorColumn",   "", "02", "none", "")
-  call <sid>hi("CursorColumn",  "", "01", "none", "")
+  call <sid>hi("NonText",       "04", "", "", "")
+  call <sid>hi("LineNr",        "04", "00", "", "")
+  call <sid>hi("SignColumn",    "04", "00", "", "")
+  " call <sid>hi("VertSplit",     "01", "01", "none", "")
+  call <sid>hi("VertSplit",     "01", "00", "none", "")
+  call <sid>hi("VertSplit2",    "02", "01", "none", "")
+  " redline
+  call <sid>hi("ColorColumn",   "", "01", "none", "")
+  call <sid>hi("CursorColumn",  "", "02", "none", "")
   call <sid>hi("CursorLine",    "", "00", "none", "")
-  call <sid>hi("CursorLineNr",  "05", "02", "none", "")
-  call <sid>hi("EndOfBuffer",  "00", "00", "none", "")
+  call <sid>hi("CursorLineNr",  "05", "03", "none", "")
+  call <sid>hi("EndOfBuffer",   "00", "00", "none", "")
   call <sid>hi("QuickFixLine",  "", "02", "none", "")
   call <sid>hi("PMenu",         "05", "01", "none", "")
   call <sid>hi("PMenuSel",      "05", "03", "", "")
   call <sid>hi("PMenuSbar",     "03", "03", "", "")
-  call <sid>hi("PMenuThumb",    "02", "01", "", "")
-  call <sid>hi("TabLine",       "05", "02", "none", "")
+  call <sid>hi("PMenuThumb",    "00", "01", "", "")
+  call <sid>hi("TabLine",       "05", "01", "none", "")
   call <sid>hi("TabLineFill",   "05", "00", "none", "")
   call <sid>hi("TabLineSel",    "05", "03", "none", "")
-  " Status Line
-  call <sid>hi("SuliGitSub",    "0B", "02", "none", "")
-  call <sid>hi("SuliGit",       "0D", "02", "none", "")
-  call <sid>hi("SuliCurDir",    "00", "02", "none", "")
-  call <sid>hi("SuliGitMod",    "08", "01", "none", "")
-  call <sid>hi("SuliFileMod",   "08", "02", "none", "")
-  call <sid>hi("SuliFTSearch",  "00", "0C", "none", "")
-  call <sid>hi("SuliCmd",       "00", "08", "none", "")
-  call <sid>hi("SuliPending",   "00", "0A", "none", "")
-  call <sid>hi("SuliReplace",   "00", "09", "none", "")
-  call <sid>hi("SuliVisual",    "00", "0E", "none", "")
-  " call <sid>hi("SuliVisual",  "00", "08", "none", "")
-  call <sid>hi("SuliInsert",    "00", "0B", "none", "")
-  call <sid>hi("SuliNormal",    "00", "03", "none", "")
-  call <sid>hi("SuliOuter",     "05", "01", "none", "")
-  call <sid>hi("SuliMid",       "05", "02", "none", "")
-  call <sid>hi("SuliSep",       "00", "01", "none", "")
-  call <sid>hi("StatusLineTermNC",    "04", "02", "none", "")
-  call <sid>hi("StatusLineTerm",      "05", "02", "none", "")
-  call <sid>hi("StatuslineNC",        "04", "02", "none", "")
-  call <sid>hi("StatusLine",          "05", "02", "none", "")
-  " call <sid>hi("StatusLine",        "04", "02", "none", "")
 
-  " QuickFix
-  call <sid>hi("qfError",   "09", "00", "", "")
+  " Status Line
+  call <sid>hi("SuliGitSub",       "0C", "01", "none", "")
+  call <sid>hi("SuliGit",          "0A", "01", "none", "")
+  call <sid>hi("SuliGitMod",       "08", "03", "none", "")
+  call <sid>hi("SuliFileMod",      "08", "01", "none", "")
+  call <sid>hi("SuliCurDir",       "0C", "01", "none", "")
+  call <sid>hi("SuliCmd",          "00", "08", "none", "")
+  call <sid>hi("SuliFTSearch",     "00", "0C", "none", "")
+  call <sid>hi("SuliPending",      "00", "0A", "none", "")
+  call <sid>hi("SuliReplace",      "00", "05", "none", "")
+  call <sid>hi("SuliVisual",       "00", "0E", "none", "")
+  call <sid>hi("SuliInsert",       "00", "0B", "none", "")
+  call <sid>hi("SuliNormal",       "00", "04", "none", "")
+  call <sid>hi("SuliOuter",        "05", "03", "none", "")
+  call <sid>hi("SuliMid",          "05", "01", "none", "")
+  call <sid>hi("SuliSep",          "00", "01", "none", "")
+  call <sid>hi("StatusLineTermNC", "04", "01", "none", "")
+  call <sid>hi("StatusLineTerm",   "05", "01", "none", "")
+  call <sid>hi("StatuslineNC",     "04", "01", "none", "")
+  call <sid>hi("StatusLine",       "05", "01", "none", "")
+  call <sid>hi("Ruler",            "0A", "0B", "none", "")
 
   " Standard syntax highlighting
   call <sid>hi("Boolean",      "09", "", "", "")
-  call <sid>hi("Character",    "08", "", "", "")
-  " call <sid>hi("Comment",      "03", "", "italic", "")
-  call <sid>hi("Comment",      "03", "00", "italic", "")
-  " call <sid>hi("Conditional",  "0E", "", "", "")
+  call <sid>hi("Character",    "0B", "", "", "")
   call <sid>hi("Conditional",  "06", "", "", "")
   call <sid>hi("Constant",     "09", "", "", "")
   call <sid>hi("Define",       "0E", "", "none", "")
@@ -227,7 +216,7 @@ function! s:hl()
   call <sid>hi("Number",       "09", "", "", "")
   call <sid>hi("Operator",     "05", "", "none", "")
   call <sid>hi("PreProc",      "0A", "", "", "")
-  call <sid>hi("Repeat",       "0E", "", "", "")
+  call <sid>hi("Repeat",       "06", "", "", "")
   call <sid>hi("Special",      "0C", "", "", "")
   call <sid>hi("SpecialChar",  "0F", "", "", "")
   call <sid>hi("Statement",    "0E", "", "", "")
@@ -236,18 +225,34 @@ function! s:hl()
   call <sid>hi("Structure",    "0E", "", "", "")
   call <sid>hi("Tag",          "0A", "", "", "")
   call <sid>hi("Todo",         "0C", "00", "", "")
+  call <sid>hi("Type",         "0B", "", "none", "")
   call <sid>hi("Type",         "0A", "", "none", "")
   call <sid>hi("Typedef",      "0A", "", "", "")
 
+  " QuickFix
+  call <sid>hi("qfError",   "09", "00", "", "")
+
   " C highlighting
-  call <sid>hi("cOperator",   "0C", "", "", "")
-  call <sid>hi("cPreCondit",  "0E", "", "", "")
+  call <sid>hi("cOperator",         "0C", "", "", "")
+  call <sid>hi("cPreCondit",        "0E", "", "", "")
+  call <sid>hi("cDefine",           "0E", "", "", "")
+  call <sid>hi("cCustomMacro",      "0C", "", "", "")
+  call <sid>hi("cInclude",          "0C", "", "", "")
+  call <sid>hi("cStructureMember",  "08", "", "", "")
+  " call <sid>hi("cStorageClass",     "08", "", "", "")
+  " call <sid>hi("cParen",            "0A", "", "", "")
+  " call <sid>hi("cBlock",            "0A", "", "", "")
+  " cStructureMember cParen cBlock cBlock cBlock
+  " C++
+  call <sid>hi("cppStructure",    "0E", "", "", "")
 
   " C# highlighting
-  call <sid>hi("csClass",                 "0A", "", "", "")
+  call <sid>hi("csClassStorage",          "0E", "", "", "")
+  call <sid>hi("csClass",                 "0E", "", "", "")
+  call <sid>hi("csClassType",             "0A", "", "", "")
   call <sid>hi("csAttribute",             "0A", "", "", "")
   call <sid>hi("csModifier",              "0E", "", "", "")
-  call <sid>hi("csType",                  "08", "", "", "")
+  call <sid>hi("csType",                  "0E", "", "", "")
   call <sid>hi("csUnspecifiedStatement",  "0D", "", "", "")
   call <sid>hi("csContextualStatement",   "0E", "", "", "")
   call <sid>hi("csNewDecleration",        "08", "", "", "")
@@ -258,23 +263,23 @@ function! s:hl()
   call <sid>hi("cssColor",       "0C", "", "", "")
 
   " Diff highlighting
-  call <sid>hi("DiffAdd",      "0B", "01", "", "")
-  call <sid>hi("DiffChange",   "03", "01", "", "")
-  call <sid>hi("DiffDelete",   "08", "01", "", "")
-  call <sid>hi("DiffText",     "0D", "01", "", "")
-  call <sid>hi("DiffAdded",    "0B", "01", "", "")
-  call <sid>hi("DiffFile",     "08", "01", "", "")
-  call <sid>hi("DiffNewFile",  "0B", "01", "", "")
-  call <sid>hi("DiffLine",     "0D", "01", "", "")
-  call <sid>hi("DiffRemoved",  "08", "01", "", "")
+  call <sid>hi("DiffAdd",      "0B", "00", "", "")
+  call <sid>hi("DiffChange",   "04", "00", "", "")
+  call <sid>hi("DiffDelete",   "08", "00", "", "")
+  call <sid>hi("DiffText",     "0D", "00", "", "")
+  call <sid>hi("DiffAdded",    "0B", "00", "", "")
+  call <sid>hi("DiffFile",     "08", "00", "", "")
+  call <sid>hi("DiffNewFile",  "0B", "00", "", "")
+  call <sid>hi("DiffLine",     "0D", "00", "", "")
+  call <sid>hi("DiffRemoved",  "08", "00", "", "")
 
   " Git highlighting
   call <sid>hi("gitcommitOverflow",       "08", "", "", "")
   call <sid>hi("gitcommitSummary",        "0B", "", "", "")
-  call <sid>hi("gitcommitComment",        "03", "", "", "")
-  call <sid>hi("gitcommitUntracked",      "03", "", "", "")
-  call <sid>hi("gitcommitDiscarded",      "03", "", "", "")
-  call <sid>hi("gitcommitSelected",       "03", "", "", "")
+  call <sid>hi("gitcommitComment",        "04", "", "", "")
+  call <sid>hi("gitcommitUntracked",      "04", "", "", "")
+  call <sid>hi("gitcommitDiscarded",      "04", "", "", "")
+  call <sid>hi("gitcommitSelected",       "04", "", "", "")
   call <sid>hi("gitcommitHeader",         "0E", "", "", "")
   call <sid>hi("gitcommitSelectedType",   "0D", "", "", "")
   call <sid>hi("gitcommitUnmergedType",   "0D", "", "", "")
@@ -286,10 +291,10 @@ function! s:hl()
   call <sid>hi("gitcommitSelectedFile",   "0B", "", "bold", "")
 
   " GitGutter highlighting
-  call <sid>hi("GitGutterAdd",     "0B", "00", "", "")
-  call <sid>hi("GitGutterChange",  "0D", "00", "", "")
-  call <sid>hi("GitGutterDelete",  "08", "00", "", "")
-  call <sid>hi("GitGutterChangeDelete",  "0E", "00", "", "")
+  call <sid>hi("GitGutterAdd",           "0B", "00", "bold", "")
+  call <sid>hi("GitGutterChange",        "0C", "00", "bold", "")
+  call <sid>hi("GitGutterDelete",        "08", "00", "bold", "")
+  call <sid>hi("GitGutterChangeDelete",  "0E", "00", "bold", "")
 
   " HTML highlighting
   call <sid>hi("htmlBold",    "0A", "", "", "")
@@ -298,9 +303,9 @@ function! s:hl()
   call <sid>hi("htmlTag",     "05", "", "", "")
 
   " JavaScript highlighting
-  call <sid>hi("javaScript",        "05", "", "", "")
-  call <sid>hi("javaScriptBraces",  "05", "", "", "")
-  call <sid>hi("javaScriptNumber",  "09", "", "", "")
+  call <sid>hi("javaScript",          "05", "", "", "")
+  call <sid>hi("javaScriptBraces",    "05", "", "", "")
+  call <sid>hi("javaScriptNumber",    "09", "", "", "")
   " pangloss/vim-javascript highlighting
   call <sid>hi("jsOperator",          "0D", "", "", "")
   call <sid>hi("jsStatement",         "0E", "", "", "")
@@ -371,25 +376,33 @@ function! s:hl()
   call <sid>hi("SignifySignDelete",  "08", "01", "", "")
 
   " Spelling highlighting
-  call <sid>hi("SpellBad",     "00", "08", "undercurl", "08")
-  call <sid>hi("SpellLocal",   "", "", "undercurl", "0C")
-  call <sid>hi("SpellCap",     "", "", "undercurl", "0D")
-  call <sid>hi("SpellRare",    "", "", "undercurl", "0E")
+  call <sid>hi("SpellBad",   "01", "08", "undercurl", "08")
+  call <sid>hi("SpellLocal", "", "", "undercurl", "0C")
+  call <sid>hi("SpellCap",   "", "", "undercurl", "0D")
+  call <sid>hi("SpellRare",  "", "", "undercurl", "0E")
 
   " Startify highlighting
-  call <sid>hi("StartifyBracket",  "03", "", "", "")
+  call <sid>hi("StartifyBracket",  "04", "", "", "")
   call <sid>hi("StartifyFile",     "07", "", "", "")
-  call <sid>hi("StartifyFooter",   "03", "", "", "")
+  call <sid>hi("StartifyFooter",   "04", "", "", "")
   call <sid>hi("StartifyHeader",   "0B", "", "", "")
   call <sid>hi("StartifyNumber",   "09", "", "", "")
-  call <sid>hi("StartifyPath",     "03", "", "", "")
+  call <sid>hi("StartifyPath",     "04", "", "", "")
   call <sid>hi("StartifySection",  "0E", "", "", "")
   call <sid>hi("StartifySelect",   "0C", "", "", "")
-  call <sid>hi("StartifySlash",    "03", "", "", "")
-  call <sid>hi("StartifySpecial",  "03", "", "", "")
+  call <sid>hi("StartifySlash",    "04", "", "", "")
+  call <sid>hi("StartifySpecial",  "04", "", "", "")
+
+  " Coc highlighting
+  " call <sid>hi("CocHighlightText", "", "01", "", "")
+  call <sid>hi("CocSelectedLine", "0E", "0A", "", "")
+  call <sid>hi("CocSelectedText", "0E", "0A", "", "")
+  call <sid>hi("CocListMode", "0B", "03", "", "")
+  call <sid>hi("CocListPath", "04", "01", "", "")
 
   " Java highlighting
   call <sid>hi("javaOperator",     "0D", "", "", "")
+  call <sid>hi("javaTypedef",     "0B", "", "", "")
 
   " User Groups defaults
   hi link User1 SuliNormal
@@ -404,11 +417,10 @@ function! s:hl()
 endfunction
 call s:hl()
 
-augroup OneLightHL
+augroup OneDarkerHL
   au!
   au ColorScheme <amatch> call s:hl()
 augroup end
-
 
 " Remove functions
 delf <sid>hi

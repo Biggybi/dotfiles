@@ -123,10 +123,6 @@
 	path = vim/pack/bundle/start/FYT.vim
 	url = https://github.com/statox/FYT.vim
 	ignore = dirty
-[submodule "gnome_setup/xcape"]
-	path = gnome_setup/xcape
-	url = https://github.com/alols/xcape
-	ignore = dirty
 [submodule "langserver/efm-langserver"]
 	path = langserver/efm-langserver
 	url = https://github.com/mattn/efm-langserver
@@ -157,19 +153,12 @@
 [submodule "vim/pack/bundle/start/vim-lsp-cxx-highlight"]
 	path = vim/pack/bundle/start/vim-lsp-cxx-highlight
 	url = https://github.com/jackguo380/vim-lsp-cxx-highlight
-[submodule "shells/themes/base16-shell"]
-	path = shells/themes/base16-shell
-	url = https://github.com/chriskempson/base16-shell
-	ignore = dirty
 ; [submodule "42/norminettev1"]
 ; 	path = 42/norminettev1
 ; 	url = git@gitlab.com:42lyon/norminette-client-externe
 [submodule "tmux/plugins/tmux-continuum"]
 	path = tmux/plugins/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
-[submodule "vim/pack/bundle/start/ZoomWin"]
-	path = vim/pack/bundle/start/ZoomWin
-	url = https://github.com/itspriddle/ZoomWin
 [submodule "vim/pack/bundle/start/fugitive-gitlab.vim"]
 	path = vim/pack/bundle/start/fugitive-gitlab.vim
 	url = https://github.com/shumphrey/fugitive-gitlab.vim
@@ -210,3 +199,6 @@
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
+[submodule "/home/tris/dotfiles/vim/pack/bundle/start/vim-lumen"]
+	path = /home/tris/dotfiles/vim/pack/bundle/start/vim-lumen
+	url = https://github.com/vimpostor/vim-lumen

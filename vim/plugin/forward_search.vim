@@ -17,5 +17,7 @@ nnoremap <silent> <expr> N <sid>searchPrev()."<cr>"
 nnoremap <expr> : getcharsearch().forward ? ';' : ','
 nnoremap <expr> , getcharsearch().forward ? ',' : ';'
 
+vnoremap <expr> : getcharsearch().forward ? ';' : ','
+vnoremap <expr> , getcharsearch().forward ? ',' : ';'
 " nnoremap <silent><expr> f <Plug>smart_line_search('f')
 " nnoremap <silent><expr> t <Plug>smart_line_search('t')
