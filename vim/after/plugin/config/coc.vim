@@ -58,18 +58,20 @@ nmap <silent> ]w         <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>cf <Plug>(coc-fix-current)
 
 function! s:show_documentation() abort
-  if &filetype ==# 'vim'
+  if &filetype ==# 'vim' || &filetype ==# 'help'
     try
-      exe "normal \<Plug>ScripteaseHelp"
+      exe 'help '.scriptease#helptopic()
     catch /^Vim\%((\a\+)\)\=:E149:/
       echo "sorry : no help for " . expand("<cword>")
     endtry
-  elseif &filetype ==# 'help'
-    execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
+    try
+      silent! call CocActionAsync('doHover')
+    catch /.*/
+    normal K
+      endtry
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    normal K
   endif
 endfunction
 
