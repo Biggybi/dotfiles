@@ -28,6 +28,7 @@ if [ -n "$TMUX" ] && [ $VISUAL = 'vim' ] ; then
 fi
 export EDITOR=(vi -e)
 export BROWSER=firefox
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 
 ## PATH
 export GOPATH=$HOME/bin/go
@@ -38,6 +39,7 @@ PATH+=:~/.npm-global/bin
 PATH+=:/home/linuxbrew/.linuxbrew/bin
 PATH+=:$GOPATH/bin
 PATH+=:~/bin/norminette
+PATH+=:$JAVA_HOME
 
 ## Paths
 export PROG="$HOME/Work/prog/"
