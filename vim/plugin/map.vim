@@ -640,6 +640,7 @@ nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
 nnoremap <leader>cx :VShell make clean<cr>
 nnoremap <leader>c<c-x> :VShell make fclean<cr>
+nnoremap <leader>mm :make<cr><cr>:botright copen<cr><c-w>p
 
 nmap <silent><leader>ch <Plug>(MoveScratchTermH)
 nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
