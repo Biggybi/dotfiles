@@ -50,6 +50,14 @@ snippet section "lower level comment" b
 ""    ${1}
 endsnippet
 
+snippet catch "catch specific error" b
+catch /^Vim\%((\a\+)\)\=:${1:E123}:/
+endsnippet
+
+snippet catcha "catch any error" b
+catch /.*/
+endsnippet
+
 # todoc
 snippet todoc "todo with line comment" b!
 `!v GetCommentMarker()`TODO: $1
