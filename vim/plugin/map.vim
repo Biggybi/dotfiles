@@ -653,17 +653,17 @@ nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
 " Make in split
 function! LocListPanel(pfx, side) abort
-  try
-    let winnr = winnr()
-    exe a:pfx . 'open'
-    if &filetype == 'qf'
-      exe "wincmd" a:side
-    endif
-  finally
-    if winnr() != winnr
-      wincmd p
-    endif
-  endtry
+try
+  let winnr = winnr()
+  exe a:pfx . 'open'
+  if &filetype == 'qf'
+    exe "wincmd" a:side
+  endif
+finally
+  if winnr() != winnr
+    wincmd p
+  endif
+endtry
 endfunction
 
 nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l', 'J')<cr>
