@@ -516,8 +516,6 @@ nnoremap <c-w>: :argdo<space>
 
 " show matching tags
 nnoremap g<c-]> g]
-command! Ctags exe ":!.git/hooks/ctags >/dev/null 2>&1 &" | call feedkeys("\<c-m>", t)
-" command! CTags call DeleteHiddenBuffers()
 
 " jump if only one match
 nnoremap g] g<c-]>
