@@ -33,7 +33,7 @@ SSUBDIR = $(shell find $(SDIR) -type d -not -empty)
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
-RUNCMD = bash -c ./
+EXCMD = bash -c ./
 
 # LIB = -L.$(SEP)libft$(SEP) -lft
 # LIBINC = -I libft$(SEP)includes$(SEP)
@@ -93,8 +93,8 @@ test: teststart $(TESTDIR)$(TESTBIN)
 build: clean
 	$(HIDE)$(BUILD) --output $(BUILDFILE) 2> /dev/null -- make
 
-run:
-	$(HIDE)$(RUNCMD)$(NAME)
+ex:
+	$(HIDE)$(EXCMD)$(NAME)
 
 valgrind: re $(NAME)
 	$(HIDE)echo
