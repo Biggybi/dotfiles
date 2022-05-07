@@ -70,16 +70,16 @@ nnoremap <buffer> <silent> <leader>gm ][[[h^t(b
 nnoremap <buffer> <leader>vf j[[V%o
 
 " make
-nnoremap <leader>ce :VShell make ex<cr><cr>
-nnoremap <leader>ct :VShell make test TESTFF=test/test*<cr>
-nnoremap <leader>cT :VShell make test TESTFF=
-nnoremap <leader>cb :VShell make build<cr>
-nnoremap <leader>cn :exe 'Shell norminette.rb' expand('%:p')<cr>
-nnoremap <leader>cN :exe 'Shell norminette.rb' expand('.')<cr>
+nnoremap <buffer> <leader>ce :VShell make ex<cr><cr>
+nnoremap <buffer> <leader>ct :VShell make test TESTFF=test/test*<cr>
+nnoremap <buffer> <leader>cT :VShell make test TESTFF=
+nnoremap <buffer> <leader>cb :VShell make build<cr>
+nnoremap <buffer> <leader>cn :exe 'Shell norminette.rb' expand('%:p')<cr>
+nnoremap <buffer> <leader>cN :exe 'Shell norminette.rb' expand('.')<cr>
 
 " debug
-nnoremap <leader>cv :VShell make valgrind<cr>
-nnoremap <leader>cg :tabnew<bar>Termdebug<cr>
+nnoremap <buffer> <leader>cv :VShell make valgrind<cr>
+nnoremap <buffer> <leader>cg :tabnew<bar>Termdebug<cr>
 
 " lsp
 " switch to header file
@@ -87,8 +87,8 @@ if exists(":CocCommand")
   nnoremap <leader>hh :CocCommand clangd.switchSourceHeader<cr>
 endif
 
-nmap <leader>cn <plug>(NorminetteFile)
-nmap <leader>cN <plug>(NorminetteFolder)
+nmap <buffer> <leader>cn <plug>(NorminetteFile)
+nmap <buffer> <leader>cN <plug>(NorminetteFolder)
 
 let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
 if ! empty('b:undo_ftplugin')

@@ -4,6 +4,7 @@ setlocal suffixesadd=.bash,.sh
 " easy shebang
 inoremap <buffer> <expr> ! col('.') == 2 && getline('.') =~ "^#" ? "!/bin/bash" : "!"
 inoremap <buffer> ,#! #!/bin/bash
+imap foufou
 
 " alias to function
 nnoremap <buffer> <leader>xf ^dWf=2s() {<cr><esc>$x==o}<esc>

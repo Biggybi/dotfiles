@@ -5,7 +5,7 @@ setlocal path+=inc,incs,includes,include,src,sources,source
 setlocal makeprg=java\ \%
 setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 
-nnoremap <leader>ct :VShell make test<cr>
+nnoremap <buffer> <leader>ct :VShell make test<cr>
 
 nnoremap <buffer> <leader>ca :CocAction<cr>
 nnoremap <buffer> <leader>cg :Shell gradle run<cr>
