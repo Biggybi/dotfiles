@@ -70,7 +70,7 @@ nnoremap <buffer> <silent> <leader>gm ][[[h^t(b
 nnoremap <buffer> <leader>vf j[[V%o
 
 " make
-nnoremap <leader>ce :VShell make test<cr>
+nnoremap <leader>ce :VShell make ex<cr><cr>
 nnoremap <leader>ct :VShell make test TESTFF=test/test*<cr>
 nnoremap <leader>cT :VShell make test TESTFF=
 nnoremap <leader>cb :VShell make build<cr>
