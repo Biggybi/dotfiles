@@ -296,6 +296,11 @@ tnoremap <c-@> <c-w>:
 
 nmap <leader>h1 <Plug>(Header42)
 
+"""        Imap <c-r><c-X>
+
+" current file name without path
+inoremap <c-r><c-f> <c-r>=expand('%:p:t')<cr>
+
 ""    Move Mappings
 """        Movement
 
