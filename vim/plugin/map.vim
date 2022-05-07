@@ -190,13 +190,19 @@ nnoremap C <nop>
 nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
 
 " show file name
-nnoremap <leader>fp :echo expand('%')<cr>
+nnoremap <silent> <leader>fp :echo expand('%')<cr>
 
 " show file path/name and copy it to unnamed register
-nnoremap <leader>fP :let @"=expand('%:p')<cr>:echo expand('%:p')<cr>
+nnoremap <silent> <leader>fP :let @"=expand('%:p')<cr>:echo expand('%:p')<cr>
 
 " show file name and copy it to unnamed register
-nnoremap <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
+nnoremap <silent> <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
+
+" show file name and copy it to unnamed register
+nnoremap <silent> <leader>f<c-f> :let @"=expand('%:t')<cr>:echo expand('%:t')<cr>
+
+" dump current file name without path
+inoremap <c-r><c-f> <c-r>=expand('%:p:t')<cr>
 
 """        New Files / Windows
 " new file here
@@ -305,11 +311,6 @@ tnoremap <c-@> <c-w>:
 """        Headers
 
 nmap <leader>h1 <Plug>(Header42)
-
-"""        Imap <c-r><c-X>
-
-" current file name without path
-inoremap <c-r><c-f> <c-r>=expand('%:p:t')<cr>
 
 ""    Move Mappings
 """        Movement
