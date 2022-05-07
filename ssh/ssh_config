@@ -33,3 +33,10 @@ Host gitlab.com
 #   Port 42
 #   PreferredAuthentications publickey
 #   IdentityFile ~/.ssh/gitlab
+
+Host devopslab
+  Hostname 192.168.0.221
+  User tris
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/tris_sistema
+
