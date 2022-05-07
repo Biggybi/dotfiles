@@ -20,7 +20,7 @@ let s:dls_theme_list = get(g:, 'dls_theme_list', [
       \])
 
 let g:dls_night = get(g:, 'dls_night', s:dls_theme_list[0])
-let g:dls_day   = get(g:, 'dls_day', s:dls_theme_list['$'])
+let g:dls_day   = get(g:, 'dls_day', s:dls_theme_list[-1])
 
 function! s:buildThemeList() abort
   let theme_number = len(s:dls_theme_list) - 1
