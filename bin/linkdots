@@ -36,7 +36,8 @@ DOTS=(vim
 	git/config
 	git/git_template
 	fonts
-	ssh/ssh_config)
+	ssh/ssh_config
+	config/autostart)
 
 # links to create localy for Linux
 LINK=(.vim
@@ -52,7 +53,8 @@ LINK=(.vim
 	.config/git/config
 	.git_template
 	.fonts
-	.ssh/config)
+	.ssh/config
+	.config/autostart)
 
 # # links to create localy for Mac
 # if [[ "$OSTYPE" == "darwin"* ]]
