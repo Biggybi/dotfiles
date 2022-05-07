@@ -41,6 +41,8 @@ PATH+=:/home/linuxbrew/.linuxbrew/bin
 PATH+=:$GOPATH/bin
 PATH+=:~/bin/norminette
 PATH+=:$JAVA_HOME
+PATH+=:/home/tris/.cargo/bin
+PATH+=:/var/lib/snapd/snap/bin
 
 ## Paths
 export PROG="$HOME/Work/prog/"
@@ -52,7 +54,7 @@ export HOME_GAM="$HOME/Games"
 export HOME_DOC="$HOME/Documents"
 export HOME_MUS="$HOME/Music"
 export HOME_42="$HOME/Work"
-export DATAPATH="/media/data/"
+export DATAPATH="/data/"
 
 # disable shell scroll interrupt
 stty -ixon
