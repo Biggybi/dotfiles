@@ -356,14 +356,14 @@ nnoremap <leader>] :bn<cr>
 nnoremap <leader>[ :bp<cr>
 
 " switch last 2 buffers
-nnoremap <leader><space> <c-^>
-" onoremap <leader><space> <c-^>
-vnoremap <leader><space> <c-^>
+nnoremap <leader><space> :b#<cr>
+vnoremap <leader><space> :b#<cr>
 
 " last buffer in vertical split
-nnoremap <c-w><space><space> :vertical split #<cr>
-" onoremap <c-w><space><space> :vertical split #<cr>
-vnoremap <c-w><space><space> :<c-u>vertical split #<cr>
+nnoremap <c-w>#              :vs#<cr>
+nnoremap <c-w><space><space> :vs#<cr>
+vnoremap <c-w>#              :<c-u>vs#<cr>
+vnoremap <c-w><space><space> :<c-u>vs#<cr>
 
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
