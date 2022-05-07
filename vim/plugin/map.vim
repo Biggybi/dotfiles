@@ -315,12 +315,10 @@ nmap <leader>h1 <Plug>(Header42)
 ""    Move Mappings
 """        Movement
 
-" insert mode delete
-inoremap <c-l> <del>
-
-" insert mode start / end of line
-inoremap <c-a> <c-o>^
-inoremap <c-e> <c-o>$
+" insert mode delete / end of line / start of line
+inoremap <c-l> <C-R>=pumvisible() ? "\<lt>C-l>" : "\<lt>del>"<CR>
+inoremap <c-e> <C-R>=pumvisible() ? "\<lt>C-e>" : "\<lt>c-o>$"<CR>
+inoremap <c-a> <C-R>=pumvisible() ? "\<lt>C-a>" : "\<lt>c-o>^"<CR>
 
 " up down on visual lines
 nnoremap <silent> <expr> j v:count? 'j' : '<cmd>normal gj<cr>'
