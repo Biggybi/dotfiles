@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# courtesy of Jorengarenar
+# https://github.com/Jorengarenar/dotfiles/blob/master/bin/vim-anywhere
+
+repertory="/tmp/vim_scratch_copy/"
+
+mkdir -p repertory
+
+file="$(mktemp -p repertory)"
+
+vim -X $file -c 'set laststatus=0 showtabline=0 noruler' \
+	-c '%d' -c 'silent normal "+PGdd$' -c 'au bufwritepost <buffer> %y+'
