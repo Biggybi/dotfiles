@@ -6,6 +6,7 @@
 if exists('g:plugin_smart_line_search')
   finish
 endif
+finish
 let g:plugin_smart_line_search = 1
 
 if !hasmapto('Plug<SlsF>') || maparg('f','n') ==# ''
