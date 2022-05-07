@@ -92,14 +92,6 @@ function! s:applyScheme(scheme)
   exe "colorscheme" a:scheme
 endfunction
 
-function! s:darkLightNight()
-  call s:applyScheme(get(s:dls_theme_list, '0'))
-endfunction
-
-function! s:darkLightDay()
-  call s:applyScheme(get(s:dls_theme_list, '-3'))
-endfunction
-
 command! DarkLightSwitch :call s:darkLightSwitch()
 command! -nargs=? -complete=color DarkLightNight
       \ | if expand('<args>') !=# ''
