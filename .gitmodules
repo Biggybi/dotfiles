@@ -199,6 +199,6 @@
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
-[submodule "/home/tris/dotfiles/vim/pack/bundle/start/vim-lumen"]
-	path = /home/tris/dotfiles/vim/pack/bundle/start/vim-lumen
+[submodule "vim/pack/bundle/start/vim-lumen"]
+	path = vim/pack/bundle/start/vim-lumen
 	url = https://github.com/vimpostor/vim-lumen
