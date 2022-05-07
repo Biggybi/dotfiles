@@ -101,12 +101,20 @@ function! s:darkLightDay()
 endfunction
 
 command! DarkLightSwitch :call s:darkLightSwitch()
-command! DarkLightNight  :call s:darkLightNight()
-command! DarkLightDay    :call s:darkLightDay()
+command! -nargs=? -complete=color DarkLightNight
+      \ | if expand('<args>') !=# ''
+        \ | let g:dls_night = expand('<args>')
+        \ | endif
+      \ | call s:applyScheme(g:dls_night)
+command! -nargs=? -complete=color DarkLightDay
+      \ | if expand('<args>') !=# ''
+        \ | let g:dls_day = expand('<args>')
+        \ | endif
+      \ | call s:applyScheme(g:dls_day)
 
 nnoremap <expr> <plug>DarkLightSwitch <sid>darkLightSwitch()
-nnoremap <expr> <plug>DarkLightNight  <sid>darkLightNight()
-nnoremap <expr> <plug>DarkLightDay    <sid>darkLightDay()
+nnoremap <expr> <plug>DarkLightNight  <sid>applyScheme(g:dls_night)
+nnoremap <expr> <plug>DarkLightDay    <sid>applyScheme(g:dls_day)
 
 if !hasmapto('<plug>DarkLightSwitch') && maparg('yob', 'n') ==# ''
   nmap yob <plug>DarkLightSwitch
