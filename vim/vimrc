@@ -18,6 +18,11 @@ if ! has('nvim')
   packadd! termdebug
 endif
 
+" allow clipboard when starting with '-X'
+if has('X11') && has('clientserver')
+  call serverlist()
+endif
+
 filetype on                     " use filetype detection
 filetype plugin on              " use filetype plugin
 filetype indent on              " use indent plugin
