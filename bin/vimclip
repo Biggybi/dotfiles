@@ -3,7 +3,7 @@
 # courtesy of Jorengarenar
 # https://github.com/Jorengarenar/dotfiles/blob/master/bin/vim-anywhere
 
-repertory="/tmp/vim_scratch_copy/"
+repertory="/tmp/vimclip/"
 
 mkdir -p repertory
 
