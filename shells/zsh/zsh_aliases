@@ -76,6 +76,10 @@ alias gbr='git branch -r'
 alias gitls='git ls-tree --full-tree -r --name-only HEAD'
 alias gown='sudo chown -R "${USER:-$(id -un)}" .'
 
+## docker
+alias dk='docker'
+alias dkps='docker container ls --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}"'
+alias dkcls='docker container ls -a --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}"'
 ## grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
