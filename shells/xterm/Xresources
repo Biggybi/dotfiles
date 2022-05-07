@@ -13,13 +13,16 @@ XTerm.Bell: false
 /* font */
 XTerm.vt100.renderFont: true
 XTerm*faceName:  JetBrains Mono NL
-XTerm*faceSize:  12
-XTerm*faceSize1: 10
-XTerm*faceSize2: 11
-XTerm*faceSize3: 12
+XTerm*faceSize:  13
+XTerm*faceSize1: 11
+XTerm*faceSize2: 12
+XTerm*faceSize3: 13
 XTerm*faceSize4: 14
 XTerm*faceSize5: 16
 XTerm*faceSize6: 20
+
+/* ling height */
+XTerm*vt100.scaleHeight: 1.15
 
 /* cursor */
 XTerm*cursorColor: grey
