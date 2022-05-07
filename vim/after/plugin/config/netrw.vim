@@ -12,7 +12,8 @@ function! s:NetrwStartup() abort
         \&& expand('%') == ''
     Ex
   elseif g:netrw_startup == 1
-    Lexplore | wincmd w | endif
+    Lexplore
+    wincmd w
   endif
 endfunction
 
