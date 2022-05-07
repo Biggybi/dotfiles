@@ -15,19 +15,14 @@ else
 endif
 
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ?
-        \ "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ?
-        \ coc#float#scroll(1) : "\<C-f><cmd>call NoScrollAtEOF()\<cr>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ?
-        \ coc#float#scroll(1) : "\<C-f>"
-
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ?
-        \ coc#float#scroll(0) : "\<C-b>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ?
-        \ coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ?
-        \ "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ?
+        \ "\<c-r>=coc#float#scroll(1)\<cr>" : "\<C-d>"
+  inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ?
+        \ "\<c-r>=coc#float#scroll(0)\<cr>" : "\<C-u>"
+  vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ?
+        \ coc#float#scroll(1) : "\<C-d>"
+  vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ?
+        \ coc#float#scroll(0) : "\<C-u>"
 
   nnoremap <silent><nowait><expr> <C-]> coc#float#has_scroll() ?
         \ coc#float#close('.') : "\<C-]>"
@@ -83,18 +78,20 @@ nnoremap <leader>fo :CocFzfList outline<cr>
 ""    show doc
 
 function! s:show_documentation() abort
-  if &filetype ==# 'vim'
+  if &filetype ==# 'vim' || &filetype ==# 'help'
     try
-      exe "normal \<Plug>ScripteaseHelp"
+      exe 'help '.scriptease#helptopic()
     catch /^Vim\%((\a\+)\)\=:E149:/
       echo "sorry : no help for " . expand("<cword>")
     endtry
-  elseif &filetype ==# 'help'
-    execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
+    try
+      silent! call CocActionAsync('doHover')
+    catch /.*/
+      normal K
+    endtry
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    normal K
   endif
 endfunction
 

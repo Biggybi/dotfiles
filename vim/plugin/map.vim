@@ -103,9 +103,19 @@ nnoremap yo<c-u> :UndotreeFocus<cr>
 " Obsession
 nnoremap yoo :call ToggleObsession()<cr>
 
-" Move visual selection (=unimpaired + gv)
-vnoremap ]e :'<,'>move '>+1 \| normal! gv<CR>
-vnoremap [e :'<,'>move '<-2 \| normal! gv<CR>
+" Netrw toggle - left
+let s:netrw_winsize = get(g:, 'netrw_winsize', '-80')
+function! NetrwToggle() abort
+  Lexplore
+  if &ft==#"netrw"
+    exe s:netrw_winsize . "wincmd|"
+  endif
+endfunction
+nnoremap <silent> yoe :call NetrwToggle()<cr>
+
+" " Move visual selection (=unimpaired + gv)
+xmap [e <Plug>(unimpaired-move-selection-up)\|gv
+xmap ]e <Plug>(unimpaired-move-selection-down)\|gv
 
 " Toggle hlsearch + Anzu
 nnoremap <silent> yoh :ToggleHL<cr>
@@ -397,6 +407,15 @@ nnoremap <silent> <leader>< :exe "vertical resize " . (winwidth(0)  * 3/4)<CR>
 " inoremap <expr> <c-f> getcurpos()[2] == 1 && getline('.') != '' ? "<esc>a" : "<esc>a<right>"
 " inoremap <expr> <c-b> getcurpos()[2] == 1 ? "<esc>i<left>" : '<esc>i'
 
+if $WSL_DISTRO_NAME != ''
+  for i in range(char2nr('a'), char2nr('z'))
+    let char = nr2char(i)
+    execute "set <M-".char.">=\e".char
+    let char = nr2char(i - 32)
+    execute "set <M-".char.">=\e".char
+  endfor
+endif
+
 if ! has("nvim")
   inoremap <a-h> <left>
   inoremap <a-j> <down>
@@ -648,6 +667,7 @@ nnoremap <leader>cr :VShell make re<cr>
 nnoremap <leader>c<c-r> :Shell make re<cr>
 nnoremap <leader>cx :VShell make clean<cr>
 nnoremap <leader>c<c-x> :VShell make fclean<cr>
+nnoremap <leader>mm :make<cr><cr>:botright copen<cr><c-w>p
 
 nmap <silent><leader>ch <Plug>(MoveScratchTermH)
 nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
@@ -660,17 +680,17 @@ nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
 " Make in split
 function! LocListPanel(pfx, side) abort
-  try
-    let winnr = winnr()
-    exe a:pfx . 'open'
-    if &filetype == 'qf'
-      exe "wincmd" a:side
-    endif
-  finally
-    if winnr() != winnr
-      wincmd p
-    endif
-  endtry
+try
+  let winnr = winnr()
+  exe a:pfx . 'open'
+  if &filetype == 'qf'
+    exe "wincmd" a:side
+  endif
+finally
+  if winnr() != winnr
+    wincmd p
+  endif
+endtry
 endfunction
 
 nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l', 'J')<cr>
