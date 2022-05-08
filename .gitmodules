@@ -202,3 +202,6 @@
 [submodule "vim/pack/bundle/start/vim-lumen"]
 	path = vim/pack/bundle/start/vim-lumen
 	url = https://github.com/vimpostor/vim-lumen
+[submodule "vim/pack/bundle/start/vim-autoread.git"]
+	path = vim/pack/bundle/start/vim-autoread.git
+	url = https://github.com/chrisbra/vim-autoread/
