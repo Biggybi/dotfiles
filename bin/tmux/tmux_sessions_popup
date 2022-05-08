@@ -2,13 +2,13 @@
 
 current_session=$(tmux display-message -p '#S')
 
-session=$(tmux list-sessions -F "#{session_last_attached}--XXXX--#{?session_attached,+,-} #S #{session_path}" \
+session=$(tmux list-sessions -F "#{session_last_attached}--XXXX--#S #{session_path}" \
 	| sort -rn \
 	| sed 's/.*--XXXX--//'\
 	| column -t\
 	| fzf  --header-lines=1 --prompt='session > ' --reverse --no-info --margin=1,4\
 	| column -t\
-	| cut -d ' ' -f 3)
+	| sed 's/ .*$//')
 
 if [ "$session" == '' ] ; then
 	exit 0
