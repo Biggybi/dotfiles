@@ -520,7 +520,9 @@ cmap <c-o> <s-tab>
 cnoremap <c-x> <c-\>estrpart(getcmdline(), 0, getcmdpos() - 1)<cr>
 
 " skyrim quit
-cnoreabbrev <expr> qqq getcmdtype() == ':' && getcmdline() =~ "^qqq$" ? "qall!" : "qqq"
+cnoreabbrev <silent> <expr> qqq (getcmdtype() ==# ':' && getcmdline() ==# "qqq")
+      \? "echo 'FUS RO DAH!' \| qall!"
+      \: "qqq"
 
 " put current working directory
 cnoremap <c-r>. <c-r>=fnameescape(expand('%:h')).'/'<cr>
