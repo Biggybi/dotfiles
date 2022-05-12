@@ -206,7 +206,7 @@ function! s:get_dirbox() abort
   if dirbox_len == 2 * g:tl_rhs_margin
     let dirbox_len += strchars(dirbox_label) + g:tl_section_sep
   endif
-  let padd = min([(dirbox_len - strchars(dirbox_label)) / 2, g:tl_rhs_margin])
+  let padd = max([(dirbox_len - strchars(dirbox_label)) / 2, g:tl_rhs_margin])
   let dirbox_str ..= g:tl_section_sep .. dirbox_color .. repeat(' ', padd)
   let dirbox_str ..= dirbox_label
   let dirbox_str ..= repeat(' ', dirbox_len - strchars(dirbox_label) - padd)
