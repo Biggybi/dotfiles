@@ -205,3 +205,6 @@
 [submodule "vim/pack/bundle/start/vim-autoread.git"]
 	path = vim/pack/bundle/start/vim-autoread.git
 	url = https://github.com/chrisbra/vim-autoread/
+[submodule "shells/zsh/plugins/fzf-tab"]
+	path = shells/zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git
