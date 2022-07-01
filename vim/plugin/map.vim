@@ -205,14 +205,6 @@ nnoremap <silent> <leader>f<c-f> :let @"=expand('%:t')<cr>:echo expand('%:t')<cr
 inoremap <c-r><c-f> <c-r>=expand('%:p:t')<cr>
 
 """        New Files / Windows
-" new file here
-nnoremap <leader>nn      :e <c-r>=expand('%:p:h').'/'<cr>
-nnoremap <leader>nv     :vs <c-r>=expand('%:p:h').'/'<cr>
-nnoremap <leader>ns     :sp <c-r>=expand('%:p:h').'/'<cr>
-nnoremap <leader>nt :tabnew <c-r>=expand('%:p:h').'/'<cr>
-nnoremap <leader><c-n>  :vs <c-r>=expand('%:p:h').'/'<cr>
-nnoremap <leader>N      :sp <c-r>=expand('%:p:h').'/'<cr>
-
 
 " new file in vertical split instead of horizontal
 nnoremap <silent> <c-w><c-n> :vertical new<cr>
