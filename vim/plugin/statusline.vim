@@ -96,7 +96,9 @@ function! s:statusLineInactive() abort
   elseif &previewwindow==1                                 " preview window
     setlocal statusline +=\ %w\ %t                         "  [Preview] filename
   endif
-  setlocal statusline +=\ %(%{%FilePath()%}%)              " file path
+  if &buftype != 'help'                                    " help
+    setlocal statusline +=\ %(%{%FilePath()%}%)              " file path
+  endif
   setlocal statusline +=%5*\ %{&buftype!='terminal'?
         \&modified?'+\ ':'':''}%*                          " file modified
   setlocal statusline +=%=%(\ %{&filetype!=''?
