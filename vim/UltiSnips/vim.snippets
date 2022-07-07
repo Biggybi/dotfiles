@@ -16,7 +16,7 @@ endsnippet
 
 # Create plugin <plug> mappings and commands
 snippet plug_map "Create plugin <plug> mappings and commands" b!
-command! ${1:Name} :call s:${1/\w+\s*/\l$0/}  ()
+command! ${1:Name} :call s:${1/\w+\s*/\l$0/}()
 nnoremap <expr> <plug>`!p snip.rv = t[1]` <sid>${1/\w+\s*/\l$0/}()
 if !hasmapto('<plug>`!p snip.rv = t[1]`') && maparg('`!p snip.rv = t[3]`', '${2:mode}') ==# ''
   `!p snip.rv = t[2]`map ${3:mapping} <plug>`!p snip.rv = t[1]`
