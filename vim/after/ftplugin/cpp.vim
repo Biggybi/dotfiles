@@ -31,10 +31,6 @@ nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 "  name of current c,cpp function (needs '()')
 nnoremap <buffer> <silent> g<c-d> ][[[h^t(b
 
-" semicolon/coma EOL toggle
-nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
-nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"
-
 " select all text in function
 nnoremap <buffer> <leader>vf j[[V%o
 

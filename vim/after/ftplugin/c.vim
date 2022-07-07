@@ -59,10 +59,6 @@ inoremap <buffer> ` ``<c-g>U<left>
 nnoremap <buffer> <leader>{} mz{S{<esc>}S}<esc>=%`z=iB
 nnoremap <buffer> <leader>{{ o}<esc>kO{<esc>3==j
 
-" semicolon/coma EOL toggle
-nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? 'mz$x`z' : "mzA;\<esc>`z"
-nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? 'mz$x`z' : "mzA,\<esc>`z"
-
 " declaration of current function (needs '()')
 nnoremap <buffer> <silent> <leader>gm ][[[h^t(b
 

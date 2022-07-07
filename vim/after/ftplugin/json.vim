@@ -16,10 +16,6 @@ inoremap <buffer> ,cl console.log();<esc>F)i
 nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
 vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
 
-" semicolon/coma EOL toggle
-nnoremap <buffer> <expr> <leader>; getline('.')[col('$') - 2] == ';' ? "mz$x`z" : "mzA;\<esc>`z"
-nnoremap <buffer> <expr> <leader>, getline('.')[col('$') - 2] == ',' ? "mz$x`z" : "mzA,\<esc>`z"
-
 let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
 if ! empty('b:undo_ftplugin')
   let b:undo_ftplugin .= ' | '
