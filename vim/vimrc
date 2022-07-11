@@ -175,7 +175,7 @@ endif
 if has('wildmenu')
   set wildmenu                  " show matches to commands
 endif
-if has("patch4417")
+if has("patch4417") || v:version >= 900
   " NOTE: has('wildoptions') -> never true?
   set wildoptions=pum           " vertical command-mode completion list
 endif
