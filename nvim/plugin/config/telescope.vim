@@ -11,7 +11,7 @@ nnoremap <silent> <leader>fc     :Telescope git_commits<cr>
 nnoremap <silent> <leader>f<c-c> :Telescope git_bcommits<cr>
 nnoremap <silent> <leader>fg     :Telescope git_files<cr>
 nnoremap <silent> <leader>fl     :Telescope current_buffer_fuzzy_find<cr>
-nnoremap <silent> <leader>f      :Telescope command_history<cr>
+nnoremap <silent> <leader>f:     :Telescope command_history<cr>
 nnoremap <silent> <leader>f;     :Telescope commands<cr>
 nnoremap <silent> <leader>f/     :Telescope command_history<cr>
 nnoremap <silent> <leader>fh     :Telescope oldfiles<cr>

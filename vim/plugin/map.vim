@@ -464,6 +464,9 @@ nnoremap <silent> <leader>o  :tabnext<cr>
 nnoremap <silent> <leader>i  :tabprevious<cr>
 nnoremap <silent> <c-w><c-o> :tabnext<cr>
 nnoremap <silent> <c-w><c-i> :tabprevious<cr>
+if has ("nvim")
+  nnoremap <silent> <c-w><tab> :tabprevious<cr>
+endif
 nnoremap <silent> <c-w><c-u> :only<cr>
 nnoremap <silent> <c-w>u     :only<cr>
 nnoremap <silent> <c-w><c-p> :normal g<tab><cr>
