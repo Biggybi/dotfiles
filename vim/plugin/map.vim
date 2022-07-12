@@ -460,8 +460,8 @@ else
   nnoremap <silent> <m-p> :normal g<tab><cr>
 endif
 
-nnoremap <silent> <leader>o  :tabnext<cr>
-nnoremap <silent> <leader>i  :tabprevious<cr>
+nnoremap <silent> <leader>o  zt
+nnoremap <silent> <leader>i  zb
 nnoremap <silent> <c-w><c-o> :tabnext<cr>
 nnoremap <silent> <c-w><c-i> :tabprevious<cr>
 if has ("nvim")
