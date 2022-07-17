@@ -4,3 +4,8 @@ endif
 
 let g:anzu_status_format = "[%i/%l]"
 nnoremap <silent> yoh :call anzu#clear_search_status()<cr>:ToggleHL<cr>
+
+augroup AnzuClear
+  au!
+  au BufLeave * call anzu#clear_search_status()
+augroup END
