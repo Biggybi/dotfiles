@@ -16,9 +16,9 @@ command! TermToggleV :call <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)
 command! TermToggle  :call <sid>TermToggle(g:TermToggleBottom, g:TermToggleHeight)
 command! TermPop     :call <sid>PopupTerminal()
 
-nnoremap yot :TermToggle<cr>
-nnoremap yo<c-t> :TermToggleV<cr>
-nnoremap yoT :TermPop<cr>
+nnoremap yot     <cmd>TermToggle<cr>
+nnoremap yo<c-t> <cmd>TermToggleV<cr>
+nnoremap yoT     <cmd>TermPop<cr>
 
 " " Note: does not work but whyyyyyyyyyyyyyyy?
 " nnoremap <expr> <Plug>TermToggleV <sid>TermToggle(g:TermToggleRight, g:TermToggleWidth)
@@ -41,30 +41,34 @@ function! ShowTerm() abort
 endfunction
 nnoremap [= :call ShowTerm()<cr>
 
-function! s:putTermPanel(buf, side, size) abort
+function! s:putTermPanel(buf) abort
+  " echom "put term"
   " new term if no buffer
   if a:buf == 0
+    if has('nvim')
+      sp | term
     " clear screen (workaround for bashrc base16 trash output)
-    if exists("$TMUX")
+    elseif exists("$TMUX")
+      term
       call feedkeys("clear\<cr>")
     else
+      term
       call feedkeys("\<esc>cc")
     endif
-    term
   else
-    execute "sp" bufname(a:buf)
+    execute "sbuffer" bufname(a:buf)
   endif
   " horizontal split resize
-  if stridx("jkJK", a:side) >= 0
-    execute "wincmd" a:side
-    execute "resize" a:size
+  if "jkJK" =~# s:side
+    execute "wincmd" s:side
+    execute "resize" s:size
     setlocal winfixheight
     setlocal nowinfixwidth
-    " vertical split resize
   endif
-  if stridx("hlHL", a:side) >= 0
-    execute "wincmd" a:side
-    execute "vertical resize" a:size
+  " vertical split resize
+  if "hlHL" =~# s:side
+    execute "wincmd" s:side
+    execute "vertical resize" s:size
     setlocal winfixwidth
     setlocal nowinfixheight
   endif
@@ -76,9 +80,9 @@ function! s:PopupTerminal() abort
   return
 endfunction
 
-function! s:HideVisibleTerm(tpbl) abort
+function! s:HideVisibleTerm() abort
   let closed = 0
-  for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(a:tpbl, v:val)>=0')
+  for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(s:tpbl, v:val)>=0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
       silent execute bufwinnr(buf) . "hide"
       let closed += 1
@@ -87,20 +91,22 @@ function! s:HideVisibleTerm(tpbl) abort
   return closed
 endfunction
 
-function! s:OpenFirstTerm(tpbl, side, size) abort
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(a:tpbl, v:val)<0')
+function! s:OpenFirstTerm() abort
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(s:tpbl, v:val)<0')
     if getbufvar(buf, '&buftype') ==? 'terminal'
-      call s:putTermPanel(buf, a:side, a:size)
+      call s:putTermPanel(buf)
       return
     endif
   endfor
+  call s:putTermPanel(0)
 endfunction
 
-function! s:TermToggle(side, size) abort
-  let tpbl = tabpagebuflist()
-  if s:HideVisibleTerm(tpbl) > 0
+function! s:TermToggle(...) abort
+  let s:tpbl = tabpagebuflist()
+  let s:side = a:0 > 0 ? a:1 : g:TermToggleBottom
+  let s:size = a:0 > 1 ? a:2 : g:TermToggleHeight
+  if s:HideVisibleTerm() > 0
     return
   endif
-  call s:OpenFirstTerm(tpbl, a:side, a:size)
-  call s:putTermPanel(0, a:side, a:size)
+  call s:OpenFirstTerm()
 endfunction
