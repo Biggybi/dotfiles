@@ -24,13 +24,7 @@ cd $VIMSOURCE/src
 make distclean
 cd $VIMSOURCE
 
-PYTHONCONFIG="/usr/lib/python3.9/config-3.9-x86_64-linux-gnu"
-if [ ! -d "$PYTHONCONFIG" ]; then
-	for i in {9..0} ; do
-		path="/usr/lib/python3.$i/config-3.$i-x86_64-linux-gnu"
-		[ -d "$path" ] && PYTHONCONFIG="$path" && break
-	done
-fi
+PYTHONCONFIG=$(find /usr/lib/python* -name "config-[0-9].*-linux-gnu" | sort -r | sed -n 1p)
 
 ./configure \
 	--enable-multibyte \
