@@ -38,55 +38,75 @@ let s:special_char = [
       \ '&',
       \ ]
 
-function! s:create_special_i_map(char) abort
-  if ! hasmapto(printf('i%s', a:char), 'vo')
-    execute printf('xnoremap i%s :<C-u>normal! T%svt%s<CR>',
-          \ a:char, a:char, a:char)
-    execute printf('onoremap i%s :<C-u>normal vi%s<CR>',
-          \ a:char, a:char)
+function TextObject(rhs, bang) abort
+  let o = ''
+  " echo getpos('v')[2] getpos('.')[2]
+  if getpos('v')[2] < getpos('.')[2] || getpos('v')[2] == 0
+    let o = 'o'
+    " exe "normal" .. a:bang 'o'
   endif
-  if ! hasmapto(printf('in%s', a:char), 'vo')
-    execute printf('xnoremap in%s :<C-u>normal! f%slvt%s<CR>',
-          \ a:char, a:char, a:char)
-    execute printf('onoremap in%s :<C-u>normal vin%s<CR>',
-          \ a:char, a:char)
+  exe "normal" .. a:bang o .. a:rhs
+endfunction
+
+function! s:map_i(lhs, rhsx, rhso) abort
+  " echo a:lhs a:rhsx
+  " echo a:lhs a:rhso
+  " let x = s:rhs_parse(a:rhsx)
+  " let o = a:rhs_parse(a:rhso)
+  if ! hasmapto(a:lhs, 'x')
+    " exe printf('xnoremap <silent> %s <cmd>normal! %s<CR>', a:lhs, a:rhsx)
+    " exe printf('xnoremap <silent>  %s <cmd> normal! %s<CR>', a:lhs, a:rhsx)
+    exe printf('xnoremap <silent> %s <cmd>call TextObject("%s", "!")<CR>', a:lhs, a:rhsx)
   endif
-  if ! hasmapto(printf('iN%s', a:char), 'vo')
-    execute printf('xnoremap iN%s :<C-u>normal! F%shvT%s<CR>',
-          \ a:char, a:char, a:char)
-    execute printf('onoremap iN%s :<C-u>normal viN%s<CR>',
-          \ a:char, a:char)
+  if ! hasmapto(a:lhs, 'o')
+    " exe printf('xnoremap <silent> %s <cmd>call TextObject("%s", "!")<CR>', a:lhs, a:rhsx)
+    " exe printf('onoremap <silent> %s <cmd>normal %s<CR>', a:lhs, a:rhso)
+    " exe printf('xnoremap <silent>  %s <cmd> normal %s<CR>', a:lhs, a:rhso)
+    exe printf('onoremap <silent> %s <cmd>call TextObject("%s", "")<CR>', a:lhs, a:rhso)
   endif
 endfunction
 
+" let s:maps = []
+
+function! s:create_special_i_map(char) abort
+  let c = a:char
+  call s:map_i('i' .. c,           'oT' .. c .. 'ot' .. c,    'vi' .. c)
+  call s:map_i('i' ..  'n' .. c,   'f' .. c .. 'lo2t' .. c,   'vin' .. c)
+  call s:map_i('i' .. 'N' .. c,    '%oF' .. c .. 'ho2T' .. c,   'viN' .. c)
+  " call s:map_i('a' .. c,           'oF' .. c .. 'of' .. c,    'va' .. c)
+  call s:map_i('a' .. c,           'F' .. c .. 'of' .. c,    'F' .. c .. 'of' .. c)
+  call s:map_i('a' ..  'n' .. c,   'f' .. c .. 'lo2t' .. c,   'van' .. c)
+  call s:map_i('a' .. 'N' .. c,    'F' .. c .. 'ho2T' .. c,   'vaN' .. c)
+endfunction
+
 function! s:create_special_a_map(char) abort
-  if ! hasmapto(printf('a%s', a:char), 'vo')
-    execute printf('xnoremap a%s :<C-u>normal! F%svf%s<CR>',
+  if ! hasmapto(printf('a%s', a:char), 'xo')
+    execute printf('xnoremap <silent> a%s :<c-u>normal! F%svf%s<CR>',
           \ a:char, a:char, a:char)
-    execute printf('onoremap a%s :<C-u>normal va%s<CR>',
+    execute printf('onoremap <silent> a%s :<c-u>normal va%s<CR>',
           \ a:char, a:char)
   endif
-  if ! hasmapto(printf('an%s', a:char), 'vo')
-    execute printf('xnoremap an%s :<C-u>normal! f%svf%s<CR>',
+  if ! hasmapto(printf('an%s', a:char), 'xo')
+    execute printf('xnoremap <silent> an%s :<c-u>normal! f%svf%s<CR>',
           \ a:char, a:char, a:char)
-    execute printf('onoremap an%s :<C-u>normal vin%s<CR>',
+    execute printf('onoremap <silent> an%s :<c-u>normal vin%s<CR>',
           \ a:char, a:char)
   endif
-  if ! hasmapto(printf('aN%s', a:char), 'vo')
-    execute printf('xnoremap aN%s :<C-u>normal! F%svF%s<CR>',
+  if ! hasmapto(printf('aN%s', a:char), 'xo')
+    execute printf('xnoremap <silent> aN%s :<c-u>normal! F%svF%s<CR>',
           \ a:char, a:char, a:char)
-    execute printf('onoremap aN%s :<C-u>normal viN%s<CR>',
+    execute printf('onoremap <silent> aN%s :<c-u>normal viN%s<CR>',
           \ a:char, a:char)
   endif
 endfunction
 
 for char_pair in get(g:, 'special_char', s:special_char)
   call s:create_special_i_map(char_pair)
-  call s:create_special_a_map(char_pair)
+  " call s:create_special_a_map(char_pair)
 endfor
 
 """        Bracket char in / iN / an / aN
-if has('patch3255')
+if v:version > 800 && has('patch3255')
   " this was implemented in path 3255
   finish
 endif
@@ -100,14 +120,14 @@ endif
 
 function! s:create_bracket_i_map(char1, char2) abort
   for char in [a:char1, a:char2]
-    if ! hasmapto(printf('i%s', char), 'vo')
-      execute printf('xnoremap in%s :<C-u>normal! f%slvt%s%s<CR>',
+    if ! hasmapto(printf('i%s', char), 'xo')
+      execute printf('xnoremap in%s :<c-u>normal! f%slvt%s%s<CR>',
             \ char, a:char1, a:char2, char == a:char1 ? 'o': '')
-      execute printf('onoremap in%s :<C-u>normal f%slvt%s%s<CR>',
+      execute printf('onoremap in%s :<c-u>normal f%slvt%s%s<CR>',
             \ char, a:char1, a:char2, char == a:char1 ? 'o': '')
-      execute printf('xnoremap iN%s :<C-u>normal! F%shvT%s%s<CR>',
+      execute printf('xnoremap iN%s :<c-u>normal! F%shvT%s%s<CR>',
             \ char, a:char2, a:char1, char == a:char1 ? '': 'o')
-      execute printf('onoremap iN%s :<C-u>normal F%shvT%s%s<CR>',
+      execute printf('onoremap iN%s :<c-u>normal F%shvT%s%s<CR>',
             \ char, a:char2, a:char1, char == a:char1 ? '': 'o')
     endif
   endfor
@@ -115,14 +135,14 @@ endfunction
 
 function! s:create_bracket_a_map(char1, char2) abort
   for char in [a:char1, a:char2]
-    if ! hasmapto(printf('a%s', char), 'vo')
-      execute printf('xnoremap an%s :<C-u>normal! f%svf%s%s<CR>',
+    if ! hasmapto(printf('a%s', char), 'xo')
+      execute printf('xnoremap an%s :<c-u>normal! f%svf%s%s<CR>',
             \ char, a:char1, a:char2, char == a:char1 ? 'o': '')
-      execute printf('onoremap an%s :<C-u>normal f%svf%s%s<CR>',
+      execute printf('onoremap an%s :<c-u>normal f%svf%s%s<CR>',
             \ char, a:char1, a:char2, char == a:char1 ? 'o': '')
-      execute printf('xnoremap aN%s :<C-u>normal! F%svF%s%s<CR>',
+      execute printf('xnoremap aN%s :<c-u>normal! F%svF%s%s<CR>',
             \ char, a:char2, a:char1, char == a:char1 ? '': 'o')
-      execute printf('onoremap aN%s :<C-u>normal F%svF%s%s<CR>',
+      execute printf('onoremap aN%s :<c-u>normal F%svF%s%s<CR>',
             \ char, a:char2, a:char1, char == a:char1 ? '': 'o')
     endif
   endfor
