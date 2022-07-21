@@ -79,7 +79,8 @@ function! s:mcSwitch(_) abort
     return s:modeColorHL('Normal')
   endif
   let mode = mode()
-  if     mode =~? '[s]'   | return s:modeColorHL('Replace')  |
+  if     mode ==# '[nt]'    | return s:modeColorHL('Cmd')      |
+  elseif mode =~? '[s]'   | return s:modeColorHL('Replace')  |
   elseif mode =~# '[Ri]'    | return s:modeColorHL('Insert')   |
   elseif mode =~? '[v]'   | return s:modeColorHL('Visual')   |
   elseif mode ==? 'c'       | return s:modeColorHL('Cmd')      |
