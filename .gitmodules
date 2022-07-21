@@ -208,3 +208,6 @@
 [submodule "shells/zsh/plugins/fzf-tab"]
 	path = shells/zsh/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab.git
+[submodule "nvim/pack/bundle/start/lualine.nvim"]
+	path = nvim/pack/bundle/start/lualine.nvim
+	url = https://github.com/nvim-lualine/lualine.nvim
