@@ -235,7 +235,7 @@ if [ -e "$HOME/.config/base16_theme" ]; then
 		"$BASE16_PATH/base16-one-darker"
 	fi
 else
-	source "$BASE16_PATH/$base16_theme"
+	"$BASE16_PATH/$base16_theme"
 fi
 
 # Plugin Sourcer
