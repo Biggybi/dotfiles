@@ -6,6 +6,8 @@ setlocal softtabstop=2
   " setlocal keywordprg=:help
 setlocal suffixesadd=.lua
 
+nnoremap <buffer> <leader>sr <cmd>source %<cr>
+
 let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
 if ! empty('b:undo_ftplugin')
   let b:undo_ftplugin .= ' | '
