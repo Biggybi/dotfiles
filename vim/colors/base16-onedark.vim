@@ -230,9 +230,9 @@ call <sid>hi("PMenu",         s:gui05, s:gui01, s:cterm05, s:cterm01, "none", ""
 call <sid>hi("PMenuSel",      s:gui00, s:gui03, s:cterm00, s:cterm03, "", "")
 call <sid>hi("PMenuSbar",     s:gui04, s:gui04, s:cterm04, s:cterm04, "", "")
 call <sid>hi("PMenuThumb",    s:gui00, s:gui01, s:cterm00, s:cterm01, "", "")
-call <sid>hi("TabLine",       s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
-call <sid>hi("TabLineFill",   s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
-call <sid>hi("TabLineSel",    s:gui05, s:gui00, s:cterm05, s:cterm00, "none", "")
+call <sid>hi("Tabline",       s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
+call <sid>hi("TablineFill",   s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
+call <sid>hi("TablineSel",    s:gui05, s:gui00, s:cterm05, s:cterm00, "none", "")
 
 " Status Line
 call <sid>hi("SuliGitSub",       s:gui0C, s:gui02, s:cterm0C, s:cterm01, "none", "")
@@ -250,7 +250,8 @@ call <sid>hi("SuliNormal",       s:gui00, s:gui03, s:cterm00, s:cterm03, "none",
 call <sid>hi("SuliOuter",        s:gui05, s:gui04, s:cterm05, s:cterm04, "none", "")
 call <sid>hi("SuliMid",          s:gui05, s:gui02, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("SuliSep",          s:gui00, s:gui01, s:cterm05, s:cterm01, "none", "")
-call <sid>hi("StatusLineTermNC", s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
+" call <sid>hi("StatusLineTermNC", s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
+call <sid>hi("StatusLineTermNC", "", "", "", "", "none", "")
 call <sid>hi("StatusLineTerm",   s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
 call <sid>hi("StatuslineNC",     s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
 call <sid>hi("StatusLine",       s:gui05, s:gui01, s:cterm05, s:cterm01, "none", "")
