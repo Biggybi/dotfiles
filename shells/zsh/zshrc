@@ -26,7 +26,7 @@ export VISUAL=(vim -X)
 export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 readonly nomodified nomodifiable' -\""
 export EDITOR=(vi -e)
 export BROWSER=firefox
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+export JAVA_HOME=/usr/lib/jvm/java-18-jdk
 
 ## PATH
 export GOPATH=$HOME/bin/go
