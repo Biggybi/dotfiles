@@ -22,7 +22,7 @@
 		},
 		"efm": {
 			"command": "efm-langserver",
-			"filetypes": ["vim", "eruby", "markdown"],
+			"filetypes": ["vim", "eruby", "markdown", "lua"],
 			"args": ["-c", "/home/tris/dotfiles/langserver/efm-langserver/config.yaml"]
 		},
 		"haskell": {
@@ -65,5 +65,8 @@
 	"coc.preferences.useQuickfixForLocations": true,
 	"suggest.echodocSupport": true,
 	"suggest.maxPreviewWidth": 80,
-	"suggest.maxCompleteItemCount": 20
+	"suggest.maxCompleteItemCount": 20,
+	"sumneko-lua.enableNvimLuaDev": true,
+	"coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "lua"],
+	"Lua.telemetry.enable": false,
 }
