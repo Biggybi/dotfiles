@@ -38,15 +38,14 @@ command! -complete=shellcmd -nargs=+ VShell call s:RunShellCommand(<q-args>, 'L'
 
 function! s:LaunchTerm(cmdline) abort
   if has("nvim")
-    exe 'terminal '. a:cmdline
+    exe 'sp | terminal' a:cmdline
   else
-    exe 'terminal ++curwin '. a:cmdline
+    exe 'terminal ++curwin' a:cmdline
   endif
   try
     file scratchterm
   catch /.*/
   endtry
-  setlocal signcolumn=no
 endfunction
 
 function! s:SetScratchAlternateFile(current_file) abort
