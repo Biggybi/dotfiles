@@ -4,8 +4,8 @@ endif
 let g:plugin_scratchterm = 1
 
 if exists('g:plugin_termtoggle') == 0
-  let g:TermToggleHeight    = get(g:, 'TermToggleHeight', '6')
-  let g:TermToggleWidth     = get(g:, 'TermToggleWidth', '50')
+  let g:TermToggleHeight = get(g:, 'TermToggleHeight', '6')
+  let g:TermToggleWidth  = get(g:, 'TermToggleWidth', '50')
 endif
 
 let g:Scratchterm_last_cmd = get(g:, 'Scratchterm_last_cmd', 'ls -la')
