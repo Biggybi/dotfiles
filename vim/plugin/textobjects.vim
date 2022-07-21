@@ -7,7 +7,7 @@ let g:plugin_textobjects = 1
 " https://github.com/benknoble/Dotfiles/blob/master/links/vim/plugin/punctuation_textobjects.vim
 
 """        Whole Buffer
-onoremap ag :<c-u>normal! ggVG<cr><c-o><c-o>
+onoremap <silent> ag <cmd>keepjumps \| normal! ggVG<cr><c-o>
 
 """        Start / End of line
 onoremap h  :<c-u>normal! ^<cr>
