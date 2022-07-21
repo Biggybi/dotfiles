@@ -187,6 +187,9 @@ endfunction
 
 "" Starter
 function! s:modeColorStart() abort
+  if has("nvim")
+    return
+  endif
   if g:modecolor_timer_switch == 0
     call s:modeColorHL('Normal')
   elseif exists('timer_info(s:mc_timer)') <= 0
@@ -216,7 +219,11 @@ if has("nvim")
     au!
     au ColorScheme  * call s:modeColorInit()
     au InsertEnter  * call s:modeColorHL('Insert')
-    au CmdlineEnter * call s:modeColorHL('Cmd')
+    au InsertLeave  * call s:modeColorHL('Normal')
+    au ModeChanged  *:c call s:modeColorHL('Cmd') | nohl | call clearmatches()
+    au CmdlineLeave * call s:modeColorHL('Normal')
+    au ModeChanged  *:[vV\x16]* call s:modeColorHL('Visual')
+    au ModeChanged  [vV\x16]*:* call s:modeColorHL('Normal')
   augroup END
 else
   augroup StartModeColor
