@@ -130,14 +130,6 @@ if exists('&conceal')
   set conceallevel=0            " show concealed characters
 endif
 set display+=lastline           " show lastline even if too long
-" terminal specific
-if ! has('nvim')
-  augroup TermOpt | au!
-    au TerminalWinOpen * setlocal
-          \ nonumber
-          \ signcolumn=no
-  augroup end
-endif
 
 " Color
 if has('termguicolors')
