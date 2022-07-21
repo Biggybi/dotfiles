@@ -194,7 +194,7 @@ function! s:modeColorStart() abort
   endif
 endfunction
 
-if exists('s:mc_timer')
+if ! has("nvim") && exists('s:mc_timer')
   call timer_stop(s:mc_timer)
   if s:HLGroupMain != ''
     silent exe "hi" s:modecolor_extra s:HLGroupExtra
