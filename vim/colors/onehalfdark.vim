@@ -101,7 +101,7 @@ call s:h("QuickFixLine", "", s:g1, "")
 
 call s:h("MatchParen",   s:B, s:g3, "")
 call s:h("SpecialKey",   s:fg, "", "")
-call s:h("Title",        s:g, "", "")
+call s:h("Title",        s:b, "", "")
 call s:h("WildMenu",     s:fg, "", "")
 
 call s:h("StatusLine",       s:B, s:g2, "")
@@ -261,6 +261,13 @@ hi link gitcommitSelected       gitcommitComment
 hi link gitcommitDiscardedArrow gitcommitDiscardedFile
 hi link gitcommitSelectedArrow  gitcommitSelectedFile
 hi link gitcommitUnmergedArrow  gitcommitUnmergedFile
+" }
+
+" Markdown {
+call s:h("markdownCode",              s:g, "", "")
+call s:h("markdownError",             s:fg, s:bg, "")
+call s:h("markdownCodeBlock",         s:g, "", "")
+call s:h("markdownHeadingDelimiter",  s:b, "", "")
 " }
 
 call s:h("User1",   s:bg, s:g5, "")

@@ -101,7 +101,7 @@ call s:h("QuickFixLine", "", s:g1, "")
 
 call s:h("MatchParen",   s:B, s:g3, "")
 call s:h("SpecialKey",   s:fg, "", "")
-call s:h("Title",        s:g, "", "")
+call s:h("Title",        s:b, "", "")
 call s:h("WildMenu",     s:fg, "", "")
 
 call s:h("StatusLine",       s:B, s:g2, "")
@@ -246,6 +246,13 @@ call s:h("SuliL3Git",     s:g, s:g2, "")
 call s:h("SuliL2Ro",      s:p, s:g3, "")
 call s:h("SuliL3Ro",      s:p, s:g2, "")
 
+" }
+
+" Markdown {
+call s:h("markdownCode",              s:g, "", "")
+call s:h("markdownError",             s:fg, s:bg, "")
+call s:h("markdownCodeBlock",         s:g, "", "")
+call s:h("markdownHeadingDelimiter",  s:b, "", "")
 " }
 
 " Git {
