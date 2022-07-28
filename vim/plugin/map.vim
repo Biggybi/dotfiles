@@ -237,9 +237,9 @@ nnoremap zo zczO
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv :source $MYVIMRC<bar>:filetype detect<cr>
-nnoremap <leader>sr :Runtime<cr>
-nnoremap <leader>s. :Runtime<cr>
+nnoremap <leader>sv :silent source $MYVIMRC<bar>:silent filetype detect<bar>:echo "vimrc sourced"<cr>
+nnoremap <leader>sr :silent Runtime<bar>:echo "Runtime"<cr>
+nnoremap <leader>s. :silent Runtime<bar>:echo "Runtime"<cr>
 nnoremap <silent> <leader>sf :silent! :filetype detect<cr>
 
 " source colors
@@ -469,7 +469,6 @@ if has ("nvim")
 endif
 nnoremap <silent> <c-w><c-u> :only<cr>
 nnoremap <silent> <c-w>u     :only<cr>
-nnoremap <silent> <c-w><c-p> :normal g<tab><cr>
 
 """        Searching
 
@@ -627,7 +626,7 @@ inoremap { {}<c-g>U<left>
 inoremap <expr> ) getline('.')[col('.')-1]==')' ? '<c-g>U<right>' : ')'
 inoremap <expr> ] getline('.')[col('.')-1]==']' ? '<c-g>U<right>' : ']'
 inoremap <expr> } getline('.')[col('.')-1]=='}' ? '<c-g>U<right>' : '}'
-inoremap <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+" inoremap <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
 
 """        Indent
 
