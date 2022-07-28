@@ -265,6 +265,13 @@ hi link gitcommitSelectedArrow  gitcommitSelectedFile
 hi link gitcommitUnmergedArrow  gitcommitUnmergedFile
 " }
 
+" HTML
+call s:h("htmlBold",    s:pe, "", "")
+call s:h("htmlItalic",  s:yw, "", "")
+call s:h("htmlEndTag",  s:pe, "", "")
+call s:h("htmlTag",     s:pe, "", "")
+call s:h("htmlLink",    s:rd, "", "")
+
 " Markdown {
 call s:h("markdownCode",              s:gn, "", "")
 call s:h("markdownDelimiter",         s:gn, "", "")

@@ -248,6 +248,13 @@ call s:h("SuliL3Ro",      s:pe, s:g2, "")
 
 " }
 
+" HTML
+call s:h("htmlBold",    s:pe, "", "")
+call s:h("htmlItalic",  s:yw, "", "")
+call s:h("htmlEndTag",  s:pe, "", "")
+call s:h("htmlTag",     s:pe, "", "")
+call s:h("htmlLink",    s:rd, "", "")
+
 " Markdown {
 call s:h("markdownCode",              s:gn, "", "")
 call s:h("markdownError",             s:fg, s:bg, "")
