@@ -227,19 +227,30 @@ call s:h("SuliQfNC",      s:rd, s:g2, "")
 call s:h("SuliSpecialNC", s:rd, s:g2, "")
 
 call s:h("SuliL1",        s:bg, s:g5, "")
-call s:h("SuliL2",        s:fg, s:g3, "")
-call s:h("SuliL3",        s:fg, s:g2, "")
 call s:h("SuliR1",        s:g4, s:g5, "")
 call s:h("SuliR2",        s:fg, s:g3, "")
 call s:h("SuliR3",        s:g4, s:g2, "")
 call s:h("Suli00",        s:g4, s:g1, "")
 
-call s:h("SuliL2Mod",     s:yw, s:g3, "")
-call s:h("SuliL3Mod",     s:yw, s:g2, "")
-call s:h("SuliL2Git",     s:gn, s:g3, "")
-call s:h("SuliL3Git",     s:gn, s:g2, "")
-call s:h("SuliL2Ro",      s:pe, s:g3, "")
-call s:h("SuliL3Ro",      s:pe, s:g2, "")
+call s:h("SuliL2",        s:fg, s:g4, "")
+call s:h("SuliL2Mod",     s:yw, s:g4, "")
+call s:h("SuliL2Ro",      s:pe, s:g4, "")
+call s:h("SuliL2Git",     s:gn, s:g4, "")
+call s:h("SuliL2Sub",     s:be, s:g4, "")
+
+call s:h("SuliL3",        s:fg, s:g3, "")
+call s:h("SuliL3Mod",     s:yw, s:g3, "")
+call s:h("SuliL3Ro",      s:pe, s:g3, "")
+call s:h("SuliL3Git",     s:gn, s:g3, "")
+call s:h("SuliL3GitMod",  s:rd, s:g3, "")
+call s:h("SuliL3Sub",     s:be, s:g3, "")
+call s:h("SuliL3SubMod",  s:rd, s:g3, "")
+
+call s:h("SuliL4",        s:fg, s:g2, "")
+call s:h("SuliL4Mod",     s:yw, s:g2, "")
+call s:h("SuliL4Ro",      s:pe, s:g2, "")
+call s:h("SuliL4Git",     s:gn, s:g2, "")
+call s:h("SuliL4Sub",     s:be, s:g3, "")
 
 " }
 
