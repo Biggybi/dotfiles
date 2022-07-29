@@ -2,20 +2,39 @@ local lualine = require('lualine')
 
 -- `dir_save`: workaround for dir disappearing in command-line
 local dir_save = ''
-function Get_curdir()
-  local parent_dir = ''
-  if vim.fn.bufname() then
-    parent_dir = vim.fn.fnamemodify(vim.api.nvim_exec('pwd', true), ':t')
+function GitInfo()
+  if vim.b.lualine_info then
+    return vim.b.lualine_info
   end
-  if parent_dir ~= '' then dir_save = parent_dir else parent_dir = dir_save end
-  return {
-    cur_dir = parent_dir,
-    is_git_dir = vim.fn.isdirectory('.git') == 1 and true or false,
-    tab_rhs_size = string.len(parent_dir) + 5
+  local curdir = ''
+  if vim.fn.bufname() then
+    curdir = vim.fn.fnamemodify(vim.api.nvim_exec('pwd', true), ':t')
+  end
+  if curdir ~= '' then dir_save = curdir else curdir = dir_save end
+  local is_submodule = false
+  if vim.fn.isdirectory('.git') == 1 then is_submodule = false
+  elseif vim.fn.filereadable('.git') == 1 then
+    is_submodule = string.match(vim.fn.readfile('.git', '', 1)[1], '^gitdir:') and true or false
+  end
+  vim.b.lualine_info = {
+    cur_dir = curdir,
+    is_git = vim.fn.isdirectory('.git') == 1 and true or false,
+    is_submodule = is_submodule,
+    tab_rhs_size = string.len(curdir) + 5
   }
+  return vim.b.lualine_info
+end
+
+function GitModified()
+  local git_status = vim.g.loaded_fugitive
+      and vim.fn['gitgutter#hunk#summary']('%')
+      or { 0, 0, 0 }
+  print(git_status[1], git_status[2], git_status[3])
+  return string.match(table.concat(git_status), "000") == '' and false or true
 end
 
 local tab_rhs_size = 20
+
 function Tab_size()
   local tabsize = math.floor((vim.o.columns - tab_rhs_size - 3) / vim.fn.tabpagenr("$")) - 2
   tabsize = math.min(tabsize, 40)
@@ -25,65 +44,89 @@ end
 local config = {
   options = {
     icons_enabled = false,
-    theme = 'onehalfdark',
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     symbols = { modified = '', readonly = '', unnamed = '[No Name]' },
     disabled_filetypes = {},
     always_divide_middle = true,
     globalstatus = false,
+    theme = {
+      normal   = { a = 'SuliL1', b = 'SuliL2', d = '' },
+      insert   = { a = 'SuliInsert' },
+      visual   = { a = 'SuliVisual' },
+      replace  = { a = 'SuliReplace' },
+      command  = { a = 'SuliCmd' },
+      inactive = { a = 'Suli00' },
+    }
   },
+
+  -- normal = {
+  --   a = { 'SuliL1' },
+  --   b = { 'SuliL2' },
+  -- },
 
   sections = {
     lualine_a = {
       {
         'mode',
         fmt = function(s) return s:sub(1, 1) end,
-        'filename',
+        -- 'filename',
       },
     },
 
     lualine_b = {
       {
         'branch',
-        fmt = function(s)
-          return vim.o.ft == 'help'
-              and '%#SuliL2Ro#' .. vim.o.ft
-              or Get_curdir().is_git_dir
-              and '%#SuliL2Git#' .. s
-              or '%#SuliL2Mod#' .. s
+        color = function(s)
+          return s == '' and s
+              or vim.o.ft == 'help' and ''
+              or GitInfo().is_git == true and 'SuliL2Git'
+              or GitInfo().is_submodule == true and 'SuliL2Sub'
+              or 'SuliL3Mod'
         end,
+        filetype_names = {
+          TelescopePrompt = 'Telescope',
+          dashboard = 'Dashboard',
+          packer = 'Packer',
+          fzf = 'FZF',
+          alpha = 'Alpha',
+          qf = 'Coucou i\'m a qf',
+          help = ''
+        }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
       },
     },
 
     lualine_c = {
       {
-        function() return Get_curdir().cur_dir end,
-        padding = { left = 1, right = 0 },
+        function() return ' ' .. GitInfo().cur_dir .. ' ' end,
+        padding = { left = 0, right = 0 },
         color = function()
           if vim.bo.readonly then
             return 'SuliL3Ro'
-          elseif vim.g.loaded_fugitive and vim.fn['fugitive#Head']() == "" then
-            return 'SuliL3'
           end
-          local amr = { 0, 0, 0 }
-          if vim.g.loaded_gitgutter then
-            amr = vim.fn['gitgutter#hunk#summary']('%')
-          end
-          return amr == { 0, 0, 0 } and 'SuliL3Mod' or 'SuliL3'
+          local git_status = vim.g.loaded_fugitive
+              and vim.fn['gitgutter#hunk#summary']('%')
+              or { 0, 0, 0 }
+          local gitmod = string.match(table.concat(git_status), '000') == '000'
+          return GitInfo().is_submodule and gitmod == true and 'SuliL3Sub'
+              or GitInfo().is_submodule and gitmod == false and 'SuliL3SubMod'
+              or GitInfo().is_git and gitmod == true and 'SuliL3Git'
+              or GitInfo().is_git and gitmod == false and 'SuliL3GitMod'
+              or 'SuliL3'
         end
       },
+
       {
         'filename',
         color = function()
-          return vim.bo.modified and 'SuliL3Mod'
-              or vim.bo.readonly and 'SuliL3Ro'
-              or 'SuliL3'
+          return vim.bo.modified and 'SuliL4Mod'
+              or vim.bo.readonly and 'SuliL4Ro'
+              or 'SuliL4'
         end,
       },
       {
         'diagnostics',
-        color = 'SuliL3'
+        color = 'SuliL4'
       }
     },
 
@@ -130,14 +173,14 @@ local config = {
       }
     },
 
-    lualine_b = { {} },
-    lualine_c = { {} },
-    lualine_x = { {} },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
 
     lualine_y = {
       {
         padding = { '0' },
-        function() return Get_curdir().cur_dir end,
+        function() return GitInfo().cur_dir end,
         fmt = function(s)
           local paddchar = " "
           if s:len() > tab_rhs_size - 2 then
@@ -150,8 +193,9 @@ local config = {
           local right_padd_str = paddchar:rep(tab_rhs_size - left_padd - s:len())
           return left_padd_str .. s .. right_padd_str
         end,
-        color = function() return Get_curdir().is_git_dir
-              and 'SuliL2Git'
+        color = function()
+          return GitInfo().is_git and 'SuliL2Git'
+              or GitInfo().is_submodule and 'SuliL2Sub'
               or 'SuliL2'
         end
       }
@@ -168,5 +212,15 @@ local config = {
   extensions = {}
 
 }
+
+local my_extension = {
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'mode' },
+    lualine_c = { 'mode' }
+  },
+  filetypes = { 'quickfix' }
+}
+require('lualine').setup { extensions = { my_extension } }
 
 lualine.setup(config)
