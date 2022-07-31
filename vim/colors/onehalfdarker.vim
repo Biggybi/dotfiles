@@ -105,12 +105,12 @@ call s:h("Title",        s:be, "", "")
 call s:h("WildMenu",     s:fg, "", "")
 
 call s:h("StatusLine",       s:be, s:g2, "")
-call s:h("StatusLineNC",     s:g4, s:g2, "")
+call s:h("StatusLineNC",     s:g5, s:g2, "")
 call s:h("StatusLineTerm",   s:be, s:g2, "")
-call s:h("StatusLineTermNC", s:g4, s:g2, "")
-call s:h("TabLine",          s:fg, s:g2, "")
-call s:h("TabLineFill",      s:g4, s:bg, "")
+call s:h("StatusLineTermNC", s:g5, s:g2, "")
+call s:h("TabLine",          s:g5, s:g2, "")
 call s:h("TabLineSel",       s:fg, s:g4, "")
+call s:h("TabLineFill",      s:g5, s:bg, "")
 " }
 
 " Syntax colors {
@@ -133,7 +133,7 @@ call s:h("Statement",    s:pe, "", "")
 call s:h("Conditional",  s:pe, "", "")
 call s:h("Repeat",       s:pe, "", "")
 call s:h("Label",        s:pe, "", "")
-call s:h("Operator",     s:fg, "", "")
+call s:h("Operator",     s:yw, "", "")
 call s:h("Keyword",      s:rd, "", "")
 call s:h("Exception",    s:pe, "", "")
 
@@ -180,6 +180,23 @@ call s:h("GitGutterChangeDelete", s:rd, s:bg, "")
 " Fugitive
 call s:h("diffAdded",   s:gn, "", "")
 call s:h("diffRemoved", s:rd, "", "")
+
+" Coc
+
+" CocListLine
+" CocListSearch
+" CocListMode
+" CocListPath
+" CocSelectedText
+" CocSelectedLine
+
+" hi! link CocListLine QuickFixLine
+call s:h("CocListLine",     s:bg, s:g5, "")
+call s:h("CocListSearch",   s:bg, s:g5, "")
+call s:h("CocListMode",     s:bg, s:g5, "")
+call s:h("CocListPath",     s:bg, s:g5, "")
+call s:h("CocSelectedText", s:bg, s:g5, "")
+call s:h("CocSelectedLine", s:bg, s:g5, "")
 " }
 
 " Suli {
@@ -204,7 +221,7 @@ call s:h("SuliMidRight", s:g5, s:g2, "")
 call s:h("SuliFileType", s:g5, s:g3, "")
 call s:h("SuliMid",      s:fg, s:g1, "")
 call s:h("SuliSep",      s:g4, s:g2, "")
-call s:h("SuliQf",       s:rd, s:g3, "")
+call s:h("SuliQf",       s:be, s:g3, "")
 call s:h("SuliSpecial",  s:rd, s:g3, "")
 
 " non-current window
@@ -243,6 +260,14 @@ call s:h("SuliL4Mod",     s:yw, s:g2, "")
 call s:h("SuliL4Ro",      s:pe, s:g2, "")
 call s:h("SuliL4Git",     s:gn, s:g2, "")
 call s:h("SuliL4Sub",     s:be, s:g3, "")
+
+call s:h("SuliNC",        s:g5, s:g1, "")
+call s:h("SuliNCMod",     s:yw, s:g1, "")
+call s:h("SuliNCRo",      s:pe, s:g1, "")
+call s:h("SuliNCGit",     s:gn, s:g1, "")
+call s:h("SuliNCGitMod",  s:rd, s:g1, "")
+call s:h("SuliNCSub",     s:be, s:g1, "")
+call s:h("SuliNCSubMod",  s:rd, s:g1, "")
 
 " }
 

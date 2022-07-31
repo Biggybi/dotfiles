@@ -18,15 +18,16 @@ let colors_name="onehalflight"
 
 let s:bk = { "gui": "#383a42", "cterm": "237" }  "black
 let s:rd = { "gui": "#e45649", "cterm": "167" }  "red
-let s:gn = { "gui": "#50a14f", "cterm": "71" }   "green
-let s:yw = { "gui": "#c18401", "cterm": "136" }  "yellow
+let s:gn = { "gui": "#39b838", "cterm": "71" }   "green
+" let s:yw = { "gui": "#c18401", "cterm": "136" }  "yellow
+let s:yw = { "gui": "#d98d00", "cterm": "136" }  "yellow
 let s:be = { "gui": "#0184bc", "cterm": "31" }   "blue
 let s:pe = { "gui": "#a626a4", "cterm": "127" }  "purple
-let s:cn = { "gui": "#0997b3", "cterm": "31" }   "cyan
+let s:ma = { "gui": "#0997b3", "cterm": "31" }   "cyan
 let s:we = { "gui": "#fafafa", "cterm": "231" }  "white
 
 let s:g5 = { "gui": "#a0a1a7", "cterm": "237" }   "grey1 (light)
-let s:g4 = { "gui": "#aaaaaa", "cterm": "239" }   "grey2
+let s:g4 = { "gui": "#c1c1c1", "cterm": "239" }   "grey2
 let s:g3 = { "gui": "#d4d4d4", "cterm": "239" }   "grey3
 let s:g2 = { "gui": "#e5e5e5", "cterm": "241" }   "grey2
 let s:g1 = { "gui": "#f0f0f0", "cterm": "247" }   "grey1 (dark)
@@ -106,12 +107,12 @@ call s:h("Title",        s:be, "", "")
 call s:h("WildMenu",     s:fg, "", "")
 
 call s:h("StatusLine",       s:be, s:g2, "")
-call s:h("StatusLineNC",     s:g4, s:g2, "")
+call s:h("StatusLineNC",     s:g5, s:g2, "")
 call s:h("StatusLineTerm",   s:be, s:g2, "")
-call s:h("StatusLineTermNC", s:g4, s:g2, "")
-call s:h("TabLine",          s:fg, s:g2, "")
-call s:h("TabLineFill",      s:g4, s:bg, "")
+call s:h("StatusLineTermNC", s:g5, s:g2, "")
+call s:h("TabLine",          s:g5, s:g2, "")
 call s:h("TabLineSel",       s:fg, s:g4, "")
+call s:h("TabLineFill",      s:g5, s:bg, "")
 " }
 
 " Syntax colors {
@@ -119,8 +120,8 @@ call s:h("TabLineSel",       s:fg, s:g4, "")
 " See :help hl-Whitespace and :help hl-SpecialKey
 call s:h("Whitespace",   s:g2, "", "")
 call s:h("NonText",      s:bg, s:bg, "")
-call s:h("Comment",      s:g4, "", "italic")
-call s:h("Constant",     s:cn, "", "")
+call s:h("Comment",      s:g5, "", "italic")
+call s:h("Constant",     s:be, "", "")
 call s:h("String",       s:gn, "", "")
 call s:h("Character",    s:gn, "", "")
 call s:h("Number",       s:yw, "", "")
@@ -132,9 +133,9 @@ call s:h("Function",     s:be, "", "")
 call s:h("Statement",    s:pe, "", "")
 
 call s:h("Conditional",  s:pe, "", "")
-call s:h("Repeat",       s:pe, "", "")
+call s:h("Repeat",       s:ma, "", "")
 call s:h("Label",        s:pe, "", "")
-call s:h("Operator",     s:fg, "", "")
+call s:h("Operator",     s:yw, "", "")
 " call s:h("Keyword",      s:rd, "", "")
 call s:h("Keyword",      s:pe, "", "")
 call s:h("Exception",    s:pe, "", "")
@@ -193,8 +194,8 @@ call s:h("SuliVisual",   s:bg, s:pe, "")
 call s:h("SuliInsert",   s:bg, s:gn, "")
 call s:h("SuliReplace",  s:bg, s:gn, "")
 call s:h("SuliSelect",   s:bg, s:gn, "")
-call s:h("SuliFtsearch", s:bg, s:cn, "")
-call s:h("SuliPrompt",   s:bg, s:cn, "")
+call s:h("SuliFtsearch", s:bg, s:be, "")
+call s:h("SuliPrompt",   s:bg, s:be, "")
 call s:h("SuliPending",  s:bg, s:yw, "")
 
 " current window
@@ -211,7 +212,7 @@ call s:h("SuliMidRight", s:g5, s:g2, "")
 call s:h("SuliFileType", s:g5, s:g3, "")
 call s:h("SuliMid",      s:fg, s:g1, "")
 call s:h("SuliSep",      s:g4, s:g2, "")
-call s:h("SuliQf",       s:rd, s:g3, "")
+call s:h("SuliQf",       s:be, s:g3, "")
 call s:h("SuliSpecial",  s:rd, s:g3, "")
 
 " non-current window
@@ -251,6 +252,14 @@ call s:h("SuliL4Mod",     s:yw, s:g2, "")
 call s:h("SuliL4Ro",      s:pe, s:g2, "")
 call s:h("SuliL4Git",     s:gn, s:g2, "")
 call s:h("SuliL4Sub",     s:be, s:g3, "")
+
+call s:h("SuliNC",        s:g5, s:g1, "")
+call s:h("SuliNCMod",     s:yw, s:g1, "")
+call s:h("SuliNCRo",      s:pe, s:g1, "")
+call s:h("SuliNCGit",     s:gn, s:g1, "")
+call s:h("SuliNCGitMod",  s:rd, s:g1, "")
+call s:h("SuliNCSub",     s:be, s:g1, "")
+call s:h("SuliNCSubMod",  s:rd, s:g1, "")
 
 " }
 
@@ -312,7 +321,7 @@ if has('nvim')
   let g:terminal_color_3  = s:yw.gui
   let g:terminal_color_4  = s:be.gui
   let g:terminal_color_5  = s:pe.gui
-  let g:terminal_color_6  = s:cn.gui
+  let g:terminal_color_6  = s:ma.gui
   let g:terminal_color_7  = s:fg.gui
   let g:terminal_color_8  = s:g3.gui
   let g:terminal_color_9  = s:rd.gui
@@ -320,7 +329,7 @@ if has('nvim')
   let g:terminal_color_11 = s:yw.gui
   let g:terminal_color_12 = s:be.gui
   let g:terminal_color_13 = s:pe.gui
-  let g:terminal_color_14 = s:cn.gui
+  let g:terminal_color_14 = s:ma.gui
   let g:terminal_color_15 = s:fg.gui
   let g:terminal_color_background = s:bg.gui
   let g:terminal_color_foreground = s:fg.gui
@@ -335,7 +344,7 @@ if has("terminal") || has("nvim")
         \ s:yw.gui,
         \ s:be.gui,
         \ s:pe.gui,
-        \ s:cn.gui,
+        \ s:ma.gui,
         \ s:rd.gui,
         \ s:g3.gui,
         \ s:rd.gui,
@@ -343,7 +352,7 @@ if has("terminal") || has("nvim")
         \ s:yw.gui,
         \ s:be.gui,
         \ s:pe.gui,
-        \ s:cn.gui,
+        \ s:ma.gui,
         \ s:fg.gui
         \]
 endif
