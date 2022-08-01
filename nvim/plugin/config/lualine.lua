@@ -1,40 +1,94 @@
 local lualine = require('lualine')
 
--- `dir_save`: workaround for dir disappearing in command-line
-local dir_save = ''
-function GitInfo()
-  if vim.b.lualine_info then
-    return vim.b.lualine_info
+vim.g.qf_disable_statusline = true
+-- Detect quickfix vs. location list
+local function is_loclist()
+  return vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0
+end
+
+-- Extension: Quickfix
+local extension_quickfix = {
+  sections = {
+    lualine_a = { {
+      'mode',
+      fmt = function(s) return s:sub(1, 1) end,
+    } },
+    lualine_b = { {
+      function() return is_loclist() and 'Location List' or 'Quickfix List' end,
+      color = 'SuliQf',
+    } },
+    lualine_c = { {
+      function()
+        return is_loclist
+            and vim.fn.getloclist(0, { title = 0 }).title
+            or vim.fn.getqflist({ title = 0 }).title
+      end,
+      color = 'SuliQfTitle',
+    } },
+    lualine_y = { { 'progress' } },
+    lualine_z = { { '%4l:%-3v' } }
+  },
+  inactive_sections = {
+    lualine_a = { {} },
+    lualine_b = { {
+      function() return is_loclist() and '   Location List' or '   Quickfix List' end,
+      color = 'SuliQf',
+    } },
+    lualine_c = { {
+      function()
+        return is_loclist
+            and vim.fn.getloclist(0, { title = 0 }).title
+            or vim.fn.getqflist({ title = 0 }).title
+      end,
+      color = 'SuliQfTitle',
+    } },
+    lualine_y = { { 'progress', color = 'SuliQf' } },
+    lualine_z = { { '%4l:%-3v', color = 'SuliQf' } }
+  },
+  filetypes = { 'qf' },
+}
+require('lualine').setup { extensions = { extension_quickfix } }
+
+local function is_special_buffer()
+  -- local specials = { 'qf', 'help', 'man' }
+  local specials = { 'help', 'man', 'fugitive' }
+  for _, ft in pairs(specials) do
+    if ft == vim.o.filetype then
+      return true
+    end
   end
-  local curdir = ''
+  return false
+end
+
+local function git_info()
+  -- if vim.b.lualine_info then
+  --   return vim.b.lualine_info
+  -- end
+  -- local info_back = vim.fn.getbufvar(vim.fn.bufnr('%'), 'lualine_info')
+  -- if info_back ~= '' then
+  --   return info_back
+  -- end
+  local cur_dir = ''
   if vim.fn.bufname() then
-    curdir = vim.fn.fnamemodify(vim.api.nvim_exec('pwd', true), ':t')
+    cur_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
+    -- if vim.o.ft == 'qf' then cur_dir = 'qf' end
   end
-  if curdir ~= '' then dir_save = curdir else curdir = dir_save end
   local is_submodule = false
-  if vim.fn.isdirectory('.git') == 1 then is_submodule = false
+  if vim.fn.isdirectory('.git') == 1 then
+    is_submodule = false
   elseif vim.fn.filereadable('.git') == 1 then
-    is_submodule = string.match(vim.fn.readfile('.git', '', 1)[1], '^gitdir:') and true or false
+    is_submodule = string.match(vim.fn.readfile('.git', '', 1)[1], '^gitdir:') ~= ''
   end
   vim.b.lualine_info = {
-    cur_dir = curdir,
-    is_git = vim.fn.isdirectory('.git') == 1 and true or false,
+    cur_dir = cur_dir,
+    is_git = vim.fn.isdirectory('.git') == 1,
     is_submodule = is_submodule,
-    tab_rhs_size = string.len(curdir) + 5
+    tab_rhs_size = string.len(cur_dir) + 5
   }
   return vim.b.lualine_info
 end
 
-function GitModified()
-  local git_status = vim.g.loaded_fugitive
-      and vim.fn['gitgutter#hunk#summary']('%')
-      or { 0, 0, 0 }
-  print(git_status[1], git_status[2], git_status[3])
-  return string.match(table.concat(git_status), "000") == '' and false or true
-end
-
 local tab_rhs_size = 20
-
 function Tab_size()
   local tabsize = math.floor((vim.o.columns - tab_rhs_size - 3) / vim.fn.tabpagenr("$")) - 2
   tabsize = math.min(tabsize, 40)
@@ -56,171 +110,174 @@ local config = {
       visual   = { a = 'SuliVisual' },
       replace  = { a = 'SuliReplace' },
       command  = { a = 'SuliCmd' },
-      inactive = { a = 'Suli00' },
+      -- inactive = { c = 'Suli00' }
+      inactive = {
+        a = 'Suli00',
+        b = 'Suli00',
+        c = 'Suli00',
+        x = 'Suli00',
+        y = 'Suli00',
+        z = 'Suli00'
+      }
     }
   },
-
-  -- normal = {
-  --   a = { 'SuliL1' },
-  --   b = { 'SuliL2' },
-  -- },
-
   sections = {
-    lualine_a = {
-      {
-        'mode',
-        fmt = function(s) return s:sub(1, 1) end,
-        -- 'filename',
-      },
-    },
+    lualine_a = { {
+      'mode',
+      fmt = function(s) return s:sub(1, 1) end,
+      -- 'filename',
+    } },
 
-    lualine_b = {
-      {
-        'branch',
-        color = function(s)
-          return s == '' and s
-              or vim.o.ft == 'help' and ''
-              or GitInfo().is_git == true and 'SuliL2Git'
-              or GitInfo().is_submodule == true and 'SuliL2Sub'
-              or 'SuliL3Mod'
-        end,
-        filetype_names = {
-          TelescopePrompt = 'Telescope',
-          dashboard = 'Dashboard',
-          packer = 'Packer',
-          fzf = 'FZF',
-          alpha = 'Alpha',
-          qf = 'Coucou i\'m a qf',
-          help = ''
-        }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
-      },
-    },
+    lualine_b = { {
+      'branch',
+      color = function(s)
+        return s == '' and s
+            or git_info().is_git and 'SuliL2Git'
+            or git_info().is_submodule and 'SuliL2Sub'
+      end,
+      cond = function() return not is_special_buffer() end,
+    } },
 
-    lualine_c = {
-      {
-        function() return ' ' .. GitInfo().cur_dir .. ' ' end,
-        padding = { left = 0, right = 0 },
-        color = function()
-          if vim.bo.readonly then
-            return 'SuliL3Ro'
-          end
-          local git_status = vim.g.loaded_fugitive
-              and vim.fn['gitgutter#hunk#summary']('%')
-              or { 0, 0, 0 }
-          local gitmod = string.match(table.concat(git_status), '000') == '000'
-          return GitInfo().is_submodule and gitmod == true and 'SuliL3Sub'
-              or GitInfo().is_submodule and gitmod == false and 'SuliL3SubMod'
-              or GitInfo().is_git and gitmod == true and 'SuliL3Git'
-              or GitInfo().is_git and gitmod == false and 'SuliL3GitMod'
-              or 'SuliL3'
-        end
-      },
+    lualine_c = { {
+      function() return ' ' .. git_info().cur_dir .. ' ' end,
+      padding = { left = 0, right = 0 },
+      color = function() if is_special_buffer() then return 'SuliL3Ro' end
+        local git_status = vim.g.loaded_fugitive
+            and vim.fn['gitgutter#hunk#summary']('%')
+            or { 0, 0, 0 }
+        local gitmod = string.match(table.concat(git_status), '000') ~= '000'
+        return git_info().is_submodule and not gitmod and 'SuliL3Sub'
+            or git_info().is_submodule and gitmod and 'SuliL3SubMod'
+            or git_info().is_git and not gitmod and 'SuliL3Git'
+            or git_info().is_git and gitmod and 'SuliL3GitMod'
+            or 'SuliL3'
+      end
+    }, {
+      'filename',
+      color = function()
+        return vim.bo.modified and 'SuliL4Mod'
+            or vim.bo.readonly and 'SuliL4Ro'
+            or is_special_buffer() and 'SuliL4Ro'
+            or 'SuliL4'
+      end
+    }, {
+      'diagnostics',
+      color = 'SuliL4'
+    } },
 
-      {
-        'filename',
-        color = function()
-          return vim.bo.modified and 'SuliL4Mod'
-              or vim.bo.readonly and 'SuliL4Ro'
-              or 'SuliL4'
-        end,
-      },
-      {
-        'diagnostics',
-        color = 'SuliL4'
-      }
-    },
-
-    lualine_x = { 'anzu#search_status' },
+    lualine_x = { {
+      'anzu#search_status',
+      color = 'SuliL3',
+      fmt = function(s) return s:match('[%d/]+') end
+    } },
     lualine_y = { 'filetype' },
     lualine_z = { 'progress', '%4l:%-3v' }
 
   },
 
   inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = { 'filetype' },
+    lualine_a = { {
+      function() return ' ' end,
+    } },
+    lualine_b = { {
+      'branch',
+      color = function(s)
+        return s == '' and s
+            or vim.b[vim.fn.bufnr()].lualine_info.is_submodule and
+            'SuliNCSub'
+            or vim.b[vim.fn.bufnr()].lualine_info.is_git and
+            'SuliNCGit'
+      end,
+      cond = function() return not is_special_buffer() and vim.b[vim.fn.bufnr()].lualine_info ~= nil end,
+    } },
+    lualine_c = { {
+      function()
+        local info = vim.b[vim.fn.bufnr()].lualine_info
+        local color = info.is_submodule and '%#SuliNCSub#'
+            or info.is_submodule and '%#SuliNCSubMod#'
+            or info.is_git and '%#SuliNCGit#'
+            or info.is_git and '%#SuliNCGitMod#'
+            or is_special_buffer() and '%#SuliNCRo#'
+            or '%#SuliNC#'
+        return info.is_git and color .. info.cur_dir
+            or info.is_submodule and color .. info.cur_dir
+            or color .. info.cur_dir
+      end,
+      padding = { left = 1, right = 1 },
+      color = function()
+      end
+    }, {
+      'filename',
+      color = function()
+        return vim.bo.modified and 'SuliNCMod'
+            or vim.bo.readonly and 'SuliNCRo'
+            or is_special_buffer() and 'SuliNCRo'
+            or 'SuliNC'
+      end
+    } },
+
+    -- lualine_c = { 'filename' },
+    lualine_x = { { 'filetype', color = 'Suli00' } },
     lualine_y = {},
     lualine_z = {}
   },
 
   tabline = {
 
-    lualine_a = {
-      {
-        'tabs',
-        mode = 1,
-        tabs_color = {
-          active = 'lualine_b_normal',
-          inactive = 'lualine_a_inactive',
-        },
-        color = { 'normal' },
-        fmt = function(s)
-          local tabsize = Tab_size()
-          local paddchar = " "
-          if s:len() > tabsize - 2 then
-            local endchar = s:len() == tabsize - 1 and ' ' or '`'
-            return s:sub(1, tabsize - 1) .. endchar .. '%#TabLineFill#'
-          end
-          local padd = tabsize - s:len()
-          local left_padd = math.floor((padd - s:len() % 2) / 2)
-          local left_padd_str = paddchar:rep(left_padd)
-          local right_padd_str = paddchar:rep(tabsize - left_padd - s:len())
-          return left_padd_str .. s .. right_padd_str .. '%#TabLineFill#'
-        end,
-        max_length = 400,
-      }
-    },
+    lualine_a = { {
+      'tabs',
+      mode = 1,
+      tabs_color = {
+        active = 'TabLineSel',
+        inactive = 'TabLine',
+      },
+      fmt = function(s)
+        local tabsize = Tab_size()
+        local paddchar = " "
+        if s:len() > tabsize - 2 then
+          local endchar = s:len() == tabsize - 1 and ' ' or '`'
+          return s:sub(1, tabsize - 1) .. endchar .. '%#TabLineFill#'
+        end
+        local padd = tabsize - s:len()
+        local left_padd = math.floor((padd - s:len() % 2) / 2)
+        local left_padd_str = paddchar:rep(left_padd)
+        local right_padd_str = paddchar:rep(tabsize - left_padd - s:len())
+        return left_padd_str .. s .. right_padd_str .. '%#TabLineFill#'
+      end,
+      max_length = 400,
+    } },
 
     lualine_b = {},
     lualine_c = {},
     lualine_x = {},
 
-    lualine_y = {
-      {
-        padding = { '0' },
-        function() return GitInfo().cur_dir end,
-        fmt = function(s)
-          local paddchar = " "
-          if s:len() > tab_rhs_size - 2 then
-            local endchar = s:len() == tab_rhs_size - 1 and ' ' or '`'
-            return ' ' .. s:sub(1, tab_rhs_size - 2) .. endchar
-          end
-          local padd = tab_rhs_size - s:len()
-          local left_padd = math.floor((padd - s:len() % 2) / 2)
-          local left_padd_str = paddchar:rep(left_padd)
-          local right_padd_str = paddchar:rep(tab_rhs_size - left_padd - s:len())
-          return left_padd_str .. s .. right_padd_str
-        end,
-        color = function()
-          return GitInfo().is_git and 'SuliL2Git'
-              or GitInfo().is_submodule and 'SuliL2Sub'
-              or 'SuliL2'
+    lualine_y = { {
+      padding = { '0' },
+      function() return git_info().cur_dir end,
+      fmt = function(s)
+        local paddchar = " "
+        if s:len() > tab_rhs_size - 2 then
+          local endchar = s:len() == tab_rhs_size - 1 and ' ' or '`'
+          return ' ' .. s:sub(1, tab_rhs_size - 2) .. endchar
         end
-      }
-    },
+        local padd = tab_rhs_size - s:len()
+        local left_padd = math.floor((padd - s:len() % 2) / 2)
+        local left_padd_str = paddchar:rep(left_padd)
+        local right_padd_str = paddchar:rep(tab_rhs_size - left_padd - s:len())
+        return left_padd_str .. s .. right_padd_str
+      end,
+      color = function()
+        return git_info().is_git and 'SuliL2Git'
+            or git_info().is_submodule and 'SuliL2Sub'
+            or 'SuliL2'
+      end
+    } },
 
-    lualine_z = {
-      {
-        'ObsessionStatus',
-        fmt = function(s) return s == '[$]' and 'S' or '-' end,
-      }
-    }
+    lualine_z = { {
+      'ObsessionStatus',
+      fmt = function(s) return s == '[$]' and 'S' or '-' end,
+    } }
   },
-
-  extensions = {}
-
 }
-
-local my_extension = {
-  sections = {
-    lualine_a = { 'mode' },
-    lualine_b = { 'mode' },
-    lualine_c = { 'mode' }
-  },
-  filetypes = { 'quickfix' }
-}
-require('lualine').setup { extensions = { my_extension } }
 
 lualine.setup(config)
