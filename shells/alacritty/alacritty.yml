@@ -16,7 +16,7 @@ window:
   padding:
     x: 0
     y: 0
-  dynamic_padding: true
+  dynamic_padding: false
   decorations: none
   startup_mode: Windowed
 
@@ -27,9 +27,10 @@ scrolling:
   history: 5000
   multiplier: 3
 
-draw_bold_text_with_bright_colors: false
 custom_cursor_colors: true
 hide_cursor_when_typing: true
+
+draw_bold_text_with_bright_colors: false
 window.opacity: 1.0
 
 font:
@@ -99,10 +100,3 @@ mouse_bindings:
 cursor:
   style: Block
   unfocused_hollow: true
-
-# dynamic_title: false
-
-# shell:
-#   program: /usr/bin/zsh
-#   args:
-#     - --command=tmux
