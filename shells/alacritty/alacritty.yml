@@ -78,10 +78,10 @@ colors:
     white:   '0x1d1f21'
 
 key_bindings:
-  - { key: Return,   mods: Alt,           action: ToggleFullscreen             }
-  - { key: Equals,   mods: Alt,           action: IncreaseFontSize             }
-  - { key: Minus,    mods: Alt,           action: DecreaseFontSize             }
-  - { key: Key0,     mods: Alt,           action: ResetFontSize                }
+  - { key: Return, mods: Alt, action: ToggleFullscreen }
+  - { key: Equals, mods: Alt, action: IncreaseFontSize }
+  - { key: Minus,  mods: Alt, action: DecreaseFontSize }
+  - { key: Key0,   mods: Alt, action: ResetFontSize    }
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
