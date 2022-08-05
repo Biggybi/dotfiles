@@ -17,6 +17,7 @@ nnoremap <silent> <leader>f/     :Telescope command_history<cr>
 nnoremap <silent> <leader>fh     :Telescope oldfiles<cr>
 nnoremap <silent> <leader>fm     :Telescope help_tags<cr>
 nnoremap <silent> <leader>fs     :Telescope git_status<cr>
-nnoremap <silent> <leader>fr     :Telescope grep_string<cr>
+nnoremap <silent> <leader>fr     :Telescope live_grep<cr>
 
-nnoremap <silent> <leader>b :ls<cr>
+nnoremap <silent> <leader>b      :ls<cr>
+nnoremap <silent> <leader>fe     :Telescope file_browser<cr>

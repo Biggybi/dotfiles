@@ -2,13 +2,6 @@ set runtimepath^=~/.vim
 set runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 
-" Exclude some plugins
-let g:loaded_fzf = 1
-let g:loaded_airline = 1
-let g:loaded_fzf_vim = 1
-let g:plugin_tabline = 1
-let g:plugin_statusline = 1
-let g:plugin_modecolor = 1
 " let g:plugin_darklight = 1
 
         " local adjust = s:len() % 2 == 0 and 1 or 0
@@ -24,22 +17,16 @@ require'nvim-treesitter.configs'.setup {
   ignore_install = {},
   highlight = {
     enable = true,
-    disable = { "vim" },
-    additional_vim_regex_highlighting = false,
+    -- disable = { "vim", "markdown" },
+    additional_vim_regex_highlighting = true,
     },
   incremental_selection = {
     enable = true,
-    -- keymaps = {
-    --   init_selection = "gnn",
-    --   node_incremental = "grn",
-    --   scope_incremental = "grc",
-    --   node_decremental = "grm",
-    --   },
     keymaps = {
-      init_selection = "gm",
-      node_incremental = "<tab>",
-      -- scope_incremental = "<tab>", 
-      node_decremental = "<s-tab>",
+      init_selection = '[v',
+      node_incremental = '[v',
+      node_decremental = ']v',
+      scope_incremental = "[V", 
       },
     },
   indent = { enable = true }
@@ -49,15 +36,5 @@ require'nvim-treesitter.configs'.setup {
   -- ]])
 }
 EOL
-
-" lua << eol
-" -- require('lualine').refresh()
-" -- vim.cmd([[
-" -- augroup My_group
-" --   autocmd!
-" --   autocmd FileType c setlocal cindent
-" -- augroup END
-" -- ]])
-" eol
 
 source ~/.vim/vimrc

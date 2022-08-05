@@ -6,6 +6,16 @@ local function qf_is_loc()
   return vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0
 end
 
+local function get_location()
+  local linecolumn = '%5l:%-3v'
+  local percent = tostring(math.floor(vim.fn.line('.') * 100 / vim.fn.line('$')))
+  percent = vim.fn.line('.') == 1 and 'Top'
+      or vim.fn.line('.') == vim.fn.line('$') and 'Bot'
+      or #percent <= 1 and ' ' .. percent .. '%%'
+      or percent .. '%%'
+  return percent .. linecolumn
+end
+
 -- Extension: Quickfix
 local extension_quickfix = {
   sections = {
@@ -19,34 +29,47 @@ local extension_quickfix = {
     } },
     lualine_c = { {
       function()
-        return qf_is_loc
+        return qf_is_loc()
             and vim.fn.getloclist(0, { title = 0 }).title
             or vim.fn.getqflist({ title = 0 }).title
       end,
       color = 'SuliQfTitle',
     } },
-    lualine_y = { { 'progress' } },
-    lualine_z = { { '%4l:%-3v' } }
+    lualine_x = { {} },
+    lualine_y = { {} },
+    lualine_z = { function() return vim.fn.line('.') .. '/' .. vim.fn.line('$') end }
   },
   inactive_sections = {
-    lualine_a = { {} },
+    lualine_a = { { function() return ' ' end, color = 'SuliQfTitle' } },
     lualine_b = { {
-      function() return is_loclist() and '   Location List' or '   Quickfix List' end,
+      function() return qf_is_loc() and 'Location List' or 'Quickfix List' end,
       color = 'SuliQf',
     } },
     lualine_c = { {
       function()
-        return is_loclist
+        return qf_is_loc()
             and vim.fn.getloclist(0, { title = 0 }).title
             or vim.fn.getqflist({ title = 0 }).title
       end,
       color = 'SuliQfTitle',
     } },
-    lualine_y = { { 'progress', color = 'SuliQf' } },
-    lualine_z = { { '%4l:%-3v', color = 'SuliQf' } }
+    lualine_x = { {} },
+    lualine_y = { {} },
+    lualine_z = { function() return vim.fn.line('.') .. '/' .. vim.fn.line('$') end }
+  },
+  theme = {
+    active = {
+      visual = { a = 'SuliCmd', b = 'SuliL3', d = '' },
+    },
+    inactive = {
+      normal = { a = 'SuliL4', b = 'SuliL3', d = '' },
+      a = 'SuliQf', b = 'SuliQf', c = 'SuliQf',
+      x = 'SuliQf', y = 'SuliQf', z = 'SuliQf'
+    }
   },
   filetypes = { 'qf' },
 }
+
 require('lualine').setup { extensions = { extension_quickfix } }
 
 local function is_special_buffer()
@@ -95,6 +118,11 @@ end
 
 local config = {
   options = {
+    refresh = {
+      statusline = 400,
+      tabline = 400,
+      winbar = 1000,
+    },
     icons_enabled = false,
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
@@ -153,9 +181,11 @@ local config = {
             or vim.bo.readonly and 'SuliL4Ro'
             or is_special_buffer() and 'SuliL4Ro'
             or 'SuliL4'
-      end
+      end,
+      padding = { left = 1 }
     }, {
       'diagnostics',
+      fmt = function(s) return s == '' and s or '| ' .. s end,
       color = 'SuliL4'
     } },
 
@@ -165,8 +195,7 @@ local config = {
       fmt = function(s) return s:match('[%d/]+') end
     } },
     lualine_y = { 'filetype' },
-    lualine_z = { 'progress', '%4l:%-3v' }
-
+    lualine_z = { function() return get_location() end }
   },
 
   inactive_sections = {
@@ -197,8 +226,7 @@ local config = {
             and vim.fn['gitgutter#hunk#summary'](bufnr)
             or { 0, 0, 0 }
         local gitmod = string.match(table.concat(git_status), '000') ~= '000'
-        local color =
-        isgit and not gitmod and '%#SuliNCGit#'
+        local color = isgit and not gitmod and '%#SuliNCGit#'
             or isgit and gitmod and '%#SuliNCGitMod#'
             or issub and not gitmod and '%#SuliNCSub#'
             or issub and gitmod and '%#SuliNCGitMod#'

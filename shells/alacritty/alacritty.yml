@@ -54,8 +54,8 @@ font:
 
 colors:
   primary:
-    # background: '0x2c2c2c'
-    background: '0x1C1C1C'
+    background: '0x2c2c2c'
+    # background: '0x000000'
     foreground: '0x4d4d4c'
   cursor:
     text: '0x2c2c2c'
@@ -78,6 +78,7 @@ colors:
     magenta: '0x282a2e'
     cyan:    '0xa3685a'
     white:   '0x1d1f21'
+  # transparent_background_colors: true
 
 key_bindings:
   - { key: Return, mods: Alt, action: ToggleFullscreen }
@@ -100,3 +101,5 @@ mouse_bindings:
 cursor:
   style: Block
   unfocused_hollow: true
+
+# dynamic_title: false
