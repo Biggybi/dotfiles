@@ -18,15 +18,13 @@ augroup end
 """        Files views
 
 " save folding state (and more based on 'viewoptions')
-if ! has("nvim")
-  augroup ReViews
-    au!
-    au BufWinLeave,BufWrite *
-          \ silent! mkview
-    au BufWinEnter *
-          \ silent! loadview
-  augroup end
-endif
+augroup ReViews
+  au!
+  au BufWinLeave,BufWrite *
+        \ silent! mkview
+  au BufWinEnter *
+        \ silent! loadview
+augroup end
 
 function! FitBufferWindowBottom() abort
   if line('w$') == line('$') && &buftype!='terminal'
