@@ -109,7 +109,7 @@ local config = {
       replace  = { a = 'SuliReplace' },
       command  = { a = 'SuliCmd' },
       inactive = {
-        a = 'Suli00', b = 'Suli00', c = 'Suli00',
+        a = 'Suli00', b = 'Suli00',
         x = 'Suli00', y = 'Suli00', z = 'Suli00'
       }
     }
