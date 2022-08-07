@@ -14,15 +14,16 @@ highlight clear
 syntax reset
 
 let g:colors_name="onehalfdark"
+call system(g:colors_name)
 
 let s:bk = { "gui": "#282c34", "cterm": "236" } " black
-let s:we = { "gui": "#dcdfe4", "cterm": "188" } " white
 let s:rd = { "gui": "#e06c75", "cterm": "168" } " red
 let s:gn = { "gui": "#98c379", "cterm": "114" } " green
 let s:be = { "gui": "#61afef", "cterm": "75"  } " blue
 let s:yw = { "gui": "#e5c07b", "cterm": "180" } " yellow
 let s:pe = { "gui": "#c678dd", "cterm": "176" } " purple
-let s:cn = { "gui": "#56b6c2", "cterm": "73"  } " cyan
+let s:ma = { "gui": "#ef61af", "cterm": "73"  } " magenta
+let s:we = { "gui": "#dcdfe4", "cterm": "188" } " white
 
 let s:g1 = { "gui": "#313640", "cterm": "237" } " grey 1
 let s:g2 = { "gui": "#373C45", "cterm": "239" } " grey 2

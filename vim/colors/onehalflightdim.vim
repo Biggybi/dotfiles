@@ -14,6 +14,7 @@ highlight clear
 syntax reset
 
 let g:colors_name="onehalflightdim"
+call system(g:colors_name)
 
 let s:bk = { "gui": "#383a42", "cterm": "237" }
 let s:rd = { "gui": "#e45649", "cterm": "167" }

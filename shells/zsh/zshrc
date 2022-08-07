@@ -223,19 +223,22 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-export BASE16_PATH=$DOT/shells/themes/base16
-PATH+=:$BASE16_PATH
+export ONEHALFFILE="$HOME/.config/onehalftheme"
+export ONEHALFTHEMEPATH="$DOT/shells/themes/onehalf/" 
+PATH+=:$ONEHALFTHEMEPATH
 
 # Launch base 16 theme
-if [ -e "$HOME/.config/base16_theme" ]; then
-	base16_theme=$(cat ~/.config/base16_theme)
-	if [[ "$base16_theme" != "" ]] ; then
-		"$BASE16_PATH/$base16_theme"
-	else
-		"$BASE16_PATH/base16-one-darker"
-	fi
+onehalftheme=$(cat "$ONEHALFFILE")
+# echo $onehalftheme
+if [[ "$onehalftheme" != "" ]] ; then
+	source "$ONEHALFTHEMEPATH/$onehalftheme"
 else
-	"$BASE16_PATH/$base16_theme"
+	"$ONEHALFTHEMEPATH/base16-one-darker"
+fi
+
+# bat theme
+if [ -x "$(command -v bat)" ]; then
+	export BAT_THEME="OneHalfDark"
 fi
 
 # Plugin Sourcer
