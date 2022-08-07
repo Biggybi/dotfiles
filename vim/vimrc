@@ -213,10 +213,13 @@ augroup end
 
 " Join
 set nojoinspaces                " join with only one space
-if v:version > 703 || v:version == 203 && has('patch541')
-  set formatoptions+=j          " join comments without leader
-endif
-set formatoptions-=cro          " no auto comment line
+augroup FormatOptions
+  au!
+  " join / append line without comment
+  au BufEnter * setlocal formatoptions=ql
+        \|if v:version > 703 || (v:version == 203 && has('patch541'))
+          \| setlocal formatoptions+=j | endif
+augroup end
 set listchars=tab:\▎\ ,trail:-  " only tab / trailing ws
 
 
