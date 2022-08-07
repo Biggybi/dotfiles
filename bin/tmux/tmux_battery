@@ -1,15 +1,15 @@
 #!/bin/bash
 
-if ![ "$(which acpi)" ]; then
+if ! [ "$(which acpi)" ]; then
 	exit
 fi
 
 battery="$(find /sys/class/power_supply/BAT[0-9]*)"
-if ![ -x $battery ] ; then
+if ! [ -x $battery ] ; then
 	exit
 fi
 
-state=$([ $(cat "$battery/status") == "Discharging" ] \
+state=$([[ $(cat "$battery/status") == "Discharging" ]] \
 	&& echo '-' \
 	|| echo '+')
 
