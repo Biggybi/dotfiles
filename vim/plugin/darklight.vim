@@ -129,3 +129,16 @@ augroup LumenDarkLight
   autocmd User LumenDark  DarkLightNight
 augroup end
 
+function s:syncTmuxTheme(_)
+  if (filereadable(expand('$HOME/.config/onehalftheme')))
+    let theme=get(readfile(expand('$HOME/.config/onehalftheme'), '', 1), 0)
+    if theme != g:colors_name
+      call s:applyScheme(theme)
+    endif
+  endif
+endfunction
+
+let g:darklight_timer_delay = get(g:, 'darklight_timer_delay', '1')
+
+let SyncTmuxTheme = function('s:syncTmuxTheme')
+let s:darklight_timer = timer_start(g:darklight_timer_delay, SyncTmuxTheme, {'repeat': -1})
