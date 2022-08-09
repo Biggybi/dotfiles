@@ -182,19 +182,16 @@ call s:h("GitGutterChangeDelete", s:rd, s:bg, "")
 " Fugitive
 call s:h("diffAdded",   s:gn, "", "")
 call s:h("diffRemoved", s:rd, "", "")
-" }
-
-" Plugins {
-" GitGutter
-call s:h("GitGutterAdd",          s:gn, s:bg, "")
-call s:h("GitGutterDelete",       s:rd, s:bg, "")
-call s:h("GitGutterChange",       s:yw, s:bg, "")
-call s:h("GitGutterChangeDelete", s:rd, s:bg, "")
-
-" Fugitive
-call s:h("diffAdded",   s:gn, "", "")
-call s:h("diffRemoved", s:rd, "", "")
-" }
+call s:h("fugitiveUntrackedHeading",  s:gn, "", "")
+call s:h("fugitiveUntrackedModifier", s:gn, "", "")
+call s:h("fugitiveUnstagedHeading",   s:be, "", "")
+call s:h("fugitiveUnstagedModifier",  s:be, "", "")
+call s:h("fugitiveStagedHeading",     s:pe, "", "")
+call s:h("fugitiveStagedModifier",    s:pe, "", "")
+call s:h("fugitiveHeading",           s:rd, "", "")
+call s:h("fugitiveHash",              s:rd, "", "")
+call s:h("fugitiveHeader",            s:rd, "", "")
+call s:h("fugitiveHelpHeader",        s:rd, "", "")
 
 " Suli {
 call s:h("SuliNormal",   s:bg, s:g5, "")
