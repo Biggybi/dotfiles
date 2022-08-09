@@ -12,11 +12,11 @@ let g:dls_theme_shell_sensitive = get(g:, 'dls_theme_shell_sensitive', '0')
 let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
 
 let s:dls_theme_list = get(g:, 'dls_theme_list', [
-      \get(g:, 'dls_color_0', 'base16-one-darkest'),
-      \get(g:, 'dls_color_1', 'base16-one-darker'),
-      \get(g:, 'dls_color_2', 'base16-one-dark'),
-      \get(g:, 'dls_color_3', 'base16-one-lightdim'),
-      \get(g:, 'dls_color_4', 'base16-one-light')
+      \'onehalfdarkest',
+      \'onehalfdarker',
+      \'onehalfdark',
+      \'onehalflightdim',
+      \'onehalflight'
       \])
 
 let g:dls_night = get(g:, 'dls_night', s:dls_theme_list[0])
