@@ -1,0 +1,9 @@
+source_theme() {
+    [[ -e $ONEHALFFILE ]] || return 1
+    if [[ $LAST_ALIAS_RELOAD < $(stat -c %Y ${ONEHALFFILE}(:A)) ]]; then
+        source $ONEHALFFILE
+        LAST_ALIAS_RELOAD=$(date +%s)
+    fi
+	sched +3 source_theme
+}
+sched +3 source_theme

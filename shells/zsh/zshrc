@@ -241,6 +241,7 @@ if [ -x "$(command -v bat)" ]; then
 	export BAT_THEME="OneHalfDark"
 fi
 
+if [ -n "$DOT/shells/zsh/zsh_reload_scheme" ]; then source "$DOT/shells/zsh/zsh_reload_scheme"; fi
 # Plugin Sourcer
 source "$DOT/shells/zsh/plugins/zsh-pluginsourcer/zsh-pluginsourcer.zsh"
 
