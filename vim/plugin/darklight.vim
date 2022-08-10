@@ -92,14 +92,14 @@ function! s:applyScheme(scheme)
   exe "colorscheme" a:scheme
 endfunction
 
-command! DarkLightSwitch :call s:darkLightSwitch()
+command! DarkLightSwitch call s:darkLightSwitch()
 command! -nargs=? -complete=color DarkLightNight
-      \ | if expand('<args>') !=# ''
+      \ if expand('<args>') !=# ''
         \ | let g:dls_night = expand('<args>')
         \ | endif
       \ | call s:applyScheme(g:dls_night)
 command! -nargs=? -complete=color DarkLightDay
-      \ | if expand('<args>') !=# ''
+      \ if expand('<args>') !=# ''
         \ | let g:dls_day = expand('<args>')
         \ | endif
       \ | call s:applyScheme(g:dls_day)
