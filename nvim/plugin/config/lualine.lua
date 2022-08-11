@@ -284,7 +284,7 @@ local config = {
         local isgit = gitpath:match('.git$') ~= nil
         local issub = gitpath:match('.git/module') ~= nil
         if issub or isgit then
-          return vim.fn.matchstr(vim.fn.expand('%:p', '', {})[1], vim.fn.FugitiveWorkTree() .. '/\\zs.*')
+          return vim.fn.matchstr(vim.fn.expand('%:p'), vim.fn.FugitiveWorkTree() .. '/\\zs.*')
         end
         local path = vim.fn.bufname()
         return isgit and path
