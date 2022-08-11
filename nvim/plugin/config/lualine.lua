@@ -40,10 +40,13 @@ local extension_quickfix = {
     lualine_z = { function() return vim.fn.line('.') .. '/' .. vim.fn.line('$') end }
   },
   inactive_sections = {
-    lualine_a = { { function() return ' ' end, color = 'SuliQfTitle' } },
+    lualine_a = { { function() return ' ' end, color = 'SuliQfNC' } },
     lualine_b = { {
-      function() return qf_is_loc() and 'Location List' or 'Quickfix List' end,
-      color = 'SuliQf',
+      function() return qf_is_loc()
+            and 'Location List'
+            or 'Quickfix List'
+      end,
+      color = 'SuliQfNC',
     } },
     lualine_c = { {
       function()
@@ -55,17 +58,20 @@ local extension_quickfix = {
     } },
     lualine_x = { {} },
     lualine_y = { {} },
-    lualine_z = { function() return vim.fn.line('.') .. '/' .. vim.fn.line('$') end }
+    lualine_z = { {
+      function() return vim.fn.line('.') .. '/' .. vim.fn.line('$') end,
+      color = 'SuliQfNC'
+    } }
   },
   theme = {
     active = {
       visual = { a = 'SuliCmd', b = 'SuliL3', d = '' },
     },
-    inactive = {
-      normal = { a = 'SuliL4', b = 'SuliL3', d = '' },
-      a = 'SuliQf', b = 'SuliQf', c = 'SuliQf',
-      x = 'SuliQf', y = 'SuliQf', z = 'SuliQf'
-    }
+    -- inactive = {
+    --   normal = { a = 'SuliQfNC', b = 'SuliL3', c = '' },
+    --   a = 'SuliQf', b = 'SuliQf', c = 'SuliQf',
+    --   x = 'SuliQf', y = 'SuliQf', z = 'SuliQf'
+    -- }
   },
   filetypes = { 'qf' },
 }
@@ -107,6 +113,16 @@ local function git_info()
   }
   return vim.b.lualine_info
 end
+
+-- vim.api.nvim_create_augroup("lualine_info", { clear = true })
+-- vim.api.nvim_create_autocmd(
+--   { "BufEnter" },
+--   {
+--     group = { "lualine_info" },
+--     pattern = { "gitcommit", "gitrebase" },
+--     callback = git_info
+--   }
+-- )
 
 local tab_rhs_size = 20
 function Tab_size()
@@ -156,12 +172,21 @@ local config = {
         return s == '' and s
             or git_info().is_git and 'SuliL2Git'
             or git_info().is_submodule and 'SuliL2Sub'
+            or ''
+      end,
+      fmt = function(s)
+        return vim.fn.bufname() == '' and ''
+            or s == '' and vim.fn.FugitiveHead() or s
       end,
       cond = function() return not is_special_buffer() end,
     } },
 
     lualine_c = { {
-      function() return ' ' .. git_info().cur_dir .. ' ' end,
+      -- git branch
+      function() return vim.fn.bufname() == ''
+            and ' [No Name]'
+            or ' ' .. git_info().cur_dir .. ' '
+      end,
       padding = { left = 0, right = 0 },
       color = function() if is_special_buffer() then return 'SuliL3Ro' end
         local git_status = vim.g.loaded_fugitive
@@ -175,7 +200,8 @@ local config = {
             or 'SuliL3'
       end
     }, {
-      'filename',
+      -- bufname
+      function(s) return vim.fn.bufname() end,
       color = function()
         return vim.bo.modified and 'SuliL4Mod'
             or vim.bo.readonly and 'SuliL4Ro'
@@ -183,37 +209,50 @@ local config = {
             or 'SuliL4'
       end,
       padding = { left = 1 }
-    }, {
-      'diagnostics',
-      fmt = function(s) return s == '' and s or '| ' .. s end,
-      color = 'SuliL4'
     } },
 
     lualine_x = { {
       'anzu#search_status',
       color = 'SuliL3',
-      fmt = function(s) return s:match('[%d/]+') end
+      fmt = function(s) return s ~= '' and s:match('[%d/]+') .. ' |' or '' end,
+      padding = { left = 1, right = 0 },
+    }, {
+      'diagnostics',
+      color = 'SuliL3',
+      diagnostics_color = {
+        -- Same values as the general color option can be used here.
+        error = 'SuliDiagErr', -- Changes diagnostics' error color.
+        warn  = 'SuliDiagWarn', -- Changes diagnostics' warn color.
+        info  = 'SuliDiagInfo', -- Changes diagnostics' info color.
+        hint  = 'SuliDiagHint', -- Changes diagnostics' hint color.
+      },
+      colored = true, -- Displays diagnostics status in color if set to true.
     } },
     lualine_y = { 'filetype' },
     lualine_z = { function() return get_location() end }
   },
 
   inactive_sections = {
-    lualine_a = { { function() return ' ' end } },
+    lualine_a = { { function() return ' ' end, color = 'SuliNC' } },
     lualine_b = { {
       'branch',
       color = function(s)
         local info = vim.fn.getbufinfo(vim.fn.bufnr())[1].variables['lualine_info']
-        return s == '' or info == nil and 'SuliNCGit'
+        return s == '' or info == nil and 'SuliNC'
             or info.is_git and 'SuliNCGit'
             or info.is_submodule and 'SuliNCSub'
+            or ''
       end,
-      fmt = function(s) return s == '' and vim.fn.FugitiveHead() or s end,
+      fmt = function(s)
+        return vim.fn.bufname() == '' and ''
+            or s == '' and vim.fn.FugitiveHead() or s
+      end,
       cond = function() return not is_special_buffer() end,
-    },
-    },
+    } },
     lualine_c = { {
+      -- git branch
       function()
+        if vim.fn.bufname() == '' then return '[No Name]' end
         local bufnr = vim.fn.bufnr()
         local gitpath = vim.fn.FugitiveExtractGitDir(bufnr)
         local project = vim.fn.fnamemodify(gitpath, ':h:t')
@@ -238,10 +277,19 @@ local config = {
             or color .. curdir
 
       end,
-      color = function()
-      end
     }, {
-      'filename',
+      -- bufname
+      function()
+        local gitpath = vim.fn.FugitiveExtractGitDir(vim.fn.bufnr())
+        local isgit = gitpath:match('.git$') ~= nil
+        local issub = gitpath:match('.git/module') ~= nil
+        if issub or isgit then
+          return vim.fn.matchstr(vim.fn.expand('%:p', '', {})[1], vim.fn.FugitiveWorkTree() .. '/\\zs.*')
+        end
+        local path = vim.fn.bufname()
+        return isgit and path
+            or issub and path
+      end,
       color = function()
         return vim.bo.modified and 'SuliNCMod'
             or vim.bo.readonly and 'SuliNCRo'
@@ -250,7 +298,7 @@ local config = {
       end
     } },
 
-    lualine_x = { { 'filetype', color = 'Suli00' } },
+    lualine_x = { { 'filetype', color = 'SuliNC' } },
     lualine_y = {},
     lualine_z = {}
   },
@@ -286,7 +334,7 @@ local config = {
     lualine_x = {},
 
     lualine_y = { {
-      padding = { '0' },
+      padding = { left = 0, right = 0 },
       function() return git_info().cur_dir end,
       fmt = function(s)
         local paddchar = " "
@@ -301,7 +349,8 @@ local config = {
         return left_padd_str .. s .. right_padd_str
       end,
       color = function()
-        return git_info().is_git and 'SuliL2Git'
+        return git_info() == nil and 'SuliL2'
+            or git_info().is_git and 'SuliL2Git'
             or git_info().is_submodule and 'SuliL2Sub'
             or 'SuliL2'
       end
