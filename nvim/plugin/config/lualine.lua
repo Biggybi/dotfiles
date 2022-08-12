@@ -252,6 +252,11 @@ local config = {
     lualine_c = { {
       -- git branch
       function()
+        if vim.o.ft == 'help' then
+          local color = '%#SuliNCRo#'
+          local folder = vim.fn.fnamemodify(vim.fn.bufname(), ':h:t')
+          return color .. folder
+        end
         if vim.fn.bufname() == '' then return '[No Name]' end
         local bufnr = vim.fn.bufnr()
         local gitpath = vim.fn.FugitiveExtractGitDir(bufnr)
@@ -280,6 +285,9 @@ local config = {
     }, {
       -- bufname
       function()
+        if vim.o.ft == 'help' then
+          return vim.fn.fnamemodify(vim.fn.bufname(), ':t')
+        end
         local gitpath = vim.fn.FugitiveExtractGitDir(vim.fn.bufnr())
         local isgit = gitpath:match('.git$') ~= nil
         local issub = gitpath:match('.git/module') ~= nil
