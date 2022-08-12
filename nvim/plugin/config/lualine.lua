@@ -65,7 +65,7 @@ local extension_quickfix = {
   },
   theme = {
     active = {
-      visual = { a = 'SuliCmd', b = 'SuliL3', d = '' },
+      visual = { a = 'SuliCmd', b = 'SuliL3' },
     },
     -- inactive = {
     --   normal = { a = 'SuliQfNC', b = 'SuliL3', c = '' },
@@ -113,16 +113,6 @@ local function git_info()
   }
   return vim.b.lualine_info
 end
-
--- vim.api.nvim_create_augroup("lualine_info", { clear = true })
--- vim.api.nvim_create_autocmd(
---   { "BufEnter" },
---   {
---     group = { "lualine_info" },
---     pattern = { "gitcommit", "gitrebase" },
---     callback = git_info
---   }
--- )
 
 local tab_rhs_size = 20
 function Tab_size()
@@ -221,10 +211,10 @@ local config = {
       color = 'SuliL3',
       diagnostics_color = {
         -- Same values as the general color option can be used here.
-        error = 'SuliDiagErr', -- Changes diagnostics' error color.
-        warn  = 'SuliDiagWarn', -- Changes diagnostics' warn color.
-        info  = 'SuliDiagInfo', -- Changes diagnostics' info color.
-        hint  = 'SuliDiagHint', -- Changes diagnostics' hint color.
+        error = 'SuliDiagErr',
+        warn  = 'SuliDiagWarn',
+        info  = 'SuliDiagInfo',
+        hint  = 'SuliDiagHint',
       },
       colored = true, -- Displays diagnostics status in color if set to true.
     } },
