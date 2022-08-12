@@ -214,8 +214,8 @@ local config = {
     lualine_x = { {
       'anzu#search_status',
       color = 'SuliL3',
-      fmt = function(s) return s ~= '' and s:match('[%d/]+') .. ' |' or '' end,
-      padding = { left = 1, right = 0 },
+      fmt = function(s) return s ~= '' and s:match('[%d/]+') or '' end,
+      padding = { left = 1, right = 1 },
     }, {
       'diagnostics',
       color = 'SuliL3',
