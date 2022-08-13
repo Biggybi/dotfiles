@@ -1,38 +1,38 @@
 " ==============================================================================
-"   Name:        One Half Dark
+"   Name:        One Half Light
 "   Author:      Son A. Pham <sp@sonpham.me>
 "   Url:         https://github.com/sonph/onehalf
 "   License:     The MIT License (MIT)
 "
-"   A dark vim color scheme based on Atom's One. See github.com/sonph/onehalf
-"   for installation instructions, a light color scheme, versions for other
+"   A light vim color scheme based on Atom's One. See github.com/sonph/onehalf
+"   for installation instructions, a dark color scheme, versions for other
 "   editors/terminals, and a matching theme for vim-airline.
 " ==============================================================================
 
-set background=dark
+set background=light
 highlight clear
 syntax reset
 
-let g:colors_name="onehalfdarkest"
+let g:colors_name="onehalf-lightdim"
 call system(g:colors_name)
 
-let s:bk = { "gui": "#181a1f", "cterm": "236" } " black
-let s:rd = { "gui": "#e06c75", "cterm": "168" } " red
-let s:gn = { "gui": "#98c379", "cterm": "114" } " green
-let s:yw = { "gui": "#e5c07b", "cterm": "180" } " yellow
-let s:be = { "gui": "#61afef", "cterm": "75"  } " blue
-let s:pe = { "gui": "#c678dd", "cterm": "176" } " purple
-let s:cn = { "gui": "#56b6c2", "cterm": "73"  } " cyan
-let s:we = { "gui": "#dcdfe4", "cterm": "188" } " white
+let s:bk = { "gui": "#383a42", "cterm": "237" }
+let s:rd = { "gui": "#cd4d41", "cterm": "167" }
+let s:gn = { "gui": "#40803f", "cterm": "71" }   "green
+let s:yw = { "gui": "#ad7600", "cterm": "136" }
+let s:be = { "gui": "#006996", "cterm": "31" }
+let s:pe = { "gui": "#a626a4", "cterm": "127" }
+let s:cn = { "gui": "#0997b3", "cterm": "31" }
+let s:we = { "gui": "#E0E0E0", "cterm": "231" }
 
-let s:g1 = { "gui": "#313640", "cterm": "237" } " grey 1
-let s:g2 = { "gui": "#373C45", "cterm": "239" } " grey 2
-let s:g3 = { "gui": "#474e5d", "cterm": "239" } " grey 3
-let s:g4 = { "gui": "#5c6370", "cterm": "241" } " grey 4
-let s:g5 = { "gui": "#919baa", "cterm": "247" } " grey 5
+let s:g5 = { "gui": "#909096", "cterm": "239" }
+let s:g4 = { "gui": "#a5a5a5", "cterm": "239" }   "grey2
+let s:g3 = { "gui": "#bebebe", "cterm": "239" }   "grey3
+let s:g2 = { "gui": "#cecece", "cterm": "241" }   "grey2
+let s:g1 = { "gui": "#d8d8d8", "cterm": "247" }   "grey1 (dark)
 
-let s:fg = s:we
-let s:bg = s:bk
+let s:fg = s:bk
+let s:bg = s:we
 
 function! s:h(group, fg, bg, attr)
   if type(a:fg) == type({})
@@ -163,6 +163,7 @@ call s:h("Todo",           s:pe, "", "")
 
 " Languages {
 " Vim
+" hi link VimParenSep Identifier
 hi link VimUserFunc Function
 hi link VimFunction Function
 
@@ -211,7 +212,7 @@ call s:h("SuliGitdir",   s:gn, s:g2, "")
 call s:h("SuliGit",      s:gn, s:g2, "")
 call s:h("SuliMidLeft",  s:be, s:g2, "")
 call s:h("SuliMidRight", s:g5, s:g2, "")
-call s:h("SuliFileType", s:g5, s:g3, "")
+call s:h("SuliFileType", s:fg, s:g3, "")
 call s:h("SuliMid",      s:fg, s:g1, "")
 call s:h("SuliSep",      s:g4, s:g2, "")
 call s:h("SuliQf",       s:be, s:g3, "")
@@ -221,6 +222,7 @@ call s:h("SuliSpecial",  s:rd, s:g3, "")
 call s:h("SuliFolderNC",  s:fg, s:g2, "")
 call s:h("SuliGitsubNC",  s:be, s:g2, "")
 call s:h("SuliGitdirNC",  s:gn, s:g2, "")
+call s:h("SuliGitCurNC",  s:pe, s:g2, "")
 call s:h("SuliMidNC",     s:g5, s:g1, "")
 call s:h("SuliFilemodNC", s:yw, s:g1, "")
 call s:h("SuliGitHeadNC", s:pe, s:g2, "")
@@ -254,14 +256,33 @@ call s:h("SuliL4Ro",      s:pe, s:g2, "")
 call s:h("SuliL4Git",     s:gn, s:g2, "")
 call s:h("SuliL4Sub",     s:be, s:g3, "")
 
-call s:h("SuliNC",        s:g5, s:g1, "")
-call s:h("SuliNCMod",     s:yw, s:g1, "")
-call s:h("SuliNCRo",      s:pe, s:g1, "")
-call s:h("SuliNCGit",     s:gn, s:g1, "")
-call s:h("SuliNCGitMod",  s:rd, s:g1, "")
-call s:h("SuliNCSub",     s:be, s:g1, "")
-call s:h("SuliNCSubMod",  s:rd, s:g1, "")
+call s:h("SuliNC",        s:g5, s:g2, "")
+call s:h("SuliNCMod",     s:yw, s:g2, "")
+call s:h("SuliNCRo",      s:pe, s:g2, "")
+call s:h("SuliNCGit",     s:gn, s:g2, "")
+call s:h("SuliNCGitMod",  s:rd, s:g2, "")
+call s:h("SuliNCSub",     s:be, s:g2, "")
+call s:h("SuliNCSubMod",  s:rd, s:g2, "")
 
+call s:h("SuliDiagErr",   s:rd, s:g3, "")
+call s:h("SuliDiagWarn",  s:yw, s:g3, "")
+call s:h("SuliDiagInfo",  s:be, s:g3, "")
+call s:h("SuliDiagHint",  s:gn, s:g3, "")
+
+" }
+
+" HTML
+call s:h("htmlBold",    s:pe, "", "")
+call s:h("htmlItalic",  s:yw, "", "")
+call s:h("htmlEndTag",  s:pe, "", "")
+call s:h("htmlTag",     s:pe, "", "")
+call s:h("htmlLink",    s:rd, "", "")
+
+" Markdown {
+call s:h("markdownCode",              s:gn, "", "")
+call s:h("markdownError",             s:fg, s:bg, "")
+call s:h("markdownCodeBlock",         s:gn, "", "")
+call s:h("markdownHeadingDelimiter",  s:be, "", "")
 " }
 
 " Git {
@@ -289,20 +310,6 @@ hi link gitcommitSelectedArrow gitcommitSelectedFile
 hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 " }
 
-" HTML
-call s:h("htmlBold",    s:pe, "", "")
-call s:h("htmlItalic",  s:yw, "", "")
-call s:h("htmlEndTag",  s:pe, "", "")
-call s:h("htmlTag",     s:pe, "", "")
-call s:h("htmlLink",    s:rd, "", "")
-
-" Markdown {
-call s:h("markdownCode",              s:gn, "", "")
-call s:h("markdownError",             s:fg, s:bg, "")
-call s:h("markdownCodeBlock",         s:gn, "", "")
-call s:h("markdownHeadingDelimiter",  s:be, "", "")
-" }
-
 hi link User1 SuliNormal
 hi link User2 SuliOuter
 hi link User3 SuliMid
@@ -314,46 +321,46 @@ hi link User8 SuliGitSub
 hi link User9 SuliSep
 
 " neovim terminal {
-if has('nvim')
-  let g:terminal_color_0  = s:bg.gui
-  let g:terminal_color_1  = s:rd.gui
-  let g:terminal_color_2  = s:gn.gui
-  let g:terminal_color_3  = s:yw.gui
-  let g:terminal_color_4  = s:be.gui
-  let g:terminal_color_5  = s:pe.gui
-  let g:terminal_color_6  = s:cn.gui
-  let g:terminal_color_7  = s:fg.gui
-  let g:terminal_color_8  = s:g3.gui
-  let g:terminal_color_9  = s:rd.gui
-  let g:terminal_color_10 = s:gn.gui
-  let g:terminal_color_11 = s:yw.gui
-  let g:terminal_color_12 = s:be.gui
-  let g:terminal_color_13 = s:pe.gui
-  let g:terminal_color_14 = s:cn.gui
-  let g:terminal_color_15 = s:fg.gui
-  let g:terminal_color_background = s:bg.gui
-  let g:terminal_color_foreground = s:fg.gui
-endif
+  if has('nvim')
+    let g:terminal_color_0  = s:fg.gui
+    let g:terminal_color_1  = s:rd.gui
+    let g:terminal_color_2  = s:gn.gui
+    let g:terminal_color_3  = s:yw.gui
+    let g:terminal_color_4  = s:be.gui
+    let g:terminal_color_5  = s:pe.gui
+    let g:terminal_color_6  = s:cn.gui
+    let g:terminal_color_7  = s:bg.gui
+    let g:terminal_color_8  = s:fg.gui
+    let g:terminal_color_9  = s:rd.gui
+    let g:terminal_color_10 = s:gn.gui
+    let g:terminal_color_11 = s:yw.gui
+    let g:terminal_color_12 = s:be.gui
+    let g:terminal_color_13 = s:pe.gui
+    let g:terminal_color_14 = s:cn.gui
+    let g:terminal_color_15 = s:bg.gui
+    let g:terminal_color_background = s:bg.gui
+    let g:terminal_color_foreground = s:fg.gui
+  endif
 " }
 
 if has("terminal") || has("nvim")
   let g:terminal_ansi_colors = [
-        \ s:bg.gui,
-        \ s:rd.gui,
-        \ s:gn.gui,
-        \ s:yw.gui,
-        \ s:be.gui,
-        \ s:pe.gui,
-        \ s:cn.gui,
         \ s:fg.gui,
-        \ s:g3.gui,
         \ s:rd.gui,
         \ s:gn.gui,
         \ s:yw.gui,
         \ s:be.gui,
         \ s:pe.gui,
         \ s:cn.gui,
-        \ s:fg.gui
+        \ s:bg.gui,
+        \ s:g4.gui,
+        \ s:rd.gui,
+        \ s:gn.gui,
+        \ s:yw.gui,
+        \ s:be.gui,
+        \ s:pe.gui,
+        \ s:cn.gui,
+        \ s:bg.gui
         \]
 endif
 

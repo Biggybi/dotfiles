@@ -3,7 +3,7 @@ if exists('g:plugin_darklight')
 endif
 let g:plugin_darklight = 1
 
-let g:dls_current_theme = get(g:, 'dls_start_theme_index', '/home/tris/.config/base16_theme')
+let g:dls_shell_file = get(g:, 'dls_start_theme_index', expand('$HOME/.config/onehalf-theme'))
 
 let g:dls_start_theme_index = get(g:, 'dls_start_theme_index', '0')
 let g:dls_theme_source_sensitive = get(g:, 'dls_theme_source_sensitive', '0')
@@ -12,11 +12,11 @@ let g:dls_theme_shell_sensitive = get(g:, 'dls_theme_shell_sensitive', '0')
 let g:dls_daytime = get(g:, 'dls_daytime', '[7, 19]')
 
 let s:dls_theme_list = get(g:, 'dls_theme_list', [
-      \'onehalfdarkest',
-      \'onehalfdarker',
-      \'onehalfdark',
-      \'onehalflightdim',
-      \'onehalflight'
+      \'onehalf-darkest',
+      \'onehalf-darker',
+      \'onehalf-dark',
+      \'onehalf-lightdim',
+      \'onehalf-light'
       \])
 
 let g:dls_night = get(g:, 'dls_night', s:dls_theme_list[0])
@@ -39,19 +39,20 @@ function! s:setTheme(theme) abort
 endfunction
 
 function! s:shellThemeDetect() abort
-  if !file_readable(expand('$HOME/.config/base16_theme'))
+  if !file_readable(g:dls_shell_file)
+    echom "no such file:" g:dls_shell_file
     return 0
   endif
-  let base16_theme=get(readfile(expand('$HOME/.config/base16_theme'), '', 1), 0)
-  if (base16_theme == "")
+  let shell_theme=get(readfile(g:dls_shell_file, '', 1), 0)
+  if (shell_theme == "")
     return 0
   endif
-  exe "colorscheme" base16_theme
+  exe "colorscheme" shell_theme
   return 1
 endfunction
 
 function! s:selectColorScheme() abort
-  if s:shellThemeDetect() != 0
+  if s:shellThemeDetect()
     return
   endif
   if g:dls_start_theme_index != 0
@@ -75,7 +76,10 @@ endfunction
 
 function! s:darkLightSwitch() abort
   if ! exists('s:theme_index')
-    let s:theme_index = index(s:dls_theme_list, g:colors_name)
+    let s:theme_index = 0
+    if exists('g:colors_name')
+      let s:theme_index = index(s:dls_theme_list, g:colors_name)
+    endif
   endif
   let s:theme_index += 1
   if s:theme_index == len(s:dls_theme_list)
@@ -86,10 +90,10 @@ endfunction
 
 function! s:applyScheme(scheme)
   if index(s:dls_theme_list, a:scheme) < 0
-    echom "Auto theme not found:" a:scheme . "."
+    echom "Auto theme not found:" a:scheme .. "."
     return
   endif
-  exe "colorscheme" a:scheme
+  call s:setTheme(a:scheme)
 endfunction
 
 command! DarkLightSwitch call s:darkLightSwitch()
@@ -103,6 +107,7 @@ command! -nargs=? -complete=color DarkLightDay
         \ | let g:dls_day = expand('<args>')
         \ | endif
       \ | call s:applyScheme(g:dls_day)
+      \ | if has('nvim') | source $DOT/nvim/plugin/config/lualine.lua | endif
 
 nnoremap <expr> <plug>DarkLightSwitch <sid>darkLightSwitch()
 nnoremap <expr> <plug>DarkLightNight  <sid>applyScheme(g:dls_night)

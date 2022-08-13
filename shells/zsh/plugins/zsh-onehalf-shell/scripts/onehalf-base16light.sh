@@ -1,44 +1,40 @@
-#!/bin/bash
+#!/bin/sh
 # base16-shell (https://github.com/chriskempson/base16-shell)
 # Base16 Shell template by Chris Kempson (http://chriskempson.com)
-# OneDark scheme by Lalit Magant (http://github.com/tilal6991)
+# One Light scheme by Daniel Pfeifer (http://github.com/purpleKarrot)
 
-theme="onehalflight"
-echo "$theme" > ~/.config/onehalftheme
-if [ -n "$TMUX" ]; then
-	tmux source-file $DOT/tmux/colors/$theme
-fi
-
-if [ "${TERM}" = "xterm-kitty" ]; then
-	exit
-fi
-
-color00="38/3a/42" # Base 00 - Black
-color01="e4/56/49" # Base 08 - Red
-color02="39/b8/38" # Base 0B - Green
-color03="d9/8d/00" # Base 0A - Yellow
-color04="01/84/bc" # Base 0D - Blue
+color00="fa/fa/fa" # Base 00 - Black
+color01="ca/12/43" # Base 08 - Red
+color02="50/a1/4f" # Base 0B - Green
+color03="c1/84/01" # Base 0A - Yellow
+color04="40/78/f2" # Base 0D - Blue
 color05="a6/26/a4" # Base 0E - Magenta
-color06="09/97/b3" # Base 0C - Purple
-color07="fa/fa/fa" # Base 05 - White
-color08="d4/d4/d4" # Base 03 - Bright Black
+color06="01/84/bc" # Base 0C - Cyan
+color07="38/3a/42" # Base 05 - White
+color08="a0/a1/a7" # Base 03 - Bright Black
 color09=$color01 # Base 08 - Bright Red
 color10=$color02 # Base 0B - Bright Green
 color11=$color03 # Base 0A - Bright Yellow
 color12=$color04 # Base 0D - Bright Blue
 color13=$color05 # Base 0E - Bright Magenta
 color14=$color06 # Base 0C - Bright Cyan
-color15="c8/cc/d4" # Base 07 - Bright White
-color16="d1/9a/66" # Base 09
-color17="be/50/46" # Base 0F
-color18="35/3b/45" # Base 01
-color19="3e/44/51" # Base 02
-color20="56/5c/64" # Base 04
-color21="b6/bd/ca" # Base 06
-color_foreground=$color00 # Base 05
-color_background=$color07 # Base 00
+color15="09/0a/0b" # Base 07 - Bright White
+color16="d7/5f/00" # Base 09
+color17="98/68/01" # Base 0F
+color18="f0/f0/f1" # Base 01
+color19="e5/e5/e6" # Base 02
+color20="69/6c/77" # Base 04
+color21="20/22/27" # Base 06
+color_foreground="38/3a/42" # Base 05
+color_background="fa/fa/fa" # Base 00
 
-if [ "${TERM%%[-.]*}" = "screen" ]; then
+if [ -n "$TMUX" ]; then
+  # Tell tmux to pass the escape sequences through
+  # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
+  put_template() { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' $@; }
+  put_template_var() { printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' $@; }
+  put_template_custom() { printf '\033Ptmux;\033\033]%s%s\033\033\\\033\\' $@; }
+elif [ "${TERM%%[-.]*}" = "screen" ]; then
   # GNU screen (screen, screen-256color, screen-256color-bce)
   put_template() { printf '\033P\033]4;%d;rgb:%s\007\033\\' $@; }
   put_template_var() { printf '\033P\033]%d;rgb:%s\007\033\\' $@; }
@@ -82,13 +78,13 @@ put_template 21 $color21
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg abb2bf # foreground
-  put_template_custom Ph 282c34 # background
-  put_template_custom Pi abb2bf # bold color
-  put_template_custom Pj 3e4451 # selection color
-  put_template_custom Pk abb2bf # selected text color
-  put_template_custom Pl abb2bf # cursor
-  put_template_custom Pm 282c34 # cursor text
+  put_template_custom Pg 383a42 # foreground
+  put_template_custom Ph fafafa # background
+  put_template_custom Pi 383a42 # bold color
+  put_template_custom Pj e5e5e6 # selection color
+  put_template_custom Pk 383a42 # selected text color
+  put_template_custom Pl 383a42 # cursor
+  put_template_custom Pm fafafa # cursor text
 else
   put_template_var 10 $color_foreground
   if [ "$BASE16_SHELL_SET_BACKGROUND" != false ]; then

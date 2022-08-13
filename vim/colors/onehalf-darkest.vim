@@ -1,39 +1,38 @@
 " ==============================================================================
-"   Name:        One Half Light
+"   Name:        One Half Dark
 "   Author:      Son A. Pham <sp@sonpham.me>
 "   Url:         https://github.com/sonph/onehalf
 "   License:     The MIT License (MIT)
 "
-"   A light vim color scheme based on Atom's One. See github.com/sonph/onehalf
-"   for installation instructions, a dark color scheme, versions for other
+"   A dark vim color scheme based on Atom's One. See github.com/sonph/onehalf
+"   for installation instructions, a light color scheme, versions for other
 "   editors/terminals, and a matching theme for vim-airline.
 " ==============================================================================
 
-set background=light
+set background=dark
 highlight clear
 syntax reset
 
-let g:colors_name="onehalflight"
+let g:colors_name="onehalf-darkest"
 call system(g:colors_name)
 
-let s:bk = { "gui": "#383a42", "cterm": "237" }  "black
-let s:rd = { "gui": "#e45649", "cterm": "167" }  "red
-let s:gn = { "gui": "#39b838", "cterm": "71" }   "green
-" let s:yw = { "gui": "#c18401", "cterm": "136" }  "yellow
-let s:yw = { "gui": "#d98d00", "cterm": "136" }  "yellow
-let s:be = { "gui": "#0184bc", "cterm": "31" }   "blue
-let s:pe = { "gui": "#a626a4", "cterm": "127" }  "purple
-let s:ma = { "gui": "#0997b3", "cterm": "31" }   "cyan
-let s:we = { "gui": "#fafafa", "cterm": "231" }  "white
+let s:bk = { "gui": "#181a1f", "cterm": "236" } " black
+let s:rd = { "gui": "#e06c75", "cterm": "168" } " red
+let s:gn = { "gui": "#98c379", "cterm": "114" } " green
+let s:yw = { "gui": "#e5c07b", "cterm": "180" } " yellow
+let s:be = { "gui": "#61afef", "cterm": "75"  } " blue
+let s:pe = { "gui": "#c678dd", "cterm": "176" } " purple
+let s:cn = { "gui": "#56b6c2", "cterm": "73"  } " cyan
+let s:we = { "gui": "#dcdfe4", "cterm": "188" } " white
 
-let s:g5 = { "gui": "#a0a1a7", "cterm": "237" }   "grey1 (light)
-let s:g4 = { "gui": "#c1c1c1", "cterm": "239" }   "grey2
-let s:g3 = { "gui": "#d4d4d4", "cterm": "239" }   "grey3
-let s:g2 = { "gui": "#e5e5e5", "cterm": "241" }   "grey2
-let s:g1 = { "gui": "#f0f0f0", "cterm": "247" }   "grey1 (dark)
+let s:g1 = { "gui": "#313640", "cterm": "237" } " grey 1
+let s:g2 = { "gui": "#373C45", "cterm": "239" } " grey 2
+let s:g3 = { "gui": "#474e5d", "cterm": "239" } " grey 3
+let s:g4 = { "gui": "#5c6370", "cterm": "241" } " grey 4
+let s:g5 = { "gui": "#919baa", "cterm": "247" } " grey 5
 
-let s:fg = s:bk
-let s:bg = s:we
+let s:fg = s:we
+let s:bg = s:bk
 
 function! s:h(group, fg, bg, attr)
   if type(a:fg) == type({})
@@ -120,8 +119,8 @@ call s:h("TabLineFill",      s:g5, s:bg, "")
 " See :help hl-Whitespace and :help hl-SpecialKey
 call s:h("Whitespace",   s:g2, "", "")
 call s:h("NonText",      s:bg, s:bg, "")
-call s:h("Comment",      s:g5, "", "italic")
-call s:h("Constant",     s:be, "", "")
+call s:h("Comment",      s:g4, "", "italic")
+call s:h("Constant",     s:cn, "", "")
 call s:h("String",       s:gn, "", "")
 call s:h("Character",    s:gn, "", "")
 call s:h("Number",       s:yw, "", "")
@@ -133,11 +132,10 @@ call s:h("Function",     s:be, "", "")
 call s:h("Statement",    s:pe, "", "")
 
 call s:h("Conditional",  s:pe, "", "")
-call s:h("Repeat",       s:ma, "", "")
+call s:h("Repeat",       s:pe, "", "")
 call s:h("Label",        s:pe, "", "")
 call s:h("Operator",     s:yw, "", "")
-" call s:h("Keyword",      s:rd, "", "")
-call s:h("Keyword",      s:pe, "", "")
+call s:h("Keyword",      s:rd, "", "")
 call s:h("Exception",    s:pe, "", "")
 
 call s:h("PreProc",      s:yw, "", "")
@@ -197,14 +195,10 @@ call s:h("fugitiveHelpHeader",        s:rd, "", "")
 " Suli {
 call s:h("SuliNormal",   s:bg, s:g5, "")
 call s:h("SuliCmd",      s:bg, s:rd, "")
-call s:h("SuliTerm",     s:bg, s:rd, "")
-call s:h("SuliPrompt",   s:bg, s:rd, "")
 call s:h("SuliVisual",   s:bg, s:pe, "")
 call s:h("SuliInsert",   s:bg, s:gn, "")
 call s:h("SuliReplace",  s:bg, s:gn, "")
-call s:h("SuliSelect",   s:bg, s:gn, "")
-call s:h("SuliFtsearch", s:bg, s:be, "")
-call s:h("SuliPrompt",   s:bg, s:be, "")
+call s:h("SuliFtsearch", s:bg, s:cn, "")
 call s:h("SuliPending",  s:bg, s:yw, "")
 
 " current window
@@ -215,7 +209,6 @@ call s:h("SuliGitmod",   s:yw, s:g3, "")
 call s:h("SuliFilemod",  s:yw, s:g1, "")
 call s:h("SuliGitdir",   s:gn, s:g2, "")
 call s:h("SuliGit",      s:gn, s:g2, "")
-call s:h("SuliGitCur",   s:pe, s:g2, "")
 call s:h("SuliMidLeft",  s:be, s:g2, "")
 call s:h("SuliMidRight", s:g5, s:g2, "")
 call s:h("SuliFileType", s:g5, s:g3, "")
@@ -228,7 +221,6 @@ call s:h("SuliSpecial",  s:rd, s:g3, "")
 call s:h("SuliFolderNC",  s:fg, s:g2, "")
 call s:h("SuliGitsubNC",  s:be, s:g2, "")
 call s:h("SuliGitdirNC",  s:gn, s:g2, "")
-call s:h("SuliGitCurNC",  s:pe, s:g2, "")
 call s:h("SuliMidNC",     s:g5, s:g1, "")
 call s:h("SuliFilemodNC", s:yw, s:g1, "")
 call s:h("SuliGitHeadNC", s:pe, s:g2, "")
@@ -270,20 +262,11 @@ call s:h("SuliNCGitMod",  s:rd, s:g1, "")
 call s:h("SuliNCSub",     s:be, s:g1, "")
 call s:h("SuliNCSubMod",  s:rd, s:g1, "")
 
-" }
+call s:h("SuliDiagErr",   s:rd, s:g3, "")
+call s:h("SuliDiagWarn",  s:yw, s:g3, "")
+call s:h("SuliDiagInfo",  s:be, s:g3, "")
+call s:h("SuliDiagHint",  s:gn, s:g3, "")
 
-" HTML
-call s:h("htmlBold",    s:pe, "", "")
-call s:h("htmlItalic",  s:yw, "", "")
-call s:h("htmlEndTag",  s:pe, "", "")
-call s:h("htmlTag",     s:pe, "", "")
-call s:h("htmlLink",    s:rd, "", "")
-
-" Markdown {
-call s:h("markdownCode",              s:gn, "", "")
-call s:h("markdownError",             s:fg, s:bg, "")
-call s:h("markdownCodeBlock",         s:gn, "", "")
-call s:h("markdownHeadingDelimiter",  s:be, "", "")
 " }
 
 " Git {
@@ -311,8 +294,21 @@ hi link gitcommitSelectedArrow gitcommitSelectedFile
 hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 " }
 
+" HTML
+call s:h("htmlBold",    s:pe, "", "")
+call s:h("htmlItalic",  s:yw, "", "")
+call s:h("htmlEndTag",  s:pe, "", "")
+call s:h("htmlTag",     s:pe, "", "")
+call s:h("htmlLink",    s:rd, "", "")
+
+" Markdown {
+call s:h("markdownCode",              s:gn, "", "")
+call s:h("markdownError",             s:fg, s:bg, "")
+call s:h("markdownCodeBlock",         s:gn, "", "")
+call s:h("markdownHeadingDelimiter",  s:be, "", "")
+" }
+
 hi link User1 SuliNormal
-" call s:h("User1",   s:bg, s:g5, "")
 hi link User2 SuliOuter
 hi link User3 SuliMid
 hi link User4 SuliGitMod
@@ -330,7 +326,7 @@ if has('nvim')
   let g:terminal_color_3  = s:yw.gui
   let g:terminal_color_4  = s:be.gui
   let g:terminal_color_5  = s:pe.gui
-  let g:terminal_color_6  = s:ma.gui
+  let g:terminal_color_6  = s:cn.gui
   let g:terminal_color_7  = s:fg.gui
   let g:terminal_color_8  = s:g3.gui
   let g:terminal_color_9  = s:rd.gui
@@ -338,7 +334,7 @@ if has('nvim')
   let g:terminal_color_11 = s:yw.gui
   let g:terminal_color_12 = s:be.gui
   let g:terminal_color_13 = s:pe.gui
-  let g:terminal_color_14 = s:ma.gui
+  let g:terminal_color_14 = s:cn.gui
   let g:terminal_color_15 = s:fg.gui
   let g:terminal_color_background = s:bg.gui
   let g:terminal_color_foreground = s:fg.gui
@@ -353,15 +349,15 @@ if has("terminal") || has("nvim")
         \ s:yw.gui,
         \ s:be.gui,
         \ s:pe.gui,
-        \ s:ma.gui,
-        \ s:rd.gui,
+        \ s:cn.gui,
+        \ s:fg.gui,
         \ s:g3.gui,
         \ s:rd.gui,
         \ s:gn.gui,
         \ s:yw.gui,
         \ s:be.gui,
         \ s:pe.gui,
-        \ s:ma.gui,
+        \ s:cn.gui,
         \ s:fg.gui
         \]
 endif

@@ -13,16 +13,16 @@ set background=dark
 highlight clear
 syntax reset
 
-let g:colors_name="onehalfdark"
+let g:colors_name="onehalf-darker"
 call system(g:colors_name)
 
-let s:bk = { "gui": "#282c34", "cterm": "236" } " black
+let s:bk = { "gui": "#222429", "cterm": "236" } " black
 let s:rd = { "gui": "#e06c75", "cterm": "168" } " red
 let s:gn = { "gui": "#98c379", "cterm": "114" } " green
 let s:be = { "gui": "#61afef", "cterm": "75"  } " blue
 let s:yw = { "gui": "#e5c07b", "cterm": "180" } " yellow
 let s:pe = { "gui": "#c678dd", "cterm": "176" } " purple
-let s:ma = { "gui": "#ef61af", "cterm": "73"  } " magenta
+let s:ma = { "gui": "#ef61af", "cterm": "73"  } " cyan
 let s:we = { "gui": "#dcdfe4", "cterm": "188" } " white
 
 let s:g1 = { "gui": "#313640", "cterm": "237" } " grey 1
@@ -94,7 +94,7 @@ call s:h("VisualNOS",    "", s:g3, "")
 call s:h("ColorColumn",  "", s:g1, "")
 call s:h("Conceal",      s:fg, "", "")
 call s:h("Directory",    s:be, "", "")
-call s:h("VertSplit",    s:g3, "", "")
+call s:h("VertSplit",    s:g2, "", "")
 call s:h("Folded",       s:g4, "", "")
 call s:h("FoldColumn",   s:fg, "", "")
 call s:h("SignColumn",   s:fg, "", "")
@@ -120,7 +120,7 @@ call s:h("TabLineFill",      s:g5, s:bg, "")
 call s:h("Whitespace",   s:g2, "", "")
 call s:h("NonText",      s:bg, s:bg, "")
 call s:h("Comment",      s:g4, "", "italic")
-call s:h("Constant",     s:cn, "", "")
+call s:h("Constant",     s:be, "", "")
 call s:h("String",       s:gn, "", "")
 call s:h("Character",    s:gn, "", "")
 call s:h("Number",       s:yw, "", "")
@@ -135,8 +135,7 @@ call s:h("Conditional",  s:pe, "", "")
 call s:h("Repeat",       s:pe, "", "")
 call s:h("Label",        s:pe, "", "")
 call s:h("Operator",     s:yw, "", "")
-" call s:h("Keyword",      s:rd, "", "")
-call s:h("Keyword",      s:pe, "", "")
+call s:h("Keyword",      s:rd, "", "")
 call s:h("Exception",    s:pe, "", "")
 
 call s:h("PreProc",      s:yw, "", "")
@@ -193,6 +192,22 @@ call s:h("fugitiveHash",              s:rd, "", "")
 call s:h("fugitiveHeader",            s:rd, "", "")
 call s:h("fugitiveHelpHeader",        s:rd, "", "")
 
+" Coc
+
+" CocListLine
+" CocListSearch
+" CocListMode
+" CocListPath
+" CocSelectedText
+" CocSelectedLine
+
+" hi! link CocListLine QuickFixLine
+call s:h("CocListLine",     s:bg, s:g5, "")
+call s:h("CocListSearch",   s:bg, s:g5, "")
+call s:h("CocListMode",     s:bg, s:g5, "")
+call s:h("CocListPath",     s:bg, s:g5, "")
+call s:h("CocSelectedText", s:bg, s:g5, "")
+call s:h("CocSelectedLine", s:bg, s:g5, "")
 " }
 
 " Suli {
@@ -201,14 +216,12 @@ call s:h("SuliCmd",      s:bg, s:rd, "")
 call s:h("SuliVisual",   s:bg, s:pe, "")
 call s:h("SuliInsert",   s:bg, s:gn, "")
 call s:h("SuliReplace",  s:bg, s:gn, "")
-call s:h("SuliFtsearch", s:bg, s:cn, "")
+call s:h("SuliFtsearch", s:bg, s:be, "")
 call s:h("SuliPending",  s:bg, s:yw, "")
-
-call s:h("SuliTerm",     s:bg, s:rd, "")
 
 " current window
 call s:h("SuliFolder",   s:fg, s:g2, "")
-call s:h("SuliGitsub",   s:be, s:g3, "")
+call s:h("SuliGitsub",   s:be, s:g2, "")
 call s:h("SuliGithead",  s:fg, s:g3, "")
 call s:h("SuliGitmod",   s:yw, s:g3, "")
 call s:h("SuliFilemod",  s:yw, s:g1, "")
@@ -220,7 +233,6 @@ call s:h("SuliFileType", s:g5, s:g3, "")
 call s:h("SuliMid",      s:fg, s:g1, "")
 call s:h("SuliSep",      s:g4, s:g2, "")
 call s:h("SuliQf",       s:be, s:g3, "")
-call s:h("SuliQfTitle",  s:yw, s:g3, "")
 call s:h("SuliSpecial",  s:rd, s:g3, "")
 
 " non-current window
@@ -268,6 +280,11 @@ call s:h("SuliNCGitMod",  s:rd, s:g1, "")
 call s:h("SuliNCSub",     s:be, s:g1, "")
 call s:h("SuliNCSubMod",  s:rd, s:g1, "")
 
+call s:h("SuliDiagErr",   s:rd, s:g3, "")
+call s:h("SuliDiagWarn",  s:yw, s:g3, "")
+call s:h("SuliDiagInfo",  s:be, s:g3, "")
+call s:h("SuliDiagHint",  s:gn, s:g3, "")
+
 " }
 
 " Git {
@@ -286,13 +303,13 @@ call s:h("gitcommitDiscardedFile", s:rd, "", "")
 call s:h("gitcommitSelectedFile",  s:gn, "", "")
 call s:h("gitcommitUnmergedFile",  s:yw, "", "")
 call s:h("gitcommitFile",          s:fg, "", "")
-hi link gitcommitNoBranch       gitcommitBranch
-hi link gitcommitUntracked      gitcommitComment
-hi link gitcommitDiscarded      gitcommitComment
-hi link gitcommitSelected       gitcommitComment
+hi link gitcommitNoBranch gitcommitBranch
+hi link gitcommitUntracked gitcommitComment
+hi link gitcommitDiscarded gitcommitComment
+hi link gitcommitSelected gitcommitComment
 hi link gitcommitDiscardedArrow gitcommitDiscardedFile
-hi link gitcommitSelectedArrow  gitcommitSelectedFile
-hi link gitcommitUnmergedArrow  gitcommitUnmergedFile
+hi link gitcommitSelectedArrow gitcommitSelectedFile
+hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 " }
 
 " HTML
@@ -304,10 +321,8 @@ call s:h("htmlLink",    s:rd, "", "")
 
 " Markdown {
 call s:h("markdownCode",              s:gn, "", "")
-call s:h("markdownDelimiter",         s:gn, "", "")
 call s:h("markdownError",             s:fg, s:bg, "")
 call s:h("markdownCodeBlock",         s:gn, "", "")
-call s:h("markdownHeadingDelimiter",  s:be, "", "")
 call s:h("markdownHeadingDelimiter",  s:be, "", "")
 " }
 
@@ -322,26 +337,26 @@ hi link User8 SuliGitSub
 hi link User9 SuliSep
 
 " neovim terminal {
-  if has('nvim')
-    let g:terminal_color_0  = s:bg.gui
-    let g:terminal_color_1  = s:rd.gui
-    let g:terminal_color_2  = s:gn.gui
-    let g:terminal_color_3  = s:yw.gui
-    let g:terminal_color_4  = s:be.gui
-    let g:terminal_color_5  = s:pe.gui
-    let g:terminal_color_6  = s:cn.gui
-    let g:terminal_color_7  = s:fg.gui
-    let g:terminal_color_8  = s:g4.gui
-    let g:terminal_color_9  = s:rd.gui
-    let g:terminal_color_10 = s:gn.gui
-    let g:terminal_color_11 = s:yw.gui
-    let g:terminal_color_12 = s:be.gui
-    let g:terminal_color_13 = s:pe.gui
-    let g:terminal_color_14 = s:cn.gui
-    let g:terminal_color_15 = s:fg.gui
-    let g:terminal_color_background = s:bg.gui
-    let g:terminal_color_foreground = s:fg.gui
-  endif
+if has('nvim')
+  let g:terminal_color_0  = s:bg.gui
+  let g:terminal_color_1  = s:rd.gui
+  let g:terminal_color_2  = s:gn.gui
+  let g:terminal_color_3  = s:yw.gui
+  let g:terminal_color_4  = s:be.gui
+  let g:terminal_color_5  = s:pe.gui
+  let g:terminal_color_6  = s:ma.gui
+  let g:terminal_color_7  = s:fg.gui
+  let g:terminal_color_8  = s:g3.gui
+  let g:terminal_color_9  = s:rd.gui
+  let g:terminal_color_10 = s:gn.gui
+  let g:terminal_color_11 = s:yw.gui
+  let g:terminal_color_12 = s:be.gui
+  let g:terminal_color_13 = s:pe.gui
+  let g:terminal_color_14 = s:ma.gui
+  let g:terminal_color_15 = s:fg.gui
+  let g:terminal_color_background = s:bg.gui
+  let g:terminal_color_foreground = s:fg.gui
+endif
 " }
 
 if has("terminal") || has("nvim")
@@ -352,7 +367,7 @@ if has("terminal") || has("nvim")
         \ s:yw.gui,
         \ s:be.gui,
         \ s:pe.gui,
-        \ s:cn.gui,
+        \ s:ma.gui,
         \ s:fg.gui,
         \ s:g3.gui,
         \ s:rd.gui,
@@ -360,7 +375,7 @@ if has("terminal") || has("nvim")
         \ s:yw.gui,
         \ s:be.gui,
         \ s:pe.gui,
-        \ s:cn.gui,
+        \ s:ma.gui,
         \ s:fg.gui
         \]
 endif

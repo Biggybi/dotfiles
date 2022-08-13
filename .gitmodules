@@ -211,3 +211,6 @@
 [submodule "nvim/pack/bundle/start/lualine.nvim"]
 	path = nvim/pack/bundle/start/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim
+[submodule "/home/trx/dotfiles/vim/pack/bundle/start/markdown-preview.nvim.git"]
+	path = /home/trx/dotfiles/vim/pack/bundle/start/markdown-preview.nvim.git
+	url = https://github.com/iamcco/markdown-preview.nvim.git
