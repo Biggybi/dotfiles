@@ -81,6 +81,7 @@ select-word-style bash
 autoload -Uz compinit promptinit
 compinit
 promptinit
+_comp_options+=(globdots)
 
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==94=34}:${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive

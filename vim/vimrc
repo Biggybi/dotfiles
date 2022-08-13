@@ -208,7 +208,7 @@ set sidescroll=1                " min horizontal cursor offset
 augroup SetScrolloff            " min vertical cursor offset
   au!
   au BufRead,BufEnter,WinEnter *
-        \ let &l:scrolloff = winheight(winnr())/10 + 1
+        \ let &scrolloff = winheight(winnr())/10 + 1
 augroup end
 
 " Join
