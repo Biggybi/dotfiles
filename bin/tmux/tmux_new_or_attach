@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [[ "$#" == 1 ]] ; then
-	session="$1"
+	tmux attach
 else
 	session=$(tmux list-sessions | head -n 1 | sed "s/:.*//")
+	tmux new-session -s "$session" || tmux a -t "$session"
 fi
-tmux new-session -s "$session" || tmux a -t "$session"
