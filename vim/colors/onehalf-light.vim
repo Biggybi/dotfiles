@@ -14,7 +14,6 @@ highlight clear
 syntax reset
 
 let g:colors_name="onehalf-light"
-call system(g:colors_name)
 
 let s:bk = { "gui": "#383a42", "cterm": "237" }  "black
 let s:rd = { "gui": "#e45649", "cterm": "167" }  "red
@@ -73,6 +72,7 @@ call s:h("FirstSearch",  s:bg, s:gn, "")
 call s:h("LastSearch",   s:bg, s:rd, "")
 
 call s:h("ErrorMsg",     s:rd, "", "")
+call s:h("DiagnosticHint", s:be, "", "")
 call s:h("ModeMsg",      s:fg, "", "")
 call s:h("MoreMsg",      s:fg, "", "")
 call s:h("WarningMsg",   s:rd, "", "")
@@ -160,6 +160,12 @@ call s:h("Underlined",     s:fg, "", "")
 call s:h("Ignore",         s:g4, "", "")
 call s:h("Error",          s:rd, s:bg, "")
 call s:h("Todo",           s:pe, "", "")
+
+call s:h("SpellBad",       s:rd, "",  "underline")
+call s:h("SpellCap",       s:pe, "",  "underline") 
+call s:h("SpellRare",      s:yw, "",  "underline")
+call s:h("SpellLocal",     s:be, "",  "underline")
+
 " }
 
 " Languages {
@@ -193,6 +199,27 @@ call s:h("fugitiveHash",              s:rd, "", "")
 call s:h("fugitiveHeader",            s:rd, "", "")
 call s:h("fugitiveHelpHeader",        s:rd, "", "")
 
+" Coc
+" hi! link CocListLine QuickFixLine
+call s:h("CocListLine",          s:bg, s:g5, "")
+call s:h("CocListSearch",        s:bg, s:g5, "")
+call s:h("CocListMode",          s:bg, s:g5, "")
+call s:h("CocListPath",          s:bg, s:g5, "")
+call s:h("CocSelectedText",      s:bg, s:g5, "")
+call s:h("CocSelectedLine",      s:bg, s:g5, "")
+call s:h("CocSearch",            s:be, s:g2, "")
+call s:h("CocFloatDividingLine", s:g3, s:g2, "")
+hi link CocPum                   PmenuSbar
+hi link CocPumSearch             CocSearch
+hi link CocFloating              Pmenu
+hi link CocFloatThumb            PmenuThumb
+hi link CocFloatSbar             PmenuSbar
+hi link CocMenuSel               PmenuSel
+hi link CocFloatActive           PmenuSel
+hi link CocErrorFloat            ErrorMsg
+hi link CocHintFloat             DiagnosticHint
+hi link CocPumVirtualText        ErrorMsg
+
 " Suli {
 call s:h("SuliNormal",   s:bg, s:g5, "")
 call s:h("SuliCmd",      s:bg, s:rd, "")
@@ -210,7 +237,7 @@ call s:h("SuliPending",  s:bg, s:yw, "")
 call s:h("SuliFolder",   s:fg, s:g2, "")
 call s:h("SuliGitsub",   s:be, s:g2, "")
 call s:h("SuliGithead",  s:fg, s:g3, "")
-call s:h("SuliGitmod",   s:yw, s:g3, "")
+call s:h("SuliGitmod",   s:yw, s:g4, "")
 call s:h("SuliFilemod",  s:yw, s:g1, "")
 call s:h("SuliGitdir",   s:gn, s:g2, "")
 call s:h("SuliGit",      s:gn, s:g2, "")
@@ -291,6 +318,16 @@ call s:h("markdownCodeBlock",         s:gn, "", "")
 call s:h("markdownHeadingDelimiter",  s:be, "", "")
 " }
 
+" VimWiki {
+call s:h("VimWikiItalic",       s:yw, "", "")
+call s:h("VimWikiItalicChar",   s:yw, "", "")
+call s:h("VimWikiBold",         s:pe, "", "")
+call s:h("VimWikiBoldChar",     s:pe, "", "")
+call s:h("VimWikiWeblink1",     s:rd, "", "")
+call s:h("VimWikiWeblink1Char", s:yw, "", "")
+call s:h("VimWikiHeaderChar",   s:rd, "", "")
+" }
+
 " Git {
 call s:h("gitcommitSummary",       s:gn, "", "")
 call s:h("gitcommitOverflow",      s:rd, "", "")
@@ -318,11 +355,11 @@ hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 
 hi link User1 SuliNormal
 " call s:h("User1",   s:bg, s:g5, "")
-hi link User2 SuliOuter
+hi link User2 SuliL2
 hi link User3 SuliMid
-hi link User4 SuliGitMod
-hi link User5 SuliFileMod
-hi link User6 SuliCurDir
+hi link User4 SuliGitmod
+hi link User5 SuliFilemod
+hi link User6 SuliFolder
 hi link User7 SuliGit
 hi link User8 SuliGitSub
 hi link User9 SuliSep

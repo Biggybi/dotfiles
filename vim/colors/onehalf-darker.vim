@@ -14,7 +14,6 @@ highlight clear
 syntax reset
 
 let g:colors_name="onehalf-darker"
-call system(g:colors_name)
 
 let s:bk = { "gui": "#222429", "cterm": "236" } " black
 let s:rd = { "gui": "#e06c75", "cterm": "168" } " red
@@ -73,6 +72,7 @@ call s:h("FirstSearch",  s:bg, s:gn, "")
 call s:h("LastSearch",   s:bg, s:rd, "")
 
 call s:h("ErrorMsg",     s:rd, "", "")
+call s:h("DiagnosticHint", s:be, "", "")
 call s:h("ModeMsg",      s:fg, "", "")
 call s:h("MoreMsg",      s:fg, "", "")
 call s:h("WarningMsg",   s:rd, "", "")
@@ -159,6 +159,12 @@ call s:h("Underlined",     s:fg, "", "")
 call s:h("Ignore",         s:g4, "", "")
 call s:h("Error",          s:rd, s:bg, "")
 call s:h("Todo",           s:pe, "", "")
+
+call s:h("SpellBad",       s:rd, "",  "underline")
+call s:h("SpellCap",       s:pe, "",  "underline") 
+call s:h("SpellRare",      s:yw, "",  "underline")
+call s:h("SpellLocal",     s:be, "",  "underline")
+
 " }
 
 " Languages {
@@ -193,21 +199,26 @@ call s:h("fugitiveHeader",            s:rd, "", "")
 call s:h("fugitiveHelpHeader",        s:rd, "", "")
 
 " Coc
-
-" CocListLine
-" CocListSearch
-" CocListMode
-" CocListPath
-" CocSelectedText
-" CocSelectedLine
-
 " hi! link CocListLine QuickFixLine
-call s:h("CocListLine",     s:bg, s:g5, "")
-call s:h("CocListSearch",   s:bg, s:g5, "")
-call s:h("CocListMode",     s:bg, s:g5, "")
-call s:h("CocListPath",     s:bg, s:g5, "")
-call s:h("CocSelectedText", s:bg, s:g5, "")
-call s:h("CocSelectedLine", s:bg, s:g5, "")
+call s:h("CocListLine",          s:bg, s:g5, "")
+call s:h("CocListSearch",        s:bg, s:g5, "")
+call s:h("CocListMode",          s:bg, s:g5, "")
+call s:h("CocListPath",          s:bg, s:g5, "")
+call s:h("CocSelectedText",      s:bg, s:g5, "")
+call s:h("CocSelectedLine",      s:bg, s:g5, "")
+call s:h("CocSearch",            s:be, s:g2, "")
+call s:h("CocFloatDividingLine", s:g3, s:g2, "")
+hi link CocPum                   PmenuSbar
+hi link CocPumSearch             CocSearch
+hi link CocFloating              Pmenu
+hi link CocFloatThumb            PmenuThumb
+hi link CocFloatSbar             PmenuSbar
+hi link CocMenuSel               PmenuSel
+hi link CocFloatActive           PmenuSel
+hi link CocErrorFloat            ErrorMsg
+hi link CocHintFloat             DiagnosticHint
+hi link CocPumVirtualText        ErrorMsg
+
 " }
 
 " Suli {
@@ -287,6 +298,30 @@ call s:h("SuliDiagHint",  s:gn, s:g3, "")
 
 " }
 
+" HTML
+call s:h("htmlBold",    s:pe, "", "")
+call s:h("htmlItalic",  s:yw, "", "")
+call s:h("htmlEndTag",  s:pe, "", "")
+call s:h("htmlTag",     s:pe, "", "")
+call s:h("htmlLink",    s:rd, "", "")
+
+" Markdown {
+call s:h("markdownCode",              s:gn, "", "")
+call s:h("markdownError",             s:fg, s:bg, "")
+call s:h("markdownCodeBlock",         s:gn, "", "")
+call s:h("markdownHeadingDelimiter",  s:be, "", "")
+" }
+
+" VimWiki {
+call s:h("VimWikiItalic",       s:yw, "", "")
+call s:h("VimWikiItalicChar",   s:yw, "", "")
+call s:h("VimWikiBold",         s:pe, "", "")
+call s:h("VimWikiBoldChar",     s:pe, "", "")
+call s:h("VimWikiWeblink1",     s:rd, "", "")
+call s:h("VimWikiWeblink1Char", s:yw, "", "")
+call s:h("VimWikiHeaderChar",   s:rd, "", "")
+" }
+
 " Git {
 call s:h("gitcommitSummary",       s:gn, "", "")
 call s:h("gitcommitOverflow",      s:rd, "", "")
@@ -310,20 +345,6 @@ hi link gitcommitSelected gitcommitComment
 hi link gitcommitDiscardedArrow gitcommitDiscardedFile
 hi link gitcommitSelectedArrow gitcommitSelectedFile
 hi link gitcommitUnmergedArrow gitcommitUnmergedFile
-" }
-
-" HTML
-call s:h("htmlBold",    s:pe, "", "")
-call s:h("htmlItalic",  s:yw, "", "")
-call s:h("htmlEndTag",  s:pe, "", "")
-call s:h("htmlTag",     s:pe, "", "")
-call s:h("htmlLink",    s:rd, "", "")
-
-" Markdown {
-call s:h("markdownCode",              s:gn, "", "")
-call s:h("markdownError",             s:fg, s:bg, "")
-call s:h("markdownCodeBlock",         s:gn, "", "")
-call s:h("markdownHeadingDelimiter",  s:be, "", "")
 " }
 
 hi link User1 SuliNormal
