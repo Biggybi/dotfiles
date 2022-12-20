@@ -43,8 +43,9 @@ augroup end
 augroup CdGitRootOrFileDir
   au!
   au BufEnter,BufRead *
-        \ if !empty(bufname("%"))
-        \ |   silent! cd %:p:h | silent! Glcd
+        \ if !empty(bufname("%")) && &buftype != 'help'
+        \ | silent! cd %:p:h 
+        \ | if get(g:, 'loaded_fugitive') | silent! Glcd | endif
         \ | endif
 augroup end
 
