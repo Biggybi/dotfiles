@@ -17,6 +17,7 @@ if ! has('nvim')
   packadd! matchit
   packadd! termdebug
 endif
+packadd! cfilter
 
 " allow clipboard when starting with '-X'
 if has('X11') && has('clientserver')
