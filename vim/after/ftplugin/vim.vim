@@ -27,8 +27,5 @@ inoremap <buffer> ,"""<space> """<space><space><space><space><space><space><spac
 inoremap <buffer> ,''<space> ""<space><space><space><space>
 inoremap <buffer> ,'''<space> """<space><space><space><space><space><space><space><space>
 
-let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
-if ! empty('b:undo_ftplugin')
-  let b:undo_ftplugin .= ' | '
-endif
+let b:undo_ftplugin = get(b:, 'undo_ftplugin' .. ' | ', '')
 let b:undo_ftplugin .= "setlocal textwidth< shiftwidth< expandtab< tabstop< softtabstop< keywordprg< suffixesadd< runtimepath< path< foldmethod< foldtext< foldexpr< foldlevel<"

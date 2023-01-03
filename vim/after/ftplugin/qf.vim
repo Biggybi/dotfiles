@@ -45,9 +45,6 @@ if winheight('quickfix') < &lines - 5
   call s:adjustWindowHeight(1, 5)
 endif
 
-let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
-if ! empty('b:undo_ftplugin')
-  let b:undo_ftplugin .= ' | '
-endif
+let b:undo_ftplugin = get(b:, 'undo_ftplugin' .. ' | ', '')
 let b:undo_ftplugin .= "setlocal colorcolumn< list< cursorline< textwidth< relativenumber< showbreak< wrap< modeline<"
 let b:undo_ftplugin .= "| if hasmapto('\<sid>quickFixCurrentErrorIdx') | nunmap <buffer> <c-j> | nunmap <buffer> <c-k> | nunmap <buffer> <c-h> | nunmap <buffer> <c-l> | endif"

@@ -16,8 +16,5 @@ inoremap <buffer> ,cl console.log();<esc>F)i
 nnoremap <buffer> <leader>xl yiwoconsole.log();<esc>F(p
 vnoremap <buffer> <leader>xl yoconsole.log();<esc>F(p
 
-let b:undo_ftplugin = get(b:, 'undo_ftplugin', '')
-if ! empty('b:undo_ftplugin')
-  let b:undo_ftplugin .= ' | '
-endif
 let b:undo_ftplugin .= "setlocal colorcolumn< suffixesadd< path<"
+let b:undo_ftplugin = get(b:, 'undo_ftplugin' .. ' | ', '')
