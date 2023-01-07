@@ -118,7 +118,7 @@ if exists('&cursorline')
 endif
 set number                      " show number column
 if exists('&signcolumn')
-  set signcolumn=number
+  set signcolumn=yes
 endif
 set wrap                        " wrap lines
 if has('linebreak')
