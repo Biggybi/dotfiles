@@ -251,9 +251,9 @@ nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 nnoremap <leader>ev      :e  $DOT/vim/vimrc<cr>
 nnoremap <leader>Ev      :sp $DOT/vim/vimrc<cr>
 nnoremap <leader><c-e>v  :vs $DOT/vim/vimrc<cr>
-nnoremap <leader>en      :e  $DOT/nvim/init.vim<cr>
-nnoremap <leader>En      :sp $DOT/nvim/init.vim<cr>
-nnoremap <leader><c-e>n  :vs $DOT/nvim/init.vim<cr>
+nnoremap <leader>ei      :e  $DOT/nvim/init.vim<cr>
+nnoremap <leader>Ei      :sp $DOT/nvim/init.vim<cr>
+nnoremap <leader><c-e>i  :vs $DOT/nvim/init.vim<cr>
 
 nnoremap <leader>et      :e  $DOT/tmux/tmux.conf<cr>
 nnoremap <leader>Et      :sp $DOT/tmux/tmux.conf<cr>
