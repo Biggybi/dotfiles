@@ -7,34 +7,25 @@ let g:newfilesplit_hometild = get(g:, 'newfilesplit_hometild', 1)
 let g:newfilesplit_base_map = get(g:, 'newfilesplit_base_map', "<c-n>")
 
 function! s:getPath(hometild_force = -1) abort
-  let filepath = expand('%:p:h').'/'
+  let filepath = expand('%:p:h') .. '/'
   if a:hometild_force == 0
     return filepath
   endif
   if a:hometild_force == 1 || g:newfilesplit_hometild == 1
-    let tildfpath = substitute(filepath, '^'.$HOME, '~', '')
+    let tildfpath = substitute(filepath, '^' .. $HOME, '~', '')
     return tildfpath
   endif
   return filepath
 endfunction
 
-function s:fPathCur() abort
-  return ":e ".s:getPath()
-endfunction
-function s:fPathVer() abort
-  return ":vs ".s:getPath()
-endfunction
-function s:fPathHor() abort
-  return ":sp ".s:getPath()
-endfunction
-function s:fPathTab() abort
-  return ":tabnew ".s:getPath()
+function! s:cmdPath(cmd)
+  return printf("%s %s", a:cmd, s:getPath())
 endfunction
 
-nnoremap <expr> <plug>BufSplitCur <sid>fPathCur()
-nnoremap <expr> <plug>BufSplitVer <sid>fPathVer()
-nnoremap <expr> <plug>BufSplitHor <sid>fPathHor()
-nnoremap <expr> <plug>BufSplitTab <sid>fPathTab()
+nnoremap <expr> <plug>BufSplitCur <sid>cmdPath(':e')
+nnoremap <expr> <plug>BufSplitVer <sid>cmdPath(':vs')
+nnoremap <expr> <plug>BufSplitHor <sid>cmdPath(':sp')
+nnoremap <expr> <plug>BufSplitTab <sid>cmdPath(':tabnew')
 
 function! s:map(mapstring, type)
   let lhs = g:newfilesplit_base_map.a:mapstring
