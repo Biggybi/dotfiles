@@ -54,7 +54,7 @@ local extension_quickfix = {
             and vim.fn.getloclist(0, { title = 0 }).title
             or vim.fn.getqflist({ title = 0 }).title
       end,
-      color = 'SuliQfTitle',
+      color = 'SuliQfTitleNC',
     } },
     lualine_x = { {} },
     lualine_y = { {} },
