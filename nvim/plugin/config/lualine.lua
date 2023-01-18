@@ -320,13 +320,13 @@ local config = {
           return s:sub(1, tabsize - 1) .. endchar .. '%#TabLineFill#'
         end
         local padd = tabsize - s:len()
-        local adjust = s:len() % 2 == 0 and 1 or 0
+        local adjust = (tabsize - s:len()) % 2 == 0 and 1 or 0
         local left_padd = math.floor(padd / 2) - adjust
         local left_padd_str = paddchar:rep(left_padd)
         local right_padd_str = paddchar:rep(tabsize - left_padd - s:len())
         return left_padd_str .. s .. right_padd_str .. '%#TabLineFill#'
       end,
-      max_length = 400,
+      max_length = 9999999,
     } },
 
     lualine_b = {},
