@@ -116,10 +116,14 @@ local function git_info()
 end
 
 local tab_rhs_size = 20
-function Tab_size()
+local tab_size_max = 40
+local tab_obsession_size = 3
 
-  local tabsize = math.floor((vim.o.columns - tab_rhs_size - 3) / vim.fn.tabpagenr("$")) - 2
-  tabsize = math.min(tabsize, 40)
+function Tab_size()
+  local tabsize = math.floor(
+    (vim.o.columns - tab_rhs_size - tab_obsession_size) / (vim.fn.tabpagenr("$"))
+  ) - 1
+  tabsize = math.min(tabsize, tab_size_max) - 1
   return tabsize
 end
 
