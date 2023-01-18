@@ -199,7 +199,7 @@ local config = {
             or is_special_buffer() and 'SuliL4Ro'
             or 'SuliL4'
       end,
-      padding = { left = 1 }
+      padding = { left = 1, right = 1 },
     } },
 
     lualine_x = { {
