@@ -171,7 +171,8 @@ local config = {
             or ''
       end,
       fmt = function(s)
-        return vim.fn.bufname() == '' and ''
+        return vim.g.loaded_fugitive == 0 and ''
+            or vim.fn.bufname() == '' and ''
             or s == '' and vim.fn.FugitiveHead() or s
       end,
       cond = function() return not is_special_buffer() end,
@@ -179,8 +180,8 @@ local config = {
 
     lualine_c = { {
       -- git branch
-      function() return vim.fn.bufname() == ''
-            and ' [No Name]'
+      function() return vim.g.loaded_fugitive == 0 and ''
+            or vim.fn.bufname() == '' and ' [No Name]'
             or ' ' .. git_info().cur_dir .. ' '
       end,
       padding = { left = 0, right = 0 },
@@ -240,14 +241,17 @@ local config = {
             or ''
       end,
       fmt = function(s)
-        return vim.fn.bufname() == '' and ''
-            or s == '' and vim.fn.FugitiveHead() or s
+        return vim.g.loaded_fugitive == '' and ''
+            or vim.fn.bufname() == 0 and ''
+            or s == '' and vim.fn.FugitiveHead()
+            or s
       end,
       cond = function() return not is_special_buffer() end,
     } },
     lualine_c = { {
       -- file path
       function()
+        if vim.g.loaded_fugitive then return '' end
         if vim.o.ft == 'help' then
           local color = '%#SuliNCRo#'
           local folder = vim.fn.fnamemodify(vim.fn.bufname(), ':h:t')
@@ -284,7 +288,8 @@ local config = {
         if vim.o.ft == 'help' then
           return vim.fn.fnamemodify(vim.fn.bufname(), ':t')
         end
-        local gitpath = vim.fn.FugitiveExtractGitDir(vim.fn.bufnr())
+        local gitpath = vim.g.loaded_fugitive == 0 and ''
+            or vim.fn.FugitiveExtractGitDir(vim.fn.bufnr()) or ''
         local isgit = gitpath:match('.git$') ~= nil
         local issub = gitpath:match('.git/module') ~= nil
         if issub or isgit then
