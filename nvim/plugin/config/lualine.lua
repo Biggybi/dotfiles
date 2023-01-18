@@ -8,11 +8,11 @@ end
 
 local function get_location()
   local linecolumn = '%5l:%-3v'
-  local percent = tostring(math.floor(vim.fn.line('.') * 100 / vim.fn.line('$')))
-  percent = vim.fn.line('.') == 1 and 'Top'
-      or vim.fn.line('.') == vim.fn.line('$') and 'Bot'
-      or #percent <= 1 and ' ' .. percent .. '%%'
-      or percent .. '%%'
+  local curline  = vim.fn.line('.')
+  local lastline = vim.fn.line('$')
+  local percent  = curline == 1 and 'Top'
+      or curline == lastline and 'Bot'
+      or string.format('%2d', math.floor(curline / lastline * 100)) .. '%%'
   return percent .. linecolumn
 end
 
