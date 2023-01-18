@@ -3,14 +3,15 @@ local lualine = require('lualine')
 vim.g.qf_disable_statusline = true
 
 local function qf_is_loc()
+  -- filewinid DOES exist
   return vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0
 end
 
 local function get_location()
   local linecolumn = '%5l:%-3v'
-  local curline  = vim.fn.line('.')
-  local lastline = vim.fn.line('$')
-  local percent  = curline == 1 and 'Top'
+  local curline    = vim.fn.line('.')
+  local lastline   = vim.fn.line('$')
+  local percent    = curline == 1 and 'Top'
       or curline == lastline and 'Bot'
       or string.format('%2d', math.floor(curline / lastline * 100)) .. '%%'
   return percent .. linecolumn
@@ -30,6 +31,7 @@ local extension_quickfix = {
     lualine_c = { {
       function()
         return qf_is_loc()
+            -- title DOES exist
             and vim.fn.getloclist(0, { title = 0 }).title
             or vim.fn.getqflist({ title = 0 }).title
       end,
@@ -51,6 +53,7 @@ local extension_quickfix = {
     lualine_c = { {
       function()
         return qf_is_loc()
+            -- title DOES exist
             and vim.fn.getloclist(0, { title = 0 }).title
             or vim.fn.getqflist({ title = 0 }).title
       end,
@@ -91,9 +94,7 @@ end
 
 local function git_info()
 
-  if vim.b.lualine_info then
-    return vim.b.lualine_info
-  end
+  if vim.b.lualine_info then return vim.b.lualine_info end
 
   local cur_dir = ''
   if vim.fn.bufname() then
@@ -196,7 +197,7 @@ local config = {
       end
     }, {
       -- bufname
-      function(s) return vim.fn.bufname() end,
+      function() return vim.fn.bufname() end,
       color = function()
         return vim.bo.modified and 'SuliL4Mod'
             or vim.bo.readonly and 'SuliL4Ro'
