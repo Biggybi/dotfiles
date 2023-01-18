@@ -228,7 +228,7 @@ local config = {
     lualine_b = { {
       'branch',
       color = function(s)
-        local info = vim.fn.getbufinfo(vim.fn.bufnr())[1].variables['lualine_info']
+        local info = vim.b.lualine_info
         return s == '' or info == nil and 'SuliNC'
             or info.is_git and 'SuliNCGit'
             or info.is_submodule and 'SuliNCSub'
