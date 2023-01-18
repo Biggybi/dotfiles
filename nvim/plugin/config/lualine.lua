@@ -106,6 +106,7 @@ local function git_info()
     is_submodule = string.match(vim.fn.readfile('.git', '', 1)[1], '^gitdir:') ~= nil
   end
   vim.b.lualine_info = {
+    bufname = vim.fn.bufname(),
     cur_dir = cur_dir,
     is_git = vim.fn.isdirectory('.git') == 1,
     is_submodule = is_submodule,
@@ -284,9 +285,10 @@ local config = {
         if issub or isgit then
           return vim.fn.matchstr(vim.fn.expand('%:p'), vim.fn.FugitiveWorkTree() .. '/\\zs.*')
         end
-        local path = vim.fn.bufname()
+        local path = vim.b.lualine_info.bufname
         return isgit and path
             or issub and path
+            or vim.fn.fnamemodify(path, ':t')
       end,
       color = function()
         return vim.bo.modified and 'SuliNCMod'
