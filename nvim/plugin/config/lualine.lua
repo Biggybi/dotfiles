@@ -241,7 +241,7 @@ local config = {
       cond = function() return not is_special_buffer() end,
     } },
     lualine_c = { {
-      -- git branch
+      -- file path
       function()
         if vim.o.ft == 'help' then
           local color = '%#SuliNCRo#'
@@ -253,7 +253,7 @@ local config = {
         local gitpath = vim.fn.FugitiveExtractGitDir(bufnr)
         local project = vim.fn.fnamemodify(gitpath, ':h:t')
         local subproject = vim.fn.fnamemodify(gitpath, ':t')
-        local curdir = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':h:t')
+        local curdir = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':p:h:t')
         local isgit = gitpath:match('.git$') ~= nil
         local issub = gitpath:match('.git/module') ~= nil
 
