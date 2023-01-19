@@ -10,29 +10,30 @@
 #                                                                              #
 # **************************************************************************** #
 
-function setSourcerPath()
+getPluginMainDir()
 {
-	if [ -z "${PLUGINSOURCER_PATH}" ] ; then
-		if [ -n "${DOT}" ] ; then
-			export PLUGINSOURCER_PATH="$DOT/shells/zsh/plugins"
-		else
-			export PLUGINSOURCER_PATH="$HOME/.zsh"
-		fi
-	fi
+	[ -n "${PLUGINSOURCER_PATH}" ] && plugpath="${PLUGINSOURCER_PATH}"\
+		|| [ -n "${DOT}" ] && plugpath="$DOT/shells/zsh/plugins"\
+		|| plugpath="$HOME/.zsh"
+	echo "$plugpath"
+}
+
+getPluginsDirs()
+{
+	echo $(find $plugpath -mindepth 1 -maxdepth 1\
+		! -name "zsh-pluginsourcer" -printf '%f\n')
 }
 
 function sourcePlugins()
 {
-	for plugin in $(ls "$PLUGINSOURCER_PATH") ; do
-		if [ "$plugin" != "zsh-pluginsourcer" ] ; then
-			myfile=$(find "$PLUGINSOURCER_PATH/$plugin/" -name "$plugin\.zsh")
+	plugpath=$(getPluginMainDir)
+	for plugin in $(getPluginsDirs); do
+			myfile=$(find "$plugpath/$plugin/" -name "$plugin\.zsh")
 			if ! [ -n "$myfile" ] ; then
-				myfile=$(find "$PLUGINSOURCER_PATH/$plugin/" -name "$plugin\.plugin\.zsh")
+				myfile=$(find "$plugpath/$plugin/" -name "$plugin\.plugin\.zsh")
 			fi
 			source "$myfile"
-		fi
-	done
-}
+		done
+	}
 
-setSourcerPath
 sourcePlugins
