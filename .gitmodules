@@ -1,125 +1,125 @@
-[submodule "vim/tlib_vim"]
+[submodule "vim/pack/bundle/start/tlib_vim"]
 	path = vim/pack/bundle/start/tlib_vim
 	url = https://github.com/tomtom/tlib_vim
 	ignore = dirty
-[submodule "vim/vim-eunuch"]
+[submodule "vim/pack/bundle/start/vim-eunuch"]
 	path = vim/pack/bundle/start/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch
 	ignore = dirty
-[submodule "vim/ultisnips"]
+[submodule "vim/pack/bundle/start/ultisnips"]
 	path = vim/pack/bundle/start/ultisnips
 	url = https://github.com/sirver/ultisnips
 	ignore = dirty
-[submodule "vim/vim-snippets"]
+[submodule "vim/pack/bundle/start/vim-snippets"]
 	path = vim/pack/bundle/start/vim-snippets
 	url = https://github.com/honza/vim-snippets
 	ignore = dirty
-[submodule "vim/vim-unimpaired"]
+[submodule "vim/pack/bundle/start/vim-unimpaired"]
 	path = vim/pack/bundle/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
 	ignore = dirty
-[submodule "vim/vim-repeat"]
+[submodule "vim/pack/bundle/start/vim-repeat"]
 	path = vim/pack/bundle/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat
 	ignore = dirty
-[submodule "vim/vim-swap"]
+[submodule "vim/pack/bundle/start/vim-swap"]
 	path = vim/pack/bundle/start/vim-swap
 	url = https://github.com/machakann/vim-swap
 	ignore = dirty
-[submodule "vim/MatchTag"]
+[submodule "vim/pack/bundle/start/MatchTag"]
 	path = vim/pack/bundle/start/MatchTag
 	url = https://github.com/gregsexton/MatchTag
 	ignore = dirty
-[submodule "vim/vim-vinegar"]
+[submodule "vim/pack/bundle/start/vim-vinegar"]
 	path = vim/pack/bundle/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
 	ignore = dirty
-[submodule "vim/vim-commentary"]
+[submodule "vim/pack/bundle/start/vim-commentary"]
 	path = vim/pack/bundle/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
 	ignore = dirty
-[submodule "vim/vim-fugitive"]
+[submodule "vim/pack/bundle/start/vim-fugitive"]
 	path = vim/pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 	ignore = dirty
-[submodule "vim/vim-gitgutter"]
+[submodule "vim/pack/bundle/start/vim-gitgutter"]
 	path = vim/pack/bundle/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
 	ignore = dirty
-[submodule "vim/vim-surround"]
+[submodule "vim/pack/bundle/start/vim-surround"]
 	path = vim/pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround
 	ignore = dirty
-[submodule "vim/vim-speeddating"]
+[submodule "vim/pack/bundle/start/vim-speeddating"]
 	path = vim/pack/bundle/start/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
 	ignore = dirty
-[submodule "vim/goyo.vim"]
+[submodule "vim/pack/bundle/start/goyo.vim"]
 	path = vim/pack/bundle/start/goyo.vim
 	url = https://github.com/junegunn/goyo.vim
 	ignore = dirty
-[submodule "vim/vim-tmux-focus-events"]
+[submodule "vim/pack/bundle/start/vim-tmux-focus-events"]
 	path = vim/pack/bundle/start/vim-tmux-focus-events
 	url = https://github.com/tmux-plugins/vim-tmux-focus-events
 	ignore = dirty
-[submodule "vim/vimwiki"]
+[submodule "vim/pack/bundle/start/vimwiki"]
 	path = vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
 	ignore = dirty
-[submodule "vim/fzf.vim"]
+[submodule "vim/pack/bundle/start/fzf.vim"]
 	path = vim/pack/bundle/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
 	ignore = dirty
-[submodule "vim/fzf"]
+[submodule "vim/pack/bundle/start/fzf"]
 	path = vim/pack/bundle/start/fzf
 	url = https://github.com/junegunn/fzf
 	ignore = dirty
-[submodule "vim/vim-pseudocl"]
+[submodule "vim/pack/bundle/start/vim-pseudocl"]
 	path = vim/pack/bundle/start/vim-pseudocl
 	url = https://github.com/junegunn/vim-pseudocl
 	ignore = dirty
-[submodule "vim/vim-rhubarb"]
+[submodule "vim/pack/bundle/start/vim-rhubarb"]
 	path = vim/pack/bundle/start/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb
 	ignore = dirty
-[submodule "vim/vim-anzu"]
+[submodule "vim/pack/bundle/start/vim-anzu"]
 	path = vim/pack/bundle/start/vim-anzu
 	url = https://github.com/osyo-manga/vim-anzu
 	ignore = dirty
-[submodule "vim/undotree"]
+[submodule "vim/pack/bundle/start/undotree"]
 	path = vim/pack/bundle/start/undotree
 	url = https://github.com/mbbill/undotree
 	ignore = dirty
-[submodule "vim/vim-endwise"]
+[submodule "vim/pack/bundle/start/vim-endwise"]
 	path = vim/pack/bundle/start/vim-endwise
 	url = https://github.com/tpope/vim-endwise
 	ignore = dirty
-[submodule "vim/vim-obsession"]
+[submodule "vim/pack/bundle/start/vim-obsession"]
 	path = vim/pack/bundle/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession
 	ignore = dirty
-[submodule "vim/vim-scriptease"]
+[submodule "vim/pack/bundle/start/vim-scriptease"]
 	path = vim/pack/bundle/start/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease
 	ignore = dirty
-[submodule "vim/coc-fzf"]
+[submodule "vim/pack/bundle/start/coc-fzf"]
 	path = vim/pack/bundle/start/coc-fzf
 	url = https://github.com/antoinemadec/coc-fzf
 	ignore = dirty
-[submodule "vim/coc.nvim"]
+[submodule "vim/pack/bundle/start/coc.nvim"]
 	path = vim/pack/bundle/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
 	ignore = dirty
 	branch = release
-[submodule "vim/vim-cpp-enhanced-highlight"]
+[submodule "vim/pack/bundle/start/vim-cpp-enhanced-highlight"]
 	path = vim/pack/bundle/start/vim-cpp-enhanced-highlight
 	url = https://github.com/octol/vim-cpp-enhanced-highlight
 	ignore = dirty
-[submodule "vim/vim-indent-object"]
+[submodule "vim/pack/bundle/start/vim-indent-object"]
 	path = vim/pack/bundle/start/vim-indent-object
 	url = https://github.com/michaeljsmith/vim-indent-object
 	ignore = dirty
-[submodule "vim/FYT.vim"]
+[submodule "vim/pack/bundle/start/FYT.vim"]
 	path = vim/pack/bundle/start/FYT.vim
 	url = https://github.com/statox/FYT.vim
 	ignore = dirty
@@ -130,18 +130,23 @@
 [submodule "langserver/groovy-language-server"]
 	path = langserver/groovy-language-server
 	url = https://github.com/prominic/groovy-language-server
+	ignore = dirty
 [submodule "tmux/plugins/tmux-resurrect"]
 	path = tmux/plugins/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
+	ignore = dirty
 [submodule "tmux/plugins/tmux-fzf"]
 	path = tmux/plugins/tmux-fzf
 	url = https://github.com/sainnhe/tmux-fzf
+	ignore = dirty
 [submodule "shells/zsh/plugins/zsh-autosuggestions"]
 	path = shells/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+	ignore = dirty
 [submodule "shells/zsh/plugins/zsh-syntax-highlighting"]
 	path = shells/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+	ignore = dirty
 [submodule "shells/shells/zsh/plugins/zsh-vi-mode"]
 	path = shells/zsh/plugins/zsh-vi-mode
 	url = https://github.com/jeffreytse/zsh-vi-mode
@@ -153,39 +158,50 @@
 [submodule "vim/pack/bundle/start/vim-lsp-cxx-highlight"]
 	path = vim/pack/bundle/start/vim-lsp-cxx-highlight
 	url = https://github.com/jackguo380/vim-lsp-cxx-highlight
+	ignore = dirty
 ; [submodule "42/norminettev1"]
 ; 	path = 42/norminettev1
 ; 	url = git@gitlab.com:42lyon/norminette-client-externe
 [submodule "tmux/plugins/tmux-continuum"]
 	path = tmux/plugins/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
+	ignore = dirty
 [submodule "vim/pack/bundle/start/fugitive-gitlab.vim"]
 	path = vim/pack/bundle/start/fugitive-gitlab.vim
 	url = https://github.com/shumphrey/fugitive-gitlab.vim
+	ignore = dirty
 [submodule "vim/pack/bundle/start/vim-abolish"]
 	path = vim/pack/bundle/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish
+	ignore = dirty
 [submodule "vim/pack/bundle/start/vim-go"]
 	path = vim/pack/bundle/start/vim-go
 	url = https://github.com/fatih/vim-go
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/cmp-nvim-lsp"]
 	path = nvim/pack/bundle/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/nvim-cmp"]
 	path = nvim/pack/bundle/start/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/nvim-lspinstall"]
 	path = nvim/pack/bundle/start/nvim-lspinstall
 	url = https://github.com/kabouzeid/nvim-lspinstall
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/plenary.nvim"]
 	path = nvim/pack/bundle/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/cmp-nvim-ultisnips"]
 	path = nvim/pack/bundle/start/cmp-nvim-ultisnips
 	url = https://github.com/quangnguyen30192/cmp-nvim-ultisnips
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/lua-language-server"]
 	path = nvim/pack/bundle/start/lua-language-server
 	url = https://github.com/sumneko/lua-language-server
@@ -193,24 +209,56 @@
 [submodule "nvim/pack/bundle/start/nvim-treesitter"]
 	path = nvim/pack/bundle/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/telescope-file-browser.nvim"]
+	path = nvim/pack/bundle/start/telescope-file-browser.nvim
+	url = https://github.com/nvim-telescope/telescope-file-browser.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/telescope-coc.nvim"]
+	path = nvim/pack/bundle/start/telescope-coc.nvim
+	url = https://github.com/fannheyward/telescope-coc.nvim
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/telescope.nvim"]
 	path = nvim/pack/bundle/start/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
+	ignore = dirty
 [submodule "vim/pack/bundle/start/vim-lumen"]
 	path = vim/pack/bundle/start/vim-lumen
 	url = https://github.com/vimpostor/vim-lumen
+	ignore = dirty
 [submodule "vim/pack/bundle/start/vim-autoread.git"]
 	path = vim/pack/bundle/start/vim-autoread.git
-	url = https://github.com/chrisbra/vim-autoread/
+	url = https://github.com/chrisbra/vim-autoread
+	ignore = dirty
 [submodule "shells/zsh/plugins/fzf-tab"]
 	path = shells/zsh/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab.git
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/lualine.nvim"]
 	path = nvim/pack/bundle/start/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim
-[submodule "/home/trx/dotfiles/vim/pack/bundle/start/markdown-preview.nvim.git"]
-	path = /home/trx/dotfiles/vim/pack/bundle/start/markdown-preview.nvim.git
+	ignore = dirty
+[submodule "vim/pack/bundle/start/markdown-preview.nvim.git"]
+	path = vim/pack/bundle/start/markdown-preview.nvim.git
 	url = https://github.com/iamcco/markdown-preview.nvim.git
+	ignore = dirty
+[submodule "vim/pack/bundle/start/vim-devicons"]
+	path = vim/pack/bundle/start/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/cmp-buffer.nvim"]
+	path = nvim/pack/bundle/start/cmp-buffer.nvim
+	url = https://github.com/sar/cmp-buffer.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/cmp-cmdline"]
+	path = nvim/pack/bundle/start/cmp-cmdline
+	url = https://github.com/hrsh7th/cmp-cmdline
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/cmp-nvim-lua"]
+	path = nvim/pack/bundle/start/cmp-nvim-lua
+	url = https://github.com/hrsh7th/cmp-nvim-lua
+	ignore = dirty
