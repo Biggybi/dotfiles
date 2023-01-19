@@ -251,7 +251,7 @@ local config = {
     lualine_c = { {
       -- file path
       function()
-        if vim.g.loaded_fugitive then return '' end
+        if not vim.g.loaded_fugitive then return '' end
         if vim.o.ft == 'help' then
           local color = '%#SuliNCRo#'
           local folder = vim.fn.fnamemodify(vim.fn.bufname(), ':h:t')
