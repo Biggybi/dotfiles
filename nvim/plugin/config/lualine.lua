@@ -1,4 +1,5 @@
 local lualine = require('lualine')
+local bufinfo = vim.b.lualine_info
 
 vim.g.qf_disable_statusline = true
 
@@ -94,7 +95,7 @@ end
 
 local function git_info()
 
-  if vim.b.lualine_info then return vim.b.lualine_info end
+  if bufinfo then return bufinfo end
 
   local cur_dir = ''
   if vim.fn.bufname() then
@@ -106,14 +107,14 @@ local function git_info()
   elseif vim.fn.filereadable('.git') == 1 then
     is_submodule = string.match(vim.fn.readfile('.git', '', 1)[1], '^gitdir:') ~= nil
   end
-  vim.b.lualine_info = {
+  bufinfo = {
     bufname = vim.fn.bufname(),
     cur_dir = cur_dir,
     is_git = vim.fn.isdirectory('.git') == 1,
     is_submodule = is_submodule,
     tab_rhs_size = string.len(cur_dir) + 5
   }
-  return vim.b.lualine_info
+  return bufinfo
 end
 
 local tab_rhs_size = 20
@@ -234,7 +235,7 @@ local config = {
     lualine_b = { {
       'branch',
       color = function(s)
-        local info = vim.b.lualine_info
+        local info = bufinfo
         return s == '' or info == nil and 'SuliNC'
             or info.is_git and 'SuliNCGit'
             or info.is_submodule and 'SuliNCSub'
@@ -295,10 +296,9 @@ local config = {
         if issub or isgit then
           return vim.fn.matchstr(vim.fn.expand('%:p'), vim.fn.FugitiveWorkTree() .. '/\\zs.*')
         end
-        local path = vim.b.lualine_info.bufname
-        return isgit and path
-            or issub and path
-            or vim.fn.fnamemodify(path, ':t')
+        return isgit and bufinfo.bufname
+            or issub and bufinfo.bufname
+            or vim.fn.fnamemodify(bufinfo.bufname, ':t')
       end,
       color = function()
         return vim.bo.modified and 'SuliNCMod'

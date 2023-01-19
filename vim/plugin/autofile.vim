@@ -44,9 +44,11 @@ augroup CdGitRootOrFileDir
   au!
   au BufEnter,BufRead *
         \ if !empty(bufname("%")) && &buftype != 'help'
-        \ | silent! cd %:p:h 
+        \ | silent! cd %:p:h
         \ | if get(g:, 'loaded_fugitive') | silent! Glcd | endif
-        \ | endif
+        \ |else
+        \ | silent! lcd %:p:h
+        \ |endif
 augroup end
 
 """        Filetype refresh
