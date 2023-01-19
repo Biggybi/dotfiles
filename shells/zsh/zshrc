@@ -110,6 +110,16 @@ bindkey '^o' expand-or-complete
 bindkey '^n' accept-and-infer-next-history
 bindkey '^u' backward-kill-word
 bindkey '^ ' autosuggest-accept
+# ctrl + z to go back to fg/vim (no 'fg' history)
+fancy-ctrl-z () {
+  if [[ $(jobs) ]]; then
+    fg
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+bindkey '^Z' fancy-ctrl-z
 
 bindkey 'è' vi-backward-char
 bindkey 'ê' history-search-forward
