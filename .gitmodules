@@ -66,12 +66,12 @@
 	path = vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
 	ignore = dirty
-[submodule "vim/pack/bundle/start/fzf.vim"]
-	path = vim/pack/bundle/start/fzf.vim
+[submodule "vim/pack/vimonly/fzf.vim"]
+	path = vim/pack/vimonly/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
 	ignore = dirty
-[submodule "vim/pack/bundle/start/fzf"]
-	path = vim/pack/bundle/start/fzf
+[submodule "vim/pack/vimonly/fzf"]
+	path = vim/pack/vimonly/fzf
 	url = https://github.com/junegunn/fzf
 	ignore = dirty
 [submodule "vim/pack/bundle/start/vim-pseudocl"]
@@ -102,13 +102,13 @@
 	path = vim/pack/bundle/start/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease
 	ignore = dirty
-[submodule "vim/pack/bundle/start/coc-fzf"]
-	path = vim/pack/bundle/start/coc-fzf
+[submodule "vim/pack/vimonly/coc-fzf"]
+	path = vim/pack/vimonly/coc-fzf
 	url = https://github.com/antoinemadec/coc-fzf
 	ignore = dirty
-[submodule "vim/pack/bundle/start/coc.nvim"]
-	path = vim/pack/bundle/start/coc.nvim
-	url = https://github.com/neoclide/coc.nvim
+[submodule "vim/pack/vimonly/coc.nvim"]
+	path = vim/pack/vimonly/coc.nvim
+	url = https://github.com/neoclide/coc.nvim/
 	ignore = dirty
 	branch = release
 [submodule "vim/pack/bundle/start/vim-cpp-enhanced-highlight"]
@@ -178,6 +178,22 @@
 	path = vim/pack/bundle/start/vim-go
 	url = https://github.com/fatih/vim-go
 	ignore = dirty
+[submodule "vim/pack/bundle/start/vim-lumen"]
+	path = vim/pack/bundle/start/vim-lumen
+	url = https://github.com/vimpostor/vim-lumen
+	ignore = dirty
+[submodule "vim/pack/bundle/start/vim-autoread.git"]
+	path = vim/pack/bundle/start/vim-autoread.git
+	url = https://github.com/chrisbra/vim-autoread
+	ignore = dirty
+[submodule "shells/zsh/plugins/fzf-tab"]
+	path = shells/zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git
+	ignore = dirty
+[submodule "vim/pack/bundle/start/vim-devicons"]
+	path = vim/pack/bundle/start/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons
+	ignore = dirty
 [submodule "nvim/pack/bundle/start/cmp-nvim-lsp"]
 	path = nvim/pack/bundle/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp
@@ -226,18 +242,6 @@
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
 	ignore = dirty
-[submodule "vim/pack/bundle/start/vim-lumen"]
-	path = vim/pack/bundle/start/vim-lumen
-	url = https://github.com/vimpostor/vim-lumen
-	ignore = dirty
-[submodule "vim/pack/bundle/start/vim-autoread.git"]
-	path = vim/pack/bundle/start/vim-autoread.git
-	url = https://github.com/chrisbra/vim-autoread
-	ignore = dirty
-[submodule "shells/zsh/plugins/fzf-tab"]
-	path = shells/zsh/plugins/fzf-tab
-	url = https://github.com/Aloxaf/fzf-tab.git
-	ignore = dirty
 [submodule "nvim/pack/bundle/start/lualine.nvim"]
 	path = nvim/pack/bundle/start/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim
@@ -245,10 +249,6 @@
 [submodule "vim/pack/bundle/start/markdown-preview.nvim.git"]
 	path = vim/pack/bundle/start/markdown-preview.nvim.git
 	url = https://github.com/iamcco/markdown-preview.nvim.git
-	ignore = dirty
-[submodule "vim/pack/bundle/start/vim-devicons"]
-	path = vim/pack/bundle/start/vim-devicons
-	url = https://github.com/ryanoasis/vim-devicons
 	ignore = dirty
 [submodule "nvim/pack/bundle/start/cmp-buffer.nvim"]
 	path = nvim/pack/bundle/start/cmp-buffer.nvim
@@ -261,4 +261,64 @@
 [submodule "nvim/pack/bundle/start/cmp-nvim-lua"]
 	path = nvim/pack/bundle/start/cmp-nvim-lua
 	url = https://github.com/hrsh7th/cmp-nvim-lua
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/cmp_luasnip"]
+	path = nvim/pack/bundle/start/cmp_luasnip
+	url = https://github.com/saadparwaiz1/cmp_luasnip
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/cmp-path"]
+	path = nvim/pack/bundle/start/cmp-path
+	url = https://github.com/hrsh7th/cmp-path
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/dashboard-nvim"]
+	path = nvim/pack/bundle/start/dashboard-nvim
+	url = https://github.com/glepnir/dashboard-nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/fine-cmdline.nvim"]
+	path = nvim/pack/bundle/start/fine-cmdline.nvim
+	url = https://github.com/vonheikemen/fine-cmdline.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/friendly-snippets"]
+	path = nvim/pack/bundle/start/friendly-snippets
+	url = https://github.com/rafamadriz/friendly-snippets
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/indent-blankline.nvim"]
+	path = nvim/pack/bundle/start/indent-blankline.nvim
+	url = https://github.com/lukas-reineke/indent-blankline.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/mason-lspconfig.nvim"]
+	path = nvim/pack/bundle/start/mason-lspconfig.nvim
+	url = https://github.com/williamboman/mason-lspconfig.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/mason.nvim"]
+	path = nvim/pack/bundle/start/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/nui.nvim"]
+	path = nvim/pack/bundle/start/nui.nvim
+	url = https://github.com/MunifTanjim/nui.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/nvim-notify"]
+	path = nvim/pack/bundle/start/nvim-notify
+	url = https://github.com/rcarriga/nvim-notify
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/nvim-web-devicons"]
+	path = nvim/pack/bundle/start/nvim-web-devicons
+	url = https://github.com/nvim-tree/nvim-web-devicons
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/playground"]
+	path = nvim/pack/bundle/start/playground
+	url = https://github.com/nvim-treesitter/playground
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/telescope-ui-select.nvim"]
+	path = nvim/pack/bundle/start/telescope-ui-select.nvim
+	url = https://github.com/nvim-telescope/telescope-ui-select.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/telescope-undo.nvim"]
+	path = nvim/pack/bundle/start/telescope-undo.nvim
+	url = https://github.com/debugloop/telescope-undo.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/ts-node-action"]
+	path = nvim/pack/bundle/start/ts-node-action
+	url = https://github.com/CKolkey/ts-node-action
 	ignore = dirty
