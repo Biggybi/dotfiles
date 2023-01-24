@@ -4,13 +4,17 @@ endif
 let s:plugin_gittags = 1
 
 let s:tags_default = &tags
+let s:tags_files_lst = ''
+let s:default_tag_file = '.git/tags'
 
 function! s:deleteTagFiles() abort
   call system("rm " .. join(s:tags_files_lst))
 endfunction
 
 function! s:getTagFiles() abort
-  let s:tags_files_lst = systemlist('find .git -name "[0-9]*tags" 2> /dev/null')
+  let s:tags_files_lst = filereadable(s:default_tag_file)
+        \ ? s:default_tag_file
+        \ : glob('`find .git -name "[0-9]*tags" -print 2> /dev/null`')
 endfunction
 
 function! s:createTagFile()
@@ -25,7 +29,7 @@ function s:setTagOpt() abort
   if &tags !=# '' && &tags['$'] !=# ','
     let &tags ..= ','
   endif
-  let option_string = join(s:tags_files_lst, ',')
+  let option_string = substitute(s:tags_files_lst, '\n', ',', 'g')
   let &tags ..= option_string
 endfunction
 
