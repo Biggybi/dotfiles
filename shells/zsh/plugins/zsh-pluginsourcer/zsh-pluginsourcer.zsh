@@ -12,9 +12,9 @@
 
 getPluginMainDir()
 {
-	[ -n "${PLUGINSOURCER_PATH}" ] && plugpath="${PLUGINSOURCER_PATH}"\
-		|| [ -n "${DOT}" ] && plugpath="$DOT/shells/zsh/plugins"\
-		|| plugpath="$HOME/.zsh"
+	[ -n "${PLUGINSOURCER_PATH}" ] && local plugpath="${PLUGINSOURCER_PATH}"\
+		|| [ -n "${DOT}" ] && local plugpath="$DOT/shells/zsh/plugins"\
+		|| local plugpath="$HOME/.zsh"
 	echo "$plugpath"
 }
 
@@ -26,11 +26,12 @@ getPluginsDirs()
 
 function sourcePlugins()
 {
-	plugpath=$(getPluginMainDir)
+	local plugpath=$(getPluginMainDir)
 	for plugin in $(getPluginsDirs); do
-			myfile=$(find "$plugpath/$plugin/" -name "$plugin\.zsh")
+			local myfile=$(find "$plugpath/$plugin/" -name "$plugin\.zsh")
+			echo $myfile
 			if ! [ -n "$myfile" ] ; then
-				myfile=$(find "$plugpath/$plugin/" -name "$plugin\.plugin\.zsh")
+				local myfile=$(find "$plugpath/$plugin/" -name "$plugin\.plugin\.zsh")
 			fi
 			source "$myfile"
 		done
