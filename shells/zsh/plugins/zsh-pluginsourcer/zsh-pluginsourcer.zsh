@@ -10,31 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-getPluginMainDir()
-{
-	[ -n "${PLUGINSOURCER_PATH}" ] && local plugpath="${PLUGINSOURCER_PATH}"\
-		|| [ -n "${DOT}" ] && local plugpath="$DOT/shells/zsh/plugins"\
-		|| local plugpath="$HOME/.zsh"
-	echo "$plugpath"
-}
+[ -n "${PLUGINSOURCER_PATH}" ] && pluginInstallDir="${PLUGINSOURCER_PATH}"\
+	|| [ -n "${DOT}" ] && pluginInstallDir="$DOT/shells/zsh/plugins"\
+	|| pluginInstallDir="$HOME/.zsh"
 
-getPluginsDirs()
-{
-	echo $(find $plugpath -mindepth 1 -maxdepth 1\
-		! -name "zsh-pluginsourcer" -printf '%f\n')
-}
+pluginsFolders=$(find $pluginInstallDir -mindepth 1 -maxdepth 1\
+	! -name "zsh-pluginsourcer" -printf '%f\n')
 
-function sourcePlugins()
-{
-	local plugpath=$(getPluginMainDir)
-	for plugin in $(getPluginsDirs); do
-			local myfile=$(find "$plugpath/$plugin/" -name "$plugin\.zsh")
-			echo $myfile
-			if ! [ -n "$myfile" ] ; then
-				local myfile=$(find "$plugpath/$plugin/" -name "$plugin\.plugin\.zsh")
-			fi
-			source "$myfile"
-		done
-	}
+echo $pluginsFolders | while read plugin; do
+	source $(find "$pluginInstallDir/$plugin/" -name "$plugin.*.zsh")
+done
 
-sourcePlugins
+unset plugin
+unset pluginInstallDir
+unset pluginsFolders
