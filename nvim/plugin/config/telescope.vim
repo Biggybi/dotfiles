@@ -19,6 +19,8 @@ nnoremap <silent> <leader>fm     <cmd>Telescope help_tags<cr>
 nnoremap <silent> <leader>fs     <cmd>Telescope git_status<cr>
 nnoremap <silent> <leader>fr     <cmd>Telescope live_grep<cr>
 nnoremap <silent> <leader>fq     <cmd>Telescope quickfix<cr>
+nnoremap <silent> <leader>f<c-q> <cmd>Telescope quickfixhistory<cr>
+nnoremap <silent> <leader>f<space> <cmd>Telescope resume<cr>
 
 nnoremap <silent> <leader>b      <cmd>ls<cr>
 nnoremap <silent> <leader>fe     <cmd>Telescope file_browser<cr>

@@ -5,9 +5,9 @@ require('telescope').setup {
       i = {
         ["<c-j>"] = actions.move_selection_next,
         ["<c-k>"] = actions.move_selection_previous,
-        ["<c-f>"] = function(s) vim.cmd [[normal <right>]] end,
-        ["<c-b>"] = function(s) vim.cmd [[normal <left>]] end,
-        -- ["<c-f>"] = actions.move_backward,
+        ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        ["<c-f>"] = function() vim.cmd [[normal <right>]] end,
+        ["<c-b>"] = function() vim.cmd [[normal <left>]] end,
         ["<Esc>"] = actions.close
       },
     },
