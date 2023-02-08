@@ -156,7 +156,7 @@
 	url = https://github.com/JetBrains/JetBrainsMono
 	ignore = dirty
 [submodule "vim/pack/bundle/start/vim-lsp-cxx-highlight"]
-	path = vim/pack/bundle/start/vim-lsp-cxx-highlight
+	path = vim/pack/vimonly/vim-lsp-cxx-highlight
 	url = https://github.com/jackguo380/vim-lsp-cxx-highlight
 	ignore = dirty
 ; [submodule "42/norminettev1"]
@@ -321,4 +321,12 @@
 [submodule "nvim/pack/bundle/start/ts-node-action"]
 	path = nvim/pack/bundle/start/ts-node-action
 	url = https://github.com/CKolkey/ts-node-action
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/barbecue.nvim"]
+	path = nvim/pack/bundle/start/barbecue.nvim
+	url = https://github.com/utilyre/barbecue.nvim
+	ignore = dirty
+[submodule "nvim/pack/bundle/start/nvim-navic"]
+	path = nvim/pack/bundle/start/nvim-navic
+	url = https://github.com/SmiteshP/nvim-navic
 	ignore = dirty
