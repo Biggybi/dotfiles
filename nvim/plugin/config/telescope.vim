@@ -10,13 +10,14 @@ nnoremap <silent> <leader>f<c-t> <cmd>Telescope current_buffer_tags<cr>
 nnoremap <silent> <leader>fc     <cmd>Telescope git_commits<cr>
 nnoremap <silent> <leader>f<c-c> <cmd>Telescope git_bcommits<cr>
 nnoremap <silent> <leader>fg     <cmd>Telescope git_files<cr>
+nnoremap <silent> <leader>f<c-g> <cmd>Telescope git_branches<cr>
+nnoremap <silent> <leader>fs     <cmd>Telescope git_status<cr>
 nnoremap <silent> <leader>fl     <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <silent> <leader>f:     <cmd>Telescope command_history<cr>
 nnoremap <silent> <leader>f;     <cmd>Telescope commands<cr>
 nnoremap <silent> <leader>f/     <cmd>Telescope command_history<cr>
 nnoremap <silent> <leader>fh     <cmd>Telescope oldfiles<cr>
 nnoremap <silent> <leader>fm     <cmd>Telescope help_tags<cr>
-nnoremap <silent> <leader>fs     <cmd>Telescope git_status<cr>
 nnoremap <silent> <leader>fr     <cmd>Telescope live_grep<cr>
 nnoremap <silent> <leader>fq     <cmd>Telescope quickfix<cr>
 nnoremap <silent> <leader>f<c-q> <cmd>Telescope quickfixhistory<cr>
