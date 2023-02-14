@@ -644,16 +644,6 @@ command! -nargs=1 -complete=command Nomove
 nnoremap g<c-g> :Nomove normal gg=G<cr>
 nnoremap gG :Nomove normal =ap<cr>
 
-"""        Toggle quickfix
-" location list
-nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
-      \ ":lclose<cr>" : ":bot lopen<cr><c-w>p"
-
-" quickfix list
-nnoremap <expr> <leader>cq get(getqflist({'winid':0}), 'winid', 0) ?
-      \ ":cclose<cr>" : ":bot copen<cr><c-w>p"
-nnoremap <silent> <leader>cc :cc<cr>
-
 """        Make
 nnoremap <leader>cm :VShell make<cr>
 nnoremap <leader>cr :VShell make re<cr>
