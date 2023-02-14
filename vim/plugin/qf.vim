@@ -3,13 +3,14 @@ if exists('g:plugin_qff')
 endif
 let g:plugin_qff = 1
 
-" augroup QfMakeConv
-"   au!
-"   au QuickfixCmdPost make call QfMakeConv()
-" augroup END
+""    Encoding
+augroup QfMakeConv
+  au!
+  au QuickfixCmdPost make call <sid>:qfMakeConv()
+augroup END
 
 " Change encoding of error file for quickfix
-function! QfMakeConv() abort
+function! s:qfMakeConv() abort
   let qflist = getqflist()
   for i in qflist
     let i.text = iconv(i.text, "cp936", "utf-8")
@@ -17,6 +18,7 @@ function! QfMakeConv() abort
   call setqflist(qflist)
 endfunction
 
+""    Auto Open
 augroup AutoQFOpen
   au!
   au QuickFixCmdPost [^l]* nested botright cwindow
@@ -39,10 +41,9 @@ nnoremap <silent> <leader>cc :cc<cr>
 function! s:qfNavigation(next = 1) abort
   let navNext = a:next ? "cnext" : "cprev"
   let navLast = a:next ? "clast" : "cfirst"
-  echom navNext navLast
-  if empty(getqflist()) | return | endif
-  try | exe navNext | catch /.*/ | exe navLast | endtry
+  if empty(getqflist()) | echo "list empty" | return | endif
+  try | silent! exe navNext | catch /.*/ | silent! exe navLast | endtry
 endfunction
 
-nnoremap <silent> ]q :call <sid>qfNavigation(1)<cr>
-nnoremap <silent> [q :call <sid>qfNavigation(0)<cr>
+nnoremap <silent> ]q <cmd>call <sid>qfNavigation(1)<cr>
+nnoremap <silent> [q <cmd>call <sid>qfNavigation(0)<cr>
