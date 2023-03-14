@@ -330,3 +330,10 @@
 	path = nvim/pack/bundle/start/nvim-navic
 	url = https://github.com/SmiteshP/nvim-navic
 	ignore = dirty
+[submodule "vim/pack/bundle/start/vim-flog"]
+	path = vim/pack/bundle/start/vim-flog
+	url = https://github.com/rbong/vim-flog
+	ignore = dirty
+[submodule "/home/trx/dotfiles/vim/pack/bundle/start/copilot.vim"]
+	path = /home/trx/dotfiles/vim/pack/bundle/start/copilot.vim
+	url = https://github.com/github/copilot.vim
