@@ -313,13 +313,15 @@ inoremap <c-l> <C-R>=pumvisible() ? "\<lt>C-l>" : "\<lt>del>"<CR>
 inoremap <c-e> <C-R>=pumvisible() ? "\<lt>C-e>" : "\<lt>c-o>$"<CR>
 inoremap <c-a> <C-R>=pumvisible() ? "\<lt>C-a>" : "\<lt>c-o>^"<CR>
 
-" up down on visual lines
-nnoremap <silent> <expr> j v:count? 'j' : '<cmd>normal gj<cr>'
-nnoremap <silent> <expr> k v:count? 'k' : '<cmd>normal gk<cr>'
 
 nnoremap gH H
 nnoremap gL L
 
+" up down on visual lines
+xnoremap <silent> <expr> j v:count? 'j' : 'gj'
+xnoremap <silent> <expr> k v:count? 'k' : 'gk'
+nnoremap <silent> <expr> j v:count? 'j' : 'gj'
+nnoremap <silent> <expr> k v:count? 'k' : 'gk'
 " navigate between start/end of WORD
 nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
