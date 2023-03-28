@@ -32,6 +32,7 @@ command! -complete=customlist,<sid>ETC_Complete -nargs=*
 
 nnoremap <plug>EolToggleChar <cmd>call setline('.', <sid>eolToggleChar())<cr>
 xnoremap <plug>EolToggleChar <cmd>call setline('.', <sid>eolToggleCharVisual())<cr>
+nnoremap ga<esc> <nop>
 
 if !hasmapto('<plug>EolToggleChar') && maparg('ga', 'n') ==# ''
   nmap ga <plug>EolToggleChar
