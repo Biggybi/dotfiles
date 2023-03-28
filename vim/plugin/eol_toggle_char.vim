@@ -10,7 +10,6 @@ function! s:ETC_Complete(...)
 endfunction
 
 function! s:eolToggleChar(...)
-  echo expand("'[") expand("']")
   let c = a:0 ? a:1 : nr2char(getchar())
   if getline('.') =~# c .. '$'
     return getline('.')[:-2]
