@@ -643,8 +643,8 @@ command! -nargs=1 -complete=command Nomove
       \ |endtry
 
 " indent all file easy
-nnoremap g<c-g> :Nomove normal gg=G<cr>
-nnoremap gG :Nomove normal =ap<cr>
+nnoremap g<c-g> <cmd>Nomove normal! gg=G<cr>
+nnoremap gG <cmd>Nomove normal! =ap<cr>
 
 """        Make
 nnoremap <leader>cm :VShell make<cr>

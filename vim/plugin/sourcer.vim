@@ -24,6 +24,13 @@ function! s:sourceScripts() abort
   endfor
 
   for source in sources
+    echom source
+    echo g:loaded_fzf
+    echo g:loaded_airline
+    echo g:loaded_fzf_vim
+    echo g:plugin_tabline
+    echo g:plugin_statusline
+    echo g:plugin_modecolor
     silent! exe printf("%s %s/*.vim", runtimecmd, source)
   endfor
   if exists('$MYVIMRC') | source $MYVIMRC | endif
