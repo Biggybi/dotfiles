@@ -1,5 +1,16 @@
 local actions = require('telescope.actions')
 require('telescope').setup {
+
+-- Prevent entering buffers in insert mode.
+vim.api.nvim_create_autocmd("WinLeave", {
+    callback = function()
+      if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+      end
+    end,
+    group = vim.api.nvim_create_augroup("TelescopePreventStartInsert", {clear = true}),
+  }
+)
   defaults = {
     mappings = {
       i = {
