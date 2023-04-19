@@ -363,7 +363,7 @@ alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
 
 alias myopt='sudo dpkg -S /opt/*'
 
-alias pingg='ping -c 3 www.qwant.com'
+alias pingg='ping -c 3 www.duckduckgo.com'
 
 alias cip='xsel -b'
 alias pw='pwd'
