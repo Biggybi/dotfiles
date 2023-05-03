@@ -7,7 +7,8 @@ nnoremap <silent> <leader>fb     <cmd>Telescope buffers<cr>
 nnoremap <silent> <leader>j      <cmd>Telescope buffers<cr>
 nnoremap <silent> <leader>ft     <cmd>Telescope tags<cr>
 nnoremap <silent> <leader>f<c-t> <cmd>Telescope current_buffer_tags<cr>
-nnoremap <silent> <leader>fc     <cmd>Telescope git_commits<cr>
+nnoremap <silent> <leader>fc     <cmd>Telescope git_bcommits<cr>
+nnoremap <silent> <leader>fC     <cmd>Telescope git_commits<cr>
 nnoremap <silent> <leader>f<c-c> <cmd>Telescope git_bcommits<cr>
 nnoremap <silent> <leader>fg     <cmd>Telescope git_files<cr>
 nnoremap <silent> <leader>f<c-g> <cmd>Telescope git_branches<cr>
