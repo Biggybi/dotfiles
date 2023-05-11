@@ -248,43 +248,47 @@ nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
 nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
 
 " edit dotfiles
-nnoremap <leader>ev      :e  $DOT/vim/vimrc<cr>
-nnoremap <leader>Ev      :sp $DOT/vim/vimrc<cr>
-nnoremap <leader><c-e>v  :vs $DOT/vim/vimrc<cr>
-nnoremap <leader>ei      :e  $DOT/nvim/init.vim<cr>
-nnoremap <leader>Ei      :sp $DOT/nvim/init.vim<cr>
-nnoremap <leader><c-e>i  :vs $DOT/nvim/init.vim<cr>
+nnoremap <leader>ev      <cmd>e  $DOT/vim/vimrc<cr>
+nnoremap <leader>Ev      <cmd>sp $DOT/vim/vimrc<cr>
+nnoremap <leader><c-e>v  <cmd>vs $DOT/vim/vimrc<cr>
+nnoremap <leader>ei      <cmd>e  $DOT/nvim/init.vim<cr>
+nnoremap <leader>Ei      <cmd>sp $DOT/nvim/init.vim<cr>
+nnoremap <leader><c-e>i  <cmd>vs $DOT/nvim/init.vim<cr>
 
-nnoremap <leader>et      :e  $DOT/tmux/tmux.conf<cr>
-nnoremap <leader>Et      :sp $DOT/tmux/tmux.conf<cr>
-nnoremap <leader><c-e>t  :vs $DOT/tmux/tmux.conf<cr>
+nnoremap <leader>et      <cmd>e  $DOT/tmux/tmux.conf<cr>
+nnoremap <leader>Et      <cmd>sp $DOT/tmux/tmux.conf<cr>
+nnoremap <leader><c-e>t  <cmd>vs $DOT/tmux/tmux.conf<cr>
 
-nnoremap <leader>ebb     :e  $DOT/shells/bash/bashrc<cr>
-nnoremap <leader>Ebb     :sp $DOT/shells/bash/bashrc<cr>
-nnoremap <leader><c-e>bb :vs $DOT/shells/bash/bashrc<cr>
-nnoremap <leader>eba     :e  $DOT/shells/bash/bash_aliases<cr>
-nnoremap <leader>Eba     :sp $DOT/shells/bash/bash_aliases<cr>
-nnoremap <leader><c-e>ba :vs $DOT/shells/bash/bash_aliases<cr>
-nnoremap <leader>ebp     :e  $DOT/shells/bash/bash_profile<cr>
-nnoremap <leader>Ebp     :sp $DOT/shells/bash/bash_profile<cr>
-nnoremap <leader><c-e>b  :vs $DOT/shells/bash/bash_profile<cr>
+nnoremap <leader>ea      <cmd>e  $DOT/shells/alacritty/alacritty.yml<cr>
+nnoremap <leader>Ea      <cmd>sp $DOT/shells/alacritty/alacritty.yml<cr>
+nnoremap <leader><c-e>a  <cmd>vs $DOT/shells/alacritty/alacritty.yml<cr>
 
-nnoremap <leader>ezz     :e  $DOT/shells/zsh/zshrc<cr>
-nnoremap <leader>Ezz     :sp $DOT/shells/zsh/zshrc<cr>
-nnoremap <leader><c-e>zz :vs $DOT/shells/zsh/zshrc<cr>
-nnoremap <leader>eza     :e  $DOT/shells/zsh/zsh_aliases<cr>
-nnoremap <leader>Eza     :sp $DOT/shells/zsh/zsh_aliases<cr>
-nnoremap <leader><c-e>za :vs $DOT/shells/zsh/zsh_aliases<cr>
-nnoremap <leader>ezh     :e  $HOME/.zsh_history<cr>
-nnoremap <leader>Ezh     :sp $HOME/.zsh_history<cr>
-nnoremap <leader><c-e>zh :vs $HOME/.zsh_history<cr>
+nnoremap <leader>ebb     <cmd>e  $DOT/shells/bash/bashrc<cr>
+nnoremap <leader>Ebb     <cmd>sp $DOT/shells/bash/bashrc<cr>
+nnoremap <leader><c-e>bb <cmd>vs $DOT/shells/bash/bashrc<cr>
+nnoremap <leader>eba     <cmd>e  $DOT/shells/bash/bash_aliases<cr>
+nnoremap <leader>Eba     <cmd>sp $DOT/shells/bash/bash_aliases<cr>
+nnoremap <leader><c-e>ba <cmd>vs $DOT/shells/bash/bash_aliases<cr>
+nnoremap <leader>ebp     <cmd>e  $DOT/shells/bash/bash_profile<cr>
+nnoremap <leader>Ebp     <cmd>sp $DOT/shells/bash/bash_profile<cr>
+nnoremap <leader><c-e>b  <cmd>vs $DOT/shells/bash/bash_profile<cr>
 
-nnoremap <leader>ebn     :e  $DOT/inputrc<cr>
-nnoremap <leader>Ebn     :sp $DOT/inputrc<cr>
-nnoremap <leader><c-e>bn :vs $DOT/inputrc<cr>
+nnoremap <leader>ezz     <cmd>e  $DOT/shells/zsh/zshrc<cr>
+nnoremap <leader>Ezz     <cmd>sp $DOT/shells/zsh/zshrc<cr>
+nnoremap <leader><c-e>zz <cmd>vs $DOT/shells/zsh/zshrc<cr>
+nnoremap <leader>eza     <cmd>e  $DOT/shells/zsh/zsh_aliases<cr>
+nnoremap <leader>Eza     <cmd>sp $DOT/shells/zsh/zsh_aliases<cr>
+nnoremap <leader><c-e>za <cmd>vs $DOT/shells/zsh/zsh_aliases<cr>
+nnoremap <leader>ezh     <cmd>e  $HOME/.zsh_history<cr>
+nnoremap <leader>Ezh     <cmd>sp $HOME/.zsh_history<cr>
+nnoremap <leader><c-e>zh <cmd>vs $HOME/.zsh_history<cr>
 
-nnoremap <leader>ec1     :e  $DOT/vim/colors/base16-onedark.vim<cr>
-nnoremap <leader>ec2     :e  $DOT/vim/colors/base16-one-light.vim<cr>
+nnoremap <leader>ebn     <cmd>e  $DOT/inputrc<cr>
+nnoremap <leader>Ebn     <cmd>sp $DOT/inputrc<cr>
+nnoremap <leader><c-e>bn <cmd>vs $DOT/inputrc<cr>
+
+nnoremap <leader>ec1     <cmd>e  $DOT/vim/colors/base16-onedark.vim<cr>
+nnoremap <leader>ec2     <cmd>e  $DOT/vim/colors/base16-one-light.vim<cr>
 
 " " rename file
 " nnoremap <leader>mv :!mv % %:h:p/
