@@ -309,13 +309,13 @@ nmap <leader>h1 <Plug>(Header42)
 """        Movement
 
 " insert mode delete / end of line / start of line
-inoremap <c-l> <C-R>=pumvisible() ? "\<lt>C-l>" : "\<lt>del>"<CR>
-inoremap <c-e> <C-R>=pumvisible() ? "\<lt>C-e>" : "\<lt>c-o>$"<CR>
-inoremap <c-a> <C-R>=pumvisible() ? "\<lt>C-a>" : "\<lt>c-o>^"<CR>
 
 
 nnoremap gH H
 nnoremap gL L
+inoremap <silent> <expr> <c-l> pumvisible() ? "\<lt>C-l>" : "\<lt>del>"
+inoremap <silent> <expr> <c-e> pumvisible() ? "\<lt>C-e>" : "\<lt>c-o>$"
+inoremap <silent> <expr> <c-a> pumvisible() ? "\<lt>C-a>" : "\<lt>c-o>^"
 
 " up down on visual lines
 xnoremap <silent> <expr> j v:count? 'j' : 'gj'
