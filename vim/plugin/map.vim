@@ -483,6 +483,8 @@ nnoremap <silent> <c-w>u     :only<cr>
 nmap <silent> <c-g>  <Plug>(MatchitNormalForward)
 nmap <silent> <c-g>  <Plug>(MatchitNormalForward)
 omap <silent> <c-g>  <Plug>(MatchitOperationForward)
+xmap <silent> <c-g>  <Plug>(MatchitVisualForward)
+xnoremap <silent> <leader><c-g> <c-g>
 nmap <silent> [<c-g> <Plug>(MatchitNormalMultiBackward)
 nmap <silent> ]<c-g> <Plug>(MatchitNormalMultiForward)
 xmap <silent> [<c-g> <Plug>(MatchitVisualMultiBackward)
