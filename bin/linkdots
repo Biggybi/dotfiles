@@ -37,7 +37,8 @@ DOTS=(vim
 	git/git_template
 	fonts
 	ssh/ssh_config
-	config/autostart)
+	config/autostart
+	shells/alacritty/alacritty.yml)
 
 # links to create localy for Linux
 LINK=(.vim
@@ -54,7 +55,8 @@ LINK=(.vim
 	.git_template
 	.fonts
 	.ssh/config
-	.config/autostart)
+	.config/autostart
+	.config/alacritty/alacritty.yml)
 
 # # links to create localy for Mac
 # if [[ "$OSTYPE" == "darwin"* ]]
