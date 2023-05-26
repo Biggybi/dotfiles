@@ -354,13 +354,10 @@ nnoremap L $
 
 " next / previous paragraph (or whitespace line)
 
-onoremap <c-j> <cmd>call search("^\\s*$", 'e')<cr>
-onoremap <c-k> <cmd>call search("^\\s*$", 'be')<cr>
-nnoremap <c-j> <cmd>call search("^\\s*$")<cr>
-nnoremap <c-k> <cmd>call search("^\\s*$", 'b')<cr>
-
-vnoremap H ^
-vnoremap L g_
+onoremap <c-j> <cmd>call search('\(^\s*$\)\\|\(\%$\)', 'e')<cr>
+onoremap <c-k> <cmd>call search('\(^\s*$\)\\|\(\%^\)', 'be')<cr>
+nnoremap <C-j> <cmd>call search('\(^\s*$\)\\|\(\%$\)', 'W')<CR>
+nnoremap <C-k> <cmd>call search('\(^\s*$\)\\|\(\%^\)', 'bW')<CR>
 
 "go to next / previous buffer
 nnoremap <leader>] :bn<cr>
