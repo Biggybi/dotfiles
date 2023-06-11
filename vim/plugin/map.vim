@@ -9,14 +9,6 @@ if v:version < 802
   inoremap <c-i> <c-v><c-i>
 endif
 
-" backspace key
-map  <c-h>
-if has ('nvim')
-  nmap <bs> <c-h>
-endif
-
-nnoremap <buffer> <c-c> :feedkeys("\<c-c>")
-
 """        Modes
 " closing easy
 function! QuitBackToLast() abort
@@ -41,7 +33,7 @@ function! DeleteHiddenBuffers() abort
 endfunction
 command! BwHidden call DeleteHiddenBuffers()
 
-nnoremap <leader><c-@> :echo "kewl"<cr>
+nnoremap <leader><C-Space> :echo "kewl"<cr>
 
 " enter command mode with ;
 nnoremap ; :
@@ -66,6 +58,9 @@ cnoremap <c-z> <c-[><c-z>
 
 " :W! save files as root
 cnoremap <c-r><c-s> %!sudo tee > /dev/null %
+
+" new paragraph between lines
+nnoremap co O<cr>
 
 """        Insert mode undo breaks
 inoremap . .<c-g>u
@@ -92,53 +87,47 @@ function! ConcealToggle() abort
     echo "set conceallevel = 2"
   endif
 endfunction
-nnoremap yoq :call ConcealToggle()<cr>
+nnoremap yoq <cmd>call ConcealToggle()<cr>
 
 " Toggle / close / open Undotree
 let g:undotree_SetFocusWhenToggle = 1
-nnoremap you :UndotreeToggle<cr>
-nnoremap [ou :UndotreeShow<cr>
-nnoremap ]ou :UndotreeHide<cr>
-nnoremap yo<c-u> :UndotreeFocus<cr>
+nnoremap you <cmd>UndotreeToggle<cr>
+nnoremap [ou <cmd>UndotreeShow<cr>
+nnoremap ]ou <cmd>UndotreeHide<cr>
+nnoremap yo<c-u> <cmd>UndotreeFocus<cr>
 
 " Obsession
-nnoremap yoo :call ToggleObsession()<cr>
+nnoremap yoo <cmd>call ToggleObsession()<cr>
 
 " Netrw toggle - left
-let s:netrw_winsize = get(g:, 'netrw_winsize', '-80')
-function! NetrwToggle() abort
-  Lexplore
-  if &ft==#"netrw"
-    exe s:netrw_winsize . "wincmd|"
-  endif
-endfunction
-nnoremap <silent> yoe :call NetrwToggle()<cr>
+" nnoremap <silent> yoe :30Lexplore<cr>
 
 " " Move visual selection (=unimpaired + gv)
 xmap [e <Plug>(unimpaired-move-selection-up)\|gv
 xmap ]e <Plug>(unimpaired-move-selection-down)\|gv
 
 " Toggle hlsearch + Anzu
-nnoremap <silent> yoh :ToggleHL<cr>
+nnoremap <silent> yoh <cmd>ToggleHL<cr>
 
 " winfix width/height
-nnoremap <silent> yo<c-w> :setlocal winfixwidth!<cr>:echo &winfixwidth == 0
+nnoremap <silent> yo<c-w> <cmd>setlocal winfixwidth!<bar>echo &winfixwidth == 0
       \? 'nowinfixwidth' : 'winfixwidth'<cr>
-nnoremap <silent> yo<c-h> :setlocal winfixheight!<cr>:echo &winfixheight == 0
+nnoremap <silent> yo<c-h> <cmd>setlocal winfixheight!<bar>echo &winfixheight == 0
       \? 'nowinfixheight' : 'winfixheight'<cr>
 
 " TODO: keep cursor on the same column
-nnoremap <silent> zz zz<bar>:call FitBufferWindowBottom()<cr>
+nnoremap <silent> zz myzz<bar><cmd>call FitBufferWindowBottom()<cr><bar>`y
 command! ZZToggle
       \ let &scrolloff=999-&scrolloff
       \| echo &scrolloff > 900 ? "zz mode on" : "zz mode off"
-nnoremap <silent> yoz :ZZToggle<cr>
+      \| normal zz
+nnoremap <silent> yoz <cmd>ZZToggle<cr>
 
 " Load project files buffers
-nnoremap yoj :call AutoProjectLoad('1')<cr>
+nnoremap yoj <cmd>call AutoProjectLoad('1')<cr>
 
 " Goyo toggle
-nnoremap yog :Goyo<cr>
+nnoremap yog <cmd>Goyo<cr>
 
 """        Copy / Paste / Delete
 
@@ -170,10 +159,14 @@ vnoremap <leader>y "+y
 
 """        Replace
 
+" Auto spell correction
+nnoremap <leader>z= z=1<cr><cr>
+
 " Replace last search
-nnoremap gr :s/<c-r>///g<left><left>
-vnoremap gr :s/<c-r>///g<left><left>
-nnoremap gR :%s/<c-r>///g<left><left>
+nnoremap gr :s///g<left><left>
+vnoremap gr :s///g<left><left>
+nnoremap gR :%s///g<left><left>
+nnoremap g<c-r> :%s/<c-r><c-w>//g<left><left>
 " nnoremap c/ :s///g<left><left>
 " vnoremap c/ :s///g<left><left>
 " nnoremap C/ :%s///g<left><left>
@@ -183,69 +176,84 @@ nnoremap gR :%s/<c-r>///g<left><left>
 " vnoremap c. :s/<c-r><c-w>//g<left><left>
 " nnoremap C. :%s/<c-r><c-w>//g<left><left>
 
-nnoremap C <nop>
+nnoremap C c$
 
 """        Files Information
 
 " cd shell to vim current working directory
-nnoremap <leader>cd :!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
+nnoremap <leader>cd <cmd>!cd &pwd<cr> :echo "shell cd : " . getcwd()<cr>
 
 " show file name
-nnoremap <silent> <leader>fp :echo expand('%')<cr>
+nnoremap <silent> <leader>fp <cmd>echo expand('%')<cr>
+
+" show file name and copy it to unnamed register
+nnoremap <silent> <leader>f<c-p> <cmd>let @"=expand('%')<bar>echo expand('%:p:h')<cr>
 
 " show file path/name and copy it to unnamed register
-nnoremap <silent> <leader>fP :let @"=expand('%:p')<cr>:echo expand('%:p')<cr>
+nnoremap <silent> <leader>fP <cmd>let @"=expand('%:p')<bar>echo expand('%:p')<cr>
 
 " show file name and copy it to unnamed register
-nnoremap <silent> <leader>f<c-p> :let @"=expand('%')<cr>:echo expand('%:p:h')<cr>
-
-" show file name and copy it to unnamed register
-nnoremap <silent> <leader>f<c-f> :let @"=expand('%:t')<cr>:echo expand('%:t')<cr>
+nnoremap <silent> <leader>f<c-f> <cmd>let @"=expand('%:t')<bar>echo expand('%:t')<cr>
 
 " dump current file name without path
 inoremap <c-r><c-f> <c-r>=expand('%:p:t')<cr>
 
+" dump current file name with full path
+inoremap <c-r><leader>f <c-r>=expand('%:p')<cr>
+
 """        New Files / Windows
 
 " new file in vertical split instead of horizontal
-nnoremap <silent> <c-w><c-n> :vertical new<cr>
+nnoremap <silent> <c-w><c-n> <cmd>vertical new<cr>
 
 " open file under cursor in vertical split instead of horizontal
-nnoremap <silent> <c-w><c-f> :vertical wincmd f<cr>
+nnoremap <silent> <c-w><c-f> <cmd>vertical wincmd f<cr>
 
 " open file under cursor in a netrw pannel on the left
-nnoremap <silent> <c-w><c-d> :Lexplore <cfile><cr>
+nnoremap <silent> <c-w><c-d> <cmd>Lexplore <cfile><cr>
 
 """        Folding
 
 " Open / close fold with <c-space>
 if ! has("nvim")
   nnoremap <silent> <c-@> za:call FitBufferWindowBottom()<cr>
-  onoremap <silent> <c-@> <c-c>za:call FitBufferWindowBottom()<cr>
   vnoremap <silent> <c-@> zf
-elseif has("nvim")
+else
   nnoremap <silent> <c-space> za:call FitBufferWindowBottom()<cr>
-  onoremap <silent> <c-space> <c-c>za:call FitBufferWindowBottom()<cr>
   vnoremap <silent> <c-space> zf
 endif
 
 " close every fold except current
-nnoremap <leader>zc :normal! mzzMzv`z<CR>
+nnoremap <leader>zc <cmd>normal! mzzMzv`z<CR>
 
 " recursively open even partial folds
 nnoremap zo zczO
 
+" keep cursor line in a sane place on screen
+" ... when closing folds
+nnoremap zM zMzb
+" ... when closing a fold
+nnoremap <silent> zm <cmd>set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
+
 """        Dotfiles
 
 " source vimrc
-nnoremap <leader>sv :silent source $MYVIMRC<bar>:silent filetype detect<bar>:echo "vimrc sourced"<cr>
-nnoremap <leader>sr :silent Runtime<bar>:echo "Runtime"<cr>
-nnoremap <leader>s. :silent Runtime<bar>:echo "Runtime"<cr>
+function s:vimrcSource()
+  silent source $MYVIMRC
+  filetype detect
+  echo "vimrc sourced"
+endfunction
+
+nnoremap <silent> <leader>sv <cmd>call <sid>vimrcSource()<cr>
+" nnoremap <leader>sv <cmd>source $MYVIMRC<bar>filetype detect<bar><c-u>echo "vimrc sourced"<cr>
+nnoremap <leader>sr <cmd>silent Runtime<bar>:echo "Runtime"<cr>
+nnoremap <leader>s. <cmd>silent Runtime<bar>:echo "Runtime"<cr>
 nnoremap <silent> <leader>sf :silent! :filetype detect<cr>
+nnoremap <silent> <leader>ss <cmd>source .git/Session.vim<cr>
 
 " source colors
-nnoremap <silent> <leader>s1 :source $HOME/.vim/colors/base16-onedark.vim<cr>
-nnoremap <silent> <leader>s2 :source $HOME/.vim/colors/base16-one-light.vim<cr>
+nnoremap <silent> <leader>s1 <cmd>colorscheme onehalf-dark<cr>
+nnoremap <silent> <leader>s2 <cmd>colorscheme onehalf-light<cr>
 
 " edit dotfiles
 nnoremap <leader>ev      <cmd>e  $DOT/vim/vimrc<cr>
@@ -296,14 +304,17 @@ nnoremap <leader>ec2     <cmd>e  $DOT/vim/colors/base16-one-light.vim<cr>
 """        Git
 
 " Show git log history
-nnoremap <leader>gl :vert terminal git --no-pager log --all --decorate --oneline --graph<cr>:setlocal filename=""<cr>
+if !has('nvim')
+nnoremap <leader>gl <cmd>vert terminal git --no-pager log --all --decorate --oneline --graph<bar>setlocal filename=""<cr>
+endif
 " Show git log in location list
-nnoremap ghl :Gllog! <bar> wincmd b <bar> wincmd L<cr>
+nnoremap ghl <cmd>Gllog!<bar>wincmd b<bar>wincmd L<cr>
 
 """        Terminal
 
 tnoremap <c-n> <c-\><c-n>
 tnoremap <c-@> <c-w>:
+tnoremap <c-space> <c-\><c-n>:
 
 """        Headers
 
@@ -312,11 +323,22 @@ nmap <leader>h1 <Plug>(Header42)
 ""    Move Mappings
 """        Movement
 
-" insert mode delete / end of line / start of line
+" start / end of line
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L g_
 
-
+" top / bottom of window
 nnoremap gH H
 nnoremap gL L
+nnoremap gM M
+
+" redraw with line at top / bottom
+nnoremap <leader>o  zt
+nnoremap <leader>i  zb
+
+" insert mode delete / end of line / start of line
 inoremap <silent> <expr> <c-l> pumvisible() ? "\<lt>C-l>" : "\<lt>del>"
 inoremap <silent> <expr> <c-e> pumvisible() ? "\<lt>C-e>" : "\<lt>c-o>$"
 inoremap <silent> <expr> <c-a> pumvisible() ? "\<lt>C-a>" : "\<lt>c-o>^"
@@ -326,6 +348,7 @@ xnoremap <silent> <expr> j v:count? 'j' : 'gj'
 xnoremap <silent> <expr> k v:count? 'k' : 'gk'
 nnoremap <silent> <expr> j v:count? 'j' : 'gj'
 nnoremap <silent> <expr> k v:count? 'k' : 'gk'
+
 " navigate between start/end of WORD
 nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
       \ <bar><bar> getline('.')[col('.') - 1] == ' '
@@ -349,34 +372,34 @@ vnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
       \ <bar><bar> col('.') == 1
       \ ? 'gE' : 'B'
 
-nnoremap H ^
-nnoremap L $
-
 " next / previous paragraph (or whitespace line)
 
 onoremap <c-j> <cmd>call search("^\\s*$", 'e')<cr>
 onoremap <c-k> <cmd>call search("^\\s*$", 'be')<cr>
-nnoremap <c-j> <cmd>call search("^\\s*$")<cr>
-nnoremap <c-k> <cmd>call search("^\\s*$", 'b')<cr>
-
-vnoremap H ^
-vnoremap L g_
+nnoremap <c-j> <cmd>call search("^\\s*$", 'W')<cr>
+nnoremap <c-k> <cmd>call search("^\\s*$", 'bW')<cr>
 
 "go to next / previous buffer
-nnoremap <leader>] :bn<cr>
-nnoremap <leader>[ :bp<cr>
+nnoremap <leader>] <cmd>bn<cr>
+nnoremap <leader>[ <cmd>bp<cr>
 
 " switch last 2 buffers
-nnoremap <leader><space> :b#<cr>
-vnoremap <leader><space> :b#<cr>
+nnoremap <leader><space> <cmd>b#<cr>
+vnoremap <leader><space> <cmd>b#<cr>
 
 " last buffer in vertical split
-nnoremap <c-w>#              :vs#<cr>
-nnoremap <c-w><space><space> :vs#<cr>
-vnoremap <c-w>#              :<c-u>vs#<cr>
-vnoremap <c-w><space><space> :<c-u>vs#<cr>
+nnoremap <c-w>#              <cmd>vs#<cr>
+nnoremap <c-w><space><space> <cmd>vs#<cr>
+nnoremap <c-w><space>v       <cmd>vs#<cr>
+nnoremap <c-w><space>s       <cmd>sp#<cr>
+nnoremap <c-w><space>t       <cmd>tabnew#<cr>
+vnoremap <c-w>#              <cmd>vs#<cr>
+vnoremap <c-w><space><space> <cmd>vs#<cr>
+vnoremap <c-w><space>v       <cmd>vs#<cr>
+vnoremap <c-w><space>s       <cmd>sp#<cr>
+vnoremap <c-w><space>t       <cmd>tabnew#<cr>
 
-" visual shifting (does not exit Visual mode)
+" visual shifting without exiting Visual mode
 vnoremap < <gv
 vnoremap > >gv
 
@@ -400,15 +423,17 @@ nnoremap <silent> <leader>< :exe "vertical resize " . (winwidth(0)  * 3/4)<CR>
 " inoremap <expr> <esc>j getcurpos()[2] == 1 ? "<esc><down>i" : "<esc><down>a"
 " inoremap <expr> <esc>k getcurpos()[2] == 1 ? "<esc><up>i" : "<esc><up>a"
 " inoremap <c-]> <esc><esc>
-" inoremap e <c-o>$
-" inoremap a <c-o>^
+" inoremap ^[ e <c-o>$
+" inoremap ^[ a <c-o>^
 " inoremap <esc> <c-o>:stopinsert<cr>
 
 " " map <left> <right> for escape sequences
 " inoremap <expr> <c-f> getcurpos()[2] == 1 && getline('.') != '' ? "<esc>a" : "<esc>a<right>"
 " inoremap <expr> <c-b> getcurpos()[2] == 1 ? "<esc>i<left>" : '<esc>i'
+inoremap <c-f> <right>
+inoremap <c-b> <left>
 
-if $WSL_DISTRO_NAME != ''
+if $WSL_DISTRO_NAME != '' && !has("nvim")
   for i in range(char2nr('a'), char2nr('z'))
     let char = nr2char(i)
     execute "set <M-".char.">=\e".char
@@ -417,62 +442,66 @@ if $WSL_DISTRO_NAME != ''
   endfor
 endif
 
-if ! has("nvim")
-  inoremap <a-h> <left>
-  inoremap <a-j> <down>
-  inoremap <a-k> <up>
-  inoremap <a-l> <right>
-  cnoremap <a-h> <left>
-  cnoremap <a-j> <down>
-  cnoremap <a-k> <up>
-  cnoremap <a-l> <right>
-  nnoremap <silent> <a-h> :wincmd h<cr>
-  nnoremap <silent> <a-j> :wincmd j<cr>
-  nnoremap <silent> <a-k> :wincmd k<cr>
-  nnoremap <silent> <a-l> :wincmd l<cr>
-  tnoremap <silent> <a-h> <c-\><c-n>:wincmd h<cr>
-  tnoremap <silent> <a-j> <c-\><c-n>:wincmd j<cr>
-  tnoremap <silent> <a-k> <c-\><c-n>:wincmd k<cr>
-  tnoremap <silent> <a-l> <c-\><c-n>:wincmd l<cr>
-  nnoremap <silent> <a-H> :exe "vertical resize -1"<CR>
-  nnoremap <silent> <a-J> :exe "resize -1"<cr>
-  nnoremap <silent> <a-K> :exe "resize +1"<cr>
-  nnoremap <silent> <a-L> :exe "vertical resize +1"<CR>
-  nnoremap <silent> <a-o> :tabnext<cr>
-  nnoremap <silent> <a-i> :tabprevious<cr>
-  nnoremap <silent> <a-p> :normal g<tab><cr>
-else
-  inoremap <m-h> <left>
-  inoremap <m-j> <down>
-  inoremap <m-k> <up>
-  inoremap <m-l> <right>
-  cnoremap <m-h> <left>
-  cnoremap <m-j> <down>
-  cnoremap <m-k> <up>
-  cnoremap <m-l> <right>
-  nnoremap <silent> <m-h> :wincmd h<cr>
-  nnoremap <silent> <m-j> :wincmd j<cr>
-  nnoremap <silent> <m-k> :wincmd k<cr>
-  nnoremap <silent> <m-l> :wincmd l<cr>
-  tnoremap <silent> <m-h> <c-\><c-n>:wincmd h<cr>
-  tnoremap <silent> <m-j> <c-\><c-n>:wincmd j<cr>
-  tnoremap <silent> <m-k> <c-\><c-n>:wincmd k<cr>
-  tnoremap <silent> <m-l> <c-\><c-n>:wincmd l<cr>
-  nnoremap <silent> <m-H> :exe "vertical resize -1"<CR>
-  nnoremap <silent> <m-J> :exe "resize -1"<cr>
-  nnoremap <silent> <m-K> :exe "resize +1"<cr>
-  nnoremap <silent> <m-L> :exe "vertical resize +1"<CR>
-  nnoremap <silent> <m-o> :tabnext<cr>
-  nnoremap <silent> <m-i> :tabprevious<cr>
-  nnoremap <silent> <m-p> :normal g<tab><cr>
-endif
+" " fix meta-keys which generate <Esc>a .. <Esc>z
+" let c='a'
+" while c <= 'z'
+"   exec "set <M-".toupper(c).">=\e".c
+"   exec "imap \e".c." <M-".toupper(c).">"
+"   let c = nr2char(1+char2nr(c))
+" endw
 
-nnoremap <silent> <leader>o  zt
-nnoremap <silent> <leader>i  zb
-nnoremap <silent> <c-w><c-o> :tabnext<cr>
-nnoremap <silent> <c-w><c-i> :tabprevious<cr>
+inoremap <m-h> <left>
+inoremap <m-j> <down>
+inoremap <m-k> <up>
+inoremap <m-l> <right>
+cnoremap <m-h> <left>
+cnoremap <m-j> <down>
+cnoremap <m-k> <up>
+cnoremap <m-l> <right>
+nnoremap <m-h> <cmd>wincmd h<cr>
+nnoremap <m-j> <cmd>wincmd j<cr>
+nnoremap <m-k> <cmd>wincmd k<cr>
+nnoremap <m-l> <cmd>wincmd l<cr>
+tnoremap <m-h> <cmd>wincmd h<cr>
+tnoremap <m-j> <cmd>wincmd j<cr>
+tnoremap <m-k> <cmd>wincmd k<cr>
+tnoremap <m-l> <cmd>wincmd l<cr>
+nnoremap <m-H> <cmd>vertical resize -1<CR>
+nnoremap <m-J> <cmd>resize -1<cr>
+nnoremap <m-K> <cmd>resize +1<cr>
+nnoremap <m-L> <cmd>vertical resize +1<CR>
+nnoremap <m-o> <cmd>tabnext<cr>
+nnoremap <m-i> <cmd>tabprevious<cr>
+
+" " next / previous tab (with wrap)
+" nnoremap <expr> <m-O> tabpagenr() == tabpagenr('$')
+"       \? "<cmd>silent! tabmove 0<cr>"
+"       \: "<cmd>silent! tabmove +1<cr>"
+" nnoremap <expr> <m-I> tabpagenr() == 1
+"       \? "<cmd>tabmove $<cr>"
+"       \: "<cmd>tabmove -1<cr>"
+
+" next / previous tab (with wrap)
+nnoremap <silent> <expr> <m-O> tabpagenr() == tabpagenr('$')
+      \? ':silent! tabmove 0<cr>'
+      \: ':silent! tabmove +1<cr>'
+nnoremap <silent> <expr> <m-I> tabpagenr() == 1
+      \? ':silent! tabmove $<cr>'
+      \: ':silent! tabmove -1<cr>'
+nnoremap <silent> <expr> <leader>O tabpagenr() == tabpagenr('$')
+      \? ':silent! tabmove 0<cr>'
+      \: ':silent! tabmove +1<cr>'
+nnoremap <silent> <expr> <leader>I tabpagenr() == 1
+      \? ':silent! tabmove $<cr>'
+      \: ':silent! tabmove -1<cr>'
+
+nnoremap <m-p> <cmd>tabnext #<cr>
+
+nnoremap <c-w><c-o> <cmd>tabnext<cr>
+nnoremap <c-w><c-i> <cmd>tabprevious<cr>
 if has ("nvim")
-  nnoremap <silent> <c-w><tab> :tabprevious<cr>
+  nnoremap <c-w><tab> <cmd>tabprevious<cr>
+  nnoremap <c-w><s-tab> <cmd>tabnext<cr>
 endif
 nnoremap <silent> <c-w><c-u> :only<cr>
 nnoremap <silent> <c-w>u     :only<cr>
@@ -492,8 +521,8 @@ xmap <silent> ]<c-g> <Plug>(MatchitVisualMultiForward)
 omap <silent> [<c-g> <Plug>(MatchitOperationMultiBackward)
 omap <silent> ]<c-g> <Plug>(MatchitOperationMultiForward)
 
-nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
-nnoremap <silent> g* :let @/=expand('<cword>') <bar>set hlsearch<cr>:UpdateSearchMatch<cr>
+nnoremap <silent> * <cmd>let @/= '\<' . expand('<cword>') . '\>' <bar>set hlsearch<bar>UpdateSearchMatch<cr>
+nnoremap <silent> g* <cmd>let @/=expand('<cword>') <bar>set hlsearch<bar>UpdateSearchMatch<cr>
 
 " search visual selection
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
@@ -510,7 +539,6 @@ if !has('nvim')
 else
   cnoremap <c-k> <up>
   cnoremap <c-j> <down>
-  cnoremap <C-Space> <down>
 endif
 cnoremap <c-b> <left>
 cnoremap <c-l> <s-right>
@@ -526,7 +554,7 @@ cnoreabbrev <silent> <expr> qqq (getcmdtype() ==# ':' && getcmdline() ==# "qqq")
 
 " put current working directory
 cnoremap <c-r>. <c-r>=fnameescape(expand('%:h')).'/'<cr>
-nnoremap <leader>vp :find <cr>vim/plugin/
+nnoremap <leader>vp :e vim/plugin/
 
 " start command for all windows / arguments
 nnoremap <c-w>; :windo<space>
@@ -613,16 +641,15 @@ vnoremap <silent> <c-p> :call SelectFirstWordBlockVisual()<cr>
 nnoremap <silent> <leader>V :call SelectFirstWordBlock('1')<cr>
 nnoremap <silent> <leader><c-v> :call SelectFirstWordBlock('0')<cr>
 
-"""        Folding
-
-nnoremap zM zMzb
-nnoremap <silent> zm :set scrolloff=0<cr>zmzb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
-nnoremap <silent> zb :set scrolloff=0<cr>zb:let &scrolloff=winheight(win_getid())/10 + 1<cr>
-
 """        Windows
 
-nnoremap <silent> <c-w><c-c> :let buff=bufname()<cr>:close<cr>:echo buff . " closed"<cr>
-nnoremap <silent> <c-w>c     :let buff=bufname()<cr>:close<cr>:echo buff . " closed"<cr>
+nnoremap <silent> <c-w><c-c> <cmd>let buff=bufname()<bar>close<bar>echo buff . " closed"<cr>
+nnoremap <silent> <c-w>c     <cmd>let buff=bufname()<bar>close<bar>echo buff . " closed"<cr>
+
+"""        Completion
+
+" inoremap <silent> <c-n> <c-n><c-n><c-n><c-p><c-p>
+" inoremap <silent> <c-p> <c-p><c-p><c-p><c-n><c-n>
 
 ""    Code Mappings
 """        Auto Brackets
@@ -653,12 +680,12 @@ nnoremap g<c-g> <cmd>Nomove normal! gg=G<cr>
 nnoremap gG <cmd>Nomove normal! =ap<cr>
 
 """        Make
-nnoremap <leader>cm :VShell make<cr>
-nnoremap <leader>cr :VShell make re<cr>
-nnoremap <leader>c<c-r> :Shell make re<cr>
-nnoremap <leader>cx :VShell make clean<cr>
-nnoremap <leader>c<c-x> :VShell make fclean<cr>
-nnoremap <leader>mm :make<cr><cr>:botright copen<cr><c-w>p
+nnoremap <leader>cm     <cmd>VShell make<cr>
+nnoremap <leader>cr     <cmd>VShell make re<cr>
+nnoremap <leader>c<c-r> <cmd>Shell make re<cr>
+nnoremap <leader>cx     <cmd>VShell make clean<cr>
+nnoremap <leader>c<c-x> <cmd>VShell make fclean<cr>
+nnoremap <leader>mm     <cmd>make<cr>:botright copen<cr><c-w>p
 
 nmap <silent><leader>ch <Plug>(MoveScratchTermH)
 nmap <silent><leader>cj <Plug>(MoveScratchTermJ)
@@ -670,22 +697,22 @@ nmap <silent><leader>co <Plug>(ScrollScratchTermK)
 nmap <silent><leader>c. <Plug>(RunShellCommandRe)
 
 " Make in split
-function! LocListPanel(pfx, side) abort
-try
-  let winnr = winnr()
-  exe a:pfx . 'open'
-  if &filetype == 'qf'
-    exe "wincmd" a:side
-  endif
-finally
-  if winnr() != winnr
-    wincmd p
-  endif
-endtry
+function! s:locListPanel(pfx, side) abort
+  try
+    let winnr = winnr()
+    exe a:pfx . 'open'
+    if &filetype == 'qf'
+      exe "wincmd" a:side
+    endif
+  finally
+    if winnr() != winnr
+      wincmd p
+    endif
+  endtry
 endfunction
 
-nnoremap <leader>csm :lmake!<cr>:call LocListPanel('l', 'J')<cr>
-nnoremap <leader>csr :lmake! re<cr>:call LocListPanel('l', 'J')<cr>
+nnoremap <leader>csm <cmd>lmake!<bar>call <sid>locListPanel('l', 'J')<cr>
+nnoremap <leader>csr <cmd>lmake! re<bar>call <sid>locListPanel('l', 'J')<cr>
 
 """        Count
 
@@ -695,9 +722,12 @@ function! FunctionLineCount() abort
   echo "function lines :" lastline - firstline - 1
 endfunction
 
-nnoremap <leader>wcf :call FunctionLineCount()<cr>
+nnoremap <leader>wcf <cmd>call FunctionLineCount()<cr>
 
 """        Doc
 noremap <silent> <leader>K K
 
 let g:markdown_fenced_languages = ['css', 'js=javascript']
+
+""    modeline
+" vim:foldmethod=expr:foldtext=VimFold()
