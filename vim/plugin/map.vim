@@ -374,10 +374,10 @@ vnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
 
 " next / previous paragraph (or whitespace line)
 
-onoremap <c-j> <cmd>call search("^\\s*$", 'e')<cr>
-onoremap <c-k> <cmd>call search("^\\s*$", 'be')<cr>
-nnoremap <c-j> <cmd>call search("^\\s*$", 'W')<cr>
-nnoremap <c-k> <cmd>call search("^\\s*$", 'bW')<cr>
+onoremap <c-j> <cmd>call search('\(^\s*$\)\\|\(\%$\)', 'e')<cr>
+onoremap <c-k> <cmd>call search('\(^\s*$\)\\|\(\%^\)', 'be')<cr>
+nnoremap <C-j> <cmd>call search('\(^\s*$\)\\|\(\%$\)', 'W')<CR>
+nnoremap <C-k> <cmd>call search('\(^\s*$\)\\|\(\%^\)', 'bW')<CR>
 
 "go to next / previous buffer
 nnoremap <leader>] <cmd>bn<cr>
