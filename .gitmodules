@@ -343,3 +343,6 @@
 [submodule "nvim/pack/bundle/start/lspsaga.nvim"]
 	path = nvim/pack/bundle/start/lspsaga.nvim
 	url = https://github.com/nvimdev/lspsaga.nvim
+[submodule "nvim/pack/bundle/start/noice.nvim"]
+	path = nvim/pack/bundle/start/noice.nvim
+	url = https://github.com/folke/noice.nvim
