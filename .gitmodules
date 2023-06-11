@@ -337,3 +337,9 @@
 [submodule "/home/trx/dotfiles/vim/pack/bundle/start/copilot.vim"]
 	path = /home/trx/dotfiles/vim/pack/bundle/start/copilot.vim
 	url = https://github.com/github/copilot.vim
+[submodule "nvim/pack/bundle/start/null-ls.nvim"]
+	path = nvim/pack/bundle/start/null-ls.nvim
+	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
+[submodule "nvim/pack/bundle/start/lspsaga.nvim"]
+	path = nvim/pack/bundle/start/lspsaga.nvim
+	url = https://github.com/nvimdev/lspsaga.nvim
