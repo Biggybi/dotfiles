@@ -350,7 +350,7 @@ nnoremap <silent> <expr> j v:count? 'j' : 'gj'
 nnoremap <silent> <expr> k v:count? 'k' : 'gk'
 
 " navigate between start/end of WORD
-function! s:searchEndStartWorld(direction = '')
+function! s:searchEndStartWord(direction = '')
   call search('\(\s\zs\S\|\S\ze\s\|$\|^\S\)', a:direction)
 endfunction
 
