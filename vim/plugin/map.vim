@@ -716,13 +716,20 @@ nnoremap <leader>csr <cmd>lmake! re<bar>call <sid>locListPanel('l', 'J')<cr>
 
 """        Count
 
-function! FunctionLineCount() abort
-  let firstline = search('^{', 'bn')
-  let lastline = search('^}', 'n')
-  echo "function lines :" lastline - firstline - 1
+function! s:functionLineCount() abort
+  let cursorline = getcurpos()[1]
+  let firstline = search('^{', 'bnW')
+  let lastline = search('^}', 'nW')
+  let count =
+        \ !lastline || !firstline
+        \ || cursorline < firstline
+        \ || cursorline > lastline
+        \  ? 'unknown'
+        \  : lastline - firstline - 1
+  echo printf("function lines: %s", count)
 endfunction
 
-nnoremap <leader>wcf <cmd>call FunctionLineCount()<cr>
+nnoremap <leader>wcf <cmd>call <sid>functionLineCount()<cr>
 
 """        Doc
 noremap <silent> <leader>K K
