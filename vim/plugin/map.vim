@@ -420,7 +420,7 @@ nnoremap <silent> <leader>< :exe "vertical resize " . (winwidth(0)  * 3/4)<CR>
 inoremap <c-f> <right>
 inoremap <c-b> <left>
 
-if $WSL_DISTRO_NAME != '' && !has("nvim")
+if !has("nvim")
   for i in range(char2nr('a'), char2nr('z'))
     let char = nr2char(i)
     execute "set <M-".char.">=\e".char
