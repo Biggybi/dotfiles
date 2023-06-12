@@ -350,27 +350,14 @@ nnoremap <silent> <expr> j v:count? 'j' : 'gj'
 nnoremap <silent> <expr> k v:count? 'k' : 'gk'
 
 " navigate between start/end of WORD
-nnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
-      \ <bar><bar> getline('.')[col('.') - 1] == ' '
-      \ <bar><bar> col('.') == col('$') - 1
-      \ <bar><bar> col('$') == 1
-      \ ? 'w' : 'E'
-vnoremap <silent> <expr> <c-l> getline('.')[col('.')] == ' '
-      \ <bar><bar> getline('.')[col('.') - 1] == ' '
-      \ <bar><bar> col('.') == col('$') - 1
-      \ <bar><bar> col('$') == 1
-      \ ? 'w' : 'E'
+function! s:searchEndStartWorld(direction = '')
+  call search('\(\s\zs\S\|\S\ze\s\|$\|^\S\)', a:direction)
+endfunction
 
-nnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
-      \ <bar><bar> getline('.')[col('.') - 1] == ' '
-      \ <bar><bar> col('$') == 1
-      \ <bar><bar> col('.') == 1
-      \ ? 'gE' : 'B'
-vnoremap <silent> <expr> <c-h> getline('.')[col('.') - 2] == ' '
-      \ <bar><bar> getline('.')[col('.') - 1] == ' '
-      \ <bar><bar> col('$') == 1
-      \ <bar><bar> col('.') == 1
-      \ ? 'gE' : 'B'
+nnoremap <silent> <c-l> <cmd>call <sid>searchEndStartWord('W')<cr>
+vnoremap <silent> <c-l> <cmd>call <sid>searchEndStartWord('W')<cr>
+nnoremap <silent> <c-h> <cmd>call <sid>searchEndStartWord('Wb')<cr>
+vnoremap <silent> <c-h> <cmd>call <sid>searchEndStartWord('Wb')<cr>
 
 " next / previous paragraph (or whitespace line)
 
