@@ -38,7 +38,7 @@ nnoremap <leader><C-Space> :echo "kewl"<cr>
 " enter command mode with ;
 nnoremap ; :
 nnoremap <c-;> :
-vnoremap ; :
+xnoremap ; :
 nnoremap <leader>; :!
 
 nnoremap <silent> gI `.gi<esc>zz:call FitBufferWindowBottom()<cr>
@@ -155,7 +155,7 @@ endif
 
 " copy to clipboard
 nnoremap <leader>y "+y
-vnoremap <leader>y "+y
+xnoremap <leader>y "+y
 
 """        Replace
 
@@ -164,16 +164,16 @@ nnoremap <leader>z= z=1<cr><cr>
 
 " Replace last search
 nnoremap gr :s///g<left><left>
-vnoremap gr :s///g<left><left>
+xnoremap gr :s///g<left><left>
 nnoremap gR :%s///g<left><left>
 nnoremap g<c-r> :%s/<c-r><c-w>//g<left><left>
 " nnoremap c/ :s///g<left><left>
-" vnoremap c/ :s///g<left><left>
+" xnoremap c/ :s///g<left><left>
 " nnoremap C/ :%s///g<left><left>
 
 " Replace word under cursor
 " nnoremap c. :s/<c-r><c-w>//g<left><left>
-" vnoremap c. :s/<c-r><c-w>//g<left><left>
+" xnoremap c. :s/<c-r><c-w>//g<left><left>
 " nnoremap C. :%s/<c-r><c-w>//g<left><left>
 
 nnoremap C c$
@@ -217,10 +217,10 @@ nnoremap <silent> <c-w><c-d> <cmd>Lexplore <cfile><cr>
 " Open / close fold with <c-space>
 if ! has("nvim")
   nnoremap <silent> <c-@> za:call FitBufferWindowBottom()<cr>
-  vnoremap <silent> <c-@> zf
+  xnoremap <silent> <c-@> zf
 else
   nnoremap <silent> <c-space> za:call FitBufferWindowBottom()<cr>
-  vnoremap <silent> <c-space> zf
+  xnoremap <silent> <c-space> zf
 endif
 
 " close every fold except current
@@ -326,8 +326,8 @@ nmap <leader>h1 <Plug>(Header42)
 " start / end of line
 nnoremap H ^
 nnoremap L $
-vnoremap H ^
-vnoremap L g_
+xnoremap H ^
+xnoremap L g_
 
 " top / bottom of window
 nnoremap gH H
@@ -349,30 +349,29 @@ xnoremap <silent> <expr> k v:count? 'k' : 'gk'
 nnoremap <silent> <expr> j v:count? 'j' : 'gj'
 nnoremap <silent> <expr> k v:count? 'k' : 'gk'
 
-" navigate between start/end of WORD
+" next / previous start/end of WORD
 function! s:searchEndStartWord(direction = '')
   call search('\(\s\zs\S\|\S\ze\s\|$\|^\S\)', a:direction)
 endfunction
 
-nnoremap <silent> <c-l> <cmd>call <sid>searchEndStartWord('W')<cr>
-vnoremap <silent> <c-l> <cmd>call <sid>searchEndStartWord('W')<cr>
 nnoremap <silent> <c-h> <cmd>call <sid>searchEndStartWord('Wb')<cr>
-vnoremap <silent> <c-h> <cmd>call <sid>searchEndStartWord('Wb')<cr>
+nnoremap <silent> <c-l> <cmd>call <sid>searchEndStartWord('W')<cr>
+xnoremap <silent> <c-h> <cmd>call <sid>searchEndStartWord('Wb')<cr>
+xnoremap <silent> <c-l> <cmd>call <sid>searchEndStartWord('W')<cr>
 
 " next / previous paragraph (or whitespace line)
-
 onoremap <c-j> <cmd>call search('\(^\s*$\)\\|\(\%$\)', 'e')<cr>
 onoremap <c-k> <cmd>call search('\(^\s*$\)\\|\(\%^\)', 'be')<cr>
 nnoremap <C-j> <cmd>call search('\(^\s*$\)\\|\(\%$\)', 'W')<CR>
 nnoremap <C-k> <cmd>call search('\(^\s*$\)\\|\(\%^\)', 'bW')<CR>
 
-"go to next / previous buffer
+"next / previous buffer
 nnoremap <leader>] <cmd>bn<cr>
 nnoremap <leader>[ <cmd>bp<cr>
 
 " switch last 2 buffers
 nnoremap <leader><space> <cmd>b#<cr>
-vnoremap <leader><space> <cmd>b#<cr>
+xnoremap <leader><space> <cmd>b#<cr>
 
 " last buffer in vertical split
 nnoremap <c-w>#              <cmd>vs#<cr>
@@ -380,15 +379,15 @@ nnoremap <c-w><space><space> <cmd>vs#<cr>
 nnoremap <c-w><space>v       <cmd>vs#<cr>
 nnoremap <c-w><space>s       <cmd>sp#<cr>
 nnoremap <c-w><space>t       <cmd>tabnew#<cr>
-vnoremap <c-w>#              <cmd>vs#<cr>
-vnoremap <c-w><space><space> <cmd>vs#<cr>
-vnoremap <c-w><space>v       <cmd>vs#<cr>
-vnoremap <c-w><space>s       <cmd>sp#<cr>
-vnoremap <c-w><space>t       <cmd>tabnew#<cr>
+xnoremap <c-w>#              <cmd>vs#<cr>
+xnoremap <c-w><space><space> <cmd>vs#<cr>
+xnoremap <c-w><space>v       <cmd>vs#<cr>
+xnoremap <c-w><space>s       <cmd>sp#<cr>
+xnoremap <c-w><space>t       <cmd>tabnew#<cr>
 
 " visual shifting without exiting Visual mode
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 
 " open buffer with partial search
 " nnoremap <leader>b :buffer<space>
@@ -512,7 +511,7 @@ nnoremap <silent> * <cmd>let @/= '\<' . expand('<cword>') . '\>' <bar>set hlsear
 nnoremap <silent> g* <cmd>let @/=expand('<cword>') <bar>set hlsearch<bar>UpdateSearchMatch<cr>
 
 " search visual selection
-vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
+xnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 """        Command Line
 
@@ -624,7 +623,7 @@ function! SelectFirstWordBlockVisual() abort
   endtry
 endfunction
 
-vnoremap <silent> <c-p> :call SelectFirstWordBlockVisual()<cr>
+xnoremap <silent> <c-p> :call SelectFirstWordBlockVisual()<cr>
 nnoremap <silent> <leader>V :call SelectFirstWordBlock('1')<cr>
 nnoremap <silent> <leader><c-v> :call SelectFirstWordBlock('0')<cr>
 
