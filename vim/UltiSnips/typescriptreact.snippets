@@ -1,3 +1,35 @@
-snippet useState "useState"
-const [${1}, set`!p snip.rv = t[1].title()`] = useState(${2})
+snippet fc "function component with type" b
+export type T$1 = {
+  ${2}
+}
+
+const ${1:`!v substitute(expand('%:t:r'),'.','\U&','')`} = ({
+	${2/(\w+)\s*:\s*[^\s]+,?/$1,/g}
+}) => {
+  return ${4:<>${5}</>}$0
+}
+
+export default $1
+endsnippet
+
+snippet uses "useState"
+const [${1}, set`!p snip.rv = (t[1][0].capitalize() + (t[1][1:]) if (len(t[1])) else '')`] = useState(${2})${4}
+endsnippet
+
+snippet usec "useCallback"
+useCallback((${1}) => {
+	${2}
+}, [${3}])${4}
+endsnippet
+
+snippet usee "useEffect"
+useEffect((${1}) => {
+	${2}
+}, [${3}])${4}
+endsnippet
+
+snippet stylesheet "const styles = StyleSheet.create({})"
+const styles = StyleSheet.create({
+	${1}
+})
 endsnippet
