@@ -121,11 +121,11 @@ local tab_size_max = 40
 local tab_obsession_size = 3
 
 function Tab_size()
-  local tabsize = math.floor(
-    (vim.o.columns - tab_rhs_size - tab_obsession_size) / (vim.fn.tabpagenr("$"))
-  ) - 1
-  tabsize = math.min(tabsize, tab_size_max) - 1
-  return tabsize
+  local tabsize =
+      (vim.o.columns - tab_rhs_size - tab_obsession_size)
+      / vim.fn.tabpagenr("$")
+  tabsize = math.min(tabsize, tab_size_max)
+  return tabsize - 2
 end
 
 local config = {
