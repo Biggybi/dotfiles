@@ -436,6 +436,21 @@ endif
 "   let c = nr2char(1+char2nr(c))
 " endw
 
+function! s:changeWindowOrSplit(direction) abort
+  let curwin = win_getid()
+  exe 'wincmd' a:direction
+  if (curwin != win_getid()) | return | endif
+  if (a:direction is 'j') | bel split | endif
+  if (a:direction is 'k') | above split | endif
+  if (a:direction is 'h') | lefta vert split | endif
+  if (a:direction is 'l') | rightb vert split | endif
+endfunction
+
+nnoremap <m-j> <cmd>call <sid>changeWindowOrSplit('j')<cr>
+nnoremap <m-k> <cmd>call <sid>changeWindowOrSplit('k')<cr>
+nnoremap <m-h> <cmd>call <sid>changeWindowOrSplit('h')<cr>
+nnoremap <m-l> <cmd>call <sid>changeWindowOrSplit('l')<cr>
+
 inoremap <m-h> <left>
 inoremap <m-j> <down>
 inoremap <m-k> <up>
@@ -444,10 +459,7 @@ cnoremap <m-h> <left>
 cnoremap <m-j> <down>
 cnoremap <m-k> <up>
 cnoremap <m-l> <right>
-nnoremap <m-h> <cmd>wincmd h<cr>
-nnoremap <m-j> <cmd>wincmd j<cr>
-nnoremap <m-k> <cmd>wincmd k<cr>
-nnoremap <m-l> <cmd>wincmd l<cr>
+
 tnoremap <m-h> <cmd>wincmd h<cr>
 tnoremap <m-j> <cmd>wincmd j<cr>
 tnoremap <m-k> <cmd>wincmd k<cr>
