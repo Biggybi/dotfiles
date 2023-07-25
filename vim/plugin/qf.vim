@@ -27,11 +27,11 @@ augroup end
 
 ""    Toggle
 " location list
-nnoremap <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
+nnoremap <silent> <expr> <leader>cl get(getloclist(0, {'winid':0}), 'winid', 0) ?
       \ ":lclose<cr>" : ":bot lopen<cr><c-w>p"
 
 " quickfix list
-nnoremap <expr> <leader>cq get(getqflist({'winid':1}), 'winid', 0) ?
+nnoremap <silent> <expr> <leader>cq get(getqflist({'winid':1}), 'winid', 0) ?
       \ ":cclose<cr>" : ":bot copen<cr><c-w>p"
 
 " current error
