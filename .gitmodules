@@ -250,10 +250,6 @@
 	path = vim/pack/bundle/start/markdown-preview.nvim.git
 	url = https://github.com/iamcco/markdown-preview.nvim.git
 	ignore = dirty
-[submodule "nvim/pack/bundle/start/cmp-buffer.nvim"]
-	path = nvim/pack/bundle/start/cmp-buffer.nvim
-	url = https://github.com/sar/cmp-buffer.nvim
-	ignore = dirty
 [submodule "nvim/pack/bundle/start/cmp-cmdline"]
 	path = nvim/pack/bundle/start/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline
