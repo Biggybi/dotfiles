@@ -106,13 +106,14 @@ function prompt-length() {
 function fill-line() {
   emulate -L zsh
   local left_len=$(($(prompt-length $1) - 0))
-  # adjust padding if in a git repo
-  if [[ "${#$(parse_git_branch)}" -gt 0 ]] then
-    left_len=$(( left_len-4 ))
-  fi
   local right_len=$(($(prompt-length $2 9999)+1))
   local pad_len=$((COLUMNS - left_len - right_len - ${ZLE_RPROMPT_INDENT:-1}))
-  # echo "pad" $pad_len "left" $left_len "right" $right_len "zle" ${ZLE_RPROMPT_INDENT:-1}
+  # padding adjust git/non git
+  if [[ "${#$(parse_git_branch)}" -gt 0 ]] then
+    pad_len=$(( pad_len + 2 ))
+  else
+    pad_len=$(( pad_len - 2 ))
+  fi
   if (( pad_len < 0)); then
     # Not enough space for the right part. Drop it.
     echo -E - ${1}
@@ -122,7 +123,6 @@ function fill-line() {
   fi
 }
 
-# 
 border_left="%{\e[00;90m%}"
 border_right="%{\e[00;90m%}"
 
@@ -153,17 +153,14 @@ set-prompt_top_left() {
     prompt_top_left+="$border_right"
   fi
   prompt_top_left+="%{\e[00;00;98m%} %~%{\e[0m%}"    # cwd
-  if [[ "${#vcs_info}" -gt 0 ]] then
-  prompt_top_left+="    "    # cwd
-  fi
   echo $prompt_top_left
 }
 
 local bg_process() {
-  if jobs %% 2>/dev/null; then
-    echo " "
+  if [[ $(jobs -p) ]]; then
+      echo " "
   else
-    echo ""
+      echo ""
   fi
 }
 
@@ -188,7 +185,7 @@ set-prompt_bottom_right() {
   prompt_bottom_right+="%{\e[01;01;93m%}" 
   prompt_bottom_right+="$(bg_process)"
   prompt_bottom_right+="$promt_cmd_info"
-  prompt_bottom_right+=" "
+  prompt_bottom_right+="   "
   echo $prompt_bottom_right
   unset promt_cmd_info
 }
@@ -202,7 +199,7 @@ __set-prompt() {
 
   local top_left=$(set-prompt_top_left)
   local top_right=$(set-prompt_top_right) # branch
-  local bottom_left=$(set-prompt_bottom_left)
+	local bottom_left=$'$(set-prompt_bottom_left)'
   local bottom_right=$(set-prompt_bottom_right)
 
   # echo "$(set-prompt_top_right)"
