@@ -58,6 +58,7 @@ set -ga status-right '#[fg='$fg' bg='$g4']󰅐 %H:%M 󰃭 %b-%d-%y'
 set -ga status-right '#[fg='$g4' bg='$bg'] '
 set -ga status-right '#[fg='$g4' bg='$bg']'
 set -ga status-right '#[bg='$g4']#(~/bin/tmux/tmux_pia_state)#[fg='$fg' bg='$g4']'
+set -ga status-right '#(~/bin/tmux/tmux_battery)#[fg='$fg' bg='$g3']'
 set -ga status-right '#[fg='$g4' bg='$bg']'
 
 #(~/bin/tmux/tmux_battery)"
