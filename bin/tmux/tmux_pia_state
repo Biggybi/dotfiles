@@ -1,22 +1,29 @@
 #!/bin/bash
 
+# 󰌘 󰌗  󱇲   󰦜 󰒙 󰇠
+
 fgdefault='#[default]'
 piastate=$(piactl get connectionstate)
 if [[ "$piastate" == 'Connected' ]]\
 	|| [[ -d /sys/class/net/wgpia0 ]] ; then
 	fgcolor='#[fg=brightgreen]'
-	piamarker="+V"
-elif [[ "$piastate" == 'Connecting' ]];  then
+	# piamarker="+V"
+  piaicon='󰞀'
+elif [[ "$piastate" =~ (Connecting) ]];  then
 	fgcolor='#[fg=brightblue]'
-	piamarker="~V"
-elif [[  "$piastate" =~ (Reconnecting|DisconnectingToReconnect) ]]; then
-	fgcolor='#[fg=magenta]'
-	piamarker="~V"
+	# piamarker="~V"
+  piaicon='󱆣'
+elif [[  "$piastate" =~ (Reconnecting|Disconnecting|DisconnectingToReconnect) ]]; then
+	fgcolor='#[fg=yellow]'
+	# piamarker="~V"
+  piaicon='󰇠'
 elif [[  "$piastate" =~ (Disconnected|Interrupted) ]]; then
 	fgcolor='#[fg=red]'
-	piamarker="-V"
+  piaicon='󰦜'
+	# piamarker="-V"
 else
 	fgcolor='#[fg=yellow]'
-	piamarker="!V"
+	# piamarker="!V"
+  # piaicon='󱆣'
 fi
-printf "%s" "${fgcolor}${piamarker}${fgdefault}"
+echo ${fgcolor}${piaicon} ${fgdefault}
