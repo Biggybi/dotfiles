@@ -108,7 +108,7 @@ alias mutt="neomutt"
 alias m="neomutt"
 
 ## pia
-alias piaup="piactl disconnect | piactl connect"
+alias piaup="piactl disconnect ; piactl connect"
 alias piadown="piactl disconnect"
 alias pias="piactl get connectionstate"
 alias pia="piactl "
