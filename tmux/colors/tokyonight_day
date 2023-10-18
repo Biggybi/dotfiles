@@ -1,19 +1,19 @@
 #!/bin/tmux
 
-bk="#222436" ## bg
-rd="#ff757f" ## red
-gn="#c3e88d" ## green
-yw="#ffc777" ## yellow
-be="#82aaff" ## blue
-pe="#fca7ea" ## purple
-ma="#c099ff" ## magenta
-we="#c8d3f5" ## fg
+bk="#e1e2e7" ## bg
+rd="#f52a65" ## red
+gn="#587539" ## green
+yw="#8c6c3e" ## yellow
+be="#2e7de9" ## blue
+pe="#7847bd" ## purple
+ma="#9854f1" ## magenta
+we="#3760bf" ## fg
 
-g1="#2f334d" ## bg_highlight
-g2="#3b4261" ## fg_gutter
-g3="#394b70" ## blue7
-g4="#545c7e" ## dark3
-g5="#737aa2" ## dark5
+g1="#c4c8da" ## bg_highlight
+g2="#a8aecb" ## fg_gutter
+g3="#92a6d5" ## blue7
+g4="#8990b3" ## dark3
+g5="#68709a" ## dark5
 
 fg=${we}
 bg=${bk}
@@ -22,9 +22,9 @@ session_fg=${be}
 session_bg=${be}
 session_fg_cmd=${yw}
 session_bg_cmd=${yw}
-window_current_bg=${g2}
+window_current_bg=${g1}
 window_current_fg=${fg}
-status_right_bg=${g2}
+status_right_bg=${g1}
 status_right_fg=${fg}
 
 # set -g status-left '#{?client_prefix,#[fg='$yw' bg='$g1'],#[fg='$g3' bg='$g1']}'
