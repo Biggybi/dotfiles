@@ -22,8 +22,14 @@ unsetopt BEEP
 
 ## Applications
 
-export VISUAL=(vim -X)
-export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 readonly nomodified nomodifiable' -\""
+if [ -x "$(command -v nvim)" ]; then
+  export VISUAL=(nvim)
+  export MANPAGER="nvim +Man!"
+else
+  export VISUAL=(vim -X)
+  export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 readonly nomodified nomodifiable' -\""
+fi
+
 export EDITOR=(vi -e)
 export BROWSER=firefox
 export JAVA_HOME=/usr/lib/jvm/java-18-jdk
