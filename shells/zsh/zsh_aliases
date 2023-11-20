@@ -153,6 +153,12 @@ alias gnomexts='cd /usr/share/gnome-shell/extensions'
 alias gnome-theme-login='sudo update-alternatives --config gdm3-theme.gresource'
 alias gnome-term-xterm='sudo update-alternatives --set x-terminal-emulator /usr/bin/xterm'
 
+alias gnome-dark="gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'"
+alias adwaita-dark="gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'"
+
+alias printalpha='echo "abcdefghijklmnopqrstuvwxyz"'
+alias printnumber='echo "0123456789"'
+
 vimplugclone() {
 	git clone "$1" "$HOME/dotfiles/vim/pack/bundle/start/"
 }
