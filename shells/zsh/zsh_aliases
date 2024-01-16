@@ -37,6 +37,9 @@ fi
 alias kus="setxkbmap -layout us"
 alias kfr="setxkbmap -layout fr"
 
+alias d='source day'
+alias n='source night'
+
 alias ll='ls -trhalF'
 alias la='ls -lA'
 alias l='ls -CF'

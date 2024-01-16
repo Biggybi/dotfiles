@@ -2,7 +2,21 @@
 
 theme="tokyonight_day"
 echo "$theme" > ~/.config/onehalf-theme
-export FZF_DEFAULT_OPTS="--color='light,bg+:#c4c8da,hl:#f52a65,hl+:#f52a65'"
+export FZF_DEFAULT_OPTS="\
+--color=light,\
+fg:#3760bf,\
+fg+:#3760bf,\
+bg:#e1e2e7,\
+bg+:#c4c8da,\
+hl:#f52a65,\
+hl+:#f52a65,\
+info:#9854f1,\
+pointer:#9854f1,\
+marker:#9854f1,\
+header:#9854f1,\
+disabled:#9854f1,\
+query:#9854f1,\
+marker:#9854f1"
 
 # tokyonight_moon colors:
 # $HOME/.local/share/nvim/lazy/tokyonight.nvim/extras/lua/tokyonight_moon.lua
