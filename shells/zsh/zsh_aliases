@@ -78,6 +78,8 @@ alias gown='sudo chown -R "${USER:-$(id -un)}" .'
 
 ## docker
 alias dk='docker'
+alias dkc='docker compose'
+alias dkclean="dk system prune -af"
 alias dkps='docker container ls --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}"'
 alias dkcls='docker container ls -a --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}"'
 ## grep
