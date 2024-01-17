@@ -1,0 +1,72 @@
+#!/usr/bin/bash
+
+# This script 'naturally' changes the backlight level of the screen.
+
+# Changing 1% backlight in lower values has great impact,
+# while it's almost imperceptible in higher values.
+# With this script, the more backlight, the greater the change.
+# This allows for better control over lower values.
+# Particularly useful in darker conditions.
+
+# basic usage: backlight_natural_change [ value ]
+# value: percentage of the *current* backlight value to increase / decrease
+
+change_percentage=5
+min_change=10
+
+function is_number() {
+  [[ $1 =~ ^[+-]?[0-9]+([.][0-9]+)?$ ]]
+}
+
+function usage() {
+  echo\
+  "Usage: $0 [ [+-]percentage | d[own] | - | u[p] | + ] [ -m --min-change number ]"
+}
+
+if [[ "$1" =~ ^(d|do|dow|down|-)$ ]]; then
+  change_percentage=-"$change_percentage"
+elif ! [[ "$1" =~ ^(u|up|\+)$ ]] && ! [ $# -eq 2 ] && [ -n "$1" ]; then
+  change_percentage="$1"
+fi
+
+if ! is_number "$change_percentage"; then
+  echo "Error: Invalid percentage. Please provide a numeric value."
+  exit 1
+fi
+
+if [ $# -gt 3 ]; then usage; exit 1; fi
+
+if [ $# -eq 3 ]; then
+  shift
+  if [ "$1" = "-m" ] || [ "$1" = "--min-change" ]; then
+    min_change="$2"
+  else
+    usage
+    exit 1
+  fi
+fi
+
+# remove '+' in positive values
+if [ ${change_percentage:0:1} == '+' ]; then
+  change_percentage=${change_percentage:1:${#change_percentage}}
+fi
+
+current_brightness=$(brightnessctl get)
+change_float=$(echo "scale=2; $current_brightness * $change_percentage / 100" | bc)
+
+# to int
+change=$(printf "%.0f" "$change_float")
+# to positive
+if [ $change -lt 0 ]; then
+  change="${change:1:${#change}}"
+fi
+
+if [ $change -lt $min_change ]; then
+  change=$min_change
+fi
+
+if [ "$change_percentage" -ge 0 ]; then
+  brightnessctl set $change+
+else
+  brightnessctl set $change-
+fi

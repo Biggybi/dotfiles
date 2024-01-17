@@ -1,0 +1,212 @@
+setopt prompt_subst
+# icons at: https://www.nerdfonts.com/cheat-sheet
+
+__get_vi_mode_bottom() {
+  local vimstyle
+  vimstyle="%{\e[01;01;92m%}  %{\e[0m%}"
+  if [ "$KEYMAP" = "vicmd" ]
+  then
+    vimstyle="%{\e[00;01;91m%}  %{\e[0m%}"
+  fi
+  echo "$vimstyle"
+}
+
+__prompt_timer_preexec() {
+  prompt_timer_preexec_ms=${(%):-%D{%s%3.}}
+}
+
+__prompt_timer_precmd() {
+  if (( ! prompt_timer_preexec_ms )); then
+    unset promt_cmd_info
+    return
+  fi
+  local -ri now_ms=${(%):-%D{%s%3.}}
+  local -ri elapsed_ms=$(( now_ms - prompt_timer_preexec_ms ))
+  local -ri elapsed_s=$(( elapsed_ms/1000 ))
+  local -ri ms=$(( elapsed_ms%1000 ))
+  local -ri s=$(( elapsed_s%60))
+  local -ri m=$(( (elapsed_s/60)%60 ))
+  local -ri h=$(( elapsed_s/3600 ))
+  if (( h > 0 )); then
+    command_time=${h}h${m}m
+  elif (( m > 0 )); then
+    command_time=${m}m${s}s
+  elif (( s >= 10 )); then
+    command_time=${s}.${(l:2::0:)$(( ms/10 ))}s # 12.34s
+  elif (( s > 0 )); then
+    command_time=${s}.${(l:3::0:)ms}s # 1.234s
+  else
+    command_time=${ms}ms
+  fi
+  promt_cmd_info=$border_left
+  promt_cmd_info+=$'%(?.%{\e[00;32;100m%} .%{\e[00;31;100m%} %?) '
+  promt_cmd_info+=${command_time}
+  promt_cmd_info+=$'%(?.%{\e[00;01;92m%}.%{\e[00;01;91m%})'
+  promt_cmd_info+=$border_right
+  unset prompt_timer_preexec_ms
+}
+
+setopt nopromptbang prompt{cr,percent,sp,subst}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec __prompt_timer_preexec
+add-zsh-hook precmd __prompt_timer_precmd
+
+# Usage: prompt-length TEXT [COLUMNS]
+#
+# If you run `print -P TEXT`, how many characters will be printed
+# on the last line?
+#
+# Or, equivalently, if you set PROMPT=TEXT with prompt_subst
+# option unset, on which column will the cursor be?
+#
+# The second argument specifies terminal width. Defaults to the
+# real terminal width.
+#
+# Assumes that `%{%}` and `%G` don't lie.
+#
+# Examples:
+#
+#   prompt-length ''            => 0
+#   prompt-length 'abc'         => 3
+#   prompt-length $'abc\nxy'    => 2
+#   prompt-length '❎'          => 2
+#   prompt-length $'\t'         => 8
+#   prompt-length $'\u274E'     => 2
+#   prompt-length '%F{red}abc'  => 3
+#   prompt-length $'%{a\b%Gb%}' => 1
+#   prompt-length '%D'          => 8
+#   prompt-length '%1(l..ab)'   => 2
+#   prompt-length '%(!.a.)'     => 1 if root, 0 if not
+function prompt-length() {
+  emulate -L zsh
+  local COLUMNS=${2:-$COLUMNS}
+  local -i x y=$#1 m
+  if (( y )); then
+    while (( ${${(%):-$1%$y(l.1.0)}[-1]} )); do
+      x=y
+      (( y *= 2 ));
+    done
+    local xy
+    while (( y > x + 1 )); do
+      m=$(( x + (y - x) / 2 ))
+      typeset ${${(%):-$1%$m(l.x.y)}[-1]}=$m
+    done
+  fi
+  echo $x
+} 
+
+# We'll need another function that takes two arguments and prints a full fine
+# with these arguments on the opposing sides of the screen.
+
+# Usage: fill-line LEFT RIGHT
+#
+# Prints LEFT<spaces>RIGHT with enough spaces in the middle
+# to fill a terminal line.
+function fill-line() {
+  emulate -L zsh
+  local left_len=$(($(prompt-length $1) - 0))
+  local right_len=$(($(prompt-length $2 9999)+1))
+  local pad_len=$((COLUMNS - left_len - right_len - ${ZLE_RPROMPT_INDENT:-1}))
+  # padding adjust git/non git
+  if [[ "${#$(parse_git_branch)}" -gt 0 ]] then
+    pad_len=$(( pad_len + 2 ))
+  else
+    pad_len=$(( pad_len - 2 ))
+  fi
+  if (( pad_len < 0)); then
+    # Not enough space for the right part. Drop it.
+    echo -E - ${1}
+  else
+    local pad=${(pl.$pad_len.. .)}  # pad_len spaces
+    echo -E - ${1}${pad}${2}
+  fi
+}
+
+border_left="%{\e[00;90m%}"
+border_right="%{\e[00;90m%}"
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+setopt PROMPT_SUBST
+
+set-prompt_top_left() {
+  local prompt_top_left=" $border_left"
+  if [ "$(id -u)" = 0 ] ; then
+    prompt_top_left+="%{\e[00;31;100m%}󰞄 %n"  # root user
+  else
+    prompt_top_left+="%{\e[00;36;100m%} %n"  # user
+  fi
+  prompt_top_left+='  %{\e[0m%}'
+  if [ -n "$SSH_CLIENT" ] ; then
+    prompt_top_left+="%{\e[00;33;100m%} %M%{\e[0m%}" # ssh host
+  else
+    prompt_top_left+="%{\e[00;32;100m%}  %M%{\e[0m%}" # host
+  fi
+  prompt_top_left+=$border_right
+  local vcs_info="$(parse_git_branch)"
+  if [[ "${#vcs_info}" -gt 0 ]] then
+    prompt_top_left+=" $border_left"
+    prompt_top_left+="%{\e[00;35;100m%}  "$vcs_info"\e[0m%}" # git branch
+    prompt_top_left+="$border_right"
+  fi
+  prompt_top_left+="%{\e[00;00;98m%} %~%{\e[0m%}"    # cwd
+  echo $prompt_top_left
+}
+
+local bg_process() {
+  if [[ $(jobs -p) ]]; then
+      echo " "
+  else
+      echo ""
+  fi
+}
+
+
+set-prompt_top_right() {
+  local prompt_top_right=''
+  # if [[ $(ps | wc -l) -eq 6 ]] then bgProcess='' else bgProcess="● " fi
+  prompt_top_right+="%{\e[01;01;91m%}"
+  prompt_top_right+='%{\e[00;90m%}'
+  #  󰅐
+  prompt_top_right+="%{\e[00;34;100m%}󰅐 $(date +%T)"
+  prompt_top_right+="%{\e[00;90m%}"
+  echo $prompt_top_right
+}
+
+set-prompt_bottom_left() { echo $(__get_vi_mode_bottom)}
+
+set-prompt_bottom_right() {
+  local prompt_bottom_right=''
+  # if [[ $(ps | wc -l) -eq 6 ]] then bgProcess='' else bgProcess="● " fi
+  # prompt_bottom_right+="%{\e[01;01;91m%}$bgProcess" 
+  prompt_bottom_right+="%{\e[01;01;93m%}" 
+  prompt_bottom_right+="$(bg_process)"
+  prompt_bottom_right+="$promt_cmd_info"
+  prompt_bottom_right+="   "
+  echo $prompt_bottom_right
+  unset promt_cmd_info
+}
+
+# Sets PROMPT and RPROMPT.
+# Requires: prompt_percent and no_prompt_subst.
+__set-prompt() {
+  emulate -L zsh
+  local git_branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+  git_branch=${${git_branch//\%/%%}/\\/\\\\\\}  # escape '%' and '\'
+
+  local top_left=$(set-prompt_top_left)
+  local top_right=$(set-prompt_top_right) # branch
+	local bottom_left=$'$(set-prompt_bottom_left)'
+  local bottom_right=$(set-prompt_bottom_right)
+
+  # echo "$(set-prompt_top_right)"
+  PROMPT=$'\n'"$(fill-line "$top_left" "$top_right")"$'\n'"$bottom_left"
+  RPROMPT="$bottom_right"
+  RPROMPT+=$'%{$reset_color%}'                 # end
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd __set-prompt
+add-zsh-hook preexec __set-prompt
