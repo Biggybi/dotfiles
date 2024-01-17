@@ -436,6 +436,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
 alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'
 
+alias freebox-ls='smbclient -L \\Freebox_Server -U freebox'
+alias freebox_mybook='cd /run/user/1000/gvfs/smb-share:server=freebox_server,share=my%20book'
+alias freebox_2000='cd /run/user/1000/gvfs/smb-share:server=freebox_server,share=volume%202000go'
+
 ## file edition
 ## alias se='$VISUAL $(find ~/bin/* -type f | fzf)';
 ## se() { $VISUAL $(find ~/bin/* -type f | fzf);}
