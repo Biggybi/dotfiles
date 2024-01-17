@@ -85,17 +85,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-alias le='less'
-alias ccat='highlight --out-format=ansi'
-
-alias r='ranger'
-
-## df
-alias df='df -h'
-
-## free
-alias free='free -h'
-
 ## vim
 alias e='$VISUAL'
 alias v="vim"
@@ -132,6 +121,17 @@ alias sshdevopstris='ssh tris@192.168.0.221'
 ### various defaults
 alias dconf-editor='dconf-editor --I-understand-that-changing-options-can-break-applications'
 alias tree='tree --dirsfirst'
+
+## pagers
+alias le='less'
+alias ccat='highlight --out-format=ansi'
+alias r='ranger'
+
+## df
+alias df='df -h'
+
+## free
+alias free='free -h'
 
 ### history
 alias histon='set -o history'
