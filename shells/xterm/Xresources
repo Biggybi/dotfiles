@@ -3,8 +3,11 @@ XTerm*loginShell: true
 XTerm*termName: xterm-256color
 
 /* special keys */
-xterm*metaSendsEscape: false
-xterm*eightBitInput: true
+*VT100*eightBitControl:    false
+*VT100*eightBitInput:      true
+*VT100*eightBitOutput:     true
+xterm.*backarrowKey:       false
+XTerm*backarrowKeyIsErase: true
 
 /* bell */
 XTerm*visualBell: False
@@ -12,7 +15,7 @@ XTerm.Bell: false
 
 /* font */
 XTerm.vt100.renderFont: true
-XTerm*faceName:  JetBrains Mono NL
+XTerm*faceName:  JetBrainsMono NF
 XTerm*faceSize:  13
 XTerm*faceSize1: 11
 XTerm*faceSize2: 12
@@ -20,9 +23,6 @@ XTerm*faceSize3: 13
 XTerm*faceSize4: 14
 XTerm*faceSize5: 16
 XTerm*faceSize6: 20
-
-/* ling height */
-XTerm*vt100.scaleHeight: 1.15
 
 /* cursor */
 XTerm*cursorColor: grey
