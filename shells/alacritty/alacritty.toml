@@ -1,0 +1,134 @@
+live_config_reload = true
+
+[debug]
+render_timer = false
+persistent_logging = false
+log_level = "OFF"
+print_events = false
+# ref_test = false
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+dimensions.columns = 100
+dimensions.lines = 85
+padding.x = 0
+padding.y = 0
+dynamic_padding = true
+dynamic_title = true
+decorations = "None"
+startup_mode = "Windowed"
+
+[bell]
+duration = 0
+
+[scrolling]
+history = 5000
+multiplier = 3
+
+[font]
+builtin_box_drawing = true
+size = 13
+
+offset.x = 0
+offset.y = 0
+
+glyph_offset.x = 0
+glyph_offset.y = 0
+
+[font.normal]
+family = "JetBrainsMono NF"
+
+[font.bold]
+family = "JetBrainsMono NF"
+
+[font.italic]
+family = "JetBrainsMono NF"
+
+[colors]
+
+[colors.cursor]
+text = "#2c2c2c"
+cursor = "#b4b4b4"
+
+# [colors.primary]
+# background = "#e1e2e7"
+# foreground = "#3760bf"
+
+[colors.normal]
+black = "#e9e9ed"
+red = "#f52a65"
+green = "#587539"
+yellow = "#8c6c3e"
+blue = "#2e7de9"
+magenta = "#9854f1"
+cyan = "#007197"
+white = "#6172b0"
+
+[colors.bright]
+black = "#a1a6c5"
+red = "#f52a65"
+green = "#587539"
+yellow = "#8c6c3e"
+blue = "#2e7de9"
+magenta = "#9854f1"
+cyan = "#007197"
+white = "#3760bf"
+
+# [colors.indexed_colors]
+# - { index = 16, color = "#b15c00" }
+# - { index = 17, color = "#c64343" }
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Alt"
+action = "ToggleFullscreen"
+
+[[keyboard.bindings]]
+key = "Equals"
+mods = "Alt"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Alt"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "0"
+mods = "Alt"
+action = "ResetFontSize"
+
+[[keyboard.bindings]]
+key = "Equals"
+mods = "Control"
+action = "none"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "none"
+
+# [[keyboard.bindings]]
+# key = "Key0"
+# mods = "Alt"
+# action = "ResetFontSize"
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+save_to_clipboard = false
+
+[mouse]
+# double_click.threshold = 300
+# triple_click.threshold = 300
+hide_when_typing = true
+
+# [mouse_bindings]
+# mouse = "Middle"
+# action = "PasteSelection"
+
+# [cursor]
+# shape = "Block"
+# unfocused_hollow = true
+
