@@ -26,6 +26,7 @@ cd $SRC
 DOTS=(vim
 	nvim
 	shells/zsh/zshrc
+	shells/zsh/zshenv
 	shells/zsh/zsh_aliases
 	shells/xterm/Xresources
 	shells/bash/bashrc
@@ -44,6 +45,7 @@ DOTS=(vim
 LINK=(.vim
 	.config/nvim
 	.zshrc
+	.zshenv
 	.zsh_aliases
 	.Xresources
 	.bashrc

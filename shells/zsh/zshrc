@@ -73,7 +73,11 @@ autoload -U colors && colors
 
 DEFAULT_VI_MODE=viins
 
+<<<<<<< HEAD
 # if [ -n "$DOT/shells/zsh/zsh_prompt" ]; then source "$DOT/shells/zsh/zsh_prompt"; fi
+=======
+if [ -n "$DOT/shells/zsh/zsh_prompt" ]; then source "$DOT/shells/zsh/zsh_prompt"; fi
+>>>>>>> eca0a352 (feat(zsh): use 'zshenv' so all apps know env variables)
 # if [ -n "$DOT/shells/zsh/zsh_reload_scheme" ]; then "$DOT/shells/zsh/zsh_reload_scheme"; fi
 # zvm_after_init_commands+=('[ -f $DOT/shells/zsh/zsh_reload_scheme ] && source $DOT/shells/zsh/zsh_reload_scheme')
 
@@ -152,7 +156,6 @@ zvm_after_init_commands+=('bindkey "^k" history-search-backward')
 zvm_after_init_commands+=('bindkey "^n" accept-and-infer-next-history')
 
 eval "$(fnm env --use-on-cd)"
-
 eval "$(starship init zsh)"
 # # per function profiling
 # unsetopt xtrace

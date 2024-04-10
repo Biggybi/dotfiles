@@ -1,0 +1,104 @@
+# # XDG
+# export $XDG_CONFIG_HOME='~/.config'
+
+# Environment variables
+
+## Applications
+
+if [ -x "$(command -v nvim)" ]; then
+  export VISUAL=(nvim)
+  export MANPAGER="nvim +Man!"
+else
+  export VISUAL=(vim -X)
+  export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 readonly nomodified nomodifiable' -\""
+fi
+
+SUDO_ASKPASS=/usr/lib/ssh/gnome-ssh-askpass3
+export EDITOR=nvim
+export BROWSER=firefox
+
+# export JAVA_HOME=/usr/lib/jvm/java-19-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-22-openjdk
+
+# export ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
+# export ANDROID_SDK_ROOT=$HOME/Library/Android/Sdk
+export ANDROID_HOME=/data/apps_ressources/Android/Sdk
+# export ANDROID_HOME=/opt/android-sdk
+
+## Paths
+export PROG="$HOME/Work/prog/"
+export DOT="$HOME/dotfiles"
+export LFT="$HOME/42/libft/"
+export HOME_VID="$HOME/Videos"
+export HOME_PIC="$HOME/Pictures"
+export HOME_GAM="$HOME/Games"
+export HOME_DOC="$HOME/Documents"
+export HOME_MUS="$HOME/Music"
+export HOME_42="$HOME/Work"
+export DATAPATH="/data/"
+# export QT_STYLE_OVERRIDE=adwaita-dark
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORM=wayland
+# export QT_QPA_PLATFORM=xcb # emulator on wayland
+
+## PATH
+export GOPATH=$HOME/bin/go
+export PATH=$PATH:$HOME/bin
+PATH+=:$HOME/bin/tmux
+PATH+=:$HOME/bin/git
+PATH+=:/usr/lib
+PATH+=:~/.npm-global/bin
+PATH+=:/home/linuxbrew/.linuxbrew/bin
+PATH+=:$GOPATH/bin
+PATH+=:~/bin/norminette
+PATH+=:/opt/ace
+PATH+=:$JAVA_HOME
+PATH+=:/home/tris/.cargo/bin
+PATH+=:$ANDROID_SDK_ROOT/emulator
+PATH+=:$ANDROID_SDK_ROOT/platform-tools
+PATH+=:$ANDROID_HOME/emulator
+PATH+=:$ANDROID_HOME/platform-tools
+PATH+=:$HOME/.local/share/gem/ruby/3.0.0/bin
+PATH+=:$DOT/shells/zsh/plugins/zsh-onehalf-shell/scripts
+
+## spotify dl
+export SPOTIPY_CLIENT_ID='f12a0a0c008a496f9d0fb0350fd895ea'
+export SPOTIPY_CLIENT_SECRET='cf02dcf6ede446c3b61dc0f7dda21b59'
+
+# tomcat / catalina
+export CATALINA_HOME=/usr/share/tomcat10
+
+# history
+export HISTFILE=~/.zsh_history
+export SAVEHIST=1000000
+export HISTSIZE=1000000                 # session history size
+export HISTFILESIZE=1000000             # history file size
+export HISTTIMEFORMAT="[%F %T] "
+export HISTIGNORE="&:ls:bg:fg:exit:clear:reset"		# ignore some commands
+
+# Color man pages in `less`
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+export ONEHALF_PATH="$DOT/shells/zsh/plugins/zsh-onehalf-shell/" 
+export ONEHALF_FILE="$HOME/.config/onehalf-theme" 
+
+if [ -x "$(command -v bat)" ]; then
+	export BAT_THEME="OneHalfDark"
+fi
+
+
+# pnpm
+export PNPM_HOME="/home/trx/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+eval "$(fnm env --use-on-cd)"
