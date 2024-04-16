@@ -13,6 +13,10 @@
 
 alias s='sudo'
 alias c='clear'
+alias q='exit'
+
+alias vs='visudo'
+alias es='visudo'
 
 alias vim="vim -X"
 alias v="$VISUAL"
@@ -33,17 +37,49 @@ else
 	alias ls='ls -h --group-directories-first --color=auto'
 fi
 
-# keyboard layout
-alias kus="setxkbmap -layout us"
-alias kfr="setxkbmap -layout fr"
+## cd work
+alias cdw='cd $HOME/work'
+alias cdwn='cd $HOME/work/neovim-plugins'
+
+## colorscheme
+alias onehalf-dark='source onehalf-dark'
+alias onehalf-darker='source onehalf-darker'
+alias onehalf-darkest='source onehalf-darkest'
+alias onehalf-light='source onehalf-light'
+alias onehalf-lightdim='source onehalf-lightdim'
+alias onehalf-lightdim='source onehalf-lightdim'
+
+# alias tokyonight-day='source tokyonight-day'
+# alias tokyonight-moon='source tokyonight-moon'
 
 alias d='source day'
 alias n='source night'
+
+alias onehalf='source $(cat ~/.config/onehalf-theme)'
 
 alias ll='ls -trhalF'
 alias la='ls -lA'
 alias l='ls -CF'
 alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
+
+# lsd
+if [ -x "$(command -v lsd)" ]; then
+  alias ls="lsd"
+  alias l="lsd -la"
+  alias la="lsd -la"
+  alias ll="lsd --git -l"
+  alias lt="lsd -T"
+# elif [ -x "$(command -v exa)" ]; then
+#   alias ls="exa --group-directories-first"
+#   alias l="exa -la"
+#   alias la="exa -la"
+#   alias ll="exa --git -l"
+#   alias lt="exa -T"
+fi
+
+# keyboard layout
+alias kus="setxkbmap -layout us"
+alias kfr="setxkbmap -layout fr"
 
 ## cp is rsync
 alias cp='rsync -vh --archive --progress --whole-file'
@@ -81,23 +117,18 @@ alias gown='sudo chown -R "${USER:-$(id -un)}" .'
 
 ## docker
 alias dk='docker'
+alias dkc='docker compose'
+alias dkclean="dk system prune -af"
 alias dkps='docker container ls --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}"'
 alias dkcls='docker container ls -a --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}"'
+
+## ace
+alias acet='ace toolkit'
+
 ## grep
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-
-alias le='less'
-alias ccat='highlight --out-format=ansi'
-
-alias r='ranger'
-
-## df
-alias df='df -h'
-
-## free
-alias free='free -h'
 
 ## vim
 alias e='$VISUAL'
@@ -116,6 +147,14 @@ alias piadown="piactl disconnect"
 alias pias="piactl get connectionstate"
 alias pia="piactl "
 
+## npm
+alias nr="npm run"
+alias nrd="npm run dev"
+alias nrs="npm run serve"
+alias nrb="npm run build"
+alias nci="npm ci --prefer-offline --no-audit"
+alias npk="npm run build && npm pack --pack-destination ~"
+
 ### ssh
 alias sshavti='ssh tris@192.168.1.24'
 alias sshhome='ssh biggybi@192.168.1.8'
@@ -128,9 +167,23 @@ alias sshdevopstris='ssh tris@192.168.0.221'
 alias dconf-editor='dconf-editor --I-understand-that-changing-options-can-break-applications'
 alias tree='tree --dirsfirst'
 
+## pagers
+alias le='less'
+alias ccat='highlight --out-format=ansi'
+alias r='ranger'
+
+## df
+alias df='df -h'
+
+## free
+alias free='free -h'
+
 ### history
 alias histon='set -o history'
 alias histoff='set +o history'
+
+### completion
+alias compcachere='rm ~/.zcompdump*; compinit'
 
 ### daynight
 alias dnd='daynight d && source $HOME/.zshrc && notify-send "Day"'
@@ -197,7 +250,7 @@ alias eza='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
 alias ep='$VISUAL $HOME/dotfiles/shells/bash/bash_profile'
 alias eba='$VISUAL $HOME/dotfiles/shells/bash/bash_aliases'
 alias ev='$VISUAL $HOME/dotfiles/vim/vimrc'
-alias ei='$VISUAL /home/trx/dotfiles/nvim/init.vim'
+alias ei='$VISUAL $HOME/.config/nvim/init.lua'
 alias en='$VISUAL $HOME/dotfiles/shells/bash/inputrc'
 alias et='$VISUAL $HOME/dotfiles/tmux/tmux.conf'
 alias eh='$VISUAL $HOME/.zsh_history'
@@ -261,12 +314,14 @@ alias please='sudo $(fc -ln -1)'
 alias pl='sudo $(fc -ln -1)'
 alias modx='sudo chmod +x'
 
+#hyprland
+alias swaybar='killall waybar; usleep 100; waybar & disown'
+
 #tmux
 alias tn='tmux_new_or_attach'
 alias t='tmux_new_or_attach'
 alias ta='tmux attach'
 alias td='tmux detach'
-alias d='tmux detach'
 alias tl='tmux ls'
 
 if [[ "$OSTYPE" != "darwin"* ]]
@@ -288,6 +343,8 @@ alias ag='alias | grep'
 alias pg='ps -aux | head -n -3 | grep'
 alias fps='ps -aux | fzf'
 alias falias='alias | fzf'
+alias pathdump='echo "${PATH//:/\n}"'
+alias fpathdump='echo "${PATH//:/\n}" | fzf'
 
 ## 42 piscine
 
@@ -311,7 +368,7 @@ newday() {
 
 alias gccfcday='gccf -c $(find ex* -name "*.c")'
 alias gccmday='gccf main.c $(find . -name "*.c")'
-alias vp='vi src/*.c inc*/*.h Makefile'
+alias vp='$VISUAL src/*.c inc*/*.h Makefile'
 
 alias viday='$VISUAL $(find . -name "*.c")'
 alias seer='tail -n -1 */*'
@@ -349,7 +406,7 @@ alias uuu='sudo apt update && sudo apt upgrade && notify-send "Update done"'
 alias uu='sudo apt update && sudo apt upgrade&& notify-send "Update done"'
 alias crashrm='sudo rm /var/crash/*'
 alias rmDS='find . -name "*.DS_Store" -type f -delete -print'
-alias myip='hostname -I | sed "s/\ .*//g"'
+alias myip='hostname -i | sed "s/\ .*//g"'
 
 alias pacup="sudo pacman -Syu"     # sync / upgrade
 alias paci="sudo pacman -S"        # install
@@ -381,7 +438,7 @@ alias yayclean="paru -Yc"           # remove orphans
 alias yaycacheclean="paccache -rk1" # clean cache (keep last version)
 alias archup="sudo pacman -Syu && yay -Syu"  # pacman + yay
 
-alias archkeyring="pacman -S archlinux-keyring"
+alias archkeyring="s pacman -S archlinux-keyring"
 
 ### Hardware info
 alias piserial="sed '/Serial/!d; s/.*: 0\+//' /proc/cpuinfo"
@@ -453,6 +510,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias freebox2='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=volume%202000go/'
 alias freebox='cd /run/user/1000/gvfs/smb-share:server=freebox-server.local,share=disque%20dur/'
 
+alias freebox-ls='smbclient -L \\Freebox_Server -U freebox'
+alias freebox_mybook='cd /run/user/1000/gvfs/smb-share:server=freebox_server,share=my%20book'
+alias freebox_2000='cd /run/user/1000/gvfs/smb-share:server=freebox_server,share=volume%202000go'
+
 ## file edition
 ## alias se='$VISUAL $(find ~/bin/* -type f | fzf)';
 ## se() { $VISUAL $(find ~/bin/* -type f | fzf);}
@@ -468,7 +529,7 @@ get_hidden_mail_adress() {
 # alias fav='. fav'
 
 # youtube dl
-alias ydl='youtube-dl'
+alias ydl='yt-dlp'
 
 # terminal web apps
 alias pubip="pubip"
@@ -558,6 +619,8 @@ fzf_semi_interactive_cd() {
 }
 
 alias kk='kaamelottrand'
+
+alias isaac_confedit='$VISUAL ~/.local/share/Steam/steamapps/compatdata/compatdata/250900/pfx/drive_c/users/steamuser/Documents/My\ Games/Binding\ of\ Isaac\ Repentance/options.ini'
 
 alias regex_ipv6='grep -Eo \([[:alnum:]]{2}:\){5}[[:alnum:]]{2}'
 alias regex_ipv4="grep -Eo '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b'"
