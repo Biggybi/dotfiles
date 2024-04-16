@@ -356,15 +356,31 @@ alias paci="sudo pacman -S"        # install
 alias pacrm="sudo pacman -R"       # remove
 alias pacpurge="sudo pacman -Rns"  # remove purge
 alias pacs="pacman -Ss"            # search
+alias pacl="pacman -Qm"            # list
+alias pachealth="pacman -Qkk"      # packages integrity
 
-alias yayup="yay -Syu"     # sync / upgrade
-alias yayi="yay -S"        # install
-alias yayrm="yay -R"       # remove
-alias yaypurge="yay -Rns"  # remove purge
-alias yays="yay -Ss"       # search
-alias yayclean="yay -Yc"   # remove orphans
+# alias yayup="yay -Syu"              # sync / upgrade
+# alias yayi="yay -S"                 # install
+# alias yayrm="yay -R"                # remove
+# alias yaypurge="yay -Rns"           # remove purge
+# alias yays="yay -Ss"                # search
+# alias yayclean="yay -Yc"            # remove orphans
+# alias yaycacheclean="paccache -rk1" # clean cache (keep last version)
+# alias archup="sudo pacman -Syu && pary -Syu"  # pacman + pary
 
+alias yay="paru "
+alias yayup="paru -Syu"             # sync / upgrade
+alias yayi="paru -S"                # install
+alias yayrm="paru -R"               # remove
+alias yaypurge="paru -Rns"          # remove purge
+alias yays="paru -Ss"               # search
+alias yayqq="paru -Qq"              # list installed
+alias yayqqs="paru -Qqs"            # search installed
+alias yaywhich="paru -Qo"           # find owner
+alias yayclean="paru -Yc"           # remove orphans
+alias yaycacheclean="paccache -rk1" # clean cache (keep last version)
 alias archup="sudo pacman -Syu && yay -Syu"  # pacman + yay
+
 alias archkeyring="pacman -S archlinux-keyring"
 
 ### Hardware info
