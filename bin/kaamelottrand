@@ -1,2 +1,17 @@
 #!/bin/bash
-find ~/Videos/Series/Kaamelott/Kaamelott.S0[1-4]* | sort -R | xargs vlc
+
+usage="usage: kaamelottrand [directory]"
+
+if [ -n "$2" ]; then
+    echo "$usage"
+    exit 1
+fi
+
+kaamelottdir=$1
+if [ -z "$kaamelottdir" ]; then
+  kaamelottdir=$(find ~/Videos/ -maxdepth 1 -type d -iregex '.*kaamelott.*')
+fi
+
+seasons=$(find $kaamelottdir -maxdepth 1 -type d -iregex '.*\(livre\|book\|season\|saison\)\([0-4]\|i\|ii\|iii\|iv\).*')
+
+find $seasons -type f -iregex '.*\.\(avi\|mkv\|mp4\|flv\|mov\|wmv\|mpg\|mpeg\|m4v\|webm\|ogv\)' -print0 | sort -R | xargs -0 vlc
