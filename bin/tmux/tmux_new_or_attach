@@ -1,8 +1,11 @@
 #!/bin/bash
 
-if [[ "$#" == 1 ]] ; then
-	tmux attach
-else
-	session=$(tmux list-sessions | head -n 1 | sed "s/:.*//")
-	tmux new-session -s "$session" || tmux a -t "$session"
-fi
+# attach to most recent session
+[[ "$#" == 0 ]] && tmux attach && exit
+
+# select section from argument or default
+[[ "$#" == 1 ]] \
+	&& session="$1" \
+	|| session=$(tmux list-sessions | head -n 1 | sed "s/:.*//")
+
+tmux new-session -s "$session" || tmux a -t "$session"
