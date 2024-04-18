@@ -17,19 +17,20 @@ fi
 
 battery_charge=$(acpi -b 2> /dev/null | grep -o "[0-9]*%")
 val="${battery_charge%?}"
-if   [ "$val"  -lt "20"  ] ; then batteryIcon=''; batteryColor='#[fg=red]'
-  elif [ "$val"  -lt "40"  ] ; then batteryIcon=''; batteryColor='#[fg=orange]'
-  elif [ "$val"  -lt "60"  ] ; then batteryIcon=''; batteryColor='#[fg=brightyellow]'
-  elif [ "$val"  -lt "80"  ] ; then batteryIcon=''; batteryColor='#[fg=brightgreen]'
+if     [ "$val" -lt "20" ] ; then batteryIcon=''; batteryColor='#[fg=red]'
+  elif [ "$val" -lt "40" ] ; then batteryIcon=''; batteryColor='#[fg=orange]'
+  elif [ "$val" -lt "60" ] ; then batteryIcon=''; batteryColor='#[fg=brightyellow]'
+  elif [ "$val" -lt "80" ] ; then batteryIcon=''; batteryColor='#[fg=brightgreen]'
   else batteryIcon='' batteryColor='#[fg=blue]'
 fi
 
 state=$([[ $(cat "$battery/status") == "Discharging" ]] \
 	&& echo '-' \
 	|| echo '+')
-if [ "$state" == '-'   ] ; then stateIcon=''; stateColor='#[fg=orange]'
-elif [ "$state" == '+'   ] ; then stateIcon=''; stateColor='#[fg=blue]'
+if   [ "$state" == '-' ] ; then stateIcon=''; stateColor='#[fg=red]'
+elif [ "$state" == '+' ] ; then stateIcon=''; stateColor='#[fg=blue]'
 fi
+if [ "$val" -eq "100" ] && [ "$state" == "+" ]; then stateIcon='󰄬'; fi
 
 default='#[default]'
-echo "${stateColor}${stateIcon} ${batteryColor}${batteryIcon} ${default}"
+echo " ${stateColor}${stateIcon} ${batteryColor}${batteryIcon} ${default}"
