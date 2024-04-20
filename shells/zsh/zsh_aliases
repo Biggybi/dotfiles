@@ -57,24 +57,38 @@ alias n='source night'
 
 alias onehalf='source $(cat ~/.config/onehalf-theme)'
 
-alias ll='ls -trhalF'
-alias la='ls -lA'
-alias l='ls -CF'
-alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
-
-# lsd
-if [ -x "$(command -v lsd)" ]; then
+# ls
+if [ -x "$(command -v eza)" ]; then
+  # eza
+  alias ls="\eza --icons=auto --git --color=always "
+  alias l="ls --long --no-filesize --no-time --no-user --no-permissions"
+  alias la="ls -a"
+  alias ll="ls -l"
+  alias lt="ls-T"
+  alias lla="ls -la"
+  alias lll="ls -l"
+  alias llt="ls -T"
+elif [ -x "$(command -v lsd)" ]; then
+  # lsd
   alias ls="lsd"
   alias l="lsd -la"
   alias la="lsd -la"
   alias ll="lsd --git -l"
   alias lt="lsd -T"
-# elif [ -x "$(command -v exa)" ]; then
-#   alias ls="exa --group-directories-first"
-#   alias l="exa -la"
-#   alias la="exa -la"
-#   alias ll="exa --git -l"
-#   alias lt="exa -T"
+elif [ -x "$(command -v exa)" ]; then
+  # exa
+  alias ls="exa --group-directories-first"
+  alias l="exa -la"
+  alias la="exa -la"
+  alias ll="exa --git -l"
+  alias lt="exa -T"
+else
+  # ls
+  alias ll='ls -trhalF'
+  alias la='ls -lA'
+  alias l='ls -CF'
+  alias lsd='find . -maxdepth 1 -type f -name ".*" -exec basename {} \;'
+
 fi
 
 # keyboard layout
@@ -246,7 +260,8 @@ alias vigninstall='$VISUAL $HOME/dotfiles/gnome_setup/install.sh'
 alias eb='$VISUAL $HOME/dotfiles/shells/bash/bashrc'
 alias ez='$VISUAL $HOME/dotfiles/shells/zsh/zshrc'
 alias ea='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
-alias eza='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
+## conflicts with eza program above
+# alias eza='$VISUAL $HOME/dotfiles/shells/zsh/zsh_aliases'
 alias ep='$VISUAL $HOME/dotfiles/shells/bash/bash_profile'
 alias eba='$VISUAL $HOME/dotfiles/shells/bash/bash_aliases'
 alias ev='$VISUAL $HOME/dotfiles/vim/vimrc'
