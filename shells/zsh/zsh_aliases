@@ -15,8 +15,8 @@ alias s='sudo'
 alias c='clear'
 alias q='exit'
 
-alias vs='visudo'
-alias es='visudo'
+alias sv='sudoedit'
+alias se='sudoedit'
 
 alias vim="vim -X"
 alias v="$VISUAL"
