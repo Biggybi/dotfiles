@@ -14,4 +14,4 @@ fi
 
 seasons=$(find $kaamelottdir -maxdepth 1 -type d -iregex '.*\(livre\|book\|season\|saison\)\([0-4]\|i\|ii\|iii\|iv\).*')
 
-find $seasons -type f -iregex '.*\.\(avi\|mkv\|mp4\|flv\|mov\|wmv\|mpg\|mpeg\|m4v\|webm\|ogv\)' -print0 | sort -R | xargs -0 vlc
+find $seasons -type f -iregex '.*\.\(avi\|mkv\|mp4\|flv\|mov\|wmv\|mpg\|mpeg\|m4v\|webm\|ogv\)' -print0 | sort -Rz | xargs -0 $MEDIA_PLAYER
