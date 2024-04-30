@@ -1,75 +1,40 @@
 ###########################################################
 #   ______  _____  ______  ______ __   __ ______  _____   #
-#   |_____]   |   |  ____ |  ____   \_/   |_____]   |	  #
+#   |_____]   |   |  ____ |  ____   \_/   |_____]   |	    #
 #   |_____] __|__ |_____| |_____|    |    |_____] __|__   #
-#												   zshrc  #
+#												   zshrc                          #
 ###########################################################
 
-# environment
-if [ -n "$ZSH_ENV" ]; then source "$ZSH_ENV"; fi
+# # environment
+# if [ -n "$ZSH_ENV" ]; then source "$ZSH_ENV"; fi
+
+# # per command profiling
+# zmodload zsh/zprof
+
+# # per function profiling
+# zmodload zsh/datetime
+# setopt promptsubst
+# PS4='+$EPOCHREALTIME %N:%i'
+# exec 3>&2 2> /tmp/zsh_startlog.$$
+# setopt xtrace prompt_subst
+
+# $HOME/bin/gnome_theme_monitor &
 
 # aliases
 if [ -f "$HOME/.zsh_aliases" ]; then source "$HOME/.zsh_aliases"; fi
 
-# command not found (package suggestion)
-if [[ -s '/etc/zsh_command_not_found' ]]; then
-	source '/etc/zsh_command_not_found'; fi
+# 'command not found' (package suggestion) from `pkgfile`
+if [[ -s '/usr/share/doc/pkgfile/command-not-found.zsh' ]]; then
+	source '/usr/share/doc/pkgfile/command-not-found.zsh'
+else
+	echo '`pkgfile` not found, cannot suggest packages'
+fi
 
 # bell off
 unsetopt BEEP
 
-# Environment variables
-
-## Applications
-
-if [ -x "$(command -v nvim)" ]; then
-  export VISUAL=(nvim)
-  export MANPAGER="nvim +Man!"
-else
-  export VISUAL=(vim -X)
-  export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 readonly nomodified nomodifiable' -\""
-fi
-
-export EDITOR=(vi -e)
-export BROWSER=firefox
-export JAVA_HOME=/usr/lib/jvm/java-18-jdk
-
-## PATH
-export GOPATH=$HOME/bin/go
-export PATH=$PATH:$HOME/bin
-PATH+=:$HOME/bin/tmux
-PATH+=:$HOME/bin/git
-PATH+=:/usr/lib
-PATH+=:~/.npm-global/bin
-PATH+=:/home/linuxbrew/.linuxbrew/bin
-PATH+=:$GOPATH/bin
-PATH+=:~/bin/norminette
-PATH+=:$JAVA_HOME
-PATH+=:/home/tris/.cargo/bin
-PATH+=:/var/lib/snapd/snap/bin
-
-## Paths
-export PROG="$HOME/Work/prog/"
-export DOT="$HOME/dotfiles"
-export LFT="$HOME/42/libft/"
-export HOME_VID="$HOME/Videos"
-export HOME_PIC="$HOME/Pictures"
-export HOME_GAM="$HOME/Games"
-export HOME_DOC="$HOME/Documents"
-export HOME_MUS="$HOME/Music"
-export HOME_42="$HOME/Work"
-export DATAPATH="/data/"
-
 # disable shell scroll interrupt
 stty -ixon
-
-# history
-export HISTFILE=~/.zsh_history
-export SAVEHIST=1000000
-export HISTSIZE=1000000                 # session history size
-export HISTFILESIZE=1000000             # history file size
-export HISTTIMEFORMAT="[%F %T] "
-export HISTIGNORE="&:ls:bg:fg:exit:clear:reset"		# ignore some commands
 
 setopt EXTENDED_HISTORY                 # save start time and duration
 setopt INC_APPEND_HISTORY               # update history when command is issued
@@ -89,20 +54,50 @@ compinit
 promptinit
 _comp_options+=(globdots)
 
+# zoxide (place after 'compinit' for completion)
+eval "$(zoxide init --cmd cd zsh)"
+
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==94=34}:${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive
 zstyle ':completion:*' menu selectzmodload                # use menu
 
 # vi mode
 bindkey -v
+DEFAULT_VI_MODE=viins
 KEYTIMEOUT=1
 stty erase "^?"
+# stty erase "^h"
 
-autoload edit-command-line
-zle -N edit-command-line
+
+autoload -U colors && colors
+
+DEFAULT_VI_MODE=viins
+
+# if [ -n "$DOT/shells/zsh/zsh_prompt" ]; then source "$DOT/shells/zsh/zsh_prompt"; fi
+# if [ -n "$DOT/shells/zsh/zsh_reload_scheme" ]; then "$DOT/shells/zsh/zsh_reload_scheme"; fi
+# zvm_after_init_commands+=('[ -f $DOT/shells/zsh/zsh_reload_scheme ] && source $DOT/shells/zsh/zsh_reload_scheme')
+
+# fix zsh-syntax-highlighting
+ZVM_INIT_MODE='sourcing'
+
+# remove underlines for paths
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+# Plugin Sourcer
+source "$DOT/shells/zsh/plugins/zsh-pluginsourcer/zsh-pluginsourcer.zsh"
+# exec "~/dotfiles/shells/zsh/plugins/zsh-gnome-theme-sync/gnome_theme_monitor.plugin.zsh"
+
+if [ -n "$HOME/.config/onehalf-theme" ] ; then
+	scheme=$(cat "$HOME/.config/onehalf-theme")
+	# echo "source $scheme"
+	source "$scheme"
+elif $(type -p "onehalf-dark") ; then
+	source onehalf-dark
+fi
 
 # insert mode mappings
-bindkey '^p' edit-command-line
+# bindkey '^p' edit-command-line
 bindkey '^b' backward-char
 bindkey '^f' forward-char
 bindkey '^a' beginning-of-line
@@ -125,20 +120,22 @@ fancy-ctrl-z () {
     zle clear-screen
   fi
 }
+zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-bindkey 'è' vi-backward-char
-bindkey 'ê' history-search-forward
-bindkey 'ë' history-search-backward
-bindkey 'ì' vi-forward-char
+
+bindkey '^[h' vi-backward-char
+bindkey '^[j' history-search-forward
+bindkey '^[k' history-search-backward
+bindkey '^[l' vi-forward-char
 
 # complete menu mode mappings
 zmodload zsh/complist
 
-bindkey -M menuselect 'è' vi-backward-char
-bindkey -M menuselect 'ê' vi-down-line-or-history
-bindkey -M menuselect 'ë' vi-up-line-or-history
-bindkey -M menuselect 'ì' vi-forward-char
+bindkey -M menuselect '^[h' vi-backward-char
+bindkey -M menuselect '^[j' vi-down-line-or-history
+bindkey -M menuselect '^[k' vi-up-line-or-history
+bindkey -M menuselect '^[l' vi-forward-char
 bindkey -M menuselect '^[y' accept-search
 bindkey -M menuselect '^[m' accept-search
 bindkey -M menuselect '^y' accept-search
@@ -147,122 +144,19 @@ bindkey -M menuselect '^o' reverse-menu-complete
 # normal mode mappings
 bindkey -a 'H' beginning-of-line
 bindkey -a 'L' end-of-line
-
-autoload -U colors && colors
-
-__get_vi_mode_bottom() {
-	local vimstyle
-	vimstyle='%{\e[01;01;92m%} > %{\e[0m%}'
-	if [ "$KEYMAP" = "vicmd" ]
-	then
-		vimstyle='%{\e[00;01;93m%} < %{\e[0m%}'
-	fi
-	print -n -- $vimstyle
-}
-
-DEFAULT_VI_MODE=viins
-
-git_branch() {
-	git symbolic-ref --short HEAD 2> /dev/null
-}
-
-setopt prompt_subst
-precmd() {
-	psvar[1]=$(git_branch)
-}
-
-PROMPT=$'\n '
-if [ "$(id -u)" = 0 ] ; then
-	PROMPT+=$'%{\e[01;31;100m%}  %n %{\e[0m%}'  # root user
-else
-	PROMPT+=$'%{\e[01;36;100m%}  %n %{\e[0m%}'  # user
-fi
-PROMPT+=$'%{\e[01;39;100m%} - %{\e[0m%}'    # separation
-if [ -n "$SSH_CLIENT" ] ; then
-	PROMPT+=$'%{\e[01;33;100m%} %M  %{\e[0m%} ' # ssh host
-else
-	PROMPT+=$'%{\e[01;32;100m%} %M  %{\e[0m%} ' # host
-fi
-PROMPT+=$'%{\e[00;01;93m%} %~%{\e[0m%} '    # cwd
-PROMPT+=$'%{\e[00;01;95m%}%1v%{\e[0m%} '    # branch
-PROMPT+=$'\t${promt_cmd_info}'
-PROMPT+=$'%{$reset_color%}'
-PROMPT+=$'\n$(__get_vi_mode_bottom)'
-PROMPT+=$'%{$reset_color%}'                 # end
-
-# rprompt
-
-prompt_timer_preexec() {
-	prompt_timer_preexec_ms=${(%):-%D{%s%3.}}
-}
-
-prompt_timer_precmd() {
-	if (( prompt_timer_preexec_ms )); then
-		local -ri now_ms=${(%):-%D{%s%3.}}
-		local -ri elapsed_ms=$(( now_ms - prompt_timer_preexec_ms ))
-		local -ri elapsed_s=$(( elapsed_ms/1000 ))
-		local -ri ms=$(( elapsed_ms%1000 ))
-		local -ri s=$(( elapsed_s%60))
-		local -ri m=$(( (elapsed_s/60)%60 ))
-		local -ri h=$(( elapsed_s/3600 ))
-		if (( h > 0 )); then
-			command_time=${h}h${m}m
-		elif (( m > 0 )); then
-			command_time=${m}m${s}s
-		elif (( s >= 10 )); then
-			command_time=${s}.${(l:2::0:)$(( ms/10 ))}s # 12.34s
-		elif (( s > 0 )); then
-			command_time=${s}.${(l:3::0:)ms}s # 1.234s
-		else
-			command_time=${ms}ms
-		fi
-		promt_cmd_info=$' %(?.%{\e[00;01;92m%}[0.%{\e[00;01;91m%}[%?)'\ $'%{\e[00;01;94m%}'${command_time}
-		promt_cmd_info+=$'%(?.%{\e[00;01;92m%}.%{\e[00;01;91m%})]'
-		unset prompt_timer_preexec_ms
-	else
-		# Clear previous result on empty command
-		unset promt_cmd_info
-	fi
-}
-
-setopt nopromptbang prompt{cr,percent,sp,subst}
-
-autoload -Uz add-zsh-hook
-add-zsh-hook preexec prompt_timer_preexec
-add-zsh-hook precmd prompt_timer_precmd
-
-# Color man pages in `less`
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-
-export ONEHALF_PATH="$DOT/shells/zsh/plugins/zsh-onehalf-shell/" 
-PATH+=:$DOT/shells/zsh/plugins/zsh-onehalf-shell/scripts
-
-if [ -n "$DOT/shells/zsh/zsh_reload_scheme" ] ; then
-	scheme=$(cat "$HOME/.config/onehalf-theme");
-	$scheme
-elif $(type -p "onehalf-dark") ; then
-	onehalf-dark
-fi
-
-if [ -x "$(command -v bat)" ]; then
-	export BAT_THEME="OneHalfDark"
-fi
-
-if [ -n "$DOT/shells/zsh/zsh_reload_scheme" ]; then source "$DOT/shells/zsh/zsh_reload_scheme"; fi
-# Plugin Sourcer
-source "$DOT/shells/zsh/plugins/zsh-pluginsourcer/zsh-pluginsourcer.zsh"
-
+# FZF_DEFAULT_OPTS=" --color='dark'"
+[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh
 zvm_after_init_commands+=('[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh')
 zvm_after_init_commands+=('bindkey "^j" history-search-forward')
 zvm_after_init_commands+=('bindkey "^k" history-search-backward')
 zvm_after_init_commands+=('bindkey "^n" accept-and-infer-next-history')
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(fnm env --use-on-cd)"
+
+eval "$(starship init zsh)"
+# # per function profiling
+# unsetopt xtrace
+# exec 2>&3 3>&-
+
+# # per command profiling
+# zprof > /tmp/zprof
