@@ -87,28 +87,18 @@ action = "ToggleFullscreen"
 
 [[keyboard.bindings]]
 key = "Equals"
-mods = "Alt"
+mods = "Control"
 action = "IncreaseFontSize"
 
 [[keyboard.bindings]]
 key = "Minus"
-mods = "Alt"
+mods = "Control"
 action = "DecreaseFontSize"
 
 [[keyboard.bindings]]
 key = "0"
-mods = "Alt"
+mods = "Control"
 action = "ResetFontSize"
-
-[[keyboard.bindings]]
-key = "Equals"
-mods = "Control"
-action = "none"
-
-[[keyboard.bindings]]
-key = "Minus"
-mods = "Control"
-action = "none"
 
 # [[keyboard.bindings]]
 # key = "Key0"
@@ -131,4 +121,3 @@ hide_when_typing = true
 # [cursor]
 # shape = "Block"
 # unfocused_hollow = true
-
