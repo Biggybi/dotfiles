@@ -12,6 +12,16 @@ if [ -z "$kaamelottdir" ]; then
   kaamelottdir=$(find ~/Videos/ -maxdepth 1 -type d -iregex '.*kaamelott.*')
 fi
 
+if [ ! -e "$kaamelottdir" ]; then
+  echo "[Error] no such file: $kaamelottdir"
+  exit 1
+else
+  if [[ ! -d "$kaamelottdir" ]] && [[ ! -L "$kaamelottdir" ]]; then
+    echo "[Error] not a link nor directory: $kaamelottdir"
+    exit 1
+  fi
+fi
+
 seasons=$(find $kaamelottdir -maxdepth 1 -type d -iregex '.*\(livre\|book\|season\|saison\)\([0-4]\|i\|ii\|iii\|iv\).*')
 
 find $seasons -type f -iregex '.*\.\(avi\|mkv\|mp4\|flv\|mov\|wmv\|mpg\|mpeg\|m4v\|webm\|ogv\)' -print0 | sort -Rz | xargs -0 $MEDIA_PLAYER
