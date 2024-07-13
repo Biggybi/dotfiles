@@ -3,8 +3,8 @@
 usage="usage: kaamelottrand [directory]"
 
 if [ -n "$2" ]; then
-    echo "$usage"
-    exit 1
+  echo "$usage"
+  exit 1
 fi
 
 kaamelottdir=$1
