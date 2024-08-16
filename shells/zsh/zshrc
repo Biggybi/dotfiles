@@ -151,6 +151,11 @@ zvm_after_init_commands+=('bindkey "^j" history-search-forward')
 zvm_after_init_commands+=('bindkey "^k" history-search-backward')
 zvm_after_init_commands+=('bindkey "^n" accept-and-infer-next-history')
 
+function mkcd() {
+  dir=${@:${#@}}
+  mkdir $@ && cd $dir
+}
+
 eval "$(fnm env --use-on-cd)"
 eval "$(starship init zsh)"
 # # per function profiling
