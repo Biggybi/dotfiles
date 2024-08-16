@@ -19,10 +19,11 @@
   deleted-files = log --diff-filter=D --summary --name-only --no-commit-id
 [color]
 	ui = true
+	pager = false
 [core]
-	pager = vim -
+	pager = nvim -R -
 [pager]
-	show = vim -c '%sm/\\e.\\{-}m//g' -c 'set ft=diff nobuflisted noswapfile readonly' +1 -
+	show = nvim -R -
 	color = false
 [pull]
 	rebase = false
