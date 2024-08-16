@@ -144,12 +144,12 @@ bindkey -M menuselect '^o' reverse-menu-complete
 # normal mode mappings
 bindkey -a 'H' beginning-of-line
 bindkey -a 'L' end-of-line
-# FZF_DEFAULT_OPTS=" --color='dark'"
-[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh
-zvm_after_init_commands+=('[ -f $DOT/fzf.zsh ] && source $DOT/fzf.zsh')
+
 zvm_after_init_commands+=('bindkey "^j" history-search-forward')
 zvm_after_init_commands+=('bindkey "^k" history-search-backward')
 zvm_after_init_commands+=('bindkey "^n" accept-and-infer-next-history')
+# zvm_after_init_commands+=('FZF_ALT_C_COMMAND= FZF_CTRL_T_COMMAND= source <(fzf --zsh)')
+FZF_ALT_C_COMMAND= FZF_CTRL_T_COMMAND= source <(fzf --zsh)
 
 function mkcd() {
   dir=${@:${#@}}
