@@ -3,6 +3,7 @@
 	name = biggybi
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = main
 [alias]
 	ctags = !.git/hooks/ctags
 	cm    = commit -m
