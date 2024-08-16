@@ -96,6 +96,9 @@ elif $(type -p "onehalf-dark") ; then
 	source onehalf-dark
 fi
 
+# complete menu mode mappings
+zmodload zsh/complist
+
 # insert mode mappings
 # bindkey '^p' edit-command-line
 bindkey '^b' backward-char
@@ -128,9 +131,6 @@ bindkey '^[h' vi-backward-char
 bindkey '^[j' history-search-forward
 bindkey '^[k' history-search-backward
 bindkey '^[l' vi-forward-char
-
-# complete menu mode mappings
-zmodload zsh/complist
 
 bindkey -M menuselect '^[h' vi-backward-char
 bindkey -M menuselect '^[j' vi-down-line-or-history
