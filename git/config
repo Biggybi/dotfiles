@@ -14,6 +14,8 @@
 	sui   = submodule update --init --recursive
 	uuu   = submodule foreach git pull origin master
 	uu    = pull
+  deleted = log --diff-filter=D --summary
+  deleted-files = log --diff-filter=D --summary --name-only --no-commit-id
 [color]
 	ui = true
 [core]
